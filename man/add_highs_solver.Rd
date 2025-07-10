@@ -10,7 +10,8 @@ add_highs_solver(
   time_limit = .Machine$integer.max,
   presolve = TRUE,
   threads = 1,
-  verbose = TRUE
+  verbose = TRUE,
+  control = list()
 )
 }
 \arguments{
@@ -38,6 +39,13 @@ optimization algorithm. The default value is 1.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
+
+\item{control}{\code{list} with additional parameters for tuning
+the optimization process.
+For example, \code{control = list(simplex_strategy = 1)} could be used to
+set the \code{simplex_strategy} parameter.
+See the \href{https://ergo-code.github.io/HiGHS/dev/options/definitions/}{online documentation}
+for information on the parameters.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the solver added to it.

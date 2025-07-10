@@ -60,7 +60,7 @@ quicksite:
 site:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
-	R --slave -e "pkgdown::clean_site()"
+	R --slave -e "pkgdown::clean_site(force = TRUE)"
 	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
 	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
@@ -127,6 +127,10 @@ build:
 install:
 	R --slave -e "devtools::install_local(force = TRUE)"
 
+install_deps:
+	R --slave -e "remotes::install_deps(dep = TRUE)"
+	R --slave -e "remotes::install_deps(dep = 'Config/Needs/website')"
+
 examples:
 	R --slave -e "devtools::run_examples(run_donttest = TRUE, run_dontrun = TRUE);warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf
@@ -135,4 +139,7 @@ examples_cran:
 	R --slave -e "devtools::run_examples();warnings()" > examples.log 2>&1
 	rm -f Rplots.pdf
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck
+search_errors:
+	@grep "Error:" --exclude-dir=".git" --exclude-dir="docs" --exclude-dir="src" --exclude-dir="*snaps" --exclude-dir="R" -RnF
+
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck search_errors

@@ -122,8 +122,9 @@ repr.dgCMatrix <- function(x) {
 
 #' @export
 repr.list <- function(x) {
-  cl <- unlist(lapply(x, class), recursive = TRUE, use.names = FALSE)
-  cli::format_inline("{.cls list} containing {.cls {cl}} objects.")
+  if (length(x) == 0) return(cli::format_inline("empty {.cls list}"))
+  cl <- unique(unlist(lapply(x, class), recursive = TRUE, use.names = FALSE))
+  cli::format_inline("{.cls list} containing {.cls {cl}} objects")
 }
 
 #' @export
@@ -208,7 +209,7 @@ repr_data_list <- function(name, data, compact = TRUE) {
     "data", "zones",
     ## solver
     "presolve", "threads", "numeric_focus", "node_file_start",
-    "start_solution", "verbose",
+    "start_solution", "verbose", "control",
     ## portfolio
     "remove_duplicates", "threads"
   )

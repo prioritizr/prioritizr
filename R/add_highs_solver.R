@@ -12,6 +12,13 @@ NULL
 #' @inheritParams add_cplex_solver
 #' @inheritParams add_gurobi_solver
 #'
+#' @param control `list` with additional parameters for tuning
+#'  the optimization process.
+#'  For example, `control = list(simplex_strategy = 1)` could be used to
+#'  set the `simplex_strategy` parameter.
+#'  See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
+#'  for information on the parameters.
+#'
 #' @details
 #' [*HiGHS*](https://highs.dev/) is an open source optimization software.
 #' Although this solver can have comparable performance to the *CBC* solver
@@ -57,7 +64,8 @@ NULL
 #' @export
 add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
-                             verbose = TRUE) {
+                             verbose = TRUE,
+                             control = list()) {
   # assert that arguments are valid (except start_solution)
   assert_required(x)
   assert_required(gap)
@@ -65,6 +73,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(presolve)
   assert_required(threads)
   assert_required(verbose)
+  assert_required(control)
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
@@ -76,8 +85,17 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::noNA(presolve),
     is_thread_count(threads),
     assertthat::is.flag(verbose),
+    is.list(control),
     is_installed("highs")
   )
+  # additional checks for control
+  if (length(control) > 0) {
+    assert(
+      !is.null(names(control)),
+      all(nzchar(names(control))),
+      msg = "all elements in {.arg control} must have a name."
+    )
+  }
   # add solver
   x$add_solver(
     R6::R6Class(
@@ -90,7 +108,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           time_limit = time_limit,
           presolve = presolve,
           threads = threads,
-          verbose = verbose
+          verbose = verbose,
+          control = control
         ),
         calculate = function(x, ...) {
           # prepare constraints
@@ -148,6 +167,11 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             time_limit = as.numeric(self$get_data("time_limit")),
             threads = self$get_data("threads")
           )
+          # specify custom parameters
+          control <- self$get_data("control")
+          if (length(control) > 0) {
+            p[names(control)] <- control
+          }
           # store internal data and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)

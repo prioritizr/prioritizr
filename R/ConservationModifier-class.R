@@ -16,6 +16,8 @@ NULL
 #' @name ConservationModifier-class
 #'
 #' @family classes
+#'
+#' @export
 ConservationModifier <- R6::R6Class(
   "ConservationModifier",
   public = list(

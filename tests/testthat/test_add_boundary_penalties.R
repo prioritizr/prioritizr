@@ -54,20 +54,30 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(b_obj, -2 * b_data@x)
   expect_true(all(b_lb == 0))
   expect_true(all(b_ub == 1))
-  expect_true(all(b_vtype == "B"))
+  expect_equal(b_vtype, rep("C", length(b_data@x)))
   expect_equal(b_row_labels, rep(c("b1", "b2"), length(b_data@i)))
   expect_equal(b_sense, rep(c("<=", "<="), length(b_data@i)))
   expect_equal(b_rhs, rep(c(0, 0), length(b_data@i)))
-  counter <- n_f
-  oA <- o$A()
-  for (i in seq_along(b_data@i)) {
-    counter <- counter + 1
-    expect_true(oA[counter, n_pu + i] == 1)
-    expect_true(oA[counter, b_data@i[i] + 1] == -1)
-    counter <- counter + 1
-    expect_true(oA[counter, n_pu + i] == 1)
-    expect_true(oA[counter, b_data@j[i] + 1] == -1)
-  }
+  b_A <- o$A()[seq(n_f + 1, n_f + (length(b_data@i) * 2)), , drop = FALSE]
+  correct_b_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(b_A))
+  correct_b_A[matrix(
+    c(seq(1, nrow(correct_b_A), 2), n_pu + seq_along(b_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_b_A[
+    matrix(
+      c(seq(1, nrow(correct_b_A), 2), b_data@i + 1),
+      ncol = 2
+  )] <- -1
+  correct_b_A[matrix(
+    c(seq(2, nrow(correct_b_A), 2), n_pu + seq_along(b_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_b_A[matrix(
+    c(seq(2, nrow(correct_b_A), 2), b_data@j + 1),
+    ncol = 2
+  )] <- -1
+  expect_equal(b_A, Matrix::drop0(correct_b_A))
 })
 
 test_that("maximum utility (compile, single zone)", {
@@ -128,20 +138,30 @@ test_that("maximum utility (compile, single zone)", {
   expect_equal(b_obj, 2 * b_data@x)
   expect_true(all(b_lb == 0))
   expect_true(all(b_ub == 1))
-  expect_true(all(b_vtype == "B"))
+  expect_equal(b_vtype, rep("C", length(b_data@x)))
   expect_equal(b_row_labels, rep(c("b1", "b2"), length(b_data@i)))
   expect_equal(b_sense, rep(c("<=", "<="), length(b_data@i)))
   expect_equal(b_rhs, rep(c(0, 0), length(b_data@i)))
-  counter <- n_f + 1
-  oA <- o$A()
-  for (i in seq_along(b_data@i)) {
-    counter <- counter + 1
-    expect_true(oA[counter, n_pu + n_f + i] == 1)
-    expect_true(oA[counter, b_data@i[i] + 1] == -1)
-    counter <- counter + 1
-    expect_true(oA[counter, n_pu + n_f + i] == 1)
-    expect_true(oA[counter, b_data@j[i] + 1] == -1)
-  }
+  b_A <- o$A()[seq(n_f + 2, n_f + 1 + (length(b_data@i) * 2)), , drop = FALSE]
+  correct_b_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(b_A))
+  correct_b_A[matrix(
+    c(seq(1, nrow(correct_b_A), 2), n_pu + n_f + seq_along(b_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_b_A[
+    matrix(
+      c(seq(1, nrow(correct_b_A), 2), b_data@i + 1),
+      ncol = 2
+  )] <- -1
+  correct_b_A[matrix(
+    c(seq(2, nrow(correct_b_A), 2), n_pu + n_f + seq_along(b_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_b_A[matrix(
+    c(seq(2, nrow(correct_b_A), 2), b_data@j + 1),
+    ncol = 2
+  )] <- -1
+  expect_equal(b_A, Matrix::drop0(correct_b_A))
 })
 
 test_that("alternative data formats (single zone)", {
@@ -415,7 +435,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   expect_equal(o$obj(), unname(correct_obj))
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + n_z_p))
   expect_equal(o$ub(), rep(1, (n_pu * n_z) + n_z_p))
-  expect_equal(o$vtype(), rep("B", (n_pu * n_z) + n_z_p))
+  expect_equal(o$vtype(), c(rep("B", n_pu * n_z), rep("C", n_z_p)))
   expect_equal(
     o$row_ids(),
     c(
@@ -439,36 +459,56 @@ test_that("minimum set objective (compile, multiple zones)", {
   ## check model matrix is defined correctly
   oA <- o$A()
   ## targets
+  oA_targets <- oA[seq_len(n_z * n_f), , drop = FALSE]
+  correct_oA_targets <- Matrix::sparseMatrix(
+    i = 1, j = 1, x = 0, dims = dim(oA_targets)
+  )
   for (z in seq_len(n_z)) {
     for (i in seq_len(n_f)) {
-      curr_amount <- rep(0, (n_pu * n_z) + n_z_p)
-      curr_amount[((z - 1) * n_pu) + seq_len(n_pu)] <-
-        p$data$rij_matrix[[z]][i, ]
-      expect_equal(oA[((z - 1) * n_f) + i, ], curr_amount)
+      correct_oA_targets[
+        ((z - 1) * n_f) + i,
+        ((z - 1) * n_pu) + seq_len(n_pu)
+      ] <- p$data$rij_matrix[[z]][i, ]
     }
   }
+  expect_equal(oA_targets, Matrix::drop0(correct_oA_targets))
   ## zone constraints
-  counter <- n_z * n_f
+  oA_zones <- oA[seq((n_z * n_f) + 1, (n_z * n_f) + n_pu), , drop = FALSE]
+  correct_oA_zones <- Matrix::sparseMatrix(
+    i = 1, j = 1, x = 0, dims = dim(oA_zones)
+  )
   for (j in seq_len(n_pu)) {
-    counter <- counter + 1
-    curr_vec <- rep(0, (n_pu * n_z) + n_z_p)
-    for (z in seq_len(n_z))
-      curr_vec[((z - 1) * n_pu) + j] <- 1
-    expect_equal(oA[counter, ], curr_vec)
+    for (z in seq_len(n_z)) {
+      correct_oA_zones[j, ((z - 1) * n_pu) + j] <- 1
+    }
   }
+  expect_equal(oA_zones, Matrix::drop0(correct_oA_zones))
   ## penalty variable constraints
-  for (i in seq_along(n_z_p)) {
-    counter <- counter + 1
-    curr_vec <- rep(0, (n_pu * n_z) + n_z_p)
-    curr_vec[b_vars_i[i]] <- -1
-    curr_vec[(n_z * n_pu) + i] <- 1
-    expect_equal(oA[counter, ], curr_vec)
-    counter <- counter + 1
-    curr_vec <- rep(0, (n_pu * n_z) + n_z_p)
-    curr_vec[b_vars_j[i]] <- -1
-    curr_vec[(n_z * n_pu) + i] <- 1
-    expect_equal(oA[counter, ], curr_vec)
-  }
+  oA_b <- oA[
+    seq((n_z * n_f) + n_pu + 1, (n_z * n_f) + n_pu + (n_z_p * 2)), ,
+    drop = FALSE
+  ]
+  correct_oA_b <- Matrix::sparseMatrix(
+    i = 1, j = 1, x = 0, dims = dim(oA_b)
+  )
+  correct_oA_b[matrix(
+    c(seq(1, nrow(correct_oA_b), 2), (n_z * n_pu) + seq_len(n_z_p)),
+    ncol = 2
+  )] <- 1
+  correct_oA_b[
+    matrix(
+      c(seq(1, nrow(correct_oA_b), 2), b_vars_i),
+      ncol = 2
+  )] <- -1
+  correct_oA_b[matrix(
+    c(seq(2, nrow(correct_oA_b), 2), (n_z * n_pu) + seq_len(n_z_p)),
+    ncol = 2
+  )] <- 1
+  correct_oA_b[matrix(
+    c(seq(2, nrow(correct_oA_b), 2), b_vars_j),
+    ncol = 2
+  )] <- -1
+  expect_equal(oA_b, Matrix::drop0(correct_oA_b))
 })
 
 test_that("alternative data formats (multiple zones)", {

@@ -127,7 +127,10 @@ NULL
 #'
 #' Note that when the problem objective is to maximize some measure of
 #' benefit and not minimize some measure of cost, the term \eqn{-p} is
-#' replaced with \eqn{p}.
+#' replaced with \eqn{p}. Additionally, to linearize the problem,
+#' the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+#' a set of continuous variables (bounded between 0 and 1) based on
+#' Beyer *et al.* (2016).
 #'
 #' @section Notes:
 #' In previous versions, this function aimed to handle both symmetric and
@@ -143,8 +146,10 @@ NULL
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
-#' Additionally, see [add_asym_connectivity_penalties()] to account for
+#' Also see [add_asym_connectivity_penalties()] to account for
 #' asymmetric connectivity between planning units.
+#' Additionally, see [calibrate_cohon_penalty()] for assistance with selecting
+#' an appropriate `penalty` value.
 #'
 #' @family penalties
 #'
@@ -154,6 +159,10 @@ NULL
 #' Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 #' Incorporating asymmetric connectivity into spatial decision making for
 #' conservation, *Conservation Letters*, 3: 359--368.
+#'
+#' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+#' conservation planning problems with integer linear programming.
+#' *Ecological Modelling*, 228: 14--22.
 #'
 #' Önal H, and Briers RA (2002) Incorporating spatial criteria in optimum
 #' reserve network selection. *Proceedings of the Royal Society of London.*

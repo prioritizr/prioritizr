@@ -14,6 +14,8 @@ NULL
 #' @name Decision-class
 #'
 #' @family classes
+#'
+#' @export
 Decision <- R6::R6Class(
   "Decision",
   inherit = ConservationModifier,

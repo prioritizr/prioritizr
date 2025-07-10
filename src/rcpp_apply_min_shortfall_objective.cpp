@@ -50,11 +50,11 @@ bool rcpp_apply_min_shortfall_objective(
        ptr->_obj.push_back(0.0);
   // add target totals to convert total amounts to proportions
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_obj.push_back(targets_value[i] > 1.0e-5 ? 1.0 / targets_value[i] : 0);
+    ptr->_obj.push_back(1.0);
   // add in upper and lower bounds for the decision variables representing if
   // each species is adequately conserved
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_ub.push_back(std::numeric_limits<double>::infinity());
+    ptr->_ub.push_back(1.0);
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_lb.push_back(0.0);
   // add in binary variable types for variables representing if each species is
@@ -68,7 +68,7 @@ bool rcpp_apply_min_shortfall_objective(
     ptr->_A_j.push_back((ptr->_number_of_zones *
                         ptr->_number_of_planning_units) + A_extra_ncol + i);
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_A_x.push_back(1.0);
+    ptr->_A_x.push_back(targets_value[i]);
   // add in budget constraints
   if (budget.size() == 1) {
     for (std::size_t i = 0;

@@ -1555,3 +1555,36 @@ test_that("warnings on overriding components", {
     "portfolio"
   )
 })
+
+test_that("$remove_all_penalties()", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  x <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_boundary_penalties(1) %>%
+    add_linear_penalties(1, data = sim_pu_raster)
+  # remove penalties
+  y1 <- x$remove_all_penalties()
+  y2 <- x$remove_all_penalties(retain = c("BoundaryPenalty"))
+  y3 <- x$remove_all_penalties(retain = c("LinearPenalty"))
+  y4 <- x$remove_all_penalties(retain = c("LinearPenalty", "BoundaryPenalty"))
+  # tests
+  ## x remains unchanged
+  expect_length(x$penalties, 2)
+  expect_inherits(x$penalties[[1]], "BoundaryPenalty")
+  expect_inherits(x$penalties[[2]], "LinearPenalty")
+  ## y1 has none
+  expect_length(y1$penalties, 0)
+  ## y2 has boundary penalties
+  expect_length(y2$penalties, 1)
+  expect_inherits(y2$penalties[[1]], "BoundaryPenalty")
+  ## y3 has linear penalties
+  expect_length(y3$penalties, 1)
+  expect_inherits(y3$penalties[[1]], "LinearPenalty")
+  ## y4 remains unchanged
+  expect_length(y4$penalties, 2)
+  expect_inherits(y4$penalties[[1]], "BoundaryPenalty")
+  expect_inherits(y4$penalties[[2]], "LinearPenalty")
+})

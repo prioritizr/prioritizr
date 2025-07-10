@@ -52,7 +52,7 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
 
 #' Are planning unit rasters comparable?
 #'
-#' This function checks if the planning units in a `problem()` object
+#' This function checks if the planning units in a [problem()] object
 #' is comparable with a raster.
 #'
 #' @param x [problem()] object.

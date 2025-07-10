@@ -14,6 +14,8 @@ NULL
 #' @name Objective-class
 #'
 #' @family classes
+#'
+#' @export
 Objective <- R6::R6Class(
   "Objective",
   inherit = ConservationModifier,

@@ -1,17 +1,99 @@
+# prioritizr 8.0.6.7
+
+## New features
+
+- New `calibrate_cohon_penalty()` function for automatically identifying
+  a suitable penalty value for the penalties functions (#175). It is designed
+  to work with any objective function and any of the penalty functions
+  available in the package.
+- New `add_neighbor_penalties()` function to reduce spatial fragmentation.
+  This function is especially useful when working with large-scale problems or
+  open source solvers.
+- Update `add_cbc_solver()`, `add_gurobi_solver()`, and `add_highs_solver()`,
+  functions with a new `control` parameter that can be used to manually
+  specify additional parameters for customizing the optimization process (#354).
+
+## Minor improvements and bug fixes
+
+- Update problem formulation for `add_connectivity_penalties()`,
+  `add_asym_connectivity_penalties()`, and `add_boundary_penalties()` to
+  slightly improve solve times. In particular, instead of using binary
+  variables to model the product of the planning unit decision variables,
+  continuous variables are now used. The documentation for these functions
+  has also been updated to mention this information. Thanks to Bistra Dilkina
+  for the suggestion.
+- Update `add_neighbor_constraints()` function so that setting `clamp = TRUE`
+  is more likely to resolve infeasibility issues. In particular, setting
+  `clamp = TRUE` will (i) limit the minimum number of neighbors for a given
+  planning unit based on the locked out constraints of neighboring planning
+  units and (ii) not apply this constraint to any locked in or locked out
+  planning units.
+- Update `add_min_shortfall_objective()` and
+  `add_min_largest_shortfall_objective()` functions to employ a slightly
+  different problem formulation that -- despite being functionally identical to
+  the previous formulation -- has better performance for large-scale
+  problems (#357). Thanks to Aboozar Mohammadi (\@AboozarM) for the suggestion.
+- Update `write_problem()` function to support all the file formats supported by
+  the Gurobi solver (per `gurobi::gurobi_write()`). Of particular note,
+  this means that problems can now be saved in compressed file file format
+  (e.g., `.mps.gz`).
+- Update `add_cbc_solver()` function so that the `presolve` parameter
+  can be used to specify the intensity of the presolve process. Similar to
+  `add_gurobi_solver()`, the `presolve` parameter is now specified as an integer
+  value. The default value is now 2, which specifies the most intensive
+  level of presolve. For backwards compatibility, a value of `TRUE`
+  is treated as a value of 1.
+- Update `eval_target_coverage_amount()` so that the relative shortfall
+  for each target is now calculated by dividing the absolute shortfall
+  by the absolute target. This change is to ensure consistency with the minimum
+  shortfall objective.
+- Fix bug in internal `repr.list()` function that displayed duplicate class
+  names.
+- Fix bug in `adjacency_matrix()`, `compile()`, and `zone_names()` functions
+  that caused an unhelpful error message when calling the function without
+  any arguments.
+- Update unit tests for `add_boundary_penalties()`,
+  `add_connectivity_penalties()`, and `add_asym_connectivity_penalties()` to
+  reduce run time.
+- Fix bug in unit tests for `add_asym_connectivity_penalties()`, and
+  `eval_rank_importance()` functions. Note that these bugs do not affect
+  the correctness of the functions as implemented in the package.
+- Classes are now exported to make it easier for reverse dependencies to add
+  their own objectives, constraints, penalties, targets, and solvers.
+
+## Documentation updates
+
+- Fix mistake in `add_gurobi_solver()` function documentation for the
+  `numeric_focus` parameter.
+- Fix typo in equation for `add_max_utility_objective()` (#373). Thanks to
+  Anthony Richardson (\@ric325) for bug report.
+- Update Calibrating trade-offs vignette with new `calibrate_cohon_penalty()`
+  function.
+- Update package overview vignette with new `add_neighbor_penalties()` function.
+- Update solver benchmarks vignette to remove unnecessary package dependencies.
+- Update publication record.
+
 # prioritizr 8.0.6.6
 
-- Fix bug in `eval_rank_importance()` that could lead to incorrect importance
-  values when considering proportion or semi-continous decision types
-  (i.e., `add_proportion_decisions()` or `add_semicontinuous_decisions()`).
+## Minor improvements and bug fixes
+
+- Fix bug in `eval_rank_importance()` function that could lead to incorrect
+  importance values when considering proportion or semi-continuous decision
+  types (i.e., problems with `add_proportion_decisions()` or
+  `add_semicontinuous_decisions()`).
+
+## Documentation updates
+
 - Update publication record.
 
 # prioritizr 8.0.6.5
 
 ## Minor improvements and bug fixes
 
-- Fix bug in `eval_rank_importance()` that caused a superfluous warning to
-  be thrown when locked constraints (i.e, `add_locked_in_constraints()`,
-  `add_locked_out_constraints()`, or `add_manual_locked_constraints()`).
+- Fix bug in `eval_rank_importance()` function that caused a superfluous
+  warning to be thrown when locked constraints (i.e,
+  `add_locked_in_constraints()`, `add_locked_out_constraints()`, or
+  `add_manual_locked_constraints()`).
 
 # prioritizr 8.0.6.4
 

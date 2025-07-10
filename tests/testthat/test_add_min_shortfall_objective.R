@@ -19,7 +19,7 @@ test_that("compile (compressed formulation, single zone)", {
   n_features <- terra::nlyr(sim_features)
   # tests
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu), replace(1 / targ, 2, 0)))
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(1, n_features)))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
@@ -35,12 +35,12 @@ test_that("compile (compressed formulation, single zone)", {
     all(
       o$A()[seq_len(n_features), n_pu + seq_len(n_features)] ==
       triplet_sparse_matrix(
-        i = seq_len(n_features), j = seq_len(n_features), x = 1
+        i = seq_len(n_features), j = seq_len(n_features), x = targ
       )
     )
   )
   expect_true(all(o$lb() == 0))
-  expect_equal(o$ub(), c(rep(1, n_pu), rep(Inf, n_features)))
+  expect_true(all(o$ub() == 1))
 })
 
 test_that("solution (compressed formulation, single zone)", {
@@ -96,7 +96,7 @@ test_that("compile (expanded formulation, single zone)", {
   expect_equal(o$modelsense(), "min")
   expect_equal(
     o$obj(),
-    c(rep(0, n_pu), rep(0, n_pu * n_f), replace(1 / targ, 2, 0))
+    c(rep(0, n_pu), rep(0, n_pu * n_f), rep(1, n_f))
   )
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), targ, b))
@@ -109,7 +109,7 @@ test_that("compile (expanded formulation, single zone)", {
     c(rep("pu_ijz", n_pu * n_f), rep("spp_target", n_f), "budget")
   )
   expect_equal(o$lb(), rep(0, n_pu + (n_pu * n_f) + n_f))
-  expect_equal(o$ub(), c(rep(1, n_pu + (n_pu * n_f)), rep(Inf, n_f)))
+  expect_equal(o$ub(), c(rep(1, n_pu + (n_pu * n_f)), rep(1, n_f)))
   # test that model matrix has been constructed correctly
   row <- 0
   for (i in seq_len(n_f)) {
@@ -124,7 +124,7 @@ test_that("compile (expanded formulation, single zone)", {
   for (i in seq_len(n_f)) {
     curr_row <- rep(0, n_pu + (n_pu * n_f) + n_f)
     curr_row[(i * n_pu) + seq_len(n_pu)] <- rij[i, ]
-    curr_row[n_pu + (n_f * n_pu) + i] <- 1
+    curr_row[n_pu + (n_f * n_pu) + i] <- targ[i]
     expect_equal(o$A()[(n_f * n_pu) + i, ], curr_row)
   }
   expect_equal(
@@ -215,7 +215,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   expect_equal(o$modelsense(), "min")
   expect_equal(
     o$obj(),
-    c(rep(0, length(p$planning_unit_costs())), 1 / targs$target)
+    c(rep(0, length(p$planning_unit_costs())), rep(1, nrow(targs)))
   )
   expect_equal(
     o$sense(),
@@ -235,7 +235,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
     )
   )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + nrow(targs)))
-  expect_equal(o$ub(), c(rep(1, (n_pu * n_z)), rep(Inf, nrow(targs))))
+  expect_equal(o$ub(), c(rep(1, (n_pu * n_z)), rep(1, nrow(targs))))
   # test that problem matrix is correct
   m <- matrix(
     0, nrow = nrow(targs) + length(b) + n_pu,
@@ -249,7 +249,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
     for (z in zs)
       m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <-
         p$data$rij_matrix[[z]][f, ]
-    m[counter, (n_z * n_pu) + i] <- 1
+    m[counter, (n_z * n_pu) + i] <- targs$target[i]
   }
   counter <- counter + 1
   m[counter, seq_len(n_pu * n_z)] <- c(p$planning_unit_costs())
@@ -337,7 +337,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   expect_equal(o$modelsense(), "min")
   expect_equal(
     o$obj(),
-    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), 1 / targs$target)
+    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), rep(1, nrow(targs)))
   )
   expect_equal(
     o$sense(),
@@ -370,7 +370,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   expect_equal(
     o$ub(),
-    c(rep(1, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(Inf, nrow(targs)))
+    c(rep(1, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(1, nrow(targs)))
   )
   # test that problem matrix is correct
   m <- matrix(
@@ -398,7 +398,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
         m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
-      m[counter, col] <- 1
+      m[counter, col] <- targs$target[i]
     }
   }
   counter <- counter + 1
@@ -486,7 +486,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   n_z <- p$number_of_zones()
   # tests
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu * n_z), 1 / targs$target))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), rep(1, nrow(targs))))
   expect_equal(
     o$sense(),
     c(targs$sense, rep("<=", length(b)), rep("<=", n_pu))
@@ -505,7 +505,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
     )
   )
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + nrow(targs)))
-  expect_equal(o$ub(), c(rep(1, n_pu * n_z), rep(Inf, nrow(targs))))
+  expect_equal(o$ub(), c(rep(1, n_pu * n_z), rep(1, nrow(targs))))
   # test that problem matrix is correct
   m <- matrix(
     0, nrow = nrow(targs) + length(b) + n_pu,
@@ -519,7 +519,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
     for (z in zs)
       m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <-
         p$data$rij_matrix[[z]][f, ]
-    m[counter, (n_z * n_pu) + i] <- 1
+    m[counter, (n_z * n_pu) + i] <- targs$target[i]
   }
   counter <- counter + 1
   m[counter, seq_len(n_pu)] <- p$planning_unit_costs()[, 1]
@@ -611,7 +611,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   expect_equal(o$modelsense(), "min")
   expect_equal(
     o$obj(),
-    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), 1 / targs$target)
+    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), rep(1, nrow(targs)))
   )
   expect_equal(
     o$sense(),
@@ -643,7 +643,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   expect_equal(o$lb(), rep(0, (n_pu * n_z) + (n_pu * n_z * n_f) + nrow(targs)))
   expect_equal(
     o$ub(),
-    c(rep(1, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(Inf, nrow(targs)))
+    c(rep(1, (n_pu * n_z) + (n_pu * n_z * n_f)), rep(1, nrow(targs)))
   )
   # check that problem matrix is correct
   m <- matrix(
@@ -671,7 +671,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
         m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
-      m[counter, col] <- 1
+      m[counter, col] <- targs$target[i]
     }
   }
   counter <- counter + 1

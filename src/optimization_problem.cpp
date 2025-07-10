@@ -186,6 +186,117 @@ bool rcpp_get_optimization_problem_compressed_formulation(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_compressed_formulation);
 }
 
+// [[Rcpp::export]]
+bool rcpp_set_optimization_problem_obj(SEXP x, const Rcpp::NumericVector obj) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // update
+  const std::size_t n = static_cast<std::size_t>(obj.size());
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_obj[i] = obj[i];
+  }
+  // return success
+  return true;
+}
+
+// [[Rcpp::export]]
+bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // update
+  const std::size_t n = static_cast<std::size_t>(lb.size());
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_lb[i] = lb[i];
+  }
+  // return success
+  return true;
+}
+
+// [[Rcpp::export]]
+bool rcpp_set_optimization_problem_ub(SEXP x, const Rcpp::NumericVector ub) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // update
+  const std::size_t n = static_cast<std::size_t>(ub.size());
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_ub[i] = ub[i];
+  }
+  // return success
+  return true;
+}
+
+// [[Rcpp::export]]
+bool rcpp_remove_optimization_problem_last_linear_constraint(SEXP x) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // skip if no elements in constraint matrix
+  if (ptr->nrow() == 0) {
+    return true; // nocov
+  }
+  // find row number of last linear constraint
+  std::size_t row = ptr->_A_i.back();
+  // remove last sense
+  ptr->_sense.pop_back();
+  // remove last rhs
+  ptr->_rhs.pop_back();
+  // remove last row id
+  ptr->_row_ids.pop_back();
+  // remove constraint coefficients
+  for (std::size_t i = ptr->_A_i.size(); i > 0; --i) {
+    if (ptr->_A_i.back() == row) {
+      ptr->_A_i.pop_back();
+      ptr->_A_j.pop_back();
+      ptr->_A_x.pop_back();
+    } else {
+      break;
+    }
+  }
+  // return success
+  return true;
+}
+
+// [[Rcpp::export]]
+bool rcpp_append_optimization_problem_linear_constraints(
+  SEXP x,
+  const Rcpp::NumericVector rhs,
+  const Rcpp::CharacterVector sense,
+  const arma::sp_mat A,
+  const Rcpp::CharacterVector row_ids
+) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // preliminary calculations
+  const std::size_t n = static_cast<std::size_t>(rhs.size());
+  const std::size_t rows = *std::max_element(
+    ptr->_A_i.begin(), ptr->_A_i.end()
+  ) + 1;
+  // update A
+  for (auto itr = A.begin(); itr != A.end(); ++itr) {
+    ptr->_A_i.push_back(rows + itr.row());
+    ptr->_A_j.push_back(itr.col());
+    ptr->_A_x.push_back(*itr);
+  }
+  // update rhs
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_rhs.push_back(rhs[i]);
+  }
+  // update sense
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_sense.push_back(Rcpp::as<std::string>(sense[i]));
+  }
+  // update row_ids
+  for (std::size_t i = 0; i < n; ++i) {
+    ptr->_row_ids.push_back(Rcpp::as<std::string>(row_ids[i]));
+  }
+  // return success
+  return true;
+}
+
 // extract multiple elements from a vector
 template <typename T1, typename T2>
 T1 extract_elements(T1 x, T2 &indices) {

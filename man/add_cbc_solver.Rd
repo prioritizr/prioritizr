@@ -8,11 +8,12 @@ add_cbc_solver(
   x,
   gap = 0.1,
   time_limit = .Machine$integer.max,
-  presolve = TRUE,
+  presolve = 2,
   threads = 1,
   first_feasible = FALSE,
   start_solution = NULL,
-  verbose = TRUE
+  verbose = TRUE,
+  control = list()
 )
 }
 \arguments{
@@ -32,8 +33,11 @@ exceeded. The default value is the largest integer value
 (i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
-\item{presolve}{\code{logical} attempt to simplify the
-problem before solving it? Defaults to \code{TRUE}.}
+\item{presolve}{\code{integer} number indicating how intensively the
+solver should try to simplify the problem before solving it. Available
+options are: (0) disable pre-solving, (1) conservative
+level of pre-solving, and (2) very aggressive level of pre-solving .
+The default value is 2.}
 
 \item{threads}{\code{integer} number of threads to use for the
 optimization algorithm. The default value is 1.}
@@ -57,6 +61,13 @@ See the Start solution format section for more information.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
+
+\item{control}{\code{list} with additional parameters for tuning
+the optimization process.
+For example, \code{control = list(strategy = 2)} could be used to
+set the \code{strategy} parameter.
+See the \href{https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST}{online documentation}
+for information on the parameters.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the solver added to it.

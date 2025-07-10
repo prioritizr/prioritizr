@@ -14,6 +14,19 @@ NULL
 #' @inheritParams add_cplex_solver
 #' @inheritParams add_gurobi_solver
 #'
+#' @param presolve `integer` number indicating how intensively the
+#'   solver should try to simplify the problem before solving it. Available
+#'   options are: (0) disable pre-solving, (1) conservative
+#'   level of pre-solving, and (2) very aggressive level of pre-solving .
+#'   The default value is 2.
+#'
+#' @param control `list` with additional parameters for tuning
+#'  the optimization process.
+#'  For example, `control = list(strategy = 2)` could be used to
+#'  set the `strategy` parameter.
+#'  See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
+#'  for information on the parameters.
+#'
 #' @details
 #' [*CBC*](https://github.com/coin-or/Cbc) is an
 #' open-source mixed integer programming solver that is part of the
@@ -97,11 +110,12 @@ NULL
 add_cbc_solver <- function(x,
                            gap = 0.1,
                            time_limit = .Machine$integer.max,
-                           presolve = TRUE,
+                           presolve = 2,
                            threads = 1,
                            first_feasible = FALSE,
                            start_solution = NULL,
-                           verbose = TRUE) {
+                           verbose = TRUE,
+                           control = list()) {
   # assert that arguments are valid (except start_solution)
   assert_required(x)
   assert_required(gap)
@@ -111,6 +125,15 @@ add_cbc_solver <- function(x,
   assert_required(first_feasible)
   assert_required(start_solution)
   assert_required(verbose)
+  assert_required(control)
+  # provide backwards compatibility for presolve
+  if (isTRUE(presolve)) {
+    presolve <- 1
+  }
+  if (identical(presolve, FALSE)) {
+    presolve <- 0
+  }
+  # assert valid arguments
   assert(
     is_conservation_problem(x),
     assertthat::is.number(gap),
@@ -118,16 +141,26 @@ add_cbc_solver <- function(x,
     gap >= 0,
     assertthat::is.count(time_limit),
     all_finite(time_limit),
-    assertthat::is.flag(presolve),
-    assertthat::noNA(presolve),
+    assertthat::is.number(presolve),
+    all_finite(presolve),
+    is_match_of(presolve, c(0, 1, 2)),
     assertthat::is.count(threads),
     all_finite(threads),
     is_thread_count(threads),
     assertthat::is.flag(first_feasible),
     assertthat::noNA(first_feasible),
     assertthat::is.flag(verbose),
+    is.list(control),
     is_installed("rcbc")
   )
+  # additional checks for control
+  if (length(control) > 0) {
+    assert(
+      !is.null(names(control)),
+      all(nzchar(names(control))),
+      msg = "all elements in {.arg control} must have a name."
+    )
+  }
  # extract start solution
   if (!is.null(start_solution)) {
     # verify that version of rcbc installed supports starting solution
@@ -160,7 +193,8 @@ add_cbc_solver <- function(x,
           threads = threads,
           first_feasible = first_feasible,
           start_solution = start_solution,
-          verbose = verbose
+          verbose = verbose,
+          control = control
         ),
         calculate = function(x, ...) {
           # prepare constraints
@@ -224,15 +258,26 @@ add_cbc_solver <- function(x,
           p <- list(
             log = as.character(as.numeric(self$get_data("verbose"))),
             verbose = "1",
-            presolve = ifelse(self$get_data("presolve") > 0.5, "on", "off"),
+            presolve = switch(
+              paste0("P", presolve),
+              P0 = {"off"},
+              P1 = {"on"},
+              P2 = {"more"},
+              "on"
+            ),
             ratio = as.character(self$get_data("gap")),
             sec = as.character(self$get_data("time_limit")),
-            threads = as.character(self$get_data("threads"))
+            threads = as.character(self$get_data("threads")),
+            timeMode = "elapsed"
           )
           if (self$get_data("first_feasible") > 0.5) {
             p$maxso <- "1"
           }
-          p$timeMode <- "elapsed"
+          # specify custom parameters
+          control <- self$get_data("control")
+          if (length(control) > 0) {
+            p[names(control)] <- lapply(control, as.character)
+          }
           # store input data and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)

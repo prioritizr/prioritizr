@@ -14,6 +14,8 @@ NULL
 #' @name Portfolio-class
 #'
 #' @family classes
+#'
+#' @export
 Portfolio <- R6::R6Class(
   "Portfolio",
   inherit = ConservationModifier,

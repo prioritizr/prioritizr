@@ -96,6 +96,7 @@ generating solutions.}
 \item \href{#method-ConservationProblem-add_decisions}{\code{ConservationProblem$add_decisions()}}
 \item \href{#method-ConservationProblem-add_constraint}{\code{ConservationProblem$add_constraint()}}
 \item \href{#method-ConservationProblem-add_penalty}{\code{ConservationProblem$add_penalty()}}
+\item \href{#method-ConservationProblem-remove_all_penalties}{\code{ConservationProblem$remove_all_penalties()}}
 \item \href{#method-ConservationProblem-clone}{\code{ConservationProblem$clone()}}
 }
 }
@@ -661,6 +662,27 @@ Create a new object with a penalty added to the problem formulation.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\linkS4class{Penalty} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An updated \code{ConservationProblem} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-remove_all_penalties"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-remove_all_penalties}{}}}
+\subsection{Method \code{remove_all_penalties()}}{
+Create a new object without any penalties.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$remove_all_penalties(retain = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{retain}}{\code{character} vector of classes to retain. Defaults to
+\code{NULL} such that all penalties are excluded.}
 }
 \if{html}{\out{</div>}}
 }

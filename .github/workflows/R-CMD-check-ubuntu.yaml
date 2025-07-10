@@ -24,8 +24,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-22.04, r: 'release'}
-          - {os: ubuntu-22.04, r: 'devel'}
+          - {os: ubuntu-22.04, r: 'release', pkgs: 'all'}
+          - {os: ubuntu-22.04, r: 'devel', pkgs: 'all'}
+          - {os: ubuntu-22.04, r: 'devel', pkgs: 'depends only'}
 
     env:
       _R_REMOTES_NO_ERRORS_FROM_WARNINGS_: true
@@ -91,8 +92,14 @@ jobs:
           sessioninfo::session_info(pkgs, include_base = TRUE)
         shell: Rscript {0}
 
+      - name: Environmental variables
+        if: matrix.config.pkgs == 'depends only'
+        run: |
+          echo "_R_CHECK_DEPENDS_ONLY_=true" >> $GITHUB_ENV
+
       - uses: r-lib/actions/check-r-package@v2
         with:
+          args: 'c("--no-manual", "--as-cran", "--no-build-vignettes")'
           upload-snapshots: true
 
       - name: Show testthat output

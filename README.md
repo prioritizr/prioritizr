@@ -140,7 +140,7 @@ print(wa_pu)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
@@ -176,7 +176,7 @@ print(wa_features)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 396  (nrow, ncol, nlyr)
+    ## size        : 109, 147, 396  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
@@ -277,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.146
+    ##      3.459
 
 ``` r
 # extract state message from the solver
@@ -337,7 +337,7 @@ print(p1_target_coverage)
     ##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
     ##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
     ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
-    ## 10 Falco sp… TRUE         100.             20.0          24.5               0   
+    ## 10 Falco sp… TRUE         100.0            20.0          24.5               0   
     ## # ℹ 386 more rows
     ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
     ## #   relative_shortfall <dbl>
@@ -368,7 +368,7 @@ print(wa_locked_in)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
@@ -419,7 +419,7 @@ print(wa_locked_out)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
@@ -496,7 +496,7 @@ print(imp)
 ```
 
     ## class       : SpatRaster 
-    ## dimensions  : 109, 147, 1  (nrow, ncol, nlyr)
+    ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
     ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 

@@ -16,6 +16,7 @@ authors:
 
 template:
   bootstrap: 5
+  math-rendering: katex
   params:
     bootswatch: flatly
     ganalytics: UA-70466840-4
@@ -95,6 +96,7 @@ reference:
       - penalties
       - has_concept("penalties")
       - add_feature_weights
+      - calibrate_cohon_penalty
 
   - title: Decisions
     desc: Functions for specifying the type of decisions in a problem.

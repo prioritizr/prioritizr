@@ -1619,6 +1619,7 @@ test_that("invalid inputs", {
     "pre-computed"
   )
   # warning if non-default by_zone value is used with budgets
+  skip_if_no_fast_solvers_installed()
   expect_warning(
     eval_rank_importance(p, s, by_zone = FALSE, budgets = budgets),
     "default parameter value"

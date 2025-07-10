@@ -25,25 +25,25 @@ NULL
 #' (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed
 #' by \eqn{j}{j}) as:
 #'
-#' \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
+#' \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \times y_j \\
 #' \mathit{subject \space to} \\
-#' \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+#' \sum_{i = 1}^{I} x_i r_{ij} + t_j y_j \geq t_j \forall j \in J \\
 #' \sum_{i = 1}^{I} x_i c_i \leq B}{
-#' Minimize sum_j^J wj * (yj / tj) subject to
-#' sum_i^I (xi * rij) + yj >= tj for all j in J &
+#' Minimize sum_j^J wj * yj subject to
+#' sum_i^I (xi * rij) + (t_j * yj) >= tj for all j in J &
 #' sum_i^I (xi * ci) <= B}
 #'
 #' Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.,
 #' specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #' (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #' unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
-#' \eqn{j}{j}, \eqn{y_j}{yj} denotes the representation shortfall for
+#' \eqn{j}{j}, \eqn{y_j}{yj} denotes the relative representation shortfall for
 #' the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 #' weight for feature \eqn{j}{j} (defaults to 1 for all features; see
 #' [add_feature_weights()] to specify weights). Additionally,
 #' \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
 #' cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
-#' variable bounded between zero and infinity, and denotes the shortfall
+#' variable bounded between zero and one, and denotes the relative shortfall
 #' for target \eqn{j}{j}.
 #'
 #' @seealso
@@ -139,15 +139,6 @@ add_min_shortfall_objective <- function(x, budget) {
       public = list(
         name = "minimum shortfall objective",
         data = list(budget = budget),
-        default_weights = function(x) {
-          assert(
-            inherits(x, "ConservationProblem"),
-            .internal = TRUE
-          )
-          w <- 1 / x$feature_targets()$value
-          w[!is.finite(w)] <- 0 # replace 1/0 = Inf, with zeros
-          w
-        },
         apply = function(x, y) {
           assert(
             inherits(x, "OptimizationProblem"),

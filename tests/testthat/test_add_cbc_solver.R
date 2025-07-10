@@ -38,7 +38,7 @@ test_that("proportion decisions", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_proportion_decisions() %>%
-    add_cbc_solver(gap = 0, verbose = FALSE)
+    add_cbc_solver(gap = 0, verbose = FALSE, presolve = FALSE)
   s <- solve(p)
   # check that solution has correct properties
   expect_inherits(s, "SpatRaster")
@@ -506,4 +506,30 @@ test_that("set_variable_ub", {
     p$solver$internal$model$col_ub,
     c(1, 0, 1, 0)
   )
+})
+
+test_that("control and backwards-compatibility presolve", {
+  skip_on_cran()
+  skip_if_not_installed("rcbc")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problems
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_cbc_solver(
+      time_limit = 5, verbose = TRUE,
+      presolve = TRUE,
+      control = list(combineSolutions = "on")
+  )
+  # solve problems
+  s1 <- solve(p1)
+  # tests
+  expect_inherits(s1, "SpatRaster")
+  expect_equal(terra::nlyr(s1), 1)
+  expect_true(all_binary(s1))
+  expect_true(is_comparable_raster(sim_pu_raster, s1))
 })

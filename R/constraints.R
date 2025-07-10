@@ -35,7 +35,9 @@ NULL
 #'   \item{[add_neighbor_constraints()]}{
 #'     Add constraints to
 #'     ensure that all selected planning units have at least a certain number
-#'     of neighbors.}
+#'     of neighbors. These constraints may be especially useful for
+#'     reducing spatial fragmentation in large-scale planning problems
+#'     or when using open source solvers.}
 #'
 #'   \item{[add_contiguity_constraints()]}{
 #'     Add constraints to a

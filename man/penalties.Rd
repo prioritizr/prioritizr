@@ -9,7 +9,7 @@ penalize solutions according to a specific metric. They
 directly trade-off with the primary objective of a problem
 (e.g., the primary objective when using \code{\link[=add_min_set_objective]{add_min_set_objective()}} is
 to minimize solution cost). If you want to generate a prioritization that
-only focusses on minimizing a particular penalty, then the minimum
+only focuses on minimizing a particular penalty, then the minimum
 penalties objective should be used (i.e., \code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}}).
 }
 \details{
@@ -27,6 +27,13 @@ The following penalties can be added to a conservation planning
 \item{\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.}
+
+\item{\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}}{Add penalties to a
+conservation problem to favor solutions that have
+a large number of planning units sited next to each other.
+This constraints may be especially useful for
+reducing spatial fragmentation in large-scale planning problems or
+when using open source solvers.}
 
 \item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
 conservation problem to account for asymmetric connectivity.}
@@ -52,29 +59,32 @@ sim_features <- get_sim_features()
 p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
-  add_relative_targets(0.2) \%>\%
+  add_relative_targets(0.3) \%>\%
   add_default_solver(verbose = FALSE)
 
 # create problem with boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(5, 1)
 
+# create problem with neighbor penalties
+p3 <- p1 \%>\% add_neighbor_penalties(4)
+
 # create connectivity matrix based on spatial proximity
- scm <- terra::as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
- scm <- 1 / (as.matrix(dist(as.matrix(scm))) + 1)
+scm <- terra::as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
+scm <- 1 / (as.matrix(dist(as.matrix(scm))) + 1)
 
 # remove weak and moderate connections between planning units to reduce
 # run time
 scm[scm < 0.85] <- 0
 
 # create problem with connectivity penalties
-p3 <- p1 \%>\% add_connectivity_penalties(25, data = scm)
+p4 <- p1 \%>\% add_connectivity_penalties(25, data = scm)
 
 # create asymmetric connectivity data by randomly simulating values
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 acm[acm < 0.85] <- 0
 
 # create problem with asymmetric connectivity penalties
-p4 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
+p5 <- p1 \%>\% add_asym_connectivity_penalties(1, data = acm)
 
 # create problem with linear penalties,
 # here the penalties will be based on random numbers to keep it simple
@@ -86,13 +96,15 @@ sim_penalty_raster <- simulate_cost(sim_pu_raster)
 plot(sim_penalty_raster, main = "penalty data", axes = FALSE)
 
 # create problem with linear penalties, with a penalty scaling factor of 100
-p5 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
+p6 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
 # solve problems
-s <- c(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+s <- c(
+  solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6)
+)
 names(s) <- c(
-  "basic solution", "boundary penalties", "connectivity penalties",
-  "asymmetric penalties", "linear penalties"
+  "basic solution", "boundary penalties", "neighbor penalties",
+  "connectivity penalties", "asymmetric penalties", "linear penalties"
 )
 
 # plot solutions
@@ -100,6 +112,10 @@ plot(s, axes = FALSE)
 }
 }
 \seealso{
+For information on calibrating the penalties, see the Calibrating Trade-offs
+vignette. Also, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
+an appropriate \code{penalty} value.
+
 Other overviews: 
 \code{\link{constraints}},
 \code{\link{decisions}},

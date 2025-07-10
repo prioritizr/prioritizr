@@ -160,19 +160,18 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
 
   // add vtype for new decision variables
   for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
-    ptr->_vtype.push_back(ptr->_vtype[0]);
+    ptr->_vtype.push_back("C");
 
   // add col ids for new decision variables
   for (auto i = pu_i.cbegin(); i != pu_i.cend(); ++i)
     ptr->_col_ids.push_back("b");
 
-  // add new constraints to
+  // add AND constraints for boundary penalty variables
   std::size_t A_row = (A_original_nrow - 1);
   for (std::size_t i = 0; i < (pu_i.size()); ++i) {
     // increment row
     ++A_row;
-    // constraint to ensure that decision variable pu_i_zone_a_pu_j_zone_b
-    // is less than or equal to pu_i_zone_a
+    // pu_i_zone_a_pu_j_zone_b <= pu_i_zone_a
     ptr->_A_i.push_back(A_row);
     ptr->_A_i.push_back(A_row);
     ptr->_A_j.push_back(A_original_ncol + i);
@@ -183,8 +182,7 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
     ptr->_rhs.push_back(0.0);
     ptr->_row_ids.push_back("b1");
 
-    // constraint to ensure that decision variable pu_i_zone_a_pu_j_zone_b is
-    // less than or equal to pu_j_zone_b
+    // pu_i_zone_a_pu_j_zone_b <= pu_j_zone_b
     ++A_row;
     ptr->_A_i.push_back(A_row);
     ptr->_A_i.push_back(A_row);
@@ -196,8 +194,7 @@ bool rcpp_apply_boundary_penalties(SEXP x, double penalty,
     ptr->_rhs.push_back(0.0);
     ptr->_row_ids.push_back("b2");
 
-    // add extra constraint to ensure that the shared boundary is for
-    // pu_i_zone_a_pu_j_zone_b is included in the objective if needed
+    // pu_i_zone_a_pu_j_zone_b - pu_i_zone_a - pu_j_zone_b >= -1
     if ((pu_b[i] > 0 && (ptr->_modelsense == "min")) ||
         (pu_b[i] < 0 && (ptr->_modelsense == "max"))) {
       ++A_row;

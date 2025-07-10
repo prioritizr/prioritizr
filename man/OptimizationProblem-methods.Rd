@@ -13,6 +13,11 @@
 \alias{col_ids}
 \alias{row_ids}
 \alias{compressed_formulation}
+\alias{remove_last_linear_constraint}
+\alias{set_obj}
+\alias{set_lb}
+\alias{set_ub}
+\alias{append_linear_constraints}
 \alias{ncell,OptimizationProblem-method}
 \alias{A,OptimizationProblem-method}
 \alias{col_ids,OptimizationProblem-method}
@@ -27,6 +32,15 @@
 \alias{ub,OptimizationProblem-method}
 \alias{vtype,OptimizationProblem-method}
 \alias{compressed_formulation,OptimizationProblem-method}
+\alias{set_obj,OptimizationProblem,ANY-method}
+\alias{set_obj,OptimizationProblem-method}
+\alias{set_lb,OptimizationProblem,ANY-method}
+\alias{set_lb,OptimizationProblem-method}
+\alias{set_ub,OptimizationProblem,ANY-method}
+\alias{set_ub,OptimizationProblem-method}
+\alias{append_linear_constraints,OptimizationProblem,ANY,ANY,ANY,ANY-method}
+\alias{append_linear_constraints,OptimizationProblem-method}
+\alias{remove_last_linear_constraint,OptimizationProblem-method}
 \title{Optimization problem methods}
 \usage{
 \S4method{nrow}{OptimizationProblem}(x)
@@ -78,9 +92,49 @@ row_ids(x)
 compressed_formulation(x)
 
 \S4method{compressed_formulation}{OptimizationProblem}(x)
+
+set_obj(x, obj)
+
+\S4method{set_obj}{OptimizationProblem,ANY}(x, obj)
+
+set_lb(x, lb)
+
+\S4method{set_lb}{OptimizationProblem,ANY}(x, lb)
+
+set_ub(x, ub)
+
+\S4method{set_ub}{OptimizationProblem,ANY}(x, ub)
+
+append_linear_constraints(x, rhs, sense, A, row_ids)
+
+\S4method{append_linear_constraints}{OptimizationProblem,ANY,ANY,ANY,ANY}(x, rhs, sense, A, row_ids)
+
+remove_last_linear_constraint(x)
+
+\S4method{remove_last_linear_constraint}{OptimizationProblem}(x)
 }
 \arguments{
 \item{x}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{obj}{\code{numeric} vector containing a new linear coefficient for
+each decision variable in the problem.}
+
+\item{lb}{\code{numeric} vector containing a new lower bound for each
+decision variable in the problem.}
+
+\item{ub}{\code{numeric} vector containing a new upper bound for each
+decision variable in the problem.}
+
+\item{rhs}{\code{numeric} vector with the right-hand-side values for new
+constraints.}
+
+\item{sense}{\code{character} vector with senses for new constraints
+(i.e., \code{">="}, \code{"<="}, or "\code{=}" values).}
+
+\item{A}{\code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} matrix with coefficients for new
+constraints.}
+
+\item{row_ids}{\code{character} vector with identifiers for new constraints.}
 }
 \value{
 A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}}, \code{numeric} vector,
@@ -88,47 +142,74 @@ A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}}, \code{numeric} vector
 used.
 }
 \description{
-These functions are used to access data from a \code{\link[=optimization_problem]{optimization_problem()}}.
+These functions are used to query and update a \code{\link[=optimization_problem]{optimization_problem()}}.
 }
 \details{
-The functions return the following data:
+The following functions are used to query data.
 
 \describe{
 
-\item{nrow}{\code{integer} number of rows (constraints).}
+\item{\code{nrow(x)}}{\code{integer} number of rows (constraints).}
 
-\item{ncol}{\code{integer} number of columns (decision variables).}
+\item{\code{ncol(x)}}{\code{integer} number of columns (decision variables).}
 
-\item{ncell}{\code{integer} number of cells.}
+\item{\code{ncell(x)}}{\code{integer} number of cells.}
 
-\item{modelsense}{\code{character} describing if the problem is to be
+\item{\code{modelsense(x)}}{\code{character} describing if the problem is to be
 maximized (\code{"max"}) or minimized (\code{"min"}).}
 
-\item{vtype}{\code{character} describing the type of each decision variable:
+\item{\code{vtype(x)}}{\code{character} describing the type of each decision variable:
 binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
 (\code{"C"})}
 
-\item{obj}{\code{numeric} vector specifying the objective function.}
+\item{\code{obj(x)}}{\code{numeric} vector specifying the objective function.}
 
-\item{A}{\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} matrix object defining the
+\item{\code{A(x)}}{\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} matrix object defining the
 problem matrix.}
 
-\item{rhs}{\code{numeric} vector with right-hand-side linear constraints}
+\item{\code{rhs(x)}}{\code{numeric} vector with right-hand-side linear constraints}
 
-\item{sense}{\code{character} vector with the senses of the linear
+\item{\code{sense(x)}}{\code{character} vector with the senses of the linear
 constraints (\code{"<="}, \code{">="}, \code{"="}).}
 
-\item{lb}{\code{numeric} lower bound for each decision variable. Missing data
+\item{\code{lb(x)}}{\code{numeric} lower bound for each decision variable. Missing data
 values (\code{NA}) indicate no lower bound for a given variable.}
 
-\item{ub}{\code{numeric} upper bounds for each decision variable. Missing
+\item{\code{ub(x)}}{\code{numeric} upper bounds for each decision variable. Missing
 data values (\code{NA}) indicate no upper bound for a given variable.}
 
-\item{number_of_planning_units}{\code{integer} number of planning units in
+\item{\code{number_of_planning_units(x)}}{\code{integer} number of planning units in
 the problem.}
 
-\item{number_of_features}{\code{integer} number of features
+\item{\code{number_of_features(x)}}{\code{integer} number of features
 the problem.}
+}
+
+The following functions are used to update data. Note that these
+functions return an invisible \code{TRUE} indicating success.
+
+\describe{
+\item{\code{set_obj(x, obj)}}{override the objective in the problem.
+Here, \code{obj} is a \code{numeric} vector containing a new linear coefficient for
+each decision variable in the problem.}
+
+\item{\code{set_lb(x, lb)}}{override the variable lower bounds in the problem.
+Here, \code{lb} is a \code{numeric} vector containing a new lower bound.for each
+decision variable in the problem.}
+
+\item{\code{set_ub(x, ub)}}{override the variable upper bounds in the problem.
+Here, \code{ub} is a \code{numeric} vector containing a new upper bound.for each
+decision variable in the problem.}
+
+\item{\code{remove_last_linear_constraint()}}{remove the last linear constraint
+added to a problem.}
+
+\item{\code{append_linear_constraints(x, A, sense, rhs, row_ids)}}{
+add an additional linear constraints to a problem. Here,
+\code{A} is a \code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} matrix, \code{sense} is a
+\code{character} vector with constraint senses (i.e., \code{">="}, \code{"<="}, or "\code{=}"
+values), \code{rhs} is a \code{numeric} vector with the right-hand-side values,
+and \code{row_ids} is a \code{character} vector with identifiers.}
 
 }
 }

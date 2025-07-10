@@ -110,8 +110,7 @@ assertthat::on_failure(is_inherits) <- function(call, env) {
 #'
 #' @noRd
 is_integer <- function(x) {
-  if (!is.numeric(x)) return(FALSE)
-  all(x == round(x), na.rm = TRUE)
+  rlang::is_integerish(x)
 }
 
 assertthat::on_failure(is_integer) <- function(call, env) {

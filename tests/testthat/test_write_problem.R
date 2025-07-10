@@ -80,6 +80,9 @@ test_that("Rsymphony (mps format)", {
   # tests
   expect_true(file.exists(path))
   expect_true(any(grepl("ROWS", readLines(path), fixed = TRUE)))
+  expect_error(
+    write_problem(p, tempfile(fileext = ".mps.gz"), solver = "rsymphony")
+  )
 })
 
 test_that("gurobi (lp format)", {
@@ -131,11 +134,14 @@ test_that("gurobi (mps format)", {
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # save problem
-  path <- tempfile(fileext = ".mps")
-  write_problem(p, path, solver = "gurobi")
+  path1 <- tempfile(fileext = ".mps")
+  path2 <- tempfile(fileext = ".mps.gz")
+  write_problem(p, path1, solver = "gurobi")
+  write_problem(p, path2, solver = "gurobi")
   # tests
-  expect_true(file.exists(path))
-  expect_true(any(grepl("ROWS", readLines(path), fixed = TRUE)))
+  expect_true(file.exists(path1))
+  expect_true(file.exists(path2))
+  expect_true(any(grepl("ROWS", readLines(path1), fixed = TRUE)))
 })
 
 test_that("invalid inputs", {

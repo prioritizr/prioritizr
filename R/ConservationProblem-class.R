@@ -20,6 +20,8 @@ NULL
 #' @name ConservationProblem-class
 #'
 #' @family classes
+#'
+#' @export
 ConservationProblem <- R6::R6Class(
   "ConservationProblem",
   public = list(
@@ -976,6 +978,23 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Penalty"))
       p <- self$clone(deep = TRUE)
       p$penalties[[length(p$penalties) + 1]] <- x
+      p
+    },
+
+    #' @description
+    #' Create a new object without any penalties.
+    #' @param retain `character` vector of classes to retain. Defaults to
+    #' `NULL` such that all penalties are excluded.
+    #' @return An updated `ConservationProblem` object.
+    remove_all_penalties = function(retain = NULL) {
+      p <- self$clone(deep = TRUE)
+      if (!is.null(retain)) {
+        assert(is.character(retain))
+        idx <- which(vapply(p$penalties, inherits, logical(1), retain))
+        p$penalties <- p$penalties[idx]
+      } else {
+        p$penalties <- list()
+      }
       p
     }
   )

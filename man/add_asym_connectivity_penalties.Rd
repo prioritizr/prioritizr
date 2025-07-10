@@ -123,7 +123,10 @@ sum_i^I sum_j^I sum_z^Z sum_y^Z
 
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{p} is
-replaced with \eqn{-p}.
+replaced with \eqn{-p}. Additionally, to linearize the problem,
+the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer \emph{et al.} (2016).
 }
 
 \section{Data format}{
@@ -286,14 +289,21 @@ plot(s4, axes = FALSE)
 Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 Incorporating asymmetric connectivity into spatial decision making for
 conservation, \emph{Conservation Letters}, 3: 359--368.
+
+Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+\emph{Ecological Modelling}, 228: 14--22.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Also see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
+an appropriate \code{penalty} value.
 
 Other penalties: 
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()},
-\code{\link{add_linear_penalties}()}
+\code{\link{add_linear_penalties}()},
+\code{\link{add_neighbor_penalties}()}
 }
 \concept{penalties}

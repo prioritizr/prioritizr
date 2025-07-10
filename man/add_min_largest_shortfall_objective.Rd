@@ -16,7 +16,7 @@ for the entire solution or (ii) a \code{numeric} vector to specify
 a separate budget for each management zone.}
 }
 \value{
-An updated \code{problem()} object with the objective added to it.
+An updated \code{\link[=problem]{problem()}} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -48,12 +48,10 @@ indexed by \eqn{j}{j}) as:
 
 \deqn{\mathit{Minimize} \space l \\
 \mathit{subject \space to} \\
-\sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
-l \geq \frac{y_j}{t_j} \forall j \in J \\
+\sum_{i = 1}^{I} x_i \times r_{ij} + l t_j \geq t_j \forall j \in J \\
 \sum_{i = 1}^{I} x_i c_i \leq B}{
 Minimize l subject to
-sum_i^I (xi * rij) + yj >= tj for all j in J &
-l >= (yj / tj) for all j in J &
+sum_i^I (xi * rij) + (l * yj) >= tj for all j in J &
 sum_i^I (xi * ci) <= B}
 
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.,
@@ -61,13 +59,11 @@ specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, and \eqn{t_j}{tj} is the representation target for feature
 \eqn{j}{j}.
-Additionally, \eqn{y_j}{yj} denotes the target shortfall for
-the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and
-\eqn{l}{l} denotes the largest target shortfall.
+Additionally, \eqn{l}{l} denotes the largest relative target shortfall
+among all the species.
 Furthermore, \eqn{B}{B} is the budget allocated for the solution,
 \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}. Note that
-\eqn{y_j}{yj} and \eqn{s} are continuous variables bounded between zero
-and infinity.
+continuous variable \eqn{l} is bounded between zero and one.
 }
 
 \examples{

@@ -45,20 +45,31 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(c_obj, c_data@x)
   expect_equal(c_lb, rep(0, length(c_data@i)))
   expect_equal(c_ub, rep(1, length(c_data@i)))
-  expect_equal(c_vtype, rep("B", length(c_data@i)))
+  expect_equal(c_vtype, rep("C", length(c_data@i)))
   expect_equal(c_col_labels, rep("c", length(c_data@i)))
   expect_equal(c_row_labels, rep(c("c1", "c2"), length(c_data@i)))
   expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
-  counter <- n_f
-  for (i in seq_along(c_data@i)) {
-    counter <- counter + 1
-    expect_equal(o$A()[counter, n_pu + i], 1)
-    expect_equal(o$A()[counter, c_data@i[i] + 1], -1)
-    counter <- counter + 1
-    expect_equal(o$A()[counter, n_pu + i], 1)
-    expect_equal(o$A()[counter, c_data@j[i] + 1], -1)
-  }
+  c_A <- o$A()[seq(n_f + 1, n_f + (length(c_data@i) * 2)), , drop = FALSE]
+  correct_c_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(c_A))
+  correct_c_A[matrix(
+    c(seq(1, nrow(correct_c_A), 2), n_pu + seq_along(c_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_c_A[
+    matrix(
+      c(seq(1, nrow(correct_c_A), 2), c_data@i + 1),
+      ncol = 2
+  )] <- -1
+  correct_c_A[matrix(
+    c(seq(2, nrow(correct_c_A), 2), n_pu + seq_along(c_data@i)),
+    ncol = 2
+  )] <- 1
+  correct_c_A[matrix(
+    c(seq(2, nrow(correct_c_A), 2), c_data@j + 1),
+    ncol = 2
+  )] <- -1
+  expect_equal(c_A, Matrix::drop0(correct_c_A))
 })
 
 test_that("minimum set objective (solve, single zone)", {
@@ -187,26 +198,34 @@ test_that("minimum set objective (compile, multiple zones)", {
   expect_equal(c_obj, c_penalties)
   expect_equal(c_lb, rep(0, length(c_data@i) * n_z * n_z))
   expect_equal(c_ub, rep(1, length(c_data@i) * n_z * n_z))
-  expect_equal(c_vtype, rep("B", length(c_data@i) * n_z * n_z))
+  expect_equal(c_vtype, rep("C", length(c_data@i) * n_z * n_z))
   expect_equal(c_col_labels, rep("c", length(c_data@i) * n_z * n_z))
   expect_equal(c_row_labels, rep(c("c1", "c2"), length(c_data@i)))
   expect_equal(c_sense, rep(c("<=", "<="), length(c_data@i)))
   expect_equal(c_rhs, rep(c(0, 0), length(c_data@i)))
-  counter <- (n_f * n_z) + n_pu
+  c_A <- o$A()[
+    seq(
+      (n_f * n_z) + n_pu + 1,
+      (n_f * n_z) + n_pu + (n_z * n_z * (2 * length(c_data@i)))
+    ), , drop = FALSE
+  ]
+  correct_c_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(c_A))
+  counter <- 0
   counter2 <- 0
   for (i in seq_len(n_z)) {
     for (j in seq_len(n_z)) {
       for (k in seq_along(c_data@i)) {
         counter <- counter + 1
         counter2 <- counter2 + 1
-        expect_equal(o$A()[counter, (n_pu * n_z) + counter2], 1)
-        expect_equal(o$A()[counter, ((i - 1) * n_pu) + c_data@i[k] + 1], -1)
+        correct_c_A[counter, (n_pu * n_z) + counter2] <- 1
+        correct_c_A[counter, ((i - 1) * n_pu) + c_data@i[k] + 1] <- -1
         counter <- counter + 1
-        expect_equal(o$A()[counter, (n_pu * n_z) + counter2], 1)
-        expect_equal(o$A()[counter, ((j - 1) * n_pu) + c_data@j[k] + 1], -1)
+        correct_c_A[counter, (n_pu * n_z) + counter2] <- 1
+        correct_c_A[counter, ((j - 1) * n_pu) + c_data@j[k] + 1] <- -1
       }
     }
   }
+  expect_equal(c_A, Matrix::drop0(correct_c_A))
 })
 
 test_that("minimum set objective (compile, array data, multiple zones)", {
@@ -263,14 +282,17 @@ test_that("minimum set objective (solve, multiple zones)", {
   # make connectivity data
   cm <- adjacency_matrix(sim_zones_pu_raster)
   # create and solve problem
-  s <-
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-    add_connectivity_penalties(10000, zm, cm) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    solve()
+  expect_warning(
+    s <-
+      problem(sim_zones_pu_raster * 0, sim_zones_features) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+      add_connectivity_penalties(1, zm, cm) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0.1, verbose = FALSE) %>%
+      solve(),
+    "zero"
+  )
   sc <- category_layer(s)
   # tests
   expect_inherits(s, "SpatRaster")

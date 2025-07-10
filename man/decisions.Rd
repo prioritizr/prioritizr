@@ -22,21 +22,21 @@ The following decisions can be added to a conservation planning
 \describe{
 
 \item{\code{\link[=add_binary_decisions]{add_binary_decisions()}}}{Add a binary decision to a
-conservation planning \code{problem}. This is the classic decision of
+conservation planning problem. This is the classic decision of
 either prioritizing or not prioritizing a planning unit. Typically, this
 decision has the assumed action of buying the planning unit to include
 in a protected area network. If no decision is added to a problem object
 then this decision class will be used by default.}
 
 \item{\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}}{Add a proportion decision to
-a conservation planning \code{problem}. This is a relaxed decision
+a conservation planning problem. This is a relaxed decision
 where a part of a planning unit can be prioritized, as opposed to the
 default of the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to
 include in a protected area network.}
 
 \item{\code{\link[=add_semicontinuous_decisions]{add_semicontinuous_decisions()}}}{Add a semi-continuous
-decision to a conservation planning \code{problem}. This decision is
+decision to a conservation planning problem. This decision is
 similar to \code{add_proportion_decision} except that it has an upper
 bound parameter. By default, the decision can range from prioritizing
 none (0\%) to all (100\%) of a planning unit. However, a upper

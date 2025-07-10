@@ -19,6 +19,8 @@ NULL
 #' @name OptimizationProblem-class
 #'
 #' @family classes
+#'
+#' @export
 OptimizationProblem <- R6::R6Class(
   "OptimizationProblem",
   public = list(
@@ -74,22 +76,21 @@ OptimizationProblem <- R6::R6Class(
     #' Obtain the number of columns in the problem formulation.
     #' @return A `numeric` value.
     ncol = function() {
-      rcpp_get_optimization_problem_ncol(self$ptr)
-
+      as.integer(rcpp_get_optimization_problem_ncol(self$ptr))
     },
 
     #' @description
     #' Obtain the number of rows in the problem formulation.
     #' @return A `numeric` value.
     nrow = function() {
-      rcpp_get_optimization_problem_nrow(self$ptr)
+      as.integer(rcpp_get_optimization_problem_nrow(self$ptr))
     },
 
     #' @description
     #' Obtain the number of cells in the problem formulation.
     #' @return A `numeric` value.
     ncell = function() {
-      rcpp_get_optimization_problem_ncell(self$ptr)
+      as.integer(rcpp_get_optimization_problem_ncell(self$ptr))
     },
 
     #' @description
@@ -207,6 +208,105 @@ OptimizationProblem <- R6::R6Class(
     #' @return A new `OptimizationProblem` object .
     copy = function() {
       OptimizationProblem$new(ptr = rcpp_copy_optimization_problem(self$ptr))
+    },
+
+    #' @description
+    #' Set objective coefficients for the decision variables in the
+    #' optimization problem.
+    #' @param obj `numeric` vector.
+    #' @return An invisible `TRUE` indicating success.
+    set_obj = function(obj) {
+      # assert valid arguments
+      assert(
+        is.numeric(obj),
+        assertthat::noNA(obj),
+        identical(length(obj), self$ncol())
+      )
+      # update
+      rcpp_set_optimization_problem_obj(self$ptr, obj)
+      # return success
+      invisible(TRUE)
+    },
+
+    #' @description
+    #' Set lower bounds for the decision variables in the optimization problem.
+    #' @param lb `numeric` vector.
+    #' @return An invisible `TRUE` indicating success.
+    set_lb = function(lb) {
+      # assert valid arguments
+      assert(
+        is.numeric(lb),
+        assertthat::noNA(lb),
+        identical(length(lb), self$ncol())
+      )
+      # update
+      rcpp_set_optimization_problem_lb(self$ptr, lb)
+      # return success
+      invisible(TRUE)
+    },
+
+    #' @description
+    #' Set upper bounds for the decision variables in the optimization problem.
+    #' @param ub `numeric` vector.
+    #' @return An invisible `TRUE` indicating success.
+    set_ub = function(ub) {
+      # assert valid arguments
+      assert(
+        is.numeric(ub),
+        assertthat::noNA(ub),
+        identical(length(ub), self$ncol())
+      )
+      # update
+      rcpp_set_optimization_problem_ub(self$ptr, ub)
+      # return success
+      invisible(TRUE)
+    },
+
+    #' @description
+    #' Remove last linear constraint added to a problem.
+    #' @return An invisible `TRUE` indicating success.
+    remove_last_linear_constraint = function() {
+      # set objective
+      rcpp_remove_optimization_problem_last_linear_constraint(self$ptr)
+      # return success
+      invisible(TRUE)
+    },
+
+    #' @description
+    #' Append linear constraints to the optimization problem.
+    #' @param rhs `numeric` vector with right-hand-side values.
+    #' @param sense `character` vector with constraint sense values
+    #' (i.e., `"<="`, `">="`, or `"="`).
+    #' @param A [Matrix::sparseMatrix()] with constraint coefficients.
+    #' @param row_ids `character` vector with identifier for constraints.
+    #' @return An invisible `TRUE` indicating success.
+    append_linear_constraints = function(rhs, sense, A, row_ids) {
+      # assert valid arguments
+      assert(
+        is.numeric(rhs),
+        assertthat::noNA(rhs),
+        is.character(sense),
+        assertthat::noNA(sense),
+        all_match_of(sense, c(">=", "<=", "=")),
+        is.character(row_ids),
+        assertthat::noNA(row_ids),
+        inherits(A, c("matrix", "Matrix")),
+        identical(length(rhs), length(sense)),
+        identical(length(rhs), length(row_ids)),
+        identical(length(rhs), nrow(A)),
+        identical(self$ncol(), ncol(A))
+      )
+      # if needed, coerce to dgCMatrix
+      if (!inherits(A, "Matrix")) {
+        A <- as_Matrix(A, "dgCMatrix") # nocov
+      }
+      # set objective
+      rcpp_append_optimization_problem_linear_constraints(
+        self$ptr, rhs, sense, A, row_ids
+      )
+      # return success
+      invisible(TRUE)
     }
+
   )
 )

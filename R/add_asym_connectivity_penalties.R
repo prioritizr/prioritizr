@@ -68,12 +68,17 @@ NULL
 #'
 #' Note that when the problem objective is to maximize some measure of
 #' benefit and not minimize some measure of cost, the term \eqn{p} is
-#' replaced with \eqn{-p}.
+#' replaced with \eqn{-p}. Additionally, to linearize the problem,
+#' the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+#' a set of continuous variables (bounded between 0 and 1) based on
+#' Beyer *et al.* (2016).
 #'
 #' @inherit add_boundary_penalties return
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
+#' Also see [calibrate_cohon_penalty()] for assistance with selecting
+#' an appropriate `penalty` value.
 #'
 #' @family penalties
 #'
@@ -81,6 +86,10 @@ NULL
 #' Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 #' Incorporating asymmetric connectivity into spatial decision making for
 #' conservation, *Conservation Letters*, 3: 359--368.
+#'
+#' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+#' conservation planning problems with integer linear programming.
+#' *Ecological Modelling*, 228: 14--22.
 #'
 #' @examples
 #' \dontrun{

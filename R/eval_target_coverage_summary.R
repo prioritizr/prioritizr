@@ -107,7 +107,8 @@ NULL
 #'     to meet each target.
 #'     This column is calculated by dividing the total shortfall for
 #'     each target (i.e., `"absolute_shortfall"` column) by the
-#'     total amount for each target (i.e., `"total_amount"` column).}
+#'     total threshold amount associated with each target (i.e.,
+#'     `"absolute_target"` column).}
 #'
 #'   \item{met}{`logical` indicating if each target is met by the solution. This
 #'     column is calculated by checking if the total shortfall associated
@@ -115,6 +116,15 @@ NULL
 #'    zero.}
 #'
 #' }
+#'
+#' @section Notes:
+#' In prior versions (< 8.0.6.7), this function calculated the
+#' relative shortfall for a target by dividing the total shortfall for
+#' the target (i.e., `"absolute_shortfall"` column) by the
+#' total amount associated with each target (i.e.,
+#' `"total_amount"` column). This was subsequently changed to ensure
+#' consistency with the minimum shortfall objective
+#' ([add_min_shortfall_objective()]).
 #'
 #' @name eval_target_coverage_summary
 #'
@@ -304,7 +314,7 @@ eval_target_coverage_summary <- function(x,
   # add relative columns
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
-  d$relative_shortfall <- d$absolute_shortfall / d$total_amount
+  d$relative_shortfall <- d$absolute_shortfall / d$absolute_target
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0

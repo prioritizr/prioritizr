@@ -390,7 +390,7 @@ internal_add_neighbor_constraints <- function(x, k, clamp, zones, data) {
           )
           # extract data
           d <- self$get_data("data")
-          if (is.null(self$get_data("data"))) {
+          if (is.null(d)) {
             d <- y$get_data("adjacency")
           }
           # prepare data
@@ -398,7 +398,7 @@ internal_add_neighbor_constraints <- function(x, k, clamp, zones, data) {
           ind <- y$planning_unit_indices()
           nz <- y$number_of_zones()
           if (inherits(d, "Matrix"))  {
-            # if data is an array...
+            # if data is a matrix...
             d <- d[ind, ind]
             z <- self$get_data("zones")
             for (z1 in seq_len(ncol(z))) {
@@ -424,20 +424,19 @@ internal_add_neighbor_constraints <- function(x, k, clamp, zones, data) {
             )
             # nocov end
           }
-          # prepare k
-          max_k <- self$get_data("k")
-          k <- matrix(max_k, nrow = length(ind), ncol = nz, byrow = TRUE)
-          if (isTRUE(clamp)) {
-            for (z1 in seq_len(nz)) {
-              k[, z1] <- pmin(
-                rep(max_k[[z1]], length(ind)),
-                Matrix::rowSums(do.call(pmax, m[[z1]]))
-              )
+          # compute maximum number of neighbors for each planing unit
+          max_n <- 0
+          for (z1 in seq_along(m)) {
+            if (length(m[[z1]]) > 1) {
+              curr_m <- Reduce(`+`, m[[z1]])
+            } else {
+              curr_m <- m[[z1]][[1]]
             }
+            max_n <- max(max_n, Matrix::colSums(curr_m > 1e-5))
           }
           # apply constraints
           if (max(k) > 0) {
-            rcpp_apply_neighbor_constraints(x$ptr, m, k)
+            rcpp_apply_neighbor_constraints(x$ptr, m, clamp, k, max_n + 1)
           }
           # return success
           invisible(TRUE)

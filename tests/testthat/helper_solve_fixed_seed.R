@@ -10,12 +10,8 @@
 #' @param seed `integer` denoting the random number state. Defaults to 500.
 #'
 #' @details
-#' This function is useful because, by default, the optimization problem will
-#' shuffled prior to solving it (because the default portfolio
-#' [add_shuffle_portfolio()]. This means that solving the exact same
-#' problem multiple times with a slightly relaxed optimality gap can
-#' produce different results. As such, when running tests, this wrapper
-#' function is useful to promote consistency between runs.
+#' This function is useful for reproducibility when using the shuffle
+#' portfolio ([add_shuffle_portfolio()]).
 #'
 #' @return The output from running [prioritizr::solve()] on the `x`.
 solve_fixed_seed <- function(x, ..., seed = 500) {

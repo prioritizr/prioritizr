@@ -139,7 +139,10 @@ sum_j^I sum_z^Z sum_y^Z (-2 * p * Xiz * Xjy * Wzy * Bij)
 
 Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{p} is
-replaced with \eqn{-p}.
+replaced with \eqn{-p}. Additionally, to linearize the problem,
+the expression \eqn{X_{iz} \times X_{jy}}{Xiz * Xjy} is modeled using
+a set of continuous variables (bounded between 0 and 1) based on
+Beyer \emph{et al.} (2016).
 }
 
 \examples{
@@ -260,11 +263,16 @@ conservation planning problems with integer linear programming.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Also see \code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}} for a penalty that
+can reduce spatial fragmentation and has faster solver run times.
+Additionally, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
+an appropriate \code{penalty} value.
 
 Other penalties: 
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()},
-\code{\link{add_linear_penalties}()}
+\code{\link{add_linear_penalties}()},
+\code{\link{add_neighbor_penalties}()}
 }
 \concept{penalties}

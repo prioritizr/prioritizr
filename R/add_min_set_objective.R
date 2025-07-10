@@ -51,7 +51,7 @@ NULL
 #'
 #' @family objectives
 #'
-#' @return An updated `problem()` object with the objective added to it.
+#' @return An updated [problem()] object with the objective added to it.
 #'
 #' @examples
 #' \dontrun{

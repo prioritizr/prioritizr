@@ -239,11 +239,14 @@ plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Also, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
+an appropriate \code{penalty} value.
 
 Other penalties: 
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},
-\code{\link{add_feature_weights}()}
+\code{\link{add_feature_weights}()},
+\code{\link{add_neighbor_penalties}()}
 }
 \concept{penalties}

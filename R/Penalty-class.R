@@ -14,6 +14,8 @@ NULL
 #' @name Penalty-class
 #'
 #' @family classes
+#'
+#' @export
 Penalty <- R6::R6Class(
   "Penalty",
   inherit = ConservationModifier,

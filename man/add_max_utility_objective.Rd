@@ -16,7 +16,7 @@ for the entire solution or (ii) a \code{numeric} vector to specify
 a separate budget for each management zone.}
 }
 \value{
-An updated \code{problem()} object with the objective added to it.
+An updated \code{\link[=problem]{problem()}} object with the objective added to it.
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -54,7 +54,7 @@ aj = sum_i^I (xi * rij) for all j in J & sum_i^I (xi * ci) <= B}
 Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.,
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-unit \eqn{i}{i}, \eqn{A_j}{Aj} is the amount of feature \eqn{j}{j}
+unit \eqn{i}{i}, \eqn{a_j}{aj} is the amount of feature \eqn{j}{j}
 represented in in the solution, and \eqn{w_j}{wj} is the weight for
 feature \eqn{j}{j} (defaults to 1 for all features; see
 \code{\link[=add_feature_weights]{add_feature_weights()}}

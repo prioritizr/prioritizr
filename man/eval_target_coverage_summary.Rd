@@ -121,7 +121,8 @@ total amount for with each target
 to meet each target.
 This column is calculated by dividing the total shortfall for
 each target (i.e., \code{"absolute_shortfall"} column) by the
-total amount for each target (i.e., \code{"total_amount"} column).}
+total threshold amount associated with each target (i.e.,
+\code{"absolute_target"} column).}
 
 \item{met}{\code{logical} indicating if each target is met by the solution. This
 column is calculated by checking if the total shortfall associated
@@ -138,6 +139,17 @@ a solution.
 Note that this function can only be used with problems that contain
 \link{targets}.
 }
+\section{Notes}{
+
+In prior versions (< 8.0.6.7), this function calculated the
+relative shortfall for a target by dividing the total shortfall for
+the target (i.e., \code{"absolute_shortfall"} column) by the
+total amount associated with each target (i.e.,
+\code{"total_amount"} column). This was subsequently changed to ensure
+consistency with the minimum shortfall objective
+(\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).
+}
+
 \section{Solution format}{
 
 Broadly speaking, the argument to \code{solution} must be in the same format as
