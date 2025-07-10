@@ -187,7 +187,7 @@ adjacency_matrix.sf <- function(x, ...) {
 adjacency_matrix.default <- function(x, ...) {
   cli::cli_abort(
     c(
-      "!" = "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
+      "{.arg x} must be a {.cls sf} or {.cls SpatRaster}.",
       "x" = "{.arg x} is a {.cls {class(x)}}."
     )
   )

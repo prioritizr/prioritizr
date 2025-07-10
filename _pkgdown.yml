@@ -16,7 +16,7 @@ authors:
 
 template:
   bootstrap: 5
-  math-rendering: mathjax
+  math-rendering: katex
   params:
     bootswatch: flatly
     ganalytics: UA-70466840-4

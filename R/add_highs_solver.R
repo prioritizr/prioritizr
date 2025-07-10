@@ -16,7 +16,7 @@ NULL
 #'  the optimization process.
 #'  For example, `control = list(simplex_strategy = 1)` could be used to
 #'  set the `simplex_strategy` parameter.
-#'  See the [online parameter reference documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
+#'  See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
 #'  for information on the parameters.
 #'
 #' @details

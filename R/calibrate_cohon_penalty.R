@@ -258,7 +258,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   ## solve the problem without the penalties (i.e., o2)
   if (verbose) cli::cli_h1("Optimizing main objective")
   s1 <- x$portfolio$run(o2, x$solver)
-  assert(is_valid_raw_solution(s1))
+  assert(is_valid_raw_solution(s1, time_limit = x$solver$data$time_limit))
 
   # clean up
   rm(o2)
@@ -303,7 +303,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
       cli::cli_h1("Approximating penalty values")
     }
     s2 <- x$portfolio$run(o1, x$solver)
-    assert(is_valid_raw_solution(s2))
+    assert(is_valid_raw_solution(s2, time_limit = x$solver$data$time_limit))
 
     ## reset problem
     o1$set_lb(o1_original_lb)
@@ -339,7 +339,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
       cli::cli_h1("Optimizing penalties, constrained by objective")
     }
     s2 <- x$portfolio$run(o1, x$solver)
-    assert(is_valid_raw_solution(s2))
+    assert(is_valid_raw_solution(s2, time_limit = x$solver$data$time_limit))
 
     ## reset problem
     o1$remove_last_linear_constraint()
@@ -362,7 +362,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
     cli::cli_h1("Optimizing penalties")
   }
   s3 <- x$portfolio$run(o1, x$solver)
-  assert(is_valid_raw_solution(s3))
+  assert(is_valid_raw_solution(s3, time_limit = x$solver$data$time_limit))
 
   # find the optimal value for main objective, when constrained
   # to be optimal according to the penalties
@@ -398,7 +398,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
       cli::cli_h1("Optimizing main objective, constrained by penalties")
     }
     s3 <- x$portfolio$run(o1, x$solver)
-    assert(is_valid_raw_solution(s3))
+    assert(is_valid_raw_solution(s3, time_limit = x$solver$data$time_limit))
   }
 
   # calculate data for Cohon's method

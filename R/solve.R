@@ -298,28 +298,8 @@ solve.ConservationProblem <- function(a, b, ...,
   }
   # solve problem
   sol <- a$portfolio$run(opt, a$solver)
-  # prepare message
-  msg <- c(
-    "Can't find a solution!",
-    "i" = paste(
-      "This is because it is impossible to meet the",
-      "targets, budgets, or constraints."
-    )
-  )
-  if (isTRUE(a$solver$data$time_limit < 1e5)) {
-    msg <- c(
-      msg,
-      "i" = paste(
-        "It could also be because the {.arg time_limit}",
-        "is too low."
-      )
-    )
-  }
   # check that solution is valid
-  assert(
-    !is.null(sol) && !is.null(sol[[1]]$x),
-    msg = msg
-  )
+  assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))
   # check that desired number of solutions were found
   portfolio_number_solutions <- a$portfolio$get_data("number_solutions")
   if (!is.Waiver(portfolio_number_solutions)) {

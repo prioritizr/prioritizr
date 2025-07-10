@@ -60,7 +60,7 @@ quicksite:
 site:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
-	R --slave -e "pkgdown::clean_site()"
+	R --slave -e "pkgdown::clean_site(force = TRUE)"
 	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
 	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME

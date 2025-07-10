@@ -96,6 +96,9 @@ assertthat::on_failure(is_installed) <- function(call, env) {
 #'
 #' @param x object.
 #'
+#' @param time_limit `numeric` time limit for generating solution.
+#' Defaults to `NULL`.
+#'
 #' @param call Caller environment.
 #'
 #' @return A `logical` value.
@@ -103,18 +106,34 @@ assertthat::on_failure(is_installed) <- function(call, env) {
 #' @return A `logical` value.
 #'
 #' @noRd
-is_valid_raw_solution <- function(x) {
+is_valid_raw_solution <- function(x, time_limit = NULL) {
   !is.null(x) && !is.null(x[[1]]$x)
 }
 
 assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
-  c(
+  # get time limit
+  time_limit <- eval(call$time_limit, envir = env)
+  print(time_limit)
+  # prepare message
+  msg <- c(
     "Can't find a solution!",
     "i" = paste(
       "This is because it is impossible to meet the",
       "targets, budgets, or constraints."
     )
   )
+  if (
+    !is.null(time_limit) &&
+    assertthat::is.number(time_limit) &&
+    isTRUE(time_limit < 1e5)
+  ) {
+    msg <- c(
+      msg,
+      "i" = "It could also be because the {.arg time_limit} is too low."
+    )
+  }
+  # return message
+  msg
 }
 
 #' Any solvers installed?

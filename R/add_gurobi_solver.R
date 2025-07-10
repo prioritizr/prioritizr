@@ -83,7 +83,7 @@ NULL
 #'  the optimization process.
 #'  For example, `control = list(Method = 2)` could be used to
 #'  set the `Method` parameter.
-#'  See the [online parameter reference documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
+#'  See the [online documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
 #'  for information on the parameters.
 #"
 #' @details

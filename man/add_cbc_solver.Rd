@@ -66,7 +66,7 @@ optimization problems? Defaults to \code{TRUE}.}
 the optimization process.
 For example, \code{control = list(strategy = 2)} could be used to
 set the \code{strategy} parameter.
-See the \href{https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST}{online parameter reference documentation}
+See the \href{https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST}{online documentation}
 for information on the parameters.}
 }
 \value{

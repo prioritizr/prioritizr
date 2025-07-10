@@ -58,9 +58,8 @@
 - Fix bug in unit tests for `add_asym_connectivity_penalties()`, and
   `eval_rank_importance()` functions. Note that these bugs do not affect
   the correctness of the functions as implemented in the package.
-- Classes are now exported to make it easier for other packages to extend
-  the *prioritizr* functionality by adding their own objectives, constraints,
-  penalties, targets, and solvers.
+- Classes are now exported to make it easier for reverse dependencies to add
+  their own objectives, constraints, penalties, targets, and solvers.
 
 ## Documentation updates
 
@@ -70,6 +69,8 @@
   Anthony Richardson (\@ric325) for bug report.
 - Update Calibrating trade-offs vignette with new `calibrate_cohon_penalty()`
   function.
+- Update package overview vignette with new `add_neighbor_penalties()` function.
+- Update solver benchmarks vignette to remove unnecessary package dependencies.
 - Update publication record.
 
 # prioritizr 8.0.6.6
@@ -80,6 +81,9 @@
   importance values when considering proportion or semi-continuous decision
   types (i.e., problems with `add_proportion_decisions()` or
   `add_semicontinuous_decisions()`).
+
+## Documentation updates
+
 - Update publication record.
 
 # prioritizr 8.0.6.5

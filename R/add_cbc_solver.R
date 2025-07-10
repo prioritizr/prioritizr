@@ -24,7 +24,7 @@ NULL
 #'  the optimization process.
 #'  For example, `control = list(strategy = 2)` could be used to
 #'  set the `strategy` parameter.
-#'  See the [online parameter reference documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
+#'  See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
 #'  for information on the parameters.
 #'
 #' @details

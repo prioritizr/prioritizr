@@ -84,16 +84,16 @@ NULL
 #'
 #' # create problem with low neighbor penalties and
 #' # using a rook-style neighborhood (the default neighborhood style)
-#' p2 <- p1 %>% add_neighbor_constraints(0.001)
+#' p2 <- p1 %>% add_neighbor_penalties(0.001)
 #'
 #' # create problem with high penalties
 #' # using a rook-style neighborhood (the default neighborhood style)
-#' p3 <- p1 %>% add_neighbor_constraints(0.01)
+#' p3 <- p1 %>% add_neighbor_penalties(0.01)
 #'
 #' # create problem with high penalties and using a queen-style neighborhood
 #' p4 <-
 #'   p1 %>%
-#'   add_neighbor_constraints(
+#'   add_neighbor_penalties(
 #'     0.01, data = adjacency_matrix(sim_pu_raster, directions = 8)
 #'   )
 #'
@@ -119,7 +119,7 @@ NULL
 #' p6 <- p5 %>% add_neighbor_penalties(0.001, zones = z6)
 #'
 #' # create problem with high penalties and the same neighborhood as above
-#' p7 <- p5 %>% add_neighbor_constraints(0.01, zones = z6)
+#' p7 <- p5 %>% add_neighbor_penalties(0.01, zones = z6)
 #'
 #' # create problem with high neighborhood penalties, a queen-style
 #' # neighborhood, neighboring planning units that are allocated to zones 1
@@ -128,14 +128,14 @@ NULL
 #' z8[1, 2] <- 1
 #' z8[2, 1] <- 1
 #' print(z8)
-#' p8 <- p5 %>% add_neighbor_constraints(0.01, zones = z8)
+#' p8 <- p5 %>% add_neighbor_penalties(0.01, zones = z8)
 #'
 #' # create problem with high neighborhood penalties, a queen-style
 #' # neighborhood, and here we want to promote spatial fragmentation
 #' # within each zone, so we use negative zone values.
 #' z9 <- diag(3) * -1
 #' print(z9)
-#' p9 <- p5 %>% add_neighbor_constraints(0.01, zones = z9)
+#' p9 <- p5 %>% add_neighbor_penalties(0.01, zones = z9)
 #'
 #' # solve problems
 #' s2 <- list(p5, p6, p7, p8, p9)

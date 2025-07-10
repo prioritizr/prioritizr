@@ -92,7 +92,7 @@ optimization problems? Defaults to \code{TRUE}.}
 the optimization process.
 For example, \code{control = list(Method = 2)} could be used to
 set the \code{Method} parameter.
-See the \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html}{online parameter reference documentation}
+See the \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html}{online documentation}
 for information on the parameters.}
 }
 \value{
