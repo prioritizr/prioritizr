@@ -520,7 +520,7 @@ Next, let's consider another quantitative method.
 
 This method is based on an algorithm that was originally developed by Cohon *et al.* [-@r49], and was later adapted for use in systematic conservation planning [@r50]. Specifically, it involves generating two optimal prioritizations -- with each prioritization representing the optimal prioritization according to each criteria (e.g., total cost versus total boundary length) -- and then using performance metrics for these prioritizations to automatically derive a `penalty` value [@r45; @r49]. Thus, unlike the two other methods, this method does not require a set of candidate prioritizations. As such, this method can be used to find a prioritization that represents a suitable compromise in a much shorter period of time than the other methods.
 
-```{r, results = "hide"}
+```{r}
 # create problem with boundary penalties
 ## note that penalty = 1 is used as a place-holder
 p3 <-

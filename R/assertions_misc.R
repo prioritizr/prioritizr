@@ -113,7 +113,6 @@ is_valid_raw_solution <- function(x, time_limit = NULL) {
 assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
   # get time limit
   time_limit <- eval(call$time_limit, envir = env)
-  print(time_limit)
   # prepare message
   msg <- c(
     "Can't find a solution!",

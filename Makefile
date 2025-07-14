@@ -140,6 +140,6 @@ examples_cran:
 	rm -f Rplots.pdf
 
 search_errors:
-	@grep "Error:" --exclude-dir=".git" --exclude-dir="docs" --exclude-dir="src" --exclude-dir="*snaps" --exclude-dir="R" -RnF
+	@grep -rRnF --exclude="*.md" --exclude="*.R" --exclude=".Rd" --exclude="Makefile" --exclude="*.yaml" --exclude="*.js" --exclude="*.map" --exclude="*.json" --exclude="*.o" --exclude="*.so" --exclude-dir=".git" "Error"
 
 .PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples purl_vigns check_vigns urlcheck search_errors

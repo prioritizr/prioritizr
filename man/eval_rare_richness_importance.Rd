@@ -2,30 +2,9 @@
 % Please edit documentation in R/eval_rare_richness_importance.R
 \name{eval_rare_richness_importance}
 \alias{eval_rare_richness_importance}
-\alias{eval_rare_richness_importance,ConservationProblem,numeric-method}
-\alias{eval_rare_richness_importance,ConservationProblem,matrix-method}
-\alias{eval_rare_richness_importance,ConservationProblem,data.frame-method}
-\alias{eval_rare_richness_importance,ConservationProblem,Spatial-method}
-\alias{eval_rare_richness_importance,ConservationProblem,sf-method}
-\alias{eval_rare_richness_importance,ConservationProblem,Raster-method}
-\alias{eval_rare_richness_importance,ConservationProblem,SpatRaster-method}
 \title{Evaluate solution importance using rarity weighted richness scores}
 \usage{
-eval_rare_richness_importance(x, solution, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,numeric}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,matrix}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,data.frame}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,Spatial}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,sf}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
-
-\S4method{eval_rare_richness_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, ...)
+eval_rare_richness_importance(x, solution, rescale = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -35,8 +14,6 @@ eval_rare_richness_importance(x, solution, ...)
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
-
-\item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
 values -- excepting infinite (\code{Inf}) and zero values -- should be

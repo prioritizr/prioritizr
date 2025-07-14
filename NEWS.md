@@ -1,3 +1,12 @@
+# prioritizr 8.0.6.8
+
+#### Minor improvements and bug fixes
+
+- Update `solve()` function and the importance functions to ensure consistency
+  their in output formats. Note that these changes do not alter their outputs.
+- Update `eval_ferrier_importance()` function to better provide error messages
+  with improved formatting.
+
 # prioritizr 8.0.6.7
 
 ## New features

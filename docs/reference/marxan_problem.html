@@ -23,7 +23,7 @@ files."><meta property="og:image" content="https://prioritizr.net/logo.png"><!--
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -271,13 +271,15 @@ for <em>Marxan</em> input data, see the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 56  37349.075      0 1092623 -4500408     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id    cost status     xloc      yloc locked_in locked_out solution_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     3      0       0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">493</span><span style="color: #BB0000;">479.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    30   <span style="text-decoration: underline;">7</span>527.      3 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">496</span><span style="color: #BB0000;">943.</span> FALSE     TRUE                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    56  <span style="text-decoration: underline;">37</span>349.      0 1<span style="text-decoration: underline;">092</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    58  <span style="text-decoration: underline;">16</span>959.      0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>    84  <span style="text-decoration: underline;">34</span>220.      0 1<span style="text-decoration: underline;">098</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>    85 <span style="text-decoration: underline;">178</span>908.      0 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create Marxan problem using data.frames that have been loaded into R</span></span></span>
 <span class="r-in"><span><span class="co"># (note this example also requires the vroom package to be installed)</span></span></span>
@@ -382,13 +384,15 @@ for <em>Marxan</em> input data, see the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 56  37349.075      0 1092623 -4500408     FALSE      FALSE          1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id    cost status     xloc      yloc locked_in locked_out solution_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     3      0       0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">493</span><span style="color: #BB0000;">479.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    30   <span style="text-decoration: underline;">7</span>527.      3 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">496</span><span style="color: #BB0000;">943.</span> FALSE     TRUE                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    56  <span style="text-decoration: underline;">37</span>349.      0 1<span style="text-decoration: underline;">092</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    58  <span style="text-decoration: underline;">16</span>959.      0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>    84  <span style="text-decoration: underline;">34</span>220.      0 1<span style="text-decoration: underline;">098</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>    85 <span style="text-decoration: underline;">178</span>908.      0 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with the boundary data and a boundary length modifier</span></span></span>
 <span class="r-in"><span><span class="co"># set to 5</span></span></span>
@@ -401,13 +405,15 @@ for <em>Marxan</em> input data, see the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   id       cost status    xloc     yloc locked_in locked_out solution_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 56  37349.075      0 1092623 -4500408     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      id    cost status     xloc      yloc locked_in locked_out solution_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     3      0       0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">493</span><span style="color: #BB0000;">479.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>    30   <span style="text-decoration: underline;">7</span>527.      3 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">496</span><span style="color: #BB0000;">943.</span> FALSE     TRUE                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>    56  <span style="text-decoration: underline;">37</span>349.      0 1<span style="text-decoration: underline;">092</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>    58  <span style="text-decoration: underline;">16</span>959.      0 1<span style="text-decoration: underline;">116</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">500</span><span style="color: #BB0000;">408.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>    84  <span style="text-decoration: underline;">34</span>220.      0 1<span style="text-decoration: underline;">098</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>    85 <span style="text-decoration: underline;">178</span>908.      0 1<span style="text-decoration: underline;">110</span>623. -<span style="color: #BB0000;">4</span><span style="color: #BB0000; text-decoration: underline;">503</span><span style="color: #BB0000;">872.</span> FALSE     FALSE               0</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

@@ -2,43 +2,20 @@
 % Please edit documentation in R/eval_rank_importance.R
 \name{eval_rank_importance}
 \alias{eval_rank_importance}
-\alias{eval_rank_importance,ConservationProblem,numeric-method}
-\alias{eval_rank_importance,ConservationProblem,matrix-method}
-\alias{eval_rank_importance,ConservationProblem,data.frame-method}
-\alias{eval_rank_importance,ConservationProblem,Spatial-method}
-\alias{eval_rank_importance,ConservationProblem,sf-method}
-\alias{eval_rank_importance,ConservationProblem,Raster-method}
-\alias{eval_rank_importance,ConservationProblem,SpatRaster-method}
 \title{Evaluate solution importance using incremental ranks}
 \usage{
-eval_rank_importance(x, solution, ...)
-
-\S4method{eval_rank_importance}{ConservationProblem,numeric}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,matrix}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,data.frame}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,Spatial}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,sf}(x, solution,
-..., run_checks, force, by_zone, objective, extra_args, n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,Raster}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
-
-\S4method{eval_rank_importance}{ConservationProblem,SpatRaster}(x,
-solution, ..., run_checks, force, by_zone, objective, extra_args,
-n, budgets)
+eval_rank_importance(
+  x,
+  solution,
+  ...,
+  run_checks = TRUE,
+  force = FALSE,
+  by_zone = TRUE,
+  objective = NULL,
+  extra_args = NULL,
+  n,
+  budgets
+)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}

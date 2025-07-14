@@ -15,7 +15,7 @@ using an incremental rank procedure (based on Jung et al. 2021)."><meta property
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,41 +61,18 @@ using an incremental rank procedure (based on Jung <em>et al.</em> 2021).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,numeric'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,matrix'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,data.frame'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,Spatial'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,sf'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>,</span>
-<span><span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>, <span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,Raster'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,SpatRaster'</span></span>
-<span><span class="fu">eval_rank_importance</span><span class="op">(</span><span class="va">x</span>,</span>
-<span><span class="va">solution</span>, <span class="va">...</span>, <span class="va">run_checks</span>, <span class="va">force</span>, <span class="va">by_zone</span>, <span class="va">objective</span>, <span class="va">extra_args</span>,</span>
-<span><span class="va">n</span>, <span class="va">budgets</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eval_rank_importance</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">solution</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  run_checks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  by_zone <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  objective <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  extra_args <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">n</span>,</span>
+<span>  <span class="va">budgets</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -471,7 +448,7 @@ terrestrial biodiversity, carbon and water. <em>Nature Ecology and Evolution</em
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0 0 0 0 0 0 0 0 0 0</span>
 <span class="r-in"><span><span class="co">## run time</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.003 0.002 0.002 0.002 0.002 0.002 0.001 0.002 0.002 0.002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.003 0.002 0.002 0.003 0.002 0.002 0.002 0.002 0.002 0.002</span>
 <span class="r-in"><span><span class="co">## objective value</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220</span>

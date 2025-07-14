@@ -315,477 +315,70 @@ NULL
 #' terrestrial biodiversity, carbon and water. *Nature Ecology and Evolution*,
 #' 5: 1499--1509.
 #'
-#' @aliases eval_rank_importance,ConservationProblem,numeric-method eval_rank_importance,ConservationProblem,matrix-method eval_rank_importance,ConservationProblem,data.frame-method eval_rank_importance,ConservationProblem,Spatial-method eval_rank_importance,ConservationProblem,sf-method eval_rank_importance,ConservationProblem,Raster-method eval_rank_importance,ConservationProblem,SpatRaster-method
-#'
-#' @name eval_rank_importance
-#'
-#' @rdname eval_rank_importance
-#'
-#' @exportMethod eval_rank_importance
-methods::setGeneric("eval_rank_importance",
-  function(x, solution, ...) {
-    assert_required(x)
-    assert_required(solution)
-    assert(
-      is_conservation_problem(x),
-      is_inherits(
-        solution,
-        c(
-          "numeric", "data.frame", "matrix", "sf", "SpatRaster",
-          "Spatial", "Raster"
-        )
+#' @export
+eval_rank_importance <- function(x, solution, ..., run_checks = TRUE,
+                                 force = FALSE, by_zone = TRUE,
+                                 objective = NULL, extra_args = NULL,
+                                 n, budgets) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert(
+    is_conservation_problem(x),
+    is_inherits(
+      solution,
+      c(
+        "numeric", "data.frame", "matrix", "sf", "SpatRaster",
+        "Spatial", "Raster"
       )
-    )
-    standardGeneric("eval_rank_importance")
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,numeric}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "numeric"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    # assert valid arguments
-    assert(is.numeric(solution))
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # return rank scores
-    out <- rep(NA_real_, length(solution))
-    out[idx] <- 0
-    out[idx[in_idx]] <- c(v$values)
-    # add attributes
-    attr(out, "budgets") <- v$budgets
-    attr(out, "objective") <- v$objective
-    attr(out, "runtime") <- v$runtime
-    attr(out, "status") <- v$status
-    attr(out, "gap") <- v$gap
-    # return result
-    out
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,matrix}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "matrix"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    # assert valid arguments
-    assert(
-      is.matrix(solution),
-      is.numeric(solution)
-    )
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_total <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    m_total[x$planning_unit_indices(), ] <- m_pu
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_total) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_total) <- "rs"
-    }
-    # add attributes
-    attr(m_total, "budgets") <- v$budgets
-    attr(m_total, "objective") <- v$objective
-    attr(m_total, "runtime") <- v$runtime
-    attr(m_total, "gap") <- v$gap
-    attr(m_total, "status") <- v$status
-    # return result
-    m_total
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,data.frame}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "data.frame"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    # assert valid arguments
-    assert(is.data.frame(solution))
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_total <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    m_total[x$planning_unit_indices(), ] <- m_pu
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_total) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_total) <- "rs"
-    }
-    m_total <- tibble::as_tibble(m_total)
-    # add attributes
-    attr(m_total, "budgets") <- v$budgets
-    attr(m_total, "objective") <- v$objective
-    attr(m_total, "runtime") <- v$runtime
-    attr(m_total, "gap") <- v$gap
-    attr(m_total, "status") <- v$status
-    # return result
-    m_total
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,Spatial}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "Spatial"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    # assert valid arguments
-    assert(
-      is_inherits(
-        solution,
-        c(
-          "SpatialPointsDataFrame", "SpatialLinesDataFrame",
-          "SpatialPolygonsDataFrame"
-        )
-      )
-    )
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_total <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    m_total[x$planning_unit_indices(), ] <- m_pu
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_total) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_total) <- "rs"
-    }
-    # prepare result
-    out <- as.data.frame(m_total)
-    rownames(out) <- rownames(solution@data)
-    solution@data <- out
-    # add attributes
-    attr(solution, "budgets") <- v$budgets
-    attr(solution, "objective") <- v$objective
-    attr(solution, "runtime") <- v$runtime
-    attr(solution, "gap") <- v$gap
-    attr(solution, "status") <- v$status
-    # return result
-    solution
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,sf}(x, solution,
-#' ..., run_checks, force, by_zone, objective, extra_args, n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "sf"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    # assert valid arguments
-    assert(inherits(solution, "sf"))
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_total <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    m_total[x$planning_unit_indices(), ] <- m_pu
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_total) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_total) <- "rs"
-    }
-    # prepare result
-    out <- tibble::as_tibble(as.data.frame(m_total))
-    out$geometry <- sf::st_geometry(x$data$cost)
-    out <- sf::st_sf(out, crs = sf::st_crs(x$data$cost))
-    # add attributes
-    attr(out, "budgets") <- v$budgets
-    attr(out, "objective") <- v$objective
-    attr(out, "runtime") <- v$runtime
-    attr(out, "status") <- v$status
-    attr(out, "gap") <- v$gap
-    # return result
-    out
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,Raster}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "Raster"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    assert(inherits(solution, "Raster"))
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_pu) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_pu) <- "rs"
-    }
-    # prepare result
-    out <- raster::as.list(solution)
-    for (i in seq_along(out)) {
-      out[[i]][x$planning_unit_indices()] <- m_pu[, i]
-      out[[i]][raster::Which(is.na(solution[[i]]), cells = TRUE)] <- NA_real_
-    }
-    if (length(out) > 1) {
-      out <- raster::stack(out)
-    } else {
-      out <- out[[1]]
-    }
-    names(out) <- colnames(m_pu)
-    # add attributes
-    attr(out, "budgets") <- v$budgets
-    attr(out, "objective") <- v$objective
-    attr(out, "runtime") <- v$runtime
-    attr(out, "status") <- v$status
-    attr(out, "gap") <- v$gap
-    # return result
-    out
-  }
-)
-
-#' @name eval_rank_importance
-#' @usage \S4method{eval_rank_importance}{ConservationProblem,SpatRaster}(x,
-#' solution, ..., run_checks, force, by_zone, objective, extra_args,
-#' n, budgets)
-#' @rdname eval_rank_importance
-methods::setMethod("eval_rank_importance",
-  methods::signature("ConservationProblem", "SpatRaster"),
-  function(
-    x, solution, ..., run_checks = TRUE, force = FALSE,
-    by_zone = TRUE, objective = NULL, extra_args = NULL, n, budgets
-  ) {
-    assert(inherits(solution, "SpatRaster"))
-    # extract planning unit and solution information
-    idx <- x$planning_unit_indices()
-    status <- planning_unit_solution_status(x, solution)
-    in_idx <- which(status > 1e-10)
-    out_idx <- which(status < 1e-10)
-    # additional tests
-    check_n_budgets(
-      x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
-    )
-    assert_dots_empty()
-    # calculate rank scores
-    v <- internal_eval_rank_importance(
-      x, status, in_idx, out_idx,
-      run_checks, force,
-      by_zone, objective, extra_args, n, budgets
-    )
-    # initialize matrix
-    m_pu <- matrix(
-      0,
-      nrow = x$number_of_planning_units(),
-      ncol = x$number_of_zones()
-    )
-    m_pu[in_idx] <- c(v$values)
-    m_pu[is.na(x$planning_unit_costs())] <- NA_real_
-    # add column names to matrix
-    if (x$number_of_zones() > 1) {
-      colnames(m_pu) <- paste0("rs_", x$zone_names())
-    } else {
-      colnames(m_pu) <- "rs"
-    }
-    # prepare result
-    out <- terra::as.list(solution)
-    for (i in seq_along(out)) {
-      out[[i]][x$planning_unit_indices()] <- m_pu[, i]
-      out[[i]][is.na(solution[[i]])] <- NA_real_
-    }
-    out <- terra::rast(out)
-    names(out) <- colnames(m_pu)
-    # add attributes
-    attr(out, "budgets") <- v$budgets
-    attr(out, "objective") <- v$objective
-    attr(out, "runtime") <- v$runtime
-    attr(out, "status") <- v$status
-    attr(out, "gap") <- v$gap
-    # return result
-    out
-  }
-)
+    ),
+    assertthat::is.flag(run_checks),
+    assertthat::noNA(run_checks),
+    assertthat::is.flag(force),
+    assertthat::noNA(force),
+    assertthat::is.flag(by_zone),
+    assertthat::noNA(by_zone)
+  )
+  # extract planning unit solution status
+  status <- planning_unit_solution_status(x, solution)
+  # additional tests
+  check_n_budgets(
+    x = x, status = status, n = n, budgets = budgets, by_zone = by_zone, ...
+  )
+  assert_dots_empty()
+  # calculate rank scores
+  v <- internal_eval_rank_importance(
+    x, status, run_checks, force, by_zone, objective, extra_args, n, budgets
+  )
+  # prepare formatted values
+  out <- planning_unit_solution_format(x, v$values, solution, prefix = "rs")
+  # attach attributes
+  attr(out, "budgets") <- v$budgets
+  attr(out, "objective") <- v$objective
+  attr(out, "runtime") <- v$runtime
+  attr(out, "gap") <- v$gap
+  attr(out, "status") <- v$status
+  # return result
+  out
+}
 
 internal_eval_rank_importance <- function(x,
-                                          status, in_idx, out_idx,
+                                          status,
                                           run_checks, force,
                                           by_zone, objective, extra_args,
                                           n, budgets, ...,
                                           call = fn_caller_env()) {
-
   # assert valid arguments
   assert(
-    is_conservation_problem(x),
+    is.numeric(status),
     is.matrix(status),
-    is.integer(in_idx),
-    is.integer(out_idx),
-    assertthat::is.flag(run_checks),
-    assertthat::is.flag(force),
+    .internal = TRUE,
     call = call
   )
+  # extract indices from solution
+  in_idx <- which(status > 1e-10)
+  out_idx <- which(status < 1e-10)
+  # additional validation
   assert(
     length(in_idx) > 0,
     call = call,
@@ -951,7 +544,9 @@ internal_eval_rank_importance <- function(x,
   # return result
   list(
     # calculate scores based on average value of statuses
-    values = colMeans(sol_status),
+    values = convert_raw_solution_to_solution_status(
+      x, colMeans(sol_status), in_idx
+    ),
     budgets = budgets,
     objective = obj_vals,
     status = status,

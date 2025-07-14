@@ -15,7 +15,7 @@ using rarity weighted richness scores (based on Williams et al. 1996)."><meta pr
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,28 +61,7 @@ using rarity weighted richness scores (based on Williams <em>et al.</em> 1996).<
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,numeric'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,matrix'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,data.frame'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,Spatial'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,sf'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,Raster'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'ConservationProblem,SpatRaster'</span></span>
-<span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, <span class="va">rescale</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">eval_rare_richness_importance</span><span class="op">(</span><span class="va">x</span>, <span class="va">solution</span>, rescale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -99,10 +78,6 @@ using rarity weighted richness scores (based on Williams <em>et al.</em> 1996).<
 The argument should be in the same format as the planning unit cost
 data in the argument to <code>x</code>.
 See the Solution format section for more information.</p></dd>
-
-
-<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>not used.</p></dd>
 
 
 <dt id="arg-rescale">rescale<a class="anchor" aria-label="anchor" href="#arg-rescale"></a></dt>
@@ -304,8 +279,8 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Projected CRS: Undefined Cartesian SRS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 90 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     cost locked_in locked_out solution_1                                    geom</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;POLYGON [m]&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cost locked_in locked_out solution_1                                geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;POLYGON [m]&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>  216. FALSE     FALSE               0     ((0 1, 0.1 1, 0.1 0.9, 0 0.9, 0 1))</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  213. FALSE     FALSE               0 ((0.1 1, 0.2 1, 0.2 0.9, 0.1 0.9, 0.1 …</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>  207. FALSE     FALSE               0 ((0.2 1, 0.3 1, 0.3 0.9, 0.2 0.9, 0.2 …</span>
