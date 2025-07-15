@@ -13,7 +13,29 @@ NULL
 any_nonzero <- function(x) UseMethod("any_nonzero")
 
 assertthat::on_failure(any_nonzero) <- function(call, env) {
-  paste0("{.arg ", deparse(call$x), "} must not have only zero values.")
+  x <- eval(call$x, envir = env)
+  if (
+    inherits(x, c("SpatRaster", "ZonesSpatRaster", "Raster", "ZonesRaster"))
+  ) {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have a layer with only zero values."
+    )
+  } else if (inherits(x, c("data.frame", "sf", "Spatial"))) {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have a column with only zero values."
+    )
+  } else {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have only zero values."
+    )
+  }
+  msg
 }
 
 any_nonzero.default <- function(x) {
@@ -43,9 +65,9 @@ any_nonzero.Raster <- function(x) {
 
 #' @export
 any_nonzero.SpatRaster <- function(x) {
-  x <- terra::global(abs(x), "max", na.rm = TRUE)[[1]]
+  x <- as.matrix(terra::global(x, "range", na.rm = TRUE))
   if (all(!is.finite(x))) return(TRUE)
-  all(x > 1e-6, na.rm = TRUE)
+  all(rowSums(abs(x) > 1e-6, na.rm = TRUE) > 0)
 }
 
 #' @export

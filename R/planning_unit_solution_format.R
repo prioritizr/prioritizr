@@ -157,8 +157,6 @@ methods::setMethod(
     )
     # initialize matrices
     out <- c(NA_real_, x$number_of_total_units())
-    # overwrite status for planning units with missing cost values
-    status[is.na(x$planning_unit_costs())] <- NA_real_
     # prepare output
     out[x$planning_unit_indices()] <- status
     # return output
@@ -183,8 +181,6 @@ methods::setMethod(
       nrow = x$number_of_total_units(),
       ncol = x$number_of_zones()
     )
-    # overwrite status for planning units with missing cost values
-    status[is.na(x$planning_unit_costs())] <- NA_real_
     # assign status values
     out[x$planning_unit_indices(), ] <- status
     # assign names
@@ -339,7 +335,6 @@ methods::setMethod(
     out <- data
     for (i in seq_len(raster::nlayers(out))) {
       out[[i]][idx] <- status[, i]
-      out[[i]][raster::Which(is.na(data[[i]]), cells = TRUE)] <- NA_real_
     }
     if (is.null(prefix)) {
       names(out) <- x$zone_names()
@@ -376,14 +371,11 @@ methods::setMethod(
     )
     # extract data
     idx <- x$planning_unit_indices()
-    data <- x$data$cost
     # prepare result
-    out <- terra::as.list(data)
-    for (i in seq_along(out)) {
+    out <- terra::rast(x$data$cost)
+    for (i in seq_len(ncol(status))) {
       out[[i]][idx] <- status[, i]
-      out[[i]] <- terra::mask(out[[i]], data[[i]])
     }
-    out <- terra::rast(out)
     if (is.null(prefix)) {
       names(out) <- x$zone_names()
     } else if (isTRUE(terra::nlyr(out) == 1)) {

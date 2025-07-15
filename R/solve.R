@@ -400,7 +400,8 @@ convert_raw_solution_to_solution_status <- function(x, status, indices = NULL) {
     ncol = x$number_of_zones()
   )
   out[indices] <- c(status)
-  out[is.na(x$planning_unit_costs())] <- NA_real_
+  # ensure that planning units with NA costs are assigned NA status values
+  out <- out + (x$planning_unit_costs() * 0)
   # return result
   out
 }

@@ -2690,7 +2690,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 28 nodes (937 simplex iterations) in 0.14 seconds (0.12 work units)
+## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16
@@ -2720,7 +2720,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.146</code></pre>
+##      0.097</code></pre>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb125-2"><a href="#cb125-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb125-3"><a href="#cb125-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -3092,13 +3092,13 @@ function can be used to read <em>Marxan</em> input files and the
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.255825e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.07s
+## Presolve time: 0.05s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## 
 ## 
-## Root relaxation: objective 9.975843e+07, 652 iterations, 0.02 seconds (0.02 work units)
+## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.02 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -3108,7 +3108,7 @@ function can be used to read <em>Marxan</em> input files and the
 ## 
 ## Cleanup yields a better solution
 ## 
-## Explored 1 nodes (652 simplex iterations) in 0.10 seconds (0.12 work units)
+## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 

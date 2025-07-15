@@ -124,33 +124,49 @@ methods::setMethod(
     if (is.null(idx)) {
       idx <- planning_unit_indices(x)
     }
-    # if needed, determine if calculations can be done in memory
-    if (is.na(memory)) {
-      memory <- !terra_can_process_in_memory(y, n = 1)
-    }
-    # run processing
-    if (!isTRUE(memory)) {
-      ## generate matrix
-      m <- as.matrix(y[idx])
+    # process raster
+    b <- terra::blocks(y, n = 5)
+    if (
+      (!identical(memory, FALSE)) &&
+      (isTRUE(memory) || identical(length(b$row), 1L))
+    ) {
+      ## import entire raster and then subset relevant cells
+      m <- terra::values(y)[idx, , drop = FALSE]
+      ## convert NA values to zeros
       m[is.na(m)] <- 0
+      ## convert to output format
       m <- Matrix::t(Matrix::drop0(methods::as(m, "dgCMatrix")))
     } else {
-      ## determine number of layers to process at once
-      nl <- terra_n_process_in_memory(y[[c(1, 2)]])
-      ## split layers into chunks
-      lidx <- parallel::splitIndices(
-        terra::nlyr(y),
-        ceiling(terra::nlyr(y) / nl)
-      )
-      ## import layers in batches and add to matrix
-      m <- do.call(rbind, lapply(seq_along(lidx), function(j) {
-        k <- as.matrix(y[[lidx[[j]]]][idx])
-        k[is.na(k)] <- 0
-        k <- Matrix::t(Matrix::drop0(methods::as(k, "dgCMatrix")))
-        invisible(gc())
-        k
-      }))
-      m <- as_Matrix(m, "dgCMatrix")
+      ## set up raster reading
+      terra::readStart(y)
+      on.exit(terra::readStop(y), add = TRUE, after = FALSE)
+      # process raster in chunks
+      m <- lapply(seq_len(b$n), function(i) {
+        ## import subset of raster
+        m2 <- terra::readValues(
+          y, row = b$row[[i]], nrows = b$nrows[[i]],
+          dataframe = FALSE, mat = TRUE
+        )
+        ## determine indices to keep
+        m2_idx <-
+          (terra::cellFromRowCol(y, b$row[[i]], 1) - 1) +
+          seq_len(nrow(m2))
+        m2 <- m2[m2_idx %in% idx, , drop = FALSE]
+        ## convert NA values to zeros
+        m2[is.na(m2)] <- 0
+        ## convert to output format
+        Matrix::drop0(Matrix::t(methods::as(m2, "TsparseMatrix")))
+      })
+      # combine chunks results together
+      if (length(m) > 1) {
+        m <- do.call(cbind, m)
+      } else {
+        m <- m[[1]]
+      }
+      # if needed, coerce to sparse matrix format
+      if (!inherits(m, "dgCMatrix")) {
+        m <- as_Matrix(m, "dgCMatrix") # nocov
+      }
     }
     # add row names
     rownames(m) <- names(y)

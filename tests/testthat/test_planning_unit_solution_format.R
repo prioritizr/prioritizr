@@ -33,7 +33,7 @@ test_that("matrix", {
       data.frame(id = seq_len(2), name = c("spp1", "spp2")),
       list(as.matrix(t(pu[, 3:4])), as.matrix(t(pu[, 3:4])))
     )
-  s <- matrix(c(0, 1, 0, 1, 0, 1), ncol = 2)
+  s <- matrix(c(0, 1, 0, 1, NA, 1), ncol = 2)
   # create formatted solution
   x <- planning_unit_solution_format(p, s)
   # create correct result
@@ -63,7 +63,7 @@ test_that("data.frame (append = FALSE)", {
       cost_column = c("cost_1", "cost_2")
     )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -95,7 +95,7 @@ test_that("data.frame (append = TRUE)", {
       cost_column = c("cost_1", "cost_2")
     )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -128,7 +128,7 @@ test_that("sf (append = FALSE)", {
       cost_column = c("cost_1", "cost_2")
     )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -162,7 +162,7 @@ test_that("sf (append = TRUE)", {
       cost_column = c("cost_1", "cost_2")
     )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -207,7 +207,7 @@ test_that("Spatial (append = FALSE)", {
     "deprecated"
   )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -246,7 +246,7 @@ test_that("Spatial (append = TRUE)", {
     "deprecated"
   )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -284,7 +284,7 @@ test_that("SpatRaster", {
   names(spp) <- make.unique(names(spp))
   p <- problem(pu, zones(z1 = spp[[1:2]], z2 = spp[[3:4]]))
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution
@@ -319,7 +319,7 @@ test_that("Raster", {
     "deprecated"
   )
   s <- as.matrix(data.frame(
-    z1 = c(1, 0, 0, 1, 0, 0),
+    z1 = c(1, 0, NA, 1, 0, 0),
     z2 = c(0, 1, 1, 0, 1, 0)
   ))
   # create formatted solution

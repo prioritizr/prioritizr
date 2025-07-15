@@ -2,10 +2,15 @@
 
 #### Minor improvements and bug fixes
 
+- Update `rij_matrix()` function to reduce run time.
 - Update `solve()` function and the importance functions to ensure consistency
   their in output formats. Note that these changes do not alter their outputs.
 - Update `eval_ferrier_importance()` function to better provide error messages
   with improved formatting.
+- Update internal `any_nonNA()`, `any_nonzero()`, and `all_binary()` functions
+  for processing raster data.
+- Update internal `any_nonzero()` and `any_nonNA()` functions to provide better
+  error messages.
 
 # prioritizr 8.0.6.7
 

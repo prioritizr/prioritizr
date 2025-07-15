@@ -55,8 +55,11 @@
 <h2 class="pkg-version" data-toc-text="8.0.6.8" id="prioritizr-8068">prioritizr 8.0.6.8<a class="anchor" aria-label="anchor" href="#prioritizr-8068"></a></h2>
 <div class="section level5">
 <h5 id="minor-improvements-and-bug-fixes-8-0-6-8">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-8"></a></h5>
-<ul><li>Update <code><a href="../reference/solve.html">solve()</a></code> function and the importance functions to ensure consistency their in output formats. Note that these changes do not alter their outputs.</li>
+<ul><li>Update <code><a href="../reference/rij_matrix.html">rij_matrix()</a></code> function to reduce run time.</li>
+<li>Update <code><a href="../reference/solve.html">solve()</a></code> function and the importance functions to ensure consistency their in output formats. Note that these changes do not alter their outputs.</li>
 <li>Update <code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function to better provide error messages with improved formatting.</li>
+<li>Update internal <code>any_nonNA()</code>, <code>any_nonzero()</code>, and <code>all_binary()</code> functions for processing raster data.</li>
+<li>Update internal <code>any_nonzero()</code> and <code>any_nonNA()</code> functions to provide better error messages.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -265,7 +268,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
