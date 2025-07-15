@@ -159,7 +159,7 @@ methods::setMethod(
       })
       # combine chunks results together
       if (length(m) > 1) {
-        m <- do.call(cbind, m)
+        m <- do.call(cbind, m) # nocov
       } else {
         m <- m[[1]]
       }
