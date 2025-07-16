@@ -2,30 +2,9 @@
 % Please edit documentation in R/eval_ferrier_importance.R
 \name{eval_ferrier_importance}
 \alias{eval_ferrier_importance}
-\alias{eval_ferrier_importance,ConservationProblem,numeric-method}
-\alias{eval_ferrier_importance,ConservationProblem,matrix-method}
-\alias{eval_ferrier_importance,ConservationProblem,data.frame-method}
-\alias{eval_ferrier_importance,ConservationProblem,Spatial-method}
-\alias{eval_ferrier_importance,ConservationProblem,SpatRaster-method}
-\alias{eval_ferrier_importance,ConservationProblem,sf-method}
-\alias{eval_ferrier_importance,ConservationProblem,Raster-method}
 \title{Evaluate solution importance using Ferrier scores}
 \usage{
 eval_ferrier_importance(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,numeric}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,matrix}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,data.frame}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,Spatial}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,sf}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,Raster}(x, solution)
-
-\S4method{eval_ferrier_importance}{ConservationProblem,SpatRaster}(x, solution)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}

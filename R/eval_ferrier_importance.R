@@ -108,263 +108,23 @@ NULL
 #'
 #' }
 #'
-#' @aliases eval_ferrier_importance,ConservationProblem,numeric-method eval_ferrier_importance,ConservationProblem,matrix-method eval_ferrier_importance,ConservationProblem,data.frame-method eval_ferrier_importance,ConservationProblem,Spatial-method eval_ferrier_importance,ConservationProblem,SpatRaster-method eval_ferrier_importance,ConservationProblem,sf-method eval_ferrier_importance,ConservationProblem,Raster-method
-#'
-#' @name eval_ferrier_importance
-#'
-#' @rdname eval_ferrier_importance
-#'
-#' @exportMethod eval_ferrier_importance
-methods::setGeneric("eval_ferrier_importance",
-  function(x, solution) {
-    assert_required(x)
-    assert_required(solution)
-    assert(
-      is_conservation_problem(x),
-      is_inherits(
-        solution,
-        c(
-          "numeric", "data.frame", "matrix", "sf", "SpatRaster",
-          "Spatial", "Raster"
-        )
+#' @export
+eval_ferrier_importance <- function(x, solution) {
+  # assert valid arguments
+  assert_required(x)
+  assert_required(solution)
+  assert(
+    is_conservation_problem(x),
+    is_inherits(
+      solution,
+      c(
+        "numeric", "data.frame", "matrix", "sf", "SpatRaster",
+        "Spatial", "Raster"
       )
     )
-    standardGeneric("eval_ferrier_importance")
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,numeric}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "numeric"),
-  function(x, solution) {
-    # assert valid arguments
-    assert(is.numeric(solution))
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_features() + 1,
-      dimnames = list(NULL, c(x$feature_names(), "total"))
-    )
-    out[idx, ] <- 0
-    out[idx[pos], ] <- c(v)
-    out
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,matrix}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "matrix"),
-  function(x, solution) {
-    # assert valid arguments
-    assert(
-      is.matrix(solution),
-      is.numeric(solution),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_features() + 1,
-      dimnames = list(NULL, c(x$feature_names(), "total"))
-    )
-    out[idx, ] <- 0
-    out[idx[pos], ] <- c(v)
-    out
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,data.frame}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "data.frame"),
-  function(x, solution) {
-    # assert valid arguments
-    assert(
-      is.data.frame(solution),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_features() + 1,
-      dimnames = list(NULL, c(x$feature_names(), "total"))
-    )
-    out[idx, ] <- 0
-    out[idx[pos], ] <- c(v)
-    tibble::as_tibble(out)
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,Spatial}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "Spatial"),
-  function(x, solution) {
-    # assert valid arguments
-    assert(
-      is_inherits(
-        solution,
-        c(
-          "SpatialPointsDataFrame", "SpatialLinesDataFrame",
-          "SpatialPolygonsDataFrame"
-        )
-      ),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_features() + 1,
-      dimnames = list(NULL, c(x$feature_names(), "total"))
-    )
-    out[idx, ] <- 0
-    out[idx[pos], ] <- c(v)
-    out <- as.data.frame(out)
-    rownames(out) <- rownames(solution@data)
-    solution@data <- out
-    solution
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,sf}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "sf"),
-  function(x, solution) {
-    # assert valid arguments
-    assert(
-      inherits(solution, "sf"),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- matrix(
-      NA_real_,
-      nrow = x$number_of_total_units(),
-      ncol = x$number_of_features() + 1,
-      dimnames = list(NULL, c(x$feature_names(), "total"))
-    )
-    out[idx, ] <- 0
-    out[idx[pos], ] <- c(v)
-    out <- tibble::as_tibble(as.data.frame(out))
-    out$geometry <- sf::st_geometry(x$data$cost)
-    sf::st_sf(out, crs = sf::st_crs(x$data$cost))
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,Raster}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "Raster"),
-  function(x, solution) {
-    assert(
-      inherits(solution, "Raster"),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- list(x$data$cost[[1]])[rep(1, ncol(v))]
-    for (i in seq_along(out)) {
-      out[[i]][idx] <- 0
-      out[[i]][idx[pos]] <- v[, i]
-    }
-    out <- raster::stack(out)
-    names(out) <- c(x$feature_names(), "total")
-    out
-  }
-)
-
-#' @name eval_ferrier_importance
-#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,SpatRaster}(x, solution)
-#' @rdname eval_ferrier_importance
-methods::setMethod("eval_ferrier_importance",
-  methods::signature("ConservationProblem", "SpatRaster"),
-  function(x, solution) {
-    assert(
-      inherits(solution, "SpatRaster"),
-      number_of_zones(x) == 1
-    )
-    # extract planning unit solution status
-    status <- planning_unit_solution_status(x, solution)
-    # extract indices
-    idx <- x$planning_unit_indices()
-    pos <- which(status > 1e-10)
-    # calculate scores
-    v <- internal_eval_ferrier_importance(x, pos)
-    # return scores
-    out <- list(x$data$cost[[1]])[rep(1, ncol(v))]
-    for (i in seq_along(out)) {
-      out[[i]][idx] <- 0
-      out[[i]][idx[pos]] <- v[, i]
-    }
-    out <- terra::rast(out)
-    names(out) <- c(x$feature_names(), "total")
-    out
-  }
-)
-
-internal_eval_ferrier_importance <- function(x, indices,
-                                             call = fn_caller_env()) {
-  # assert arguments are valid
-  assert(
-    is.integer(indices),
-    length(indices) > 0,
-    .internal = TRUE
   )
   assert(
-    number_of_zones(x) == 1,
+    isTRUE(number_of_zones(x) == 1),
     msg = c(
       "This function requires that {.arg x} must have a single zone.",
       "i" = paste(
@@ -372,8 +132,7 @@ internal_eval_ferrier_importance <- function(x, indices,
         "for a limited range of problem formulations."
       ),
       "i" = "Try using {.fn eval_replacement_importance} instead."
-    ),
-    call = call
+    )
   )
   assert(
     !is.Waiver(x$targets),
@@ -384,8 +143,7 @@ internal_eval_ferrier_importance <- function(x, indices,
         "for a limited range of problem formulations."
       ),
       "i" = "Try using {.fn eval_replacement_importance} instead."
-    ),
-    call = call
+    )
   )
   assert(
     !inherits(
@@ -402,23 +160,93 @@ internal_eval_ferrier_importance <- function(x, indices,
         "for a limited range of problem formulations."
       ),
       "i" = "Try using {.fn eval_replacement_importance} instead."
-    ),
-    call = call
+    )
   )
   assert(
     !any(x$feature_names() == "total"),
     msg = c(
       paste(
         "This function requires that none of the features in",
-        "{.arg x} are called \"total\"."
+        "{.arg x} are called {.val total}."
       ),
       "i" = paste(
         "This is because {.fn eval_ferrier_importance} creates a new",
-        "column or layer named \"total\" to output results."
+        "column or layer named {.val total} to output results."
       )
-    ),
-    call = call
+    )
   )
+  # extract planning unit solution status
+  status <- planning_unit_solution_status(x, solution)
+  # calculate replacement costs
+  v <- internal_eval_ferrier_importance(x, status, rescale)
+  # prepare formatted values
+  nms <- names(v)
+  if (inherits(x$data$cost, "Raster")) {
+    out <- stats::setNames(
+      raster::stack(planning_unit_solution_format(x, v)),
+      nms
+    )
+  } else if (inherits(x$data$cost, "SpatRaster")) {
+    out <- stats::setNames(
+      terra::rast(planning_unit_solution_format(x, v)),
+      nms
+    )
+  } else if (inherits(x$data$cost, "matrix")) {
+    out <- do.call(cbind, planning_unit_solution_format(x, v))
+    colnames(out) <- nms
+  } else if (inherits(x$data$cost, "Spatial")) {
+    # note that we process this as matrix format to avoid creating
+    # many duplicate geometries and save memory usage
+    d <- lapply(seq_along(v), function(i) {
+      planning_unit_solution_format(x, v[[i]], matrix(1))
+    })
+    d <- stats::setNames(
+      as.data.frame(do.call(cbind, d)),
+      nms
+    )
+    rownames(d) <- rownames(x$data$cost)
+    out <- x$data$cost
+    out@data <- d
+  } else if (inherits(x$data$cost, "sf")) {
+    out <- lapply(seq_along(v), function(i) {
+      planning_unit_solution_format(x, v[[i]], matrix(1))
+    })
+    out <- tibble::as_tibble(
+      stats::setNames(
+        as.data.frame(do.call(cbind, out)),
+        nms
+      )
+    )
+    out$geometry <- sf::st_geometry(x$data$cost)
+    out <- sf::st_sf(out, crs = sf::st_crs(x$data$cost))
+  } else if (inherits(x$data$cost, "data.frame")) {
+    out <- planning_unit_solution_format(
+      x, v, prefix = seq_along(v), append = FALSE
+    )
+    out <- tibble::as_tibble(
+      stats::setNames(
+        as.data.frame(do.call(cbind, out)),
+        nms
+      )
+    )
+  } else {
+    cli::cli_abort("Data not recognized.", .internal = TRUE) # nocov
+  }
+  # return result
+  out
+}
+
+internal_eval_ferrier_importance <- function(x, status,
+                                             call = fn_caller_env()) {
+  # assert valid arguments
+  assert(
+    is.numeric(status),
+    is.matrix(status),
+    call = call,
+    .internal = TRUE
+  )
+  # extract indices for solution
+  indices <- which(status > 1e-10)
   # extract data
   rij <- x$data$rij_matrix[[1]]
   targets <- x$feature_targets()
@@ -476,4 +304,11 @@ internal_eval_ferrier_importance <- function(x, indices,
   # calculate totals
   s <- cbind(Matrix::t(s), Matrix::colSums(s))
   as.matrix(s)
+  # convert to solution status format
+  stats::setNames(
+    lapply(seq_len(ncol(s)), function(i) {
+      convert_raw_solution_to_solution_status(x, s[, i], indices)
+    }),
+    c(x$feature_names(), "total")
+  )
 }

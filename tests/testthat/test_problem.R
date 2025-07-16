@@ -1480,23 +1480,23 @@ test_that("problematic problem inputs (feature contains only zero values)", {
   # tests
   expect_warning(
     problem(sim_pu_raster, sim_features),
-    "has only zero values"
+    "zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, sim_features, "cost"),
-    "has only zero values"
+    "zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost"),
-    "has only zero values"
+    "zero values"
   )
   expect_warning(
     problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost"),
-    "has only zero values"
+    "zero values"
   )
   expect_warning(
     problem(sf::st_drop_geometry(sim_pu_polygons), c("spp_1", "spp_2"), "cost"),
-    "has only zero values"
+    "zero values"
   )
 })
 

@@ -15,10 +15,27 @@ NULL
 any_nonNA <- function(x) UseMethod("any_nonNA")
 
 assertthat::on_failure(any_nonNA) <- function(call, env) {
-  paste(
-    "{.arg", deparse(call$x),
-    "} must not have only missing ({.val {NA}}) values."
-  )
+  x <- eval(call$x, envir = env)
+  if (inherits(x, c("SpatRaster", "Raster"))) {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have a layer with only missing ({.val {NA}}) values."
+    )
+  } else if (inherits(x, c("data.frame", "sf", "Spatial"))) {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have a column with only missing ({.val {NA}}) values."
+    )
+  } else {
+    msg <- paste0(
+      "{.arg ",
+      deparse(call$x),
+      "} must not have only missing ({.val {NA}}) values."
+    )
+  }
+  msg
 }
 
 #' @export
@@ -78,7 +95,7 @@ any_nonNA.Raster <- function(x) {
 
 #' @export
 any_nonNA.SpatRaster <- function(x) {
-  all(terra::global(x, "notNA", na.rm = TRUE)[[1]] > 0)
+  all(terra::global(x, "anynotNA")[[1]])
 }
 
 #' @export

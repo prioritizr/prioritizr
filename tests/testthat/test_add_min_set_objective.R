@@ -245,7 +245,7 @@ test_that("solve (compressed formulation, multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
-  s <- p %>% solve()
+  s <- solve(p)
   # tests
   expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))

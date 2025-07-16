@@ -74,6 +74,7 @@ test_that("x = sf, y = SpatRaster (single zone)", {
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
 })
 
 test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
@@ -105,6 +106,8 @@ test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
   expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
 })
 
 test_that("x = sf, y = character (single zone)", {
@@ -127,6 +130,9 @@ test_that("x = sf, y = character (single zone)", {
   # tests
   expect_inherits(s, "sf")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+  expect_equal(s$spp1, costs$spp1)
+  expect_equal(s$spp2, costs$spp2)
 })
 
 test_that("x = sf, y = ZonesCharacter (multiple zones)", {
@@ -157,6 +163,12 @@ test_that("x = sf, y = ZonesCharacter (multiple zones)", {
   expect_inherits(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+  expect_equal(s$spp1_z1, costs$spp1_z1)
+  expect_equal(s$spp2_z1, costs$spp2_z1)
+  expect_equal(s$spp1_z2, costs$spp1_z2)
+  expect_equal(s$spp2_z2, costs$spp2_z2)
 })
 
 test_that("x = sf, y = RasterStack (single zone)", {
@@ -246,6 +258,8 @@ test_that("x = data.frame, y = data.frame (single zone)", {
   # run tests
   expect_inherits(s, "data.frame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$id, pu$id)
+  expect_equal(s$cost, pu$cost)
 })
 
 test_that("x = data.frame, y = data.frame (multiple zones)", {
@@ -288,6 +302,9 @@ test_that("x = data.frame, y = data.frame (multiple zones)", {
   expect_inherits(s, "data.frame")
   expect_equal(s$solution_1_z1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_z2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$id, costs$id)
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
 })
 
 test_that("x = numeric, y = data.frame (single zone)", {
@@ -495,6 +512,9 @@ test_that("x = Spatial, y = character (single zone)", {
   # tests
   expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+  expect_equal(s$spp1, costs$spp1)
+  expect_equal(s$spp2, costs$spp2)
 })
 
 test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
@@ -528,6 +548,12 @@ test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
   expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+  expect_equal(s$spp1_z1, costs$spp1_z1)
+  expect_equal(s$spp2_z1, costs$spp2_z1)
+  expect_equal(s$spp1_z2, costs$spp1_z2)
+  expect_equal(s$spp2_z2, costs$spp2_z2)
 })
 
 test_that("x = Spatial, y = RasterStack (single zone)", {
@@ -560,6 +586,7 @@ test_that("x = Spatial, y = RasterStack (single zone)", {
   # tests
   expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
 })
 
 test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
@@ -601,4 +628,6 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
   expect_inherits(s, "SpatialPolygonsDataFrame")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
 })

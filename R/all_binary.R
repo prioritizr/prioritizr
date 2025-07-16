@@ -26,7 +26,7 @@ all_binary.default <- function(x) {
 
 #' @export
 all_binary.numeric <- function(x) {
-  all(x[!is.na(x)] %in% c(0, 1))
+  all(x[is.finite(x)] %in% c(0, 1))
 }
 
 #' @export
@@ -56,7 +56,7 @@ all_binary.sf <- function(x) {
 
 #' @export
 all_binary.SpatRaster <- function(x) {
-  all(c(terra::values(x)) %in% c(0, 1, NA))
+  all(terra::values(x, mat = FALSE, na.rm = TRUE) %in% c(0, 1))
 }
 
 #' @export

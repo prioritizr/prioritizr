@@ -2,30 +2,16 @@
 % Please edit documentation in R/eval_replacement_importance.R
 \name{eval_replacement_importance}
 \alias{eval_replacement_importance}
-\alias{eval_replacement_importance,ConservationProblem,numeric-method}
-\alias{eval_replacement_importance,ConservationProblem,matrix-method}
-\alias{eval_replacement_importance,ConservationProblem,data.frame-method}
-\alias{eval_replacement_importance,ConservationProblem,Spatial-method}
-\alias{eval_replacement_importance,ConservationProblem,sf-method}
-\alias{eval_replacement_importance,ConservationProblem,Raster-method}
-\alias{eval_replacement_importance,ConservationProblem,SpatRaster-method}
 \title{Evaluate solution importance using replacement cost scores}
 \usage{
-eval_replacement_importance(x, solution, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
-
-\S4method{eval_replacement_importance}{ConservationProblem,SpatRaster}(x, solution, rescale, run_checks, force, threads, ...)
+eval_replacement_importance(
+  x,
+  solution,
+  rescale = TRUE,
+  run_checks = TRUE,
+  force = FALSE,
+  threads = 1L
+)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -35,8 +21,6 @@ eval_replacement_importance(x, solution, ...)
 The argument should be in the same format as the planning unit cost
 data in the argument to \code{x}.
 See the Solution format section for more information.}
-
-\item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
 values -- excepting infinite (\code{Inf}) and zero values -- should be

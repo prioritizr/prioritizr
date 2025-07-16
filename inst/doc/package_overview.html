@@ -2720,7 +2720,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.091</code></pre>
+##      0.097</code></pre>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb125-2"><a href="#cb125-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb125-3"><a href="#cb125-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s44, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -3119,13 +3119,15 @@ function can be used to read <em>Marxan</em> input files and the
 <span id="cb152-2"><a href="#cb152-2" tabindex="-1"></a><span class="co"># in a tabular format, so we will print the first six rows of the table</span></span>
 <span id="cb152-3"><a href="#cb152-3" tabindex="-1"></a><span class="co"># containing the solution</span></span>
 <span id="cb152-4"><a href="#cb152-4" tabindex="-1"></a><span class="fu">head</span>(ms)</span></code></pre></div>
-<pre><code>##   id       cost status    xloc     yloc locked_in locked_out solution_1
-## 1  3      0.000      0 1116623 -4493479     FALSE      FALSE          0
-## 2 30   7527.275      3 1110623 -4496943     FALSE       TRUE          0
-## 3 56  37349.075      0 1092623 -4500408     FALSE      FALSE          0
-## 4 58  16959.021      0 1116623 -4500408     FALSE      FALSE          0
-## 5 84  34220.256      0 1098623 -4503872     FALSE      FALSE          0
-## 6 85 178907.584      0 1110623 -4503872     FALSE      FALSE          0</code></pre>
+<pre><code>## # A tibble: 6 × 8
+##      id    cost status     xloc      yloc locked_in locked_out solution_1
+##   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;lgl&gt;     &lt;lgl&gt;           &lt;dbl&gt;
+## 1     3      0       0 1116623. -4493479. FALSE     FALSE               0
+## 2    30   7527.      3 1110623. -4496943. FALSE     TRUE                0
+## 3    56  37349.      0 1092623. -4500408. FALSE     FALSE               0
+## 4    58  16959.      0 1116623. -4500408. FALSE     FALSE               0
+## 5    84  34220.      0 1098623. -4503872. FALSE     FALSE               0
+## 6    85 178908.      0 1110623. -4503872. FALSE     FALSE               0</code></pre>
 <p>Alternatively, rather then using a <em>Marxan</em> input file to
 construct the problem, we can manually read in the <em>Marxan</em> data
 files and input these to the <code>marxan_problem()</code> function.</p>

@@ -314,113 +314,25 @@ solve.ConservationProblem <- function(a, b, ...,
       )
     }
   }
-  ## format solutions
-  # format solutions into planning unit by zones matrix
-  na_pos <- which(is.na(a$planning_unit_costs()), arr.ind = TRUE)
-  sol_status <- lapply(sol, function(x) {
-    m <- matrix(
-      x[[1]][seq_len(a$number_of_planning_units() * a$number_of_zones())],
-      nrow = a$number_of_planning_units(),
-      ncol = a$number_of_zones()
-    )
-    m[na_pos] <- NA_real_
-    m
-  })
-  # create solution data
-  pu <- a$data$cost
-  if (inherits(pu, c("SpatRaster", "Raster"))) {
-    # SpatRaster or Raster planning units
-    pos <- a$planning_unit_indices()
-    pu <- terra::rast(pu)
-    pu <- suppressWarnings(terra::setValues(pu[[1]], NA_real_))
-    ret <- lapply(sol_status, function(s) {
-      ret <- lapply(seq_len(ncol(s)), function(z) {
-        pu[pos] <- s[, z]
-        pu
-      })
-      ret <- terra::rast(ret)
-      names(ret) <- a$zone_names()
-      ret
-    })
-    # convert to RasterStack or RasterLayer if needed
-    if (inherits(a$data$cost, c("RasterStack", "RasterBrick"))) {
-      ret <- lapply(ret, raster::stack)
-    } else if (inherits(a$data$cost, "RasterLayer")) {
-      ret <- lapply(ret, raster::raster)
+  # format solutions
+  ret <- planning_unit_solution_format(
+    x = a,
+    status = lapply(sol, convert_raw_solution_to_solution_status, x = a),
+    prefix = paste0("solution_", seq_along(sol)),
+    append = TRUE
+  )
+  # additional formatting
+  if (is.list(ret) && !inherits(ret, "data.frame")) {
+    ## if ret is a list of matrices with a single column,
+    ## then convert to numeric
+    if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {
+      ret <- lapply(ret, as.numeric)
     }
-    names(ret) <- paste0("solution_", seq_along(sol))
-  } else if (inherits(pu, c("data.frame", "Spatial", "sf"))) {
-    # Spatial* or data.frame planning units
-    sol_status <- do.call(cbind, sol_status)
-    if (a$number_of_zones() == 1) {
-      colnames(sol_status) <- paste0("solution_", seq_along(sol))
-    } else {
-      colnames(sol_status) <- paste0(
-        "solution_",
-        rep(seq_along(sol), each = a$number_of_zones()),
-        "_",
-        rep(a$zone_names(), length(sol))
-      )
+    ## if ret is a list with a single element,
+    ## then extract the element
+    if (length(ret) == 1) {
+      ret <- ret[[1]]
     }
-    # add in NA values for planning units that contained NA values in
-    # all zones that were discarded from the mathematical formulation
-    # to reduce overheads
-    pos <- a$planning_unit_indices()
-    if (!identical(pos, seq_len(a$number_of_total_units()))) {
-      sol_status2 <- matrix(
-        NA_real_,
-        nrow = a$number_of_total_units(),
-        ncol = ncol(sol_status)
-      )
-      sol_status2[pos, ] <- sol_status
-      dimnames(sol_status2) <- dimnames(sol_status)
-    } else {
-      sol_status2 <- sol_status
-    }
-    # cbind solutions to planning unit data
-    sol_status2 <- as.data.frame(sol_status2)
-    if (inherits(pu, "Spatial")) {
-      ret <- pu
-      ret@data <- cbind(ret@data, sol_status2)
-    } else if (inherits(pu, "sf")) {
-      ret <- tibble::as_tibble(data.frame(pu, sol_status2))
-      sf_col <- attr(pu, "sf_column")
-      ret <- ret[, c(setdiff(names(ret), sf_col), sf_col), drop = FALSE]
-      ret <- ret <- sf::st_sf(ret)
-    } else {
-      ret <- cbind(pu, sol_status2)
-      if (inherits(pu, "tbl_df")) {
-        pu <- tibble::as_tibble(pu)
-      }
-    }
-  } else if (is.matrix(pu)) {
-    # matrix planning units
-    # add in NA values for planning units that contained NA values in
-    # all zones that were discarded from the mathematical formulation
-    # to reduce overheads
-    pos <- a$planning_unit_indices()
-    pu[] <- NA
-    colnames(pu) <- a$zone_names()
-    ret <- lapply(sol_status, function(s) {
-      pu[pos, ] <- s
-      pu
-    })
-    names(ret) <- paste0("solution_", seq_along(sol))
-  } else {
-    # nocov start
-    cli::cli_abort(
-      "Planning unit data is of an unrecognized class.",
-      .internal = TRUE
-    )
-    # nocov end
-  }
-  # if ret is a list of matrices with a single column then convert to numeric
-  if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {
-    ret <- lapply(ret, as.numeric)
-  }
-  # if ret is a list with a single element then extract the element
-  if (length(ret) == 1) {
-    ret <- ret[[1]]
   }
   # add attributes
   attr(ret, "objective") <- stats::setNames(
@@ -437,4 +349,59 @@ solve.ConservationProblem <- function(a, b, ...,
   )
   # return object
   ret
+}
+
+#' Convert raw solution to status
+#'
+#' Convert a raw solution a planning unit solution status matrix.
+#'
+#' @param x [problem()] object.
+#'
+#' @param status `numeric` vector with solution. Alternatively, `status` may be
+#' a `list` with an element `x` that contains the solution.
+#'
+#' @param indices `numeric` with planning unit indices for assigning status
+#' values.
+#'
+#' @return `matrix` object.
+#'
+#' @noRd
+convert_raw_solution_to_solution_status <- function(x, status, indices = NULL) {
+  # assert valid arguments
+  assert(is_conservation_problem(x), .internal = TRUE)
+  # if status is a list, then extract it
+  ## note that if status is a list then we assume that it is the raw output
+  ## from a solver and so we need to extract the values for the decision
+  ## variables that correspond to planning unit status values
+  if (is.list(status)) {
+    status <- status$x[
+      seq_len(x$number_of_planning_units() * x$number_of_zones())
+    ]
+  }
+  # additional validation checks
+  assert(is.numeric(status), .internal = TRUE)
+  if (!is.null(indices)) {
+    assert(
+      is.integer(indices) || is_integer(indices),
+      identical(length(indices), length(status)),
+      .internal = TRUE
+    )
+  } else {
+    assert(
+      length(status) >= (x$number_of_planning_units() * x$number_of_zones()),
+      .internal = TRUE
+    )
+    indices <- seq_len(x$number_of_planning_units() * x$number_of_zones())
+  }
+  # prepare result
+  out <- matrix(
+    0,
+    nrow = x$number_of_planning_units(),
+    ncol = x$number_of_zones()
+  )
+  out[indices] <- c(status)
+  # ensure that planning units with NA costs are assigned NA status values
+  out <- out + (x$planning_unit_costs() * 0)
+  # return result
+  out
 }
