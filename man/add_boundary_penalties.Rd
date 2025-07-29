@@ -2,17 +2,17 @@
 % Please edit documentation in R/add_boundary_penalties.R
 \name{add_boundary_penalties}
 \alias{add_boundary_penalties}
-\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method}
-\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method}
-\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method}
-\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,array-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,matrix-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,data.frame-method}
+\alias{add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,ANY-method}
 \title{Add boundary penalties}
 \usage{
-\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, formulation, zones, data)
 
-\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
 
-\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
+\S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -34,6 +34,15 @@ units. For example, an edge factor of \code{0.5} is commonly used to
 avoid overly penalizing planning units along a coastline.
 Note that this argument must have an element for each zone in the argument
 to \code{x}.}
+
+\item{formulation}{\code{character} value denoting the name of the linearization
+technique used to formulate the penalties. Available options are \code{"simple"}
+and \code{"knapsack"}. Defaults to \code{"simple"}. If you are having issues with
+solving problems within a reasonable period of time using the \code{"simple"}
+technique, then consider trying the \code{"knapsack"} technique.
+Note that the \code{"knapsack"} technique is likely to yield better
+performance when each planning unit has a large number of neighbors
+(e.g., planning units are based on a hexagonal grid or irregular polygons).}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 clumping scheme for different zones. Each row and column corresponds to a

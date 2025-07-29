@@ -25,6 +25,31 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
   )
 }
 
+#' Has single zone?
+#'
+#' Check if a [problem()] has a single zone.
+#'
+#' @param x [problem()] object.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+has_single_zone <- function(x) {
+  assert(is_conservation_problem(x), .internal = TRUE)
+  isTRUE(x$number_of_zones() == 1)
+}
+
+assertthat::on_failure(has_single_zone) <- function(call, env) {
+  x <- eval(call$x, envir = env)
+  c(
+    "!" = "Can't calculate targets.",
+    "x" = "This function is only compatible with single zone problems.",
+    "x" = paste0(
+      "{.arg ", deparse(call$x), "} has {.val {x$number_of_zones()}} zones"
+    )
+  )
+}
+
 #' Is budget length?
 #'
 #' Check if a value is a valid budget length for a [problem].

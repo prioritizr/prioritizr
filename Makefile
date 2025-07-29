@@ -1,7 +1,7 @@
 all: clean contrib initc data docs test check
 
 clean:
-	rm -rf man/*
+	rm -rf man/*.Rd
 
 initc:
 	R --slave -e "Rcpp::compileAttributes()"

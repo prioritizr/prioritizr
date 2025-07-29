@@ -26,36 +26,28 @@ See the Targets format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Set targets expressed as the actual value of features in the study area
-that need to be represented in the prioritization. For instance,
+Add targets to a conservation planning problem expressed as the actual value
+of features in the study area that need to be represented in the
+prioritization. For example,
 setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
 than 10.
 }
 \details{
-Targets are used to specify the minimum amount or proportion of a
-feature's distribution that needs to be protected. Most conservation
-planning problems require targets with the exception of the maximum cover
-(see \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}) and maximum utility
-(see \code{\link[=add_max_utility_objective]{add_max_utility_objective()}}) problems. Attempting to solve
-problems with objectives that require targets without specifying targets
-will throw an error.
-
-For problems associated with multiple management zones,
-\code{\link[=add_absolute_targets]{add_absolute_targets()}} can
-be used to set targets that each pertain to a single feature and a single
-zone. To set targets that can be met through allocating different
-planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
-function. An example of a target that could be met through allocations
-to multiple zones might be where each management zone is expected to
-result in a different amount of a feature and the target requires that
-the total amount of the feature in all zones must exceed a certain
-threshold. In other words, the target does not require that any single
-zone secure a specific amount of the feature, but the total amount held
-in all zones must secure a specific amount. Thus the target could,
-potentially, be met through allocating all planning units to any specific
-management zone, or through allocating the planning units to different
-combinations of management zones.
+This function is used to set targets for each feature (separately).
+For problems associated with a single management zone, this function
+may be useful to specify individual targets for each feature.
+For problems associated with multiple management zones, this function
+can also be used to specify a target for each feature within each zone
+(separately). For example, this may be useful in planning exercises
+where it is important to ensure that some of the features are adequately
+represented by multiple zones. For example, in a marine spatial planning
+exercise, it may be important for some features (e.g., commercial
+important fish species) to be adequately represented by a conservation zone
+for ensuring their long-term persistence, and also by a fishing zone to
+for ensure food security. For greater flexibility in target setting
+(such as setting targets that can be met through the allocation of
+multiple zones), see the \code{\link[=add_manual_targets]{add_manual_targets()}} function.
 }
 \section{Targets format}{
 
@@ -86,6 +78,33 @@ contain multiple zones, the argument to \code{targets} must
 contain a column name for each zone.}
 
 }
+}
+
+\section{Target setting}{
+
+Many conservation planning problems require targets.
+Targets are used to specify the minimum amount, or proportion, of a
+feature's spatial distribution that should ideally be protected.
+This is important so that the optimization process can weigh the merits
+and trade-offs between improving the representation of one feature over
+another feature.
+Although it can be challenging to set meaningful targets,
+this is a critical step for ensuring that prioritizations
+meet the stakeholder objectives that underpin a prioritization exercise
+(Carwardine \emph{et al.} 2009).
+In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements.
+For example, targets provide a mechanism for ensuring that a
+prioritization secures enough habitat to promote the long-term persistence
+of each threatened species, culturally important species,
+or economically important ecosystem service under consideration.
+Since there is often uncertainty regarding stakeholder objectives
+(e.g., how much habitat should be protected for a given species)
+or the influence of particular target on a prioritization
+(e.g., how would setting a 90\% or 100\% for a threatened species alter
+priorities), it is often useful to generate and compare a suite of
+prioritizations based on different target scenarios.
 }
 
 \examples{
@@ -170,12 +189,24 @@ plot(category_layer(s5), main = "varying targets", axes = FALSE)
 }
 
 }
+\references{
+Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
+the target and missing the point: target‐based conservation planning in
+context. \emph{Conservation Letters}, 2: 4--11.
+}
 \seealso{
-See \link{targets} for an overview of all functions for adding targets.
-
 Other targets: 
-\code{\link{add_loglinear_targets}()},
+\code{\link{add_auto_targets}()},
+\code{\link{add_group_targets}()},
+\code{\link{add_interpolated_targets}()},
+\code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
-\code{\link{add_relative_targets}()}
+\code{\link{add_polak_targets}()},
+\code{\link{add_relative_targets}()},
+\code{\link{add_rl_ecosystem_targets}()},
+\code{\link{add_rl_species_targets}()},
+\code{\link{add_rodrigues_targets}()},
+\code{\link{add_ward_targets}()},
+\code{\link{add_watson_targets}()}
 }
 \concept{targets}

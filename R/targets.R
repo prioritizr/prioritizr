@@ -9,24 +9,164 @@ NULL
 #' **Please note that most objectives require targets, and attempting
 #' to solve a problem that requires targets will throw an error.**
 #'
-#' @details The following functions can be used to specify targets for a
-#'   conservation planning [problem()]:
+#' @details
+#' A variety of functions can be used to specify targets for a
+#' conservation planning problem. Below we describe them in detail.
 #'
-#'   \describe{
+#' The [add_auto_targets()] function can be used to add targets directly
+#' to a conservation planning problem. It provides a flexible interface
+#' for specifying targets based on a single method, or a combination
+#' of methods. For example, it could be used to set targets
+#' for all features in problem `x` based on Jung *et al.* (2021) with
+#' the following code:
+#' `x %>% add_auto_targets(method = jung_targets())`.
+#' Additionally, if `x` had three features -- with the first feature
+#' corresponding to an ecosystem and the latter two to different species --
+#' this function could be used to set targets for the ecosystem feature based
+#' on 30% of its geographic distribution and
+#' targets for the species features based on Polak *et al.* 2015 with
+#' the following code:
+#' `x %>% add_auto_targets(method = list(relative_targets(0.3), jung_targets(), jung_targets())`.
+#' Note that this function is specifically designed for problems with a single
+#' zone, and cannot be used for multiple zones. In particular, the following
+#' functions can be used to specify targets in conjunction with
+#' [add_auto_targets()] function.
 #'
-#'   \item{[add_relative_targets()]}{Set targets as a proportion
-#'     (between 0 and 1) of the total amount of each feature in the
-#'     the study area.}
+#' \describe{
 #'
-#'   \item{[add_absolute_targets()]}{Set targets that denote the
-#'     minimum amount of each feature required in the prioritization.}
+#' \item{[relative_targets()]}{
+#' Specify targets as a proportion (between 0 and 1) of the total amount of each
+#' feature in the the study area.
+#' }
 #'
-#'   \item{[add_loglinear_targets()]}{Set targets as a proportion
-#'     (between 0 and 1) that are calculated using log-linear interpolation.}
+#' \item{[absolute_targets()]}{
+#' Specify targets that denote the minimum amount of each feature required in
+#' the prioritization.
+#' }
 #'
-#'   \item{[add_manual_targets()]}{Set targets manually.}
+#' \item{[polak_targets()]}{
+#' Specify targets following Polak *et al.* (2015).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
 #'
-#'   }
+#' \item{[ward_targets()]}{
+#' Specify targets following Watson *et al.* (2005).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[watson_targets()]}{
+#' Specify targets following Watson *et al.* (2010).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[jung_targets()]}{
+#' Specify targets following Jung *et al.* (2021).
+#' This method was designed to set targets for species in global-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[rodrigues_targets()]}{
+#' Specify targets following Rodrigues *et al.* (2004).
+#' This method was designed to set targets for species in global-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[rl_species_targets()]}{
+#' Specify targets based on criteria from the
+#' International Union for the Conservation of Nature (IUCN) Red List of
+#' Threatened Species (IUCN 2025).
+#' }
+#'
+#' \item{[rl_ecosystem_targets()]}{
+#' Specify targets based on criteria from the
+#' International Union for the Conservation of Nature (IUCN) Red List of
+#' Ecosystems (IUCN 2024).
+#' }
+#'}
+#'
+#' In addition to [add_auto_targets()], the following functions can also be
+#' used to add targets directly to a conservation planning problem.
+#' These functions are provided as convenient alternatives to using
+#' the [add_auto_targets()] function when the targets for all features
+#' should be specified following the same method. For example,
+#' if the targets for all features in the problem `x` should be set following
+#' Rodrigues *et al.* (2004), then this could be accomplished with
+#' `x %>% add_auto_targets(method = rodrigues_targets())` or
+#' `x %>% add_rodrigues_targets()`.
+#'
+#' \describe{
+#'
+#' \item{[add_relative_targets()]}{
+#' Add targets as a proportion (between 0 and 1) of the total amount of each
+#' feature in the the study area.
+#' }
+#'
+#' \item{[add_absolute_targets()]}{
+#' Add targets that denote the minimum amount of each feature required in the
+#' prioritization.
+#' }
+#'
+#' \item{[add_polak_targets()]}{
+#' Add targets following Polak *et al.* (2015).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[add_ward_targets()]}{
+#' Add targets following Watson *et al.* (2005).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[add_watson_targets()]}{
+#' Add targets following Watson *et al.* (2010).
+#' This method was designed to set targets for species in national-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[add_jung_targets()]}{
+#' Add targets following Jung *et al.* (2021).
+#' This method was designed to set targets for species in global-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[add_rodrigues_targets()]}{
+#' Add targets following Rodrigues *et al.* (2004).
+#' This method was designed to set targets for species in global-scale
+#' prioritizations.
+#' }
+#'
+#' \item{[add_rl_species_targets()]}{
+#' Add targets based on criteria from the
+#' International Union for the Conservation of Nature (IUCN) Red List of
+#' Threatened Species (IUCN 2025).
+#' }
+#'
+#' \item{[add_rl_ecosystem_targets()]}{
+#' Add targets based on criteria from the
+#' International Union for the Conservation of Nature (IUCN) Red List of
+#' Ecosystems (IUCN 2024).
+#' }
+#'
+#' }
+#'
+#' The [add_manual_targets()] function can be used to set customized targets.
+#' In particular, it is especially useful when setting targets for
+#' problems that contain multiple zones. It can also be used
+#' to customize how the target threshold should be applied (i.e., the
+#' constraint sense). In addition to specifying that feature representation
+#' should ideally be greater than or equal to a target threshold, this function
+#' can be used to specify that feature representation should ideally
+#' be smaller than or equal to, or equal to, a target threshold.
+#'
+#' \describe{
+#'
+#' \item{[add_manual_targets()]}{Set targets manually.}
+#'
+#' }
 #'
 #' @family overviews
 #'

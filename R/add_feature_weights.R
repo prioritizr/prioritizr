@@ -319,7 +319,7 @@ methods::setMethod("add_feature_weights",
             weights <- c(self$get_data("weights"))
             # check weights are compatible with targets
             if (!is.Waiver(y$targets)) {
-              n_targets <- nrow(y$targets$output())
+              n_targets <- nrow(y$targets$output(y))
               assert(
                 length(weights) == n_targets,
                 call = rlang::expr(add_feature_weights()),

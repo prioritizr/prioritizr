@@ -16,6 +16,7 @@
 \alias{distribute_load}
 \alias{new_optimization_problem}
 \alias{predefined_optimization_problem}
+\alias{add_loglinear_targets}
 \title{Deprecation notice}
 \usage{
 add_connected_constraints(...)
@@ -45,6 +46,8 @@ distribute_load(...)
 new_optimization_problem(...)
 
 predefined_optimization_problem(...)
+
+add_loglinear_targets(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -72,6 +75,9 @@ as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} f
 
 \item{\code{add_corridor_constraints()}}{replaced by the
 \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.}
+
+\item{\code{add_loglinear_targets()}}{replaced by the
+\code{\link[=add_interpolated_targets]{add_interpolated_targets()}} function.}
 
 \item{\code{set_number_of_threads()}}{
 no longer needed due to improved data extraction methods.}

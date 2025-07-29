@@ -195,6 +195,7 @@ reference:
     desc: Assorted functions distributed with the package.
     contents:
       - show
+      - linear_interpolation
       - loglinear_interpolation
       - knit_print
 

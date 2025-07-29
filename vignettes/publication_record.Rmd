@@ -18,6 +18,7 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2025
 
 * Binley AD, Hanson JO, Robinson OJ, Golet GH, and Bennett JR (2025) Quantifying the value of participatory science data for conservation decision‐making. _Journal of Applied Ecology_, **62**: 1024--1036.
+* Cavalcante T, Kujala H, Virtanen EA, O'Connor L, Lehtinen P, and Moilanen A (2025) Evaluating trade-offs between species targets and average coverage in spatial conservation planning. _Biological Conservation_, **310**: 111368.
 * Chapman M, Jung M, Leclère D, Boettiger C, Augustynczik ALD, Gusti M, Ringwald L, and Visconti P (2025) Meeting European Union biodiversity targets under future land-use demands. _Nature Ecology and Evolution_, **9**: 810--821.
 * Carroll KA, Pidgeon AM, Elsen P, Farwell L, and Radeloff VC (2025) Biodiversity metric selection and their applications for spatial conservation planning. _Diversity and Distributions_, **31**: e13952.
 * Currie J, Liang C, and Snider J (2025) Protected area targets: Spatially evaluating progress and prioritizing areas to reach 30 × 30 in Canada. _Conservation Science and Practice_, **In press**: e70087.

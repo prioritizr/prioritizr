@@ -299,7 +299,7 @@ test_that("minimum set objective (compile, multiple zones)", {
     add_min_set_objective() %>%
     add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(penalty, p_edge_factor, p_zones)
+    add_boundary_penalties(penalty, p_edge_factor, zones = p_zones)
   o <- compile(p)
   # create variables for tests
   ## number of planning units
@@ -544,10 +544,18 @@ test_that("alternative data formats (multiple zones)", {
     add_min_set_objective() %>%
     add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_binary_decisions()
-  p1 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones)
-  p2 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones, data = bm)
-  p3 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones, data = bdf)
-  p4 <- p %>% add_boundary_penalties(5, p_edge_factor, p_zones, data = bdf2)
+  p1 <-
+    p %>%
+    add_boundary_penalties(5, p_edge_factor, zones = p_zones)
+  p2 <-
+    p %>%
+    add_boundary_penalties(5, p_edge_factor, zones = p_zones, data = bm)
+  p3 <-
+    p %>%
+    add_boundary_penalties(5, p_edge_factor, zones = p_zones, data = bdf)
+  p4 <-
+    p %>%
+    add_boundary_penalties(5, p_edge_factor, zones = p_zones, data = bdf2)
   # compile problems
   o1 <- compile(p1)
   o2 <- compile(p2)
@@ -587,11 +595,11 @@ test_that("minimum set objective (solve, multiple zones)", {
   # create and solve problems
   s1 <-
     p %>%
-    add_boundary_penalties(300, rep(0.5, 3),  m) %>%
+    add_boundary_penalties(300, rep(0.5, 3), zones = m) %>%
     solve()
   s2 <-
     p %>%
-    add_boundary_penalties(-300, rep(0.5, 3),  m) %>%
+    add_boundary_penalties(-300, rep(0.5, 3), zones = m) %>%
     solve()
   # tests
   expect_inherits(s1, "SpatRaster")
@@ -618,10 +626,12 @@ test_that("invalid inputs (single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   # tests
-  expect_tidy_error(add_boundary_penalties(p, 9, 1.5))
-  expect_tidy_error(add_boundary_penalties(p, 9, -0.5))
-  expect_tidy_error(add_boundary_penalties(p, 9, NA))
-  expect_tidy_error(add_boundary_penalties(p, NA, 0.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, zones = 1.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, zones = -0.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, zones = NA))
+  expect_tidy_error(add_boundary_penalties(p, NA, zones = 0.5))
+  expect_tidy_error(add_boundary_penalties(p, 9, "a"))
+  expect_tidy_error(add_boundary_penalties(p, 9, -1))
 })
 
 test_that("invalid inputs (multiple zones)", {

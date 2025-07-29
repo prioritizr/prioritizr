@@ -739,6 +739,26 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Obtain the resolution of the features in
+    #' \ifelse{html}{\out{m<sup>2</sup>}}{\eqn{m^2}}.
+    #' Note that if the features do not have spatial information,
+    #' then a missing (`NA`) value is returned.
+    #' @return A `numeric` value.
+    feature_resolution_m2 = function() {
+      if (inherits(self$data$features, "ZonesSpatRaster")) {
+        prod(terra::res(self$data$features[[1]]))
+      } else if (inherits(self$data$features, "SpatRaster")) {
+        prod(terra::res(self$data$features))
+      } else if (inherits(self$data$features, "ZonesRaster")) {
+        prod(raster::res(self$data$features[[1]]))
+      } else if (inherits(self$data$features, "Raster")) {
+        prod(raster::res(self$data$features))
+      } else {
+        return(NA_real_)
+      }
+    },
+
+    #' @description
     #' Obtain the abundance of the features in the planning units.
     #' @return A `numeric` matrix. Each column corresponds to a different zone
     #' and each row corresponds to a different feature.
@@ -827,7 +847,7 @@ ConservationProblem <- R6::R6Class(
     feature_targets = function() {
       if (is.Waiver(self$targets))
         cli::cli_abort("Targets have not been specified.", call = NULL)
-      self$targets$output()
+      self$targets$output(self)
     },
 
     #' @description

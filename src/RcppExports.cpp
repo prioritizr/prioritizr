@@ -401,6 +401,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_boundary_penalties2
+bool rcpp_apply_boundary_penalties2(SEXP x, double penalty, const Rcpp::NumericVector edge_factor, const Rcpp::NumericMatrix zones_matrix, const arma::sp_mat boundary_matrix, const Rcpp::NumericVector exposed_boundary, const Rcpp::NumericVector total_boundary);
+RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties2(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP, SEXP exposed_boundarySEXP, SEXP total_boundarySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type exposed_boundary(exposed_boundarySEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type total_boundary(total_boundarySEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_boundary_penalties2(x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_bounded_constraints
 bool rcpp_apply_bounded_constraints(SEXP x, const Rcpp::IntegerVector pu, const Rcpp::IntegerVector zone, const Rcpp::NumericVector lower, const Rcpp::NumericVector upper);
 RcppExport SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP lowerSEXP, SEXP upperSEXP) {

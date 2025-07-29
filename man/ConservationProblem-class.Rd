@@ -19,6 +19,7 @@ Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{Method-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
@@ -80,6 +81,7 @@ generating solutions.}
 \item \href{#method-ConservationProblem-set_planning_unit_costs}{\code{ConservationProblem$set_planning_unit_costs()}}
 \item \href{#method-ConservationProblem-number_of_features}{\code{ConservationProblem$number_of_features()}}
 \item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
+\item \href{#method-ConservationProblem-feature_resolution_m2}{\code{ConservationProblem$feature_resolution_m2()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_planning_units}{\code{ConservationProblem$feature_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-set_feature_abundances_in_planning_units}{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-feature_positive_abundances_in_planning_units}{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}
@@ -404,6 +406,22 @@ Obtain the names of the features.
 
 \subsection{Returns}{
 A \code{character} vector.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-feature_resolution_m2"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_resolution_m2}{}}}
+\subsection{Method \code{feature_resolution_m2()}}{
+Obtain the resolution of the features in
+\ifelse{html}{\out{m<sup>2</sup>}}{\eqn{m^2}}.
+Note that if the features do not have spatial information,
+then a missing (\code{NA}) value is returned.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_resolution_m2()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{numeric} value.
 }
 }
 \if{html}{\out{<hr>}}

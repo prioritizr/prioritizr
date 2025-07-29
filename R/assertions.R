@@ -161,13 +161,17 @@ assert_dots_empty <- function(env = rlang::caller_env(),
 #'
 #' @param call [environment()] for call. Defaults to `fn_caller_env()`.
 #'
+#' @param .internal `logical` value indicating if internal error.
+#' Defaults to `FALSE`.
+#'
 #' @details
 #' This function is essentially a wrapper for [rlang::check_required()].
 #'
 #' @noRd
 assert_required <- function(x,
                             arg = rlang::caller_arg(x),
-                            call = fn_caller_env()) {
+                            call = fn_caller_env(),
+                            .internal = FALSE) {
   # check that argument supplied
   rlang::check_required(x = x, arg = arg, call = call)
   # check that argument yields valid expression
@@ -191,7 +195,7 @@ assert_required <- function(x,
         ),
         "!" = cond_msg
       )
-      cli::cli_abort(message = err_msg, call = call)
+      cli::cli_abort(message = err_msg, .internal = .internal, call = call)
     } else {
       ## if not,
       ## then this means that assert_required() is being called in later
@@ -203,6 +207,7 @@ assert_required <- function(x,
           attr(res, "condition")$body
         ),
         trace = attr(res, "condition")$trace,
+        .internal = .internal,
         call = attr(res, "condition")$call
       )
     }

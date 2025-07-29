@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R zones.R tbl_df.R
+#' @include internal.R ConservationProblem-class.R zones.R tbl_df.R target_optimization_format.R
 NULL
 
 #' Add manual targets
@@ -20,6 +20,8 @@ NULL
 #'   See the Targets format section for more information.
 #'
 #' @inherit add_absolute_targets details
+#'
+#' @inheritSection add_auto_targets Target setting
 #'
 #' @section Targets format:
 #'
@@ -55,6 +57,11 @@ NULL
 #'
 #' @seealso
 #' See [targets] for an overview of all functions for adding targets.
+#'
+#' @references
+#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
+#' the target and missing the point: target‐based conservation planning in
+#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' @family targets
 #'
@@ -343,9 +350,8 @@ methods::setMethod(
         "ManualTargets",
         inherit = Target,
         public = list(
-          name = "targets",
+          name = "manual targets",
           data = list(targets = targets),
-          internal = list(abundances = x$feature_abundances_in_total_units()),
           repr = function(compact = TRUE) {
             d <- self$get_data("targets")
             if (all(as.character(d$type) == "relative")) {
@@ -359,46 +365,16 @@ methods::setMethod(
               "{type} targets (between {.val {range(d$target)}})"
             )
           },
-          output = function() {
-            # get data
-            targets <- self$get_data("targets")
-            abundances <- self$get_internal("abundances")
-            # add zone column if missing
-            if (!assertthat::has_name(targets, "zone")) {
-              targets$zone <- colnames(abundances)[[1]]
-            }
-            # convert zone column to list of characters if needed
-            if (!inherits(targets$zone, "list")) {
-              targets$zone <- as.list(targets$zone)
-            }
-            # add sense column if missing
-            if (!assertthat::has_name(targets, "sense")) {
-              targets$sense <- ">="
-            }
-            targets$sense <- as.character(targets$sense)
-            # convert feature names to indices
-            targets$feature <- match(
-              as.character(targets$feature), rownames(abundances)
+          output = function(x) {
+            # assert x is a conservation problem
+            assert(
+              is_conservation_problem(x),
+              .internal = TRUE
             )
-            # convert zone names to indices
-            for (i in seq_len(nrow(targets))) {
-              targets$zone[[i]] <- match(
-                targets$zone[[i]], colnames(abundances)
-              )
-            }
-            # add compute relative targets as absolute targets and assign
-            # zone ids
-            targets$value <- as.numeric(targets$target)
-            relative_rows <- which(targets$type == "relative")
-            for (i in seq_along(relative_rows)) {
-              zone_id <- targets$zone[[relative_rows[[i]]]]
-              feature_id <- targets$feature[[relative_rows[[i]]]]
-              abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
-              targets$value[relative_rows[i]] <-
-                sum(abundances[abund_mtx]) * targets$target[relative_rows[i]]
-             }
-            # return tibble
-            targets[, c("feature", "zone", "sense", "value")]
+            # get targets
+            targets <- self$get_data("targets")
+            # get targets for optimization
+            target_optimization_format(x, targets)
           }
         )
       )$new()

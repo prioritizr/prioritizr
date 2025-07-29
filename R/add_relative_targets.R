@@ -3,8 +3,10 @@ NULL
 
 #' Add relative targets
 #'
-#' Set targets as a proportion (between 0 and 1) of the maximum level of
-#' representation of features in the study area. Please note that proportions
+#' Add targets to a conservation planning problem expressed as a proportion
+#' (between 0 and 1) of the maximum level of representation of each feature in
+#' the study area.
+#' Please note that proportions
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
 #' cost values) using the [feature_abundances()] function.
@@ -14,11 +16,10 @@ NULL
 #' @param targets Object that specifies the targets for each feature.
 #'   See the Targets format section for more information.
 #'
-#' @inherit add_absolute_targets details return
+#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_absolute_targets Targets format
 #'
-#' @seealso
-#' See [targets] for an overview of all functions for adding targets.
+#' @inherit add_absolute_targets details return seealso references
 #'
 #' @family targets
 #'

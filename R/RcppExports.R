@@ -133,6 +133,10 @@ rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix,
     .Call(`_prioritizr_rcpp_apply_boundary_penalties`, x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary)
 }
 
+rcpp_apply_boundary_penalties2 <- function(x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary) {
+    .Call(`_prioritizr_rcpp_apply_boundary_penalties2`, x, penalty, edge_factor, zones_matrix, boundary_matrix, exposed_boundary, total_boundary)
+}
+
 rcpp_apply_bounded_constraints <- function(x, pu, zone, lower, upper) {
     .Call(`_prioritizr_rcpp_apply_bounded_constraints`, x, pu, zone, lower, upper)
 }

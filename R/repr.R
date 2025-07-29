@@ -23,6 +23,14 @@ repr.logical <- function(x) {
 }
 
 #' @export
+repr.data.frame <- function(x) {
+  sym <- ifelse(cli::is_utf8_output(), cli::symbol$times, "x")
+  cli::format_inline(
+    "{.cls data.frame} ({.val {nrow(x)}} {sym} {.val {ncol(x)}} rows/columns)"
+  )
+}
+
+#' @export
 repr.character <- function(x) {
   # get console width
   w <- ceiling(cli::console_width() * 0.9)

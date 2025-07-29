@@ -14,6 +14,7 @@ extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_append_optimization_problem_linear_constraints(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_asym_connectivity_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_boundary_penalties2(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
@@ -73,6 +74,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_append_optimization_problem_linear_constraints",     (DL_FUNC) &_prioritizr_rcpp_append_optimization_problem_linear_constraints,     5},
     {"_prioritizr_rcpp_apply_asym_connectivity_penalties",                  (DL_FUNC) &_prioritizr_rcpp_apply_asym_connectivity_penalties,                  3},
     {"_prioritizr_rcpp_apply_boundary_penalties",                           (DL_FUNC) &_prioritizr_rcpp_apply_boundary_penalties,                           7},
+    {"_prioritizr_rcpp_apply_boundary_penalties2",                          (DL_FUNC) &_prioritizr_rcpp_apply_boundary_penalties2,                          7},
     {"_prioritizr_rcpp_apply_bounded_constraints",                          (DL_FUNC) &_prioritizr_rcpp_apply_bounded_constraints,                          5},
     {"_prioritizr_rcpp_apply_connectivity_penalties",                       (DL_FUNC) &_prioritizr_rcpp_apply_connectivity_penalties,                       3},
     {"_prioritizr_rcpp_apply_contiguity_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_contiguity_constraints,                       3},

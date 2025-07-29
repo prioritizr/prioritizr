@@ -1,3 +1,39 @@
+# prioritizr 8.0.6.9
+
+## New features
+
+- New `add_auto_targets()` function for adding targets to a conservation
+  planning problem. In particular, the following functions can be used in
+  conjunction with this function to specify target setting methods:
+  `absolute_targets()`, `interpolated_targets()`, `jung_targets()`,
+  `polak_targets()`, `relative_targets()`, `rl_ecosystem_targets()`,
+  `rl_species_targets()`, `rodrigues_targets()`, `ward_targets()`, and
+  `watson_targets()`.
+- New `add_group_targets()` function for adding targets to a conservation
+  planning problem based on feature groups. This function is provided as a
+  convenient alternative to the `add_auto_targets()` function. Here, features
+  can be organized into groups and then have their targets calculated based on
+  the method specified for their group.
+- New `add_interpolated_targets()`, `add_jung_targets()`, `add_polak_targets()`,
+  `add_rl_ecosystem_targets()`, `add_rl_species_targets()`,
+  `add_rl_ecosystem_targets()`,  `add_rodrigues_targets()`,
+  `add_ward_targets()`, `add_watson_targets()` functions for adding targets
+  to a conservation planning based on various methods.
+- New `linear_interpolation()` function for linearly interpolating values.
+
+## Major changes
+
+- The `add_loglinear_targets()` function has been deprecated. For similar
+  functionality, see the new `add_interpolated_targets()` function.
+
+#### Minor improvements and bug fixes
+
+- Update `add_boundary_penalties()` so that an alternative formulation can be
+  used for the optimization problem. This alternative formulation may be
+  useful when conservation planning problems are taking a long time to solve.
+  Note that the default behavior of the function is to use the same
+  formulation as in previous versions of the package.
+
 # prioritizr 8.0.6.8
 
 #### Minor improvements and bug fixes

@@ -28,6 +28,9 @@ NULL
 #' \item{`add_corridor_constraints()`}{replaced by the
 #'   [add_feature_contiguity_constraints()] function.}
 #'
+#' \item{`add_loglinear_targets()`}{replaced by the
+#'   [add_interpolated_targets()] function.}
+#'
 #' \item{`set_number_of_threads()`}{
 #'   no longer needed due to improved data extraction methods.}
 #'
@@ -195,6 +198,15 @@ predefined_optimization_problem <- function(...) {
   cli_defunct(
     old = "predefined_optimization_problem",
     new = "optimization_problem"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+add_loglinear_targets <- function(...) {
+  cli_defunct(
+    old = "add_loglinear_targets",
+    new = "add_interpolated_targets"
   )
 }
 
