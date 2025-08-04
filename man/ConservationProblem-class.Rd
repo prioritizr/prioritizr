@@ -81,12 +81,15 @@ generating solutions.}
 \item \href{#method-ConservationProblem-set_planning_unit_costs}{\code{ConservationProblem$set_planning_unit_costs()}}
 \item \href{#method-ConservationProblem-number_of_features}{\code{ConservationProblem$number_of_features()}}
 \item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
-\item \href{#method-ConservationProblem-feature_resolution_m2}{\code{ConservationProblem$feature_resolution_m2()}}
+\item \href{#method-ConservationProblem-feature_conversion_factor}{\code{ConservationProblem$feature_conversion_factor()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_planning_units}{\code{ConservationProblem$feature_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-set_feature_abundances_in_planning_units}{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-feature_positive_abundances_in_planning_units}{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}
 \item \href{#method-ConservationProblem-feature_abundances_in_total_units}{\code{ConservationProblem$feature_abundances_in_total_units()}}
+\item \href{#method-ConservationProblem-feature_units}{\code{ConservationProblem$feature_units()}}
+\item \href{#method-ConservationProblem-feature_abundances_km2_in_total_units}{\code{ConservationProblem$feature_abundances_km2_in_total_units()}}
+\item \href{#method-ConservationProblem-set_feature_abundances_km2_in_total_units}{\code{ConservationProblem$set_feature_abundances_km2_in_total_units()}}
 \item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
 \item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
 \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
@@ -409,15 +412,15 @@ A \code{character} vector.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ConservationProblem-feature_resolution_m2"></a>}}
-\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_resolution_m2}{}}}
-\subsection{Method \code{feature_resolution_m2()}}{
+\if{html}{\out{<a id="method-ConservationProblem-feature_conversion_factor"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_conversion_factor}{}}}
+\subsection{Method \code{feature_conversion_factor()}}{
 Obtain the resolution of the features in
 \ifelse{html}{\out{m<sup>2</sup>}}{\eqn{m^2}}.
 Note that if the features do not have spatial information,
 then a missing (\code{NA}) value is returned.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_resolution_m2()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_conversion_factor()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -493,6 +496,54 @@ Obtain the abundance of the features in the total units.
 \subsection{Returns}{
 A \code{numeric} matrix. Each column corresponds to a different zone
 and each row corresponds to a different feature.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-feature_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_units}{}}}
+\subsection{Method \code{feature_units()}}{
+Obtain the units of the features.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{character} value. Each element corresponds to a different
+feature.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-feature_abundances_km2_in_total_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_abundances_km2_in_total_units}{}}}
+\subsection{Method \code{feature_abundances_km2_in_total_units()}}{
+Obtain the abundance of the features in area-based units of
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_abundances_km2_in_total_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+Note that if a feature has missing (\code{NA}) units
+then then missing values are returned.
+}
+
+\subsection{Returns}{
+A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-set_feature_abundances_km2_in_total_units"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-set_feature_abundances_km2_in_total_units}{}}}
+\subsection{Method \code{set_feature_abundances_km2_in_total_units()}}{
+Perform calculations to cache the abundance of the features in
+area-based units of \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_abundances_km2_in_total_units()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}

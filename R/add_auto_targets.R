@@ -55,7 +55,7 @@ NULL
 #' x %>% add_auto_targets(method = "jung"))
 #' ```
 #
-#' ```{r child = "man/common/target_method_character.md"}
+#' ```{r child = "man/rmd/target_method_character.md"}
 #' ```
 #' }
 #'
@@ -96,7 +96,7 @@ NULL
 #' x %>% add_auto_targets(method = jung_targets(prop_uplift = 0.05))
 #' ```
 #'
-#' ```{r child = "man/common/target_method_objects.md"}
+#' ```{r child = "man/rmd/target_method_objects.md"}
 #' ```
 #' }
 #'
@@ -254,6 +254,8 @@ NULL
 #' #TODO
 #'
 #' @name add_auto_targets
+#'
+#' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,Method-method add_auto_targets,ConservationProblem,list-method
 NULL
 
 #' @export
@@ -286,7 +288,17 @@ methods::setGeneric("add_auto_targets",
 methods::setMethod("add_auto_targets",
   methods::signature("ConservationProblem", "character"),
   function(x, method) {
-    # TODO
+    # assert valid arguments
+    assert(
+      assertthat::is.string(method),
+      assertthat::noNA(method)
+    )
+    # verify that method has a valid value
+    ## note this will throw an error if method is not valid
+    m <- get_target_method(method)
+    assert(inherits(m, "Method"), .internal = TRUE)
+    # add method
+    add_auto_targets(x, m)
   }
 )
 
@@ -324,7 +336,7 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
     .internal = TRUE
   )
   assert(
-    all_elements_inherit(data, c("character", "Method")),
+    all_elements_inherit(method, c("character", "Method")),
     msg = c(
       "!" = paste(
         "All {.arg ...} arguments must contain a",
@@ -349,7 +361,9 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
     target = vapply(
       seq_len(x$number_of_features()),
       FUN.VALUE = numeric(1),
-      function(i) method[[i]]$calculate_targets(x, i, call = call)
+      function(i) {
+        method[[i]]$calculate_targets(x = x, features = i, call = call)
+      }
     ),
     type = vapply(method, FUN.VALUE = character(1), `[[`, "type")
   )
@@ -367,12 +381,20 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
       inherit = Target,
       public = list(
         name = target_name,
-        data = list(targets = targets),
+        data = list(targets = targets, type = method$type),
         repr = function(compact = TRUE) {
           d <- self$get_data("targets")
-          cli::format_inline(
-            "{self$name} (between {.val {range(d$target)}})"
-          )
+          type <- unique(d$type)
+          if (identical(length(type), 1L)) {
+            out <- cli::format_inline(
+              "{self$name} ({type} values between {.val {range(d$target)}})"
+            )
+          } else {
+            out <- cli::format_inline(
+              "{self$name} (mixed values between {.val {range(d$target)}})"
+            )
+          }
+          out
         },
         output = function(x) {
           # assert x is a conservation problem
@@ -420,7 +442,9 @@ internal_add_auto_targets.Method <- function(x, method,
   targets <- tibble::tibble(
     feature = x$feature_names(),
     target = method$calculate_targets(
-      x, seq_len(x$number_of_features()), call = call
+      x = x,
+      features = seq_len(x$number_of_features()),
+      call = call
     ),
     type = method$type
   )
@@ -435,8 +459,9 @@ internal_add_auto_targets.Method <- function(x, method,
         data = list(targets = targets),
         repr = function(compact = TRUE) {
           d <- self$get_data("targets")
+          type <- d$type[[1]]
           cli::format_inline(
-            "{self$name} (between {.val {range(d$target)}})"
+            "{self$name} ({type} values between {.val {range(d$target)}})"
           )
         },
         output = function(x) {

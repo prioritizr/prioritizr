@@ -334,7 +334,8 @@ add_cbc_solver <- function(x,
             objective = x$objective_value,
             status = as.character(rcbc::solution_status(x)),
             runtime = rt[[3]],
-            gap = NA_real_
+            gap = NA_real_,
+            objbound = NA_real_
           )
         }
       )

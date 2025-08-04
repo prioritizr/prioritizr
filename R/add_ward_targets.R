@@ -13,7 +13,7 @@ NULL
 #' This method was designed for species protection at national-scales.
 #'
 #' @inheritParams add_manual_targets
-#' @inheritParams add_ward_targets
+#' @inheritParams ward_targets
 #'
 #' @inheritSection ward_targets Mathematical formulation
 #' @inheritSection add_auto_targets Target setting
@@ -32,19 +32,16 @@ NULL
 
 #' @rdname add_ward_targets
 #' @export
-add_ward_targets <- function(x, status = "CR", cap_threshold = 1000000) {
-  # return method
-  method(
-    name = "Ward et al. (2025) targets",
-    type = "absolute",
-    fun = internal_rl_species_targets,
-    args = list(
+add_ward_targets <- function(x, status = "CR",
+                             cap_area_target = 1000000,
+                             area_units = "km^2") {
+  # add targets
+  internal_add_auto_targets.Method(
+    x,
+    method = ward_targets(
       status = status,
-      criterion_a = "A2",
-      criterion_b = "B1",
-      prop_uplift = 0,
-      method = "max",
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
 }

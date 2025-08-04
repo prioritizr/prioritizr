@@ -29,7 +29,7 @@ NULL
 #'   [add_feature_contiguity_constraints()] function.}
 #'
 #' \item{`add_loglinear_targets()`}{replaced by the
-#'   [add_interpolated_targets()] function.}
+#'   [add_interpolated_absolute_targets()] function.}
 #'
 #' \item{`set_number_of_threads()`}{
 #'   no longer needed due to improved data extraction methods.}

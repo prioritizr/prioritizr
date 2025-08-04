@@ -7,16 +7,16 @@ NULL
 #' This function is designed to be used within `add_auto_targets()` and
 #' `add_group_targets()`.
 #'
-#' @param rare_threshold `numeric` value indicating the threshold area for rare
-#' identifying rare features.
+#' @param rare_area_threshold `numeric` value indicating the threshold
+#' area for rare identifying rare features.
 #' Defaults to 10000 (i.e., 10000 km^2).
 #'
-#' @param rare_absolute_target `numeric` value indicating the
-#' absolute target for features with a spatial distribution
+#' @param rare_area_target `numeric` value indicating the
+#' area-based target for features with a spatial distribution
 #' that is smaller than `rare_threshold`.
 #' Defaults to 1000 (i.e., 1000 km^2).
 #'
-#' @inheritParams add_rodrigues_targets
+#' @inheritParams rodrigues_targets
 #'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on the spatial
@@ -95,32 +95,45 @@ NULL
 #' @examples
 #' #TODO
 #'
-#' @name watson_targets
-NULL
-
-#' @rdname watson_targets
 #' @export
-watson_targets <- function(x, rare_threshold = 10000,
+watson_targets <- function(rare_area_threshold = 10000,
                            rare_relative_target = 1,
-                           rare_absolute_target = 1000,
+                           rare_area_target = 1000,
                            common_relative_target = 0.1,
-                           cap_threshold = 1000000) {
+                           cap_area_target = 1000000,
+                           area_units = "km^2", ...) {
+  UseMethod("watson_targets")
+}
+
+#' @export
+watson_targets.default <- function(rare_area_threshold = 10000,
+                                   rare_relative_target = 1,
+                                   rare_area_target = 1000,
+                                   common_relative_target = 0.1,
+                                   cap_area_target = 1000000,
+                                   area_units = "km^2", ...) {
   # return method
   new_method(
     name = "Watson et al. (2010) targets",
-    type = "absolute",
-    fun = internal_interpolated_targets,
+    type = "relative",
+    fun = internal_interpolated_area_targets,
     args = list(
-      rare_threshold = rare_threshold,
+      rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
-      rare_absolute_target = rare_absolute_target,
+      rare_area_target = rare_area_target,
       rare_method = "min",
-      common_threshold = rare_threshold,
+      common_area_threshold = rare_area_threshold,
       common_relative_target = common_relative_target,
-      common_absolute_target = NA_real_,
+      common_area_target = NA_real_,
       common_method = "max", # has no effect
-      cap_threshold = cap_threshold,
-      method = "linear" # has no effect
+      cap_area_target = cap_area_target,
+      interp_method = "linear", # has no effect
+      area_units = area_units
     )
   )
+}
+
+#' @export
+watson_targets.ConservationProblem <- function(rare_area_threshold, ...) {
+  target_problem_error("add_watson_targets")
 }

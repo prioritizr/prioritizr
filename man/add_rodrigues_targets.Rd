@@ -6,32 +6,33 @@
 \usage{
 add_rodrigues_targets(
   x,
-  rare_threshold = 1000,
+  rare_area_threshold = 1000,
   rare_relative_target = 1,
-  common_threshold = 250000,
+  common_area_threshold = 250000,
   common_relative_target = 0.1,
-  cap_threshold = 1e+06
+  cap_area_target = 1e+06,
+  area_units = "km^2"
 )
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{rare_threshold}{\code{numeric} value indicating the threshold area for rare
-identifying rare features.
+\item{rare_area_threshold}{\code{numeric} value indicating the threshold area
+for rare identifying rare features.
 Defaults to 1000 (i.e., 1000 km^2).}
 
-\item{rare_relative_target}{\code{numeric} value indicating the
+\item{rare_relative_target}{\code{numeric} value denoting the
 relative target for features with a spatial distribution
 that is smaller than \code{rare_threshold}.
 Note that this value must be a proportion between 0 and 1.
 Defaults to 1 (i.e., 100\%).}
 
-\item{common_threshold}{\code{numeric} value indicating the threshold area
+\item{common_area_threshold}{\code{numeric} value indicating the threshold area
 for identifying common features.
 Defaults to 250000
 (i.e., 250,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 
-\item{common_relative_target}{\code{numeric} value indicating the
+\item{common_relative_target}{\code{numeric} value denoting the
 relative target for features with a spatial distribution
 that is greater than \code{common_threshold}.
 Defaults to 0.1 (i.e., 10\%).
@@ -40,11 +41,15 @@ area coverage, it may be appropriate to set this value based on current
 levels of protected area coverage (e.g., 17.6\% for terrestrial and 8.4\% for
 marine systems globally; UNEP-WCMC and IUCN 2025).}
 
-\item{cap_threshold}{\code{numeric} value indicating the threshold
-area for applying a target cap.
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
 To avoid setting a target cap, a missing (\code{NA}) value can be specified.
 Defaults to 1000000
 (i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
@@ -243,13 +248,15 @@ Other targets:
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
-\code{\link{add_interpolated_targets}()},
+\code{\link{add_interpolated_absolute_targets}()},
+\code{\link{add_interpolated_area_targets}()},
 \code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
 \code{\link{add_polak_targets}()},
 \code{\link{add_relative_targets}()},
 \code{\link{add_rl_ecosystem_targets}()},
 \code{\link{add_rl_species_targets}()},
+\code{\link{add_rule_targets}()},
 \code{\link{add_ward_targets}()},
 \code{\link{add_watson_targets}()}
 }

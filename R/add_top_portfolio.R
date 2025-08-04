@@ -132,7 +132,8 @@ add_top_portfolio <- function(x, number_solutions = 10) {
                   objective = z$objective,
                   status = z$status,
                   runtime = sol$runtime,
-                  gap = z$gap
+                  gap = z$gap,
+                  objbound = z$objbound
                 )
               )
             )

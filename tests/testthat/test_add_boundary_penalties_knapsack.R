@@ -34,52 +34,48 @@ test_that("minimum set objective (compile, single zone)", {
   b_data <- Matrix::drop0(b_data)
   b_data <- as_Matrix(b_data * 3, "dgTMatrix")
   ## objectives for boundary decision variables
-  b_obj <- o$obj()[n_pu + seq_len(n_pu * 2)]
+  b_obj <- o$obj()[n_pu + seq_len(n_pu)]
   ## lower bound for boundary decision variables
-  b_lb <- o$lb()[n_pu + seq_len(n_pu * 2)]
+  b_lb <- o$lb()[n_pu + seq_len(n_pu)]
   ## upper bound for boundary decision variables
-  b_ub <- o$ub()[n_pu + seq_len(n_pu * 2)]
+  b_ub <- o$ub()[n_pu + seq_len(n_pu)]
   ## vtype bound for boundary decision variables
-  b_vtype <- o$vtype()[n_pu + seq_len(n_pu * 2)]
+  b_vtype <- o$vtype()[n_pu + seq_len(n_pu)]
   ## pu costs including exterior boundary
   pu_costs <- o$obj()[seq_len(n_pu)]
   ## matrix labels
-  b_col_labels <- o$col_ids()[n_pu + seq_len(n_pu * 2)]
-  b_row_labels <- o$row_ids()[n_f + seq_len(n_pu * 2)]
+  b_col_labels <- o$col_ids()[n_pu + seq_len(n_pu)]
+  b_row_labels <- o$row_ids()[n_f + seq_len(n_pu)]
   ## sense for boundary decision constraints
-  b_sense <- o$sense()[n_f + seq_len(n_pu * 2)]
+  b_sense <- o$sense()[n_f + seq_len(n_pu)]
   ## rhs for boundary decision constraints
-  b_rhs <- o$rhs()[n_f + seq_len(n_pu * 2)]
+  b_rhs <- o$rhs()[n_f + seq_len(n_pu)]
   # tests
-  expect_equal(b_col_labels, c(rep("b1", n_pu), rep("b2", n_pu)))
+  expect_equal(b_col_labels, rep("b1", n_pu))
   expect_equal(pu_costs, p$planning_unit_costs()[, 1] + b_sc_exterior)
-  expect_equal(b_obj, c(rep(0, n_pu), b_sc_interior))
-  expect_equal(b_lb, rep(0, n_pu * 2))
-  expect_equal(b_ub, rep(1, n_pu * 2))
-  expect_equal(b_vtype, rep("C", n_pu * 2))
-  expect_equal(b_row_labels, rep(c("b1", "b2"), each = n_pu))
-  expect_equal(b_sense, c(rep(">=", n_pu), rep("<=", n_pu)))
-  expect_equal(b_rhs, c(rep(1, n_pu), b_sc_interior))
-  b_A <- o$A()[seq(n_f + 1, n_f + n_pu + n_pu), , drop = FALSE]
+  expect_equal(b_obj, b_sc_interior)
+  expect_equal(b_lb, rep(0, n_pu))
+  expect_equal(b_ub, rep(1, n_pu))
+  expect_equal(b_vtype, rep("C", n_pu))
+  expect_equal(b_row_labels, rep("b1", each = n_pu))
+  expect_equal(b_sense, rep("<=", n_pu))
+  expect_equal(b_rhs, rep(0, n_pu))
+  b_A <- o$A()[seq(n_f + 1, n_f + n_pu), , drop = FALSE]
   correct_b_A <- Matrix::sparseMatrix(i = 1, j = 1, x = 0, dims = dim(b_A))
-  correct_b_A[matrix(
-    c(rep(seq_len(n_pu), 2), seq_len(n_pu), n_pu + seq_len(n_pu)),
-    ncol = 2
-  )] <- 1
   correct_b_A[
     matrix(
-      c(n_pu + seq_len(n_pu), seq_len(n_pu)),
+      c(seq_len(n_pu), seq_len(n_pu)),
       ncol = 2
   )] <- b_sc_interior
   correct_b_A[
     matrix(
-      c(n_pu + seq_len(n_pu), n_pu + n_pu + seq_len(n_pu)),
+      c(seq_len(n_pu), n_pu + seq_len(n_pu)),
       ncol = 2
   )] <- -b_sc_interior
   correct_b_A[matrix(
-    c(n_pu + b_data@i + 1, n_pu + b_data@j + 1),
+    c(b_data@i + 1, b_data@j + 1),
     ncol = 2
-  )] <- b_data@x
+  )] <- -b_data@x
   expect_equal(b_A, Matrix::drop0(correct_b_A))
 })
 
@@ -185,40 +181,39 @@ test_that("minimum set objective (compile, multiple zones)", {
   }
   names(scb_list) <- paste0("z", indices[, 1], "_z", indices[, 2])
   # calculate number of variables for penalties
-  n_z_p <- n_pu * n_z * 2
+  n_z_p <- n_pu * n_z
   ## calculate objective function
   correct_obj <- c(
     c(p$planning_unit_costs()) + b_sc_exterior,
-    rep(0, n_pu * n_z),
     b_sc_interior
   )
   # tests
   expect_equal(o$obj(), correct_obj)
-  expect_equal(o$lb(), rep(0, (n_pu * n_z) + n_z_p))
-  expect_equal(o$ub(), rep(1, (n_pu * n_z) + n_z_p))
+  expect_equal(o$lb(), rep(0, n_pu * n_z * 2))
+  expect_equal(o$ub(), rep(1, n_pu * n_z * 2))
   expect_equal(o$vtype(), c(rep("B", n_pu * n_z), rep("C", n_z_p)))
   expect_equal(
     o$row_ids(),
     c(
       rep("spp_target", n_f * n_z),
       rep("pu_zone", n_pu),
-      rep(c("b1", "b2"), each = n_pu * n_z)
+      rep("b1", n_pu * n_z)
     )
   )
   expect_equal(
     o$col_ids(),
-    c(rep("pu", n_pu * n_z), c(rep("b1", n_pu * n_z), rep("b2", n_pu * n_z)))
+    c(rep("pu", n_pu * n_z), rep("b1", n_pu * n_z))
   )
   expect_equal(
     o$sense(),
     c(
       rep(">=", n_f * n_z), rep("<=", n_pu),
-      rep(c(">=", "<="), each = n_pu * n_z)
+      rep("<=", n_pu * n_z)
     )
   )
   expect_equal(
     o$rhs(),
-    c(rep(0.1, n_f * n_z), rep(1, n_pu), rep(1, n_z * n_pu), b_sc_interior)
+    c(rep(0.1, n_f * n_z), rep(1, n_pu), rep(0, n_z * n_pu))
   )
   ## check model matrix is defined correctly
   oA <- o$A()
@@ -256,27 +251,20 @@ test_that("minimum set objective (compile, multiple zones)", {
     i = 1, j = 1, x = 0, dims = dim(oA_b)
   )
   correct_oA_b[matrix(
-    c(
-      rep(seq_len(n_pu * n_z), 2), seq_len(n_pu * z),
-      n_z * n_pu + seq_len(n_pu * n_z)
-    ),
-    ncol = 2
-  )] <- 1
-  correct_oA_b[matrix(
-    c((n_z * n_pu) + seq_len(n_pu * n_z), seq_len(n_pu * n_z)),
+    c(seq_len(n_pu * n_z), seq_len(n_pu * n_z)),
     ncol = 2
   )] <- b_sc_interior
   correct_oA_b[matrix(
     c(
-      (n_z * n_pu) + seq_len(n_z * n_pu),
-      (n_z * n_pu) + (n_z * n_pu) + seq_len(n_z * n_pu)
+      seq_len(n_z * n_pu),
+      (n_z * n_pu) + seq_len(n_z * n_pu)
     ),
     ncol = 2
   )] <- -b_sc_interior
   for (i in seq_len(nrow(indices))) {
-    idx1 <- (n_pu * n_z) + ((indices[i, 1] - 1) * n_pu) + scb_list[[i]]@i + 1
-    idx2 <- (n_pu * n_z) + ((indices[i, 2] - 1) * n_pu) + scb_list[[i]]@j + 1
-    correct_oA_b[matrix(c(idx1, idx2), ncol = 2)] <- scb_list[[i]]@x
+    idx1 <- ((indices[i, 1] - 1) * n_pu) + scb_list[[i]]@i + 1
+    idx2 <- ((indices[i, 2] - 1) * n_pu) + scb_list[[i]]@j + 1
+    correct_oA_b[matrix(c(idx1, idx2), ncol = 2)] <- -scb_list[[i]]@x
   }
   expect_equal(oA_b, Matrix::drop0(correct_oA_b))
 })
@@ -302,7 +290,7 @@ test_that("minimum set objective (solve, multiple zones)", {
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.025, ncol = 3, nrow = 5)) %>%
     add_binary_decisions() %>%
-    add_default_solver(verbose = FALSE, gap = 0.2, time_limit = 10)
+    add_default_solver(verbose = FALSE, gap = 0.15)
   # create and solve problems
   s <-
     p %>%

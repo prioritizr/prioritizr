@@ -2,6 +2,10 @@ test_that("x = RasterLayer, features = RasterStack", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # define spatial properties
+  terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
+  terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  unit_factor <- prod(terra::res(sim_features)) / (1000 * 1000)
   # create problem
   expect_warning(
     x <- problem(raster::raster(sim_pu_raster), raster::stack(sim_features)),
@@ -69,6 +73,21 @@ test_that("x = RasterLayer, features = RasterStack", {
     rownames(x$feature_abundances_in_total_units()),
     x$feature_names()
   )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(terra::global(sim_features, "sum", na.rm = TRUE)[[1]], ncol = 1) *
+    unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    x$zone_names()
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    x$feature_names()
+  )
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix,
@@ -91,6 +110,13 @@ test_that("x = RasterStack, features = ZonesRaster", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   sim_units_mask <- max(!is.na(sim_zones_pu_raster))
+  # define spatial properties
+  terra::crs(sim_zones_pu_raster) <- terra::crs("epsg:3857")
+  sim_zones_features <- set_zones_crs(
+    sim_zones_features, terra::crs("epsg:3857")
+  )
+  terra::crs(sim_units_mask) <- terra::crs(sim_zones_pu_raster)
+  unit_factor <- prod(terra::res(sim_zones_features[[1]])) / (1000 * 1000)
   # create problem
   expect_warning(
     x <- problem(
@@ -165,6 +191,23 @@ test_that("x = RasterStack, features = ZonesRaster", {
     rownames(x$feature_abundances_in_total_units()),
     feature_names(sim_zones_features)
   )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
+      terra::global(sim_zones_features[[i]], "sum", na.rm = TRUE)[[1]] *
+      unit_factor
+    }),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    zone_names(sim_zones_features)
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    feature_names(sim_zones_features)
+  )
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix,
@@ -203,6 +246,12 @@ test_that("x = Spatial, features = RasterStack", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
+  # define spatial properties
+  terra::crs(sim_features) <- terra::crs("epsg:3857")
+  suppressWarnings(
+    sf::st_crs(sim_pu_polygons) <- sf::st_crs("epsg:3857")
+  )
+  unit_factor <- prod(terra::res(sim_features[[1]])) / (1000 * 1000)
   # update data
   sim_pu_polygons$cost[1:5] <- NA
   # create problem
@@ -272,6 +321,28 @@ test_that("x = Spatial, features = RasterStack", {
     rownames(x$feature_abundances_in_total_units()),
     names(sim_features)
   )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        terra::extract(
+          sim_features, terra::vect(sim_pu_polygons), "sum", na.rm = TRUE,
+          ID = FALSE
+        ) * unit_factor
+      ),
+      ncol = 1
+    ),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    names(sim_features)
+  )
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix,
@@ -301,6 +372,14 @@ test_that("x = Spatial, features = ZonesRaster", {
   # update data
   sim_zones_pu_polygons[5, paste0("cost_", 1:3)] <- NA
   sim_zones_pu_polygons[4, "cost_1"] <- NA
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_zones_pu_polygons) <- sf::st_crs(3857)
+  )
+  sim_zones_features <- set_zones_crs(
+    sim_zones_features, terra::crs("epsg:3857")
+  )
+  unit_factor <- prod(terra::res(sim_zones_features[[1]])) / (1000 * 1000)
   # create problem
   suppressWarnings(
     expect_warning(
@@ -382,6 +461,27 @@ test_that("x = Spatial, features = ZonesRaster", {
     rownames(x$feature_abundances_in_total_units()),
     feature_names(sim_zones_features)
   )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    sapply(
+      lapply(
+        sim_zones_features, terra::extract, terra::vect(sim_zones_pu_polygons),
+        "sum", na.rm = TRUE, ID = FALSE
+      ),
+      colSums,
+      na.rm = TRUE
+    ) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    zone_names(sim_zones_features)
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    feature_names(sim_zones_features)
+  )
   # tests for rij_matrix field
   expect_equal(
     x$data$rij_matrix,
@@ -414,13 +514,20 @@ test_that("x = Spatial, features = ZonesRaster", {
 test_that("x = Spatial, features = character", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_pu_polygons) <- sf::st_crs(3857)
+  )
+  unit_factor <- as_km2(1, "ha")
   # update data
   sim_pu_polygons$cost[2] <- NA
   sim_pu_polygons$spp1 <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp2 <- c(NA, rpois(nrow(sim_pu_polygons) - 1, 5))
   # create problem
   expect_warning(
-    x <- problem(sf::as_Spatial(sim_pu_polygons), c("spp1", "spp2"), "cost"),
+    x <- problem(
+      sf::as_Spatial(sim_pu_polygons), c("spp1", "spp2"), "cost", "ha"
+    ),
     "deprecated"
   )
   # verify that object can be printed
@@ -486,6 +593,26 @@ test_that("x = Spatial, features = character", {
     rownames(x$feature_abundances_in_total_units()),
     c("spp1", "spp2")
   )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        sf::st_drop_geometry(sim_pu_polygons)[, c("spp1", "spp2")],
+        na.rm = TRUE
+      ),
+      ncol = 1
+    ) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    c("spp1", "spp2")
+  )
   # tests for rij_matrix field
   rij <- Matrix::sparseMatrix(
     i = c(
@@ -518,6 +645,11 @@ test_that("x = Spatial, features = character", {
 test_that("x = Spatial, features = ZonesCharacter", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_zones_pu_polygons) <- sf::st_crs("epsg:3857")
+  )
+  unit_factor <- as_km2(1, "ha")
   # update data
   sim_zones_pu_polygons$cost_1[2] <- NA
   sim_zones_pu_polygons[3, c("cost_1", "cost_2")] <- NA
@@ -536,7 +668,8 @@ test_that("x = Spatial, features = ZonesCharacter", {
         zone_names = c("z1", "z2"),
         feature_names = c("spp1", "spp2")
       ),
-      c("cost_1", "cost_2")
+      c("cost_1", "cost_2"),
+      "ha"
     ),
     "deprecated"
   )
@@ -623,6 +756,28 @@ test_that("x = Spatial, features = ZonesCharacter", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    c("spp1", "spp2")
+  )
+  # tests for feature_abundances_km2_in_total_units field
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        sf::st_drop_geometry(sim_zones_pu_polygons)[,
+          c("spp1_1", "spp2_1", "spp1_2", "spp2_2")
+        ],
+        na.rm = TRUE
+      ),
+      ncol = 2
+    ) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    c("z1", "z2")
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     c("spp1", "spp2")
   )
   # tests for rij_matrix field

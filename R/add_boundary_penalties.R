@@ -306,7 +306,7 @@ methods::setMethod("add_boundary_penalties",
 )
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, formulation, zones, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
   methods::signature(

@@ -744,7 +744,7 @@ ConservationProblem <- R6::R6Class(
     #' Note that if the features do not have spatial information,
     #' then a missing (`NA`) value is returned.
     #' @return A `numeric` value.
-    feature_resolution_m2 = function() {
+    feature_conversion_factor = function() {
       if (inherits(self$data$features, "ZonesSpatRaster")) {
         prod(terra::res(self$data$features[[1]]))
       } else if (inherits(self$data$features, "SpatRaster")) {
@@ -842,6 +842,92 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Obtain the units of the features.
+    #' @return A `character` value. Each element corresponds to a different
+    #' feature.
+    feature_units = function() {
+      self$data$feature_units
+    },
+
+    #' @description
+    #' Obtain the abundance of the features in area-based units of
+    #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+    #' @details Note that if a feature has missing (`NA`) units
+    #' then then missing values are returned.
+    #' @return A `numeric` matrix. Each column corresponds to a different zone
+    #' and each row corresponds to a different feature.
+    feature_abundances_km2_in_total_units = function() {
+      x <- self$get_data("feature_abundances_km2_in_total_units")
+      if (!is.Waiver(x)) return(x)
+      self$set_feature_abundances_km2_in_total_units()
+      self$get_data("feature_abundances_km2_in_total_units")
+    },
+
+    #' @description
+    #' Perform calculations to cache the abundance of the features in
+    #' area-based units of \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+    #' @return Invisible `TRUE`.
+    set_feature_abundances_km2_in_total_units = function() {
+      # get total units
+      fa <- self$feature_abundances_in_total_units()
+      # process data depending on feature data format
+      ft <- self$get_data("features")
+      if (inherits(ft, c("ZonesRaster", "ZonesSpatRaster"))) {
+        ## if raster data...
+        if (inherits(ft, "ZonesSpatRaster")) {
+          ### extract cell res
+          cell_res <- terra::res(ft[[1]])
+        } else {
+          ### extract cell res
+          cell_res <- raster::res(ft[[1]])
+        }
+        ### extract cell unit
+        cell_unit <- units::deparse_unit(get_crs(ft)$ud_unit)
+        ### if cell unit is degree, then throw error
+        assert(
+          !identical(cell_unit, units::deparse_unit(sf::st_crs(4326)$ud_unit)),
+          msg = "{.arg features} has a geodetic coordinate reference system.",
+          .internal = TRUE,
+          call = NULL
+        )
+        ### if cell unit is NA or CRS is NA, then throw error
+        assert(
+          assertthat::noNA(cell_unit),
+          get_crs(ft) != sf::st_crs(NA),
+          get_crs(ft) != sf::st_crs(na_crs),
+          msg = "{.arg features} has missing coordinate reference system.",
+          .internal = TRUE,
+          call = NULL
+        )
+        ### calculate conversion factor
+        cell_factor <- as.numeric(
+          units::set_units(
+            units::set_units(cell_res[[1]], cell_unit, mode = "standard") *
+            units::set_units(cell_res[[2]], cell_unit, mode = "standard"),
+          "km^2"
+          )
+        )
+        ### convert values
+        out <- fa * cell_factor
+      } else {
+        ## if not raster data..
+        ### get feature units
+        fu <- self$feature_units()
+        ## convert values
+        out <- fa * NA_real_
+        for (i in seq_len(nrow(out))) {
+          # if fu[[i]] is not NA, then convert it
+          if (!is.na(fu[[i]])) {
+            out[i, ] <- as_km2(fa[i, ], fu[[i]])
+          }
+        }
+      }
+      # store result
+      self$set_data("feature_abundances_km2_in_total_units", out)
+      invisible(TRUE)
+    },
+
+    #' @description
     #' Obtain the representation targets for the features.
     #' @return A [tibble::tibble()] data frame.
     feature_targets = function() {
@@ -907,7 +993,7 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Portfolio"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$portfolio)) {
-        cli_warning("Overwriting previously defined portfolio.")
+        cli_warning("Overwriting previously defined portfolio.", call = NULL)
       } else {
         p$defaults$portfolio <- FALSE
       }
@@ -923,7 +1009,7 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Solver"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$solver)) {
-        cli_warning("Overwriting previously defined solver.")
+        cli_warning("Overwriting previously defined solver.", call = NULL)
       } else {
         p$defaults$solver <- FALSE
       }
@@ -939,7 +1025,7 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Target"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$targets)) {
-        cli_warning("Overwriting previously defined targets.")
+        cli_warning("Overwriting previously defined targets.", call = NULL)
       } else {
         p$defaults$targets <- FALSE
       }
@@ -955,7 +1041,7 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Objective"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$objective)) {
-        cli_warning("Overwriting previously defined objective.")
+        cli_warning("Overwriting previously defined objective.", call = NULL)
       } else {
         p$defaults$objective <- FALSE
       }
@@ -971,7 +1057,7 @@ ConservationProblem <- R6::R6Class(
       assert(inherits(x, "Decision"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$decisions)) {
-        cli_warning("Overwriting previously defined decision.")
+        cli_warning("Overwriting previously defined decision.", call = NULL)
       } else {
         p$defaults$decisions <- FALSE
       }

@@ -36,7 +36,8 @@ NULL
 #' @export
 add_rl_ecosystem_targets <- function(x, status, criterion_a, criterion_b,
                                      prop_uplift = 0, method = "max",
-                                     cap_threshold = 1000000) {
+                                     cap_area_target = 1000000,
+                                     area_units = "km^2") {
   # add targets
   internal_add_auto_targets.Method(
     x,
@@ -46,7 +47,8 @@ add_rl_ecosystem_targets <- function(x, status, criterion_a, criterion_b,
       criterion_b = criterion_b,
       prop_uplift = prop_uplift,
       method = method,
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
 }

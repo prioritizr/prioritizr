@@ -7,7 +7,7 @@
 #' @inheritParams assert
 #'
 #' @details
-#' ```{r child = "man/common/target_method_character.md"}
+#' ```{r child = "man/rmd/target_method_character.md"}
 #' ```
 #'
 #' @return A [`Method-class`] object.
@@ -27,22 +27,22 @@ get_target_method <- function(method, call = fn_caller_env()) {
   if (identical(method, "jung")) {
     out <- jung_targets()
   } else if (identical(method, "rodrigues")) {
-    out = rodrigues_targets()
+    out <- rodrigues_targets()
   } else if (identical(method, "polak")) {
-    out = polak_targets()
+    out <- polak_targets()
   } else if (identical(method, "ward")) {
-    out = ward_targets()
+    out <- ward_targets()
   } else if (identical(method, "watson")) {
-    out = watson_targets()
+    out <- watson_targets()
   } else if (startsWith(method, "rl_species")) {
     x <- strsplit(method, "_", fixed = TRUE)[[1]]
-    if (identical(length(y), 5L)) {
-      out <- try(rl_spp_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
+    if (identical(length(x), 5L)) {
+      out <- try(rl_species_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
     }
   } else if (startsWith(method, "rl_ecosystem")) {
     x <- strsplit(method, "_", fixed = TRUE)[[1]]
-    if (identical(length(y), 5L)) {
-      out <- try(rl_eco_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
+    if (identical(length(x), 5L)) {
+      out <- try(rl_ecosystem_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
     }
   }
 

@@ -55,39 +55,40 @@ methods:
 (2010). Additionally, the following values can be used to set targets
 based on criteria from the
 IUCN Red List of Threatened Species (IUCN 2025):
-\code{"rl_species_vu_a1_b1"} \code{"rl_species_en_a1_b1"}, \code{"rl_species_cr_a1_b1"},
-\code{"rl_species_vu_a1_b2"} \code{"rl_species_en_a1_b2"}, \code{"rl_species_cr_a1_b2"},
-\code{"rl_species_vu_a2_b1"} \code{"rl_species_en_a2_b1"}, \code{"rl_species_cr_a2_b1"},
-\code{"rl_species_vu_a2_b2"} \code{"rl_species_en_a2_b2"}, \code{"rl_species_cr_a2_b2"},
-\code{"rl_species_vu_a3_b1"} \code{"rl_species_en_a3_b1"}, \code{"rl_species_cr_a3_b1"},
-\code{"rl_species_vu_a3_b2"} \code{"rl_species_en_a3_b2"}, \code{"rl_species_cr_a3_b2"},
-\code{"rl_species_vu_a4_b1"} \code{"rl_species_en_a4_b1"}, \code{"rl_species_cr_a4_b1"},
-\code{"rl_species_vu_a4_b2"} \code{"rl_species_en_a4_b2"}, and
-\code{"rl_species_cr_a4_b2"}.
+\code{"rl_species_VU_A1_B1"} \code{"rl_species_EN_A1_B1"}, \code{"rl_species_CR_A1_B1"},
+\code{"rl_species_VU_A1_B2"} \code{"rl_species_EN_A1_B2"}, \code{"rl_species_CR_A1_B2"},
+\code{"rl_species_VU_A2_B1"} \code{"rl_species_EN_A2_B1"}, \code{"rl_species_CR_A2_B1"},
+\code{"rl_species_VU_A2_B2"} \code{"rl_species_EN_A2_B2"}, \code{"rl_species_CR_A2_B2"},
+\code{"rl_species_VU_A3_B1"} \code{"rl_species_EN_A3_B1"}, \code{"rl_species_CR_A3_B1"},
+\code{"rl_species_VU_A3_B2"} \code{"rl_species_EN_A3_B2"}, \code{"rl_species_CR_A3_B2"},
+\code{"rl_species_VU_A4_B1"} \code{"rl_species_EN_A4_B1"}, \code{"rl_species_CR_A4_B1"},
+\code{"rl_species_VU_A4_B2"} \code{"rl_species_EN_A4_B2"}, and
+\code{"rl_species_CR_A4_B2"}.
 Furthermore, the following values can be used to set targets based on
 criteria from the IUCN Red List of Ecosystems (IUCN 2024):
-\code{"rl_ecosystem_vu_a1_b1"}, \code{"rl_ecosystem_en_a1_b1"},
-\code{"rl_ecosystem_cr_a1_b1"},
-\code{"rl_ecosystem_vu_a1_b2"}, \code{"rl_ecosystem_en_a1_b2"},
-\code{"rl_ecosystem_cr_a1_b2"},
-\code{"rl_ecosystem_vu_a2a_b1"}, \code{"rl_ecosystem_en_a2a_b1"},
-\code{"rl_ecosystem_cr_a2a_b1"},
-\code{"rl_ecosystem_vu_a2a_b2"}, \code{"rl_ecosystem_en_a2a_b2"},
-\code{"rl_ecosystem_cr_a2a_b2"},
-\code{"rl_ecosystem_vu_a2b_b1"}, \code{"rl_ecosystem_en_a2b_b1"},
-\code{"rl_ecosystem_cr_a2b_b1"},
-\code{"rl_ecosystem_vu_a2b_b2"}, \code{"rl_ecosystem_en_a2b_b2"},
-\code{"rl_ecosystem_cr_a2b_b2"},
-\code{"rl_ecosystem_vu_a3_b1"}, \code{"rl_ecosystem_en_a3_b1"},
-\code{"rl_ecosystem_cr_a3_b1"},
-\code{"rl_ecosystem_vu_a3_b2"}, \code{"rl_ecosystem_en_a3_b2"}, and
-\code{"rl_ecosystem_cr_a3_b2"}.'
+\code{"rl_ecosystem_VU_A1_B1"}, \code{"rl_ecosystem_EN_A1_B1"},
+\code{"rl_ecosystem_CR_A1_B1"},
+\code{"rl_ecosystem_VU_A1_B2"}, \code{"rl_ecosystem_EN_A1_B2"},
+\code{"rl_ecosystem_CR_A1_B2"},
+\code{"rl_ecosystem_VU_a2a_B1"}, \code{"rl_ecosystem_EN_a2a_B1"},
+\code{"rl_ecosystem_CR_a2a_B1"},
+\code{"rl_ecosystem_VU_a2a_B2"}, \code{"rl_ecosystem_EN_a2a_B2"},
+\code{"rl_ecosystem_CR_a2a_B2"},
+\code{"rl_ecosystem_VU_a2b_B1"}, \code{"rl_ecosystem_EN_a2b_B1"},
+\code{"rl_ecosystem_CR_a2b_B1"},
+\code{"rl_ecosystem_VU_a2b_B2"}, \code{"rl_ecosystem_EN_a2b_B2"},
+\code{"rl_ecosystem_CR_a2b_B2"},
+\code{"rl_ecosystem_VU_A3_B1"}, \code{"rl_ecosystem_EN_A3_B1"},
+\code{"rl_ecosystem_CR_A3_B1"},
+\code{"rl_ecosystem_VU_A3_B2"}, \code{"rl_ecosystem_EN_A3_B2"}, and
+\code{"rl_ecosystem_CR_A3_B2"}.'
+For convenience, these options can also be specified with lower case letters (e.g., \code{"rl_species_VU_A1_B1"} may alternatively be specified as \code{"rl_species_vu_a1_b1"}).
 
 The following functions can be used to create an object for specifying
-a target setting method: \code{\link[=interpolated_targets]{interpolated_targets()}}, \code{\link[=jung_targets]{jung_targets()}},
-\code{\link[=polak_targets]{polak_targets()}}, \code{\link[=relative_targets]{relative_targets()}}, \code{\link[=rl_ecosystem_targets]{rl_ecosystem_targets()}},
-\code{\link[=rl_species_targets]{rl_species_targets()}}], \code{\link[=rodrigues_targets]{rodrigues_targets()}},
-\code{\link[=ward_targets]{ward_targets()}}, and \code{\link[=watson_targets]{watson_targets()}}.
+a target setting method: \code{\link[=absolute_targets]{absolute_targets()}}, \code{\link[=relative_targets]{relative_targets()}}, \code{\link[=interpolated_absolute_targets]{interpolated_absolute_targets()}}, \code{\link[=interpolated_area_targets]{interpolated_area_targets()}}
+\code{\link[=jung_targets]{jung_targets()}}, \code{\link[=polak_targets]{polak_targets()}},
+\code{\link[=rl_ecosystem_targets]{rl_ecosystem_targets()}}, \code{\link[=rl_species_targets]{rl_species_targets()}}], \code{\link[=rodrigues_targets]{rodrigues_targets()}},
+\code{\link[=rule_targets]{rule_targets()}}, \code{\link[=ward_targets]{ward_targets()}}, and \code{\link[=watson_targets]{watson_targets()}}.
 }
 
 \section{Target setting}{
@@ -287,7 +288,8 @@ requires simultaneous planning for species and ecosystems.
 Other targets: 
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
-\code{\link{add_interpolated_targets}()},
+\code{\link{add_interpolated_absolute_targets}()},
+\code{\link{add_interpolated_area_targets}()},
 \code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
 \code{\link{add_polak_targets}()},
@@ -295,6 +297,7 @@ Other targets:
 \code{\link{add_rl_ecosystem_targets}()},
 \code{\link{add_rl_species_targets}()},
 \code{\link{add_rodrigues_targets}()},
+\code{\link{add_rule_targets}()},
 \code{\link{add_ward_targets}()},
 \code{\link{add_watson_targets}()}
 }

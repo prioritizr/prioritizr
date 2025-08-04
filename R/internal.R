@@ -104,3 +104,49 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
+
+#' Throw error for target function
+#'
+#' Throw an error for a function to indicate that it should not be
+#' used with [problem()] directly.
+#'
+#' @param x `character` value with name of function for adding to [problem()].
+#'
+#' @param call Caller environment.
+#'
+#' @return None.
+#'
+#' @noRd
+target_problem_error <- function(x = NULL, call = fn_caller_env()) {
+  # assemble error message
+  m <- c(
+    "!" = "This function can't add targets to a {.fun problem}.",
+    "v" = "Use it with {.fun add_auto_targets}."
+  )
+  if (!is.null(x)) {
+    assert(assertthat::is.string(x), .internal = TRUE)
+    m <- c(
+      m,
+      "i" = paste0("Alternatively, use {.fun ", x, "}")
+    )
+  }
+  # throw error
+  cli::cli_abort(message = m, call = call)
+}
+
+
+#' Standardize unit to km^2
+#'
+#' Standardize number to km^2
+#'
+#' @return `numeric` vector.
+#'
+#' @noRd
+as_km2 <- function(x, unit) {
+  as.numeric(
+    units::set_units(
+      units::set_units(x, unit, mode = "standard"),
+      "km^2"
+    )
+  )
+}

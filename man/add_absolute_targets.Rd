@@ -198,7 +198,8 @@ context. \emph{Conservation Letters}, 2: 4--11.
 Other targets: 
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
-\code{\link{add_interpolated_targets}()},
+\code{\link{add_interpolated_absolute_targets}()},
+\code{\link{add_interpolated_area_targets}()},
 \code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
 \code{\link{add_polak_targets}()},
@@ -206,6 +207,7 @@ Other targets:
 \code{\link{add_rl_ecosystem_targets}()},
 \code{\link{add_rl_species_targets}()},
 \code{\link{add_rodrigues_targets}()},
+\code{\link{add_rule_targets}()},
 \code{\link{add_ward_targets}()},
 \code{\link{add_watson_targets}()}
 }

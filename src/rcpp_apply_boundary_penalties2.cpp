@@ -160,18 +160,6 @@ bool rcpp_apply_boundary_penalties2(SEXP x, double penalty,
        i < (ptr->_number_of_zones * ptr->_number_of_planning_units); ++i)
     ptr->_obj[i] += (penalty * pu_zone_exposed[i]);
 
- // add additional decision variables to characterize 1 - planning unit status
-  for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_obj.push_back(0.0);
-  for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_lb.push_back(0.0);
-  for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_ub.push_back(1.0);
-  for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_vtype.push_back("C");
-  for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_col_ids.push_back("b1");
-
   // add obj for new decision variables
   for (std::size_t i = 0; i < n_dv; ++i)
     ptr->_obj.push_back(penalty * pu_zone_interior[i]);
@@ -190,7 +178,7 @@ bool rcpp_apply_boundary_penalties2(SEXP x, double penalty,
 
   // add col ids for new decision variables
   for (std::size_t i = 0; i < n_dv; ++i)
-    ptr->_col_ids.push_back("b2");
+    ptr->_col_ids.push_back("b1");
 
   // rescale boundary data and penalties for adding in constraints
   double penalty_abs = std::abs(penalty);
@@ -201,34 +189,20 @@ bool rcpp_apply_boundary_penalties2(SEXP x, double penalty,
     itr->second.second = penalty_abs * itr->second.second;
   }
 
-  // add constraints to ensure that the b1 decision variables are
-  // equal to 1 - planning unit status
-  std::size_t A_row = (A_original_nrow - 1);
-  for (std::size_t i = 0; i < n_dv; ++i) {
-    ++A_row;
-    ptr->_A_i.push_back(A_row);
-    ptr->_A_i.push_back(A_row);
-    ptr->_A_j.push_back(i);
-    ptr->_A_j.push_back(A_original_ncol + i);
-    ptr->_A_x.push_back(1.0);
-    ptr->_A_x.push_back(1.0);
-    ptr->_sense.push_back(">=");
-    ptr->_rhs.push_back(1.0);
-    ptr->_row_ids.push_back("b1");
-  }
-
   // add constraints for alternative boundary threshold variables
+  std::size_t A_row = (A_original_nrow - 1);
   auto it = pu_boundary.equal_range(0);
   for (std::size_t i = 0; i < n_dv; ++i) {
-    // add constraint to ensure that
-    // boundary_pu_i_zone_a <= pu_i_zone_a
 
     // add constraint to ensure that
     // boundary_pu_i_zone_a * -total_boundary +
     // pu_i_zone_a * total_boundary +
+    // pu_j_zone_a * -pu_j_zone_a_boundary +
     // pu_j_zone_b * -pu_j_zone_b_boundary +
+    // pu_k_zone_a * -pu_k_zone_a_boundary +
+    // pu_k_zone_b * -pu_k_zone_b_boundary +
     // [...]
-    // >= total_boundary
+    // <= 0
     //
     // for more info, see slide 11:
     // https://cdn.gurobi.com/wp-content/uploads/Models-with-Products-of-Binary-Variables.pdf?x58142
@@ -238,7 +212,7 @@ bool rcpp_apply_boundary_penalties2(SEXP x, double penalty,
 
     // add constraint coefficient for boundary_pu_i_zone_a
     ptr->_A_i.push_back(A_row);
-    ptr->_A_j.push_back(A_original_ncol + n_dv + i);
+    ptr->_A_j.push_back(A_original_ncol + i);
     ptr->_A_x.push_back(-1.0 * pu_zone_interior[i]);
 
     // add constraint coefficient for pu_i_zone_a
@@ -251,14 +225,14 @@ bool rcpp_apply_boundary_penalties2(SEXP x, double penalty,
     it = pu_boundary.equal_range(i);
     for (auto itr2 = it.first; itr2 != it.second; ++itr2) {
       ptr->_A_i.push_back(A_row);
-      ptr->_A_j.push_back(A_original_ncol + itr2->second.first);
-      ptr->_A_x.push_back(itr2->second.second);
+      ptr->_A_j.push_back(itr2->second.first);
+      ptr->_A_x.push_back(-1.0 * itr2->second.second);
     }
 
     // add remaining constraint information
     ptr->_sense.push_back("<=");
-    ptr->_rhs.push_back(pu_zone_interior[i]);
-    ptr->_row_ids.push_back("b2");
+    ptr->_rhs.push_back(0.0);
+    ptr->_row_ids.push_back("b1");
   }
 
   // return success

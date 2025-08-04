@@ -13,9 +13,11 @@ NULL
 #' `add_group_targets()`.
 #'
 #' @param targets `numeric` vector that specifies targets for each
-#' of the features. If a single value is specified, then all features
+#' of the features. If a single `numeric` value is specified, then all features
 #' are assigned the same proportion-based target. Note that values
 #' range between 0 and 1 (corresponding to 0% and 100% respectively).
+#'
+#' @inheritParams absolute_targets
 #'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on a proportion.
@@ -41,22 +43,31 @@ NULL
 #' @examples
 #' # TODO
 #'
-#' @name relative_targets
-NULL
-
-#' @rdname relative_targets
 #' @export
-relative_targets <- function(targets) {
+relative_targets <- function(targets, ...) {
+  UseMethod("relative_targets")
+}
+
+#' @export
+relative_targets.default <- function(targets, ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "Relative targets",
     type = "relative",
     fun = internal_relative_targets,
-    args = list(targets)
+    args = list(targets = targets)
   )
 }
 
-internal_relative_targets <- function(x, targets, call = fn_caller_env()) {
+#' @export
+relative_targets.ConservationProblem <- function(targets, ...) {
+  target_problem_error("add_relative_targets")
+}
+
+internal_relative_targets <- function(x, features, targets,
+                                      call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(targets, call = call)
@@ -64,21 +75,23 @@ internal_relative_targets <- function(x, targets, call = fn_caller_env()) {
     # x
     is_conservation_problem(x),
     has_single_zone(x),
+    # features
+    is_integer(features),
+    all(features >= 1),
+    all(features <= x$number_of_features()),
     # targets
     is.numeric(targets),
-    assert(
-      is_match_of(length(targets), c(1, number_of_features(x)))
-    ),
+    is_match_of(length(targets), c(1, number_of_features(x))),
     all_finite(targets),
     all_proportion(targets),
     call = call
   )
 
-  # if needed, duplicate target values
+  # if needed, duplicate target values for each feature
   if (identical(length(targets), 1L)) {
     targets <- rep(targets, x$number_of_features())
   }
 
   # return targets
-  targets
+  targets[features]
 }

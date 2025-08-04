@@ -4,7 +4,13 @@
 \alias{add_jung_targets}
 \title{Add targets following Jung \emph{et al.} (2021)}
 \usage{
-add_jung_targets(x, status = "VU", prop_uplift = 0.1, cap_threshold = 1e+06)
+add_jung_targets(
+  x,
+  status = "VU",
+  prop_uplift = 0.1,
+  cap_area_target = 1e+06,
+  area_units = "km^2"
+)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -16,6 +22,16 @@ Available options include \code{"CR"} (Critically Endangered) ,
 
 \item{prop_uplift}{\code{numeric} value denoting the percentage
 uplift as a proportion. Defaults to 0.1 (i.e., 10\%).}
+
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
+To avoid setting a target cap, a missing (\code{NA}) value can be specified.
+Defaults to 1000000
+(i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
@@ -169,8 +185,7 @@ km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 }
 
 \examples{
-#TODO
-
+TODO
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -208,20 +223,22 @@ conserving terrestrial biodiversity, carbon and water.
 
 Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 Areas to maximise the persistence of terrestrial mammals.
-\emph{Preprint at bioxriv}, \url{https://doi.org/10.1101/608992}.
+\emph{Preprint at bioxriv}, \doi{10.1101/608992}.
 }
 \seealso{
 Other targets: 
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
-\code{\link{add_interpolated_targets}()},
+\code{\link{add_interpolated_absolute_targets}()},
+\code{\link{add_interpolated_area_targets}()},
 \code{\link{add_manual_targets}()},
 \code{\link{add_polak_targets}()},
 \code{\link{add_relative_targets}()},
 \code{\link{add_rl_ecosystem_targets}()},
 \code{\link{add_rl_species_targets}()},
 \code{\link{add_rodrigues_targets}()},
+\code{\link{add_rule_targets}()},
 \code{\link{add_ward_targets}()},
 \code{\link{add_watson_targets}()}
 }

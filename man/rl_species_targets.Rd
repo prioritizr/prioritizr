@@ -2,6 +2,7 @@
 % Please edit documentation in R/rl_species_targets.R
 \name{rl_species_targets}
 \alias{rl_species_targets}
+\alias{rl_species_targets.default}
 \title{Specify targets based on the IUCN Red List of Threatened Species}
 \usage{
 rl_species_targets(
@@ -10,7 +11,20 @@ rl_species_targets(
   criterion_b,
   prop_uplift = 0,
   method = "max",
-  cap_threshold = 1e+06
+  cap_area_target = 1e+06,
+  area_units = "km^2",
+  ...
+)
+
+\method{rl_species_targets}{default}(
+  status,
+  criterion_a,
+  criterion_b,
+  prop_uplift = 0,
+  method = "max",
+  cap_area_target = 1e+06,
+  area_units = "km^2",
+  ...
 )
 }
 \arguments{
@@ -29,6 +43,7 @@ reversible, understood, or have ceased);
 \code{"A3"} (reduction is is inferred or suspected in the future), and
 \code{"A4"} (reduction includes a time period in the past and the future and
 causes may not be reversible, understood, or have ceased).
+For convenience, these options can also be specified with lower case letters.
 See Mathematical formulation below for details.}
 
 \item{criterion_b}{\code{character} value indicating which subcriterion
@@ -36,6 +51,7 @@ should be considered based on geographic range.
 Available options include subcriterion
 \code{"B1"} (extent of occupancy) and
 \code{"B2"} (area of occupancy).
+For convenience, these option can also be specified with lower case letters.
 See Mathematical formulation below for details.}
 
 \item{prop_uplift}{\code{numeric} value denoting the percentage
@@ -48,6 +64,18 @@ For example, a value of \code{"max"} means that the target threshold
 should be calculated as a maximum of the values from
 criterion A and B.
 Defaults to \code{"max"} as a precaution.}
+
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
+To avoid setting a target cap, a missing (\code{NA}) value can be specified.
+Defaults to 1000000
+(i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.
@@ -261,7 +289,7 @@ conserving terrestrial biodiversity, carbon and water.
 
 Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 Areas to maximise the persistence of terrestrial mammals.
-\emph{Preprint at bioxriv}, \url{https://doi.org/10.1101/608992}.
+\emph{Preprint at bioxriv}, \doi{10.1101/608992}.
 }
 \seealso{
 Other method: 

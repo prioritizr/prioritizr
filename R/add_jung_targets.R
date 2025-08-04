@@ -25,22 +25,23 @@ NULL
 #' @family targets
 #'
 #' @examples
-#' #TODO
-#'
+#' TODO
 #' @name add_jung_targets
 NULL
 
 #' @rdname add_jung_targets
 #' @export
 add_jung_targets <- function(x, status = "VU", prop_uplift = 0.1,
-                             cap_threshold = 1000000) {
+                             cap_area_target = 1000000,
+                             area_units = "km^2") {
   # add targets
   internal_add_auto_targets.Method(
     x,
     method = jung_targets(
       status = status,
       prop_uplift = prop_uplift,
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
 }

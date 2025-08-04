@@ -25,7 +25,7 @@ get_crs.sf <- function(x) sf::st_crs(x)
 get_crs.Spatial <- function(x) sf::st_crs(x@proj4string)
 
 #' @export
-get_crs.Raster <- function(x) sf::st_crs(x@crs)
+get_crs.Raster <- function(x) sf::st_crs(raster::crs(x))
 
 #' @export
 get_crs.ZonesRaster <- function(x) get_crs(x[[1]])

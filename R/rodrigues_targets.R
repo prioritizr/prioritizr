@@ -7,22 +7,22 @@ NULL
 #' This function is designed to be used within `add_auto_targets()` and
 #' `add_group_targets()`.
 #'
-#' @param rare_threshold `numeric` value indicating the threshold area for rare
-#' identifying rare features.
+#' @param rare_area_threshold `numeric` value indicating the threshold area
+#' for rare identifying rare features.
 #' Defaults to 1000 (i.e., 1000 km^2).
 #'
-#' @param rare_relative_target `numeric` value indicating the
+#' @param rare_relative_target `numeric` value denoting the
 #' relative target for features with a spatial distribution
 #' that is smaller than `rare_threshold`.
 #' Note that this value must be a proportion between 0 and 1.
 #' Defaults to 1 (i.e., 100%).
 #'
-#' @param common_threshold `numeric` value indicating the threshold area
+#' @param common_area_threshold `numeric` value indicating the threshold area
 #' for identifying common features.
 #' Defaults to 250000
 #' (i.e., 250,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
 #'
-#' @param common_relative_target `numeric` value indicating the
+#' @param common_relative_target `numeric` value denoting the
 #' relative target for features with a spatial distribution
 #' that is greater than `common_threshold`.
 #' Defaults to 0.1 (i.e., 10%).
@@ -31,11 +31,17 @@ NULL
 #' levels of protected area coverage (e.g., 17.6% for terrestrial and 8.4% for
 #' marine systems globally; UNEP-WCMC and IUCN 2025).
 #'
-#' @param cap_threshold `numeric` value indicating the threshold
-#' area for applying a target cap.
+#' @param cap_area_target `numeric` value denoting the area-based target cap.
 #' To avoid setting a target cap, a missing (`NA`) value can be specified.
 #' Defaults to 1000000
 #' (i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
+#'
+#' @param area_units `character` value denoting the unit of measurement
+#' for the area-based arguments.
+#' Defaults to `"km^2"`
+#' (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
+#'
+#' @inheritParams relative_targets
 #'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on the spatial
@@ -122,32 +128,47 @@ NULL
 #' @examples
 #' #TODO
 #'
-#' @name rodrigues_targets
-NULL
-
-#' @rdname rodrigues_targets
 #' @export
-rodrigues_targets <- function(x, rare_threshold = 1000,
-                             rare_relative_target = 1,
-                             common_threshold = 250000,
-                             common_relative_target = 0.1,
-                             cap_threshold = 1000000) {
+rodrigues_targets <- function(rare_area_threshold = 1000,
+                              rare_relative_target = 1,
+                              common_area_threshold = 250000,
+                              common_relative_target = 0.1,
+                              cap_area_target = 1000000,
+                              area_units = "km^2", ...) {
+  UseMethod("rodrigues_targets")
+}
+
+#' @export
+rodrigues_targets.default <- function(rare_area_threshold = 1000,
+                                      rare_relative_target = 1,
+                                      common_area_threshold = 250000,
+                                      common_relative_target = 0.1,
+                                      cap_area_target = 1000000,
+                                      area_units = "km^2", ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "Rodrigues et al. (2004) targets",
-    type = "absolute",
-    fun = internal_interpolated_targets,
+    type = "relative",
+    fun = internal_interpolated_area_targets,
     args = list(
-      rare_threshold = rare_threshold,
+      rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
-      rare_absolute_target = NA_real_,
+      rare_area_target = NA_real_,
       rare_method = "max", # has no effect
-      common_threshold = common_threshold,
+      common_area_threshold = common_area_threshold,
       common_relative_target = common_relative_target,
-      common_absolute_target = NA_real_,
+      common_area_target = NA_real_,
       common_method = "max", # has no effect
-      cap_threshold = cap_threshold,
-      method = "log10"
+      cap_area_target = cap_area_target,
+      interp_method = "log10",
+      area_units = area_units
     )
   )
+}
+
+#' @export
+rodrigues_targets.ConservationProblem <- function(rare_area_threshold, ...) {
+  target_problem_error("add_rodrigues_targets")
 }

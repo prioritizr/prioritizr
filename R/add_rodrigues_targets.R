@@ -31,20 +31,21 @@ NULL
 
 #' @rdname add_rodrigues_targets
 #' @export
-add_rodrigues_targets <- function(x, rare_threshold = 1000,
+add_rodrigues_targets <- function(x, rare_area_threshold = 1000,
                                   rare_relative_target = 1,
-                                  common_threshold = 250000,
+                                  common_area_threshold = 250000,
                                   common_relative_target = 0.1,
-                                  cap_threshold = 1000000) {
+                                  cap_area_target = 1000000,
+                                  area_units = "km^2") {
   # add targets
   internal_add_auto_targets.Method(
     x,
     method = rodrigues_targets(
-      rare_threshold = rare_threshold,
+      rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
-      common_threshold = common_threshold,
+      common_area_threshold = common_area_threshold,
       common_relative_target = common_relative_target,
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target
     )
   )
 }

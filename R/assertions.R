@@ -247,3 +247,77 @@ error_prefix_handler <- function(expr, prefix, call = fn_caller_env()) {
   # throw error message
   cli::cli_abort(c(prefix, x), call = call)
 }
+
+#' Assert can calculate area-based targets for features
+#'
+#' Assert that features in a [problem()] have area-based units so that
+#' area-based targets can be calculated
+#'
+#' @param x [problem()] object.
+#'
+#' @param features `integer` vector with feature indices.
+#'
+#' @inheritParams assert
+#'
+#' @return An invisible `logical` value.
+#'
+#' @noRd
+assert_can_calculate_area_based_targets <- function(x, features,
+                                                    call = fn_caller_env()) {
+  assert_required(x, .internal = TRUE)
+  assert_required(features, .internal = TRUE)
+  # process depending on feature data
+  if (inherits(x$get_data("features"), c("ZonesRaster", "ZonesSpatRaster"))) {
+    ## if has raster features
+    ## get units
+    ft_crs <- get_crs(x$get_data("features"))
+    cell_unit <- units::deparse_unit(ft_crs$ud_unit)
+    ### if cell unit is degree, then throw error
+    assert(
+      !identical(cell_unit, units::deparse_unit(sf::st_crs(4326)$ud_unit)),
+      msg = c(
+        "Can't calculate targets.",
+        "i" = "These targets involve area-based calculations",
+        "x" = paste(
+          "{.arg x} has features in a",
+          "geodetic coordinate reference system."
+        ),
+        "v" = paste(
+          "Reproject the feature data and create a new {.fun problem}."
+        )
+      ),
+      call = call
+    )
+    ### if cell unit is NA, then throw error
+    assert(
+      assertthat::noNA(cell_unit),
+      ft_crs != sf::st_crs(NA),
+      ft_crs != sf::st_crs(na_crs),
+      msg = c(
+        "Can't calculate targets.",
+        "i" = "These targets involve area-based calculations",
+        "x" = paste(
+          "{.arg x} has features in a",
+          "coordinate reference system that lacks units."
+        )
+      ),
+      call = call
+    )
+  } else {
+    ## if does not have raster features
+    assert(
+      assertthat::noNA(x$get_data("feature_units")[features]),
+      msg = c(
+        "Can't calculate targets.",
+        "i" = "These targets involve area-based calculations",
+        "x" = paste(
+          "{.arg x} is missing units for the following features:",
+          "{.val {repr.character(n)}}."
+        )
+      ),
+      call = call
+    )
+  }
+  # return success
+  invisible(TRUE)
+}

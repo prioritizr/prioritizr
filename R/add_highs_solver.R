@@ -238,7 +238,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             objective = x$objective_value,
             status = x$status_message,
             runtime = rt[[3]],
-            gap = x_gap
+            gap = x_gap,
+            objbound = NA_real_
           )
         }
       )

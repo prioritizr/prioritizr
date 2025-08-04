@@ -7,8 +7,8 @@
   conjunction with this function to specify target setting methods:
   `absolute_targets()`, `interpolated_targets()`, `jung_targets()`,
   `polak_targets()`, `relative_targets()`, `rl_ecosystem_targets()`,
-  `rl_species_targets()`, `rodrigues_targets()`, `ward_targets()`, and
-  `watson_targets()`.
+  `rl_species_targets()`, `rodrigues_targets()`, `rule_targets()`,
+  `ward_targets()`, and `watson_targets()`.
 - New `add_group_targets()` function for adding targets to a conservation
   planning problem based on feature groups. This function is provided as a
   convenient alternative to the `add_auto_targets()` function. Here, features
@@ -17,8 +17,8 @@
 - New `add_interpolated_targets()`, `add_jung_targets()`, `add_polak_targets()`,
   `add_rl_ecosystem_targets()`, `add_rl_species_targets()`,
   `add_rl_ecosystem_targets()`,  `add_rodrigues_targets()`,
-  `add_ward_targets()`, `add_watson_targets()` functions for adding targets
-  to a conservation planning based on various methods.
+  `add_rule_targets()`, `add_ward_targets()`, `add_watson_targets()` functions
+  for adding targets to a conservation planning based on various methods.
 - New `linear_interpolation()` function for linearly interpolating values.
 
 ## Major changes
@@ -33,6 +33,20 @@
   useful when conservation planning problems are taking a long time to solve.
   Note that the default behavior of the function is to use the same
   formulation as in previous versions of the package.
+- Update `solve()` to provide information on the objective bound. This
+  represents the best estimate of the optimal objective value during
+  optimization. Given a solution `x`, this information can be accessed using
+  `attr(x, "objbound")`. Note that this is only supported for the Gurobi solver.
+- Update `ConservationProblem` class so that overwriting problem components will
+  yield a more concise warning message.
+- Fix bug in internal `get_crs()` function when using `raster::raster()` or
+  `raster::stack()` objects.
+
+#### Documentation
+
+- Update `?targets` to provide a comprehensive overview of the target functions.
+- Update `boundary_matrix()` function documentation with better example.
+- Update publication record.
 
 # prioritizr 8.0.6.8
 

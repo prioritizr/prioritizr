@@ -76,7 +76,7 @@ Method <- R6::R6Class(
     calculate_targets = function(x, features, call = NULL) {
       do.call(
         self$fun,
-        append(list(features = features, call = call), self$args)
+        append(list(x = x, features = features, call = call), self$args)
       )
     }
   )
@@ -96,10 +96,12 @@ Method <- R6::R6Class(
 #' @param args `list` with additional arguments for calculating the targets.
 #' These are passed to `function` during target calculations.
 #'
+#' @param call Caller environment.
+#'
 #' @return A [`method-class`] object.
 #'
 #' @noRd
-new_method <- function(name, type, fun, args) {
+new_method <- function(name, type, fun, args, call = fn_caller_env()) {
   # assert valid arguments
   assert(
     assertthat::is.string(name),
@@ -108,8 +110,23 @@ new_method <- function(name, type, fun, args) {
     assertthat::noNA(type),
     is.function(fun),
     is.list(args),
-    all(names(args) %in% names(formals(fun)))
+    identical(
+      names(args),
+      setdiff(names(formals(fun)), c("x", "features", "call"))
+    ),
+    call = call,
+    .internal = TRUE
   )
+
+  # assert that args does not contain a problem()
+  # here we throw a particular error to catch this common sort of mistake:
+  # problem() %>% jung_targets()
+  # when the user should actually be using
+  # problem() %>% add_jung_targets()
+  if (any(vapply(args, inherits, logical(1), "ConservationProblem"))) {
+    target_problem_error(call = call) # nocov
+  }
+
   # return method
   Method$new(name = name, type = type, fun = fun, args = args)
 }

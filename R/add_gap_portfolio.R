@@ -165,7 +165,8 @@ add_gap_portfolio <- function(x, number_solutions = 10, pool_gap = 0.1) {
                   objective = z$objective,
                   status = z$status,
                   runtime = sol$runtime,
-                  gap = z$gap
+                  gap = z$gap,
+                  objbound = z$objbound
                 )
               })
             )

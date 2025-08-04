@@ -30,23 +30,23 @@ problem(x, features, ...)
 
 \S4method{problem}{SpatRaster,ZonesSpatRaster}(x, features, run_checks, ...)
 
-\S4method{problem}{data.frame,character}(x, features, cost_column, ...)
+\S4method{problem}{data.frame,character}(x, features, cost_column, feature_units, ...)
 
-\S4method{problem}{data.frame,ZonesCharacter}(x, features, cost_column, ...)
+\S4method{problem}{data.frame,ZonesCharacter}(x, features, cost_column, feature_units, ...)
 
-\S4method{problem}{data.frame,data.frame}(x, features, rij, cost_column, zones, ...)
+\S4method{problem}{data.frame,data.frame}(x, features, rij, cost_column, zones, feature_units, ...)
 
-\S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
+\S4method{problem}{numeric,data.frame}(x, features, rij_matrix, feature_units, ...)
 
-\S4method{problem}{matrix,data.frame}(x, features, rij_matrix, ...)
+\S4method{problem}{matrix,data.frame}(x, features, rij_matrix, feature_units, ...)
 
 \S4method{problem}{sf,SpatRaster}(x, features, cost_column, run_checks, ...)
 
 \S4method{problem}{sf,ZonesSpatRaster}(x, features, cost_column, run_checks, ...)
 
-\S4method{problem}{sf,character}(x, features, cost_column, ...)
+\S4method{problem}{sf,character}(x, features, cost_column, feature_units, ...)
 
-\S4method{problem}{sf,ZonesCharacter}(x, features, cost_column, ...)
+\S4method{problem}{sf,ZonesCharacter}(x, features, cost_column, feature_units, ...)
 
 \S4method{problem}{Raster,Raster}(x, features, run_checks, ...)
 
@@ -56,9 +56,9 @@ problem(x, features, ...)
 
 \S4method{problem}{Spatial,ZonesRaster}(x, features, cost_column, run_checks, ...)
 
-\S4method{problem}{Spatial,character}(x, features, cost_column, ...)
+\S4method{problem}{Spatial,character}(x, features, cost_column, feature_units, ...)
 
-\S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, ...)
+\S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, feature_units, ...)
 
 \S4method{problem}{sf,Raster}(x, features, cost_column, run_checks, ...)
 
@@ -152,6 +152,13 @@ argument to \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
 set the argument to \code{cost_column} as a single column name.}
+
+\item{feature_units}{\code{character} vector containing the unit of
+measurement for the data associated with each feature.
+Although the data associated with a feature can any unit,
+the \code{feature_units} must refer to area-based units
+(e.g., \verb{"km^2", "ha", "acre"). If a feature does not have an area-based unit, then a missing (}NA\verb{) value should be specified for it. Note that }feature_units\verb{must not be specified if}features\verb{has [terra::rast()] data. Defaults to}NULL\verb{, such that a missing (}NA`) value is used for each
+feature.}
 
 \item{rij}{\code{data.frame} containing information on the amount of
 each feature in each planning unit assuming each management zone. Similar

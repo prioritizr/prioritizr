@@ -40,10 +40,10 @@ NULL
 #' Note that a `method` can contain a mix of target setting methods defined
 #' using `character` values and functions.
 #'
-#' ```{r child = "man/common/target_method_character.md"}
+#' ```{r child = "man/rmd/target_method_character.md"}
 #' ```
 #'
-#' ```{r child = "man/common/target_method_objects.md"}
+#' ```{r child = "man/rmd/target_method_objects.md"}
 #' ```
 #'
 #' @inheritSection add_auto_targets Data calculations
@@ -84,6 +84,9 @@ NULL
 #' @export
 add_group_targets <- function(x, groups, method) {
   # assert valid arguments
+  assert_required(x)
+  assert_required(groups)
+  assert_required(method)
   assert(
     is_conservation_problem(x),
     has_single_zone(x),
@@ -132,7 +135,7 @@ add_group_targets <- function(x, groups, method) {
         "setting method in {.arg method}."
       ),
       "x" = paste0(
-        "{.arg method} is missing the following groups:",
+        "{.arg method} is missing the following groups: ",
         "{repr.character(setdiff(groups, names(method)))}"
       )
     )
@@ -140,10 +143,9 @@ add_group_targets <- function(x, groups, method) {
   verify(
     all(names(method) %in% groups),
     msg = c(
-      "i" = "{.arg method} has unused groups in {.arg groups}.",
-      "i" = paste0(
-        "{.arg method} has the following names not in {.arg groups}:",
-        "{repr.character(setdiff(names(method), groups))}"
+      "i" = paste(
+        "{.arg method} has unused targets for groups",
+        "not found in {.arg groups}."
       )
     )
   )

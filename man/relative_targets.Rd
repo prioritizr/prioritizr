@@ -4,13 +4,15 @@
 \alias{relative_targets}
 \title{Specify relative targets}
 \usage{
-relative_targets(targets)
+relative_targets(targets, ...)
 }
 \arguments{
 \item{targets}{\code{numeric} vector that specifies targets for each
-of the features. If a single value is specified, then all features
+of the features. If a single \code{numeric} value is specified, then all features
 are assigned the same proportion-based target. Note that values
 range between 0 and 1 (corresponding to 0\% and 100\% respectively).}
+
+\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.
@@ -147,9 +149,11 @@ context. \emph{Conservation Letters}, 2: 4--11.
 \seealso{
 Other methods: 
 \code{\link{absolute_targets}()},
-\code{\link{interpolated_targets}()},
+\code{\link{interpolated_absolute_targets}()},
+\code{\link{interpolated_area_targets}()},
 \code{\link{jung_targets}()},
 \code{\link{polak_targets}()},
+\code{\link{rule_targets}()},
 \code{\link{ward_targets}()},
 \code{\link{watson_targets}()}
 }

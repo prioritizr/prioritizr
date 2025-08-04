@@ -339,11 +339,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             x$x <- pmax(x$x, model$lb)
             x$x <- pmin(x$x, model$ub)
           }
-          # set default mip gap to NA if missing
-          ## this is needed for earlier versions of Gurobi that don't
-          ## return the mip gpa for a solution
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
           if (is.null(x$mipgap)) {
             x$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            x$objbound <- NA_real_
           }
           # extract solutions
           out <- list(
@@ -351,7 +353,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             objective = x$objval,
             status = x$status,
             runtime = rt[[3]],
-            gap = x$mipgap
+            gap = x$mipgap,
+            objbound = x$objbound
           )
           # add pool if required
           if (!is.null(p$PoolSearchMode) &&
@@ -360,11 +363,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           ) {
             out$pool <- x$pool[-1]
             # get bound for objective value for optimal solution
-            if (identical(model$modelsense, "min")) {
-              optimal_obj <- x$objval / (1 + x$mipgap)
-            } else {
-              optimal_obj <- x$objval * (1 + x$mipgap)
-            }
+            optimal_obj <- x$objbound
             for (i in seq_len(length(out$pool))) {
               # fix binary variables for i'th solution in pool
               out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
@@ -393,6 +392,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               # set remaining values for i'th solution
               out$pool[[i]]$objective <- out$pool[[i]]$objval
               out$pool[[i]]$gap <- i_gap
+              out$pool[[i]]$objbound <- x$objbound
             }
           }
           out

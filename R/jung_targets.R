@@ -16,6 +16,9 @@ NULL
 #' @param prop_uplift `numeric` value denoting the percentage
 #' uplift as a proportion. Defaults to 0.1 (i.e., 10%).
 #'
+#' @inheritParams rodrigues_targets
+#' @inheritParams absolute_targets
+#'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on assessment
 #' criteria from the International Union for the Conservation of Nature (IUCN)
@@ -99,32 +102,44 @@ NULL
 #'
 #' Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 #' Areas to maximise the persistence of terrestrial mammals.
-#' *Preprint at bioxriv*, <https://doi.org/10.1101/608992>.
+#' *Preprint at bioxriv*, \doi{10.1101/608992}.
 #'
 #' @family methods
 #'
 #' @examples
 #' #TODO
 #'
-#' @name jung_targets
-NULL
-
-#' @rdname jung_targets
 #' @export
 jung_targets <- function(status = "VU", prop_uplift = 0.1,
-                         cap_threshold = 1000000) {
+                         cap_area_target = 1000000,
+                         area_units = "km^2", ...) {
+  UseMethod("jung_targets")
+}
+
+#' @export
+jung_targets.default <- function(status = "VU", prop_uplift = 0.1,
+                                 cap_area_target = 1000000,
+                                 area_units = "km^2", ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "Jung et al. (2021) targets",
-    type = "absolute",
+    type = "relative",
     fun = internal_rl_species_targets,
     args = list(
       status = status,
       criterion_a = "A2",
-      criterion_b = "B1",
-      prop_uplift = 0,
+      criterion_b = "B2",
+      prop_uplift = prop_uplift,
       method = "max",
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
+}
+
+#' @export
+jung_targets.ConservationProblem <- function(status, ...) {
+  target_problem_error("add_jung_targets")
 }

@@ -22,6 +22,7 @@ NULL
 #' `"A3"` (reduction is is inferred or suspected in the future), and
 #' `"A4"` (reduction includes a time period in the past and the future and
 #' causes may not be reversible, understood, or have ceased).
+#' For convenience, these options can also be specified with lower case letters.
 #' See Mathematical formulation below for details.
 #'
 #' @param criterion_b `character` value indicating which subcriterion
@@ -29,6 +30,7 @@ NULL
 #' Available options include subcriterion
 #' `"B1"` (extent of occupancy) and
 #' `"B2"` (area of occupancy).
+#' For convenience, these option can also be specified with lower case letters.
 #' See Mathematical formulation below for details.
 #'
 #' @param method `character` indicating how the target thresholds
@@ -41,6 +43,10 @@ NULL
 #'
 #' @param prop_uplift `numeric` value denoting the percentage
 #' uplift as a proportion. Defaults to 0 (i.e., 0%).
+#'
+#' @param ... not used.
+#'
+#' @inheritParams rodrigues_targets
 #'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on assessment
@@ -143,25 +149,33 @@ NULL
 #'
 #' Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 #' Areas to maximise the persistence of terrestrial mammals.
-#' *Preprint at bioxriv*, <https://doi.org/10.1101/608992>.
+#' *Preprint at bioxriv*, \doi{10.1101/608992}.
 #'
 #' @family method
 #'
 #' @examples
 #' #TODO
 #'
-#' @name rl_species_targets
-NULL
-
-#' @rdname rl_species_targets
 #' @export
 rl_species_targets <- function(status, criterion_a, criterion_b,
                               prop_uplift = 0, method = "max",
-                              cap_threshold = 1000000) {
+                              cap_area_target = 1000000,
+                              area_units = "km^2", ...) {
+  UseMethod("rl_species_targets")
+}
+
+#' @rdname rl_species_targets
+#' @export
+rl_species_targets.default <- function(status, criterion_a, criterion_b,
+                                       prop_uplift = 0, method = "max",
+                                       cap_area_target = 1000000,
+                                       area_units = "km^2", ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "IUCN Red List of Threatened Species targets",
-    type = "absolute",
+    type = "relative",
     fun = internal_rl_species_targets,
     args = list(
       status = status,
@@ -169,26 +183,44 @@ rl_species_targets <- function(status, criterion_a, criterion_b,
       criterion_b = criterion_b,
       prop_uplift = prop_uplift,
       method = method,
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
+}
+
+#' @export
+rl_species_targets.ConservationProblem <- function(status, ...) {
+  target_problem_error("add_rl_species_targets")
 }
 
 internal_rl_species_targets <- function(x, features, status,
                                         criterion_a,
                                         criterion_b,
                                         prop_uplift, method,
-                                        cap_threshold,
+                                        cap_area_target,
+                                        area_units,
                                         call = fn_caller_env()) {
-
-  # assert that arguments are valid
+  # assert that arguments are present
   assert_required(x, call = call)
+  assert_required(features, call = call)
   assert_required(status, call = call)
   assert_required(criterion_a, call = call)
   assert_required(criterion_b, call = call)
   assert_required(prop_uplift, call = call)
   assert_required(method, call = call)
   assert_required(features, call = call)
+  # default argument handling
+  if (is.character(status)) {
+    status <- toupper(status)
+  }
+  if (is.character(criterion_a)) {
+    criterion_a <- toupper(criterion_a)
+  }
+  if (is.character(criterion_b)) {
+    criterion_b <- toupper(criterion_b)
+  }
+  # assert that arguments are valid
   assert(
     # x
     is_conservation_problem(x),
@@ -217,20 +249,26 @@ internal_rl_species_targets <- function(x, features, status,
     assertthat::is.string(method),
     assertthat::noNA(method),
     is_match_of(method, c("min", "max")),
-    # cap_threshold
-    assertthat::is.scalar(cap_threshold),
+    # cap_area_target
+    assertthat::is.scalar(cap_area_target),
+    # area_units
+    is_area_units(area_units),
     call = call
   )
-  if (!is.null(cap_threshold)) {
+  if (assertthat::noNA(cap_area_target)) {
     assert(
-      assertthat::is.number(cap_threshold),
-      all_finite(cap_threshold),
-      cap_threshold >= 0,
+      assertthat::is.number(cap_area_target),
+      all_finite(cap_area_target),
+      cap_area_target >= 0,
       call = call
     )
+  } else {
+    ## this is needed to account for different NA classes
+    cap_area_target <- NA_real_ # nocov
   }
 
   # define thresholds
+  ## note that B2 thresholds are in km^2 units
   criterion_data <- tibble::tribble(
     ~status, ~criterion, ~threshold,
     "CR", "A1", 0.9,
@@ -254,12 +292,12 @@ internal_rl_species_targets <- function(x, features, status,
   )
 
   # find thresholds
-  size_threshold <- criterion_data$threshold[
+  reduction_threshold <- criterion_data$threshold[
     which(
       criterion_data$status == status & criterion_data$criterion == criterion_a
     )
   ]
-  reduction_threshold <- criterion_data$threshold[
+  size_threshold <- criterion_data$threshold[
     which(
       criterion_data$status == status & criterion_data$criterion == criterion_b
     )
@@ -285,7 +323,7 @@ internal_rl_species_targets <- function(x, features, status,
     reduction_threshold = reduction_threshold,
     prop_uplift = prop_uplift,
     method = method,
-    cap_threshold = cap_threshold,
+    cap_threshold = as_km2(cap_area_target, area_units),
     call = call
   )
 }
@@ -306,35 +344,14 @@ internal_rl_targets <- function(x, features, size_threshold,
     call = call,
     .internal = TRUE
   )
+  assert_can_calculate_area_based_targets(x, features, call = call)
 
   # extract abundances
-  fa <- x$feature_abundances_in_total_units()[features, 1]
-
-  # extract feature data resolution in square meters
-  fr <- x$feature_resolution_m2()
-
-  # if possible, convert to 1 km^2
-  if (is.numeric(fr)) {
-    fa <- fa * (fr / (1000 * 1000))
-  } else {
-    cli::cli_bullets(
-      c(
-        ">" = paste(
-          "Targets will be calculated assuming",
-          "feature data are in units of 1 km^2."
-        ),
-        "i" = paste(
-          "This is because {.arg features} in {.arg x}",
-          "are not rasters."
-        )
-      )
-    )
-  }
+  fa <- x$feature_abundances_km2_in_total_units()[features, 1]
 
   # prepare values for target setting
-  reduction_threshold <- 1 - reduction_threshold
   size_threshold <- size_threshold * (1 + prop_uplift)
-  reduction_threshold <- reduction_threshold * (1 + prop_uplift)
+  reduction_threshold <- (1 - reduction_threshold) * (1 + prop_uplift)
 
   # preliminary target calculations
   if (identical(method, "min")) {
@@ -343,6 +360,12 @@ internal_rl_targets <- function(x, features, size_threshold,
     targets <- pmax(size_threshold, fa * reduction_threshold)
   }
 
+  # apply cap thresholds
+  targets <- pmin(targets, cap_threshold, na.rm = TRUE)
+
+  # clamp targets to abundances
+  targets <- pmin(fa, targets)
+
   # return targets
-  pmin(fa, pmin(targets, cap_threshold))
+  targets / fa
 }

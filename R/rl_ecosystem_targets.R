@@ -9,7 +9,7 @@ NULL
 #' This function is designed to be used within `add_auto_targets()` and
 #' `add_group_targets()`.
 #'
-#' @inheritParams add_rl_species_targets
+#' @inheritParams rl_species_targets
 #'
 #' @param criterion_a `character` value indicating which subcriterion
 #' should be considered based on geographic distribution reduction.
@@ -18,6 +18,7 @@ NULL
 #' `"A2a"` (reductions over the next 50 years),
 #' `"A2b"` (reductions over any 50 year period), or
 #' `"A3"` (reductions during historical time periods).
+#' For convenience, these option can also be specified with lower case letters.
 #' See Mathematical formulation below for details.
 #'
 #' @param criterion_b `character` value indicating which subcriterion
@@ -25,6 +26,7 @@ NULL
 #' Available options include subcriterion based on
 #' `"B1"` (extent of occupancy), and
 #' `"B2"` (area of occupancy).
+#' For convenience, these options can also be specified with lower case letters.
 #' See Mathematical formulation below for details.
 #'
 #' @section Mathematical formulation:
@@ -119,18 +121,25 @@ NULL
 #' @examples
 #' #TODO
 #'
-#' @name rl_ecosystem_targets
-NULL
-
-#' @rdname rl_ecosystem_targets
 #' @export
-rl_ecosystem_targets <- function(x, status, criterion_a, criterion_b,
+rl_ecosystem_targets <- function(status, criterion_a, criterion_b,
                                  prop_uplift = 0, method = "max",
-                                 cap_threshold = 1000000) {
+                                 cap_area_target = 1000000,
+                                 area_units = "km^2", ...) {
+  UseMethod("rl_ecosystem_targets")
+}
+
+#' @export
+rl_ecosystem_targets.default <- function(status, criterion_a, criterion_b,
+                                         prop_uplift = 0, method = "max",
+                                         cap_area_target = 1000000,
+                                         area_units = "km^2", ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "IUCN Red List of Ecosystem targets",
-    type = "absolute",
+    type = "relative",
     fun = internal_rl_ecosystem_targets,
     args = list(
       status = status,
@@ -138,27 +147,54 @@ rl_ecosystem_targets <- function(x, status, criterion_a, criterion_b,
       criterion_b = criterion_b,
       prop_uplift = prop_uplift,
       method = method,
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
 }
 
-internal_rl_ecosystem_targets <- function(x, status, criterion_a,
+#' @export
+rl_ecosystem_targets.ConservationProblem <- function(status, ...) {
+  target_problem_error("add_rl_ecosystem_targets")
+}
+
+internal_rl_ecosystem_targets <- function(x, features, status, criterion_a,
                                           criterion_b,
                                           prop_uplift, method,
-                                          cap_threshold,
+                                          cap_area_target,
+                                          area_units,
                                           call = fn_caller_env()) {
-  # assert that arguments are valid
+  # assert that arguments are present
   assert_required(x, call = call)
+  assert_required(features, call = call)
   assert_required(status, call = call)
   assert_required(criterion_a, call = call)
   assert_required(criterion_b, call = call)
   assert_required(prop_uplift, call = call)
   assert_required(method, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # default argument handling
+  if (is.character(status)) {
+    status <- toupper(status)
+  }
+  if (is.character(criterion_a)) {
+    criterion_a <- toupper(criterion_a)
+    criterion_a <- gsub("2A", "2a", criterion_a, fixed = TRUE)
+    criterion_a <- gsub("2b", "2b", criterion_a, fixed = TRUE)
+  }
+  if (is.character(criterion_b)) {
+    criterion_b <- toupper(criterion_b)
+  }
+  # assert that arguments are valid
   assert(
     # x
     is_conservation_problem(x),
     has_single_zone(x),
+    # features
+    is_integer(features),
+    all(features >= 1),
+    all(features <= x$number_of_features()),
     # status
     assertthat::is.string(status),
     assertthat::noNA(status),
@@ -179,20 +215,26 @@ internal_rl_ecosystem_targets <- function(x, status, criterion_a,
     assertthat::is.string(method),
     assertthat::noNA(method),
     is_match_of(method, c("min", "max")),
-    # cap_threshold
-    assertthat::is.scalar(cap_threshold),
+    # cap_area_target
+    assertthat::is.scalar(cap_area_target),
+    # area_units
+    is_area_units(area_units),
     call = call
   )
-  if (!is.null(cap_threshold)) {
+  if (assertthat::noNA(cap_area_target)) {
     assert(
-      assertthat::is.number(cap_threshold),
-      all_finite(cap_threshold),
-      cap_threshold >= 0,
+      assertthat::is.number(cap_area_target),
+      all_finite(cap_area_target),
+      cap_area_target >= 0,
       call = call
     )
+  } else {
+    ## this is needed to account for different NA classes
+    cap_area_target <- NA_real_ # nocov
   }
 
   # define thresholds
+  ## note that B2 thresholds are in km^2 units
   criterion_data <- tibble::tribble(
     ~status, ~criterion, ~threshold,
     "CR", "A1", 0.8,
@@ -216,12 +258,12 @@ internal_rl_ecosystem_targets <- function(x, status, criterion_a,
   )
 
   # find thresholds
-  size_threshold <- criterion_data$threshold[
+  reduction_threshold <- criterion_data$threshold[
     which(
       criterion_data$status == status & criterion_data$criterion == criterion_a
     )
   ]
-  reduction_threshold <- criterion_data$threshold[
+  size_threshold <- criterion_data$threshold[
     which(
       criterion_data$status == status & criterion_data$criterion == criterion_b
     )
@@ -242,11 +284,12 @@ internal_rl_ecosystem_targets <- function(x, status, criterion_a,
   # calculate targets
   internal_rl_targets(
     x = x,
+    features = features,
     size_threshold = size_threshold,
     reduction_threshold = reduction_threshold,
     prop_uplift = prop_uplift,
     method = method,
-    cap_threshold = cap_threshold,
+    cap_threshold = as_km2(cap_area_target, area_units),
     call = call
   )
 }

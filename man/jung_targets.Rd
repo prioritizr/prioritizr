@@ -4,7 +4,13 @@
 \alias{jung_targets}
 \title{Specify targets following Jung \emph{et al.} (2021)}
 \usage{
-jung_targets(status = "VU", prop_uplift = 0.1, cap_threshold = 1e+06)
+jung_targets(
+  status = "VU",
+  prop_uplift = 0.1,
+  cap_area_target = 1e+06,
+  area_units = "km^2",
+  ...
+)
 }
 \arguments{
 \item{status}{\code{character} value denoting the IUCN Red List threat
@@ -14,6 +20,18 @@ Available options include \code{"CR"} (Critically Endangered) ,
 
 \item{prop_uplift}{\code{numeric} value denoting the percentage
 uplift as a proportion. Defaults to 0.1 (i.e., 10\%).}
+
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
+To avoid setting a target cap, a missing (\code{NA}) value can be specified.
+Defaults to 1000000
+(i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.
@@ -201,22 +219,26 @@ conserving terrestrial biodiversity, carbon and water.
 
 Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 Areas to maximise the persistence of terrestrial mammals.
-\emph{Preprint at bioxriv}, \url{https://doi.org/10.1101/608992}.
+\emph{Preprint at bioxriv}, \doi{10.1101/608992}.
 }
 \seealso{
 Other methods: 
 \code{\link{absolute_targets}()},
-\code{\link{interpolated_targets}()},
+\code{\link{interpolated_absolute_targets}()},
+\code{\link{interpolated_area_targets}()},
 \code{\link{polak_targets}()},
 \code{\link{relative_targets}()},
+\code{\link{rule_targets}()},
 \code{\link{ward_targets}()},
 \code{\link{watson_targets}()}
 
 Other methods: 
 \code{\link{absolute_targets}()},
-\code{\link{interpolated_targets}()},
+\code{\link{interpolated_absolute_targets}()},
+\code{\link{interpolated_area_targets}()},
 \code{\link{polak_targets}()},
 \code{\link{relative_targets}()},
+\code{\link{rule_targets}()},
 \code{\link{ward_targets}()},
 \code{\link{watson_targets}()}
 }

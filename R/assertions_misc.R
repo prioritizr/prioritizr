@@ -181,3 +181,61 @@ assertthat::on_failure(any_solvers_installed) <- function(call, env) {
     "i" = "See {.topic solvers} for options."
   )
 }
+
+#' Is area unit?
+#'
+#' Assert that a value is a valid unit of measuring area.
+#'
+#' @param `character` value.
+#'
+#' @return A `logical` value indicating if it is a valid unit of measurement.
+#'
+#' @noRd
+is_area_units <- function(x) {
+  if (!is.character(x)) return(FALSE)
+  suppressMessages(
+    inherits(
+      try(
+        units::set_units(
+          units::set_units(1, x, mode = "standard"),
+          "km^2"
+        ),
+        silent = TRUE
+      ),
+      "units"
+    )
+  )
+}
+
+assertthat::on_failure(is_area_units) <- function(call, env) {
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} is not a valid unit for measuring area."
+  )
+}
+
+#' All area units?
+#'
+#' Assert that a vector has valid units of measuring area.
+#'
+#' @param `character` value.
+#'
+#' @param na.rm `logical` value. Defaults to `FALSE`.
+#'
+#' @return A `logical` value indicating if it is a valid unit of measurement.
+#'
+#' @noRd
+all_area_units <- function(x, na.rm = FALSE) {
+  if (!is.character(x)) return(FALSE)
+  if (isTRUE(na.rm)) {
+    x <- x[!is.na(x)]
+  }
+  all(vapply(unique(x), is_area_units, logical(1)))
+}
+
+assertthat::on_failure(all_area_units) <- function(call, env) {
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must contain values that are valid units for measuring area."
+  )
+}

@@ -7,10 +7,10 @@ NULL
 #' This function is designed to be used within `add_auto_targets()` and
 #' `add_group_targets()`.
 #'
-#' @inheritParams add_rodrigues_targets
+#' @inheritParams rodrigues_targets
 #'
-#' @param common_threshold `numeric` value indicating the threshold area
-#' for identifying common features.
+#' @param common_area_threshold `numeric` value indicating the threshold
+#' area for identifying common features.
 #' Defaults to 10000
 #' (i.e., 10,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
 #'
@@ -96,29 +96,47 @@ NULL
 #' @examples
 #' #TODO
 #'
-#' @name polak_targets
-NULL
-
-#' @rdname polak_targets
 #' @export
-polak_targets <- function(status = "VU", prop_uplift = 0.1,
-                         cap_threshold = 1000000) {
+polak_targets <- function(rare_area_threshold,
+                          rare_relative_target = 1,
+                          common_area_threshold = 10000,
+                          common_relative_target = 0.1,
+                          cap_area_target = 1000000,
+                          area_units = "km^2", ...) {
+  UseMethod("polak_targets")
+}
+
+#' @export
+polak_targets.default <- function(rare_area_threshold = 1000,
+                                  rare_relative_target = 1,
+                                  common_area_threshold = 10000,
+                                  common_relative_target = 0.1,
+                                  cap_area_target = 1000000,
+                                  area_units = "km^2", ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "Polak et al. (2015) targets",
-    type = "absolute",
-    fun = internal_interpolated_targets,
+    type = "relative",
+    fun = internal_interpolated_area_targets,
     args = list(
-      rare_threshold = rare_threshold,
+      rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
-      rare_absolute_target = NA_real_,
+      rare_area_target = NA_real_,
       rare_method = "max", # has no effect
-      common_threshold = common_threshold,
+      common_area_threshold = common_area_threshold,
       common_relative_target = common_relative_target,
-      common_absolute_target = NA_real_,
+      common_area_target = NA_real_,
       common_method = "max", # has no effect
-      cap_threshold = cap_threshold,
-      method = "linear"
+      cap_area_target = cap_area_target,
+      interp_method = "linear",
+      area_units = area_units
     )
   )
+}
+
+#' @export
+polak_targets.ConservationProblem <- function(rare_area_threshold, ...) {
+  target_problem_error("add_polak_targets")
 }

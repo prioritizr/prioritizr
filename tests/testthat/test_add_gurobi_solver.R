@@ -311,6 +311,8 @@ test_that("solver information (single solution)", {
   expect_length(attr(s, "status"), 1)
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 1)
+  expect_true(is.numeric(attr(s, "objbound")))
+  expect_length(attr(s, "objbound"), 1)
 })
 
 test_that("solver information (multiple solutions)", {
@@ -338,6 +340,8 @@ test_that("solver information (multiple solutions)", {
   expect_length(attr(s, "status"), 3)
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 3)
+  expect_true(is.numeric(attr(s, "objbound")))
+  expect_length(attr(s, "objbound"), 3)
 })
 
 test_that("set_start_solution", {

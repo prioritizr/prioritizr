@@ -5,17 +5,21 @@
 \title{Specify targets based on the IUCN Red List of Ecosystems}
 \usage{
 rl_ecosystem_targets(
-  x,
   status,
   criterion_a,
   criterion_b,
   prop_uplift = 0,
   method = "max",
-  cap_threshold = 1e+06
+  cap_area_target = 1e+06,
+  area_units = "km^2",
+  ...
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{status}{\code{character} value denoting the IUCN Red List threat
+status used for target setting.
+Available options include \code{"CR"} (Critically Endangered),
+\code{"EN"} (Endangered), and "VU"` (Vulnerable).}
 
 \item{criterion_a}{\code{character} value indicating which subcriterion
 should be considered based on geographic distribution reduction.
@@ -24,6 +28,7 @@ Available options include subcriterion based on
 \code{"A2a"} (reductions over the next 50 years),
 \code{"A2b"} (reductions over any 50 year period), or
 \code{"A3"} (reductions during historical time periods).
+For convenience, these option can also be specified with lower case letters.
 See Mathematical formulation below for details.}
 
 \item{criterion_b}{\code{character} value indicating which subcriterion
@@ -31,7 +36,31 @@ should be considered based on geographic distribution size.
 Available options include subcriterion based on
 \code{"B1"} (extent of occupancy), and
 \code{"B2"} (area of occupancy).
+For convenience, these options can also be specified with lower case letters.
 See Mathematical formulation below for details.}
+
+\item{prop_uplift}{\code{numeric} value denoting the percentage
+uplift as a proportion. Defaults to 0 (i.e., 0\%).}
+
+\item{method}{\code{character} indicating how the target thresholds
+should be calculated based on values from criterion A and B.
+Available options include \code{"min"} and \code{"max"}.
+For example, a value of \code{"max"} means that the target threshold
+should be calculated as a maximum of the values from
+criterion A and B.
+Defaults to \code{"max"} as a precaution.}
+
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
+To avoid setting a target cap, a missing (\code{NA}) value can be specified.
+Defaults to 1000000
+(i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

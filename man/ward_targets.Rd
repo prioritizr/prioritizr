@@ -4,7 +4,7 @@
 \alias{ward_targets}
 \title{Add targets following Ward \emph{et al.} (2025)}
 \usage{
-ward_targets(status = "CR", cap_threshold = 1e+06)
+ward_targets(status = "CR", cap_area_target = 1e+06, area_units = "km^2", ...)
 }
 \arguments{
 \item{status}{\code{character} value denoting the IUCN Red List threat
@@ -12,11 +12,17 @@ status used for target setting.
 Available options include \code{"CR"} (Critically Endangered) ,
 \code{"EN"} (Endangered), and "VU"\verb{(Vulnerable). Defaults to}"CR"`.}
 
-\item{cap_threshold}{\code{numeric} value indicating the threshold
-area for applying a target cap.
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
 To avoid setting a target cap, a missing (\code{NA}) value can be specified.
 Defaults to 1000000
 (i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.
@@ -199,10 +205,12 @@ progressing recovery for Australia's priority threatened species.
 \seealso{
 Other methods: 
 \code{\link{absolute_targets}()},
-\code{\link{interpolated_targets}()},
+\code{\link{interpolated_absolute_targets}()},
+\code{\link{interpolated_area_targets}()},
 \code{\link{jung_targets}()},
 \code{\link{polak_targets}()},
 \code{\link{relative_targets}()},
+\code{\link{rule_targets}()},
 \code{\link{watson_targets}()}
 
 Other method: 

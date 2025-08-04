@@ -77,7 +77,7 @@ as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} f
 \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.}
 
 \item{\code{add_loglinear_targets()}}{replaced by the
-\code{\link[=add_interpolated_targets]{add_interpolated_targets()}} function.}
+\code{\link[=add_interpolated_absolute_targets]{add_interpolated_absolute_targets()}} function.}
 
 \item{\code{set_number_of_threads()}}{
 no longer needed due to improved data extraction methods.}

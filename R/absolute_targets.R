@@ -15,6 +15,8 @@ NULL
 #' of the features. If a single value is specified, then all features
 #' are assigned the same target threshold.
 #'
+#' @param ... not used.
+#'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on a pre-specified
 #' value.
@@ -40,43 +42,55 @@ NULL
 #' @examples
 #' # TODO
 #'
-#' @name absolute_targets
-NULL
-
-#' @rdname absolute_targets
 #' @export
-absolute_targets <- function(targets) {
+absolute_targets <- function(targets, ...) {
+  UseMethod("absolute_targets")
+}
+
+#' @export
+absolute_targets.default <- function(targets, ...) {
+  # assert no dots
+  rlang::check_dots_empty()
   # return method
   new_method(
     name = "Absolute targets",
     type = "absolute",
     fun = internal_absolute_targets,
-    args = list(targets)
+    args = list(targets = targets)
   )
 }
 
-internal_absolute_targets <- function(x, targets, call = fn_caller_env()) {
+#' @export
+absolute_targets.ConservationProblem <- function(targets, ...) {
+  target_problem_error("add_absolute_targets")
+}
+
+internal_absolute_targets <- function(x, features, targets,
+                                      call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
+  assert_required(features, call = call)
   assert_required(targets, call = call)
   assert(
     # x
     is_conservation_problem(x),
     has_single_zone(x),
+    # features
+    is_integer(features),
+    all(features >= 1),
+    all(features <= x$number_of_features()),
     # targets
     is.numeric(targets),
-    assert(
-      is_match_of(length(targets), c(1, number_of_features(x)))
-    ),
+    is_match_of(length(targets), c(1, number_of_features(x))),
     all_finite(targets),
     call = call
   )
 
-  # if needed, duplicate target values
+  # if needed, duplicate target values for each feature
   if (identical(length(targets), 1L)) {
     targets <- rep(targets, x$number_of_features())
   }
 
   # return targets
-  targets
+  targets[features]
 }

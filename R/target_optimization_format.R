@@ -58,29 +58,37 @@ target_optimization_format <- function(x, targets) {
     is_conservation_problem(x),
     is.data.frame(targets),
     assertthat::has_name(targets, "feature"),
-    is.character(targets$feature),
+    is_inherits(targets$feature, c("character", "factor")),
     assertthat::has_name(targets, "type"),
-    is.character(targets$type),
+    is_inherits(targets$type, c("character", "factor")),
     all_match_of(targets$type, c("relative", "absolute")),
     assertthat::has_name(targets, "target"),
-    is.numeric(targets$type),
     .internal = TRUE
   )
+
+  # coerce to character
+  targets$feature <- as.character(targets$feature)
+  targets$type <- as.character(targets$type)
+
   # get data
   abundances <- x$feature_abundances_in_total_units()
+
   # add zone column if missing
   if (!assertthat::has_name(targets, "zone")) {
     targets$zone <- colnames(abundances)[[1]]
   }
+
   # convert zone column to list of characters if needed
   if (!inherits(targets$zone, "list")) {
     targets$zone <- as.list(targets$zone)
   }
+
   # add sense column if missing
   if (!assertthat::has_name(targets, "sense")) {
     targets$sense <- ">="
   }
   targets$sense <- as.character(targets$sense)
+
   # convert feature names to indices
   targets$feature <- match(
     as.character(targets$feature), rownames(abundances)
@@ -90,6 +98,7 @@ target_optimization_format <- function(x, targets) {
     msg = "all features in {.arg targets} must be present in {.arg x}.",
     .internal = TRUE
   )
+
   # convert zone names to indices
   for (i in seq_len(nrow(targets))) {
     targets$zone[[i]] <- match(
@@ -101,6 +110,7 @@ target_optimization_format <- function(x, targets) {
       .internal = TRUE
     )
   }
+
   # add compute relative targets as absolute targets and assign zone ids
   targets$value <- as.numeric(targets$target)
   relative_rows <- which(targets$type == "relative")
@@ -111,6 +121,7 @@ target_optimization_format <- function(x, targets) {
     targets$value[relative_rows[i]] <-
       sum(abundances[abund_mtx]) * targets$target[relative_rows[i]]
    }
+
   # return tibble
   targets[, c("feature", "zone", "sense", "value")]
 }

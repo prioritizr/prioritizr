@@ -11,11 +11,59 @@ add_rl_species_targets(
   criterion_b,
   prop_uplift = 0,
   method = "max",
-  cap_threshold = 1e+06
+  cap_area_target = 1e+06,
+  area_units = "km^2"
 )
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
+
+\item{status}{\code{character} value denoting the IUCN Red List threat
+status used for target setting.
+Available options include \code{"CR"} (Critically Endangered),
+\code{"EN"} (Endangered), and "VU"` (Vulnerable).}
+
+\item{criterion_a}{\code{character} value indicating which subcriterion
+should be considered based on population size reduction.
+Available options include subcriterion
+\code{"A1"} (reduction that occurred in the past and the causes are reversible,
+understood, and have ceased),
+\code{"A2"} (reduction that occurred in the past and the causes may not be
+reversible, understood, or have ceased);
+\code{"A3"} (reduction is is inferred or suspected in the future), and
+\code{"A4"} (reduction includes a time period in the past and the future and
+causes may not be reversible, understood, or have ceased).
+For convenience, these options can also be specified with lower case letters.
+See Mathematical formulation below for details.}
+
+\item{criterion_b}{\code{character} value indicating which subcriterion
+should be considered based on geographic range.
+Available options include subcriterion
+\code{"B1"} (extent of occupancy) and
+\code{"B2"} (area of occupancy).
+For convenience, these option can also be specified with lower case letters.
+See Mathematical formulation below for details.}
+
+\item{prop_uplift}{\code{numeric} value denoting the percentage
+uplift as a proportion. Defaults to 0 (i.e., 0\%).}
+
+\item{method}{\code{character} indicating how the target thresholds
+should be calculated based on values from criterion A and B.
+Available options include \code{"min"} and \code{"max"}.
+For example, a value of \code{"max"} means that the target threshold
+should be calculated as a maximum of the values from
+criterion A and B.
+Defaults to \code{"max"} as a precaution.}
+
+\item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
+To avoid setting a target cap, a missing (\code{NA}) value can be specified.
+Defaults to 1000000
+(i.e., 1,000,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
+
+\item{area_units}{\code{character} value denoting the unit of measurement
+for the area-based arguments.
+Defaults to \code{"km^2"}
+(i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
@@ -236,20 +284,22 @@ conserving terrestrial biodiversity, carbon and water.
 
 Mogg S, Fastre C, Jung M, Visconti P (2019) Targeted expansion of Protected
 Areas to maximise the persistence of terrestrial mammals.
-\emph{Preprint at bioxriv}, \url{https://doi.org/10.1101/608992}.
+\emph{Preprint at bioxriv}, \doi{10.1101/608992}.
 }
 \seealso{
 Other targets: 
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
-\code{\link{add_interpolated_targets}()},
+\code{\link{add_interpolated_absolute_targets}()},
+\code{\link{add_interpolated_area_targets}()},
 \code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
 \code{\link{add_polak_targets}()},
 \code{\link{add_relative_targets}()},
 \code{\link{add_rl_ecosystem_targets}()},
 \code{\link{add_rodrigues_targets}()},
+\code{\link{add_rule_targets}()},
 \code{\link{add_ward_targets}()},
 \code{\link{add_watson_targets}()}
 }

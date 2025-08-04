@@ -10,7 +10,7 @@
 #' `"EN"` (Endangered), and "VU"` (Vulnerable).
 #' Defaults to `"CR"`.
 #'
-#' @inheritParams add_rodrigues_targets
+#' @inheritParams rodrigues_targets
 #'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on assessment
@@ -90,16 +90,20 @@
 #' @examples
 #' #TODO
 #'
-#' @name ward_targets
-NULL
-
-#' @rdname ward_targets
 #' @export
-ward_targets <- function(status = "CR", cap_threshold = 1000000) {
+ward_targets <- function(status = "CR", cap_area_target = 1000000,
+                         area_units = "km^2", ...) {
+  UseMethod("ward_targets")
+}
+
+#' @export
+ward_targets.default <- function(status = "CR",
+                                 cap_area_target = 1000000,
+                                 area_units = "km^2", ...) {
   # return method
   new_method(
     name = "Ward et al. (2025) targets",
-    type = "absolute",
+    type = "relative",
     fun = internal_rl_species_targets,
     args = list(
       status = status,
@@ -107,7 +111,13 @@ ward_targets <- function(status = "CR", cap_threshold = 1000000) {
       criterion_b = "B1",
       prop_uplift = 0,
       method = "max",
-      cap_threshold = cap_threshold
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
+}
+
+#' @export
+ward_targets.ConservationProblem <- function(status, ...) {
+  target_problem_error("add_ward_targets")
 }
