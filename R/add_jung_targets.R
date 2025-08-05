@@ -25,7 +25,8 @@ NULL
 #' @family targets
 #'
 #' @examples
-#' TODO
+#' # TODO
+#'
 #' @name add_jung_targets
 NULL
 

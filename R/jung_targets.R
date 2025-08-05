@@ -107,7 +107,7 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' #TODO
+#' # TODO
 #'
 #' @export
 jung_targets <- function(status = "VU", prop_uplift = 0.1,
