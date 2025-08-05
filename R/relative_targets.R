@@ -45,29 +45,26 @@ NULL
 #'
 #' @export
 relative_targets <- function(targets, ...) {
-  UseMethod("relative_targets")
+  assert_valid_method_arg(targets, "add_relative_targets")
+  rlang::check_dots_empty()
+  internal_relative_targets(targets = targets)
 }
 
-#' @export
-relative_targets.default <- function(targets, ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_relative_targets <- function(targets, call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(targets, call = call)
+  # return new method
   new_method(
     name = "Relative targets",
     type = "relative",
-    fun = internal_relative_targets,
-    args = list(targets = targets)
+    fun = calc_relative_targets,
+    args = list(targets = targets),
+    call = call
   )
 }
 
-#' @export
-relative_targets.ConservationProblem <- function(targets, ...) {
-  target_problem_error("add_relative_targets")
-}
-
-internal_relative_targets <- function(x, features, targets,
-                                      call = fn_caller_env()) {
+calc_relative_targets <- function(x, features, targets,
+                                  call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(targets, call = call)

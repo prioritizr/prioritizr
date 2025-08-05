@@ -92,19 +92,26 @@
 #'
 #' @export
 ward_targets <- function(status = "CR", cap_area_target = 1000000,
-                         area_units = "km^2", ...) {
-  UseMethod("ward_targets")
+                         area_units = "km^2") {
+  assert_valid_method_arg(status, "add_ward_targets")
+  internal_ward_targets(
+    status = status,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @export
-ward_targets.default <- function(status = "CR",
-                                 cap_area_target = 1000000,
-                                 area_units = "km^2", ...) {
-  # return method
+internal_ward_targets <- function(status, cap_area_target, area_units,
+                                  call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(status, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "Ward et al. (2025) targets",
     type = "relative",
-    fun = internal_rl_species_targets,
+    fun = calc_rl_species_targets,
     args = list(
       status = status,
       criterion_a = "A2",
@@ -113,11 +120,7 @@ ward_targets.default <- function(status = "CR",
       method = "max",
       cap_area_target = cap_area_target,
       area_units = area_units
-    )
+    ),
+    call = call
   )
-}
-
-#' @export
-ward_targets.ConservationProblem <- function(status, ...) {
-  target_problem_error("add_ward_targets")
 }

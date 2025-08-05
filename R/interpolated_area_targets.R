@@ -69,8 +69,6 @@ NULL
 #' @param area_units `character` value denoting the unit of measurement
 #' for the area-based arguments (e.g., `"km^2", `"ha"`, `"acres"`).
 #'
-#' @param ... not used.
-#'
 #' @section Mathematical formulation:
 #' This method provides a flexible approach for setting target thresholds based
 #' on the spatial extent of the features.
@@ -131,29 +129,52 @@ interpolated_area_targets <- function(rare_area_threshold,
                                       common_method,
                                       cap_area_target,
                                       interp_method,
-                                      area_units, ...) {
-  UseMethod("interpolated_area_targets")
+                                      area_units) {
+  assert_valid_method_arg(rare_area_threshold, "add_interpolated_area_targets")
+  internal_interpolated_area_targets(
+    rare_area_threshold = rare_area_threshold,
+    rare_relative_target = rare_relative_target,
+    rare_area_target = rare_area_target,
+    rare_method = rare_method,
+    common_area_threshold = common_area_threshold,
+    common_relative_target = common_relative_target,
+    common_area_target = common_area_target,
+    common_method = common_method,
+    cap_area_target = cap_area_target,
+    interp_method = interp_method,
+    area_units = area_units
+  )
 }
 
-#' @export
-interpolated_area_targets.default <- function(rare_area_threshold,
-                                              rare_relative_target,
-                                              rare_area_target,
-                                              rare_method,
-                                              common_area_threshold,
-                                              common_relative_target,
-                                              common_area_target,
-                                              common_method,
-                                              cap_area_target,
-                                              interp_method,
-                                              area_units, ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_interpolated_area_targets <- function(rare_area_threshold,
+                                               rare_relative_target,
+                                               rare_area_target,
+                                               rare_method,
+                                               common_area_threshold,
+                                               common_relative_target,
+                                               common_area_target,
+                                               common_method,
+                                               cap_area_target,
+                                               interp_method,
+                                               area_units,
+                                               call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(rare_area_threshold, call = call)
+  assert_required(rare_relative_target, call = call)
+  assert_required(rare_area_target, call = call)
+  assert_required(rare_method, call = call)
+  assert_required(common_area_threshold, call = call)
+  assert_required(common_relative_target, call = call)
+  assert_required(common_area_target, call = call)
+  assert_required(common_method, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(interp_method, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "interpolated rea targets",
     type = "relative",
-    fun = internal_interpolated_area_targets,
+    fun = calc_interpolated_area_targets,
     args = list(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
@@ -166,31 +187,24 @@ interpolated_area_targets.default <- function(rare_area_threshold,
       cap_area_target = cap_area_target,
       interp_method = interp_method,
       area_units = area_units
-    )
+    ),
+    call = call
   )
 }
 
-#' @export
-interpolated_area_targets.ConservationProblem <- function(
-  rare_area_threshold,
-  ...
-) {
-  target_problem_error("add_interpolated_area_targets")
-}
-
-internal_interpolated_area_targets <- function(x, features,
-                                               rare_area_threshold,
-                                               rare_relative_target,
-                                               rare_area_target,
-                                               rare_method,
-                                               common_area_threshold,
-                                               common_relative_target,
-                                               common_area_target,
-                                               common_method,
-                                               cap_area_target,
-                                               interp_method,
-                                               area_units,
-                                               call = fn_caller_env()) {
+calc_interpolated_area_targets <- function(x, features,
+                                           rare_area_threshold,
+                                           rare_relative_target,
+                                           rare_area_target,
+                                           rare_method,
+                                           common_area_threshold,
+                                           common_relative_target,
+                                           common_area_target,
+                                           common_method,
+                                           cap_area_target,
+                                           interp_method,
+                                           area_units,
+                                           call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(features, call = call)
@@ -285,7 +299,7 @@ internal_interpolated_area_targets <- function(x, features,
   }
 
   # calculate targets
-  internal_interpolated_targets(
+  calc_interpolated_targets(
     x = c(x$feature_abundances_km2_in_total_units()[features, 1]),
     rare_absolute_threshold = as_km2(rare_area_threshold, area_units),
     rare_relative_target = rare_relative_target,

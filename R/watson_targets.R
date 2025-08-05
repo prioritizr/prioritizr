@@ -101,22 +101,34 @@ watson_targets <- function(rare_area_threshold = 10000,
                            rare_area_target = 1000,
                            common_relative_target = 0.1,
                            cap_area_target = 1000000,
-                           area_units = "km^2", ...) {
-  UseMethod("watson_targets")
+                           area_units = "km^2") {
+  assert_valid_method_arg(rare_area_threshold, "add_watson_targets")
+  internal_watson_targets(
+    rare_area_threshold = rare_area_threshold,
+    rare_relative_target = rare_relative_target,
+    rare_area_target = rare_area_target,
+    common_relative_target = common_relative_target,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @export
-watson_targets.default <- function(rare_area_threshold = 10000,
-                                   rare_relative_target = 1,
-                                   rare_area_target = 1000,
-                                   common_relative_target = 0.1,
-                                   cap_area_target = 1000000,
-                                   area_units = "km^2", ...) {
-  # return method
+internal_watson_targets <- function(rare_area_threshold, rare_relative_target,
+                                    rare_area_target, common_relative_target,
+                                    cap_area_target, area_units,
+                                    call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(rare_area_threshold, call = call)
+  assert_required(rare_relative_target, call = call)
+  assert_required(rare_area_target, call = call)
+  assert_required(common_relative_target, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "Watson et al. (2010) targets",
     type = "relative",
-    fun = internal_interpolated_area_targets,
+    fun = calc_interpolated_area_targets,
     args = list(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
@@ -129,11 +141,7 @@ watson_targets.default <- function(rare_area_threshold = 10000,
       cap_area_target = cap_area_target,
       interp_method = "linear", # has no effect
       area_units = area_units
-    )
+    ),
+    call = call
   )
-}
-
-#' @export
-watson_targets.ConservationProblem <- function(rare_area_threshold, ...) {
-  target_problem_error("add_watson_targets")
 }

@@ -38,7 +38,7 @@ add_ward_targets <- function(x, status = "CR",
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = ward_targets(
+    method = internal_ward_targets(
       status = status,
       cap_area_target = cap_area_target,
       area_units = area_units

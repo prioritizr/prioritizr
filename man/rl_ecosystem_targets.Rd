@@ -11,8 +11,7 @@ rl_ecosystem_targets(
   prop_uplift = 0,
   method = "max",
   cap_area_target = 1e+06,
-  area_units = "km^2",
-  ...
+  area_units = "km^2"
 )
 }
 \arguments{
@@ -59,8 +58,6 @@ Defaults to 1000000
 for the area-based arguments.
 Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
-
-\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

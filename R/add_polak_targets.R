@@ -40,7 +40,7 @@ add_polak_targets <- function(x, rare_area_threshold = 1000,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = polak_targets(
+    method = internal_polak_targets(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
       common_area_threshold = common_area_threshold,

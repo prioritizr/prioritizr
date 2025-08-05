@@ -196,7 +196,7 @@ methods::setMethod(
       msg = c(
         "{.arg targets} must not be a character vector.",
         "i" = paste(
-          "This is because the feature data for {arg. x}",
+          "This is because the feature data for {.arg x}",
           "are not a data frame."
         )
       )

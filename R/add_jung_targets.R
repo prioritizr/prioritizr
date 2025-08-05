@@ -38,7 +38,7 @@ add_jung_targets <- function(x, status = "VU", prop_uplift = 0.1,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = jung_targets(
+    method = internal_jung_targets(
       status = status,
       prop_uplift = prop_uplift,
       cap_area_target = cap_area_target,

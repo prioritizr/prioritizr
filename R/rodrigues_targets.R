@@ -41,8 +41,6 @@ NULL
 #' Defaults to `"km^2"`
 #' (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
 #'
-#' @inheritParams relative_targets
-#'
 #' @section Mathematical formulation:
 #' This method involves setting target thresholds based on the spatial
 #' extent of the features.
@@ -134,24 +132,37 @@ rodrigues_targets <- function(rare_area_threshold = 1000,
                               common_area_threshold = 250000,
                               common_relative_target = 0.1,
                               cap_area_target = 1000000,
-                              area_units = "km^2", ...) {
-  UseMethod("rodrigues_targets")
+                              area_units = "km^2") {
+  assert_valid_method_arg(rare_area_threshold, "add_rodrigues_targets")
+  internal_rodrigues_targets(
+    rare_area_threshold = rare_area_threshold,
+    rare_relative_target = rare_relative_target,
+    common_area_threshold = common_area_threshold,
+    common_relative_target = common_relative_target,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @export
-rodrigues_targets.default <- function(rare_area_threshold = 1000,
-                                      rare_relative_target = 1,
-                                      common_area_threshold = 250000,
-                                      common_relative_target = 0.1,
-                                      cap_area_target = 1000000,
-                                      area_units = "km^2", ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_rodrigues_targets <- function(rare_area_threshold,
+                                       rare_relative_target,
+                                       common_area_threshold,
+                                       common_relative_target,
+                                       cap_area_target,
+                                       area_units,
+                                       call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(rare_area_threshold, call = call)
+  assert_required(rare_relative_target, call = call)
+  assert_required(common_area_threshold, call = call)
+  assert_required(common_relative_target, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "Rodrigues et al. (2004) targets",
     type = "relative",
-    fun = internal_interpolated_area_targets,
+    fun = calc_interpolated_area_targets,
     args = list(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
@@ -164,11 +175,7 @@ rodrigues_targets.default <- function(rare_area_threshold = 1000,
       cap_area_target = cap_area_target,
       interp_method = "log10",
       area_units = area_units
-    )
+    ),
+    call = call
   )
-}
-
-#' @export
-rodrigues_targets.ConservationProblem <- function(rare_area_threshold, ...) {
-  target_problem_error("add_rodrigues_targets")
 }

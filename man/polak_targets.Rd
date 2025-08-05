@@ -5,13 +5,12 @@
 \title{Specify targets following Polak \emph{et al.} (2015)}
 \usage{
 polak_targets(
-  rare_area_threshold,
+  rare_area_threshold = 1000,
   rare_relative_target = 1,
   common_area_threshold = 10000,
   common_relative_target = 0.1,
   cap_area_target = 1e+06,
-  area_units = "km^2",
-  ...
+  area_units = "km^2"
 )
 }
 \arguments{
@@ -48,8 +47,6 @@ Defaults to 1000000
 for the area-based arguments.
 Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
-
-\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

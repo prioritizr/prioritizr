@@ -112,21 +112,28 @@ NULL
 #' @export
 jung_targets <- function(status = "VU", prop_uplift = 0.1,
                          cap_area_target = 1000000,
-                         area_units = "km^2", ...) {
-  UseMethod("jung_targets")
+                         area_units = "km^2") {
+  assert_valid_method_arg(status, "add_jung_targets")
+  internal_jung_targets(
+    status = status,
+    prop_uplift = prop_uplift,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @export
-jung_targets.default <- function(status = "VU", prop_uplift = 0.1,
-                                 cap_area_target = 1000000,
-                                 area_units = "km^2", ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_jung_targets <- function(status, prop_uplift, cap_area_target,
+                                  area_units, call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(status, call = call)
+  assert_required(prop_uplift, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "Jung et al. (2021) targets",
     type = "relative",
-    fun = internal_rl_species_targets,
+    fun = calc_rl_species_targets,
     args = list(
       status = status,
       criterion_a = "A2",
@@ -135,11 +142,7 @@ jung_targets.default <- function(status = "VU", prop_uplift = 0.1,
       method = "max",
       cap_area_target = cap_area_target,
       area_units = area_units
-    )
+    ),
+    call = call
   )
-}
-
-#' @export
-jung_targets.ConservationProblem <- function(status, ...) {
-  target_problem_error("add_jung_targets")
 }

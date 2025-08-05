@@ -54,7 +54,7 @@ add_interpolated_area_targets <- function(x, rare_area_threshold,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = interpolated_area_targets(
+    method = internal_interpolated_area_targets(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
       rare_area_target = rare_area_target,

@@ -15,8 +15,7 @@ interpolated_area_targets(
   common_method,
   cap_area_target,
   interp_method,
-  area_units,
-  ...
+  area_units
 )
 }
 \arguments{
@@ -82,8 +81,6 @@ Available options include \code{"linear"} for linear interpolation and
 
 \item{area_units}{\code{character} value denoting the unit of measurement
 for the area-based arguments (e.g., \verb{"km^2", }"ha"\verb{, }"acres"`).}
-
-\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

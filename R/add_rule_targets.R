@@ -39,7 +39,7 @@ add_rule_targets <- function(x, baseline_relative_target,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = rule_targets(
+    method = internal_rule_targets(
       baseline_relative_target = baseline_relative_target,
       rules_relative_target = rules_relative_target,
       data = data,

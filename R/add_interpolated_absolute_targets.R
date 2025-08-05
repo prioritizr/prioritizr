@@ -53,7 +53,7 @@ add_interpolated_absolute_targets <- function(x, rare_absolute_threshold,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = interpolated_absolute_targets(
+    method = internal_interpolated_absolute_targets(
       rare_absolute_threshold = rare_absolute_threshold,
       rare_relative_target = rare_relative_target,
       rare_absolute_target = rare_absolute_target,

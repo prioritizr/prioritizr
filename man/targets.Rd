@@ -304,43 +304,7 @@ smaller than or equal to -- or equal to -- target thresholds
 }
 \examples{
 \dontrun{
-# load data
-sim_pu_raster <- get_sim_pu_raster()
-sim_features <- get_sim_features()
-
-# create base problem
-p <-
-  problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_binary_decisions() \%>\%
-  add_default_solver(verbose = FALSE)
-
-# create problem with added relative targets
-p1 <- p \%>\% add_relative_targets(0.1)
-
-# create problem with added absolute targets
-p2 <- p \%>\% add_absolute_targets(3)
-
-# create problem with added loglinear targets
-p3 <- p \%>\% add_loglinear_targets(10, 0.9, 100, 0.2)
-
-# create problem with manual targets that equate to 10\% relative targets
-targs <- data.frame(
-  feature = names(sim_features),
-  target = 0.1,
-  type = "relative"
-)
-
-p4 <- p \%>\% add_manual_targets(targs)
-
-# solve problem
-s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
-names(s) <- c(
-  "relative targets", "absolute targets", "loglinear targets",
-  "manual targets"
-)
-# plot solution
-plot(s, axes = FALSE)
+# TODO
 }
 }
 \seealso{

@@ -32,6 +32,9 @@ Method <- R6::R6Class(
     #' @field args `list` containing arguments.
     args = list(),
 
+    #' @field frame defused `call for generating error messages.
+    frame = NULL,
+
     #' @description
     #' Initialize new object.
     #' @param name `character` value with name of method.
@@ -39,12 +42,14 @@ Method <- R6::R6Class(
     #' Available options include `"relative"` and `"absolute"`.
     #' @param fun `function` for calculating targets.
     #' @param args `list` containing arguments.
+    #' @param frame defused `call for generating error messages.
     #' @return A new `Method` object.
-    initialize = function(name, type, fun, args) {
+    initialize = function(name, type, fun, args, frame) {
       self$name <- name
       self$type <- type
       self$args <- args
       self$fun <- fun
+      self$frame <- frame
     },
 
     #' @description
@@ -74,9 +79,22 @@ Method <- R6::R6Class(
     #' @param call `NULL` or calling environment.
     #' @return A `numeric` vector with target values.
     calculate_targets = function(x, features, call = NULL) {
-      do.call(
-        self$fun,
-        append(list(x = x, features = features, call = call), self$args)
+      rlang::try_fetch(
+        do.call(
+          what = self$fun,
+          quote = TRUE,
+          args = append(
+            list(x = x, features = features, call = self$frame),
+            self$args
+          )
+        ),
+        error = function(cnd) {
+          cli::cli_abort(
+            c("i" = "Can't calculate targets."),
+            parent = cnd,
+            call = call
+          )
+        }
       )
     }
   )
@@ -118,15 +136,12 @@ new_method <- function(name, type, fun, args, call = fn_caller_env()) {
     .internal = TRUE
   )
 
-  # assert that args does not contain a problem()
-  # here we throw a particular error to catch this common sort of mistake:
-  # problem() %>% jung_targets()
-  # when the user should actually be using
-  # problem() %>% add_jung_targets()
-  if (any(vapply(args, inherits, logical(1), "ConservationProblem"))) {
-    target_problem_error(call = call) # nocov
-  }
-
   # return method
-  Method$new(name = name, type = type, fun = fun, args = args)
+  Method$new(
+    name = name,
+    type = type,
+    fun = fun,
+    args = args,
+    frame = rlang::frame_call(call)
+  )
 }

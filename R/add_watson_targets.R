@@ -40,7 +40,7 @@ add_watson_targets <- function(x, rare_area_threshold = 10000,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = watson_targets(
+    method = internal_watson_targets(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
       rare_area_target = rare_area_target,

@@ -198,6 +198,7 @@ Collate:
     'adjacency_matrix.R'
     'as.R'
     'as_Matrix.R'
+    'assertions_function.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'calibrate_cohon_penalty.R'

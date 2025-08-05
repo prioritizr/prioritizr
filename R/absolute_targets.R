@@ -44,29 +44,26 @@ NULL
 #'
 #' @export
 absolute_targets <- function(targets, ...) {
-  UseMethod("absolute_targets")
+  assert_valid_method_arg(targets, "add_absolute_targets")
+  rlang::check_dots_empty()
+  internal_absolute_targets(targets = targets)
 }
 
-#' @export
-absolute_targets.default <- function(targets, ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_absolute_targets <- function(targets, call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(targets, call = call)
+  # return new method
   new_method(
     name = "Absolute targets",
     type = "absolute",
-    fun = internal_absolute_targets,
-    args = list(targets = targets)
+    fun = calc_absolute_targets,
+    args = list(targets = targets),
+    call = call
   )
 }
 
-#' @export
-absolute_targets.ConservationProblem <- function(targets, ...) {
-  target_problem_error("add_absolute_targets")
-}
-
-internal_absolute_targets <- function(x, features, targets,
-                                      call = fn_caller_env()) {
+calc_absolute_targets <- function(x, features, targets,
+                                  call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(features, call = call)

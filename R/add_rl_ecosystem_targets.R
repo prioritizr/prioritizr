@@ -41,7 +41,7 @@ add_rl_ecosystem_targets <- function(x, status, criterion_a, criterion_b,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = rl_ecosystem_targets(
+    method = internal_rl_ecosystem_targets(
       status = status,
       criterion_a = criterion_a,
       criterion_b = criterion_b,

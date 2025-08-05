@@ -114,44 +114,52 @@ rule_targets <- function(baseline_relative_target,
                          rules_relative_target,
                          data,
                          cap_area_target = 1000000,
-                         area_units = "km^2", ....) {
-  UseMethod("rule_targets")
+                         area_units = "km^2") {
+  assert_valid_method_arg(baseline_relative_target, "add_rule_targets")
+  internal_rule_targets(
+    baseline_relative_target = baseline_relative_target,
+    rules_relative_target= rules_relative_target,
+    data = data,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @export
-rule_targets.default <- function(baseline_relative_target,
-                                 rules_relative_target,
-                                 data,
-                                 cap_area_target = 1000000,
-                                 area_units = "km^2", ...) {
-  # return method
+internal_rule_targets <- function(baseline_relative_target,
+                                  rules_relative_target,
+                                  data,
+                                  cap_area_target,
+                                  area_units,
+                                  call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(baseline_relative_target, call = call)
+  assert_required(rules_relative_target, call = call)
+  assert_required(data, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "rule targets",
     type = "relative",
-    fun = internal_rule_targets,
+    fun = calc_rule_targets,
     args = list(
       baseline_relative_target = baseline_relative_target,
       rules_relative_target = rules_relative_target,
       data = data,
       cap_area_target = cap_area_target,
       area_units = area_units
-    )
+    ),
+    call = call
   )
 }
 
-#' @export
-rule_targets.ConservationProblem <- function(baseline_relative_target, ...) {
-  target_problem_error("add_rule_targets")
-}
-
-internal_rule_targets <- function(x,
-                                  features,
-                                  baseline_relative_target,
-                                  rules_relative_target,
-                                  data,
-                                  cap_area_target,
-                                  area_units,
-                                  call = fn_caller_env()) {
+calc_rule_targets <- function(x,
+                              features,
+                              baseline_relative_target,
+                              rules_relative_target,
+                              data,
+                              cap_area_target,
+                              area_units,
+                              call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(features, call = call)

@@ -66,8 +66,6 @@ NULL
 #' Available options include `"linear"` for linear interpolation and
 #' `"log10"` for log-linear interpolation.
 #'
-#' @param ... not used.
-#'
 #' @section Mathematical formulation:
 #' This method provides a flexible approach for setting target thresholds based
 #' on the spatial extent of the features.
@@ -160,28 +158,51 @@ interpolated_absolute_targets <- function(rare_absolute_threshold,
                                           common_absolute_target,
                                           common_method,
                                           cap_absolute_target,
-                                          interp_method, ...) {
-  UseMethod("interpolated_absolute_targets")
+                                          interp_method) {
+  assert_valid_method_arg(
+    rare_absolute_threshold,
+    "add_interpolated_absolute_targets"
+  )
+  internal_interpolated_absolute_targets(
+    rare_absolute_threshold = rare_absolute_threshold,
+    rare_relative_target = rare_relative_target,
+    rare_absolute_target = rare_absolute_target,
+    rare_method = rare_method,
+    common_absolute_threshold = common_absolute_threshold,
+    common_relative_target = common_relative_target,
+    common_absolute_target = common_absolute_target,
+    common_method = common_method,
+    cap_absolute_target = cap_absolute_target,
+    interp_method = interp_method
+  )
 }
 
-#' @export
-interpolated_absolute_targets.default <- function(rare_absolute_threshold,
-                                         rare_relative_target,
-                                         rare_absolute_target,
-                                         rare_method,
-                                         common_absolute_threshold,
-                                         common_relative_target,
-                                         common_absolute_target,
-                                         common_method,
-                                         cap_absolute_target,
-                                         interp_method, ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_interpolated_absolute_targets <- function(rare_absolute_threshold,
+                                                   rare_relative_target,
+                                                   rare_absolute_target,
+                                                   rare_method,
+                                                   common_absolute_threshold,
+                                                   common_relative_target,
+                                                   common_absolute_target,
+                                                   common_method,
+                                                   cap_absolute_target,
+                                                   interp_method,
+                                                   call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(rare_absolute_threshold, call = call)
+  assert_required(rare_relative_target, call = call)
+  assert_required(rare_absolute_target, call = call)
+  assert_required(rare_method, call = call)
+  assert_required(common_absolute_threshold, call = call)
+  assert_required(common_absolute_target, call = call)
+  assert_required(common_method, call = call)
+  assert_required(cap_absolute_target, call = call)
+  assert_required(interp_method, call = call)
+  # return new method
   new_method(
     name = "interpolated absolute targets",
     type = "relative",
-    fun = internal_interpolated_absolute_targets,
+    fun = calc_interpolated_absolute_targets,
     args = list(
       rare_absolute_threshold = rare_absolute_threshold,
       rare_relative_target = rare_relative_target,
@@ -193,29 +214,23 @@ interpolated_absolute_targets.default <- function(rare_absolute_threshold,
       common_method = common_method,
       cap_absolute_target = cap_absolute_target,
       interp_method = interp_method
-    )
+    ),
+    call = call
   )
 }
 
-#' @export
-interpolated_absolute_targets.ConservationProblem <- function(
-  rare_absolute_threshold, ...
-) {
-  target_problem_error("add_interpolated_absolute_targets")
-}
-
-internal_interpolated_absolute_targets <- function(x, features,
-                                                   rare_absolute_threshold,
-                                                   rare_relative_target,
-                                                   rare_absolute_target,
-                                                   rare_method,
-                                                   common_absolute_threshold,
-                                                   common_relative_target,
-                                                   common_absolute_target,
-                                                   common_method,
-                                                   cap_absolute_target,
-                                                   interp_method,
-                                                   call = fn_caller_env()) {
+calc_interpolated_absolute_targets <- function(x, features,
+                                               rare_absolute_threshold,
+                                               rare_relative_target,
+                                               rare_absolute_target,
+                                               rare_method,
+                                               common_absolute_threshold,
+                                               common_relative_target,
+                                               common_absolute_target,
+                                               common_method,
+                                               cap_absolute_target,
+                                               interp_method,
+                                               call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call)
   assert_required(features, call = call)
@@ -306,7 +321,7 @@ internal_interpolated_absolute_targets <- function(x, features,
   }
 
   # calculate targets
-  internal_interpolated_targets(
+  calc_interpolated_targets(
     x = c(x$feature_abundances_in_total_units()[features, 1]),
     rare_absolute_threshold = rare_absolute_threshold,
     rare_relative_target = rare_relative_target,
@@ -322,19 +337,18 @@ internal_interpolated_absolute_targets <- function(x, features,
   )
 }
 
-internal_interpolated_targets <- function(x,
-                                          rare_absolute_threshold,
-                                          rare_relative_target,
-                                          rare_absolute_target,
-                                          rare_method,
-                                          common_absolute_threshold,
-                                          common_relative_target,
-                                          common_absolute_target,
-                                          common_method,
-                                          cap_absolute_target,
-                                          interp_method,
-                                          call = fn_caller_env()
-) {
+calc_interpolated_targets <- function(x,
+                                      rare_absolute_threshold,
+                                      rare_relative_target,
+                                      rare_absolute_target,
+                                      rare_method,
+                                      common_absolute_threshold,
+                                      common_relative_target,
+                                      common_absolute_target,
+                                      common_method,
+                                      cap_absolute_target,
+                                      interp_method,
+                                      call = fn_caller_env()) {
   # assert valid arguments
   assert_required(x, call = call, .internal = TRUE)
   assert_required(rare_absolute_threshold, call = call, .internal = TRUE)

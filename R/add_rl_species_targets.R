@@ -41,7 +41,7 @@ add_rl_species_targets <- function(x, status, criterion_a, criterion_b,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = rl_species_targets(
+    method = internal_rl_species_targets(
       status = status,
       criterion_a = criterion_a,
       criterion_b = criterion_b,

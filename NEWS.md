@@ -41,6 +41,7 @@
   yield a more concise warning message.
 - Fix bug in internal `get_crs()` function when using `raster::raster()` or
   `raster::stack()` objects.
+- Fix bug in `add_relative_targets()` that produced an incoherent error message.
 
 #### Documentation
 

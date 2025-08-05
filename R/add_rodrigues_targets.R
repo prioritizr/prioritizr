@@ -40,12 +40,13 @@ add_rodrigues_targets <- function(x, rare_area_threshold = 1000,
   # add targets
   internal_add_auto_targets.Method(
     x,
-    method = rodrigues_targets(
+    method = internal_rodrigues_targets(
       rare_area_threshold = rare_area_threshold,
       rare_relative_target = rare_relative_target,
       common_area_threshold = common_area_threshold,
       common_relative_target = common_relative_target,
-      cap_area_target = cap_area_target
+      cap_area_target = cap_area_target,
+      area_units = area_units
     )
   )
 }

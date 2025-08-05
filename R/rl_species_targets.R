@@ -44,8 +44,6 @@ NULL
 #' @param prop_uplift `numeric` value denoting the percentage
 #' uplift as a proportion. Defaults to 0 (i.e., 0%).
 #'
-#' @param ... not used.
-#'
 #' @inheritParams rodrigues_targets
 #'
 #' @section Mathematical formulation:
@@ -158,25 +156,42 @@ NULL
 #'
 #' @export
 rl_species_targets <- function(status, criterion_a, criterion_b,
-                              prop_uplift = 0, method = "max",
-                              cap_area_target = 1000000,
-                              area_units = "km^2", ...) {
-  UseMethod("rl_species_targets")
+                               prop_uplift = 0, method = "max",
+                               cap_area_target = 1000000,
+                               area_units = "km^2") {
+  assert_valid_method_arg(status, "add_rl_species_targets")
+  internal_rl_species_targets(
+    status = status,
+    criterion_a = criterion_a,
+    criterion_b = criterion_b,
+    prop_uplift = prop_uplift,
+    method = method,
+    cap_area_target = cap_area_target,
+    area_units = area_units
+  )
 }
 
-#' @rdname rl_species_targets
-#' @export
-rl_species_targets.default <- function(status, criterion_a, criterion_b,
-                                       prop_uplift = 0, method = "max",
-                                       cap_area_target = 1000000,
-                                       area_units = "km^2", ...) {
-  # assert no dots
-  rlang::check_dots_empty()
-  # return method
+internal_rl_species_targets <- function(status,
+                                        criterion_a,
+                                        criterion_b,
+                                        prop_uplift,
+                                        method,
+                                        cap_area_target,
+                                        area_units,
+                                        call = fn_caller_env()) {
+  # assert arguments are valid
+  assert_required(status, call = call)
+  assert_required(criterion_a, call = call)
+  assert_required(criterion_b, call = call)
+  assert_required(prop_uplift, call = call)
+  assert_required(method, call = call)
+  assert_required(cap_area_target, call = call)
+  assert_required(area_units, call = call)
+  # return new method
   new_method(
     name = "IUCN Red List of Threatened Species targets",
     type = "relative",
-    fun = internal_rl_species_targets,
+    fun = calc_rl_species_targets,
     args = list(
       status = status,
       criterion_a = criterion_a,
@@ -185,22 +200,18 @@ rl_species_targets.default <- function(status, criterion_a, criterion_b,
       method = method,
       cap_area_target = cap_area_target,
       area_units = area_units
-    )
+    ),
+    call = call
   )
 }
 
-#' @export
-rl_species_targets.ConservationProblem <- function(status, ...) {
-  target_problem_error("add_rl_species_targets")
-}
-
-internal_rl_species_targets <- function(x, features, status,
-                                        criterion_a,
-                                        criterion_b,
-                                        prop_uplift, method,
-                                        cap_area_target,
-                                        area_units,
-                                        call = fn_caller_env()) {
+calc_rl_species_targets <- function(x, features, status,
+                                    criterion_a,
+                                    criterion_b,
+                                    prop_uplift, method,
+                                    cap_area_target,
+                                    area_units,
+                                    call = fn_caller_env()) {
   # assert that arguments are present
   assert_required(x, call = call)
   assert_required(features, call = call)

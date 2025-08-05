@@ -14,8 +14,7 @@ interpolated_absolute_targets(
   common_absolute_target,
   common_method,
   cap_absolute_target,
-  interp_method,
-  ...
+  interp_method
 )
 }
 \arguments{
@@ -78,8 +77,6 @@ a missing (\code{NA}) value can be specified.}
 \item{interp_method}{\code{character} value denoting the interpolation method.
 Available options include \code{"linear"} for linear interpolation and
 \code{"log10"} for log-linear interpolation.}
-
-\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

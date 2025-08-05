@@ -4,7 +4,7 @@
 \alias{ward_targets}
 \title{Add targets following Ward \emph{et al.} (2025)}
 \usage{
-ward_targets(status = "CR", cap_area_target = 1e+06, area_units = "km^2", ...)
+ward_targets(status = "CR", cap_area_target = 1e+06, area_units = "km^2")
 }
 \arguments{
 \item{status}{\code{character} value denoting the IUCN Red List threat
@@ -21,8 +21,6 @@ Defaults to 1000000
 for the area-based arguments.
 Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
-
-\item{...}{not used.}
 }
 \value{
 An object (\code{\linkS4class{Method}}) for specifying targets.

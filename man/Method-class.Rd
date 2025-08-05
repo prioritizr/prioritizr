@@ -32,6 +32,8 @@ Other classes:
 \item{\code{fun}}{\code{function} for calculating targets.}
 
 \item{\code{args}}{\code{list} containing arguments.}
+
+\item{\code{frame}}{defused `call for generating error messages.}
 }
 \if{html}{\out{</div>}}
 }
@@ -50,7 +52,7 @@ Other classes:
 \subsection{Method \code{new()}}{
 Initialize new object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Method$new(name, type, fun, args)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Method$new(name, type, fun, args, frame)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -64,6 +66,8 @@ Available options include \code{"relative"} and \code{"absolute"}.}
 \item{\code{fun}}{\code{function} for calculating targets.}
 
 \item{\code{args}}{\code{list} containing arguments.}
+
+\item{\code{frame}}{defused `call for generating error messages.}
 }
 \if{html}{\out{</div>}}
 }
