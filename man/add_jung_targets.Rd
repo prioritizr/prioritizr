@@ -185,7 +185,8 @@ km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 }
 
 \examples{
-TODO
+# TODO
+
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
