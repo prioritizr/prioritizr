@@ -295,7 +295,7 @@ calc_interpolated_area_targets <- function(x, features,
     )
   } else {
     ## this is needed to account for different NA classes
-    cap_area_target <- NA_real_
+    cap_area_target <- NA_real_ # nocov
   }
 
   # calculate targets

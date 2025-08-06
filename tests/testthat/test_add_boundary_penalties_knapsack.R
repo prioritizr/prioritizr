@@ -108,6 +108,37 @@ test_that("minimum set objective (obj fun, single zone)", {
   )
 })
 
+test_that("maximum utility (obj fun, single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  b <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.3
+  sc <- -0.01 / terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+  # create problems
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_utility_objective(budget = b) %>%
+    add_binary_decisions() %>%
+    add_boundary_penalties(1, 1, "knapsack") %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  s <- solve(p)
+  # calculations for tests
+  obj_value <- unname(attr(s, "objective"))
+  total_perim <- terra::perim(
+    terra::as.polygons(terra::clamp(s, lower = 0.5, values = FALSE))
+  )
+  total_util <- sum(terra::global(s * sim_features, "sum", na.rm = TRUE)[[1]])
+  total_sc <- sc * terra::global(sim_pu_raster * s, "sum", na.rm = TRUE)[[1]]
+  # tests
+  expect_equal(
+    total_util - total_perim + total_sc,
+    obj_value,
+    tolerance = 1e-6
+  )
+})
+
 test_that("minimum set objective (compile, multiple zones)", {
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()

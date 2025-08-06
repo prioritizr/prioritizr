@@ -72,11 +72,11 @@ test_that("raster features (loglinear)", {
         rare_absolute_threshold = 30,
         rare_relative_target = 0.4,
         rare_absolute_target = 20,
-        rare_method = "max",
+        rare_method = "min",
         common_absolute_threshold = 50,
         common_relative_target = 0.1,
         common_absolute_target = 60,
-        common_method = "min",
+        common_method = "max",
         cap_absolute_target = 70,
         interp_method = "log10"
       )
@@ -88,9 +88,9 @@ test_that("raster features (loglinear)", {
   correct_targets <- c(fa) * loglinear_interpolation(fa, 30, 0.4, 50, 0.1)
   ## apply absolute targets
   idx <- fa < 30
-  correct_targets[idx] <- pmax(correct_targets[idx], 20)
+  correct_targets[idx] <- pmin(correct_targets[idx], 20)
   idx <- fa > 50
-  correct_targets[idx] <- pmin(correct_targets[idx], 60)
+  correct_targets[idx] <- pmax(correct_targets[idx], 60)
   ## apply target caps
   correct_targets <- pmin(correct_targets, 7000)
   correct_targets <- pmin(correct_targets, fa)

@@ -295,7 +295,7 @@ calc_interpolated_absolute_targets <- function(x, features,
     )
   } else {
     ## this is needed to account for different NA classes
-    rare_absolute_target <- NA_real_
+    rare_absolute_target <- NA_real_ # nocov
   }
   if (assertthat::noNA(common_absolute_target)) {
     assert(
@@ -306,7 +306,7 @@ calc_interpolated_absolute_targets <- function(x, features,
     )
   } else {
     ## this is needed to account for different NA classes
-    common_absolute_target <- NA_real_
+    common_absolute_target <- NA_real_ # nocov
   }
   if (assertthat::noNA(cap_absolute_target)) {
     assert(
@@ -317,7 +317,7 @@ calc_interpolated_absolute_targets <- function(x, features,
     )
   } else {
     ## this is needed to account for different NA classes
-    common_absolute_target <- NA_real_
+    common_absolute_target <- NA_real_ # nocov
   }
 
   # calculate targets
