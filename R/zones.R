@@ -255,7 +255,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       assert(
         assertthat::noNA(args[[i]]),
         msg =
-         "All {.code ...} arguments must not contain any {.val NA} values"
+         "All {.code ...} arguments must not contain any {.val {NA}} values"
        )
     }
     zone_class <- "ZonesCharacter"

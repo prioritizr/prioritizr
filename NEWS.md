@@ -28,6 +28,8 @@
 
 #### Minor improvements and bug fixes
 
+- Update `print()` method for `problem()` objects to display a more reasonable
+  number of digits for floating point numbers.
 - Update `add_boundary_penalties()` so that an alternative formulation can be
   used for the optimization problem. This alternative formulation may be
   useful when conservation planning problems are taking a long time to solve.

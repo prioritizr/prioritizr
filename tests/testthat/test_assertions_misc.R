@@ -51,5 +51,6 @@ test_that("all_area_units", {
   expect_false(all_area_units("g"))
   expect_false(all_area_units("g", "km^2"))
   expect_false(all_area_units("greg"))
+  expect_false(all_area_units(1))
   expect_false(all_area_units("greg", "km^2"))
 })

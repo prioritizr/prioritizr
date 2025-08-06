@@ -362,7 +362,7 @@ methods::setMethod(
               type <- "mixed"
             }
             cli::format_inline(
-              "{type} targets (between {.val {range(d$target)}})"
+              "{type} targets (between {repr.numeric(range(d$target))}})"
             )
           },
           output = function(x) {

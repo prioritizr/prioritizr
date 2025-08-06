@@ -387,11 +387,13 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
           type <- unique(d$type)
           if (identical(length(type), 1L)) {
             out <- cli::format_inline(
-              "{self$name} ({type} values between {.val {range(d$target)}})"
+              "{self$name} ({type} values between ",
+              "{repr.numeric(range(d$target))})"
             )
           } else {
             out <- cli::format_inline(
-              "{self$name} (mixed values between {.val {range(d$target)}})"
+              "{self$name} (mixed values between ",
+              "{repr.numeric(range(d$target))})"
             )
           }
           out
@@ -461,7 +463,8 @@ internal_add_auto_targets.Method <- function(x, method,
           d <- self$get_data("targets")
           type <- d$type[[1]]
           cli::format_inline(
-            "{self$name} ({type} values between {.val {range(d$target)}})"
+            "{self$name} ({type} values between ",
+            "{repr.numeric(range(d$target))})"
           )
         },
         output = function(x) {

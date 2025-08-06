@@ -14,7 +14,27 @@ repr <- function(x) UseMethod("repr")
 
 #' @export
 repr.numeric <- function(x) {
-  cli::format_inline("{.val {x}}")
+  x <- prettyNum(x, scientific = FALSE)
+  if (identical(length(x), 1L)) {
+    out <- cli::format_inline(cli::col_blue(x))
+  } else if (identical(length(x), 2L)) {
+    out <- cli::format_inline(
+      cli::col_blue(x[[1]]),
+      " and ",
+      cli::col_blue(x[[2]])
+    )
+  } else {
+    out <- cli::format_inline(
+      cli::format_inline(
+        cli::col_blue(
+          paste(x[seq(1, length(x) - 1)], collapse = ", ")
+        ),
+        ", and ",
+        cli::col_blue(x[[length(x)]])
+      )
+    )
+  }
+  out
 }
 
 #' @export
@@ -143,12 +163,10 @@ repr.NULL <- function(x) {
 #' @export
 repr.bbox <- function(x) {
   x <- c(x$xmin, x$ymin, x$xmax, x$ymax)
-  x <- round(x, 5)
   cli::format_inline(
-    paste(
-      "{.val {x[[1]]}}, {.val {x[[2]]}}, {.val {x[[3]]}}, {.val {x[[4]]}}",
-      "(xmin, ymin, xmax, ymax)"
-    )
+    "{repr.numeric(x[[1]])}, {repr.numeric(x[[2]])}, ",
+    "{repr.numeric(x[[3]])}, {repr.numeric(x[[4]])} ",
+    "(xmin, ymin, xmax, ymax)"
   )
 }
 
@@ -263,7 +281,7 @@ repr_cost <- function(x) {
     if (all_binary(x)) {
       out <- "binary values ({.val 0} and {.val 1})"
     } else {
-      out <- "continuous values (between {.val {rng}})"
+      out <- "continuous values (between {repr.numeric(rng)})"
     }
   }
   cli::format_inline(out)
