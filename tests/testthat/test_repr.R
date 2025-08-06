@@ -71,6 +71,10 @@ test_that("x = Matrix", {
   expect_inherits(repr(Matrix::Matrix(c(1, 2, 3))), "character")
 })
 
+test_that("x = data.frame", {
+  expect_inherits(repr(data.frame(1)), "character")
+})
+
 test_that("x = list", {
   expect_inherits(repr(list(1)), "character")
 })

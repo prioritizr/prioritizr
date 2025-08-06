@@ -92,7 +92,7 @@ test_that("raster features (loglinear)", {
   idx <- fa > 50
   correct_targets[idx] <- pmax(correct_targets[idx], 60)
   ## apply target caps
-  correct_targets <- pmin(correct_targets, 7000)
+  correct_targets <- pmin(correct_targets, 70)
   correct_targets <- pmin(correct_targets, fa)
   # run tests
   print(p)
