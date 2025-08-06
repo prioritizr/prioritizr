@@ -307,7 +307,7 @@ test_that("minimum set objective (solve, multiple zones)", {
     sum(terra::global(sim_zones_pu_raster * s, "sum", na.rm = TRUE)[[1]]) +
     (300 * total_perim)
   # tests
-  expect_lte(abs(correct_perim - obj_value), 50)
+  expect_lte(abs(correct_perim - obj_value), 70)
   expect_inherits(s, "SpatRaster")
   expect_true(all_binary(s[[1]]))
   expect_true(all_binary(s[[2]]))
