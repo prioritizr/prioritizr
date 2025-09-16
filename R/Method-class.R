@@ -5,7 +5,7 @@ NULL
 if (!methods::isClass("Method")) methods::setOldClass("Method")
 NULL
 
-#' Method class
+#' Target setting method class
 #'
 #' @description
 #' This class is used to represent methods for setting targets.

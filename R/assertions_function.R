@@ -101,26 +101,17 @@ assert_can_calculate_area_based_targets <- function(x, features,
 #'
 #' @param x Object.
 #'
-#' @param alt `character` value with name of function for adding to [problem()].
-#'
 #' @param call Caller environment.
 #'
 #' @return An invisible `TRUE` indicating success.
 #'
 #' @noRd
-assert_valid_method_arg <- function(x, alt = NULL, call = fn_caller_env()) {
+assert_valid_method_arg <- function(x, call = fn_caller_env()) {
   # assemble error message
   m <- c(
     "!" = "This function can't add targets to a {.fun problem}.",
-    "v" = "Use it with {.fun add_auto_targets}."
+    "v" = "Use it with {.fun add_auto_targets} or {.fun add_group_targets}."
   )
-  if (!is.null(alt)) {
-    assert(assertthat::is.string(alt), .internal = TRUE)
-    m <- c(
-      m,
-      "i" = paste0("Alternatively, use {.fun ", alt, "} instead.")
-    )
-  }
   # run assertion
   assert(!is_conservation_problem(x), msg = m, call = call)
   # return success

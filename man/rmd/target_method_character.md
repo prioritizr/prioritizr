@@ -35,3 +35,4 @@ criteria from the IUCN Red List of Ecosystems (IUCN 2024):
 `"rl_ecosystem_VU_A3_B2"`, `"rl_ecosystem_EN_A3_B2"`, and
 `"rl_ecosystem_CR_A3_B2"`.'
 For convenience, these options can also be specified with lower case letters (e.g., `"rl_species_VU_A1_B1"` may alternatively be specified as `"rl_species_vu_a1_b1"`).
+Note that target setting methods that require additional data or parameters cannot be specified with `character` values.

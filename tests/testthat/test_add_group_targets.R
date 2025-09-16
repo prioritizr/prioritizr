@@ -15,9 +15,9 @@ test_that("works", {
     add_group_targets(
       groups = groups,
       method = list(
-        "b" = jung_targets(),
+        "b" = spec_jung_targets(),
         "a" = "polak",
-        "c" = jung_targets(prop_uplift = 0.1)
+        "c" = spec_jung_targets(prop_uplift = 0.1)
       )
     ) %>%
     add_binary_decisions()
@@ -137,7 +137,7 @@ test_that("invalid arguments", {
     p %>%
     add_group_targets(
       groups = groups,
-      method = list(jung_targets())
+      method = list(spec_jung_targets())
     ),
     "name"
   )
@@ -145,7 +145,7 @@ test_that("invalid arguments", {
     p %>%
     add_group_targets(
       groups = groups,
-      list(a = jung_targets(), c = "greg")
+      list(a = spec_jung_targets(), c = "greg")
     ),
     "missing the following groups"
   )
@@ -153,7 +153,7 @@ test_that("invalid arguments", {
     p %>%
     add_group_targets(
       groups = groups,
-      list(a = jung_targets(), b = "polak", c = "greg")
+      list(a = spec_jung_targets(), b = "polak", c = "greg")
     ),
     "recognized method"
   )
@@ -186,7 +186,7 @@ test_that("problematic inputs", {
     p %>%
     add_group_targets(
       groups = groups,
-      list(a = jung_targets(), b = "jung", d = "polak", c = "polak")
+      list(a = spec_jung_targets(), b = "jung", d = "polak", c = "polak")
     ),
     "unused"
   )

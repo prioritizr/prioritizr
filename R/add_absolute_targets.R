@@ -62,7 +62,7 @@ NULL
 #'
 #' @inheritSection add_manual_targets Target setting
 #' @inherit add_manual_targets return seealso
-#' @inherit absolute_targets references
+#' @inherit spec_absolute_targets references
 #'
 #' @family targets
 #'

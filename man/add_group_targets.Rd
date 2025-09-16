@@ -83,12 +83,17 @@ criteria from the IUCN Red List of Ecosystems (IUCN 2024):
 \code{"rl_ecosystem_VU_A3_B2"}, \code{"rl_ecosystem_EN_A3_B2"}, and
 \code{"rl_ecosystem_CR_A3_B2"}.'
 For convenience, these options can also be specified with lower case letters (e.g., \code{"rl_species_VU_A1_B1"} may alternatively be specified as \code{"rl_species_vu_a1_b1"}).
+Note that target setting methods that require additional data or parameters cannot be specified with \code{character} values.
 
 The following functions can be used to create an object for specifying
-a target setting method: \code{\link[=absolute_targets]{absolute_targets()}}, \code{\link[=relative_targets]{relative_targets()}}, \code{\link[=interpolated_absolute_targets]{interpolated_absolute_targets()}}, \code{\link[=interpolated_area_targets]{interpolated_area_targets()}}
-\code{\link[=jung_targets]{jung_targets()}}, \code{\link[=polak_targets]{polak_targets()}},
-\code{\link[=rl_ecosystem_targets]{rl_ecosystem_targets()}}, \code{\link[=rl_species_targets]{rl_species_targets()}}], \code{\link[=rodrigues_targets]{rodrigues_targets()}},
-\code{\link[=rule_targets]{rule_targets()}}, \code{\link[=ward_targets]{ward_targets()}}, and \code{\link[=watson_targets]{watson_targets()}}.
+a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targets()}}, \code{\link[=spec_relative_targets]{spec_relative_targets()}},
+\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}}, \code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+\code{\link[=spec_duran_targets]{spec_duran_targets()}}, \code{\link[=spec_jung_targets]{spec_jung_targets()}}, \code{\link[=spec_polak_targets]{spec_polak_targets()}},
+\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
+\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}}, \code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}}],
+\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
+\code{\link[=spec_rule_targets]{spec_rule_targets()}}, \code{\link[=spec_ward_targets]{spec_ward_targets()}}, \code{\link[=spec_watson_targets]{spec_watson_targets()}},
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}.
 }
 
 \section{Target setting}{
@@ -288,17 +293,7 @@ requires simultaneous planning for species and ecosystems.
 Other targets: 
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
-\code{\link{add_interpolated_absolute_targets}()},
-\code{\link{add_interpolated_area_targets}()},
-\code{\link{add_jung_targets}()},
 \code{\link{add_manual_targets}()},
-\code{\link{add_polak_targets}()},
-\code{\link{add_relative_targets}()},
-\code{\link{add_rl_ecosystem_targets}()},
-\code{\link{add_rl_species_targets}()},
-\code{\link{add_rodrigues_targets}()},
-\code{\link{add_rule_targets}()},
-\code{\link{add_ward_targets}()},
-\code{\link{add_watson_targets}()}
+\code{\link{add_relative_targets}()}
 }
 \concept{targets}

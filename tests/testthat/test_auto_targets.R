@@ -13,7 +13,7 @@ test_that("character", {
     add_min_set_objective() %>%
     add_binary_decisions()
   p1 <- p0 %>% add_auto_targets(method = "jung")
-  p2 <- p0 %>% add_auto_targets(method = jung_targets())
+  p2 <- p0 %>% add_auto_targets(method = spec_jung_targets())
   # run tests
   expect_equal(as.list(compile(p1)), as.list(compile(p2)))
 })
@@ -32,9 +32,9 @@ test_that("list (all relative values)", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_auto_targets(method = list(
-      jung_targets(),
+      spec_jung_targets(),
       "polak",
-      jung_targets(prop_uplift = 0.1),
+      spec_jung_targets(prop_uplift = 0.1),
       "polak",
       "polak"
     )) %>%
@@ -100,11 +100,11 @@ test_that("list (mixed values)", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_auto_targets(method = list(
-      jung_targets(),
+      spec_jung_targets(),
       "polak",
-      jung_targets(prop_uplift = 0.1),
+      spec_jung_targets(prop_uplift = 0.1),
       "polak",
-      absolute_targets(5)
+      spec_absolute_targets(5)
     )) %>%
     add_binary_decisions()
   # compute values in km^2
@@ -181,12 +181,16 @@ test_that("invalid inputs", {
     "recognized method"
   )
   expect_tidy_error(
-    p %>% add_auto_targets(list(jung_targets(), "polak")),
+    p %>% add_auto_targets("wilson"),
+    "non-optional parameters"
+  )
+  expect_tidy_error(
+    p %>% add_auto_targets(list(spec_jung_targets(), "polak")),
     "must specify a method for each"
   )
   expect_tidy_error(
     p %>% add_auto_targets(
-      list(jung_targets(), "polak", "polak", "polak", "greg")
+      list(spec_jung_targets(), "polak", "polak", "polak", "greg")
     ),
     "recognized method"
   )

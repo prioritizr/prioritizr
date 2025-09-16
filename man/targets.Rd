@@ -28,10 +28,10 @@ the following code.
 x \%>\% add_auto_targets(method = "jung")
 
 # specify targets based on default parameters via function
-x \%>\% add_auto_targets(method = jung_targets())
+x \%>\% add_auto_targets(method = spec_jung_targets())
 
 # specify targets based on customized parameters via function
-x \%>\% add_auto_targets(method = jung_targets(prop_uplift = 0.05))
+x \%>\% add_auto_targets(method = spec_jung_targets(prop_uplift = 0.05))
 }\if{html}{\out{</div>}}
 
 Additionally, if \code{x} had three features -- with the first feature
@@ -51,9 +51,9 @@ x \%>\% add_auto_targets(
 # via functions
 x \%>\% add_auto_targets(
   method = list(
-    polak_targets(),
-    jung_targets(prop_uplift = 0.05),
-    jung_targets(prop_uplift = 0.07)
+    spec_polak_targets(),
+    spec_jung_targets(prop_uplift = 0.05),
+    spec_jung_targets(prop_uplift = 0.07)
   )
 )
 }\if{html}{\out{</div>}}
@@ -62,74 +62,74 @@ The following functions can be used to specify targets in conjunction with
 the \code{\link[=add_auto_targets]{add_auto_targets()}} function. Note that some of these functions
 do not have default parameters for all arguments and, as such, cannot be
 specified using their name (e.g., \code{method = "relative"} will
-not work because \code{\link[=relative_targets]{relative_targets()}} requires the user to specify
+not work because \code{\link[=spec_relative_targets]{spec_relative_targets()}} requires the user to specify
 an argument for the \code{targets} parameter).
 
 \describe{
 
-\item{\code{\link[=relative_targets]{relative_targets()}}}{
+\item{\code{\link[=spec_relative_targets]{spec_relative_targets()}}}{
 Specify targets as a proportion (between 0 and 1) of the total amount of each
 feature in the the study area.
 }
 
-\item{\code{\link[=absolute_targets]{absolute_targets()}}}{
+\item{\code{\link[=spec_absolute_targets]{spec_absolute_targets()}}}{
 Specify targets that denote the minimum amount of each feature required in
 the prioritization.
 }
 
-\item{\code{\link[=interpolated_absolute_targets]{interpolated_absolute_targets()}}}{
+\item{\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}}}{
 Specify targets based on an interpolation procedure between thresholds
 calculated as the sum of the features values.
 }
 
-\item{\code{\link[=interpolated_area_targets]{interpolated_area_targets()}}}{
+\item{\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}}}{
 Specify targets based on an interpolation procedure between area-based
 thresholds.
 }
 
-\item{\code{\link[=rule_targets]{rule_targets()}}}{
+\item{\code{\link[=spec_rule_targets]{spec_rule_targets()}}}{
 Add targets calculated following a rule-based procedure based on a set of
 ecological and ecosystem criteria. This is a customizable version of the
 approach in Harris and Holness (2023).
 }
 
-\item{\code{\link[=polak_targets]{polak_targets()}}}{
+\item{\code{\link[=spec_polak_targets]{spec_polak_targets()}}}{
 Specify targets following Polak \emph{et al.} (2015).
 This method was designed to set targets for species in national-scale
 prioritizations.
 }
 
-\item{\code{\link[=ward_targets]{ward_targets()}}}{
+\item{\code{\link[=spec_ward_targets]{spec_ward_targets()}}}{
 Specify targets following Watson \emph{et al.} (2005).
 This method was designed to set targets for species in national-scale
 prioritizations.
 }
 
-\item{\code{\link[=watson_targets]{watson_targets()}}}{
+\item{\code{\link[=spec_watson_targets]{spec_watson_targets()}}}{
 Specify targets following Watson \emph{et al.} (2010).
 This method was designed to set targets for species in national-scale
 prioritizations.
 }
 
-\item{\code{\link[=jung_targets]{jung_targets()}}}{
+\item{\code{\link[=spec_jung_targets]{spec_jung_targets()}}}{
 Specify targets following Jung \emph{et al.} (2021).
 This method was designed to set targets for species in global-scale
 prioritizations.
 }
 
-\item{\code{\link[=rodrigues_targets]{rodrigues_targets()}}}{
+\item{\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}}}{
 Specify targets following Rodrigues \emph{et al.} (2004).
 This method was designed to set targets for species in global-scale
 prioritizations.
 }
 
-\item{\code{\link[=rl_species_targets]{rl_species_targets()}}}{
+\item{\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}}}{
 Specify targets based on criteria from the
 International Union for the Conservation of Nature (IUCN) Red List of
 Threatened Species (IUCN 2025).
 }
 
-\item{\code{\link[=rl_ecosystem_targets]{rl_ecosystem_targets()}}}{
+\item{\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}}}{
 Specify targets based on criteria from the
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
@@ -143,8 +143,8 @@ group, it can be used to assign targets for features based on different
 target setting methods.
 This function is designed to be used in conjunction with the previously
 described functions specifying targets for the \code{\link[=add_auto_targets]{add_auto_targets()}}
-function (e.g., \code{\link[=relative_targets]{relative_targets()}}, \code{\link[=absolute_targets]{absolute_targets()}},
-\code{\link[=jung_targets]{jung_targets()}}).
+function (e.g., \code{\link[=spec_relative_targets]{spec_relative_targets()}}, \code{\link[=spec_absolute_targets]{spec_absolute_targets()}},
+\code{\link[=spec_jung_targets]{spec_jung_targets()}}).
 Note that this function is specifically designed for problems that have a
 single zone, and cannot be used for problems that have multiple zones.
 For example, if the problem \code{x} had three features -- with the first feature
@@ -165,140 +165,52 @@ x \%>\% add_group_targets(
 # via functions
 x \%>\% add_group_targets(
   group = c("eco", "spp", "spp"),
-  list(eco = polak_targets(), spp = jung_targets())
+  list(eco = spec_polak_targets(), spp = spec_jung_targets())
 )
 
 # specify target setting methods for groups with customized parameters
 # via functions
 x \%>\% add_group_targets(
   group = c("eco", "spp", "spp"),
-  list(eco = polak_targets(), spp = jung_targets(prop_uplift = 0.05))
+  list(
+    eco = spec_polak_targets(),
+    spp = spec_jung_targets(prop_uplift = 0.05)
+  )
 )
 }\if{html}{\out{</div>}}
 
-A set of functions are available for adding targets to a conservation
-planning problem based on a particular method.
-These functions are especially useful when all features should have
-their targets calculated following the same method, and the default
-parameters for the method need to be customized.
-Note that these functions are specifically designed for problems that have a
-single zone, and cannot be used for problems that have multiple zones.
-For example, given problem \code{x}, then following code could be used to specify
-that all features should have their targets calculated following
-Rodrigues \emph{et al.} (2004).
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{# specify the same target setting method for all features with default
-# parameters via method name
-
-# note that this is the same as:
-# x \%>\% add_auto_targets(method = rodrigues_target())
-# x \%>\% add_auto_targets(method = "rodrigues")
-
-x \%>\% add_rodrigues_targets()
-
-# specify the same target setting method for all features with customized
-# parameters
-
-# note that this is the same as:
-# x \%>\% add_auto_targets(
-#   method = rodrigues_target(cap_threshold = 1e5)
-# )
-
-x \%>\% add_rodrigues_targets(cap_threshold = 1e5)
-}\if{html}{\out{</div>}}
-
-In particular, the following functions are are available.
+A set of functions are available for adding targets directly to a
+conservation planning problem.
+These functions are especially useful when target thresholds have
+been pre-computed, or when considering problems that have multiple zones.
+In particular, the following functions are available.
 
 \describe{
 
 \item{\code{\link[=add_relative_targets]{add_relative_targets()}}}{
 Add targets as a proportion (between 0 and 1) of the total amount of each
-feature in the the study area.
+feature in the the study area
+(i.e., where a value of 1 is equivalent to 100\%).
 }
 
 \item{\code{\link[=add_absolute_targets]{add_absolute_targets()}}}{
-Add targets that denote the minimum amount of each feature required in the
+Add targets that denote the minimum amount of each feature held by the
 prioritization.
 }
 
-\item{\code{\link[=add_interpolated_absolute_targets]{add_interpolated_absolute_targets()}}}{
-Add targets based on an interpolation procedure between thresholds
-calculated as the sum of the features values.
-}
-
-\item{\code{\link[=add_interpolated_area_targets]{add_interpolated_area_targets()}}}{
-Add targets based on an interpolation procedure between area-based
-thresholds.
-}
-
-\item{\code{\link[=add_rule_targets]{add_rule_targets()}}}{
-Add targets calculated following a rule-based procedure based on a set of
-ecological and ecosystem criteria. This is a customizable version of the
-approach in Harris and Holness (2023).
-}
-
-\item{\code{\link[=add_polak_targets]{add_polak_targets()}}}{
-Add targets following Polak \emph{et al.} (2015).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=add_ward_targets]{add_ward_targets()}}}{
-Add targets following Watson \emph{et al.} (2005).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=add_watson_targets]{add_watson_targets()}}}{
-Add targets following Watson \emph{et al.} (2010).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=add_jung_targets]{add_jung_targets()}}}{
-Add targets following Jung \emph{et al.} (2021).
-This method was designed to set targets for species in global-scale
-prioritizations.
-}
-
-\item{\code{\link[=add_rodrigues_targets]{add_rodrigues_targets()}}}{
-Add targets following Rodrigues \emph{et al.} (2004).
-This method was designed to set targets for species in global-scale
-prioritizations.
-}
-
-\item{\code{\link[=add_rl_species_targets]{add_rl_species_targets()}}}{
-Add targets based on criteria from the
-International Union for the Conservation of Nature (IUCN) Red List of
-Threatened Species (IUCN 2025).
-}
-
-\item{\code{\link[=add_rl_ecosystem_targets]{add_rl_ecosystem_targets()}}}{
-Add targets based on criteria from the
-International Union for the Conservation of Nature (IUCN) Red List of
-Ecosystems (IUCN 2024).
-}
-
-}
-
-Finally, the \code{\link[=add_manual_targets]{add_manual_targets()}} function provides an interface
-for adding highly customized targets to a conservation planning problem.
-Although this function can be used with problems that have a single
-zone, it is especially useful when setting targets for
-problems that have multiple zones.
-This is because it can be used to specify, for a given target, which
-zone -- or combination of zones -- should be considered for assessing
-feature representation.
-Furthermore, in addition to specifying targets where feature representation
+\item{\code{\link[=add_manual_targets]{add_manual_targets()}}}{
+Add targets by manually specifying the target setting information.
+This function is especially useful for problems that
+have multiple zones because it can be used to specify, for a given
+feature, which zone -- or combination of zones -- should be considered for
+assessing feature representation.
+In addition to specifying targets where feature representation
 should ideally be greater than or equal to target thresholds (i.e., as is
 the case for all other target setting functions), this function provides
 the functionality to specify targets where feature representation should be
 smaller than or equal to -- or equal to -- target thresholds
 (i.e., the constraint sense for the target).
-
-\describe{
-
-\item{\code{\link[=add_manual_targets]{add_manual_targets()}}}{Set targets manually.}
+}
 
 }
 }
@@ -306,6 +218,9 @@ smaller than or equal to -- or equal to -- target thresholds
 \dontrun{
 # TODO
 }
+}
+\references{
+TODO
 }
 \seealso{
 Other overviews: 

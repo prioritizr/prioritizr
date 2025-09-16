@@ -3,32 +3,30 @@
 ## New features
 
 - New `add_auto_targets()` function for adding targets to a conservation
-  planning problem. In particular, the following functions can be used in
-  conjunction with this function to specify target setting methods:
-  `absolute_targets()`, `interpolated_targets()`, `jung_targets()`,
-  `polak_targets()`, `relative_targets()`, `rl_ecosystem_targets()`,
-  `rl_species_targets()`, `rodrigues_targets()`, `rule_targets()`,
-  `ward_targets()`, and `watson_targets()`.
+  planning problem based on a target setting method. In particular, the
+  following functions can be used in conjunction with this function to specify
+  target setting methods: `spec_absolute_targets()`,
+  `spec_interp_absolute_targets()`, `spec_interp_area_targets()`
+  `spec_jung_targets()`, `spec_polak_targets()`,
+  `spec_pop_size_targets()`, `spec_relative_targets()`,
+  `spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`,
+  `spec_rodrigues_targets()`, `spec_rule_targets()`,
+  `spec_ward_targets()`, `spec_watson_targets()`, and `spec_wilson_targets()`.
 - New `add_group_targets()` function for adding targets to a conservation
   planning problem based on feature groups. This function is provided as a
-  convenient alternative to the `add_auto_targets()` function. Here, features
-  can be organized into groups and then have their targets calculated based on
-  the method specified for their group.
-- New `add_interpolated_targets()`, `add_jung_targets()`, `add_polak_targets()`,
-  `add_rl_ecosystem_targets()`, `add_rl_species_targets()`,
-  `add_rl_ecosystem_targets()`,  `add_rodrigues_targets()`,
-  `add_rule_targets()`, `add_ward_targets()`, `add_watson_targets()` functions
-  for adding targets to a conservation planning based on various methods.
+  convenient alternative to the `add_auto_targets()` function. With this
+  function, features can be organized into groups and then have their targets
+  calculated based on the method specified for their group.
 - New `linear_interpolation()` function for linearly interpolating values.
 
 ## Major changes
 
 - The `add_loglinear_targets()` function has been deprecated. For similar
-  functionality, see the new `add_interpolated_targets()` function.
+  functionality, see the new `spec_interp_absolute_targets()` function.
 
 #### Minor improvements and bug fixes
 
-- Update `print()` method for `problem()` objects to display a more reasonable
+- Update `print()` method for `problem()` objects to display a more useful
   number of digits for floating point numbers.
 - Update `add_boundary_penalties()` so that an alternative formulation can be
   used for the optimization problem. This alternative formulation may be

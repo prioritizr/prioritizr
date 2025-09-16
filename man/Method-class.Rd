@@ -3,7 +3,7 @@
 \name{Method-class}
 \alias{Method-class}
 \alias{Method}
-\title{Method class}
+\title{Target setting method class}
 \description{
 This class is used to represent methods for setting targets.
 \strong{Only experts should use the fields and methods for this class directly.}

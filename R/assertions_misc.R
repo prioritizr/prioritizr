@@ -210,7 +210,7 @@ is_area_units <- function(x) {
 assertthat::on_failure(is_area_units) <- function(call, env) {
   paste0(
     "{.arg ", deparse(call$x),
-    "} is not a valid unit for measuring area."
+    "} must be a {.cls character} value denoting a unit for measuring area."
   )
 }
 
@@ -236,6 +236,6 @@ all_area_units <- function(x, na.rm = FALSE) {
 assertthat::on_failure(all_area_units) <- function(call, env) {
   paste0(
     "{.arg ", deparse(call$x),
-    "} must contain values that are valid units for measuring area."
+    "} must contain {.cls character} values denoting units for measuring area."
   )
 }

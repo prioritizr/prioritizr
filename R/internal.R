@@ -120,3 +120,47 @@ as_km2 <- function(x, unit) {
     )
   )
 }
+
+#' Standardize unit to density per km^2
+#'
+#' Standardize number to density per km^2
+#'
+#' @return `numeric` vector.
+#'
+#' @noRd
+as_per_km2 <- function(x, unit) {
+  if (
+    identical(length(unit), 1L) ||
+    identical(length(unique(unit)), 1L)
+  ) {
+    out <- as.numeric(
+      units::set_units(
+        units::set_units(
+          x,
+          paste0("1/", unit[[1]]),
+          mode = "standard"
+        ),
+        "1/km^2",
+        mode = "standard"
+      )
+    )
+  } else {
+    out <- vapply(
+      seq_along(x),
+      FUN.VALUE = numeric(1),
+      function(i) {
+        as.numeric(
+          units::set_units(
+            units::set_units(
+              x[[i]],
+              paste0("1/", unit[[i]]),
+              mode = "standard"
+            ),
+            "1/km^2",
+            mode = "standard"
+          )
+        )
+      }
+    )
+  }
+}

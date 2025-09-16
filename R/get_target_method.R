@@ -25,26 +25,43 @@ get_target_method <- function(method, call = fn_caller_env()) {
   # identify targets
   out <- NULL
   if (identical(method, "jung")) {
-    out <- jung_targets()
+    out <- spec_jung_targets()
   } else if (identical(method, "rodrigues")) {
-    out <- rodrigues_targets()
+    out <- spec_rodrigues_targets()
   } else if (identical(method, "polak")) {
-    out <- polak_targets()
+    out <- spec_polak_targets()
   } else if (identical(method, "ward")) {
-    out <- ward_targets()
+    out <- spec_ward_targets()
   } else if (identical(method, "watson")) {
-    out <- watson_targets()
+    out <- spec_watson_targets()
   } else if (startsWith(method, "rl_species")) {
     x <- strsplit(method, "_", fixed = TRUE)[[1]]
     if (identical(length(x), 5L)) {
-      out <- try(rl_species_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
+      out <- try(
+        spec_rl_species_targets(x[[3]], x[[4]], x[[5]]),
+        silent = TRUE
+      )
     }
   } else if (startsWith(method, "rl_ecosystem")) {
     x <- strsplit(method, "_", fixed = TRUE)[[1]]
     if (identical(length(x), 5L)) {
-      out <- try(rl_ecosystem_targets(x[[3]], x[[4]], x[[5]]), silent = TRUE)
+      out <- try(
+        spec_rl_ecosystem_targets(x[[3]], x[[4]], x[[5]]),
+        silent = TRUE
+      )
     }
   }
+
+  # determine if method refers to a target setting method
+  method_name <- paste0("spec_", method, "_targets")
+  msg <- ifelse(
+    !isTRUE(method_name %in% utils::ls.str("package:prioritizr")),
+    "{.val {method}} is not the name of a recognized method.",
+    paste(
+      "{.val {method}} has non-optional parameters and",
+      "must be specified with {.fn {method_name}}."
+    )
+  )
 
   # if couldn't identify method, throw error
   assert(
@@ -52,7 +69,7 @@ get_target_method <- function(method, call = fn_caller_env()) {
     inherits(out, "Method"),
     msg = c(
       "!" = "{.arg method} must refer to a target setting method.",
-      "x" = "{.val {method}} is not the name of a recognized method."
+      "x" = msg
     ),
     call = call
   )
