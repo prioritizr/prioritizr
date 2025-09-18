@@ -8,6 +8,8 @@ NULL
 #' Briefly, this method involves using population growth rate data to set
 #' target thresholds based on the amount
 #' of habitat required to sustain populations for 100,000 years.
+#' To help prevent widespread features from obscuring priorities,
+#' targets are capped following Butchart *et al.* (2015).
 #' Note that this function is designed to be used within [add_auto_targets()]
 #' and [add_group_targets()].
 #'
@@ -90,6 +92,16 @@ NULL
 #' @inherit spec_jung_targets seealso return
 #'
 #' @references
+#' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
+#' Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
+#' Comeros‐Raynal MT, Cornell J, Ficetola GF, Fishpool LDC, Fuller RA,
+#' Geldmann J, Harwell H, Hilton‐Taylor C, Hoffmann M, Joolia A, Joppa L,
+#' Kingston N, May I, Milam A, Polidoro B, Ralph G, Richman N, Rondinini C,
+#' Segan DB, Skolnik B, Spalding MD, Stuart SN, Symes A, Taylor J, Visconti P,
+#' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
+#' national and global conservation area targets. *Conservation Letters*,
+#' 8: 329--337.
+#'
 #' IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 #' Available at <https://www.iucnredlist.org>. Accessed on 23 July 2025.
 #'
@@ -110,7 +122,8 @@ NULL
 #' @export
 spec_wilson_targets <- function(mean_growth_rates, var_growth_rates,
                                 pop_density, density_units,
-                                cap_area_target, area_units) {
+                                cap_area_target = 1000000,
+                                area_units = "km^2") {
   # assert arguments are valid
   assert_valid_method_arg(mean_growth_rates)
   assert_required(mean_growth_rates)

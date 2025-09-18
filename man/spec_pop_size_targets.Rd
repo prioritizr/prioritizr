@@ -197,6 +197,16 @@ km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 
 }
 \references{
+Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
+Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
+Comeros‐Raynal MT, Cornell J, Ficetola GF, Fishpool LDC, Fuller RA,
+Geldmann J, Harwell H, Hilton‐Taylor C, Hoffmann M, Joolia A, Joppa L,
+Kingston N, May I, Milam A, Polidoro B, Ralph G, Richman N, Rondinini C,
+Segan DB, Skolnik B, Spalding MD, Stuart SN, Symes A, Taylor J, Visconti P,
+Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
+national and global conservation area targets. \emph{Conservation Letters},
+8: 329--337.
+
 Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and
 global extinction risk are unrelated. \emph{Ecology Letters}, 9:375--382.
 
