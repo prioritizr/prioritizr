@@ -118,6 +118,7 @@ km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 Other methods: 
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
+\code{\link{spec_duran_targets}()},
 \code{\link{spec_interp_absolute_targets}()},
 \code{\link{spec_interp_area_targets}()},
 \code{\link{spec_jung_targets}()},
@@ -125,6 +126,9 @@ Other methods:
 \code{\link{spec_min_targets}()},
 \code{\link{spec_polak_targets}()},
 \code{\link{spec_pop_size_targets}()},
+\code{\link{spec_rl_ecosystem_targets}()},
+\code{\link{spec_rl_species_targets}()},
+\code{\link{spec_rodrigues_targets}()},
 \code{\link{spec_rule_targets}()},
 \code{\link{spec_ward_targets}()},
 \code{\link{spec_watson_targets}()},

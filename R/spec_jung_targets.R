@@ -67,7 +67,8 @@ NULL
 #'
 #' @return An object ([`Method-class`]) for specifying targets.
 #'
-#' @inherit add_manual_targets seealso
+#' @seealso
+#' See [targets] for an overview of all functions for adding targets.
 #'
 #' @family methods
 #'

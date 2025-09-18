@@ -118,7 +118,7 @@ NULL
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
-#' @family method
+#' @family methods
 #'
 #' @references
 #' Akçakaya HR, Sjögren-Gulve P (2000) Population viability analyses in

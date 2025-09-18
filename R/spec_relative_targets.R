@@ -40,7 +40,7 @@ NULL
 #' @export
 spec_relative_targets <- function(targets, ...) {
   # assert arguments are valid
-  assert_valid_method_arg(targets, "add_relative_targets")
+  assert_valid_method_arg(targets)
   assert_required(targets)
   rlang::check_dots_empty()
   # return new method

@@ -37,7 +37,7 @@ NULL
 #'
 #' @export
 spec_absolute_targets <- function(targets, ...) {
-  assert_valid_method_arg(targets, "add_absolute_targets")
+  assert_valid_method_arg(targets)
   rlang::check_dots_empty()
   internal_absolute_targets(targets = targets)
 }

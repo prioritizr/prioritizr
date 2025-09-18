@@ -152,7 +152,7 @@ NULL
 #' Areas to maximise the persistence of terrestrial mammals.
 #' *Preprint at bioxriv*, \doi{10.1101/608992}.
 #'
-#' @family method
+#' @family methods
 #'
 #' @examples
 #' #TODO

@@ -235,10 +235,23 @@ Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
 (Eds.). Gland, Switzerland: IUCN.
 }
 \seealso{
-Other method: 
+Other methods: 
+\code{\link{spec_absolute_targets}()},
+\code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},
+\code{\link{spec_interp_absolute_targets}()},
+\code{\link{spec_interp_area_targets}()},
+\code{\link{spec_jung_targets}()},
+\code{\link{spec_max_targets}()},
+\code{\link{spec_min_targets}()},
+\code{\link{spec_polak_targets}()},
+\code{\link{spec_pop_size_targets}()},
+\code{\link{spec_relative_targets}()},
 \code{\link{spec_rl_species_targets}()},
 \code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_ward_targets}()}
+\code{\link{spec_rule_targets}()},
+\code{\link{spec_ward_targets}()},
+\code{\link{spec_watson_targets}()},
+\code{\link{spec_wilson_targets}()}
 }
-\concept{method}
+\concept{methods}

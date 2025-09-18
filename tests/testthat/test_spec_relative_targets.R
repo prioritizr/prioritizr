@@ -63,7 +63,7 @@ test_that("invalid inputs", {
   # run tests
   expect_tidy_error(
     spec_relative_targets(p, 0.1),
-    "add_relative_targets"
+    "add_auto_targets"
   )
   expect_tidy_error(
     p %>% add_auto_targets(spec_relative_targets("a")) %>% compile(),

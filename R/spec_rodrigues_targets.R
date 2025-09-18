@@ -92,7 +92,7 @@ NULL
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
-#' @family method
+#' @family methods
 #'
 #' @references
 #' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
