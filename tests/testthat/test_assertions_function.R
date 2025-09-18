@@ -71,7 +71,7 @@ test_that("assert_valid_method_arg", {
     silent = TRUE
   )
   # run tests
-  expect_true(grepl("add_auto_targets", msg1, fixed = TRUE))
+  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
   expect_true(assert_valid_method_arg("a"))
 })
 

@@ -42,6 +42,8 @@
 - Fix bug in internal `get_crs()` function when using `raster::raster()` or
   `raster::stack()` objects.
 - Fix bug in `add_relative_targets()` that produced an incoherent error message.
+- Fix bug in `add_locked_in_constraints()` that produced poorly formatted error
+  message.
 
 #### Documentation
 

@@ -325,7 +325,7 @@ methods::setMethod("add_locked_in_constraints",
         "logical"
       ),
       msg = paste(
-        ".arg{locked_in} must refer to columns of the",
+        "{.arg locked_in} must refer to columns of the",
         "planning unit data for {.arg x} that contain",
         "logical ({.code TRUE}/{.code FALSE}) values."
       )
