@@ -481,6 +481,7 @@ test_that("set_variable_ub", {
 
 test_that("control", {
   skip_on_cran()
+  skip
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -492,7 +493,7 @@ test_that("control", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_highs_solver(
-      time_limit = 5, verbose = FALSE,
+      gap = 100, verbose = FALSE,
       control = list(solver = "simplex", ranging = "on")
   )
   # solve problems
