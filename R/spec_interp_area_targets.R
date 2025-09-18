@@ -194,7 +194,7 @@ calc_interp_area_targets <- function(x, features,
   assert_required(rare_relative_target, call = call, .internal = TRUE)
   assert_required(rare_area_target, call = call, .internal = TRUE)
   assert_required(rare_method, call = call, .internal = TRUE)
-  assert_required(common_area_threshold, call = callk, .internal = TRUE)
+  assert_required(common_area_threshold, call = call, .internal = TRUE)
   assert_required(common_relative_target, call = call, .internal = TRUE)
   assert_required(common_area_target, call = call, .internal = TRUE)
   assert_required(common_method, call = call, .internal = TRUE)
