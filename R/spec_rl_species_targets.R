@@ -3,8 +3,8 @@ NULL
 
 #' Specify targets based on the IUCN Red List of Threatened Species
 #'
-#' Specify targets for a conservation planning problem based on the IUCN Red
-#' List of Threatened Species.
+#' Specify targets based on criteria from the IUCN Red
+#' List of Threatened Species (IUCN 2025).
 #' Briefly, this method can be used to set targets based on
 #' criteria pertaining to geographic range size (criterion B) and
 #' population size reduction criteria (criterion A).
@@ -114,7 +114,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #'
 #' @inherit spec_jung_targets return seealso
@@ -129,10 +128,6 @@ NULL
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' Fastré C, van Zeist W-J, Watson JEM, Visconti P (2021) Integrated spatial
 #' planning for biodiversity conservation and food production. *One Earth*,

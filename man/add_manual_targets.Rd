@@ -24,7 +24,7 @@ See the Targets format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Set targets for a conservation planning problem by manually
+Add targets to a conservation planning problem by manually
 specifying all the required information for each target. This function
 is useful because it can be used to customize all aspects of a target. For
 most cases, targets can be specified using the

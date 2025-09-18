@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets following Watson *et al.* (2010)
 #'
-#' Specify targets for a conservation planning problem following
+#' Specify targets based on the methodology outlined by
 #' Watson *et al.* (2010).
 #' Briefly, it involves setting targets thresholds as a percentage based on
 #' whether or not a feature would be considered rare.
@@ -64,7 +64,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
@@ -80,10 +79,6 @@ NULL
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' Kark S, Levin N, Grantham HS, Possingham HP (2009) Between-country
 #' collaboration and consideration of costs increase conservation planning

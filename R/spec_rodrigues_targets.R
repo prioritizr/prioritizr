@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets following Rodrigues *et al.* (2004)
 #'
-#' Specify targets for a conservation planning problem following
+#' Specify targets based on the methodology outlined by
 #' Rodrigues *et al.* (2004).
 #' Briefly, this method involves setting targets based on log-linear
 #' interpolation methods.
@@ -89,7 +89,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
@@ -106,12 +105,8 @@ NULL
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
 #'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
-#'
 #' Hanson JO, Rhodes JR, Butchart SHM, Buchanan GM, Rondinini C, Ficetola GF,
-#' Fuller RA (2020) Global conservation of species’ niches. Global conservation
+#' Fuller RA (2020) Global conservation of species' niches. Global conservation
 #' of species' niches. *Nature*, 580: 232--234
 #'
 #' Rodrigues ASL, Akçakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

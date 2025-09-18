@@ -5,7 +5,7 @@
 \title{Specify targets based on population size}
 \usage{
 spec_pop_size_targets(
-  pop_size_target,
+  pop_size_targets,
   pop_density,
   density_units,
   cap_area_target = 1e+06,
@@ -13,8 +13,8 @@ spec_pop_size_targets(
 )
 }
 \arguments{
-\item{pop_size_target}{\code{numeric} vector that specifies the minimum population
-size for each feature that should ideally be represented.
+\item{pop_size_targets}{\code{numeric} vector that specifies the minimum
+population size for each feature.
 If a single \code{numeric} value is specified, then all
 features are assigned targets based on the same population size.}
 
@@ -45,7 +45,7 @@ Defaults to \code{"km^2"}
 An object (\code{\linkS4class{Method}}) for specifying targets.
 }
 \description{
-Specify targets based on the total number of individuals for each
+Specify targets based on the minimum number of individuals for each
 feature.
 Briefly, this target setting method involves using population density
 data to set a target threshold for the minimum amount of habitat required
@@ -56,22 +56,23 @@ Note that this function is designed to be used within \code{\link[=add_auto_targ
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
-This target setting method can be used to set targets to ensure
+This target setting method can be used to set targets for a species based on
+a population size threshold.
 Many different population size thresholds -- and methods for calculating
 such thresholds -- have been proposed for guiding conservation decisions
 (Di Marco \emph{et al.} 2016).
 For example, previous work has suggested that the number of
 individuals for a population should not fall short of 50 individuals to avoid
 inbreeding depression, and 500 individuals to reduce genetic drift
-(reviewed in Jamieson and Allendorf 2012). Additionally, the
+(reviewed by Jamieson and Allendorf 2012). Additionally, the
 Red List of Threatened Species by the International Union for the
 Conservation of Nature has criteria related to population size,
 where a species with fewer than 250, 2,500, or 10,000 individuals are
 recognized as Critically Endangered, Endangered, or Vulnerable
 (respectively) (IUCN 2025).
-Furthermore, the SAFE index (Clements \emph{et al.} 2011) asserts that species
+Alternatively, the SAFE index (Clements \emph{et al.} 2011) considers species
 with fewer than 5,000
-individuals are threatened by extinction
+individuals to be threatened by extinction
 (based on minimum population sizes reported by Brook \emph{et al.} 2006;
 Traill \emph{et al.} 2007, 2010).
 }
@@ -83,12 +84,12 @@ then this can be specified with \code{pop_density = 200} and
 \code{density_units = "ha"}.
 Alternatively, if a species has a population density where one individual
 occurs every 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, then
-this can be specified with \code{density = 0.1} and \code{area_units = "km^2"}.
+this can be specified with \code{pop_density = 0.1} and \code{density_units = "km^2"}.
 Also, note that
 population density is assumed to scale linearly with the values
 in the feature data. For example, if a planning unit contains
 5 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of habitat for a feature,
-\code{density = 200}, and \code{area_units = "km^2"},
+\code{pop_density = 200}, and \code{density_units = "km^2"},
 then the calculations assume that the planning unit contains 100 individuals
 for the species.
 Although the package does not provide the population density
@@ -105,7 +106,7 @@ To express this mathematically, we will define the following terminology.
 Let \eqn{f} denote the total abundance of a feature (i.e., geographic
 range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}),
 \eqn{n} denote the minimum number of individuals that should
-ideally be represented (per \code{pop_size_target}), and
+ideally be represented (per \code{pop_size_targets}), and
 \eqn{d} population density of the feature
 (i.e.,
 number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
@@ -118,33 +119,6 @@ is calculated as follows.
 t = min(f, min(j, min(n \times d))}{
 t = min(f, min(j, n * d))
 }
-}
-
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
 }
 
 \section{Data calculations}{
@@ -268,9 +242,12 @@ mammals of the world. \emph{Ecological Informatics}, 80:102492.
 \seealso{
 Other methods: 
 \code{\link{spec_absolute_targets}()},
+\code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},
 \code{\link{spec_interp_area_targets}()},
 \code{\link{spec_jung_targets}()},
+\code{\link{spec_max_targets}()},
+\code{\link{spec_min_targets}()},
 \code{\link{spec_polak_targets}()},
 \code{\link{spec_relative_targets}()},
 \code{\link{spec_rule_targets}()},

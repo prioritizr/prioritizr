@@ -3,8 +3,8 @@ NULL
 
 #' Specify relative targets
 #'
-#' Specify targets as a proportion (between 0 and 1) of the maximum level of
-#' representation of each feature in the study area.
+#' Specify targets expressed as a proportion (between 0 and 1) of the maximum
+#' level of representation of each feature in the study area.
 #' Please note that proportions
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
@@ -29,14 +29,8 @@ NULL
 #' is calculated as follows.
 #' \deqn{t = f * a}
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
-#'
-#' @references
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' @family methods
 #'

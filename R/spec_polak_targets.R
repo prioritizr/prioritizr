@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets following Polak *et al.* (2015)
 #'
-#' Specify targets for a conservation planning problem following
+#' Specify targets based on the methodology outlined by
 #' Polak *et al.* (2015).
 #' Briefly, this method involves setting targets based on linear
 #' interpolation methods.
@@ -59,7 +59,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
@@ -75,10 +74,6 @@ NULL
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' Clements HS, Kearney SG, Cook CN (2018) Moving from representation to
 #' persistence: The capacity of Australia's National Reserve System to support

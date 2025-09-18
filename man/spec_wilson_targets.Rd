@@ -5,8 +5,8 @@
 \title{Specify targets following Wilson \emph{et al.} (2010)}
 \usage{
 spec_wilson_targets(
-  mean_growth_rate,
-  var_growth_rate,
+  mean_growth_rates,
+  var_growth_rates,
   pop_density,
   density_units,
   cap_area_target,
@@ -14,7 +14,7 @@ spec_wilson_targets(
 )
 }
 \arguments{
-\item{mean_growth_rate}{\code{numeric} vector that specifies the average
+\item{mean_growth_rates}{\code{numeric} vector that specifies the average
 population growth rate that would be expected for each
 feature within priority areas
 (i.e., \eqn{r} per Wilson \emph{et al.} 2010).
@@ -23,7 +23,7 @@ features are assigned targets based on the same average population growth
 rate.
 See Population data section for more details.}
 
-\item{var_growth_rate}{\code{numeric} vector that specifies the
+\item{var_growth_rates}{\code{numeric} vector that specifies the
 variance in population growth rate that would be expected for each
 feature within priority areas
 (i.e., \eqn{\sigma^2} per Wilson \emph{et al.} 2010).
@@ -59,7 +59,7 @@ Defaults to \code{"km^2"}
 An object (\code{\linkS4class{Method}}) for specifying targets.
 }
 \description{
-Specify targets for a conservation planning problem following
+Specify targets based on the methodology outlined by
 Wilson \emph{et al.} (2010).
 Briefly, this method involves using population growth rate data to set
 target thresholds based on the amount
@@ -132,12 +132,12 @@ then this can be specified with \code{pop_density = 200} and
 \code{density_units = "ha"}.
 Alternatively, if a species has a population density where one individual
 occurs every 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, then
-this can be specified with \code{density = 0.1} and \code{area_units = "km^2"}.
+this can be specified with \code{pop_density = 0.1} and \code{density_units = "km^2"}.
 Also, note that
 population density is assumed to scale linearly with the values
 in the feature data. For example, if a planning unit contains
 5 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of habitat for a feature,
-\code{density = 200}, and \code{area_units = "km^2"},
+\code{pop_density = 200}, and \code{density_units = "km^2"},
 then the calculations assume that the planning unit contains 100 individuals
 for the species.
 Although the package does not provide the population density
@@ -264,9 +264,12 @@ production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 \seealso{
 Other methods: 
 \code{\link{spec_absolute_targets}()},
+\code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},
 \code{\link{spec_interp_area_targets}()},
 \code{\link{spec_jung_targets}()},
+\code{\link{spec_max_targets}()},
+\code{\link{spec_min_targets}()},
 \code{\link{spec_polak_targets}()},
 \code{\link{spec_pop_size_targets}()},
 \code{\link{spec_relative_targets}()},

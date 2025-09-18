@@ -5,10 +5,10 @@
 - New `add_auto_targets()` function for adding targets to a conservation
   planning problem based on a target setting method. In particular, the
   following functions can be used in conjunction with this function to specify
-  target setting methods: `spec_absolute_targets()`,
+  target setting methods: `spec_absolute_targets()`, `spec_area_targets()`,
   `spec_interp_absolute_targets()`, `spec_interp_area_targets()`
-  `spec_jung_targets()`, `spec_polak_targets()`,
-  `spec_pop_size_targets()`, `spec_relative_targets()`,
+  `spec_jung_targets()`, `spec_max_targets()`, `spec_min_targets()`,
+  `spec_polak_targets()`, `spec_pop_size_targets()`, `spec_relative_targets()`,
   `spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`,
   `spec_rodrigues_targets()`, `spec_rule_targets()`,
   `spec_ward_targets()`, `spec_watson_targets()`, and `spec_wilson_targets()`.

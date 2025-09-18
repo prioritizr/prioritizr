@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets following Duran *et al.* 2020
 #'
-#' Specify targets for a conservation planning problem following
+#' Specify targets based on the methodology outlined by
 #' Duran *et al.* (2020).
 #' Briefly, this target setting method involves using historical distribution
 #' data to infer the minimum amount of habitat required for a species to meet
@@ -115,7 +115,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'

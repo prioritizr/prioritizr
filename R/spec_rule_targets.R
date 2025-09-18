@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets following a set of rules
 #'
-#' Specify targets for a conservation planning problem following a rule-based
+#' Specify targets based on a rule-based
 #' procedure based on a set of
 #' ecological and ecosystem criteria. This is a customizable version of the
 #' approach in Harris and Holness (2023).
@@ -82,7 +82,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #'
 #' @inherit spec_jung_targets return seealso
@@ -99,10 +98,6 @@ NULL
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' Harris LR, Holness SD (2023) A practical approach to setting heuristic
 #' marine biodiversity targets for systematic conservation planning.

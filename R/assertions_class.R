@@ -67,6 +67,26 @@ assertthat::on_failure(is_conservation_problem) <- function(call, env) {
   }
 }
 
+#' Is target setting method?
+#'
+#' Check if an object is a `Method` object.
+#'
+#' @param x object.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_method <- function(x) {
+  inherits(x, "Method")
+}
+
+assertthat::on_failure(is_method) <- function(call, env) {
+  paste0(
+    "{.arg ", deparse(call$x),
+    "}  must be a target setting method object."
+  )
+}
+
 #' Is inherits?
 #'
 #' Check if an object inherits from a set of classes.

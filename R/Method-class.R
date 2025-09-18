@@ -79,7 +79,28 @@ Method <- R6::R6Class(
     #' @param call `NULL` or calling environment.
     #' @return A `numeric` vector with target values.
     calculate_targets = function(x, features, call = NULL) {
-      rlang::try_fetch(
+      # calculate targets
+      ## note that if call is NULL then we evaluate the expression outside
+      ## of the tryfetch so that the error is thrown directly
+      if (!is.null(call)) {
+        rlang::try_fetch(
+          do.call(
+            what = self$fun,
+            quote = TRUE,
+            args = append(
+              list(x = x, features = features, call = self$frame),
+              self$args
+            )
+          ),
+          error = function(cnd) {
+            cli::cli_abort(
+              c("i" = "Can't calculate targets."),
+              parent = cnd,
+              call = call
+            )
+          }
+        )
+      } else {
         do.call(
           what = self$fun,
           quote = TRUE,
@@ -87,15 +108,57 @@ Method <- R6::R6Class(
             list(x = x, features = features, call = self$frame),
             self$args
           )
-        ),
-        error = function(cnd) {
-          cli::cli_abort(
-            c("i" = "Can't calculate targets."),
-            parent = cnd,
-            call = call
-          )
-        }
-      )
+        )
+      }
+    },
+
+    #' @description
+    #' Calculate targets as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+    #' @param x [problem()] object.
+    #' @param features `integer` feature indices.
+    #' @param call `NULL` or calling environment.
+    #' @return A `numeric` vector with target values expressed in
+    #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+    calculate_targets_km2 = function(x, features, call = NULL) {
+      # return targets expressed as km2
+      self$calculate_relative_targets(x = x, features = features, call = call) *
+      c(x$feature_abundances_km2_in_total_units()[features, ])
+    },
+
+    #' @description
+    #' Calculate targets as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+    #' @param x [problem()] object.
+    #' @param features `integer` feature indices.
+    #' @param call `NULL` or calling environment.
+    #' @return A `numeric` vector with target values expressed as relative
+    #' units.
+    calculate_relative_targets = function(x, features, call = NULL) {
+      # calculate targets
+      out <- self$calculate_targets(x = x, features = features, call = call)
+      # if units are absolute, convert to proportion of total units
+      if (identical(self$type, "absolute")) {
+         out <- out / c(x$feature_abundances_in_total_units()[features, ])
+      }
+      # return target values
+      out
+    },
+
+    #' @description
+    #' Calculate targets expressed as absolute units.
+    #' @param x [problem()] object.
+    #' @param features `integer` feature indices.
+    #' @param call `NULL` or calling environment.
+    #' @return A `numeric` vector with target values expressed as
+    #' absolute units.
+    calculate_absolute_targets = function(x, features, call = NULL) {
+      # calculate targets
+      out <- self$calculate_targets(x = x, features = features, call = call)
+      # if values are relative, then convert to absolute values
+      if (identical(self$type, "relative")) {
+         out <- out * c(x$feature_abundances_in_total_units()[features, ])
+      }
+      # return target values
+      out
     }
   )
 )

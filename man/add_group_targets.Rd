@@ -22,9 +22,9 @@ more information.}
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Add targets to a conservation planning problem such that the method
-used to calculate the target threshold for each feature based on a
-grouping.
+Add targets to a conservation planning problem, wherein each
+feature is assigned to a particular group and a target setting
+method is specified for each feature group.
 This function is designed to provide a convenient alternative to
 \code{\link[=add_auto_targets]{add_auto_targets()}}.
 }
@@ -97,6 +97,31 @@ a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targe
 }
 
 \section{Target setting}{
+
+Many conservation planning problems require targets.
+Targets are used to specify the minimum amount, or proportion, of a
+feature's spatial distribution that should ideally be protected.
+This is important so that the optimization process can weigh the merits
+and trade-offs between improving the representation of one feature over
+another feature.
+Although it can be challenging to set meaningful targets,
+this is a critical step for ensuring that prioritizations
+meet the stakeholder objectives that underpin a prioritization exercise
+(Carwardine \emph{et al.} 2009).
+In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements.
+For example, targets provide a mechanism for ensuring that a
+prioritization secures enough habitat to promote the long-term persistence
+of each threatened species, culturally important species,
+or economically important ecosystem service under consideration.
+Since there is often uncertainty regarding stakeholder objectives
+(e.g., how much habitat should be protected for a given species)
+or the influence of particular target on a prioritization
+(e.g., how would setting a 90\% or 100\% for a threatened species alter
+priorities), it is often useful to generate and compare a suite of
+prioritizations based on different target scenarios.
+
 
 Many conservation planning problems require targets.
 Targets are used to specify the minimum amount, or proportion, of a

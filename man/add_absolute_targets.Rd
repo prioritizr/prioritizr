@@ -26,9 +26,10 @@ See the Targets format section for more information.}
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
 }
 \description{
-Add targets to a conservation planning problem expressed as the actual value
-of features in the study area that need to be represented in the
-prioritization. For example,
+Add targets to a conservation planning problem expressed as the
+same values as the underlying feature data (ignoring any specified
+feature units).
+For example,
 setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
 than 10.

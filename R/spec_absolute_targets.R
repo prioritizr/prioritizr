@@ -3,9 +3,9 @@ NULL
 
 #' Specify absolute targets
 #'
-#' Specify targets expressed as the actual value
-#' of features in the study area that need to be represented in the
-#' prioritization. For example,
+#' Specify targets expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units). For example,
 #' setting a target of 10 requires that the solution secure a set of
 #' planning units for which their summed feature values are equal to or greater
 #' than 10.
@@ -27,14 +27,8 @@ NULL
 #' is calculated as follows.
 #' \deqn{t = a}
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
-#'
-#' @references
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' @family methods
 #'

@@ -13,13 +13,15 @@ test_that("raster features", {
   # create problem
   p <- problem(sim_pu_raster, sim_features)
   # compute values in km^2
-  fa <- p$feature_abundances_km2_in_total_units()
+  fs <- p$feature_abundances_km2_in_total_units()
+  # compute values in absolute units
+  fa <- p$feature_abundances_in_total_units()
   # create problem
   p <-
     p %>%
     add_auto_targets(
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -66,12 +68,12 @@ test_that("invalid inputs", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective()
   # run tests
-  ## pop_size_target
+  ## pop_size_targets
   expect_tidy_error(
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, NA, 1, 20, 50),
+        pop_size_targets = c(10, NA, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -84,7 +86,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 1, 20, 50),
+        pop_size_targets = c(10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -97,7 +99,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = letters[seq_len(5)],
+        pop_size_targets = letters[seq_len(5)],
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -111,7 +113,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, NA, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -124,7 +126,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -137,7 +139,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = letters[seq_len(5)],
         density_units = "km2",
         cap_area_target = 40,
@@ -151,7 +153,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = c("km2", "m2"),
         cap_area_target = 40,
@@ -164,7 +166,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "greg",
         cap_area_target = 40,
@@ -177,7 +179,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "g",
         cap_area_target = 40,
@@ -191,7 +193,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = "greg",
@@ -204,7 +206,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = c(1, 2),
@@ -218,7 +220,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -231,7 +233,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "lm2",
         cap_area_target = 40,
@@ -244,7 +246,7 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_pop_size_targets(
-        pop_size_target = c(10, 10, 1, 20, 50),
+        pop_size_targets = c(10, 10, 1, 20, 50),
         pop_density = c(1, 5, 1, 4, 1),
         density_units = "km2",
         cap_area_target = 40,

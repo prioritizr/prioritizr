@@ -19,8 +19,8 @@ test_that("raster features", {
     p %>%
     add_auto_targets(
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -32,10 +32,10 @@ test_that("raster features", {
   targets
   # calculate correct targets
   ## run interpolation with relative targets
-  mean_growth_rate <- c(0.001, 0.5, 1, 0.3, 0.3)
-  var_growth_rate <- c(0.0001, 0.0001, 0.0001, 0.0001, 0.1)
-  b <- (2 * mean_growth_rate / var_growth_rate) - 1
-  pop_size_target <- ((100000 * var_growth_rate * (b^2)) / 2)^(1 / b)
+  mean_growth_rates <- c(0.001, 0.5, 1, 0.3, 0.3)
+  var_growth_rates <- c(0.0001, 0.0001, 0.0001, 0.0001, 0.1)
+  b <- (2 * mean_growth_rates / var_growth_rates) - 1
+  pop_size_target <- ((100000 * var_growth_rates * (b^2)) / 2)^(1 / b)
   correct_targets <- pop_size_target
   ## apply target caps
   correct_targets <- pmin(correct_targets, 5)
@@ -71,13 +71,13 @@ test_that("invalid inputs", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective()
   # run tests
-  ## mean_growth_rate
+  ## mean_growth_rates
   expect_tidy_error(
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, NA, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, NA, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -90,8 +90,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -104,8 +104,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = letters[seq_len(5)],
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = letters[seq_len(5)],
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -114,13 +114,13 @@ test_that("invalid inputs", {
     ),
     "numeric"
   )
-  ## var_growth_rate
+  ## var_growth_rates
   expect_tidy_error(
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, NA, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, NA, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -133,8 +133,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -147,8 +147,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = letters[seq_len(5)],
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = letters[seq_len(5)],
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -162,8 +162,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, NA, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -176,8 +176,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 5,
@@ -190,8 +190,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = letters[seq_len(5)],
         density_units = "km2",
         cap_area_target = 5,
@@ -205,8 +205,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = c("km2", "m2"),
         cap_area_target = 5,
@@ -219,8 +219,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "greg",
         cap_area_target = 5,
@@ -233,8 +233,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "g",
         cap_area_target = 5,
@@ -248,8 +248,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = c(1, 5),
@@ -262,8 +262,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = "greg",
@@ -277,8 +277,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -291,8 +291,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 40,
@@ -305,8 +305,8 @@ test_that("invalid inputs", {
     add_auto_targets(
       p,
       method = spec_wilson_targets(
-        mean_growth_rate = c(0.001, 0.5, 1, 0.3, 0.3),
-        var_growth_rate =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+        mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+        var_growth_rates =c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
         pop_density = c(1, 1, 1, 1, 1),
         density_units = "km2",
         cap_area_target = 40,

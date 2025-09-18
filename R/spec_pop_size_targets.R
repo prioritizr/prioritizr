@@ -3,7 +3,7 @@ NULL
 
 #' Specify targets based on population size
 #'
-#' Specify targets based on the total number of individuals for each
+#' Specify targets based on the minimum number of individuals for each
 #' feature.
 #' Briefly, this target setting method involves using population density
 #' data to set a target threshold for the minimum amount of habitat required
@@ -13,8 +13,8 @@ NULL
 #' Note that this function is designed to be used within [add_auto_targets()]
 #' and [add_group_targets()].
 #'
-#' @param pop_size_target `numeric` vector that specifies the minimum population
-#' size for each feature that should ideally be represented.
+#' @param pop_size_targets `numeric` vector that specifies the minimum
+#' population size for each feature.
 #' If a single `numeric` value is specified, then all
 #' features are assigned targets based on the same population size.
 #'
@@ -42,12 +42,12 @@ NULL
 #' `density_units = "ha"`.
 #' Alternatively, if a species has a population density where one individual
 #' occurs every 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, then
-#' this can be specified with `density = 0.1` and `area_units = "km^2"`.
+#' this can be specified with `pop_density = 0.1` and `density_units = "km^2"`.
 #' Also, note that
 #' population density is assumed to scale linearly with the values
 #' in the feature data. For example, if a planning unit contains
 #' 5 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of habitat for a feature,
-#' `density = 200`, and `area_units = "km^2"`,
+#' `pop_density = 200`, and `density_units = "km^2"`,
 #' then the calculations assume that the planning unit contains 100 individuals
 #' for the species.
 #' Although the package does not provide the population density
@@ -62,7 +62,7 @@ NULL
 #' Let \eqn{f} denote the total abundance of a feature (i.e., geographic
 #' range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}),
 #' \eqn{n} denote the minimum number of individuals that should
-#' ideally be represented (per `pop_size_target`), and
+#' ideally be represented (per `pop_size_targets`), and
 #' \eqn{d} population density of the feature
 #' (i.e.,
 #' number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
@@ -77,27 +77,26 @@ NULL
 #' }
 #'
 #' @details
-#' This target setting method can be used to set targets to ensure
-#  representation targets for a species based on population size threshold.
+#' This target setting method can be used to set targets for a species based on
+#' a population size threshold.
 #' Many different population size thresholds -- and methods for calculating
 #' such thresholds -- have been proposed for guiding conservation decisions
 #' (Di Marco *et al.* 2016).
 #' For example, previous work has suggested that the number of
 #' individuals for a population should not fall short of 50 individuals to avoid
 #' inbreeding depression, and 500 individuals to reduce genetic drift
-#' (reviewed in Jamieson and Allendorf 2012). Additionally, the
+#' (reviewed by Jamieson and Allendorf 2012). Additionally, the
 #' Red List of Threatened Species by the International Union for the
 #' Conservation of Nature has criteria related to population size,
 #' where a species with fewer than 250, 2,500, or 10,000 individuals are
 #' recognized as Critically Endangered, Endangered, or Vulnerable
 #' (respectively) (IUCN 2025).
-#' Furthermore, the SAFE index (Clements *et al.* 2011) asserts that species
+#' Alternatively, the SAFE index (Clements *et al.* 2011) considers species
 #' with fewer than 5,000
-#' individuals are threatened by extinction
+#' individuals to be threatened by extinction
 #' (based on minimum population sizes reported by Brook *et al.* 2006;
 #' Traill *et al.* 2007, 2010).
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
 #'
@@ -150,13 +149,13 @@ NULL
 #' # TODO
 #'
 #' @export
-spec_pop_size_targets <- function(pop_size_target,
+spec_pop_size_targets <- function(pop_size_targets,
                                   pop_density, density_units,
                                   cap_area_target = 1000000,
                                   area_units = "km^2") {
   # assert arguments are valid
-  assert_valid_method_arg(pop_size_target)
-  assert_required(pop_size_target)
+  assert_valid_method_arg(pop_size_targets)
+  assert_required(pop_size_targets)
   assert_required(pop_density)
   assert_required(density_units)
   assert_required(cap_area_target)
@@ -167,7 +166,7 @@ spec_pop_size_targets <- function(pop_size_target,
     type = "relative",
     fun = calc_pop_size_targets,
     args = list(
-      pop_size_target = pop_size_target,
+      pop_size_targets = pop_size_targets,
       pop_density = pop_density,
       density_units = density_units,
       cap_area_target = cap_area_target,
@@ -176,13 +175,13 @@ spec_pop_size_targets <- function(pop_size_target,
   )
 }
 
-calc_pop_size_targets <- function(x, features, pop_size_target,
+calc_pop_size_targets <- function(x, features, pop_size_targets,
                                   pop_density, density_units,
                                   cap_area_target, area_units,
                                   call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call, .internal = TRUE)
-  assert_required(pop_size_target, call = call, .internal = TRUE)
+  assert_required(pop_size_targets, call = call, .internal = TRUE)
   assert_required(pop_density, call = call, .internal = TRUE)
   assert_required(density_units, call = call,  .internal = TRUE)
   assert_required(cap_area_target, call = call,  .internal = TRUE)
@@ -199,11 +198,11 @@ calc_pop_size_targets <- function(x, features, pop_size_target,
     .internal = TRUE
   )
   assert(
-    # pop_size_target
-    is.numeric(pop_size_target),
-    is_match_of(length(pop_size_target), c(1, number_of_features(x))),
-    all_finite(pop_size_target),
-    all_positive(pop_size_target),
+    # pop_size_targets
+    is.numeric(pop_size_targets),
+    is_match_of(length(pop_size_targets), c(1, number_of_features(x))),
+    all_finite(pop_size_targets),
+    all_positive(pop_size_targets),
     # pop_density
     is.numeric(pop_density),
     is_match_of(length(pop_density), c(1, number_of_features(x))),
@@ -232,8 +231,8 @@ calc_pop_size_targets <- function(x, features, pop_size_target,
   }
 
   # if needed, duplicate values for each feature
-  if (identical(length(pop_size_target), 1L)) {
-    pop_size_target <- rep(pop_size_target, x$number_of_features())
+  if (identical(length(pop_size_targets), 1L)) {
+    pop_size_targets <- rep(pop_size_targets, x$number_of_features())
   }
   if (identical(length(pop_density), 1L)) {
     pop_density <- rep(pop_density, x$number_of_features())
@@ -245,7 +244,7 @@ calc_pop_size_targets <- function(x, features, pop_size_target,
   # return targets
   calc_n_individuals_targets(
     x = c(x$feature_abundances_km2_in_total_units()[features, 1]),
-    pop_size_target = pop_size_target,
+    pop_size_targets = pop_size_targets,
     pop_density_km2 = as_per_km2(pop_density, density_units),
     cap_absolute_target = as_km2(cap_area_target, area_units),
     call = call
@@ -253,21 +252,21 @@ calc_pop_size_targets <- function(x, features, pop_size_target,
 }
 
 calc_n_individuals_targets <- function(x,
-                                       pop_size_target,
+                                       pop_size_targets,
                                        pop_density_km2,
                                        cap_absolute_target,
                                        call = fn_caller_env()) {
   # assert valid arguments
   assert_required(x, call = call, .internal = TRUE)
-  assert_required(pop_size_target, call = call, .internal = TRUE)
+  assert_required(pop_size_targets, call = call, .internal = TRUE)
   assert_required(pop_density_km2, call = call, .internal = TRUE)
   assert_required(cap_absolute_target, call = call, .internal = TRUE)
   assert(
     is.numeric(x),
     assertthat::noNA(x),
-    is.numeric(pop_size_target),
+    is.numeric(pop_size_targets),
     is.numeric(pop_density_km2),
-    identical(length(x), length(pop_size_target)),
+    identical(length(x), length(pop_size_targets)),
     identical(length(x), length(pop_density_km2)),
     assertthat::is.number(cap_absolute_target),
     call = call,
@@ -275,7 +274,7 @@ calc_n_individuals_targets <- function(x,
   )
 
   # calculate targets
-  targets <- pop_size_target / pop_density_km2
+  targets <- pop_size_targets / pop_density_km2
 
   # apply target cap
   targets <- pmin(targets, cap_absolute_target, na.rm = TRUE)

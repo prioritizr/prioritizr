@@ -3,9 +3,10 @@ NULL
 
 #' Add absolute targets
 #'
-#' Add targets to a conservation planning problem expressed as the actual value
-#' of features in the study area that need to be represented in the
-#' prioritization. For example,
+#' Add targets to a conservation planning problem expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units).
+#' For example,
 #' setting a target of 10 requires that the solution secure a set of
 #' planning units for which their summed feature values are equal to or greater
 #' than 10.
@@ -60,9 +61,9 @@ NULL
 #'
 #' }
 #'
-#' @inheritSection add_manual_targets Target setting
+#' @inheritSection add_auto_targets Target setting
 #' @inherit add_manual_targets return seealso
-#' @inherit spec_absolute_targets references
+#' @inherit add_manual_targets references
 #'
 #' @family targets
 #'

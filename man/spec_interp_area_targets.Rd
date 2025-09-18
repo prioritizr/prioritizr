@@ -86,8 +86,7 @@ for the area-based arguments (e.g., \verb{"km^2", }"ha"\verb{, }"acres"`).}
 An object (\code{\linkS4class{Method}}) for specifying targets.
 }
 \description{
-Specify targets for a conservation planning problem by interpolating them
-between area-based thresholds.
+Specify targets by interpolating them between area-based thresholds.
 Briefly, this method involves
 (i) setting target thresholds for rare features to a particular percentage
 threshold, (ii) setting target thresholds for common features
@@ -118,7 +117,7 @@ the spatial extent of the planning region.
 \section{Mathematical formulation}{
 
 This method provides a flexible approach for setting target thresholds based
-on the spatial extent of the features.
+on an interpolation procedure and the spatial extent of the features.
 To express this mathematically, we will define the following terminology.
 Let \eqn{f} denote the total spatial extent of a feature (e.g., geographic
 range size),
@@ -152,33 +151,6 @@ is calculated as follows.
 \item If \eqn{f > e}, then \eqn{t = min(i(h, g * f), j)}.
 \item If \eqn{a <= f <= e}, then \eqn{t = min(k(f, a, b, e, g), j)}.
 }
-}
-
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
 }
 
 \section{Data calculations}{
@@ -284,8 +256,11 @@ protected-area network. \emph{BioScience}, 54: 1092--1100.
 \seealso{
 Other methods: 
 \code{\link{spec_absolute_targets}()},
+\code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},
 \code{\link{spec_jung_targets}()},
+\code{\link{spec_max_targets}()},
+\code{\link{spec_min_targets}()},
 \code{\link{spec_polak_targets}()},
 \code{\link{spec_pop_size_targets}()},
 \code{\link{spec_relative_targets}()},

@@ -17,9 +17,9 @@ are assigned the same target threshold.}
 An object (\code{\linkS4class{Method}}) for specifying targets.
 }
 \description{
-Specify targets expressed as the actual value
-of features in the study area that need to be represented in the
-prioritization. For example,
+Specify targets expressed as the
+same values as the underlying feature data (ignoring any specified
+feature units). For example,
 setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
 than 10.
@@ -35,33 +35,6 @@ Let \eqn{a} the absolute target for a feature
 Given this terminology, the target threshold (\eqn{t}) for a feature
 is calculated as follows.
 \deqn{t = a}
-}
-
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
 }
 
 \section{Data calculations}{
@@ -139,16 +112,14 @@ km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 # TODO
 
 }
-\references{
-Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-the target and missing the point: target‐based conservation planning in
-context. \emph{Conservation Letters}, 2: 4--11.
-}
 \seealso{
 Other methods: 
+\code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},
 \code{\link{spec_interp_area_targets}()},
 \code{\link{spec_jung_targets}()},
+\code{\link{spec_max_targets}()},
+\code{\link{spec_min_targets}()},
 \code{\link{spec_polak_targets}()},
 \code{\link{spec_pop_size_targets}()},
 \code{\link{spec_relative_targets}()},

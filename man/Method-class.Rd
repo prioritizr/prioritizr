@@ -43,6 +43,9 @@ Other classes:
 \item \href{#method-Method-new}{\code{Method$new()}}
 \item \href{#method-Method-print}{\code{Method$print()}}
 \item \href{#method-Method-calculate_targets}{\code{Method$calculate_targets()}}
+\item \href{#method-Method-calculate_targets_km2}{\code{Method$calculate_targets_km2()}}
+\item \href{#method-Method-calculate_relative_targets}{\code{Method$calculate_relative_targets()}}
+\item \href{#method-Method-calculate_absolute_targets}{\code{Method$calculate_absolute_targets()}}
 \item \href{#method-Method-clone}{\code{Method$clone()}}
 }
 }
@@ -117,6 +120,81 @@ Calculate targets.
 }
 \subsection{Returns}{
 A \code{numeric} vector with target values.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Method-calculate_targets_km2"></a>}}
+\if{latex}{\out{\hypertarget{method-Method-calculate_targets_km2}{}}}
+\subsection{Method \code{calculate_targets_km2()}}{
+Calculate targets as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Method$calculate_targets_km2(x, features, call = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
+
+\item{\code{features}}{\code{integer} feature indices.}
+
+\item{\code{call}}{\code{NULL} or calling environment.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{numeric} vector with target values expressed in
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Method-calculate_relative_targets"></a>}}
+\if{latex}{\out{\hypertarget{method-Method-calculate_relative_targets}{}}}
+\subsection{Method \code{calculate_relative_targets()}}{
+Calculate targets as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Method$calculate_relative_targets(x, features, call = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
+
+\item{\code{features}}{\code{integer} feature indices.}
+
+\item{\code{call}}{\code{NULL} or calling environment.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{numeric} vector with target values expressed as relative
+units.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Method-calculate_absolute_targets"></a>}}
+\if{latex}{\out{\hypertarget{method-Method-calculate_absolute_targets}{}}}
+\subsection{Method \code{calculate_absolute_targets()}}{
+Calculate targets expressed as absolute units.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Method$calculate_absolute_targets(x, features, call = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
+
+\item{\code{features}}{\code{integer} feature indices.}
+
+\item{\code{call}}{\code{NULL} or calling environment.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{numeric} vector with target values expressed as
+absolute units.
 }
 }
 \if{html}{\out{<hr>}}

@@ -3,8 +3,7 @@ NULL
 
 #' Specify targets based on the IUCN Red List of Ecosystems
 #'
-#' Specify targets for a conservation planning problem based on criteria from
-#' the
+#' Specify targets based on criteria from the
 #' International Union for the Conservation of Nature (IUCN) Red List of
 #' Ecosystems (IUCN 2024).
 #' Briefly, this method can be used to set targets based on
@@ -98,7 +97,6 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_manual_targets Target setting
 #' @inheritSection spec_rodrigues_targets Data calculations
 #'
 #' @inherit spec_jung_targets return seealso
@@ -115,10 +113,6 @@ NULL
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' IUCN (2024). Guidelines for the application of IUCN Red List of Ecosystems
 #' Categories and Criteria, Version 2.0. Keith DA, Ferrer-Paris JR,

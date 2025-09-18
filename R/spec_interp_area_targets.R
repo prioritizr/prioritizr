@@ -3,8 +3,7 @@ NULL
 
 #' Specify targets based on interpolating area-based thresholds
 #'
-#' Specify targets for a conservation planning problem by interpolating them
-#' between area-based thresholds.
+#' Specify targets by interpolating them between area-based thresholds.
 #' Briefly, this method involves
 #' (i) setting target thresholds for rare features to a particular percentage
 #' threshold, (ii) setting target thresholds for common features
@@ -84,7 +83,7 @@ NULL
 #'
 #' @section Mathematical formulation:
 #' This method provides a flexible approach for setting target thresholds based
-#' on the spatial extent of the features.
+#' on an interpolation procedure and the spatial extent of the features.
 #' To express this mathematically, we will define the following terminology.
 #' Let \eqn{f} denote the total spatial extent of a feature (e.g., geographic
 #' range size),
@@ -119,7 +118,6 @@ NULL
 #'
 #' @inherit spec_interp_absolute_targets details references
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'

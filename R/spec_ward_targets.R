@@ -1,6 +1,6 @@
 #' Specify targets following Ward *et al.* (2025)
 #'
-#' Specify targets for a conservation planning problem following
+#' Specify targets based on the methodology outlined by
 #' Ward *et al.* (2025).
 #' Briefly, this method involves setting targets based the criteria
 #' for recognizing Critically Endangered species by the International Union for
@@ -59,7 +59,6 @@
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
 #'
@@ -75,10 +74,6 @@
 #' Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
-#'
-#' Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-#' the target and missing the point: target‐based conservation planning in
-#' context. *Conservation Letters*, 2: 4--11.
 #'
 #' IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 #' Available at <https://www.iucnredlist.org>. Accessed on 23 July 2025.

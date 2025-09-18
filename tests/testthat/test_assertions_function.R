@@ -8,7 +8,7 @@ test_that(
   # build message
   msg <- try(
     problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(jung_targets()) |>
+    add_auto_targets(spec_jung_targets()) |>
     add_min_set_objective() |>
     add_binary_decisions(),
     silent = TRUE
@@ -27,7 +27,7 @@ test_that(
   # build message
   msg <- try(
     problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(jung_targets()) |>
+    add_auto_targets(spec_jung_targets()) |>
     add_min_set_objective() |>
     add_binary_decisions(),
     silent = TRUE
@@ -50,7 +50,7 @@ test_that(
       sim_pu_polygons, c("spp_1", "spp_2"), cost_column = "cost",
       feature_units = c("km^2", NA)
     ) |>
-    add_auto_targets(jung_targets()) |>
+    add_auto_targets(spec_jung_targets()) |>
     add_min_set_objective() |>
     add_binary_decisions(),
     silent = TRUE
@@ -66,18 +66,12 @@ test_that("assert_valid_method_arg", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # build message
-  msg1 <- try(
+  msg <- try(
     assert_valid_method_arg(problem(sim_pu_raster, sim_features)),
-    silent = TRUE
-  )
-  msg2 <- try(
-    assert_valid_method_arg(problem(sim_pu_raster, sim_features), "greg"),
     silent = TRUE
   )
   # run tests
   expect_true(grepl("add_auto_targets", msg1, fixed = TRUE))
-  expect_true(grepl("add_auto_targets", msg2, fixed = TRUE))
-  expect_true(grepl("greg", msg2, fixed = TRUE))
   expect_true(assert_valid_method_arg("a"))
 })
 

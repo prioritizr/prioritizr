@@ -3,8 +3,9 @@ NULL
 
 #' Specify targets based on interpolating absolute thresholds
 #'
-#' Specify targets for a conservation planning problem by interpolating them
-#' between absolute thresholds.
+#' Specify targets by interpolating them between thresholds expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units).
 #' Briefly, this method involves
 #' (i) setting target thresholds for rare features to a particular percentage
 #' threshold, (ii) setting target thresholds for common features
@@ -81,7 +82,7 @@ NULL
 #'
 #' @section Mathematical formulation:
 #' This method provides a flexible approach for setting target thresholds based
-#' on the spatial extent of the features.
+#' on an interpolation procedure and the feature data.
 #' To express this mathematically, we will define the following terminology.
 #' Let \eqn{f} denote the total abundance of a feature,
 #' \eqn{a} the threshold for identifying rare features
@@ -126,7 +127,6 @@ NULL
 #' Additionally, the threshold parameters may need to calibrated based on
 #' the spatial extent of the planning region.
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'

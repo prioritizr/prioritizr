@@ -3,9 +3,9 @@ NULL
 
 #' Add targets based on feature groups
 #'
-#' Add targets to a conservation planning problem such that the method
-#' used to calculate the target threshold for each feature based on a
-#' grouping.
+#' Add targets to a conservation planning problem, wherein each
+#' feature is assigned to a particular group and a target setting
+#' method is specified for each feature group.
 #' This function is designed to provide a convenient alternative to
 #' [add_auto_targets()].
 #'
@@ -46,6 +46,7 @@ NULL
 #' ```{r child = "man/rmd/target_method_objects.md"}
 #' ```
 #'
+#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #'
 #' @inherit add_relative_targets return seealso

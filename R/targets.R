@@ -59,6 +59,17 @@ NULL
 #' )
 #' ```
 #'
+#' Targets can also be specified based on the maximum or minimum of multiple
+#' other target setting methods. For example, targets can be specified as
+#' the maximum of the Polak *et al.* (2015) and Jung *et al.* (2021)
+#' target setting methodologies with the following code:
+#'
+#' ```
+#' x %>% add_auto_targets(
+#'   method = spec_max_targets(spec_polak_targets(), spec_jung_targets())
+#' )
+#' ```
+#'
 #' The following functions can be used to specify targets in conjunction with
 #' the [add_auto_targets()] function. Note that some of these functions
 #' do not have default parameters for all arguments and, as such, cannot be
@@ -69,13 +80,18 @@ NULL
 #' \describe{
 #'
 #' \item{[spec_relative_targets()]}{
-#' Specify targets as a proportion (between 0 and 1) of the total amount of each
-#' feature in the the study area.
+#' Specify targets expressed as a proportion (between 0 and 1) of the total
+#' amount of each feature in the the study area.
 #' }
 #'
 #' \item{[spec_absolute_targets()]}{
-#' Specify targets that denote the minimum amount of each feature required in
-#' the prioritization.
+#' Specify targets expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units).
+#' }
+#'
+#' \item{[spec_area_targets()]}{
+#' Specify targets expressed as area-based units.
 #' }
 #'
 #' \item{[spec_interp_absolute_targets()]}{
@@ -135,7 +151,15 @@ NULL
 #' International Union for the Conservation of Nature (IUCN) Red List of
 #' Ecosystems (IUCN 2024).
 #' }
-#'}
+#'
+#' \item{[spec_min_targets()]}{
+#' Specify targets based on the minimum of other target setting methods.
+#' }
+#'
+#' \item{[spec_max_targets()]}{
+#' Specify targets based on the maximum of other target setting methods.
+#' }
+#' }
 #'
 #' The [add_group_targets()] function provides a convenient interface
 #' for adding targets to a conservation planning problem. By assigning each
@@ -196,12 +220,18 @@ NULL
 #' }
 #'
 #' \item{[add_absolute_targets()]}{
-#' Add targets that denote the minimum amount of each feature held by the
-#' prioritization.
+#' Add targets expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units).
+#' For example,
+#' setting a target of 10 requires that the solution secure a set of
+#' planning units for which their summed feature values are equal to or greater
+#' than 10.
 #' }
 #'
 #' \item{[add_manual_targets()]}{
-#' Add targets by manually specifying the target setting information.
+#' Add targets to a conservation planning problem by manually
+#' specifying all the required information for each target.
 #' This function is especially useful for problems that
 #' have multiple zones because it can be used to specify, for a given
 #' feature, which zone -- or combination of zones -- should be considered for

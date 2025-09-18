@@ -52,7 +52,7 @@ Defaults to \code{"km^2"}
 An object (\code{\linkS4class{Method}}) for specifying targets.
 }
 \description{
-Specify targets for a conservation planning problem following
+Specify targets based on the methodology outlined by
 Rodrigues \emph{et al.} (2004).
 Briefly, this method involves setting targets based on log-linear
 interpolation methods.
@@ -104,33 +104,6 @@ assigned a target threshold through log-linear interpolation.
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
 thresholds.
-}
-
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
 }
 
 \section{Data calculations}{
@@ -219,12 +192,8 @@ Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 national and global conservation area targets. \emph{Conservation Letters},
 8: 329--337.
 
-Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
-the target and missing the point: target‐based conservation planning in
-context. \emph{Conservation Letters}, 2: 4--11.
-
 Hanson JO, Rhodes JR, Butchart SHM, Buchanan GM, Rondinini C, Ficetola GF,
-Fuller RA (2020) Global conservation of species’ niches. Global conservation
+Fuller RA (2020) Global conservation of species' niches. Global conservation
 of species' niches. \emph{Nature}, 580: 232--234
 
 Rodrigues ASL, Akçakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

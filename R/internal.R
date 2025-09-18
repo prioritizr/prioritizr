@@ -105,41 +105,76 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
 
-#' Standardize unit to km^2
+#' Standardize unit to \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
 #'
-#' Standardize number to km^2
+#' Standardize number to
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
-#' @return `numeric` vector.
+#' @return A `numeric` vector.
 #'
 #' @noRd
 as_km2 <- function(x, unit) {
-  as.numeric(
-    units::set_units(
-      units::set_units(x, unit, mode = "standard"),
-      "km^2"
-    )
+  # assert arguments are valid
+  assert(
+    is.numeric(x),
+    is.character(unit),
+    .internal = TRUE
   )
-}
-
-#' Standardize unit to density per km^2
-#'
-#' Standardize number to density per km^2
-#'
-#' @return `numeric` vector.
-#'
-#' @noRd
-as_per_km2 <- function(x, unit) {
+  # main calculations
   if (
     identical(length(unit), 1L) ||
     identical(length(unique(unit)), 1L)
   ) {
     out <- as.numeric(
       units::set_units(
-        units::set_units(
-          x,
-          paste0("1/", unit[[1]]),
-          mode = "standard"
-        ),
+        units::set_units(x, unit[[1]], mode = "standard"),
+        "km^2"
+      )
+    )
+  } else {
+    out <- vapply(
+      seq_along(x),
+      FUN.VALUE = numeric(1),
+      function(i) {
+        as.numeric(
+          units::set_units(
+            units::set_units(x[[i]], unit[[i]], mode = "standard"),
+            "km^2",
+            mode = "standard"
+          )
+        )
+      }
+    )
+  }
+  # return result
+  out
+}
+
+#' Standardize unit to density per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+#'
+#' Standardize number to density per
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#'
+#' @return A `numeric` vector.
+#'
+#' @noRd
+as_per_km2 <- function(x, unit) {
+  # assert arguments are valid
+  assert(
+    is.numeric(x),
+    is.character(unit),
+    .internal = TRUE
+  )
+  # prepare units
+  unit <- paste0("1/", unit)
+  # main calculations
+  if (
+    identical(length(unit), 1L) ||
+    identical(length(unique(unit)), 1L)
+  ) {
+    out <- as.numeric(
+      units::set_units(
+        units::set_units(x, unit[[1]], mode = "standard"),
         "1/km^2",
         mode = "standard"
       )
@@ -151,11 +186,7 @@ as_per_km2 <- function(x, unit) {
       function(i) {
         as.numeric(
           units::set_units(
-            units::set_units(
-              x[[i]],
-              paste0("1/", unit[[i]]),
-              mode = "standard"
-            ),
+            units::set_units(x[[i]], unit[[i]], mode = "standard"),
             "1/km^2",
             mode = "standard"
           )
@@ -163,4 +194,6 @@ as_per_km2 <- function(x, unit) {
       }
     )
   }
+  # return result
+  out
 }

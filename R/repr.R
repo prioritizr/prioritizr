@@ -43,6 +43,11 @@ repr.logical <- function(x) {
 }
 
 #' @export
+repr.function <- function(x) {
+  "{.cls function}"
+}
+
+#' @export
 repr.data.frame <- function(x) {
   sym <- ifelse(cli::is_utf8_output(), cli::symbol$times, "x")
   cli::format_inline(
