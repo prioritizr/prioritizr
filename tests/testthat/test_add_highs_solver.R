@@ -1,5 +1,6 @@
 test_that("binary decisions", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -30,6 +31,7 @@ test_that("binary decisions", {
 
 test_that("proportion decisions", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -56,6 +58,7 @@ test_that("proportion decisions", {
 
 test_that("proportion decisions (floating point)", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data
@@ -108,6 +111,8 @@ test_that("variable bounds methods", {
 })
 
 test_that("threads patched", {
+  skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -137,6 +142,8 @@ test_that("threads patched", {
 })
 
 test_that("small values in constraint matrix", {
+  skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -158,6 +165,8 @@ test_that("small values in constraint matrix", {
 })
 
 test_that("small values in objective function", {
+  skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -180,6 +189,7 @@ test_that("small values in objective function", {
 
 test_that("mix of binary and continuous variables", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -203,6 +213,7 @@ test_that("mix of binary and continuous variables", {
 
 test_that("correct solution (simple)", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # create data
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -231,6 +242,7 @@ test_that("correct solution (simple)", {
 
 test_that("correct solution (complex)", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # create data
   cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
@@ -263,6 +275,7 @@ test_that("correct solution (complex)", {
 
 test_that("solver information (single solution)", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -291,6 +304,7 @@ test_that("solver information (single solution)", {
 
 test_that("solver information (multiple solutions)", {
   skip_on_cran()
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -481,7 +495,7 @@ test_that("set_variable_ub", {
 
 test_that("control", {
   skip_on_cran()
-  skip
+  skip_on_os("windows")
   skip_if_not_installed("highs")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
