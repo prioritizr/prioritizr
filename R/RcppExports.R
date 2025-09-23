@@ -109,6 +109,10 @@ rcpp_set_optimization_problem_shuffled <- function(x, shuffle_key) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x, shuffle_key)
 }
 
+rcpp_apply_ws_approach <- function(problems_ptrs, obj_weights, rescale_weights = FALSE) {
+    .Call(`_prioritizr_rcpp_apply_ws_approach`, problems_ptrs, obj_weights, rescale_weights)
+}
+
 rcpp_absolute_amount_held_by_solution <- function(rij_list, targets_list, solution) {
     .Call(`_prioritizr_rcpp_absolute_amount_held_by_solution`, rij_list, targets_list, solution)
 }

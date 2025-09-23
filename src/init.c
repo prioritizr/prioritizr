@@ -32,6 +32,7 @@ extern SEXP _prioritizr_rcpp_apply_min_penalties_objective(SEXP, SEXP, SEXP, SEX
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_ws_approach(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_asym_connectivity(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
@@ -91,6 +92,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_min_set_objective",                            (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                            3},
     {"_prioritizr_rcpp_apply_min_shortfall_objective",                      (DL_FUNC) &_prioritizr_rcpp_apply_min_shortfall_objective,                      4},
     {"_prioritizr_rcpp_apply_neighbor_constraints",                         (DL_FUNC) &_prioritizr_rcpp_apply_neighbor_constraints,                         5},
+    {"_prioritizr_rcpp_apply_ws_approach",                                  (DL_FUNC) &_prioritizr_rcpp_apply_ws_approach,                                  3},
     {"_prioritizr_rcpp_asym_connectivity",                                  (DL_FUNC) &_prioritizr_rcpp_asym_connectivity,                                  2},
     {"_prioritizr_rcpp_boundary",                                           (DL_FUNC) &_prioritizr_rcpp_boundary,                                           6},
     {"_prioritizr_rcpp_branch_matrix",                                      (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                      1},
