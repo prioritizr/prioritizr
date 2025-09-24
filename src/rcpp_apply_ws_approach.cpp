@@ -85,8 +85,9 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     << " original objective length: " << obj.size() << std::endl;
     
     Rcpp::Rcout << "Problem " << i+1 << " original objective values (first 5): ";
-    for (size_t k = 0; k < std::min(size_t(5), obj.size()); ++k)
-      Rcpp::Rcout << obj[k] << " ";
+    for (std::size_t j = 0; j < obj.size(); ++j) {
+      Rcpp::Rcout << obj[j] << " ";
+    }
     Rcpp::Rcout << std::endl;
     
     if (rescale_weights) {
@@ -107,8 +108,9 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     }
     
     Rcpp::Rcout << "Problem " << i+1 << " still original objective values (first 5): ";
-    for (size_t k = 0; k < std::min(size_t(5), obj.size()); ++k)
-      Rcpp::Rcout << obj[k] << " ";
+    for (std::size_t j = 0; j < obj.size(); ++j) {
+      Rcpp::Rcout << obj[j] << " ";
+    }
     Rcpp::Rcout << std::endl;
     
     // multiply by weight and sign
@@ -138,12 +140,12 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
   std::vector<std::string> col_ids = first_problem->_col_ids;
   
   // get location of my last pu (can delete once I changed triplet bit)
-  std::size_t insert_after = 0;
-  for (std::size_t j = 0; j < col_ids.size(); ++j) {
-    if (col_ids[j] == "pu") {
-      insert_after = j;
-    }
-  }
+  // std::size_t insert_after = 0;
+  // for (std::size_t j = 0; j < col_ids.size(); ++j) {
+  //   if (col_ids[j] == "pu") {
+  //     insert_after = j; 
+  //   }
+  // }
   
   //   std::size_t num_pus = insert_after + 1; 
   //   Rcpp::Rcout << "Position of last PU variable in problem 1: "
@@ -188,7 +190,8 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     //   Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[0]);
   //   
     // determine PU length the same way as lb/ub/vtype
-  std::size_t pu_len = std::min(n_pu, first_problem->_obj.size());
+  std::size_t pu_len = n_pu * n_zone;
+  
   Rcpp::Rcout << "PU length from first problem: "
   << pu_len << std::endl;
   
@@ -233,72 +236,112 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
   
   // Now think about A
   // Split sparse A matrices
-  std::vector<TripletSplit> split_multi_A(n_probs);
+  // std::vector<TripletSplit> split_multi_A(n_probs);
+  //
+  // for (std::size_t i = 0; i < n_probs; ++i) {
+  //   Rcpp::XPtr<OPTIMIZATIONPROBLEM> p =
+  //     Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[i]);
+  //
+  //   Triplet t;
+  //   t.i.resize(p->_A_i.size());
+  //   std::transform(p->_A_i.begin(), p->_A_i.end(), t.i.begin(),
+  //                  [](std::size_t v){ return static_cast<int>(v); });
+  //   t.j.resize(p->_A_j.size());
+  //   std::transform(p->_A_j.begin(), p->_A_j.end(), t.j.begin(),
+  //                  [](std::size_t v){ return static_cast<int>(v); });
+  //   t.x = p->_A_x;
+  //   t.dims = std::make_pair((int)p->_row_ids.size(), (int)p->_col_ids.size());
+  //
+  //   split_multi_A[i] = split_pu_extra_triplet(t, insert_after);
+  // }
+  //
+  // // Combine PU triplets
+  // std::vector<Triplet> pu_triplets(n_probs);
+  // for (std::size_t i = 0; i < n_probs; ++i) {
+  //   pu_triplets[i] = split_multi_A[i].pu_trip;
+  // }
+  // Triplet combined_pu_A = rbind_triplets(pu_triplets);
+  //
+  // Rcpp::Rcout << "Combined PU triplet has "
+  // << combined_pu_A.i.size() << " non-zeros, "
+  // << "dims=(" << combined_pu_A.dims.first
+  // << "," << combined_pu_A.dims.second << ")" << std::endl;
+  //
+  // // Combine extras
+  // Triplet combined_extra_A = combine_extras_A_trip(split_multi_A);
+  //
+  // // cbind both combined_A for our new A
+  // Triplet new_A = cbind_triplets({combined_pu_A, combined_extra_A});
+  //
+  // // fill in our dummy problem
+  // x->_A_i.resize(new_A.i.size());
+  // std::transform(new_A.i.begin(), new_A.i.end(),
+  //                x->_A_i.begin(),
+  //                [](int v){ return static_cast<std::size_t>(v); });
+  //
+  // x->_A_j.resize(new_A.j.size());
+  // std::transform(new_A.j.begin(), new_A.j.end(),
+  //                x->_A_j.begin(),
+  //                [](int v){ return static_cast<std::size_t>(v); });
+  //
+  // // Copy values directly
+  // x->_A_x = new_A.x;
+  //
+  // // Also update row_ids and col_ids if you want a human-readable problem
+  // // For now, fill with dummy names if nothing else available
+  // x->_row_ids.resize(new_A.dims.first);
+  // for (int r = 0; r < new_A.dims.first; ++r) {
+  //   x->_row_ids[r] = "row_" + std::to_string(r + 1);
+  // }
+  //
+  // x->_col_ids.resize(new_A.dims.second);
+  // for (int c = 0; c < new_A.dims.second; ++c) {
+  //   x->_col_ids[c] = "col_" + std::to_string(c + 1);
+  // }
+
+  int row_offset = 0;         // offset to shift row indices when stacking rows from multiple problems
+  int extra_col_offset = 0;   // offset to shift extra column indices so they don’t overlap
   
-  for (std::size_t i = 0; i < n_probs; ++i) {
+  for (std::size_t pidx = 0; pidx < n_probs; ++pidx) {     
     Rcpp::XPtr<OPTIMIZATIONPROBLEM> p =
-      Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[i]);
+      Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[pidx]);  
     
-    Triplet t;
-    t.i.resize(p->_A_i.size());
-    std::transform(p->_A_i.begin(), p->_A_i.end(), t.i.begin(),
-                   [](std::size_t v){ return static_cast<int>(v); });
-    t.j.resize(p->_A_j.size());
-    std::transform(p->_A_j.begin(), p->_A_j.end(), t.j.begin(),
-                   [](std::size_t v){ return static_cast<int>(v); });
-    t.x = p->_A_x;
-    t.dims = std::make_pair((int)p->_row_ids.size(), (int)p->_col_ids.size());
+    int n_extra_cols = static_cast<int>(p->_col_ids.size()) - pu_len;  // cal # of extra cols beyond PU cols
     
-    split_multi_A[i] = split_pu_extra_triplet(t, insert_after); 
+    for (std::size_t k = 0; k < p->_A_i.size(); ++k) {  
+      int gi = static_cast<int>(p->_A_i[k]) + row_offset; // shift  row index by current row_offset for stacking
+      int gj = static_cast<int>(p->_A_j[k]);              // get original col index
+      double val = p->_A_x[k];                            // get  corresponding x val
+      
+      if (gj < pu_len) {  // if PU col
+        x->_A_i.push_back(gi);   // add shifted row index to combined matrix
+        x->_A_j.push_back(gj);   // add PU col index without changes
+        x->_A_x.push_back(val);  // add val
+      } else {               // else, its extra col
+        x->_A_i.push_back(gi);  // row index still shifted by row_offset
+        x->_A_j.push_back(pu_len + extra_col_offset + (gj - pu_len)); // shift extra col by current offset to avoid overlap
+        x->_A_x.push_back(val); // add x
+      }
+    }
+    
+    row_offset += static_cast<int>(p->_row_ids.size()); // increase row_offset by number of rows in prob
+    extra_col_offset += n_extra_cols;                  // increase extra column offset for next prob
   }
   
-  // Combine PU triplets
-  std::vector<Triplet> pu_triplets(n_probs);
-  for (std::size_t i = 0; i < n_probs; ++i) {
-    pu_triplets[i] = split_multi_A[i].pu_trip; 
-  }
-  Triplet combined_pu_A = rbind_triplets(pu_triplets);
+  // set row ids for combined prob
+  x->_row_ids.resize(row_offset);                    // resize row_ids vector to total number of rows
+  for (int r = 0; r < row_offset; ++r)               
+    x->_row_ids[r] = "row_" + std::to_string(r + 1); 
   
-  Rcpp::Rcout << "Combined PU triplet has "
-  << combined_pu_A.i.size() << " non-zeros, "
-  << "dims=(" << combined_pu_A.dims.first
-  << "," << combined_pu_A.dims.second << ")" << std::endl;
+  // set column ids for the combined problem
+  x->_col_ids.resize(pu_len + extra_col_offset);   // resize col ids vector to total columns (PU + extras)
+  for (int c = 0; c < pu_len + extra_col_offset; ++c) 
+    x->_col_ids[c] = "col_" + std::to_string(c + 1);  
   
-  // Combine extras 
-  Triplet combined_extra_A = combine_extras_A_trip(split_multi_A);
-  
-  // cbind both combined_A for our new A
-  Triplet new_A = cbind_triplets({combined_pu_A, combined_extra_A});
-  
-  // fill in our dummy problem
-  x->_A_i.resize(new_A.i.size());
-  std::transform(new_A.i.begin(), new_A.i.end(),
-                 x->_A_i.begin(),
-                 [](int v){ return static_cast<std::size_t>(v); });
-  
-  x->_A_j.resize(new_A.j.size());
-  std::transform(new_A.j.begin(), new_A.j.end(),
-                 x->_A_j.begin(),
-                 [](int v){ return static_cast<std::size_t>(v); });
-  
-  // Copy values directly
-  x->_A_x = new_A.x;
-  
-  // Also update row_ids and col_ids if you want a human-readable problem
-  // For now, fill with dummy names if nothing else available
-  x->_row_ids.resize(new_A.dims.first);
-  for (int r = 0; r < new_A.dims.first; ++r) {
-    x->_row_ids[r] = "row_" + std::to_string(r + 1);
-  }
-  
-  x->_col_ids.resize(new_A.dims.second);
-  for (int c = 0; c < new_A.dims.second; ++c) {
-    x->_col_ids[c] = "col_" + std::to_string(c + 1);
-  }
-  
-  // to debug
-  Rcpp::Rcout << "Final new_A dims: " << new_A.dims.first 
-  << ", " << new_A.dims.second << std::endl;
+  // debug print the final dimensions of the combined A matrix
+  Rcpp::Rcout << "Final new_A dims: " << row_offset
+              << ", " << pu_len + extra_col_offset
+              << ", nnz=" << x->_A_x.size() << std::endl;
   
   // now rhs and sense
   for (std::size_t i = 0; i < n_probs; ++i) {
@@ -333,7 +376,7 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     OPTIMIZATIONPROBLEM* p = problem_ptrs[i];
     
     // Determine PU length
-    size_t pu_len = std::min(n_pu, p->_lb.size());
+    //size_t pu_len = n_pu * n_zone;;
     
     // check consistency of PU part
     for (size_t j = 0; j < pu_len; ++j) {
@@ -370,11 +413,10 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
   // Store total number of features in dummy problem
   x->_number_of_features = new_number_of_features;
   
-  // Optional debug
+  // Debug
   Rcpp::Rcout << "Combined number of features: " << x->_number_of_features << std::endl;
   Rcpp::Rcout << "Combined row_ids length: " << x->_row_ids.size() << std::endl;
-  
-  
+
   // Returns
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x,
                                                                         true);
