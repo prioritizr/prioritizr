@@ -189,7 +189,7 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
   // Rcpp::XPtr<OPTIMIZATIONPROBLEM> first_problem =
     //   Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[0]);
   //   
-    // determine PU length the same way as lb/ub/vtype
+    // determine PU length 
   std::size_t pu_len = n_pu * n_zone;
   
   Rcpp::Rcout << "PU length from first problem: "
@@ -232,7 +232,6 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
       first_problem->_obj.end()
     );
   }
-  
   
   // Now think about A
   // Split sparse A matrices
@@ -299,8 +298,8 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
   //   x->_col_ids[c] = "col_" + std::to_string(c + 1);
   // }
 
-  int row_offset = 0;         // offset to shift row indices when stacking rows from multiple problems
-  int extra_col_offset = 0;   // offset to shift extra column indices so they don’t overlap
+  std::size_t row_offset = 0;         // offset to shift row indices when stacking rows from multiple problems
+  std::size_t extra_col_offset = 0;   // offset to shift extra column indices so they don’t overlap
   
   for (std::size_t pidx = 0; pidx < n_probs; ++pidx) {     
     Rcpp::XPtr<OPTIMIZATIONPROBLEM> p =
@@ -401,7 +400,7 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     Rcpp::XPtr<OPTIMIZATIONPROBLEM> p = 
       Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(problems_ptrs[i]);
     
-    // Append all row_ids from this problem
+    // Append all row_ids from this prob
     x->_row_ids.insert(x->_row_ids.end(),
                        p->_row_ids.begin(),
                        p->_row_ids.end());
@@ -410,7 +409,7 @@ SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs,
     new_number_of_features += p->_number_of_features;
   }
   
-  // Store total number of features in dummy problem
+  // Store total number of features in new prob
   x->_number_of_features = new_number_of_features;
   
   // Debug

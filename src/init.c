@@ -20,6 +20,7 @@ extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_hierachical_approach(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP);
@@ -80,6 +81,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_decisions",                                    (DL_FUNC) &_prioritizr_rcpp_apply_decisions,                                    4},
     {"_prioritizr_rcpp_apply_feature_contiguity_constraints",               (DL_FUNC) &_prioritizr_rcpp_apply_feature_contiguity_constraints,               3},
     {"_prioritizr_rcpp_apply_feature_weights",                              (DL_FUNC) &_prioritizr_rcpp_apply_feature_weights,                              2},
+    {"_prioritizr_rcpp_apply_hierachical_approach",                         (DL_FUNC) &_prioritizr_rcpp_apply_hierachical_approach,                         4},
     {"_prioritizr_rcpp_apply_linear_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_linear_constraints,                           4},
     {"_prioritizr_rcpp_apply_linear_penalties",                             (DL_FUNC) &_prioritizr_rcpp_apply_linear_penalties,                             3},
     {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           4},

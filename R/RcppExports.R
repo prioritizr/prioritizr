@@ -109,10 +109,6 @@ rcpp_set_optimization_problem_shuffled <- function(x, shuffle_key) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x, shuffle_key)
 }
 
-rcpp_apply_ws_approach <- function(problems_ptrs, obj_weights, rescale_weights = FALSE) {
-    .Call(`_prioritizr_rcpp_apply_ws_approach`, problems_ptrs, obj_weights, rescale_weights)
-}
-
 rcpp_absolute_amount_held_by_solution <- function(rij_list, targets_list, solution) {
     .Call(`_prioritizr_rcpp_absolute_amount_held_by_solution`, rij_list, targets_list, solution)
 }
@@ -161,6 +157,10 @@ rcpp_apply_feature_weights <- function(x, weights) {
     .Call(`_prioritizr_rcpp_apply_feature_weights`, x, weights)
 }
 
+rcpp_apply_hierachical_approach <- function(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation = 0.0) {
+    .Call(`_prioritizr_rcpp_apply_hierachical_approach`, current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation)
+}
+
 rcpp_apply_linear_penalties <- function(x, penalty, data) {
     .Call(`_prioritizr_rcpp_apply_linear_penalties`, x, penalty, data)
 }
@@ -203,6 +203,10 @@ rcpp_apply_min_shortfall_objective <- function(x, targets_list, costs, budget) {
 
 rcpp_apply_neighbor_constraints <- function(x, connected_data, clamp, k, max_n) {
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, clamp, k, max_n)
+}
+
+rcpp_apply_ws_approach <- function(problems_ptrs, obj_weights, rescale_weights = FALSE) {
+    .Call(`_prioritizr_rcpp_apply_ws_approach`, problems_ptrs, obj_weights, rescale_weights)
 }
 
 rcpp_asym_connectivity <- function(data, solution) {

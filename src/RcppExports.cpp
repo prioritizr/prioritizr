@@ -318,19 +318,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_ws_approach
-SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs, Rcpp::NumericVector obj_weights, bool rescale_weights);
-RcppExport SEXP _prioritizr_rcpp_apply_ws_approach(SEXP problems_ptrsSEXP, SEXP obj_weightsSEXP, SEXP rescale_weightsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List >::type problems_ptrs(problems_ptrsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type obj_weights(obj_weightsSEXP);
-    Rcpp::traits::input_parameter< bool >::type rescale_weights(rescale_weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_ws_approach(problems_ptrs, obj_weights, rescale_weights));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_absolute_amount_held_by_solution
 Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(const Rcpp::List rij_list, const Rcpp::List targets_list, const Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP solutionSEXP) {
@@ -494,6 +481,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_hierachical_approach
+SEXP rcpp_apply_hierachical_approach(SEXP current_ptrSEXP, SEXP prev_ptrSEXP, const Rcpp::NumericVector& prev_solution, double degradation);
+RcppExport SEXP _prioritizr_rcpp_apply_hierachical_approach(SEXP current_ptrSEXPSEXP, SEXP prev_ptrSEXPSEXP, SEXP prev_solutionSEXP, SEXP degradationSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type current_ptrSEXP(current_ptrSEXPSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type prev_ptrSEXP(prev_ptrSEXPSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type prev_solution(prev_solutionSEXP);
+    Rcpp::traits::input_parameter< double >::type degradation(degradationSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_hierachical_approach(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_linear_penalties
 bool rcpp_apply_linear_penalties(SEXP x, const Rcpp::NumericVector penalty, const arma::sp_mat data);
 RcppExport SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
@@ -646,6 +647,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::vector<std::size_t> >::type k(kSEXP);
     Rcpp::traits::input_parameter< std::size_t >::type max_n(max_nSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, clamp, k, max_n));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_ws_approach
+SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs, Rcpp::NumericVector obj_weights, bool rescale_weights);
+RcppExport SEXP _prioritizr_rcpp_apply_ws_approach(SEXP problems_ptrsSEXP, SEXP obj_weightsSEXP, SEXP rescale_weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List >::type problems_ptrs(problems_ptrsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type obj_weights(obj_weightsSEXP);
+    Rcpp::traits::input_parameter< bool >::type rescale_weights(rescale_weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_ws_approach(problems_ptrs, obj_weights, rescale_weights));
     return rcpp_result_gen;
 END_RCPP
 }
