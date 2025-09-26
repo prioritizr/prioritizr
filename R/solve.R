@@ -314,41 +314,80 @@ solve.ConservationProblem <- function(a, b, ...,
       )
     }
   }
-  # format solutions
-  ret <- planning_unit_solution_format(
-    x = a,
-    status = lapply(sol, convert_raw_solution_to_solution_status, x = a),
-    prefix = paste0("solution_", seq_along(sol)),
-    append = TRUE
+  # return formatted solution(s)
+  solve_solution_format(
+     x = planning_unit_solution_format(
+      x = a,
+      status = lapply(sol, convert_raw_solution_to_solution_status, x = a),
+      prefix = paste0("solution_", seq_along(sol)),
+      append = TRUE
+    ),
+    raw_solution = sol
   )
-  # additional formatting
-  if (is.list(ret) && !inherits(ret, "data.frame")) {
-    ## if ret is a list of matrices with a single column,
+}
+
+#' Solve solution format
+#'
+#' Format a solution status so that it is consistent with the planning unit data
+#' used to generate the solution. Additionally, this function will
+#' add solver information to the solution too,
+#'
+#' @param x `list` of objects.
+#'
+#' @param raw_solution `list` of raw solution objects.
+#'
+#' @inherit solve return
+#'
+#' @noRd
+solve_solution_format <- function(x, raw_solution) {
+  # assert valid arguments
+  assert(
+    is.list(x),
+    is.list(raw_solution)
+  )
+
+  # if needed, format x
+  if (is.list(x) && !inherits(x, "data.frame")) {
+    ## if x is a list of matrices with a single column,
     ## then convert to numeric
-    if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {
-      ret <- lapply(ret, as.numeric)
+    if (is.matrix(x[[1]]) && ncol(x[[1]]) == 1) {
+      x <- lapply(x, as.numeric)
     }
-    ## if ret is a list with a single element,
+    ## if x is a list with a single element,
     ## then extract the element
-    if (length(ret) == 1) {
-      ret <- ret[[1]]
+    if (length(x) == 1) {
+      x <- x[[1]]
     }
   }
+
   # add attributes
-  attr(ret, "objective") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 2), paste0("solution_", seq_along(sol))
+  attr(x, "objective") <- stats::setNames(
+    vapply(
+      raw_solution, `[[`, numeric(1), 2),
+      paste0("solution_", seq_along(raw_solution)
+    )
   )
-  attr(ret, "status") <- stats::setNames(
-    vapply(sol, `[[`, character(1), 3), paste0("solution_", seq_along(sol))
+  attr(x, "status") <- stats::setNames(
+    vapply(
+      raw_solution, `[[`, character(1), 3),
+      paste0("solution_", seq_along(raw_solution)
+    )
   )
-  attr(ret, "runtime") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 4), paste0("solution_", seq_along(sol))
+  attr(x, "runtime") <- stats::setNames(
+    vapply(
+      raw_solution, `[[`, numeric(1), 4),
+      paste0("solution_", seq_along(raw_solution)
+    )
   )
-  attr(ret, "gap") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 5), paste0("solution_", seq_along(sol))
+  attr(x, "gap") <- stats::setNames(
+    vapply(
+      raw_solution, `[[`, numeric(1), 5),
+      paste0("solution_", seq_along(raw_solution)
+    )
   )
-  # return object
-  ret
+
+  # return result
+  x
 }
 
 #' Convert raw solution to status
@@ -363,7 +402,7 @@ solve.ConservationProblem <- function(a, b, ...,
 #' @param indices `numeric` with planning unit indices for assigning status
 #' values.
 #'
-#' @return `matrix` object.
+#' @return A `matrix` object.
 #'
 #' @noRd
 convert_raw_solution_to_solution_status <- function(x, status, indices = NULL) {
