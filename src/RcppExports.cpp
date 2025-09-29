@@ -651,15 +651,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_ws_approach
-SEXP rcpp_apply_ws_approach(const Rcpp::List problems_ptrs, Rcpp::NumericVector obj_weights, bool rescale_weights);
-RcppExport SEXP _prioritizr_rcpp_apply_ws_approach(SEXP problems_ptrsSEXP, SEXP obj_weightsSEXP, SEXP rescale_weightsSEXP) {
+SEXP rcpp_apply_ws_approach(const Rcpp::List x, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_ws_approach(SEXP xSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::List >::type problems_ptrs(problems_ptrsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type obj_weights(obj_weightsSEXP);
-    Rcpp::traits::input_parameter< bool >::type rescale_weights(rescale_weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_ws_approach(problems_ptrs, obj_weights, rescale_weights));
+    Rcpp::traits::input_parameter< const Rcpp::List >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_ws_approach(x, weights));
     return rcpp_result_gen;
 END_RCPP
 }

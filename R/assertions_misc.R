@@ -156,3 +156,20 @@ assertthat::on_failure(any_solvers_installed) <- function(call, env) {
     "i" = "See {.topic solvers} for options."
   )
 }
+
+#' All problems comparable?
+#'
+#' Check if all [problem()] objects are comparable? In particular, each object
+#' must have the same planning units, number of zones, and zone names.
+#'
+#' @param x `list` of [problem()] objects.
+#'
+#' @return A `logical` value.
+all_problems_comparable <- function(x) {
+  # TODO
+  TRUE
+}
+
+assertthat::on_failure(all_problems_comparable) <- function(call, env) {
+  # TODO
+}

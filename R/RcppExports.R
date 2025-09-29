@@ -205,8 +205,8 @@ rcpp_apply_neighbor_constraints <- function(x, connected_data, clamp, k, max_n) 
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, clamp, k, max_n)
 }
 
-rcpp_apply_ws_approach <- function(problems_ptrs, obj_weights, rescale_weights = FALSE) {
-    .Call(`_prioritizr_rcpp_apply_ws_approach`, problems_ptrs, obj_weights, rescale_weights)
+rcpp_apply_ws_approach <- function(x, weights) {
+    .Call(`_prioritizr_rcpp_apply_ws_approach`, x, weights)
 }
 
 rcpp_asym_connectivity <- function(data, solution) {
