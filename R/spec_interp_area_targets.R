@@ -125,9 +125,45 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # TODO
-#' }
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create problem with interpolated targets.
+#' # here, targets will be set as 100% for features smaller than 1000 km^2
+#' # in size, 10% for features greater than 250,000 km^2 in size,
+#' # log-linearly interpolated for features with an intermediate range size,
+#' # and capped at 1,000,000 km^2
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(
+#'     method = spec_interp_area_targets(
+#'      rare_area_threshold = 1000,
+#'      rare_relative_target = 1,
+#'      rare_area_target = NA,            # not used
+#'      rare_method = "max",              # not used
+#'      common_area_threshold = 250000,
+#'      common_relative_target = 0.1,
+#'      common_area_target = NA,          # not used
+#'      common_method = "max",            # not used
+#'      cap_area_target = 1000000,
+#'      interp_method = "log10",
+#'      area_units = "km2",
+#'     )
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_interp_area_targets <- function(rare_area_threshold,
                                      rare_relative_target,

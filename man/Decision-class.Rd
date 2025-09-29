@@ -23,7 +23,7 @@ Other classes:
 }
 \concept{classes}
 \section{Super class}{
-\code{prioritizr::ConservationModifier} -> \code{Decision}
+\code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Decision}
 }
 \section{Methods}{
 \subsection{Public methods}{

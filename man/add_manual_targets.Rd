@@ -290,7 +290,7 @@ context. \emph{Conservation Letters}, 2: 4--11.
 \seealso{
 See \link{targets} for an overview of all functions for adding targets.
 
-Other targets: 
+Other functions for adding targets
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},

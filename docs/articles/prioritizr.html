@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -233,14 +233,14 @@ select – or not select – planning units for prioritization (using the
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"Banksia woodlands"</span>, … (33 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;sf&gt;</span> (1130 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.92727</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.6</span>, <span style="color: #0000BB;">5167775</span>, <span style="color: #0000BB;">613818.8</span>, <span style="color: #0000BB;">5502544</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>})</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
@@ -301,7 +301,7 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
 <span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
 <span><span class="co">## Presolve removed 1909 rows and 1249 columns</span></span>
-<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolve time: 0.06s</span></span>
 <span><span class="co">## Presolved: 4420 rows, 3029 columns, 11081 nonzeros</span></span>
 <span><span class="co">## Found heuristic solution: objective 17785.511418</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3029 integer (3029 binary)</span></span>
@@ -310,7 +310,7 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.520699e+03, 1230 iterations, 0.04 seconds (0.08 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.520699e+03, 1230 iterations, 0.06 seconds (0.08 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -338,7 +338,7 @@ the <code>s1</code> object.</p>
 <span><span class="co">##   MIR: 2</span></span>
 <span><span class="co">##   RLT: 1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1410 simplex iterations) in 0.47 seconds (0.90 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1410 simplex iterations) in 0.71 seconds (0.90 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 10: 10592.4 10693.1 10732.6 ... 11556.8</span></span>
@@ -502,14 +502,14 @@ function).</p>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"Banksia woodlands"</span>, … (33 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;sf&gt;</span> (1130 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">61.92727</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.6</span>, <span style="color: #0000BB;">5167775</span>, <span style="color: #0000BB;">613818.8</span>, <span style="color: #0000BB;">5502544</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>})</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
@@ -562,7 +562,7 @@ function).</p>
 <span><span class="co">## Root relaxation presolved: 4895 rows, 4020 columns, 12058 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.516231e+03, 1297 iterations, 0.05 seconds (0.10 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.516231e+03, 1297 iterations, 0.06 seconds (0.10 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -593,35 +593,35 @@ function).</p>
 <span><span class="co">## H   18    18                    10851.832531 9682.80304  10.8%   136    0s</span></span>
 <span><span class="co">## H   18    18                    10708.613855 9682.80304  9.58%   136    0s</span></span>
 <span><span class="co">## H  130   130                    10674.943182 9682.80304  9.29%   114    1s</span></span>
-<span><span class="co">## H  239   239                    10578.521820 9682.80304  8.47%  76.3    1s</span></span>
-<span><span class="co">## H  239   239                    10508.435291 9682.80304  7.86%  76.3    1s</span></span>
+<span><span class="co">## H  239   239                    10578.521820 9682.80304  8.47%  76.3    2s</span></span>
+<span><span class="co">## H  239   239                    10508.435291 9682.80304  7.86%  76.3    2s</span></span>
 <span><span class="co">## H  239   239                    10497.969765 9682.80304  7.76%  76.3    2s</span></span>
 <span><span class="co">## H  239   239                    10496.476241 9682.80304  7.75%  76.3    2s</span></span>
 <span><span class="co">## H  239   239                    10485.373665 9682.80304  7.65%  76.3    2s</span></span>
 <span><span class="co">## H  512   510                    10471.621505 9682.81219  7.53%  48.0    2s</span></span>
 <span><span class="co">## H  519     4                    10417.846434 9682.81219  7.06%  47.3    4s</span></span>
-<span><span class="co">##    564    46 10219.3273   34  256 10417.8464 9728.49230  6.62%  57.6    5s</span></span>
-<span><span class="co">## H  650   130                    10401.982397 9728.49230  6.47%  55.2    5s</span></span>
-<span><span class="co">## H  650   130                    10375.652090 9728.49230  6.24%  55.2    5s</span></span>
-<span><span class="co">## H  650   130                    10374.487430 9728.49230  6.23%  55.2    5s</span></span>
-<span><span class="co">## H  891   371                    10369.036126 9728.49230  6.18%  41.3    5s</span></span>
+<span><span class="co">##    539    21 9922.90443   22  269 10417.8464 9728.49230  6.62%  52.9    5s</span></span>
+<span><span class="co">## H  650   130                    10401.982397 9728.49230  6.47%  55.2    6s</span></span>
+<span><span class="co">## H  650   130                    10375.652090 9728.49230  6.24%  55.2    6s</span></span>
+<span><span class="co">## H  650   130                    10374.487430 9728.49230  6.23%  55.2    6s</span></span>
+<span><span class="co">## H  891   371                    10369.036126 9728.49230  6.18%  41.3    6s</span></span>
 <span><span class="co">## H  917   397                    10363.328948 9728.49230  6.13%  40.4    6s</span></span>
 <span><span class="co">## H  943   423                    10359.364988 9728.49230  6.09%  39.4    6s</span></span>
-<span><span class="co">## H 1572  1039                    10265.819905 9735.74190  5.16%  31.3    7s</span></span>
-<span><span class="co">## H 1572   928                    10074.309694 9735.74190  3.36%  31.3    7s</span></span>
-<span><span class="co">## H 1576   930                    10001.434711 9735.74190  2.66%  31.4    7s</span></span>
-<span><span class="co">## H 1627   977                    9998.5862207 9735.74190  2.63%  32.3    8s</span></span>
-<span><span class="co">## H 1627   966                    9983.5761260 9735.74190  2.48%  32.3    8s</span></span>
-<span><span class="co">## H 1950  1261                    9948.6785488 9737.24570  2.13%  32.0    8s</span></span>
-<span><span class="co">##   2322  1633 10569.5136   45  306 9948.67855 9761.95086  1.88%  30.8   10s</span></span>
-<span><span class="co">##   4284  2669 10535.8316   83  126 9948.67855 9849.42265  1.00%  28.1   15s</span></span>
+<span><span class="co">## H 1572  1039                    10265.819905 9735.74190  5.16%  31.3    8s</span></span>
+<span><span class="co">## H 1572   928                    10074.309694 9735.74190  3.36%  31.3    8s</span></span>
+<span><span class="co">## H 1576   930                    10001.434711 9735.74190  2.66%  31.4    8s</span></span>
+<span><span class="co">## H 1627   977                    9998.5862207 9735.74190  2.63%  32.3    9s</span></span>
+<span><span class="co">## H 1627   966                    9983.5761260 9735.74190  2.48%  32.3    9s</span></span>
+<span><span class="co">## H 1950  1261                    9948.6785488 9737.24570  2.13%  32.0    9s</span></span>
+<span><span class="co">##   1975  1288 10134.1455   55    8 9948.67855 9737.24570  2.13%  32.1   10s</span></span>
+<span><span class="co">##   3919  2391 10714.7393  143   48 9948.67855 9846.60397  1.03%  28.3   15s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Cover: 1</span></span>
 <span><span class="co">##   MIR: 4</span></span>
 <span><span class="co">##   RLT: 8</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 5272 nodes (141503 simplex iterations) in 16.59 seconds (27.24 work units)</span></span>
+<span><span class="co">## Explored 5272 nodes (141503 simplex iterations) in 17.46 seconds (27.24 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 9948.68 9983.58 9998.59 ... 10947.2</span></span>
@@ -813,14 +813,14 @@ solver to generate a prioritization.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span>, … (17 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;data.frame&gt;</span> (1751 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.1938</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.2</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #B2B2B2;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #B2B2B2;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">5e-04</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.0005</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.3</span> and <span style="color: #0000BB;">0.3</span>})</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          locked in constraints (317 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (1 planning units)</span></span>

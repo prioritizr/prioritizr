@@ -157,9 +157,52 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # TODO
-#' }
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # this function sets targets based on the total abundance of the features
+#' # (i.e., sum of planning unit values for the feature) and does not
+#' # consider the spatial area covered by the planning units
+#'
+#' # display the total abundance of the features
+#' print(terra::global(get_sim_features(), "sum", na.rm = TRUE))
+#'
+#' # create problem with interpolated targets.
+#' # here, targets will be set as 70% for features with a total abundance
+#' # (i.e., sum of planning unit values for the feature) smaller than 50,
+#' # 20% for features with at total abundance greater than 70,
+#' # linearly interpolated for features with an intermediate range size,
+#' # and capped at a total abundance of 100
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(
+#'     method = spec_interp_absolute_targets(
+#'       rare_area_threshold = 50,
+#'       rare_relative_target = 0.7,
+#'       rare_area_target = NA,            # not used
+#'       rare_method = "max",              # not used
+#'       common_area_threshold = 70,
+#'       common_relative_target = 0.2,
+#'       common_area_target = NA,          # not used
+#'       common_method = "max",            # not used
+#'       cap_area_target = 100,
+#'       interp_method = "linear"
+#'     )
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_interp_absolute_targets <- function(rare_absolute_threshold,
                                           rare_relative_target,
@@ -305,6 +348,25 @@ calc_interp_absolute_targets <- function(x, features,
   } else {
     ## this is needed to account for different NA classes
     common_absolute_target <- NA_real_ # nocov
+  }
+
+  # if features have defined area units, then throw warnings indicating
+  # that these targets do not consider the area of the planning units
+  if (all(!is.na(x$feature_units()))) {
+    cli_warning(
+      c(
+        "!" = "{.arg x} has spatial units defined for the features.",
+        "i" = paste(
+          "This function for adding targets does not account for",
+          "spatial units or the size of the planning units."
+        ),
+        "i" = paste(
+          "See {.fun add_auto_targets} or {.fun add_group_targets} to",
+          "add targets that account for such considerations."
+        )
+      ),
+      call = NULL
+    )
   }
 
   # calculate targets

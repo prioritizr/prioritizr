@@ -217,3 +217,43 @@ assertthat::on_failure(all_elements_inherit) <- function(call, env) {
     "} must be a {.cls ", w, "}."
   )
 }
+
+#' Has no user-defined feature units?
+#'
+#' Check that a [problem()] has no user-defined `feature_units`? This is useful
+#' to help ensure that users are aware that functions based on absolute
+#' units do not consider `feature_units`.
+#'
+#' @param x [problem()] object.
+#'
+#' @details
+#' The function will always return `TRUE` if `x` has raster-based planning
+#' units. If `x` does not have raster-based planning units, then the function
+#' will return `TRUE` if `x` has `feature_units` with one more non-missing
+#' (`NA`) values.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+has_no_user_defined_feature_units <- function(x) {
+  assert(is_conservation_problem(x), .internal = TRUE)
+  inherits(x$data$cost, c("SpatRaster", "Raster")) ||
+    all(is.na(x$feature_units()))
+}
+
+assertthat::on_failure(all_elements_inherit) <- function(call, env) {
+  c(
+    "!" = paste0(
+      "{.arg ", deparse(call$x),
+      "} has spatial units defined for the features."
+    ),
+    "i" = paste(
+      "This function for adding targets does not account for",
+      "spatial units or the size of the planning units."
+    ),
+    "i" = paste(
+      "See {.fun add_auto_targets} or {.fun add_group_targets} to",
+      "add targets that account for such considerations."
+    )
+  )
+}

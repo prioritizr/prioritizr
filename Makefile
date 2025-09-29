@@ -1,4 +1,4 @@
-all: clean contrib initc data docs test check
+all: clean contrib initc docs test check
 
 clean:
 	rm -rf man/*.Rd
@@ -8,9 +8,6 @@ initc:
 	R --slave -e "tools::package_native_routine_registration_skeleton('.', 'src/init.c', character_only = FALSE)"
 
 docs: man readme site vigns
-
-data:
-	Rscript --slave inst/scripts/builtin-data.R
 
 man:
 	R --slave -e "devtools::document()"

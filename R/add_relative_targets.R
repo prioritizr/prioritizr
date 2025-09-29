@@ -51,7 +51,7 @@ NULL
 #' names(s3) <- c("10% targets", "varying targets")
 #'
 #' # plot solution
-#' plot(s3, main = , axes = FALSE)
+#' plot(s3, axes = FALSE)
 #'
 #' # create a problem with multiple management zones
 #' p4 <-
@@ -94,7 +94,6 @@ NULL
 #' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s6), main = "varying targets")
 #' }
-#'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method
 #'
 #' @name add_relative_targets

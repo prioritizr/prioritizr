@@ -189,7 +189,7 @@ p4 <-
   )
 
 # solve problems
-s1 <- terra::rast(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
 names(s1) <- c("basic solution", "low (rook)", "high (rook)", "high (queen")
 
 # plot solutions
@@ -245,7 +245,7 @@ design models: A review. \emph{Environmental Modeling and Assessment}, 10:
 163--181.
 }
 \seealso{
-Other penalties: 
+Other functions for adding penalties
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},

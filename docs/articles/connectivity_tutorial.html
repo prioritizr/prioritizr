@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -274,13 +274,13 @@ baseline problem.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"old forest"</span>, <span style="color: #0000BB;">"savanna"</span>, <span style="color: #0000BB;">"wetland"</span>, and <span style="color: #0000BB;">"shrub"</span> (4 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (2010 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.0255</span> and <span style="color: #0000BB;">8290.3832</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">454589.8809</span>, <span style="color: #0000BB;">5394413.7968</span>, <span style="color: #0000BB;">474689.8809</span>, <span style="color: #0000BB;">5422613.7968</span> (xmin, ymin, xmax, ymax)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.02552</span> and <span style="color: #0000BB;">8290.383</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">454589.9</span>, <span style="color: #0000BB;">5394414</span>, <span style="color: #0000BB;">474689.9</span>, <span style="color: #0000BB;">5422614</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 10N (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>})</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
@@ -368,8 +368,7 @@ targets and the contiguity constraints.</p>
 <span>  <span class="fu"><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span><span class="op">(</span>first_feasible <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning in x$add_solver(R6::R6Class("GurobiSolver", inherit = Solver, public =</span></span>
-<span><span class="co">## list(name = "gurobi solver", : Overwriting previously defined solver.</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Overwriting previously defined solver.</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solutions</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>

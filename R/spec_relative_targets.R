@@ -31,12 +31,55 @@ NULL
 #'
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
+#' @seealso
+#' To add relative targets directly to a [problem()], see
+#' [add_relative_targets()].
 #'
 #' @family methods
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # create problem with targets of 10% for each feature
+#' p1 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_relative_targets(targets = 0.1))
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, main = "solution based on 10% targets", axes = FALSE)
+#'
+#' # targets can also be specified for each feature separately.
+#' # to demonstrate this, we will set a target value for each
+#' # feature based on a random percentage between 10% and 80%
+#' target_values <- runif(terra::nlyr(sim_complex_features), 0.1, 0.8)
+#'
+#' # create problem with targets defined separately for each feature
+#' p2 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_relative_targets(targets = target_values))
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution based on varying targets", axes = FALSE)
+#' }
 #' @export
 spec_relative_targets <- function(targets, ...) {
   # assert arguments are valid

@@ -132,78 +132,15 @@ NULL
 #' @section Data calculations:
 #' This function involves calculating targets based on the spatial extent
 #' of the features in `x`.
-#' As such, this function may need to make particular assumptions depending
-#' on the data used to specify the planning units and features in `x`.
-#' If possible, when building `x` with [problem()], it is recommended to specify
-#' `features` as a [terra::rast()] object to ensure correctness.
-#' Although this function can be used to specify targets for features
-#' in other data formats, you must take care to ensure that the information
-#' specifying the amount of each feature are in units of 1 km
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' To help ensure that you are aware of this limitation, this function will
-#' produce a warning to alert you when the features in `x` belong to such
-#' data formats.
-#' If you are confident that your data are in the correct units,
-#' then you can safely ignore this warning.
-#' Below we provide details for ensuring that the targets are calculated
-#' correctly.
-#'
-#' \describe{
-#' \item{`x` has [terra::rast()] or [sf::st_sf()] planning units and [terra::rast()] features}{
-#' This function will automatically ensure that the targets are calculated
-#' correctly. Given this, it is recommended to specify `features` in either
-#' of these when building a [problem()].
-#' }
-#'
-#' \item{`x` has [sf::st_sf()] or `data.frame` planning units and `character` features}{
-#' Here, the argument to `features` of [problem()] is used to specify
-#' which columns of the planning unit data denote the amount of each feature
-#' present within each planning unit.
-#' All of these columns must contain values in
-#' units of 1 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' For example, if `features = c("spp1", "spp2", "spp3")`, then the columns
-#' `"spp1"`, `"spp2"`, and `"spp3"` of the planning unit denote data the amount
-#' of the first, second, and third features (respectively) present within each
-#' planning unit. If the column `"spp1"` has a value of 5 in the first row
-#' of the planning unit data, then this means the first planning unit
-#' contains 5 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-#' of habitat for the feature `"spp1"`.
-#' }
-#'
-#' \item{`x` has `data.frame` planning units and `data.frame` features}{
-#' The argument to `features` of [problem()] is used to specify a
-#' unique identifier and name for each of the features.
-#' Additionally, the argument to `rij` of
-#' [problem()] is used to specify the amount of each feature present within
-#' each planning unit. The argument to `rij` must contain a `data.frame`
-#' with the columns `"pu"`, `"species"`, `"amount"`. For a given row,
-#' the `"pu"` column contains an `integer` value denoting the identifier
-#' for the planning unit,
-#' the `"species"` column contains an `integer` value denoting the
-#' identifier for the feature,
-#' and `"amount" contains a `numeric` value denoting the amount of the
-#' the feature (per the `"species"` column) that is present in the
-#' planning unit (per `"pu"` column).
-#' Given this, the "amount" column must contain values that in units of 1 km
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' For example, if the argument to `rij` has a row where the `"pu"` column
-#' has a value of 1, the `"species"` column has a value of 2, and the
-#' `"amount"` column has a value of 3: then this means that the
-#' planning unit with an identifier of 1 contains 3
-#' km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of the feature
-#' associated with the identifier of 2.
-#' }
-#'
-#' \item{`x` has `numeric` or `matrix` planning units and `data.frame` features}{
-#' The argument to `features` of [problem()] is used to specify a
-#' unique identifier and name for each of the features.
-#' Additionally, the argument to `rij_matrix` of
-#' [problem()] is used to specify the amount of each feature present within
-#' each planning unit. The argument to `rij_matrix` must contain a `matrix`
-#' (or `list` of `matrix` objects) that contains `numeric` values in units of 1
-#' km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' }
-#' }
+#' Although it can be readily applied to [problem()] objects that
+#' have the feature data provided as a [terra::rast()] object,
+#' you will need to specify the spatial units for the features
+#' when initializing the [problem()] objects if the feature data
+#' are provided in a different format. In particular, if the feature
+#' data are provided as a `data.frame` or `character` object,
+#' then you will need to specify an argument to `feature_units` when
+#' using the [problem()] function. See the Examples section below for a
+#' demonstration of using the `feature_units` parameter.
 #'
 #' @inherit add_relative_targets return seealso
 #'
@@ -250,9 +187,123 @@ NULL
 #' Taylor MFJ, Fensham RJ, Possingham HP (2010) The capacity of Australia's
 #' protected-area system to represent threatened species.
 #' *Conservation Biology*,25: 324--332.
-#' @examples
-#' #TODO
 #'
+#' @examples
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
+#'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#' sim_pu_polygons <- get_sim_pu_polygons()
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # create problem with Jung et al. (2021) targets by using a function to
+#' # specify the target setting method
+#' p1 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_jung_targets())
+#'
+#' # create problem with Jung et al. (2021) targets by using a character value
+#' # to specify the target setting method
+#' # (note that this yields exactly the same targets as p1, and simply
+#' # offers an alternative for specifying targets with default parameters)
+#' p2 <-
+#'   p0 %>%
+#'   add_auto_targets(method = "jung")
+#'
+#' # create problem with modified Jung et al. (2021) targets by using a
+#' # a function to customize the parameters
+#' # (note that this yields exactly the same targets as p1, and simply
+#' # offers an alternative for specifying targets with default parameters)
+#' p3 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_jung_targets(prop_uplift = 0.3))
+#'
+#' # solve problems
+#' s <- c(solve(p1), solve(p2), solve(p3))
+#' names(s) <- c(
+#'   "default Jung targets", "default Jung targets", "modified Jung targets"
+#' )
+#'
+#' # plot solutions
+#' plot(s, axes = FALSE)
+#'
+#' # in the previous examples, we specified the targets for each of the features
+#' # based on the same target setting method. we can also specify a particular
+#' # target setting method for each feature. to achieve this, we can
+#' # provide the targets as a list. for example, here we will specify that
+#' # the first 10 features should have their targets based on
+#' # Jung et al. (2021) targets (with default parameters), the following 15
+#' # features should have their targets based on Ward et al. (2025) targets
+#' # (with default parameters), and all the remaining features should have
+#' # their targets based on modified Jung et al. (2021) targets.
+#'
+#' # note that add_group_targets provides a more convenient interface for
+#' # specifying targets for multiple features
+#'
+#' # create a list with the target setting methods
+#' target_list <- append(
+#'   append(
+#'     rep(list(spec_jung_targets()), 10),
+#'     rep(list(spec_ward_targets()), 15),
+#    rep(
+#'     list(spec_jung_targets(prop_uplift = 0.3)),
+#'     terra::nlyr(sim_complex_features) - 25
+#'   )
+#' )
+#'
+#' # create problem with the list of target setting methods
+#' p4 <- p0 %>% add_auto_targets(method = target_list)
+#'
+#' # solve problem
+#' s4 <- solve(s4)
+#'
+#' # plot solution
+#' plot(s4, axes = FALSE)
+#'
+#' # here we will show how to set the feature_units when the feature
+#' # are not terra::rast() objects. in this example, we have planning units
+#' # stored in an sf object (i.e., sim_pu_polygons) and the feature data will
+#' # be stored as columns in the sf object.
+#'
+#' # we will start by simulating feature data for the planning units.
+#' # in particular, the simulated values will describe the amount of habitat
+#' # for each feature expressed as acres (e.g., a value of 30 means 30 acres)
+#' sim_pu_polygons$feature_1 <- runif(nrow(sim_pu_polygons), 0, 500)
+#' sim_pu_polygons$feature_2 <- runif(nrow(sim_pu_polygons), 0, 600)
+#' sim_pu_polygons$feature_3 <- runif(nrow(sim_pu_polygons), 0, 300)
+#' sim_pu_polygons$feature_4 <- runif(nrow(sim_pu_polygons), 0, 800)
+#' sim_pu_polygons$feature_5 <- runif(nrow(sim_pu_polygons), 0, 1000)
+#'
+#' # we will now build a problem with these data and specify the
+#' # the feature units as acres because that those are the units we
+#' # used for simulating the data. also, we will specify that the targets
+#' # should be to cover, at least, 1 km^2 of habitat for each feature.
+#' # although the feature units are acres, the function is able to able
+#' # to automatically convert the units.
+#' p5 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(
+#'     method = spec_area_targets(targets = 1, area_units = "km2")
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # solve problem
+#' s5 <- solve(p5)
+#'
+#' # plot solution
+#' plot(s5, axes = FALSE)
+#' }
 #' @name add_auto_targets
 #'
 #' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,Method-method add_auto_targets,ConservationProblem,list-method

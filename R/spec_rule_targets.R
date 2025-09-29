@@ -106,8 +106,104 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # calculate total distribution size for features in km^2
+#' feature_size <- as.numeric(units::set_units(
+#'   units::set_units(
+#'     terra::sum(sim_complex_features, "sum", na.rm = TRUE)[[1]] *
+#'       prod(terra::res(sim_complex_features)),
+#'     "m^2"
+#'   )
+#'   "km^2"
+#' ))
+#'
+#' # simulate data that provide additional information for each feature
+#' rule_data <- tibble::tibble(feature = names(sim_complex_pu_raster))
+#'
+#' # add a column indicating if each feature has a small distribution,
+#  # based on a threshold of 1000 km^2
+#' rule_data$small_distribution <- feature_size <= 1000
+#'
+#' # add a column indicating if each feature has a large distribution,
+#  # based on a threshold of 5000 km^2
+#' rule_data$small_distribution <- feature_size >= 5000
+#'
+#' # add a column indicating if each feature has low quality data
+#' # associated with it, based on random simulated values
+#' rule_data$low_quality <- sample(
+#'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
+#'   replace = TRUE, probs = c(0.2, 0.8)
+#' )
+#'
+#' # next, we will add simulate dat for columns indicating the threat status of
+#' # the features. since all columns must contain logical (TRUE/FALSE) values,
+#' # we will add a column for each threat status separately. note that these
+#' # values will be simulated such that a feature will only have a value of
+#' # TRUE for, at most, a single threat status
+#'
+#' # add a column indicating if each feature has a Vulnerable threat status
+#' rule_data$vulnerable <- sample(
+#'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
+#'   replace = TRUE, probs = c(0.3, 0.7)
+#' )
+#'
+#' # add a column indicating if each feature has an Endangered threat status,
+#' # based on random simulated values
+#' rule_data$endangered <- sample(
+#'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
+#'   replace = TRUE, probs = c(0.3, 0.7)
+#' ) & !vulnerable
+#'
+#' # add a column indicating if each feature has a Critically Endangered threat
+#' # status, based on random simulated values
+#' rule_data$critically_endangered <- sample(
+#'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
+#'   replace = TRUE, probs = c(0.3, 0.7)
+#' ) & !endangered & !vulnerable
+#'
+#' # preview rule data
+#' print(rule_data)
+#'
+#' # create problem with rule based targets, wherein targets are calculated
+#' # with a baseline of 30%, features with a small distribution are assigned
+#' # targets of an additional 10%, features with a large distribution are
+#' # assigned targets reduced by 10%, features with low quality data are
+#' # assigned targets reduced by 10%, features with a Vulnerable threat status
+#' # are assigned targets of an additional 5%, features with an Endangered
+#' # threat status are assigned targets of an additional 10%, and features with
+#' # a Critically Endangered threat status are assigned targets of an
+#' # additional 20%
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_rule_targets(
+#'     baseline_relative_target = 0.3,
+#'     rules_relative_target = c(
+#'       "small_distribution" = 0.1,
+#'       "large_distribution" = -0.1,
+#'       "low_quality" = -0.1,
+#'       "vulnerable" = 0.05,
+#'       "endangered" = 0.1,
+#'       "critically_endangered" = 0.2
+#'     ),
+#'     data = rule_data
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_rule_targets <- function(baseline_relative_target,
                               rules_relative_target,

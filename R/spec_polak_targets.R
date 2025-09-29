@@ -94,8 +94,28 @@ NULL
 #' Cambridge, UK: UNEP-WCMC and IUCN. Available at <www.protectedplanet.net>.
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create problem with Polak et al. (2015) targets
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(method = spec_polak_targets()) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_polak_targets <- function(rare_area_threshold = 1000,
                                rare_relative_target = 1,

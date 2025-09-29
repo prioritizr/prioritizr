@@ -344,6 +344,9 @@ methods::setMethod(
     ) {
       verify(all_positive(targets$target))
     }
+    # if features have defined area units, then throw warnings indicating
+    # that these targets do not consider the area of the planning units
+    verify(has_no_user_defined_feature_units(x), call = NULL)
     # add targets to problem
     x$add_targets(
       R6::R6Class(

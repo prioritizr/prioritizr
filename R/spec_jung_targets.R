@@ -31,7 +31,7 @@ NULL
 #' Red List of Threatened Species (IUCN 2025).
 #' In particular, it considers criteria related to
 #' the size of a species' spatial distribution (i.e., Criterion B2)
-#' and population size reduction (i.e., Criterion A) and applies a
+#' and population size reduction (i.e., Criterion A2) and applies a
 #' percentage-based uplift to them.
 #' By default, it considers criteria for the Vulnerable threat status
 #' with a 10% uplift and involves setting the target threshold for a species
@@ -109,8 +109,28 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create problem with Jung et al. (2021) targets
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(method = spec_jung_targets()) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_jung_targets <- function(status = "VU", prop_uplift = 0.1,
                               cap_area_target = 1000000,

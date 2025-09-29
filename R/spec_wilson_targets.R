@@ -117,8 +117,45 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # simulate mean population growth rate data for each feature
+#' sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 4.7)
+#'
+#' # simulate variance in population growth rate data for each feature
+#' sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 0.6, 2.8)
+#'
+#' # simulate population density data for each feature,
+#' # expressed as number of individuals per km^2
+#' sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+#'
+#' # create problem with targets based on Wilson et al. (2010)
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(
+#'     method = spec_wilson_targets(
+#'       mean_growth_rate = sim_mean_growth_rates,
+#'       var_growth_rates = sim_var_growth_rates,
+#'       pop_density = sim_pop_density_per_km2,
+#'       density_units = "km2"
+#'     )
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_wilson_targets <- function(mean_growth_rates, var_growth_rates,
                                 pop_density, density_units,

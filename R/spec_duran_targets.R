@@ -11,7 +11,7 @@ NULL
 #' Note that this function is designed to be used within [add_auto_targets()]
 #' and [add_group_targets()].
 #'
-#' @param probability_threshold `numeric` vector denoting the minimum
+#' @param probability_target `numeric` vector denoting the minimum
 #' probability of persistence for each feature.
 #' For example, a value of 0.1 corresponds to a 10% chance of
 #' persistence, and a value of 1 corresponds to a 100% chance of persistence.
@@ -172,15 +172,83 @@ NULL
 #' Extinction risk from climate change. *Nature* 427:145--148.
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#' sim_complex_historical_features <- get_sim_complex_historical_features()
+#'
+#' # calculate the total historical distribution size for each feature.
+#' # note that here we assume that the features in both sim_complex_features
+#' # and sim_complex_historical_features follow the same ordering
+#' historical_distribution_size <- as.numeric(units::set_units(
+#'  units::set_units(
+#'    terra::global(sim_complex_historical_features, "sum", na.rm = TRUE)[[1]],
+#'    "m^2"
+#'  ),
+#'  "km^2"
+#' )
+#'
+#' # simulate population density data for each feature,
+#' # expressed as number of individuals per km^2
+#' sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # create problem with targets based on the minimum amount of habitat required
+#' # to ensure that each species has a 95% probability of persistence,
+#' # following Duran et al. (2020)
+#' # a 95% probability of persistence
+#' p1 <-
+#'  p0 %>%
+#'  add_auto_targets(
+#     method = spec_duran_size_targets(
+#'      probability_target = 0.95,
+#'      historical_area = historical_distribution_size,
+#'      area_units = "km2"
+#'    )
+#'  )
+#'
+#' # create problem with targets based on the minimum amount of habitat required
+#' # to ensure that each species has a particular probability of persistence,
+#' # following Duran et al. (2020)
+#'
+#' # simulate a probability of persistence value for each feature
+#' sim_probs <- runif(terra::nlyr(sim_complex_features), 0.1, 0.99)
+#'
+#' # now, create problem with these targets
+#' p2 <-
+#'  p0 %>%
+#'  add_auto_targets(
+#     method = spec_duran_size_targets(
+#'      probability_target = sim_probs,
+#'      historical_area = historical_distribution_size,
+#'      area_units = "km2"
+#'    )
+#'  )
+#'
+#' # solve problems
+#' s <- c(solve(p1), solve(p2))
+#' names(s) <- c("95% persistence targets", "varying persistence targets"))
+#'
+#' # plot solution
+#' plot(s, axes = FALSE)
+#' }
 #' @export
-spec_duran_targets <- function(probability_threshold,
+spec_duran_targets <- function(probability_target,
                                historical_area,
                                area_units) {
   # assert arguments are valid
-  assert_valid_method_arg(probability_threshold)
-  assert_required(probability_threshold)
+  assert_valid_method_arg(probability_target)
+  assert_required(probability_target)
   assert_required(historical_area)
   assert_required(area_units)
   # return new method
@@ -189,7 +257,7 @@ spec_duran_targets <- function(probability_threshold,
     type = "relative",
     fun = calc_duran_targets,
     args = list(
-      probability_threshold = probability_threshold,
+      probability_target = probability_target,
       historical_area = historical_area,
       area_units = area_units
     )
@@ -197,14 +265,14 @@ spec_duran_targets <- function(probability_threshold,
 }
 
 calc_duran_targets <- function(x, features,
-                               probability_threshold,
+                               probability_target,
                                historical_area,
                                area_units,
                                call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call, .internal = TRUE)
   assert_required(features, call = call, .internal = TRUE)
-  assert_required(probability_threshold, call = call, .internal = TRUE)
+  assert_required(probability_target, call = call, .internal = TRUE)
   assert_required(historical_area, call = call, .internal = TRUE)
   assert_required(area_units, call = call, .internal = TRUE)
   assert(
@@ -219,16 +287,16 @@ calc_duran_targets <- function(x, features,
     .internal = TRUE
   )
   assert(
-    # probability_threshold
-    is.numeric(probability_threshold),
-    all_finite(probability_threshold),
-    all_proportion(probability_threshold),
-    is_match_of(length(probability_threshold), c(1, number_of_features(x))),
+    # probability_target
+    is.numeric(probability_target),
+    all_finite(probability_target),
+    all_proportion(probability_target),
+    is_match_of(length(probability_target), c(1, number_of_features(x))),
     # historical_area
     is.numeric(historical_area),
     all_finite(historical_area),
     is_match_of(length(historical_area), c(1, number_of_features(x))),
-    all(historical_area >= 0),
+    all_positive(historical_area),
     # area_units
     all_area_units(area_units),
     call = call
@@ -236,8 +304,8 @@ calc_duran_targets <- function(x, features,
   assert_can_calculate_area_based_targets(x, features, call = call)
 
   # if needed, duplicate values for each feature
-  if (identical(length(probability_threshold), 1L)) {
-    probability_threshold <- rep(probability_threshold, x$number_of_features())
+  if (identical(length(probability_target), 1L)) {
+    probability_target <- rep(probability_target, x$number_of_features())
   }
   if (identical(length(historical_area), 1L)) {
     historical_area <- rep(historical_area, x$number_of_features())
@@ -255,6 +323,6 @@ calc_duran_targets <- function(x, features,
 
   # calculate target
   fa <- c(x$feature_abundances_km2_in_total_units()[features, 1])
-  target <- historical_area_km2 * (probability_threshold^(1 / 0.25))
+  target <- historical_area_km2 * (probability_target^(1 / 0.25))
   pmin(target, fa) / fa
 }

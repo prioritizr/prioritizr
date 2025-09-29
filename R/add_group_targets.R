@@ -76,8 +76,45 @@ NULL
 #' @family targets
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create grouping data, wherein each feature will be randomly
+#' # assigned to the group A, B, C, or D
+#' sim_groups <- sample(
+#'   c("A", "B", "C", "D"), terra::nlyr(sim_complex_features), replace = TRUE)
+#' )
+#'
+#' # create problem where each feature in group A is assigned a 20% target,
+#' # each feature in group B is assigned a target based on Jung et al. (2021),
+#' # each feature in group C is assigned a target based on Ward et al. (2025),
+#' # and each feature in group D is assigned a target based on Rodrigues
+#' # et al. (2004)
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_group_targets(
+#'     groups = list(
+#'       A = spec_relative_targets(0.2).
+#'       B = spec_jung_targets(),
+#'       C = spec_ward_targets(),
+#'       D = spec_rodrigues_targets()
+#'     )
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @name add_group_targets
 NULL
 

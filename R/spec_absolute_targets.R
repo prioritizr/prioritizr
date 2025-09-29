@@ -29,12 +29,59 @@ NULL
 #'
 #' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
+#' @seealso
+#' To add relative targets directly to a [problem()], see
+#' [add_absolute_targets()].
 #'
 #' @family methods
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # this function sets targets based on the total abundance of the features
+#' # (i.e., sum of planning unit values for the feature) and does not
+#' # consider the spatial area covered by the planning units
+#'
+#' # create problem with absolute targets of 5 for each feature
+#' p1 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_absolute_targets(targets = 5))
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, main = "solution based on 5 targets", axes = FALSE)
+#'
+#' # targets can also be specified for each feature separately.
+#' # to demonstrate this, we will set a target value for each
+#' # feature based on a random number between 1 and 5
+#' target_values <- runif(terra::nlyr(sim_complex_features), 1, 5)
+#'
+#' # create problem with targets defined separately for each feature
+#' p2 <-
+#'   p0 %>%
+#'   add_auto_targets(method = spec_absolute_targets(targets = target_values))
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution based on varying targets", axes = FALSE)
+#' }
 #' @export
 spec_absolute_targets <- function(targets, ...) {
   assert_valid_method_arg(targets)

@@ -277,7 +277,7 @@ can reduce spatial fragmentation and has faster solver run times.
 Additionally, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
 an appropriate \code{penalty} value.
 
-Other penalties: 
+Other functions for adding penalties
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_connectivity_penalties}()},
 \code{\link{add_feature_weights}()},

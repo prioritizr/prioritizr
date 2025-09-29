@@ -507,7 +507,7 @@ Obtain the abundance of the features in area-based units of
 
 \subsection{Details}{
 Note that if a feature has missing (\code{NA}) units
-then then missing values are returned.
+then missing values are returned.
 }
 
 \subsection{Returns}{

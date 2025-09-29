@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -109,7 +109,7 @@
 
       <dl><dt>
 
-          <code><a href="sim_data.html">get_sim_pu_polygons()</a></code> <code><a href="sim_data.html">get_sim_zones_pu_polygons()</a></code> <code><a href="sim_data.html">get_sim_pu_lines()</a></code> <code><a href="sim_data.html">get_sim_pu_points()</a></code> <code><a href="sim_data.html">get_sim_pu_raster()</a></code> <code><a href="sim_data.html">get_sim_locked_in_raster()</a></code> <code><a href="sim_data.html">get_sim_locked_out_raster()</a></code> <code><a href="sim_data.html">get_sim_zones_pu_raster()</a></code> <code><a href="sim_data.html">get_sim_features()</a></code> <code><a href="sim_data.html">get_sim_zones_features()</a></code> <code><a href="sim_data.html">get_sim_phylogeny()</a></code>
+          <code><a href="sim_data.html">get_sim_pu_polygons()</a></code> <code><a href="sim_data.html">get_sim_zones_pu_polygons()</a></code> <code><a href="sim_data.html">get_sim_pu_lines()</a></code> <code><a href="sim_data.html">get_sim_pu_points()</a></code> <code><a href="sim_data.html">get_sim_pu_raster()</a></code> <code><a href="sim_data.html">get_sim_locked_in_raster()</a></code> <code><a href="sim_data.html">get_sim_locked_out_raster()</a></code> <code><a href="sim_data.html">get_sim_zones_pu_raster()</a></code> <code><a href="sim_data.html">get_sim_features()</a></code> <code><a href="sim_data.html">get_sim_zones_features()</a></code> <code><a href="sim_data.html">get_sim_phylogeny()</a></code> <code><a href="sim_data.html">get_sim_complex_pu_raster()</a></code> <code><a href="sim_data.html">get_sim_complex_locked_in_raster()</a></code> <code><a href="sim_data.html">get_sim_complex_locked_out_raster()</a></code> <code><a href="sim_data.html">get_sim_complex_features()</a></code> <code><a href="sim_data.html">get_sim_complex_historical_features()</a></code>
 
         </dt>
         <dd>Get simulated conservation planning data</dd>
@@ -209,10 +209,16 @@
         <dd>Add absolute targets</dd>
       </dl><dl><dt>
 
-          <code><a href="add_loglinear_targets.html">add_loglinear_targets()</a></code>
+          <code><a href="add_auto_targets.html">add_auto_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;character&gt;</i>)</a></code> <code><a href="add_auto_targets.html">add_auto_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;list&gt;</i>)</a></code> <code><a href="add_auto_targets.html">add_auto_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;Method&gt;</i>)</a></code>
 
         </dt>
-        <dd>Add targets using log-linear scaling</dd>
+        <dd>Add targets automatically</dd>
+      </dl><dl><dt>
+
+          <code><a href="add_group_targets.html">add_group_targets()</a></code>
+
+        </dt>
+        <dd>Add targets based on feature groups</dd>
       </dl><dl><dt>
 
           <code><a href="add_manual_targets.html">add_manual_targets()</a></code>
@@ -225,6 +231,114 @@
 
         </dt>
         <dd>Add relative targets</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_absolute_targets.html">spec_absolute_targets()</a></code>
+
+        </dt>
+        <dd>Specify absolute targets</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_area_targets.html">spec_area_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on area units</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_duran_targets.html">spec_duran_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Duran <em>et al.</em> 2020</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on interpolating absolute thresholds</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_interp_area_targets.html">spec_interp_area_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on interpolating area-based thresholds</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_jung_targets.html">spec_jung_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Jung <em>et al.</em> (2021)</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_max_targets.html">spec_max_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on maxima</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_min_targets.html">spec_min_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on minima</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_polak_targets.html">spec_polak_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Polak <em>et al.</em> (2015)</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_pop_size_targets.html">spec_pop_size_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on population size</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_relative_targets.html">spec_relative_targets()</a></code>
+
+        </dt>
+        <dd>Specify relative targets</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_rl_ecosystem_targets.html">spec_rl_ecosystem_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on the IUCN Red List of Ecosystems</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_rl_species_targets.html">spec_rl_species_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets based on the IUCN Red List of Threatened Species</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_rodrigues_targets.html">spec_rodrigues_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Rodrigues <em>et al.</em> (2004)</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_rule_targets.html">spec_rule_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following a set of rules</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_ward_targets.html">spec_ward_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Ward <em>et al.</em> (2025)</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_watson_targets.html">spec_watson_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Watson <em>et al.</em> (2010)</dd>
+      </dl><dl><dt>
+
+          <code><a href="spec_wilson_targets.html">spec_wilson_targets()</a></code>
+
+        </dt>
+        <dd>Specify targets following Wilson <em>et al.</em> (2010)</dd>
       </dl></div><div class="section level2">
       <h2 id="constraints">Constraints<a class="anchor" aria-label="anchor" href="#constraints"></a></h2>
 
@@ -321,7 +435,7 @@
         <dd>Add asymmetric connectivity penalties</dd>
       </dl><dl><dt>
 
-          <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code>
+          <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_boundary_penalties.html">add_boundary_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code>
 
         </dt>
         <dd>Add boundary penalties</dd>
@@ -891,6 +1005,12 @@
         <dd>Decision class</dd>
       </dl><dl><dt>
 
+          <code><a href="Method-class.html">Method-class</a></code> <code><a href="Method-class.html">Method</a></code>
+
+        </dt>
+        <dd>Target setting method class</dd>
+      </dl><dl><dt>
+
           <code><a href="Objective-class.html">Objective-class</a></code> <code><a href="Objective-class.html">Objective</a></code>
 
         </dt>
@@ -956,6 +1076,12 @@
         <dd>Show</dd>
       </dl><dl><dt>
 
+          <code><a href="linear_interpolation.html">linear_interpolation()</a></code>
+
+        </dt>
+        <dd>Linear interpolation</dd>
+      </dl><dl><dt>
+
           <code><a href="loglinear_interpolation.html">loglinear_interpolation()</a></code>
 
         </dt>
@@ -979,7 +1105,7 @@
 
       <dl><dt>
 
-          <code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> <code><a href="prioritizr-deprecated.html">distribute_load()</a></code> <code><a href="prioritizr-deprecated.html">new_optimization_problem()</a></code> <code><a href="prioritizr-deprecated.html">predefined_optimization_problem()</a></code>
+          <code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> <code><a href="prioritizr-deprecated.html">distribute_load()</a></code> <code><a href="prioritizr-deprecated.html">new_optimization_problem()</a></code> <code><a href="prioritizr-deprecated.html">predefined_optimization_problem()</a></code> <code><a href="prioritizr-deprecated.html">add_loglinear_targets()</a></code>
 
         </dt>
         <dd>Deprecation notice</dd>

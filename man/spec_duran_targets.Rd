@@ -4,10 +4,10 @@
 \alias{spec_duran_targets}
 \title{Specify targets following Duran \emph{et al.} 2020}
 \usage{
-spec_duran_targets(probability_threshold, historical_area, area_units)
+spec_duran_targets(probability_target, historical_area, area_units)
 }
 \arguments{
-\item{probability_threshold}{\code{numeric} vector denoting the minimum
+\item{probability_target}{\code{numeric} vector denoting the minimum
 probability of persistence for each feature.
 For example, a value of 0.1 corresponds to a 10\% chance of
 persistence, and a value of 1 corresponds to a 100\% chance of persistence.
@@ -129,76 +129,86 @@ t = min(f, h * p^(1/0.25))
 
 This function involves calculating targets based on the spatial extent
 of the features in \code{x}.
-As such, this function may need to make particular assumptions depending
-on the data used to specify the planning units and features in \code{x}.
-If possible, when building \code{x} with \code{\link[=problem]{problem()}}, it is recommended to specify
-\code{features} as a \code{\link[terra:rast]{terra::rast()}} object to ensure correctness.
-Although this function can be used to specify targets for features
-in other data formats, you must take care to ensure that the information
-specifying the amount of each feature are in units of 1 km
-\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-To help ensure that you are aware of this limitation, this function will
-produce a warning to alert you when the features in \code{x} belong to such
-data formats.
-If you are confident that your data are in the correct units,
-then you can safely ignore this warning.
-Below we provide details for ensuring that the targets are calculated
-correctly.
-
-\describe{
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units and \code{\link[terra:rast]{terra::rast()}} features}{
-This function will automatically ensure that the targets are calculated
-correctly. Given this, it is recommended to specify \code{features} in either
-of these when building a \code{\link[=problem]{problem()}}.
-}
-
-\item{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units and \code{character} features}{
-Here, the argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify
-which columns of the planning unit data denote the amount of each feature
-present within each planning unit.
-All of these columns must contain values in
-units of 1 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-For example, if \code{features = c("spp1", "spp2", "spp3")}, then the columns
-\code{"spp1"}, \code{"spp2"}, and \code{"spp3"} of the planning unit denote data the amount
-of the first, second, and third features (respectively) present within each
-planning unit. If the column \code{"spp1"} has a value of 5 in the first row
-of the planning unit data, then this means the first planning unit
-contains 5 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-of habitat for the feature \code{"spp1"}.
-}
-
-\item{\code{x} has \code{data.frame} planning units and \code{data.frame} features}{
-The argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to \code{rij} of
-\code{\link[=problem]{problem()}} is used to specify the amount of each feature present within
-each planning unit. The argument to \code{rij} must contain a \code{data.frame}
-with the columns \code{"pu"}, \code{"species"}, \code{"amount"}. For a given row,
-the \code{"pu"} column contains an \code{integer} value denoting the identifier
-for the planning unit,
-the \code{"species"} column contains an \code{integer} value denoting the
-identifier for the feature,
-and \verb{"amount" contains a }numeric\verb{value denoting the amount of the the feature (per the}"species"\verb{column) that is present in the planning unit (per}"pu"\verb{column). Given this, the "amount" column must contain values that in units of 1 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}. For example, if the argument to}rij\verb{has a row where the}"pu"\verb{column has a value of 1, the}"species"\verb{column has a value of 2, and the}"amount"` column has a value of 3: then this means that the
-planning unit with an identifier of 1 contains 3
-km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of the feature
-associated with the identifier of 2.
-}
-
-\item{\code{x} has \code{numeric} or \code{matrix} planning units and \code{data.frame} features}{
-The argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to \code{rij_matrix} of
-\code{\link[=problem]{problem()}} is used to specify the amount of each feature present within
-each planning unit. The argument to \code{rij_matrix} must contain a \code{matrix}
-(or \code{list} of \code{matrix} objects) that contains \code{numeric} values in units of 1
-km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-}
-}
+Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
+have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
+you will need to specify the spatial units for the features
+when initializing the \code{\link[=problem]{problem()}} objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a \code{data.frame} or \code{character} object,
+then you will need to specify an argument to \code{feature_units} when
+using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
+demonstration of using the \code{feature_units} parameter.
 }
 
 \examples{
-#TODO
+\dontrun{
+# set seed for reproducibility
+set.seed(500)
 
+# load example data
+sim_complex_pu_raster <- get_sim_complex_pu_raster()
+sim_complex_features <- get_sim_complex_features()
+sim_complex_historical_features <- get_sim_complex_historical_features()
+
+# calculate the total historical distribution size for each feature.
+# note that here we assume that the features in both sim_complex_features
+# and sim_complex_historical_features follow the same ordering
+historical_distribution_size <- as.numeric(units::set_units(
+ units::set_units(
+   terra::global(sim_complex_historical_features, "sum", na.rm = TRUE)[[1]],
+   "m^2"
+ ),
+ "km^2"
+)
+
+# simulate population density data for each feature,
+# expressed as number of individuals per km^2
+sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+
+# create base problem
+p0 <-
+  problem(sim_complex_pu_raster, sim_complex_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
+# create problem with targets based on the minimum amount of habitat required
+# to ensure that each species has a 95\% probability of persistence,
+# following Duran et al. (2020)
+# a 95\% probability of persistence
+p1 <-
+ p0 \%>\%
+ add_auto_targets(
+     probability_target = 0.95,
+     historical_area = historical_distribution_size,
+     area_units = "km2"
+   )
+ )
+
+# create problem with targets based on the minimum amount of habitat required
+# to ensure that each species has a particular probability of persistence,
+# following Duran et al. (2020)
+
+# simulate a probability of persistence value for each feature
+sim_probs <- runif(terra::nlyr(sim_complex_features), 0.1, 0.99)
+
+# now, create problem with these targets
+p2 <-
+ p0 \%>\%
+ add_auto_targets(
+     probability_target = sim_probs,
+     historical_area = historical_distribution_size,
+     area_units = "km2"
+   )
+ )
+
+# solve problems
+s <- c(solve(p1), solve(p2))
+names(s) <- c("95\% persistence targets", "varying persistence targets"))
+
+# plot solution
+plot(s, axes = FALSE)
+}
 }
 \references{
 Akçakaya HR, Sjögren-Gulve P (2000) Population viability analyses in
@@ -251,7 +261,7 @@ Townsend Peterson A, Phillips OL, Williams SE (2004)
 Extinction risk from climate change. \emph{Nature} 427:145--148.
 }
 \seealso{
-Other methods: 
+Other target setting methods
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},

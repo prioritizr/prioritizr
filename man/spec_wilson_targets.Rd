@@ -179,76 +179,57 @@ prioritizations based on different target scenarios.
 
 This function involves calculating targets based on the spatial extent
 of the features in \code{x}.
-As such, this function may need to make particular assumptions depending
-on the data used to specify the planning units and features in \code{x}.
-If possible, when building \code{x} with \code{\link[=problem]{problem()}}, it is recommended to specify
-\code{features} as a \code{\link[terra:rast]{terra::rast()}} object to ensure correctness.
-Although this function can be used to specify targets for features
-in other data formats, you must take care to ensure that the information
-specifying the amount of each feature are in units of 1 km
-\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-To help ensure that you are aware of this limitation, this function will
-produce a warning to alert you when the features in \code{x} belong to such
-data formats.
-If you are confident that your data are in the correct units,
-then you can safely ignore this warning.
-Below we provide details for ensuring that the targets are calculated
-correctly.
-
-\describe{
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units and \code{\link[terra:rast]{terra::rast()}} features}{
-This function will automatically ensure that the targets are calculated
-correctly. Given this, it is recommended to specify \code{features} in either
-of these when building a \code{\link[=problem]{problem()}}.
-}
-
-\item{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units and \code{character} features}{
-Here, the argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify
-which columns of the planning unit data denote the amount of each feature
-present within each planning unit.
-All of these columns must contain values in
-units of 1 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-For example, if \code{features = c("spp1", "spp2", "spp3")}, then the columns
-\code{"spp1"}, \code{"spp2"}, and \code{"spp3"} of the planning unit denote data the amount
-of the first, second, and third features (respectively) present within each
-planning unit. If the column \code{"spp1"} has a value of 5 in the first row
-of the planning unit data, then this means the first planning unit
-contains 5 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-of habitat for the feature \code{"spp1"}.
-}
-
-\item{\code{x} has \code{data.frame} planning units and \code{data.frame} features}{
-The argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to \code{rij} of
-\code{\link[=problem]{problem()}} is used to specify the amount of each feature present within
-each planning unit. The argument to \code{rij} must contain a \code{data.frame}
-with the columns \code{"pu"}, \code{"species"}, \code{"amount"}. For a given row,
-the \code{"pu"} column contains an \code{integer} value denoting the identifier
-for the planning unit,
-the \code{"species"} column contains an \code{integer} value denoting the
-identifier for the feature,
-and \verb{"amount" contains a }numeric\verb{value denoting the amount of the the feature (per the}"species"\verb{column) that is present in the planning unit (per}"pu"\verb{column). Given this, the "amount" column must contain values that in units of 1 km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}. For example, if the argument to}rij\verb{has a row where the}"pu"\verb{column has a value of 1, the}"species"\verb{column has a value of 2, and the}"amount"` column has a value of 3: then this means that the
-planning unit with an identifier of 1 contains 3
-km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} of the feature
-associated with the identifier of 2.
-}
-
-\item{\code{x} has \code{numeric} or \code{matrix} planning units and \code{data.frame} features}{
-The argument to \code{features} of \code{\link[=problem]{problem()}} is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to \code{rij_matrix} of
-\code{\link[=problem]{problem()}} is used to specify the amount of each feature present within
-each planning unit. The argument to \code{rij_matrix} must contain a \code{matrix}
-(or \code{list} of \code{matrix} objects) that contains \code{numeric} values in units of 1
-km \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-}
-}
+Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
+have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
+you will need to specify the spatial units for the features
+when initializing the \code{\link[=problem]{problem()}} objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a \code{data.frame} or \code{character} object,
+then you will need to specify an argument to \code{feature_units} when
+using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
+demonstration of using the \code{feature_units} parameter.
 }
 
 \examples{
-# TODO
+\dontrun{
+# set seed for reproducibility
+set.seed(500)
 
+# load example data
+sim_complex_pu_raster <- get_sim_complex_pu_raster()
+sim_complex_features <- get_sim_complex_features()
+
+# simulate mean population growth rate data for each feature
+sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 4.7)
+
+# simulate variance in population growth rate data for each feature
+sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 0.6, 2.8)
+
+# simulate population density data for each feature,
+# expressed as number of individuals per km^2
+sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+
+# create problem with targets based on Wilson et al. (2010)
+p1 <-
+  problem(sim_complex_pu_raster, sim_complex_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_auto_targets(
+    method = spec_wilson_targets(
+      mean_growth_rate = sim_mean_growth_rates,
+      var_growth_rates = sim_var_growth_rates,
+      pop_density = sim_pop_density_per_km2,
+      density_units = "km2"
+    )
+  ) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, axes = FALSE)
+}
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -274,7 +255,7 @@ Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 }
 \seealso{
-Other methods: 
+Other target setting methods
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

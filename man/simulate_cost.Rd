@@ -50,7 +50,7 @@ plot(cost, main = "simulated cost data", axes = FALSE)
 
 }
 \seealso{
-Other simulations: 
+Other functions for simulating data
 \code{\link{simulate_data}()},
 \code{\link{simulate_species}()}
 }

@@ -137,7 +137,7 @@ s3 <- c(solve(p1), solve(p2))
 names(s3) <- c("10\% targets", "varying targets")
 
 # plot solution
-plot(s3, main = , axes = FALSE)
+plot(s3, axes = FALSE)
 
 # create a problem with multiple management zones
 p4 <-
@@ -180,7 +180,6 @@ s6 <- solve(p6)
 # plot solution (cell values correspond to zone identifiers)
 plot(category_layer(s6), main = "varying targets")
 }
-
 }
 \references{
 Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
@@ -188,7 +187,7 @@ the target and missing the point: target‐based conservation planning in
 context. \emph{Conservation Letters}, 2: 4--11.
 }
 \seealso{
-Other targets: 
+Other functions for adding targets
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},

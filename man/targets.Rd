@@ -102,40 +102,14 @@ Specify targets based on an interpolation procedure between area-based
 thresholds.
 }
 
+\item{\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}}}{
+Specify targets based on minimum population sizes.
+}
+
 \item{\code{\link[=spec_rule_targets]{spec_rule_targets()}}}{
-Add targets calculated following a rule-based procedure based on a set of
+Specify targets calculated following a rule-based procedure based on a set of
 ecological and ecosystem criteria. This is a customizable version of the
 approach in Harris and Holness (2023).
-}
-
-\item{\code{\link[=spec_polak_targets]{spec_polak_targets()}}}{
-Specify targets following Polak \emph{et al.} (2015).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=spec_ward_targets]{spec_ward_targets()}}}{
-Specify targets following Watson \emph{et al.} (2005).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=spec_watson_targets]{spec_watson_targets()}}}{
-Specify targets following Watson \emph{et al.} (2010).
-This method was designed to set targets for species in national-scale
-prioritizations.
-}
-
-\item{\code{\link[=spec_jung_targets]{spec_jung_targets()}}}{
-Specify targets following Jung \emph{et al.} (2021).
-This method was designed to set targets for species in global-scale
-prioritizations.
-}
-
-\item{\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}}}{
-Specify targets following Rodrigues \emph{et al.} (2004).
-This method was designed to set targets for species in global-scale
-prioritizations.
 }
 
 \item{\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}}}{
@@ -148,6 +122,34 @@ Threatened Species (IUCN 2025).
 Specify targets based on criteria from the
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
+}
+
+\item{\code{\link[=spec_duran_targets]{spec_duran_targets()}}}{
+Specify targets following Duran \emph{et al.} (2020).
+}
+
+\item{\code{\link[=spec_jung_targets]{spec_jung_targets()}}}{
+Specify targets following Jung \emph{et al.} (2021).
+}
+
+\item{\code{\link[=spec_polak_targets]{spec_polak_targets()}}}{
+Specify targets following Polak \emph{et al.} (2015).
+}
+
+\item{\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}}}{
+Specify targets following Rodrigues \emph{et al.} (2004).
+}
+
+\item{\code{\link[=spec_ward_targets]{spec_ward_targets()}}}{
+Specify targets following Watson \emph{et al.} (2005).
+}
+
+\item{\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}}{
+Specify targets following Wilson \emph{et al.} (2010).
+}
+
+\item{\code{\link[=spec_watson_targets]{spec_watson_targets()}}}{
+Specify targets following Watson \emph{et al.} (2010).
 }
 
 \item{\code{\link[=spec_min_targets]{spec_min_targets()}}}{
@@ -245,11 +247,116 @@ smaller than or equal to -- or equal to -- target thresholds
 }
 \examples{
 \dontrun{
-# TODO
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# create base problem
+p0 <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
+# create problem with added relative targets
+p1 <- p0 \%>\% add_relative_targets(0.1)
+
+# create problem with added absolute targets
+p2 <- p0 \%>\% add_absolute_targets(3)
+
+# create problem with added manual targets,
+# and these targets equate to 10\% relative targets (same as p1)
+target_data <- data.frame(
+  feature = names(sim_features),
+  target = 0.1,
+  type = "relative"
+)
+p3 <- p0 \%>\% add_manual_targets(target_data)
+
+# create problem with added automatic targets,
+# and these targets equate to 10\% relative targets (same as p1)
+p4 <- p0 \%>\% add_auto_targets(method = spec_relative_targets(0.1))
+
+# create problem with added group targets,
+# wherein the first 3 features are assigned to group A and have
+# 10\% targets and the remaining features are assigned to group B and
+# have 20\% targets
+group_data <- c(rep("A", 3), rep("B", terra::nlyr(sim_features) - 3)
+p5 <-
+   add_group_targets(
+   groups = group_data,
+   method = list(
+     "A" = spec_relative_targets(0.1),
+     "B" = spec_relative_targets(0.2)
+   )
+
+# solve problem
+s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+names(s) <- c(
+  "relative targets", "absolute targets", "loglinear targets",
+  "manual targets"
+)
+# plot solution
+plot(s, axes = FALSE)
 }
 }
 \references{
-TODO
+Durán AP, Green JMH, West CD, Visconti P, Burgess ND, Virah‐Sawmy M,
+Balmford A (2020) A practical approach to measuring the biodiversity impacts
+of land conversion. \emph{Methods in Ecology and Evolution}, 11:910--921.
+
+Harris LR, Holness SD (2023) A practical approach to setting heuristic
+marine biodiversity targets for systematic conservation planning.
+\emph{Biological Conservation}, 285: 110218.
+
+Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,
+Miles L, Ondo I, Pironon S, Ravilious C, Rivers M, Schepaschenko D,
+Tallowin O, van Soesbergen A, Govaerts R, Boyle BL, Enquist BJ, Feng X,
+Gallagher R, Maitner B, Meiri S, Mulligan M, Ofer G, Roll U, Hanson JO,
+Jetz W, Di Marco M, McGowan J, Rinnan DS, Sachs JD, Lesiv M, Adams VM,
+Andrew SC, Burger JR, Hannah L, Marquet PA, McCarthy JK, Morueta-Holme N,
+Newman EA, Park DS, Roehrdanz PR, Svenning J-C, Violle C, Wieringa JJ,
+Wynne G, Fritz S, Strassburg BBN, Obersteiner M, Kapos V, Burgess N, Schmidt-
+Traub G, Visconti P (2021) Areas of global importance for
+conserving terrestrial biodiversity, carbon and water.
+\emph{Nature Ecology and Evolution}, 5:1499--1509.
+
+IUCN (2024). Guidelines for the application of IUCN Red List of Ecosystems
+Categories and Criteria, Version 2.0. Keith DA, Ferrer-Paris JR,
+Ghoraba SMM, Henriksen S, Monyeki M, Murray NJ, Nicholson E, Rowland J,
+Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
+(Eds.). Gland, Switzerland: IUCN.
+
+IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
+Available at \url{https://www.iucnredlist.org}. Accessed on 23 July 2025.
+
+Polak T, Watson JEM, Fuller RA, Joseph LN, Martin TG, Possingham HP,
+Venter O, Carwardine J (2015) Efficient expansion of global protected areas
+requires simultaneous planning for species and ecosystems.
+\emph{Royal Society Open Science}, 2: 150107.
+
+Rodrigues ASL, Akçakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,
+Chanson JS, Fishpool LDC, Da Fonseca GAB, Gaston KJ, Hoffmann M, Marquet PA,
+Pilgrim JD, Pressey RL, Schipper J, Sechrest W, Stuart SN, Underhill LG,
+Waller RW, Watts MEJ, Yan X (2004)
+Global gap analysis: priority regions for expanding the global
+protected-area network. \emph{BioScience}, 54: 1092--1100.
+
+Ward M, Possingham HP, Wintle BA, Woinarski JCZ, Marsh JR, Chapple DG,
+Lintermans M, Scheele BC, Whiterod NS, Hoskin CJ, Aska B, Yong C, Tulloch A,
+Stewart R, Watson JEM (2025) The estimated cost of preventing extinction and
+progressing recovery for Australia's priority threatened species.
+\emph{Proceedings of the National Academy of Sciences}, 122: e2414985122.
+
+Watson JEM, Evans MC, Carwardine J, Fuller RA, Joseph LN, Segan DB,
+Taylor MFJ, Fensham RJ, Possingham HP (2010) The capacity of Australia's
+protected-area system to represent threatened species.
+\emph{Conservation Biology},25: 324--332.
+
+Wilson KA, Meijaard E, Drummond S, Grantham HS, Boitani L, Catullo G,
+Christie L, Dennis R, Dutton I, Falcucci A, Maiorano L, Possingham HP,
+Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
+production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 }
 \seealso{
 Other overviews: 

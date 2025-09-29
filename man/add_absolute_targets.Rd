@@ -196,7 +196,7 @@ the target and missing the point: target‐based conservation planning in
 context. \emph{Conservation Letters}, 2: 4--11.
 }
 \seealso{
-Other targets: 
+Other functions for adding targets
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
 \code{\link{add_manual_targets}()},

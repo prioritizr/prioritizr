@@ -101,7 +101,7 @@ more complex conservation problems. \emph{Ecography}, 23: 565--574.
 See \link{objectives} for an overview of all functions for adding objectives.
 Also see \link{targets} for an overview of all functions for adding targets.
 
-Other objectives: 
+Other functions for adding objectives
 \code{\link{add_max_cover_objective}()},
 \code{\link{add_max_features_objective}()},
 \code{\link{add_max_phylo_div_objective}()},

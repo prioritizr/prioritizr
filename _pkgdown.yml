@@ -83,11 +83,6 @@ reference:
     contents:
       - targets
       - has_concept("targets")
-
-  - title: Target setting methods
-    desc: Functions for specifying targets.
-    contents:
-      - targets
       - has_concept("methods")
 
   - title: Constraints

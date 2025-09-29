@@ -84,14 +84,31 @@
 #' progressing recovery for Australia's priority threatened species.
 #' *Proceedings of the National Academy of Sciences*, 122: e2414985122.
 #'
-#' @examples
-#' #TODO
-#'
 #' @family method
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create problem with Ward et al. (2025) targets
+#' p1 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_auto_targets(method = spec_ward_targets()) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, axes = FALSE)
+#' }
 #' @export
 spec_ward_targets <- function(status = "CR", cap_area_target = 1000000,
                               area_units = "km^2") {

@@ -16,7 +16,7 @@ NULL
 #' features are assigned targets based on the area-based target.
 #'
 #' @param area_units `character` vector denoting the unit of measurement
-#' for each `targets` value (e.g., `"km^2", `"ha"`, `"acres"`).
+#' for each `targets` value (e.g., `"km^2"`, `"ha"`, and `"acres"`).
 #' If a single `character` value is specified, then all
 #' features are assigned targets assuming that `targets`
 #' are in the same units.
@@ -46,9 +46,51 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # TODO
-#' }
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # create problem with targets of 5 km^2 for each feature
+#' p1 <-
+#'   p0 %>%
+#'   add_auto_targets(
+#'     method = spec_area_targets(targets = 5, area_units = "km2")
+#'   )
+#'
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, main = "solution based on 5 km^2 targets", axes = FALSE)
+#'
+#' # targets can also be specified for each feature separately.
+#' # to demonstrate this, we will set a target value for each
+#' # feature based on a random number between 500 and 3000 hectares
+#' target_values <- runif(terra::nlyr(sim_complex_features), 500, 3000)
+#'
+#' # create problem with targets defined separately for each feature
+#' p2 <-
+#'   p0 %>%
+#'   add_auto_targets(
+#'     method = spec_area_targets(targets = target_values, area_units = "ha")
+#'   )
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution based on varying targets", axes = FALSE)
+#' }
 #' @export
 spec_area_targets <- function(targets, area_units) {
   # assert arguments are valid

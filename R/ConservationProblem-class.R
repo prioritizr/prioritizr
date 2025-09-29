@@ -833,7 +833,7 @@ ConservationProblem <- R6::R6Class(
     #' Obtain the abundance of the features in area-based units of
     #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
     #' @details Note that if a feature has missing (`NA`) units
-    #' then then missing values are returned.
+    #' then missing values are returned.
     #' @return A `numeric` matrix. Each column corresponds to a different zone
     #' and each row corresponds to a different feature.
     feature_abundances_km2_in_total_units = function() {

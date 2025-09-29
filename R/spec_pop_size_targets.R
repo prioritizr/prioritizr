@@ -156,8 +156,78 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # simulate population density data for each feature,
+#' # expressed as number of individuals per km^2
+#' sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # create problem with targets to ensure that, at least, 2500 individuals
+#' # for each feature are represented by the solution
+#' p1 <-
+#'  p0 %>%
+#'  add_auto_targets(
+#     method = spec_pop_size_targets(
+#'      pop_size = 2500,
+#'      pop_density = sim_pop_density_per_km2,
+#'      density_units = "km2"
+#'    )
+#'  )
+#'
+#' # create problem with targets to ensure that, at least, 5000 individuals
+#' # for each feature are represented by the solution
+#' p2 <-
+#'  p0 %>%
+#'  add_auto_targets(
+#     method = spec_pop_size_targets(
+#'      pop_size = 5000,
+#'      pop_density = sim_pop_density_per_km2,
+#'      area_units = "km2"
+#'    )
+#'  )
+#'
+#' # create problem with targets to ensure that a particular number of
+#' # individuals or each feature are represented by the solution
+#'
+#' # simulate the number of number of individuals required for each feature
+#' target_pop_size <- round(
+#'   runif(terra::nlyr(sim_complex_features), 1000, 5000)
+#  )
+#'
+#' # now, create problem with these targets
+#' p3 <-
+#'  p0 %>%
+#'  add_auto_targets(
+#     spec_pop_size_targets(
+#'      pop_size = target_pop_size,
+#'      pop_density = sim_pop_density_per_km2,
+#'      density_units = "km2"
+#'    )
+#'  )
+#'
+#' # solve problems
+#' s <- c(solve(p1), solve(p2), solve(p3))
+#' names(s) <- c(
+#'   "2500 individuals targets", "5000 individuals targets",
+#'   "varying individuals targets"
+#' )
+#'
+#' # plot solutions
+#' plot(s, axes = FALSE)
+#' }
 #' @export
 spec_pop_size_targets <- function(pop_size_targets,
                                   pop_density, density_units,

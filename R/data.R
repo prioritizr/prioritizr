@@ -6,10 +6,10 @@ NULL
 #' A set of functions are available for importing simulated datasets. These
 #' datasets are designed for creating small example spatial prioritizations.
 #'
-#' @section Single zone datasets:
+#' @section Small-scale single zone datasets:
 #'
-#' The following functions are provided for generating spatial prioritizations
-#' that only contain a single management zone.
+#' The following functions are provided for generating small-scale spatial
+#' prioritizations that only contain a single management zone.
 #'
 #' \describe{
 #'
@@ -55,6 +55,49 @@ NULL
 #'   cell values indicate habitat suitability.}
 #'
 #'  \item{`get_sim_phylogeny()`}{Import phylogenetic tree for the ten species.}
+#'
+#' }
+#'
+#' @section Complex single zone datasets:
+#'
+#' The following functions are provided for generating spatial
+#' prioritizations based on a complex dataset that contains a single management
+#' zone.
+#'
+#' \describe{
+#'
+#' \item{`get_sim_complex_pu_raster()`}{
+#'   Import planning unit data that are stored in raster format.
+#'   Here, cell values indicate planning unit cost and missing (`NA`)
+#'   values indicate that a cell is not a planning unit.}
+#'
+#' \item{`get_sim_complex_locked_in_raster()`}{
+#'   Import planning unit data
+#'   that are stored in raster format.
+#'   Here, cell values are binary and indicate if planning units should be
+#'   locked in to a solution.}
+#'
+#' \item{`get_sim_complex_locked_out_raster()`}{
+#'   Import planning unit data
+#'   that are stored in raster format.
+#'   Here, cell values are binary and indicate if planning units
+#'   should be locked out from a solution.}
+#'
+#' \item{`get_sim_complex_features()`}{
+#'   Import feature data stored in raster
+#'   format.
+#'   Here, data describe the spatial distribution of 100 species.
+#'   Each layer corresponds to a different species, and
+#'   cells contain binary values indicating if they currently contain
+#'   habitat for a given species.}
+#'
+#' \item{`get_sim_complex_historical_features()`}{
+#'   Import potential feature data
+#'   stored in raster format.
+#'   Here, data describe the spatial distribution of 100 species.
+#'   Each layer corresponds to a different species, and
+#'   cells contain binary values indicating if they historically contained
+#'   habitat for a given species.}
 #'
 #' }
 #'
@@ -325,5 +368,55 @@ get_sim_zones_features <- function() {
 get_sim_phylogeny <- function() {
   ape::read.nexus(
    system.file("extdata", "sim_phylogeny.txt", package = "prioritizr")
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_complex_pu_raster <- function() {
+  terra::rast(
+    system.file(
+      "extdata", "sim_pu_complex_raster.tif", package = "prioritizr"
+    )
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_complex_locked_in_raster <- function() {
+  terra::rast(
+    system.file(
+      "extdata", "sim_complex_locked_in_raster.tif", package = "prioritizr"
+    )
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_complex_locked_out_raster <- function() {
+  terra::rast(
+    system.file(
+      "extdata", "sim_complex_locked_out_raster.tif", package = "prioritizr"
+    )
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_complex_features <- function() {
+  terra::rast(
+    system.file(
+      "extdata", "sim_complex_features.tif", package = "prioritizr"
+    )
+  )
+}
+
+#' @rdname sim_data
+#' @export
+get_sim_complex_historical_features <- function() {
+  terra::rast(
+    system.file(
+      "extdata", "sim_complex_historical_features.tif", package = "prioritizr"
+    )
   )
 }

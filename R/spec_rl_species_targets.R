@@ -155,8 +155,70 @@ NULL
 #' @family methods
 #'
 #' @examples
-#' #TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load example data
+#' sim_complex_pu_raster <- get_sim_complex_pu_raster()
+#' sim_complex_features <- get_sim_complex_features()
+#'
+#' # create base problem
+#' p0 <-
+#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # note that the following targets will be specified based on subcriterion
+#' # A2 under the assumption that protected areas will be effectively managed,
+#' # and B2 because the feature data (per sim_complex_features) characterize
+#' # area of occupancy
+#'
+#' # create problem with targets based on criteria from the IUCN Red List of
+#' # Threatened Species for the Endangered threat status with a 0% uplift
+#' p1 <-
+#'   p0 %>%
+#'   add_auto_targets(
+#'     method = spec_rl_species_targets(
+#'       status = "EN",
+#'       criterion_a = "A2",
+#'       criterion_b = "B2",
+#'       prop_uplift = 0
+#'     )
+#'   )
+#'
+#' # create problem with targets based on criteria from the IUCN Red List of
+#' # Threatened Species for the Endangered threat status with a 20% uplift
+#' p2 <-
+#'   add_auto_targets(
+#'     method = spec_rl_species_targets(
+#'       status = "EN",
+#'       criterion_a = "A2",
+#'       criterion_b = "B2",
+#'       prop_uplift = 0.2
+#'     )
+#'   )
+#'
+#' # create problem with targets based on criteria from the IUCN Red List of
+#' # Threatened Species for the Vulnerable threat status with a 20% uplift
+#' p3 <-
+#'   add_auto_targets(
+#'     method = spec_rl_species_targets(
+#'       status = "VU",
+#'       criterion_a = "A2",
+#'       criterion_b = "B2",
+#'       prop_uplift = 0.2
+#'     )
+#'   )
+#'
+#' # solve problems
+#' s <- c(solve(p1), solve(p2), solve(p3))
+#' names(s) <- c("EN (0%)", "EN (20%)", "VU (20%)")
+#'
+#' # plot solutions
+#' plot(s, axes = FALSE)
+#' }
 #' @export
 spec_rl_species_targets <- function(status, criterion_a, criterion_b,
                                     prop_uplift = 0, method = "max",

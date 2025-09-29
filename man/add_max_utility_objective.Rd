@@ -126,7 +126,7 @@ plot(category_layer(s3), main = "solution", axes = FALSE)
 See \link{objectives} for an overview of all functions for adding objectives.
 Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
 
-Other objectives: 
+Other functions for adding objectives
 \code{\link{add_max_cover_objective}()},
 \code{\link{add_max_features_objective}()},
 \code{\link{add_max_phylo_div_objective}()},

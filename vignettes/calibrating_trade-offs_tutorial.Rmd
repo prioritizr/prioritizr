@@ -39,6 +39,9 @@ knitr::opts_chunk$set(
 ```
 
 ```{r, include = FALSE}
+# load developmental version of package
+devtools::load_all()
+
 # set up print method
 print <- function(x, ...) {
   if (!interactive() && inherits(x, "ConservationProblem")) {

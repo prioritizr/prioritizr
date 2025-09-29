@@ -15,7 +15,7 @@ datasets are designed for creating small example spatial prioritizations."><meta
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,7 +81,17 @@ datasets are designed for creating small example spatial prioritizations.</p>
 <span></span>
 <span><span class="fu">get_sim_zones_features</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">get_sim_phylogeny</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">get_sim_phylogeny</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_sim_complex_pu_raster</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_sim_complex_locked_in_raster</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_sim_complex_locked_out_raster</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_sim_complex_features</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_sim_complex_historical_features</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -134,12 +144,12 @@ datasets are designed for creating small example spatial prioritizations.</p>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="single-zone-datasets">Single zone datasets<a class="anchor" aria-label="anchor" href="#single-zone-datasets"></a></h2>
+    <h2 id="small-scale-single-zone-datasets">Small-scale single zone datasets<a class="anchor" aria-label="anchor" href="#small-scale-single-zone-datasets"></a></h2>
 
 
 
-<p>The following functions are provided for generating spatial prioritizations
-that only contain a single management zone.</p>
+<p>The following functions are provided for generating small-scale spatial
+prioritizations that only contain a single management zone.</p>
 <dl><dt><code>get_sim_pu_raster()</code></dt>
 <dd><p>Import planning unit data that are stored
 in raster format.
@@ -197,6 +207,54 @@ cell values indicate habitat suitability.</p></dd>
 
 <dt><code>get_sim_phylogeny()</code></dt>
 <dd><p>Import phylogenetic tree for the ten species.</p></dd>
+
+
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="complex-single-zone-datasets">Complex single zone datasets<a class="anchor" aria-label="anchor" href="#complex-single-zone-datasets"></a></h2>
+
+
+
+<p>The following functions are provided for generating spatial
+prioritizations based on a complex dataset that contains a single management
+zone.</p>
+<dl><dt><code>get_sim_complex_pu_raster()</code></dt>
+<dd><p>Import planning unit data that are stored in raster format.
+Here, cell values indicate planning unit cost and missing (<code>NA</code>)
+values indicate that a cell is not a planning unit.</p></dd>
+
+
+<dt><code>get_sim_complex_locked_in_raster()</code></dt>
+<dd><p>Import planning unit data
+that are stored in raster format.
+Here, cell values are binary and indicate if planning units should be
+locked in to a solution.</p></dd>
+
+
+<dt><code>get_sim_complex_locked_out_raster()</code></dt>
+<dd><p>Import planning unit data
+that are stored in raster format.
+Here, cell values are binary and indicate if planning units
+should be locked out from a solution.</p></dd>
+
+
+<dt><code>get_sim_complex_features()</code></dt>
+<dd><p>Import feature data stored in raster
+format.
+Here, data describe the spatial distribution of 100 species.
+Each layer corresponds to a different species, and
+cells contain binary values indicating if they currently contain
+habitat for a given species.</p></dd>
+
+
+<dt><code>get_sim_complex_historical_features()</code></dt>
+<dd><p>Import potential feature data
+stored in raster format.
+Here, data describe the spatial distribution of 100 species.
+Each layer corresponds to a different species, and
+cells contain binary values indicating if they historically contained
+habitat for a given species.</p></dd>
 
 
 
