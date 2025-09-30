@@ -14,138 +14,145 @@ SEXP rcpp_apply_hierachical_approach(
 ) {
   
   // prep stuff
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> current_ptr(current_ptrSEXP);
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> prev_ptr(prev_ptrSEXP);
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> opt_current(current_ptrSEXP);
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> opt_prev(prev_ptrSEXP);
   
-  const std::size_t n_pu = current_ptr->_number_of_planning_units;
-  const std::size_t n_zone = current_ptr->_number_of_zones;
-  const std::size_t pu_len = n_pu * n_zone;
+  std::vector<Rcpp::XPtr<OPTIMIZATIONPROBLEM>> opt = {opt_current, opt_prev};
+  const std::size_t n = opt.size();
   
-  // Hierarchical start: calc previous objective value
+  const std::size_t n_pu = opt_current->_number_of_planning_units;
+  const std::size_t n_zone = opt_current->_number_of_zones;
+  const std::size_t n_status = n_pu * n_zone;
+  
+  // calculate previous objective value (do this first, so we calculate offsets correctly after)
   double prev_val = 0.0;
   for (std::size_t i = 0; i < static_cast<std::size_t>(prev_solution.size()); ++i)
-    prev_val += prev_solution[i] * prev_ptr->_obj[i];
+    prev_val += prev_solution[i] * opt_prev->_obj[i];
   
   // Build degradation constraint 
   double threshold;
   std::string sense;
-  if (prev_ptr->_modelsense == "min") {
+  if (opt_prev->_modelsense == "min") {
     threshold = prev_val * (1.0 + degradation);
     sense = "<=";
-  } else if (prev_ptr->_modelsense == "max") {
+  } else {
     threshold = prev_val * (1.0 - degradation);
     sense = ">=";
   }
   
   // Append degradation constraint to previous A
-  std::size_t new_row = prev_ptr->_row_ids.size();
-  for (std::size_t j = 0; j < prev_ptr->_obj.size(); ++j) {
-    prev_ptr->_A_i.push_back(new_row);
-    prev_ptr->_A_j.push_back(j);
-    prev_ptr->_A_x.push_back(prev_ptr->_obj[j]);
+  std::size_t new_row = opt_prev->_row_ids.size();
+  for (std::size_t j = 0; j < opt_prev->_obj.size(); ++j) {
+    opt_prev->_A_i.push_back(new_row);
+    opt_prev->_A_j.push_back(j);
+    opt_prev->_A_x.push_back(opt_prev->_obj[j]);
   }
-  prev_ptr->_rhs.push_back(threshold);
-  prev_ptr->_sense.push_back(sense);
-  prev_ptr->_row_ids.push_back("row_" + std::to_string(new_row + 1));
   
-  Rcpp::Rcout << "Hierarchical step: degradation constraint added, threshold = " << threshold << std::endl;
+  // adapt rhs, sense and row_ids (rest stays the same)
+  opt_prev->_rhs.push_back(threshold);
+  opt_prev->_sense.push_back(sense);
+  opt_prev->_row_ids.push_back("row_" + std::to_string(new_row + 1));
   
-  // Create new optimization problem (
-  OPTIMIZATIONPROBLEM* new_ptr = new OPTIMIZATIONPROBLEM(
-    current_ptr->_modelsense,            // modelsense
-    0,                                   // number_of_features
-    n_pu,                                // number_of_planning_units
-    n_zone,                              // number_of_zones
-    std::vector<std::size_t>(),          // A_i
-    std::vector<std::size_t>(),          // A_j
-    std::vector<double>(),               // A_x
-    std::vector<double>(),               // obj
-    std::vector<double>(),               // lb
-    std::vector<double>(),               // ub
-    std::vector<double>(),               // rhs
-    std::vector<std::string>(),          // sense
-    std::vector<std::string>(),          // vtype
-    std::vector<std::string>(),          // row_ids
-    std::vector<std::string>(),          // col_ids
-    true                                 // compressed_formulation
+  // define counters to store object sizes
+  std::vector<std::size_t> opt_n_ncol(n);
+  std::vector<std::size_t> opt_n_nrow(n);
+  std::vector<std::size_t> opt_n_A(n);
+  
+  for (std::size_t i = 0; i < n; ++i) {
+    opt_n_ncol[i] = opt[i]->_col_ids.size();
+    opt_n_nrow[i] = opt[i]->_row_ids.size();
+    opt_n_A[i] = opt[i]->_A_i.size();
+  }
+  
+  // define offset variables for rows, columns, and A
+  std::vector<std::size_t> opt_row_offset(n,0);
+  std::vector<std::size_t> opt_col_offset(n,0);
+  std::vector<std::size_t> opt_A_offset(n,0);
+  for (std::size_t i = 1; i < n; ++i) {
+    opt_row_offset[i] = opt_row_offset[i-1] + opt_n_nrow[i-1];
+    opt_col_offset[i] = opt_col_offset[i-1] + opt_n_ncol[i-1] - n_status;
+    opt_A_offset[i]   = opt_A_offset[i-1] + opt_n_A[i-1];
+  }
+  
+  // compute dimensions for combined problem
+  const std::size_t mopt_ncol = std::accumulate(opt_n_ncol.begin(), opt_n_ncol.end(), 0) - ((n-1)*n_status);
+  const std::size_t mopt_nrow = std::accumulate(opt_n_nrow.begin(), opt_n_nrow.end(), 0);
+  const std::size_t mopt_n_A   = std::accumulate(opt_n_A.begin(), opt_n_A.end(), 0);
+  
+  // initialize optimization problem that has the current model sense and placeholders for the rest
+  OPTIMIZATIONPROBLEM* mopt = new OPTIMIZATIONPROBLEM(
+    opt_current->_modelsense,
+    opt_current->_number_of_features + opt_prev->_number_of_features, // sum features
+    n_pu,
+    n_zone,
+    std::vector<std::size_t>(mopt_n_A),   // A_i
+    std::vector<std::size_t>(mopt_n_A),   // A_j
+    std::vector<double>(mopt_n_A),        // A_x
+    std::vector<double>(mopt_ncol,0.0),   // obj
+    std::vector<double>(mopt_ncol),       // lb
+    std::vector<double>(mopt_ncol),       // ub
+    std::vector<double>(mopt_nrow),       // rhs
+    std::vector<std::string>(mopt_nrow),  // sense
+    std::vector<std::string>(mopt_ncol),  // vtype
+    std::vector<std::string>(mopt_nrow),  // row_ids
+    std::vector<std::string>(mopt_ncol),  // col_ids
+    true                                  // compressed_formulation
   );
-
-// now need to put current and prev together. Start by combining them to list, so we can use ws methods
-  std::vector<Rcpp::XPtr<OPTIMIZATIONPROBLEM>> h_list = {current_ptr, prev_ptr};
   
-  // start with A
-  std::size_t row_offset = 0;
-  std::size_t extra_col_offset = 0;
-  
-  for (std::size_t pidx = 0; pidx < h_list.size(); ++pidx) {
-    Rcpp::XPtr<OPTIMIZATIONPROBLEM> p = h_list[pidx];
-    int n_extra_cols = static_cast<int>(p->_col_ids.size()) - pu_len;
-    
-    for (std::size_t k = 0; k < p->_A_i.size(); ++k) {
-      int gi = static_cast<int>(p->_A_i[k]) + row_offset;
-      int gj = static_cast<int>(p->_A_j[k]);
-      double val = p->_A_x[k];
-      
-      if (gj < pu_len) {
-        new_ptr->_A_i.push_back(gi);
-        new_ptr->_A_j.push_back(gj);
-        new_ptr->_A_x.push_back(val);
-      } else {
-        new_ptr->_A_i.push_back(gi);
-        new_ptr->_A_j.push_back(pu_len + extra_col_offset + (gj - pu_len));
-        new_ptr->_A_x.push_back(val);
-      }
+  // A (i,j,x)
+  for (std::size_t i = 0; i < n; ++i) {
+    for (std::size_t j = 0; j < opt[i]->_A_i.size(); ++j) {
+      mopt->_A_i[j + opt_A_offset[i]] = opt[i]->_A_i[j] + opt_row_offset[i];
+      mopt->_A_x[j + opt_A_offset[i]] = opt[i]->_A_x[j];
     }
+    double curr_offset;
+    for (std::size_t j = 0; j < opt[i]->_A_j.size(); ++j) {
+      curr_offset = opt_col_offset[i] * static_cast<double>(opt[i]->_A_j[j] >= n_status);
+      mopt->_A_j[j + opt_A_offset[i]] = opt[i]->_A_j[j] + curr_offset;
+    }
+  }
+  
+  // obj
+  std::copy(opt_current->_obj.begin(), opt_current->_obj.end(), mopt->_obj.begin());
+  // append zeros for any extra columns in previous problem
+  for (std::size_t j = n_status; j < opt_prev->_col_ids.size(); ++j)
+    mopt->_obj[j] = 0.0;
+  
+  // lb
+  std::copy(opt[0]->_lb.begin(), opt[0]->_lb.end(), mopt->_lb.begin());
+  for (std::size_t i = 1; i < n; ++i)
+    std::copy(opt[i]->_lb.begin() + n_status, opt[i]->_lb.end(),
+              mopt->_lb.begin() + n_status + opt_col_offset[i]);
+  
+  // ub
+  std::copy(opt[0]->_ub.begin(), opt[0]->_ub.end(), mopt->_ub.begin());
+  for (std::size_t i = 1; i < n; ++i)
+    std::copy(opt[i]->_ub.begin() + n_status, opt[i]->_ub.end(),
+              mopt->_ub.begin() + n_status + opt_col_offset[i]);
+  
+  // vtype
+  std::copy(opt[0]->_vtype.begin(), opt[0]->_vtype.end(), mopt->_vtype.begin());
+  for (std::size_t i = 1; i < n; ++i)
+    if (opt_n_ncol[i] > n_status)
+      std::copy(opt[i]->_vtype.begin() + n_status, opt[i]->_vtype.end(),
+                mopt->_vtype.begin() + n_status + opt_col_offset[i]);
     
-    row_offset += static_cast<int>(p->_row_ids.size());
-    extra_col_offset += n_extra_cols;
-  }
-  
-  // adapt row and col ids
-  new_ptr->_row_ids.resize(row_offset);
-  for (std::size_t r = 0; r < row_offset; ++r)
-    new_ptr->_row_ids[r] = "row_" + std::to_string(r + 1);
-  
-  new_ptr->_col_ids.resize(pu_len + extra_col_offset);
-  for (std::size_t c = 0; c < pu_len + extra_col_offset; ++c)
-    new_ptr->_col_ids[c] = "col_" + std::to_string(c + 1);
-  
-  // Copy bounds, vtypes, obj from current prob
-  for (std::size_t i = 0; i < current_ptr->_lb.size(); ++i)
-    new_ptr->_lb.push_back(current_ptr->_lb[i]);
-  for (std::size_t i = 0; i < current_ptr->_ub.size(); ++i)
-    new_ptr->_ub.push_back(current_ptr->_ub[i]);
-  for (std::size_t i = 0; i < current_ptr->_vtype.size(); ++i)
-    new_ptr->_vtype.push_back(current_ptr->_vtype[i]);
-  for (std::size_t i = 0; i < current_ptr->_obj.size(); ++i)
-    new_ptr->_obj.push_back(current_ptr->_obj[i]);
-  
-  // pad zeros for prev_ptr extra cols
-  std::size_t prev_extra_cols = prev_ptr->_col_ids.size() > pu_len ?
-  prev_ptr->_col_ids.size() - pu_len : 0;
-  for (std::size_t i = 0; i < prev_extra_cols; ++i) {
-    new_ptr->_lb.push_back(0.0);
-    new_ptr->_ub.push_back(0.0);
-    new_ptr->_vtype.push_back("C");
-    new_ptr->_obj.push_back(0.0);
-  }
-  
-  // append rhs and sense
-  for (std::size_t i = 0; i < current_ptr->_rhs.size(); ++i)
-    new_ptr->_rhs.push_back(current_ptr->_rhs[i]);
-  for (std::size_t i = 0; i < current_ptr->_sense.size(); ++i)
-    new_ptr->_sense.push_back(current_ptr->_sense[i]);
-  
-  for (std::size_t i = 0; i < prev_ptr->_rhs.size(); ++i)
-    new_ptr->_rhs.push_back(prev_ptr->_rhs[i]);
-  for (std::size_t i = 0; i < prev_ptr->_sense.size(); ++i)
-    new_ptr->_sense.push_back(prev_ptr->_sense[i]);
-  
-  // debug prints
-  Rcpp::Rcout << "New hierarchical model successfully created." << std::endl;
-  Rcpp::Rcout << "Final dimensions: " << new_ptr->_row_ids.size() 
-              << " rows, " << new_ptr->_col_ids.size() 
-              << " columns, nnz=" << new_ptr->_A_x.size() << std::endl;
-  
-  return Rcpp::XPtr<OPTIMIZATIONPROBLEM>(new_ptr, true);
+    // col_ids
+    std::copy(opt[0]->_col_ids.begin(), opt[0]->_col_ids.end(), mopt->_col_ids.begin());
+    for (std::size_t i = 1; i < n; ++i)
+      if (opt_n_ncol[i] > n_status)
+        std::copy(opt[i]->_col_ids.begin() + n_status, opt[i]->_col_ids.end(),
+                  mopt->_col_ids.begin() + n_status + opt_col_offset[i]);
+      
+      // rhs and sense
+      for (std::size_t i=0; i<n; ++i) {
+        std::copy(opt[i]->_rhs.begin(), opt[i]->_rhs.end(), mopt->_rhs.begin() + opt_row_offset[i]);
+        std::copy(opt[i]->_sense.begin(), opt[i]->_sense.end(), mopt->_sense.begin() + opt_row_offset[i]);
+      }
+      
+      // row_ids
+      for (std::size_t i=0; i<n; ++i)
+        std::copy(opt[i]->_row_ids.begin(), opt[i]->_row_ids.end(), mopt->_row_ids.begin() + opt_row_offset[i]);
+      
+      return Rcpp::XPtr<OPTIMIZATIONPROBLEM>(mopt, true);
 }
