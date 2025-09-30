@@ -35,3 +35,6 @@ library(Matrix)
     c(sim_pu_raster[[1]][!is.na(sim_pu_raster)] * 1 * weights[1]) +
     c(sim_pu_raster[[1]][!is.na(sim_pu_raster)] * 3 * weights[2])
   )
+
+  
+  

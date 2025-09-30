@@ -109,56 +109,52 @@ SEXP rcpp_apply_ws_approach(
   // specify lower bounds for multi-objective problem
   /// store values for planning unit status variables based on 1st problem
   /// and also store extra variables for 1st problem
-  std::copy_n(
+  std::copy(
     opt[0]->_lb.begin(),
-    opt[0]->_lb.size(),
+    opt[0]->_lb.end(),
     mopt->_lb.begin()
   );
   /// store values for extra variables for subsequent problems
   for (std::size_t i = 1; i < n; ++i) {
-    if (opt_n_ncol[i] > n_status) {
-      std::copy_n(
-        opt[i]->_lb.begin() + n_status,
-        opt[i]->_lb.size(),
-        mopt->_lb.begin() + opt_col_offset[i]
-      );
-    }
+    std::copy(
+      opt[i]->_lb.begin() + n_status,
+      opt[i]->_lb.end(),
+      mopt->_lb.begin() + n_status + opt_col_offset[i]
+    );
   }
 
   // specify upper bounds for multi-objective problem
   /// store values for planning unit status variables based on 1st problem
   /// and also store extra variables for 1st problem
-  std::copy_n(
+  std::copy(
     opt[0]->_ub.begin(),
-    opt[0]->_ub.size(),
+    opt[0]->_ub.end(),
     mopt->_ub.begin()
   );
   /// store values for extra variables for subsequent problems
   for (std::size_t i = 1; i < n; ++i) {
-    if (opt_n_ncol[i] > n_status) {
-      std::copy_n(
-        opt[i]->_ub.begin() + n_status,
-        opt[i]->_ub.size(),
-        mopt->_ub.begin() + opt_col_offset[i]
-      );
-    }
+    std::copy(
+      opt[i]->_ub.begin() + n_status,
+      opt[i]->_ub.end(),
+      mopt->_ub.begin() + n_status + opt_col_offset[i]
+    );
   }
 
   // specify variable types for multi-objective problem
   /// store values for planning unit status variables based on 1st problem
   /// and also store extra variables for 1st problem
-  std::copy_n(
+  std::copy(
     opt[0]->_vtype.begin(),
-    opt[0]->_vtype.size(),
+    opt[0]->_vtype.end(),
     mopt->_vtype.begin()
   );
   /// store values for extra variables for subsequent problems
   for (std::size_t i = 1; i < n; ++i) {
     if (opt_n_ncol[i] > n_status) {
-      std::copy_n(
+      std::copy(
         opt[i]->_vtype.begin() + n_status,
-        opt[i]->_vtype.size(),
-        mopt->_vtype.begin() + opt_col_offset[i]
+        opt[i]->_vtype.end(),
+        mopt->_vtype.begin() + n_status + opt_col_offset[i]
       );
     }
   }
@@ -167,18 +163,18 @@ SEXP rcpp_apply_ws_approach(
   // specify col ids for multi-objective problem
   /// store values for planning unit status variables based on 1st problem
   /// and also store extra variables for 1st problem
-  std::copy_n(
+  std::copy(
     opt[0]->_col_ids.begin(),
-    opt[0]->_col_ids.size(),
+    opt[0]->_col_ids.end(),
     mopt->_col_ids.begin()
   );
   /// store values for extra variables for subsequent problems
   for (std::size_t i = 1; i < n; ++i) {
     if (opt_n_ncol[i] > n_status) {
-      std::copy_n(
+      std::copy(
         opt[i]->_col_ids.begin() + n_status,
-        opt[i]->_col_ids.size(),
-        mopt->_col_ids.begin() + opt_col_offset[i]
+        opt[i]->_col_ids.end(),
+        mopt->_col_ids.begin() + n_status + opt_col_offset[i]
       );
     }
   }
