@@ -182,7 +182,7 @@ p1 <-
     method = spec_duran_targets(
      probability_target = 0.95,
      historical_area = historical_distribution_size,
-     area_units = "km2"
+     area_units = "km^2"
    )
  )
 
@@ -206,7 +206,7 @@ p2 <-
     method = spec_duran_targets(
      probability_target = sim_probs,
      historical_area = historical_distribution_size,
-     area_units = "km2"
+     area_units = "km^2"
    )
  )
 

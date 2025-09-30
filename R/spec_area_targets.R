@@ -64,7 +64,7 @@ NULL
 #' p1 <-
 #'   p0 %>%
 #'   add_auto_targets(
-#'     method = spec_area_targets(targets = 50, area_units = "km2")
+#'     method = spec_area_targets(targets = 50, area_units = "km^2")
 #'   )
 #'
 #' # solve problem

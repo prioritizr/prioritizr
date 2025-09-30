@@ -298,7 +298,7 @@ NULL
 #'   ) %>%
 #'   add_min_set_objective() %>%
 #'   add_auto_targets(
-#'     method = spec_area_targets(targets = 2, area_units = "km2")
+#'     method = spec_area_targets(targets = 2, area_units = "km^2")
 #'   ) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(gap = 0, verbose = FALSE)

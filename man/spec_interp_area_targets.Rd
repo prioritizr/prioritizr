@@ -210,7 +210,7 @@ p1 <-
      common_method = "max",            # not used
      cap_area_target = 1000000,
      interp_method = "log10",
-     area_units = "km2"
+     area_units = "km^2"
     )
   ) \%>\%
   add_binary_decisions() \%>\%

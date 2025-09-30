@@ -170,7 +170,7 @@ p1 <-
     method = spec_pop_size_targets(
       pop_size = 2500,
       pop_density = sim_pop_density_per_km2,
-      density_units = "km2"
+      density_units = "km^2"
     )
   )
 
@@ -195,7 +195,7 @@ p2 <-
     method = spec_pop_size_targets(
       pop_size = target_pop_sizes,
       pop_density = sim_pop_density_per_km2,
-      density_units = "km2"
+      density_units = "km^2"
     )
   )
 

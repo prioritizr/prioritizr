@@ -203,7 +203,7 @@ p1 <-
       mean_growth_rate = sim_mean_growth_rates,
       var_growth_rates = sim_var_growth_rates,
       pop_density = sim_pop_density_per_km2,
-      density_units = "km2"
+      density_units = "km^2"
     )
   ) \%>\%
   add_binary_decisions() \%>\%

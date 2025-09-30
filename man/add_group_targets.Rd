@@ -211,8 +211,8 @@ p2 <-
   add_group_targets(
     groups = c("A", "B", "B"),
     method = list(
-      A = spec_area_targets(targets = 2, area_units = "km2"),
-      B = spec_area_targets(targets = 3, area_units = "km2")
+      A = spec_area_targets(targets = 2, area_units = "km^2"),
+      B = spec_area_targets(targets = 3, area_units = "km^2")
     )
   ) \%>\%
   add_binary_decisions() \%>\%
