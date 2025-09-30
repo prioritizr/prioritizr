@@ -5,7 +5,6 @@ add_hierarchical_approach <- function(multi_obj_list, degradation_vec) {
   # compile each problem
   compiled_list <- lapply(multi_obj_list, compile)
   
-  
   # Get PU and zone counts from the first problem
   n_pu <- compiled_list[[1]]$number_of_planning_units()
   n_zone <- compiled_list[[1]]$number_of_zones()
@@ -36,7 +35,7 @@ add_hierarchical_approach <- function(multi_obj_list, degradation_vec) {
     
     if (k > 1) {
       #load right stuff
-      prev_prob <- problems_ptrs[[k-1]]
+      prev_prob <- results[[k-1]]$problem_ptr
       prev_sol <- results[[k-1]]$solution
       d <- degradation_vec[k-1]
       
@@ -69,7 +68,8 @@ add_hierarchical_approach <- function(multi_obj_list, degradation_vec) {
     
     results[[k]] <- list(
       solution = result$x,
-      model = model_p
+      model = model_p,
+      problem_ptr = current_out
     )
   }
   
