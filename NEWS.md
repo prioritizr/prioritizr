@@ -49,6 +49,8 @@
 
 - Update `?targets` to provide a comprehensive overview of the target functions.
 - Update `boundary_matrix()` function documentation with better example.
+- Fix incorrect text in Management Zones vignette (#382). Thanks to
+  Anthony Richardson (\@ric325) for bug report.
 - Update publication record.
 
 # prioritizr 8.0.6.8

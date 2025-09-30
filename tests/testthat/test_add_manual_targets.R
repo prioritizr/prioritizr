@@ -298,3 +298,34 @@ test_that("add_manual_targets (invalid input)", {
     )
   )
 })
+
+test_that("warnings", {
+  # load data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # prepare data
+  sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_3 <- runif(nrow(sim_pu_polygons))
+  # create problem
+  p <-
+    problem(
+      sim_pu_polygons,
+      c("spp_1", "spp_2", "spp_3"),
+      cost_column = "cost",
+      feature_units = "km2"
+    ) %>%
+    add_min_set_objective()
+  # run tests
+  expect_warning(
+    add_manual_targets(
+      p,
+      data.frame(
+        feature = "spp_1",
+        sense = ">=",
+        type = "absolute",
+        target = 1
+      )
+    ),
+    "spatial units"
+  )
+})

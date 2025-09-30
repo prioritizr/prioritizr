@@ -99,7 +99,7 @@ requirements.
 For example, targets provide a mechanism for ensuring that a
 prioritization secures enough habitat to promote the long-term persistence
 of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
+or economically important ecosystem services under consideration.
 Since there is often uncertainty regarding stakeholder objectives
 (e.g., how much habitat should be protected for a given species)
 or the influence of particular target on a prioritization
@@ -196,7 +196,7 @@ the target and missing the point: target‐based conservation planning in
 context. \emph{Conservation Letters}, 2: 4--11.
 }
 \seealso{
-Other functions for adding targets
+Other functions for adding targets:
 \code{\link{add_auto_targets}()},
 \code{\link{add_group_targets}()},
 \code{\link{add_manual_targets}()},

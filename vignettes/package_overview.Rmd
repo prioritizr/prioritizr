@@ -390,14 +390,7 @@ p14 <-
 # print problem
 print(p14)
 ```
-* __Automatic targets__: Targets are set following a user-specified target setting method. Target setting methods can be specified using the following functions: `spec_absolute_targets()`, `spec_relative_targets()`,
-`spec_interp_absolute_targets()`, `spec_interp_area_targets()`,
-`spec_duran_targets()`, `spec_jung_targets()`, `spec_polak_targets()`,
-`spec_pop_size_targets()`,
-`spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`,
-`spec_rodrigues_targets()`,
-`spec_rule_targets()`, `spec_ward_targets()`, `spec_watson_targets()`, and
-`spec_wilson_targets()`. Additionally, if a targets should be calculated based on the maximum or minimum thresholds obtained from multiple target setting methods, then the `spec_max_targets()` and `spec_min_targets()` functions can be used. Note that this is designed for problems that pertain to a single management zone.
+* __Automatic targets__: Targets are set following a particular target setting method. This is provided as a convenient interface for setting targets based on published methodologies. Target setting methods can be specified using the following functions: `spec_absolute_targets()`, `spec_area_targets()`, `spec_relative_targets()`, `spec_interp_absolute_targets()`, `spec_interp_area_targets()`, `spec_duran_targets()`, `spec_jung_targets()`, `spec_polak_targets()`, `spec_pop_size_targets()`, `spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`, `spec_rodrigues_targets()`, `spec_rule_targets()`, `spec_ward_targets()`, `spec_watson_targets()`, and `spec_wilson_targets()`. Additionally, if a targets should be calculated based on the maximum or minimum thresholds obtained from multiple target setting methods, then the `spec_max_targets()` and `spec_min_targets()` functions can be used. Note that this is designed for problems that pertain to a single management zone.
 ```{r}
 # create a problem with the minimum set objective and relative targets of 10%
 # for each feature
@@ -409,14 +402,7 @@ p15 <-
 # print problem
 print(p15)
 ```
-* __Group targets__: Targets are set for groups of features following a user-specified target setting method. This is provided as a convenient alternative for `add_auto_targets()`, where each feature in the same group is assigned a target following the same method (i.e., not necessarily the same target threshold). Similar to `add_auto_targets()`, target setting methods can be specified using the following functions: `spec_absolute_targets()`, `spec_relative_targets()`,
-`spec_interp_absolute_targets()`, `spec_interp_area_targets()`,
-`spec_duran_targets()`, `spec_jung_targets()`, `spec_polak_targets()`,
-`spec_pop_size_targets()`,
-`spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`,
-`spec_rodrigues_targets()`,
-`spec_rule_targets()`, `spec_ward_targets()`, `spec_watson_targets()`, and
-`spec_wilson_targets()`. Additionally, if a targets should be calculated based on the maximum or minimum thresholds obtained from multiple target setting methods, then the `spec_max_targets()` and `spec_min_targets()` functions can be used. Note that this is designed for problems that pertain to a single management zone.
+* __Group targets__: Targets are set for groups of features following a user-specified target setting method. This is provided as a convenient alternative for `add_auto_targets()` when different target setting methods should be used for different features (e.g., when using different methods for features that correspond to species and habitat types). Similar to `add_auto_targets()`, Target setting methods can be specified using the following functions: `spec_absolute_targets()`, `spec_area_targets()`, `spec_relative_targets()`, `spec_interp_absolute_targets()`, `spec_interp_area_targets()`, `spec_duran_targets()`, `spec_jung_targets()`, `spec_polak_targets()`, `spec_pop_size_targets()`, `spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`, `spec_rodrigues_targets()`, `spec_rule_targets()`, `spec_ward_targets()`, `spec_watson_targets()`, and `spec_wilson_targets()`. Additionally, if a targets should be calculated based on the maximum or minimum thresholds obtained from multiple target setting methods, then the `spec_max_targets()` and `spec_min_targets()` functions can be used. Note that this is designed for problems that pertain to a single management zone.
 ```{r}
 # create a problem with the minimum set objective and relative targets of 10%
 # for the first three features (assigned to the group a) and 20% targets

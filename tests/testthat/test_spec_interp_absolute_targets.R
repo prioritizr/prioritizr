@@ -488,3 +488,31 @@ test_that("invalid inputs", {
     "missing"
   )
 })
+
+test_that("warnings", {
+  # load data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # prepare data
+  sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_3 <- runif(nrow(sim_pu_polygons))
+  # create problem
+  p <-
+    problem(
+      sim_pu_polygons,
+      c("spp_1", "spp_2", "spp_3"),
+      cost_column = "cost",
+      feature_units = "km2"
+    ) %>%
+    add_min_set_objective()
+  # run tests
+  expect_warning(
+    add_auto_targets(
+      p,
+      spec_interp_absolute_targets(
+        4000, 0.4, 2000, "max", 5000, 0.1, 6000, "min", 7000, "linear"
+      )
+    ),
+    "spatial units"
+  )
+})

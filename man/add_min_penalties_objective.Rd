@@ -127,7 +127,7 @@ Also see \link{targets} for an overview of all functions for adding targets.
 Additionally, see \link{penalties} for an overview of all functions for adding
 penalties.
 
-Other functions for adding objectives
+Other functions for adding objectives:
 \code{\link{add_max_cover_objective}()},
 \code{\link{add_max_features_objective}()},
 \code{\link{add_max_phylo_div_objective}()},

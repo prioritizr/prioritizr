@@ -3,24 +3,24 @@
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
 Briefly, this method can be used to set targets based on
-criteria pertaining to current size of geographic distribution
-(criterion B) and reduction in geographic distribution (criterion A).
+criteria pertaining to geographic distribution size
+(criterion B) and reductions in geographic distribution size (criterion A).
 To help prevent widespread features from obscuring priorities for
 rare features, targets are capped following Butchart et al. (2015).
 This method may be suitable for ecosystem protection at global and
 and national scales.
-Note that this function is designed to be used within add_auto_targets()
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:description" content="Specify targets based on criteria from the
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
 Briefly, this method can be used to set targets based on
-criteria pertaining to current size of geographic distribution
-(criterion B) and reduction in geographic distribution (criterion A).
+criteria pertaining to geographic distribution size
+(criterion B) and reductions in geographic distribution size (criterion A).
 To help prevent widespread features from obscuring priorities for
 rare features, targets are capped following Butchart et al. (2015).
 This method may be suitable for ecosystem protection at global and
 and national scales.
-Note that this function is designed to be used within add_auto_targets()
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -79,13 +79,13 @@ and add_group_targets()."><meta property="og:image" content="https://prioritizr.
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
 Briefly, this method can be used to set targets based on
-criteria pertaining to current size of geographic distribution
-(criterion B) and reduction in geographic distribution (criterion A).
+criteria pertaining to geographic distribution size
+(criterion B) and reductions in geographic distribution size (criterion A).
 To help prevent widespread features from obscuring priorities for
 rare features, targets are capped following Butchart <em>et al.</em> (2015).
 This method may be suitable for ecosystem protection at global and
 and national scales.
-Note that this function is designed to be used within <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
+Note that this function is designed to be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
 and <code><a href="add_group_targets.html">add_group_targets()</a></code>.</p>
     </div>
 
@@ -110,7 +110,7 @@ and <code><a href="add_group_targets.html">add_group_targets()</a></code>.</p>
 <dd><p><code>character</code> value denoting the IUCN Red List threat
 status used for target setting.
 Available options include <code>"CR"</code> (Critically Endangered),
-<code>"EN"</code> (Endangered), and "VU"` (Vulnerable).</p></dd>
+<code>"EN"</code> (Endangered), and <code>"VU"</code> (Vulnerable).</p></dd>
 
 
 <dt id="arg-criterion-a">criterion_a<a class="anchor" aria-label="anchor" href="#arg-criterion-a"></a></dt>
@@ -142,11 +142,12 @@ uplift as a proportion. Defaults to 0 (i.e., 0%).</p></dd>
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p><code>character</code> indicating how the target thresholds
-should be calculated based on values from criterion A and B.
+should be calculated based on values derived from Criterion A and and
+Criterion B.
 Available options include <code>"min"</code> and <code>"max"</code>.
-For example, a value of <code>"max"</code> means that the target threshold
+For example, <code>method = "max"</code> means that the target threshold
 should be calculated as a maximum of the values from
-criterion A and B.
+Criterion A and Criterion B.
 Defaults to <code>"max"</code> as a precaution.</p></dd>
 
 
@@ -166,7 +167,9 @@ Defaults to <code>"km^2"</code>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets.</p>
+    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets that
+can be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code> and <code><a href="add_group_targets.html">add_group_targets()</a></code>
+to update the targets for a <code><a href="problem.html">problem()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -178,9 +181,9 @@ scales (e.g, local or county scales).
 For example, if this method is applied to
 smaller geographic scales, then the resulting prioritizations
 may select an overly large percentage of the study area,
-or be biased towards over-representing common and widespread species.
+or be biased towards over-representing common and widespread ecosystems.
 This is because the target thresholds were developed based on
-criteria for promoting the long-term persistence of entire species.
+criteria for promoting the long-term persistence of entire ecosystems.
 As such, if you are working at smaller scales, it is recommended to set
 thresholds based on that criteria are appropriate to the spatial extent
 of the planning region.
@@ -202,29 +205,28 @@ specified threat status (per <code>status</code>, see below for details),
 \(b\) the threshold value from Criterion B
 based on the specified threat status (per <code>status</code>, see below for details),
 \(p\) the percentage uplift as a proportion (per <code>prop_uplift</code>),
-and \(c\) the target cap (per <code>cap_threshold</code>).
-Additionally, let
-\(\box()\) denote either \(max()\) or \(min()\) (per <code>method</code>).
-Given this terminology, the target threshold (\(t\)) for a feature
+\(c\) the target cap (per <code>cap_area_target</code> and <code>area_units</code>), and
+\(m()\) denote either \(max()\) or \(min()\) (per <code>method</code>).
+Given this terminology, the target threshold (\(t\)) for the feature
 is calculated as follows.
 $$
-t = min(min(\box(b, f \times ((1 + p) \times (1 - a))), c), f)
+t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)
 $$</p>
-<p>Additionally, \(a\) is equal to one of the following values depending on
-<code>status</code> and <code>criterion_a</code>.
-Note that if <code>criterion_a</code> has a value of <code>"A2a"</code> or <code>"A2b", then \eqn{a} is assigned the same value as if had a value of </code>"A1"`.</p><ul><li><p>If <code>status = "CR"</code> and <code>criterion_a = "A1"</code>, then \(a =\) 80%.</p></li>
+<p>Here \(a\) and \(b\) are equal to one of the following values
+depending on <code>status</code>, <code>criterion_a</code>, and <code>criterion_b</code>.
+Note that if <code>criterion_a</code> has a value of <code>"A2a"</code> or <code>"A2b"</code>, then
+\(a\) is assigned the same value as if it were <code>"A1"</code>.</p><ul><li><p>If <code>status = "CR"</code> and <code>criterion_a = "A1"</code>, then \(a =\) 80%.</p></li>
 <li><p>If <code>status = "EN"</code> and <code>criterion_a = "A1"</code>, then \(a =\) 50%.</p></li>
 <li><p>If <code>status = "VU"</code> and <code>criterion_a = "A1"</code>, then \(a =\) 30%.</p></li>
 <li><p>If <code>status = "CR"</code> and <code>criterion_a = "A3"</code>, then \(a =\) 90%.</p></li>
 <li><p>If <code>status = "EN"</code> and <code>criterion_a = "A3"</code>, then \(a =\) 70%.</p></li>
 <li><p>If <code>status = "VU"</code> and <code>criterion_a = "A3"</code>, then \(a =\) 30%.</p></li>
-</ul><p>Additionally, \(b\) is equal to one of the following values
-depending on <code>status</code> and <code>criterion_b</code>.</p><ul><li><p>If <code>status = "CR"</code> and <code>criterion_a = "B1"</code>, then \(b =\) 2,000 km<sup>2</sup>.</p></li>
-<li><p>If <code>status = "EN"</code> and <code>criterion_a = "B1"</code>, then \(b =\) 20,000 km<sup>2</sup>.</p></li>
-<li><p>If <code>status = "VU"</code> and <code>criterion_a = "B1"</code>, then \(b =\) 50,000 km<sup>2</sup>.</p></li>
-<li><p>If <code>status = "CR"</code> and <code>criterion_a = "B2"</code>, then \(b =\) 200 km<sup>2</sup>.</p></li>
-<li><p>If <code>status = "EN"</code> and <code>criterion_a = "B2"</code>, then \(b =\) 2,000 km<sup>2</sup>.</p></li>
-<li><p>If <code>status = "VU"</code> and <code>criterion_a = "B2"</code>, then \(b =\) 5,000 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "CR"</code> and <code>criterion_b = "B1"</code>, then \(b =\) 2,000 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "EN"</code> and <code>criterion_b = "B1"</code>, then \(b =\) 20,000 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "VU"</code> and <code>criterion_b = "B1"</code>, then \(b =\) 50,000 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "CR"</code> and <code>criterion_b = "B2"</code>, then \(b =\) 200 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "EN"</code> and <code>criterion_b = "B2"</code>, then \(b =\) 2,000 km<sup>2</sup>.</p></li>
+<li><p>If <code>status = "VU"</code> and <code>criterion_b = "B2"</code>, then \(b =\) 5,000 km<sup>2</sup>.</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="data-calculations">Data calculations<a class="anchor" aria-label="anchor" href="#data-calculations"></a></h2>
@@ -232,70 +234,17 @@ depending on <code>status</code> and <code>criterion_b</code>.</p><ul><li><p>If 
 
 <p>This function involves calculating targets based on the spatial extent
 of the features in <code>x</code>.
-As such, this function may need to make particular assumptions depending
-on the data used to specify the planning units and features in <code>x</code>.
-If possible, when building <code>x</code> with <code><a href="problem.html">problem()</a></code>, it is recommended to specify
-<code>features</code> as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object to ensure correctness.
-Although this function can be used to specify targets for features
-in other data formats, you must take care to ensure that the information
-specifying the amount of each feature are in units of 1
-km<sup>2</sup>.
-To help ensure that you are aware of this limitation, this function will
-produce a warning to alert you when the features in <code>x</code> belong to such
-data formats.
-If you are confident that your data are in the correct units,
-then you can safely ignore this warning.
-Below we provide details for ensuring that the targets are calculated
-correctly.</p>
-<dl><dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units and <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> features</dt>
-<dd><p>This function will automatically ensure that the targets are calculated
-correctly. Given this, it is recommended to specify <code>features</code> in either
-of these when building a <code><a href="problem.html">problem()</a></code>.</p></dd>
-
-
-<dt><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units and <code>character</code> features</dt>
-<dd><p>Here, the argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify
-which columns of the planning unit data denote the amount of each feature
-present within each planning unit.
-All of these columns must contain values in
-units of 1 km km<sup>2</sup>.
-For example, if <code>features = c("spp1", "spp2", "spp3")</code>, then the columns
-<code>"spp1"</code>, <code>"spp2"</code>, and <code>"spp3"</code> of the planning unit denote data the amount
-of the first, second, and third features (respectively) present within each
-planning unit. If the column <code>"spp1"</code> has a value of 5 in the first row
-of the planning unit data, then this means the first planning unit
-contains 5 km km<sup>2</sup>
-of habitat for the feature <code>"spp1"</code>.</p></dd>
-
-
-<dt><code>x</code> has <code>data.frame</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij</code> must contain a <code>data.frame</code>
-with the columns <code>"pu"</code>, <code>"species"</code>, <code>"amount"</code>. For a given row,
-the <code>"pu"</code> column contains an <code>integer</code> value denoting the identifier
-for the planning unit,
-the <code>"species"</code> column contains an <code>integer</code> value denoting the
-identifier for the feature,
-and <code>"amount" contains a </code>numeric<code>value denoting the amount of the the feature (per the</code>"species"<code>column) that is present in the planning unit (per</code>"pu"<code>column). Given this, the "amount" column must contain values that in units of 1 km \ifelse{html}{\out{km&lt;sup&gt;2&lt;/sup&gt;}}{\eqn{km^2}}. For example, if the argument to</code>rij<code>has a row where the</code>"pu"<code>column has a value of 1, the</code>"species"<code>column has a value of 2, and the</code>"amount"` column has a value of 3: then this means that the
-planning unit with an identifier of 1 contains 3
-km km<sup>2</sup> of the feature
-associated with the identifier of 2.</p></dd>
-
-
-<dt><code>x</code> has <code>numeric</code> or <code>matrix</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij_matrix</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij_matrix</code> must contain a <code>matrix</code>
-(or <code>list</code> of <code>matrix</code> objects) that contains <code>numeric</code> values in units of 1
-km km<sup>2</sup>.</p></dd>
-
-
-</dl></div>
+Although it can be readily applied to <code><a href="problem.html">problem()</a></code> objects that
+have the feature data provided as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object,
+you will need to specify the spatial units for the features
+when initializing the <code><a href="problem.html">problem()</a></code> objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a <code>data.frame</code> or <code>character</code> vector,
+then you will need to specify an argument to <code>feature_units</code> when
+using the <code><a href="problem.html">problem()</a></code> function.
+See the Examples section of the documentation for <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
+for a demonstration of specifying the spatial units for features.</p>
+    </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -315,7 +264,7 @@ Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other methods:
+    <div class="dont-index"><p>Other target setting methods:
 <code><a href="spec_absolute_targets.html">spec_absolute_targets</a>()</code>,
 <code><a href="spec_area_targets.html">spec_area_targets</a>()</code>,
 <code><a href="spec_duran_targets.html">spec_duran_targets</a>()</code>,
@@ -337,8 +286,76 @@ Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#TODO</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data with features that are ecosystem types</span></span></span>
+<span class="r-in"><span><span class="va">tas_pu</span> <span class="op">&lt;-</span> <span class="fu">prioritizrdata</span><span class="fu">::</span><span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/tas_data.html" class="external-link">get_tas_pu</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">tas_features</span> <span class="op">&lt;-</span> <span class="fu">prioritizrdata</span><span class="fu">::</span><span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/tas_data.html" class="external-link">get_tas_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create base problem</span></span></span>
+<span class="r-in"><span><span class="va">p0</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># note that the following targets will be specified based on subcriterion</span></span></span>
+<span class="r-in"><span><span class="co"># A2 under the assumption that protected areas will be effectively managed,</span></span></span>
+<span class="r-in"><span><span class="co"># and B2 because the feature data (per tas_features) characterize</span></span></span>
+<span class="r-in"><span><span class="co"># area of occupancy</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with targets based on criteria from the IUCN Red List of</span></span></span>
+<span class="r-in"><span><span class="co"># Ecosystems for the Endangered threat status with a 0% uplift</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_auto_targets.html">add_auto_targets</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method <span class="op">=</span> <span class="fu">spec_rl_ecosystem_targets</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      status <span class="op">=</span> <span class="st">"EN"</span>,</span></span>
+<span class="r-in"><span>      criterion_a <span class="op">=</span> <span class="st">"A1"</span>,</span></span>
+<span class="r-in"><span>      criterion_b <span class="op">=</span> <span class="st">"B2"</span>,</span></span>
+<span class="r-in"><span>      prop_uplift <span class="op">=</span> <span class="fl">0</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with targets based on criteria from the IUCN Red List of</span></span></span>
+<span class="r-in"><span><span class="co"># Ecosystems for the Endangered threat status with a 20% uplift</span></span></span>
+<span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_auto_targets.html">add_auto_targets</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method <span class="op">=</span> <span class="fu">spec_rl_ecosystem_targets</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      status <span class="op">=</span> <span class="st">"EN"</span>,</span></span>
+<span class="r-in"><span>      criterion_a <span class="op">=</span> <span class="st">"A1"</span>,</span></span>
+<span class="r-in"><span>      criterion_b <span class="op">=</span> <span class="st">"B2"</span>,</span></span>
+<span class="r-in"><span>      prop_uplift <span class="op">=</span> <span class="fl">0.2</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with targets based on criteria from the IUCN Red List of</span></span></span>
+<span class="r-in"><span><span class="co"># Ecosystems for the Vulnerable threat status with a 20% uplift</span></span></span>
+<span class="r-in"><span><span class="va">p3</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="va">p0</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_auto_targets.html">add_auto_targets</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method <span class="op">=</span> <span class="fu">spec_rl_ecosystem_targets</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      status <span class="op">=</span> <span class="st">"VU"</span>,</span></span>
+<span class="r-in"><span>      criterion_a <span class="op">=</span> <span class="st">"A1"</span>,</span></span>
+<span class="r-in"><span>      criterion_b <span class="op">=</span> <span class="st">"B2"</span>,</span></span>
+<span class="r-in"><span>      prop_uplift <span class="op">=</span> <span class="fl">0.2</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problems</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">tas_pu</span></span></span>
+<span class="r-in"><span><span class="va">s</span><span class="op">$</span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span><span class="op">$</span><span class="va">solution_1</span></span></span>
+<span class="r-in"><span><span class="va">s</span><span class="op">$</span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span><span class="op">$</span><span class="va">solution_1</span></span></span>
+<span class="r-in"><span><span class="va">s</span><span class="op">$</span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span><span class="op">$</span><span class="va">solution_1</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="va">s</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"s1"</span>, <span class="st">"s2"</span>, <span class="st">"s3"</span><span class="op">)</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solutions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_rl_ecosystem_targets-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

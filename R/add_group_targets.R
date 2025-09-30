@@ -16,12 +16,11 @@ NULL
 #' @param method `list` of name-value pairs that describe the target setting
 #' method for each group. Here, the names of `method` correspond to different
 #' values in `groups`. Additionally, the elements of `method` should be
-#' the `character` names of target setting methods, or objects used to
-#' specify target setting methods. See Target methods below for
-#' more information.
+#' the `character` names of target setting methods, or objects
+#' ([`Method-class`]) used to specify target setting methods.
+#' See Target methods below for more information.
 #'
 #' @inheritSection add_auto_targets Target setting
-#' @inheritSection add_auto_targets Data calculations
 #'
 #' @section Target methods:
 #' Here `method` is used to specify a target setting method for each group.
@@ -46,7 +45,6 @@ NULL
 #' ```{r child = "man/rmd/target_method_objects.md"}
 #' ```
 #'
-#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_auto_targets Data calculations
 #'
 #' @inherit add_relative_targets return seealso
@@ -80,14 +78,15 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
+#' sim_pu_polygons <- get_sim_pu_polygons()
 #'
 #' # create grouping data, wherein each feature will be randomly
 #' # assigned to the group A, B, C, or D
 #' sim_groups <- sample(
-#'   c("A", "B", "C", "D"), terra::nlyr(sim_complex_features), replace = TRUE)
+#'   c("A", "B", "C", "D"), terra::nlyr(sim_complex_features), replace = TRUE
 #' )
 #'
 #' # create problem where each feature in group A is assigned a 20% target,
@@ -99,8 +98,9 @@ NULL
 #'   problem(sim_complex_pu_raster, sim_complex_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_group_targets(
-#'     groups = list(
-#'       A = spec_relative_targets(0.2).
+#'     groups = sim_groups,
+#'     method = list(
+#'       A = spec_relative_targets(0.2),
 #'       B = spec_jung_targets(),
 #'       C = spec_ward_targets(),
 #'       D = spec_rodrigues_targets()
@@ -113,7 +113,50 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
+#'
+#' # here we will show how to set the feature_units when the feature
+#' # are not terra::rast() objects. in this example, we have planning units
+#' # stored in an sf object (i.e., sim_pu_polygons) and the feature data will
+#' # be stored as columns in the sf object.
+#'
+#' # we will start by simulating feature data for the planning units.
+#' # in particular, the simulated values will describe the amount of habitat
+#' # for each feature expressed as acres (e.g., a value of 30 means 30 acres).
+#' sim_pu_polygons$feature_1 <- runif(nrow(sim_pu_polygons), 0, 500)
+#' sim_pu_polygons$feature_2 <- runif(nrow(sim_pu_polygons), 0, 600)
+#' sim_pu_polygons$feature_3 <- runif(nrow(sim_pu_polygons), 0, 300)
+#'
+#' # we will now build a problem with these data and specify the
+#' # the feature units as acres because that those are the units we
+#' # used for simulating the data. also, we will specify targets
+#' # of 2 km^2 of habitat for the first feature, and 3 km^2 for the
+#' # remaining two features by assigning the features to groups.
+#' # although the feature units are acres, the function is able to able
+#' # to automatically convert the units.
+#' p2 <-
+#'   problem(
+#'     sim_pu_polygons,
+#'     c("feature_1", "feature_2", "feature_3"),
+#'     cost_column = "cost",
+#'     feature_units = "acres"
+#'   ) %>%
+#'   add_min_set_objective() %>%
+#'   add_group_targets(
+#'     groups = c("A", "B", "B"),
+#'     method = list(
+#'       A = spec_area_targets(targets = 2, area_units = "km2"),
+#'       B = spec_area_targets(targets = 3, area_units = "km2")
+#'     )
+#'   ) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2[, "solution_1"], axes = FALSE)
 #' }
 #' @name add_group_targets
 NULL

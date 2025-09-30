@@ -21,7 +21,7 @@ NULL
 #' features are assigned targets assuming that `targets`
 #' are in the same units.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
 #'
 #' @section Mathematical formulation:
 #' This method provides an approach for setting target thresholds based
@@ -31,8 +31,8 @@ NULL
 #' range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}), and
 #' \eqn{a} the specified area-based target
 #' (expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
-#' per `targets` and `area_units`)
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' per `targets` and `area_units`).
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
 #' is calculated as follows.
 #' \deqn{
 #' t = min(f, a)
@@ -49,7 +49,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -60,23 +60,23 @@ NULL
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
 #'
-#' # create problem with targets of 5 km^2 for each feature
+#' # create problem with targets of 50 km^2 for each feature
 #' p1 <-
 #'   p0 %>%
 #'   add_auto_targets(
-#'     method = spec_area_targets(targets = 5, area_units = "km2")
+#'     method = spec_area_targets(targets = 50, area_units = "km2")
 #'   )
 #'
 #' # solve problem
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, main = "solution based on 5 km^2 targets", axes = FALSE)
+#' plot(s1, main = "solution based on constant targets", axes = FALSE)
 #'
 #' # targets can also be specified for each feature separately.
 #' # to demonstrate this, we will set a target value for each
-#' # feature based on a random number between 500 and 3000 hectares
-#' target_values <- runif(terra::nlyr(sim_complex_features), 500, 3000)
+#' # feature based on a random number between 5000 and 30000 hectares
+#' target_values <- runif(terra::nlyr(sim_complex_features), 5000, 30000)
 #'
 #' # create problem with targets defined separately for each feature
 #' p2 <-
@@ -151,7 +151,7 @@ calc_area_targets <- function(x, features, targets, area_units,
   fa <- x$feature_abundances_km2_in_total_units()[features, 1]
 
   # calculate targets as km^2
-  targets <- as_km2(targets, area_units)
+  targets <- as_km2(targets[features], area_units)
 
   # clamp targets to feature abundances
   targets <- pmin(targets, fa)

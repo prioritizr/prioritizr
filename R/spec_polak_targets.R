@@ -9,7 +9,7 @@ NULL
 #' interpolation methods.
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @inheritParams spec_rodrigues_targets
@@ -18,25 +18,6 @@ NULL
 #' area for identifying common features.
 #' Defaults to 10000
 #' (i.e., 10,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
-#'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on the spatial
-#' extent of the features.
-#' By default, this method identifies rare features as those with a
-#' spatial distribution smaller than 1,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per `rare_threshold`)
-#' and common features as those with a spatial distribution
-#' larger than 10,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per `common_threshold`).
-#' Given this, rare features are assigned a target threshold
-#' of 100% (per `rare_relative_target`), common features
-#' are assigned a target threshold of 10% (per `common_relative_target`),
-#' and features with a spatial distribution that is between
-#' the area-based thresholds used to identify rare and common features are
-#' assigned a target threshold through linear interpolation.
-#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds.
 #'
 #' @details
 #' This target setting method was designed to protect species in national-
@@ -51,15 +32,37 @@ NULL
 #' may select an overly large percentage of the study area,
 #' or be biased towards over-representing common and widespread species.
 #' This is because the thresholds for defining rare and common
-#' features (i.e., `rare_threshold` and `cap_threshold`)
+#' features (i.e., `rare_area_threshold` and `common_area_threshold`)
 #' were originally developed based on criteria for national-scales.
 #' As such, if you working at a different scale, you may need to calibrate
-#' these thresholds based on the spatial extent of the planning region
+#' these thresholds based on the spatial extent of the planning region.
 #' Please note that this function is provided as convenient method to
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on the spatial
+#' extent of the features.
+#' By default, this method identifies rare features as those with a
+#' spatial distribution smaller than 1,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+#' (per `rare_area_threshold` and `area_units`)
+#' and common features as those with a spatial distribution
+#' larger than 10,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+#' (per `common_area_threshold` and `area_units`).
+#' Given this, rare features are assigned a target threshold
+#' of 100% (per `rare_relative_target`), common features
+#' are assigned a target threshold of 10% (per `common_relative_target`),
+#' and features with a spatial distribution that is between
+#' the area-based thresholds used to identify rare and common features are
+#' assigned a target threshold through linear interpolation.
+#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
+#' thresholds (per `cap_area_threshold` and `area_units`).
+#'
 #' @inherit spec_jung_targets return seealso
 #'
 #' @family methods
@@ -98,7 +101,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -114,7 +117,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_polak_targets <- function(rare_area_threshold = 1000,

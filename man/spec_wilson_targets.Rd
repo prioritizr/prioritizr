@@ -21,7 +21,7 @@ feature within priority areas
 If a single \code{numeric} value is specified, then all
 features are assigned targets based on the same average population growth
 rate.
-See Population data section for more details.}
+See Population growth section for more details.}
 
 \item{var_growth_rates}{\code{numeric} vector that specifies the
 variance in population growth rate that would be expected for each
@@ -30,17 +30,19 @@ feature within priority areas
 If a single \code{numeric} value is specified, then all
 features are assigned targets assuming the same variance in population
 growth rate.
-See Population data section for more details.}
+See Population growth section for more details.}
 
 \item{pop_density}{\code{numeric} vector that specifies the population density
 for each feature. If a single \code{numeric} value is specified, then all
-features are assigned targets assuming the same population density factor.
+features are assigned targets assuming the same population density.
 See Population density section for more details.}
 
 \item{density_units}{\code{character} vector that specifies the area-based units
 for the population density values. For example, units can be used to
 express that population densities are in terms of individuals per hectare
-(\verb{"ha"), acre (}"acre"\verb{), or \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (}km^2\verb{). If a single }character` value is specified, then all
+(\code{"ha"}), acre (\code{"acre"}), or
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (\code{"km^2"}).
+If a single \code{character} value is specified, then all
 features are assigned targets assuming that population density values
 are in the same units.
 See Population density section for more details.}
@@ -56,7 +58,9 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
@@ -66,7 +70,7 @@ target thresholds based on the amount
 of habitat required to sustain populations for 100,000 years.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
@@ -84,15 +88,18 @@ Please note that this function is provided as convenient method to
 set targets for problems with a single management zone, and cannot
 be used for those with multiple management zones.
 }
-\section{Population data}{
+\section{Population growth}{
 
-Although the package does not provide population growth rate data,
-such data can be obtained from published databases or approximated
-from physiological trait databases.
-For example, Wilson \emph{et al.} (2010) detail calculations to approximate
+This method requires population growth rate data.
+Although the package does not provide such data,
+population growth rate estimates can be obtained from published datasets
+(e.g., Brook \emph{et al.} 2006).
+Additionally, population growth rate data may be approximated from
+physiological traits
+(e.g., such as body mass, Sinclair 1996; Hilbers \emph{et al.} 2016).
+Indeed, Wilson \emph{et al.} (2010) detail equations for approximating
 average population growth rate and variance in population growth rate
-for mammal species based on body mass, and Santini \emph{et al.} (2022) provide
-body mass data for mammal species globally.
+for mammal species based on body mass (based on Sinclair 1996).
 }
 
 \section{Mathematical formulation}{
@@ -108,12 +115,15 @@ range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}),
 (i.e.,
 number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
 per \code{pop_density} and \code{density_units}),
-\eqn{r} the mean population growth rate of the feature,
-\eqn{sigma^2} the variance in population growth rate of the feature,
-\eqn{b} is a constant calculated from \eqn{r} and \eqn{sigma^2},
-, and \eqn{j} the target cap (expressed as
-\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per \code{cap_area_target}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+\eqn{r} the mean population growth rate of the feature
+inside protected areas (per \code{mean_growth_rates}),
+\eqn{\sigma^2} the variance in population growth rate of the feature
+inside protected areas (per \code{var_growth_rates}),
+\eqn{b} is a constant calculated from \eqn{r} and \eqn{\sigma^2},
+and \eqn{j} the target cap (expressed as
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
+per \code{cap_area_target} and \code{area_units}).
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
 t = min(f, min(j, d \times k)) \\
@@ -126,10 +136,27 @@ b = (2 * r/sigma^2) - 1
 }
 }
 
+\section{Data calculations}{
+
+This function involves calculating targets based on the spatial extent
+of the features in \code{x}.
+Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
+have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
+you will need to specify the spatial units for the features
+when initializing the \code{\link[=problem]{problem()}} objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a \code{data.frame} or \code{character} vector,
+then you will need to specify an argument to \code{feature_units} when
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
+}
+
 \section{Population density}{
 
-Population density data are expressed as number of individuals per
-unit area. For example, if a species has 200 individuals per hectare,
+This method requires population density data expressed as the number of
+individuals per unit area.
+For example, if a species has 200 individuals per hectare,
 then this can be specified with \code{pop_density = 200} and
 \code{density_units = "ha"}.
 Alternatively, if a species has a population density where one individual
@@ -148,66 +175,24 @@ obtained from published databases
 (e.g., Santini \emph{et al.} 2022, 2023, 2024; Witting \emph{et al.} 2024).
 }
 
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
-}
-
-\section{Data calculations}{
-
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
-have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
-you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
-are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
-then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
-}
-
 \examples{
 \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
 # simulate mean population growth rate data for each feature
-sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 4.7)
+sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 3.0)
 
 # simulate variance in population growth rate data for each feature
-sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 0.6, 2.8)
+sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 1.0, 2.0)
 
 # simulate population density data for each feature,
 # expressed as number of individuals per km^2
-sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 100)
 
 # create problem with targets based on Wilson et al. (2010)
 p1 <-
@@ -228,10 +213,13 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
+Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and
+global extinction risk are unrelated. Ecology Letters 9:375--382.
+
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
 Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
 Comeros‐Raynal MT, Cornell J, Ficetola GF, Fishpool LDC, Fuller RA,
@@ -242,20 +230,41 @@ Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 national and global conservation area targets. \emph{Conservation Letters},
 8: 329--337.
 
+Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
+Huijbregts MAJ (2016) Setting population targets for mammals using body mass
+as a predictor of population persistence. Conservation Biology 31:385--393.
+
 IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 Available at \url{https://www.iucnredlist.org}. Accessed on 23 July 2025.
+
+Santini L, Mendez Angarita VY, Karoulis C, Fundarò D, Pranzini N, Vivaldi C,
+Zhang T, Zampetti A, Gargano SJ, Mirante D, Paltrinieri L (2024)
+TetraDENSITY 2.0---A database of population density estimates in tetrapods.
+\emph{Global Ecology and Biogeography}, 33:e13929.
 
 Santini L, Benítez‐López A, Dormann CF, Huijbregts MAJ (2022) Population
 density estimates for terrestrial mammal species.
 \emph{Global Ecology and Biogeography}, 31:978--994.
 
+Santini L, Tobias JA, Callaghan C, Gallego‐Zamorano J, Benítez‐López A
+(2023) Global patterns and predictors of avian population density.
+\emph{Global Ecology and Biogeography}, 32:1189---1204.
+
+Sinclair ARE (1996) Mammal populations: fluctuation, regulation, life
+history theory and their implications for conservation.
+In Frontiers of Population Ecology (eds RB Floyd, AW Sheppard, PJ de
+Barro). CSIRO Publishing. Melbourne, Australia.
+
 Wilson KA, Meijaard E, Drummond S, Grantham HS, Boitani L, Catullo G,
 Christie L, Dennis R, Dutton I, Falcucci A, Maiorano L, Possingham HP,
 Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 production landscapes. \emph{Ecological Applications}, 20:1721--1732.
+
+Witting L (2024) Population dynamic life history models of the birds and
+mammals of the world. \emph{Ecological Informatics}, 80:102492.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

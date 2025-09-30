@@ -143,7 +143,7 @@ Here, data describe the spatial distribution of five species.
 Each layer corresponds to a different species, and
 cell values indicate habitat suitability.}
 
-\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the ten species.}
+\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the five species.}
 
 }
 }

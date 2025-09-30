@@ -27,10 +27,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -38,7 +39,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -70,7 +71,7 @@ p3 <-
 p4 <-
   p0 \%>\%
   add_auto_targets(
-    method = spec_max_target(
+    method = spec_max_targets(
       spec_relative_targets(0.2),
       spec_jung_targets(),
       spec_polak_targets()
@@ -86,7 +87,7 @@ plot(s, axes = FALSE)
 }
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

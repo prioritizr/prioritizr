@@ -14,9 +14,9 @@ add_group_targets(x, groups, method)
 \item{method}{\code{list} of name-value pairs that describe the target setting
 method for each group. Here, the names of \code{method} correspond to different
 values in \code{groups}. Additionally, the elements of \code{method} should be
-the \code{character} names of target setting methods, or objects used to
-specify target setting methods. See Target methods below for
-more information.}
+the \code{character} names of target setting methods, or objects
+(\code{\linkS4class{Method}}) used to specify target setting methods.
+See Target methods below for more information.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.
@@ -86,14 +86,13 @@ For convenience, these options can also be specified with lower case letters (e.
 Note that target setting methods that require additional data or parameters cannot be specified with \code{character} values.
 
 The following functions can be used to create an object for specifying
-a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targets()}}, \code{\link[=spec_relative_targets]{spec_relative_targets()}},
-\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}}, \code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targets()}}, \code{\link[=spec_relative_targets]{spec_relative_targets()}}, \code{\link[=spec_area_targets]{spec_area_targets()}}, \code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}}, \code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
 \code{\link[=spec_duran_targets]{spec_duran_targets()}}, \code{\link[=spec_jung_targets]{spec_jung_targets()}}, \code{\link[=spec_polak_targets]{spec_polak_targets()}},
 \code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
 \code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}}, \code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
 \code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
 \code{\link[=spec_rule_targets]{spec_rule_targets()}}, \code{\link[=spec_ward_targets]{spec_ward_targets()}}, \code{\link[=spec_watson_targets]{spec_watson_targets()}},
-\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}.
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}, \code{\link[=spec_min_targets]{spec_min_targets()}}, and \code{\link[=spec_max_targets]{spec_max_targets()}}.
 }
 
 \section{Target setting}{
@@ -114,32 +113,7 @@ requirements.
 For example, targets provide a mechanism for ensuring that a
 prioritization secures enough habitat to promote the long-term persistence
 of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
-
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
+or economically important ecosystem services under consideration.
 Since there is often uncertainty regarding stakeholder objectives
 (e.g., how much habitat should be protected for a given species)
 or the influence of particular target on a prioritization
@@ -150,27 +124,16 @@ prioritizations based on different target scenarios.
 
 \section{Data calculations}{
 
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
+Many of the functions for specifying target setting methods involve
+calculating targets based on the spatial extent of the features in \code{x}
+(e.g., \code{\link[=spec_jung_targets]{spec_jung_targets()}}, [spec_rodrigues_targets(), and others).
+Although this function for adding targets can be readily applied to
+\code{\link[=problem]{problem()}} objects that
 have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
 you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
+when building a \code{\link[=problem]{problem()}} object if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
-then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
-
-
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
-have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
-you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
-are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
 demonstration of using the \code{feature_units} parameter.
@@ -181,14 +144,15 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
+sim_pu_polygons <- get_sim_pu_polygons()
 
 # create grouping data, wherein each feature will be randomly
 # assigned to the group A, B, C, or D
 sim_groups <- sample(
-  c("A", "B", "C", "D"), terra::nlyr(sim_complex_features), replace = TRUE)
+  c("A", "B", "C", "D"), terra::nlyr(sim_complex_features), replace = TRUE
 )
 
 # create problem where each feature in group A is assigned a 20\% target,
@@ -200,8 +164,9 @@ p1 <-
   problem(sim_complex_pu_raster, sim_complex_features) \%>\%
   add_min_set_objective() \%>\%
   add_group_targets(
-    groups = list(
-      A = spec_relative_targets(0.2).
+    groups = sim_groups,
+    method = list(
+      A = spec_relative_targets(0.2),
       B = spec_jung_targets(),
       C = spec_ward_targets(),
       D = spec_rodrigues_targets()
@@ -214,7 +179,50 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
+
+# here we will show how to set the feature_units when the feature
+# are not terra::rast() objects. in this example, we have planning units
+# stored in an sf object (i.e., sim_pu_polygons) and the feature data will
+# be stored as columns in the sf object.
+
+# we will start by simulating feature data for the planning units.
+# in particular, the simulated values will describe the amount of habitat
+# for each feature expressed as acres (e.g., a value of 30 means 30 acres).
+sim_pu_polygons$feature_1 <- runif(nrow(sim_pu_polygons), 0, 500)
+sim_pu_polygons$feature_2 <- runif(nrow(sim_pu_polygons), 0, 600)
+sim_pu_polygons$feature_3 <- runif(nrow(sim_pu_polygons), 0, 300)
+
+# we will now build a problem with these data and specify the
+# the feature units as acres because that those are the units we
+# used for simulating the data. also, we will specify targets
+# of 2 km^2 of habitat for the first feature, and 3 km^2 for the
+# remaining two features by assigning the features to groups.
+# although the feature units are acres, the function is able to able
+# to automatically convert the units.
+p2 <-
+  problem(
+    sim_pu_polygons,
+    c("feature_1", "feature_2", "feature_3"),
+    cost_column = "cost",
+    feature_units = "acres"
+  ) \%>\%
+  add_min_set_objective() \%>\%
+  add_group_targets(
+    groups = c("A", "B", "B"),
+    method = list(
+      A = spec_area_targets(targets = 2, area_units = "km2"),
+      B = spec_area_targets(targets = 3, area_units = "km2")
+    )
+  ) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+plot(s2[, "solution_1"], axes = FALSE)
 }
 }
 \references{
@@ -240,7 +248,7 @@ requires simultaneous planning for species and ecosystems.
 \emph{Royal Society Open Science}, 2: 150107.
 }
 \seealso{
-Other functions for adding targets
+Other functions for adding targets:
 \code{\link{add_absolute_targets}()},
 \code{\link{add_auto_targets}()},
 \code{\link{add_manual_targets}()},

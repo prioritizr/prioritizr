@@ -13,9 +13,9 @@ NULL
 #' Additionally, features can (optionally) have their targets capped at a
 #' particular threshold.
 #' This method is especially useful for setting targets based on
-#' interpolation procedures when features have data in an area-based
+#' interpolation procedures when features have data expressed as an area-based
 #' unit of measurement (e.g., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param rare_area_threshold `numeric` value indicating the threshold
@@ -40,7 +40,8 @@ NULL
 #' features should be calculated. Available options include `"min"` and `"max"`.
 #' For example, a value of `"max"` means that the target for a rare features
 #' is calculated as the maximum based on `rare_relative_target` and
-#' `rare_area_threshold`.
+#' `rare_area_threshold`. Note that `rare_method` will have no effect on
+#' the target calculations if `rare_area_target` is a missing (`NA`) value.
 #'
 #' @param common_area_threshold `numeric` value indicating the
 #' threshold area for identifying common features.
@@ -64,7 +65,9 @@ NULL
 #' features should be calculated. Available options include `"min"` and `"max"`.
 #' For example, a value of `"max"` means that the target for a common feature
 #' is calculated as the maximum based on `common_relative_target` and
-#' `common_area_threshold`.
+#' `common_area_threshold`. Note that `common_method` will have
+#' no effect on the target calculations if `common_area_target` is a
+#' missing (`NA`) value.
 #'
 #' @param cap_area_target `numeric` value denoting the area-based target
 #' cap.
@@ -81,6 +84,8 @@ NULL
 #' @param area_units `character` value denoting the unit of measurement
 #' for the area-based arguments (e.g., `"km^2", `"ha"`, `"acres"`).
 #'
+#' @inheritSection spec_jung_targets Data calculations
+#'
 #' @section Mathematical formulation:
 #' This method provides a flexible approach for setting target thresholds based
 #' on an interpolation procedure and the spatial extent of the features.
@@ -88,37 +93,45 @@ NULL
 #' Let \eqn{f} denote the total spatial extent of a feature (e.g., geographic
 #' range size),
 #' \eqn{a} the threshold for identifying rare features
-#' (per `rare_area_threshold`),
+#' (per `rare_area_threshold` and `area_units`),
 #' \eqn{b} the relative targets for rare features
 #' (per `rare_relative_target`),
 #' \eqn{c} the area-based targets for rare features
-#' (per `rare_area_target`),
+#' (per `rare_area_target` and `area_units`),
 #' \eqn{d()} the function for calculating targets for rare features
-#' as a maximum or minimum value (per `rare_method`).
+#' as a maximum or minimum value (per `rare_method`),
 #' \eqn{e} the threshold for identifying common features
-#' (per `common_area_threshold`),
+#' (per `common_area_threshold` and `area_units`),
 #' \eqn{g} the relative targets for common features
 #' (per `common_relative_target`),
 #' \eqn{h} the area-based targets for common features
-#' (per `common_area_target`),
+#' (per `common_area_target` and `area_units`),
 #' \eqn{i()} the method for calculating targets for common features
-#' as a maximum or minimum value  (per `common_method`).
-#' \eqn{j} the target cap (per `cap_area_target`).
+#' as a maximum or minimum value  (per `common_method`), and
+#' \eqn{j} the target cap (per `cap_area_target` and `area_units`), and
 #' \eqn{k()} the interpolation method for features with a spatial distribution
 #' that is larger than a rare features and smaller than a common feature
 #' (per `interp_method`).
-#' In particular, \eqn{j()} is either a linear or log-linear interpolation
+#' In particular, \eqn{k()} is either a linear or log-linear interpolation
 #' procedure based on the thresholds for identifying rare and common features
 #' as well as the relative targets for rare and common features.
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
 #' is calculated as follows.
-#' * If \eqn{f < a}, then \eqn{t = min(d(c, b * f), j)}.
-#' * If \eqn{f > e}, then \eqn{t = min(i(h, g * f), j)}.
-#' * If \eqn{a <= f <= e}, then \eqn{t = min(k(f, a, b, e, g), j)}.
+#' \itemize{
+#' \item If \eqn{f < a}, then \eqn{
+#' t = min(d(c, b \times f), j)}{
+#' t = min(d(c, b * f), j)
+#' }.
+#' \item If \eqn{f > e}, then \eqn{
+#' t = min(i(h, g \times f), j)}{.
+#' t = min(i(h, g * f), j)
+#' }.
+#' \item If \eqn{a \leq f \leq e}{a <= f <= e}, then
+#' \eqn{t = min(k(f, a, b, e, g), j)}.
+#' }
 #'
 #' @inherit spec_interp_absolute_targets details references
 #'
-#' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets return seealso
 #'
 #' @family methods
@@ -128,7 +141,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -152,7 +165,7 @@ NULL
 #'      common_method = "max",            # not used
 #'      cap_area_target = 1000000,
 #'      interp_method = "log10",
-#'      area_units = "km2",
+#'      area_units = "km2"
 #'     )
 #'   ) %>%
 #'   add_binary_decisions() %>%
@@ -162,7 +175,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_interp_area_targets <- function(rare_area_threshold,

@@ -7,13 +7,13 @@ NULL
 #' International Union for the Conservation of Nature (IUCN) Red List of
 #' Ecosystems (IUCN 2024).
 #' Briefly, this method can be used to set targets based on
-#' criteria pertaining to current size of geographic distribution
-#' (criterion B) and reduction in geographic distribution (criterion A).
+#' criteria pertaining to geographic distribution size
+#' (criterion B) and reductions in geographic distribution size (criterion A).
 #' To help prevent widespread features from obscuring priorities for
 #' rare features, targets are capped following Butchart *et al.* (2015).
 #' This method may be suitable for ecosystem protection at global and
 #' and national scales.
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @inheritParams spec_rl_species_targets
@@ -36,48 +36,6 @@ NULL
 #' For convenience, these options can also be specified with lower case letters.
 #' See Mathematical formulation below for details.
 #'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on assessment
-#' criteria from the International Union for the Conservation of Nature (IUCN)
-#' Red List of Ecosystems (IUCN 2024).
-#' To express this mathematically, we will define the following terminology.
-#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
-#' range size), \eqn{a} the threshold value from Criterion A based on the
-#' specified threat status (per `status`, see below for details),
-#' \eqn{b} the threshold value from Criterion B
-#' based on the specified threat status (per `status`, see below for details),
-#' \eqn{p} the percentage uplift as a proportion (per `prop_uplift`),
-#' and \eqn{c} the target cap (per `cap_threshold`).
-#' Additionally, let
-#' \eqn{\box()}{box()} denote either \eqn{max()} or \eqn{min()} (per `method`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
-#' is calculated as follows.
-#' \deqn{
-#' t = min(min(\box(b, f \times ((1 + p) \times (1 - a))), c), f)
-#' }{
-#' t = min(min(box(b, f * ((1 + p) * (1 - a))) , c), f)
-#' }
-#'
-#' Additionally, \eqn{a} is equal to one of the following values depending on
-#' `status` and `criterion_a`.
-#' Note that if `criterion_a` has a value of `"A2a"` or `"A2b", then
-#' \eqn{a} is assigned the same value as if had a value of `"A1"`.
-#' * If `status = "CR"` and `criterion_a = "A1"`, then \eqn{a =} 80%.
-#' * If `status = "EN"` and `criterion_a = "A1"`, then \eqn{a =} 50%.
-#' * If `status = "VU"` and `criterion_a = "A1"`, then \eqn{a =} 30%.
-#' * If `status = "CR"` and `criterion_a = "A3"`, then \eqn{a =} 90%.
-#' * If `status = "EN"` and `criterion_a = "A3"`, then \eqn{a =} 70%.
-#' * If `status = "VU"` and `criterion_a = "A3"`, then \eqn{a =} 30%.
-#'
-#' Additionally, \eqn{b} is equal to one of the following values
-#' depending on `status` and `criterion_b`.
-#' * If `status = "CR"` and `criterion_a = "B1"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "EN"` and `criterion_a = "B1"`, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "VU"` and `criterion_a = "B1"`, then \eqn{b =} 50,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "CR"` and `criterion_a = "B2"`, then \eqn{b =} 200 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "EN"` and `criterion_a = "B2"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "VU"` and `criterion_a = "B2"`, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#'
 #' @details
 #' Targets based on criteria from the IUCN Red List of Ecosystems
 #' may be appropriate for global and national scale prioritizations.
@@ -97,7 +55,45 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection spec_rodrigues_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on assessment
+#' criteria from the International Union for the Conservation of Nature (IUCN)
+#' Red List of Ecosystems (IUCN 2024).
+#' To express this mathematically, we will define the following terminology.
+#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
+#' range size), \eqn{a} the threshold value from Criterion A based on the
+#' specified threat status (per `status`, see below for details),
+#' \eqn{b} the threshold value from Criterion B
+#' based on the specified threat status (per `status`, see below for details),
+#' \eqn{p} the percentage uplift as a proportion (per `prop_uplift`),
+#' \eqn{c} the target cap (per `cap_area_target` and `area_units`), and
+#' \eqn{m()} denote either \eqn{max()} or \eqn{min()} (per `method`).
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
+#' is calculated as follows.
+#' \deqn{
+#' t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)
+#' }{
+#' t = min(m(b * (1 + p), f * ((1 + p) * (1 - a))), c, f)
+#' }
+#'
+#' Here \eqn{a} and \eqn{b} are equal to one of the following values
+#' depending on `status`, `criterion_a`, and `criterion_b`.
+#' Note that if `criterion_a` has a value of `"A2a"` or `"A2b"`, then
+#' \eqn{a} is assigned the same value as if it were `"A1"`.
+#' * If `status = "CR"` and `criterion_a = "A1"`, then \eqn{a =} 80%.
+#' * If `status = "EN"` and `criterion_a = "A1"`, then \eqn{a =} 50%.
+#' * If `status = "VU"` and `criterion_a = "A1"`, then \eqn{a =} 30%.
+#' * If `status = "CR"` and `criterion_a = "A3"`, then \eqn{a =} 90%.
+#' * If `status = "EN"` and `criterion_a = "A3"`, then \eqn{a =} 70%.
+#' * If `status = "VU"` and `criterion_a = "A3"`, then \eqn{a =} 30%.
+#' * If `status = "CR"` and `criterion_b = "B1"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "EN"` and `criterion_b = "B1"`, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "VU"` and `criterion_b = "B1"`, then \eqn{b =} 50,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "CR"` and `criterion_b = "B2"`, then \eqn{b =} 200 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "EN"` and `criterion_b = "B2"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "VU"` and `criterion_b = "B2"`, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
 #' @inherit spec_jung_targets return seealso
 #'
@@ -125,13 +121,13 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data with ecosystem features
+#' # load data with features that are ecosystem types
 #' tas_pu <- prioritizrdata::get_tas_pu()
-#' tas_features <- prioritizrdata::get_tas_pu()
+#' tas_features <- prioritizrdata::get_tas_features()
 #'
 #' # create base problem
 #' p0 <-
-#'   problem(tas_pu, tas_features) %>%
+#'   problem(tas_pu, tas_features, cost_column = "cost") %>%
 #'   add_min_set_objective() %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -148,7 +144,7 @@ NULL
 #'   add_auto_targets(
 #'     method = spec_rl_ecosystem_targets(
 #'       status = "EN",
-#'       criterion_a = "A2",
+#'       criterion_a = "A1",
 #'       criterion_b = "B2",
 #'       prop_uplift = 0
 #'     )
@@ -161,7 +157,7 @@ NULL
 #'   add_auto_targets(
 #'     method = spec_rl_ecosystem_targets(
 #'       status = "EN",
-#'       criterion_a = "A2",
+#'       criterion_a = "A1",
 #'       criterion_b = "B2",
 #'       prop_uplift = 0.2
 #'     )
@@ -174,15 +170,18 @@ NULL
 #'   add_auto_targets(
 #'     method = spec_rl_ecosystem_targets(
 #'       status = "VU",
-#'       criterion_a = "A2",
+#'       criterion_a = "A1",
 #'       criterion_b = "B2",
 #'       prop_uplift = 0.2
 #'     )
 #'   )
 #'
 #' # solve problems
-#' s <- c(list(solve(p1), solve(p2), solve(p3))
-#' names(s) <- c("EN (0%)", "EN (20%)", "VU (20%)")
+#' s <- tas_pu
+#' s$s1 <- solve(p1)$solution_1
+#' s$s2 <- solve(p2)$solution_1
+#' s$s3 <- solve(p3)$solution_1
+#' s <- s[, c("s1", "s2", "s3"), drop = FALSE]
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)

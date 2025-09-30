@@ -10,7 +10,7 @@ NULL
 #' of habitat required to sustain populations for 100,000 years.
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param mean_growth_rates `numeric` vector that specifies the average
@@ -20,7 +20,7 @@ NULL
 #' If a single `numeric` value is specified, then all
 #' features are assigned targets based on the same average population growth
 #' rate.
-#' See Population data section for more details.
+#' See Population growth section for more details.
 #'
 #' @param var_growth_rates `numeric` vector that specifies the
 #' variance in population growth rate that would be expected for each
@@ -29,47 +29,9 @@ NULL
 #' If a single `numeric` value is specified, then all
 #' features are assigned targets assuming the same variance in population
 #' growth rate.
-#' See Population data section for more details.
+#' See Population growth section for more details.
 #'
 #' @inheritParams spec_pop_size_targets
-#'
-#' @section Population data:
-#' Although the package does not provide population growth rate data,
-#' such data can be obtained from published databases or approximated
-#' from physiological trait databases.
-#' For example, Wilson *et al.* (2010) detail calculations to approximate
-#' average population growth rate and variance in population growth rate
-#' for mammal species based on body mass, and Santini *et al.* (2022) provide
-#' body mass data for mammal species globally.
-#'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on the amount of habitat
-#' required to sustain populations for 100,000 years.
-#' To express this mathematically, we will define the following terminology.
-#' Let \eqn{f} denote the total abundance of a feature (i.e., geographic
-#' range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}),
-#' \eqn{k} the carrying capacity required for a population to persist for
-#' 100,000 years,
-#' \eqn{d} the population density of the feature
-#' (i.e.,
-#' number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
-#' per `pop_density` and `density_units`),
-#' \eqn{r} the mean population growth rate of the feature,
-#' \eqn{sigma^2} the variance in population growth rate of the feature,
-#' \eqn{b} is a constant calculated from \eqn{r} and \eqn{sigma^2},
-#' , and \eqn{j} the target cap (expressed as
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per `cap_area_target`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
-#' is calculated as follows.
-#' \deqn{
-#' t = min(f, min(j, d \times k)) \\
-#' k = (\frac{100000 \times \sigma^2 \times b^2}{2})^\frac{1}{b} \\
-#' b = (2 \times \frac{r}{\sigma^2}) - 1
-#' }{
-#' t = min(f, min(j, d \times k)),
-#' k = ((100000 * sigma^2 * b^2) / 2)^(1/b),
-#' b = (2 * r/sigma^2) - 1
-#' }
 #'
 #' @details
 #' This target setting method was developed to identify the minimum amount
@@ -86,12 +48,59 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
+#' @inheritSection spec_jung_targets Data calculations
 #' @inheritSection spec_pop_size_targets Population density
-#' @inheritSection add_auto_targets Target setting
-#' @inheritSection add_auto_targets Data calculations
+#'
+#' @section Population growth:
+#' This method requires population growth rate data.
+#' Although the package does not provide such data,
+#' population growth rate estimates can be obtained from published datasets
+#' (e.g., Brook *et al.* 2006).
+#' Additionally, population growth rate data may be approximated from
+#' physiological traits
+#' (e.g., such as body mass, Sinclair 1996; Hilbers *et al.* 2016).
+#' Indeed, Wilson *et al.* (2010) detail equations for approximating
+#' average population growth rate and variance in population growth rate
+#' for mammal species based on body mass (based on Sinclair 1996).
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on the amount of habitat
+#' required to sustain populations for 100,000 years.
+#' To express this mathematically, we will define the following terminology.
+#' Let \eqn{f} denote the total abundance of a feature (i.e., geographic
+#' range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}),
+#' \eqn{k} the carrying capacity required for a population to persist for
+#' 100,000 years,
+#' \eqn{d} the population density of the feature
+#' (i.e.,
+#' number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
+#' per `pop_density` and `density_units`),
+#' \eqn{r} the mean population growth rate of the feature
+#' inside protected areas (per `mean_growth_rates`),
+#' \eqn{\sigma^2} the variance in population growth rate of the feature
+#' inside protected areas (per `var_growth_rates`),
+#' \eqn{b} is a constant calculated from \eqn{r} and \eqn{\sigma^2},
+#' and \eqn{j} the target cap (expressed as
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
+#' per `cap_area_target` and `area_units`).
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
+#' is calculated as follows.
+#' \deqn{
+#' t = min(f, min(j, d \times k)) \\
+#' k = (\frac{100000 \times \sigma^2 \times b^2}{2})^\frac{1}{b} \\
+#' b = (2 \times \frac{r}{\sigma^2}) - 1
+#' }{
+#' t = min(f, min(j, d \times k)),
+#' k = ((100000 * sigma^2 * b^2) / 2)^(1/b),
+#' b = (2 * r/sigma^2) - 1
+#' }
+#'
 #' @inherit spec_jung_targets seealso return
 #'
 #' @references
+#' Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and
+#' global extinction risk are unrelated. Ecology Letters 9:375--382.
+#'
 #' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
 #' Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
 #' Comeros‐Raynal MT, Cornell J, Ficetola GF, Fishpool LDC, Fuller RA,
@@ -102,17 +111,38 @@ NULL
 #' national and global conservation area targets. *Conservation Letters*,
 #' 8: 329--337.
 #'
+#' Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
+#' Huijbregts MAJ (2016) Setting population targets for mammals using body mass
+#' as a predictor of population persistence. Conservation Biology 31:385--393.
+#'
 #' IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 #' Available at <https://www.iucnredlist.org>. Accessed on 23 July 2025.
+#'
+#' Santini L, Mendez Angarita VY, Karoulis C, Fundarò D, Pranzini N, Vivaldi C,
+#' Zhang T, Zampetti A, Gargano SJ, Mirante D, Paltrinieri L (2024)
+#' TetraDENSITY 2.0---A database of population density estimates in tetrapods.
+#' *Global Ecology and Biogeography*, 33:e13929.
 #'
 #' Santini L, Benítez‐López A, Dormann CF, Huijbregts MAJ (2022) Population
 #' density estimates for terrestrial mammal species.
 #' *Global Ecology and Biogeography*, 31:978--994.
 #'
+#' Santini L, Tobias JA, Callaghan C, Gallego‐Zamorano J, Benítez‐López A
+#' (2023) Global patterns and predictors of avian population density.
+#' *Global Ecology and Biogeography*, 32:1189---1204.
+#'
+#' Sinclair ARE (1996) Mammal populations: fluctuation, regulation, life
+#' history theory and their implications for conservation.
+#' In Frontiers of Population Ecology (eds RB Floyd, AW Sheppard, PJ de
+#' Barro). CSIRO Publishing. Melbourne, Australia.
+#'
 #' Wilson KA, Meijaard E, Drummond S, Grantham HS, Boitani L, Catullo G,
 #' Christie L, Dennis R, Dutton I, Falcucci A, Maiorano L, Possingham HP,
 #' Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 #' production landscapes. *Ecological Applications*, 20:1721--1732.
+#'
+#' Witting L (2024) Population dynamic life history models of the birds and
+#' mammals of the world. *Ecological Informatics*, 80:102492.
 #'
 #' @family methods
 #'
@@ -121,19 +151,19 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
 #' # simulate mean population growth rate data for each feature
-#' sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 4.7)
+#' sim_mean_growth_rates <- runif(terra::nlyr(sim_complex_features), 1, 3.0)
 #'
 #' # simulate variance in population growth rate data for each feature
-#' sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 0.6, 2.8)
+#' sim_var_growth_rates <- runif(terra::nlyr(sim_complex_features), 1.0, 2.0)
 #'
 #' # simulate population density data for each feature,
 #' # expressed as number of individuals per km^2
-#' sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+#' sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 100)
 #'
 #' # create problem with targets based on Wilson et al. (2010)
 #' p1 <-
@@ -154,7 +184,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_wilson_targets <- function(mean_growth_rates, var_growth_rates,

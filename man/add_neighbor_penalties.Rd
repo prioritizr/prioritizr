@@ -245,7 +245,7 @@ design models: A review. \emph{Environmental Modeling and Assessment}, 10:
 163--181.
 }
 \seealso{
-Other functions for adding penalties
+Other functions for adding penalties:
 \code{\link{add_asym_connectivity_penalties}()},
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},

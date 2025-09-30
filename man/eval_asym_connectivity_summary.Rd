@@ -296,7 +296,7 @@ See \link{summaries} for an overview of all functions for summarizing solutions.
 Also, see \code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}} to penalize solutions with low
 asymmetric connectivity.
 
-Other functions for summarizing solutions
+Other functions for summarizing solutions:
 \code{\link{eval_boundary_summary}()},
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},

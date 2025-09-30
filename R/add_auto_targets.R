@@ -9,8 +9,8 @@ NULL
 #' @inheritParams add_manual_targets
 #'
 #' @param method `character` value, `character` vector, `list`, or object
-#' specifying the target setting method. See Target methods below for
-#' more information.
+#' ([`Method-class`]) specifying the target setting method. See Target methods
+#' below for more information.
 #'
 #' @section Target setting:
 #' Many conservation planning problems require targets.
@@ -29,7 +29,7 @@ NULL
 #' For example, targets provide a mechanism for ensuring that a
 #' prioritization secures enough habitat to promote the long-term persistence
 #' of each threatened species, culturally important species,
-#' or economically important ecosystem service under consideration.
+#' or economically important ecosystem services under consideration.
 #' Since there is often uncertainty regarding stakeholder objectives
 #' (e.g., how much habitat should be protected for a given species)
 #' or the influence of particular target on a prioritization
@@ -130,14 +130,16 @@ NULL
 #' }
 #'
 #' @section Data calculations:
-#' This function involves calculating targets based on the spatial extent
-#' of the features in `x`.
-#' Although it can be readily applied to [problem()] objects that
+#' Many of the functions for specifying target setting methods involve
+#' calculating targets based on the spatial extent of the features in `x`
+#' (e.g., [spec_jung_targets()], [spec_rodrigues_targets(), and others).
+#' Although this function for adding targets can be readily applied to
+#' [problem()] objects that
 #' have the feature data provided as a [terra::rast()] object,
 #' you will need to specify the spatial units for the features
-#' when initializing the [problem()] objects if the feature data
+#' when building a [problem()] object if the feature data
 #' are provided in a different format. In particular, if the feature
-#' data are provided as a `data.frame` or `character` object,
+#' data are provided as a `data.frame` or `character` vector,
 #' then you will need to specify an argument to `feature_units` when
 #' using the [problem()] function. See the Examples section below for a
 #' demonstration of using the `feature_units` parameter.
@@ -193,7 +195,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -205,32 +207,32 @@ NULL
 #'   add_binary_decisions() %>%
 #'   add_default_solver(gap = 0, verbose = FALSE)
 #'
-#' # create problem with Jung et al. (2021) targets by using a function to
+#' # create problem with Polak et al. (2015) targets by using a function to
 #' # specify the target setting method
 #' p1 <-
 #'   p0 %>%
-#'   add_auto_targets(method = spec_jung_targets())
+#'   add_auto_targets(method = spec_polak_targets())
 #'
-#' # create problem with Jung et al. (2021) targets by using a character value
+#' # create problem with Polak et al. (2015) targets by using a character value
 #' # to specify the target setting method
 #' # (note that this yields exactly the same targets as p1, and simply
 #' # offers an alternative for specifying targets with default parameters)
 #' p2 <-
 #'   p0 %>%
-#'   add_auto_targets(method = "jung")
+#'   add_auto_targets(method = "polak")
 #'
-#' # create problem with modified Jung et al. (2021) targets by using a
+#' # create problem with modified Polak et al. (2015) targets by using a
 #' # a function to customize the parameters
 #' # (note that this yields exactly the same targets as p1, and simply
 #' # offers an alternative for specifying targets with default parameters)
 #' p3 <-
 #'   p0 %>%
-#'   add_auto_targets(method = spec_jung_targets(prop_uplift = 0.3))
+#'   add_auto_targets(method = spec_polak_targets(common_relative_target = 0.3))
 #'
 #' # solve problems
 #' s <- c(solve(p1), solve(p2), solve(p3))
 #' names(s) <- c(
-#'   "default Jung targets", "default Jung targets", "modified Jung targets"
+#'   "default Polak targets", "default Polak targets", "modified Polak targets"
 #' )
 #'
 #' # plot solutions
@@ -253,8 +255,9 @@ NULL
 #' target_list <- append(
 #'   append(
 #'     rep(list(spec_jung_targets()), 10),
-#'     rep(list(spec_ward_targets()), 15),
-#    rep(
+#'     rep(list(spec_ward_targets()), 15)
+#'   ),
+#'    rep(
 #'     list(spec_jung_targets(prop_uplift = 0.3)),
 #'     terra::nlyr(sim_complex_features) - 25
 #'   )
@@ -264,10 +267,10 @@ NULL
 #' p4 <- p0 %>% add_auto_targets(method = target_list)
 #'
 #' # solve problem
-#' s4 <- solve(s4)
+#' s4 <- solve(p4)
 #'
 #' # plot solution
-#' plot(s4, axes = FALSE)
+#' plot(s4, main = "solution", axes = FALSE)
 #'
 #' # here we will show how to set the feature_units when the feature
 #' # are not terra::rast() objects. in this example, we have planning units
@@ -280,20 +283,22 @@ NULL
 #' sim_pu_polygons$feature_1 <- runif(nrow(sim_pu_polygons), 0, 500)
 #' sim_pu_polygons$feature_2 <- runif(nrow(sim_pu_polygons), 0, 600)
 #' sim_pu_polygons$feature_3 <- runif(nrow(sim_pu_polygons), 0, 300)
-#' sim_pu_polygons$feature_4 <- runif(nrow(sim_pu_polygons), 0, 800)
-#' sim_pu_polygons$feature_5 <- runif(nrow(sim_pu_polygons), 0, 1000)
 #'
 #' # we will now build a problem with these data and specify the
 #' # the feature units as acres because that those are the units we
-#' # used for simulating the data. also, we will specify that the targets
-#' # should be to cover, at least, 1 km^2 of habitat for each feature.
-#' # although the feature units are acres, the function is able to able
-#' # to automatically convert the units.
+#' # used for simulating the data. also, we will specify targets
+#' # of 2 km^2 of habitat for each feature. although the feature units are
+#' # acres, the function is able to able to automatically convert the units.
 #' p5 <-
-#'   problem(sim_complex_pu_raster, sim_complex_features) %>%
+#'   problem(
+#'     sim_pu_polygons,
+#'     c("feature_1", "feature_2", "feature_3"),
+#'     cost_column = "cost",
+#'     feature_units = "acres"
+#'   ) %>%
 #'   add_min_set_objective() %>%
 #'   add_auto_targets(
-#'     method = spec_area_targets(targets = 1, area_units = "km2")
+#'     method = spec_area_targets(targets = 2, area_units = "km2")
 #'   ) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(gap = 0, verbose = FALSE)
@@ -302,7 +307,7 @@ NULL
 #' s5 <- solve(p5)
 #'
 #' # plot solution
-#' plot(s5, axes = FALSE)
+#' plot(s5[, "solution_1"], axes = FALSE)
 #' }
 #' @name add_auto_targets
 #'

@@ -228,7 +228,7 @@ See \link{objectives} for an overview of all functions for adding objectives.
 Also, see \link{targets} for an overview of all functions for adding targets, and
 \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
 
-Other functions for adding objectives
+Other functions for adding objectives:
 \code{\link{add_max_cover_objective}()},
 \code{\link{add_max_features_objective}()},
 \code{\link{add_max_phylo_end_objective}()},

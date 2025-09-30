@@ -18,7 +18,7 @@ spec_rl_ecosystem_targets(
 \item{status}{\code{character} value denoting the IUCN Red List threat
 status used for target setting.
 Available options include \code{"CR"} (Critically Endangered),
-\code{"EN"} (Endangered), and "VU"` (Vulnerable).}
+\code{"EN"} (Endangered), and \code{"VU"} (Vulnerable).}
 
 \item{criterion_a}{\code{character} value indicating which subcriterion
 should be considered based on geographic distribution reduction.
@@ -42,11 +42,12 @@ See Mathematical formulation below for details.}
 uplift as a proportion. Defaults to 0 (i.e., 0\%).}
 
 \item{method}{\code{character} indicating how the target thresholds
-should be calculated based on values from criterion A and B.
+should be calculated based on values derived from Criterion A and and
+Criterion B.
 Available options include \code{"min"} and \code{"max"}.
-For example, a value of \code{"max"} means that the target threshold
+For example, \code{method = "max"} means that the target threshold
 should be calculated as a maximum of the values from
-criterion A and B.
+Criterion A and Criterion B.
 Defaults to \code{"max"} as a precaution.}
 
 \item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
@@ -60,20 +61,22 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on criteria from the
 International Union for the Conservation of Nature (IUCN) Red List of
 Ecosystems (IUCN 2024).
 Briefly, this method can be used to set targets based on
-criteria pertaining to current size of geographic distribution
-(criterion B) and reduction in geographic distribution (criterion A).
+criteria pertaining to geographic distribution size
+(criterion B) and reductions in geographic distribution size (criterion A).
 To help prevent widespread features from obscuring priorities for
 rare features, targets are capped following Butchart \emph{et al.} (2015).
 This method may be suitable for ecosystem protection at global and
 and national scales.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
@@ -107,20 +110,20 @@ specified threat status (per \code{status}, see below for details),
 \eqn{b} the threshold value from Criterion B
 based on the specified threat status (per \code{status}, see below for details),
 \eqn{p} the percentage uplift as a proportion (per \code{prop_uplift}),
-and \eqn{c} the target cap (per \code{cap_threshold}).
-Additionally, let
-\eqn{\box()}{box()} denote either \eqn{max()} or \eqn{min()} (per \code{method}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+\eqn{c} the target cap (per \code{cap_area_target} and \code{area_units}), and
+\eqn{m()} denote either \eqn{max()} or \eqn{min()} (per \code{method}).
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
-t = min(min(\box(b, f \times ((1 + p) \times (1 - a))), c), f)
+t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)
 }{
-t = min(min(box(b, f * ((1 + p) * (1 - a))) , c), f)
+t = min(m(b * (1 + p), f * ((1 + p) * (1 - a))), c, f)
 }
 
-Additionally, \eqn{a} is equal to one of the following values depending on
-\code{status} and \code{criterion_a}.
-Note that if \code{criterion_a} has a value of \code{"A2a"} or \verb{"A2b", then \eqn{a} is assigned the same value as if had a value of }"A1"`.
+Here \eqn{a} and \eqn{b} are equal to one of the following values
+depending on \code{status}, \code{criterion_a}, and \code{criterion_b}.
+Note that if \code{criterion_a} has a value of \code{"A2a"} or \code{"A2b"}, then
+\eqn{a} is assigned the same value as if it were \code{"A1"}.
 \itemize{
 \item If \code{status = "CR"} and \code{criterion_a = "A1"}, then \eqn{a =} 80\%.
 \item If \code{status = "EN"} and \code{criterion_a = "A1"}, then \eqn{a =} 50\%.
@@ -128,17 +131,12 @@ Note that if \code{criterion_a} has a value of \code{"A2a"} or \verb{"A2b", then
 \item If \code{status = "CR"} and \code{criterion_a = "A3"}, then \eqn{a =} 90\%.
 \item If \code{status = "EN"} and \code{criterion_a = "A3"}, then \eqn{a =} 70\%.
 \item If \code{status = "VU"} and \code{criterion_a = "A3"}, then \eqn{a =} 30\%.
-}
-
-Additionally, \eqn{b} is equal to one of the following values
-depending on \code{status} and \code{criterion_b}.
-\itemize{
-\item If \code{status = "CR"} and \code{criterion_a = "B1"}, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "EN"} and \code{criterion_a = "B1"}, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "VU"} and \code{criterion_a = "B1"}, then \eqn{b =} 50,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "CR"} and \code{criterion_a = "B2"}, then \eqn{b =} 200 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "EN"} and \code{criterion_a = "B2"}, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "VU"} and \code{criterion_a = "B2"}, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "CR"} and \code{criterion_b = "B1"}, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "EN"} and \code{criterion_b = "B1"}, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "VU"} and \code{criterion_b = "B1"}, then \eqn{b =} 50,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "CR"} and \code{criterion_b = "B2"}, then \eqn{b =} 200 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "EN"} and \code{criterion_b = "B2"}, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "VU"} and \code{criterion_b = "B2"}, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 }
 }
 
@@ -151,10 +149,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -163,13 +162,13 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data with ecosystem features
+# load data with features that are ecosystem types
 tas_pu <- prioritizrdata::get_tas_pu()
-tas_features <- prioritizrdata::get_tas_pu()
+tas_features <- prioritizrdata::get_tas_features()
 
 # create base problem
 p0 <-
-  problem(tas_pu, tas_features) \%>\%
+  problem(tas_pu, tas_features, cost_column = "cost") \%>\%
   add_min_set_objective() \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -186,7 +185,7 @@ p1 <-
   add_auto_targets(
     method = spec_rl_ecosystem_targets(
       status = "EN",
-      criterion_a = "A2",
+      criterion_a = "A1",
       criterion_b = "B2",
       prop_uplift = 0
     )
@@ -199,7 +198,7 @@ p2 <-
   add_auto_targets(
     method = spec_rl_ecosystem_targets(
       status = "EN",
-      criterion_a = "A2",
+      criterion_a = "A1",
       criterion_b = "B2",
       prop_uplift = 0.2
     )
@@ -212,15 +211,18 @@ p3 <-
   add_auto_targets(
     method = spec_rl_ecosystem_targets(
       status = "VU",
-      criterion_a = "A2",
+      criterion_a = "A1",
       criterion_b = "B2",
       prop_uplift = 0.2
     )
   )
 
 # solve problems
-s <- c(list(solve(p1), solve(p2), solve(p3))
-names(s) <- c("EN (0\%)", "EN (20\%)", "VU (20\%)")
+s <- tas_pu
+s$s1 <- solve(p1)$solution_1
+s$s2 <- solve(p2)$solution_1
+s$s3 <- solve(p3)$solution_1
+s <- s[, c("s1", "s2", "s3"), drop = FALSE]
 
 # plot solutions
 plot(s, axes = FALSE)
@@ -245,7 +247,7 @@ Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
 (Eds.). Gland, Switzerland: IUCN.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

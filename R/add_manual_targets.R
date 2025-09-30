@@ -344,9 +344,23 @@ methods::setMethod(
     ) {
       verify(all_positive(targets$target))
     }
-    # if features have defined area units, then throw warnings indicating
-    # that these targets do not consider the area of the planning units
-    verify(has_no_user_defined_feature_units(x), call = NULL)
+    # if features have user-defined area units, then throw warning indicating
+    # that these targets do not consider the spatial units
+    verify(
+      inherits(x$data$cost, c("SpatRaster", "Raster")) ||
+        all(is.na(x$feature_units())),
+      msg = c(
+      "!" = "{.arg x} has spatial units defined for the features.",
+        "i" = paste(
+          "This function for adding targets does not account for spatial units."
+        ),
+        "i" = paste(
+          "See {.fun add_auto_targets} or {.fun add_group_targets} to",
+          "add targets that account for spatial units."
+        )
+      ),
+      call = NULL
+    )
     # add targets to problem
     x$add_targets(
       R6::R6Class(

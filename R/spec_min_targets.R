@@ -8,7 +8,8 @@ NULL
 #'
 #' @inheritParams spec_max_targets
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+
 #' @inherit spec_max_targets return
 #'
 #' @family methods
@@ -18,7 +19,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -44,13 +45,13 @@ NULL
 #'   p0 %>%
 #'   add_auto_targets(method = spec_polak_targets())
 #'
-#' # create problem with targets based on the maximum of 20% targets,
+#' # create problem with targets based on the minimum of 20% targets,
 #' # Jung et al. (2021) targets, and Polak et al. (2015) targets
 #' # for each feature (separately)
 #' p4 <-
 #'   p0 %>%
 #'   add_auto_targets(
-#'     method = spec_max_target(
+#'     method = spec_min_targets(
 #'       spec_relative_targets(0.2),
 #'       spec_jung_targets(),
 #'       spec_polak_targets()
@@ -59,7 +60,7 @@ NULL
 #'
 #' # solve problems
 #' s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
-#' names(s) <- c("20% targets", "Jung targets", "Polak targets", "max targets")
+#' names(s) <- c("20% targets", "Jung targets", "Polak targets", "min targets")
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)

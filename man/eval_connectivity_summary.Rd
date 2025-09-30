@@ -293,7 +293,7 @@ See \link{summaries} for an overview of all functions for summarizing solutions.
 Also, see \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} to penalize solutions with low
 connectivity.
 
-Other functions for summarizing solutions
+Other functions for summarizing solutions:
 \code{\link{eval_asym_connectivity_summary}()},
 \code{\link{eval_boundary_summary}()},
 \code{\link{eval_cost_summary}()},

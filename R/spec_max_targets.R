@@ -10,7 +10,8 @@ NULL
 #'
 #' @param ... Additional objects specifying target setting methods.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+
 #'
 #' @return An object ([`Method-class`]) for specifying targets.
 #'
@@ -21,7 +22,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -53,7 +54,7 @@ NULL
 #' p4 <-
 #'   p0 %>%
 #'   add_auto_targets(
-#'     method = spec_max_target(
+#'     method = spec_max_targets(
 #'       spec_relative_targets(0.2),
 #'       spec_jung_targets(),
 #'       spec_polak_targets()

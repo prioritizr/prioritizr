@@ -14,19 +14,21 @@ spec_pop_size_targets(
 }
 \arguments{
 \item{pop_size_targets}{\code{numeric} vector that specifies the minimum
-population size for each feature.
+population size required for each feature.
 If a single \code{numeric} value is specified, then all
 features are assigned targets based on the same population size.}
 
 \item{pop_density}{\code{numeric} vector that specifies the population density
 for each feature. If a single \code{numeric} value is specified, then all
-features are assigned targets assuming the same population density factor.
+features are assigned targets assuming the same population density.
 See Population density section for more details.}
 
 \item{density_units}{\code{character} vector that specifies the area-based units
 for the population density values. For example, units can be used to
 express that population densities are in terms of individuals per hectare
-(\verb{"ha"), acre (}"acre"\verb{), or \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (}km^2\verb{). If a single }character` value is specified, then all
+(\code{"ha"}), acre (\code{"acre"}), or
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (\code{"km^2"}).
+If a single \code{character} value is specified, then all
 features are assigned targets assuming that population density values
 are in the same units.
 See Population density section for more details.}
@@ -42,27 +44,29 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the minimum number of individuals for each
 feature.
 Briefly, this target setting method involves using population density
 data to set a target threshold for the minimum amount of habitat required
-to safeguard a pre-specified number of individuals.
+to safeguard a particular number of individuals.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
-This target setting method can be used to set targets for a species based on
-a population size threshold.
+This target setting method can be used to set targets for species based on
+population size thresholds.
 Many different population size thresholds -- and methods for calculating
 such thresholds -- have been proposed for guiding conservation decisions
 (Di Marco \emph{et al.} 2016).
 For example, previous work has suggested that the number of
-individuals for a population should not fall short of 50 individuals to avoid
+individuals for a population should not fall below 50 individuals to avoid
 inbreeding depression, and 500 individuals to reduce genetic drift
 (reviewed by Jamieson and Allendorf 2012). Additionally, the
 Red List of Threatened Species by the International Union for the
@@ -73,13 +77,13 @@ recognized as Critically Endangered, Endangered, or Vulnerable
 Alternatively, the SAFE index (Clements \emph{et al.} 2011) considers species
 with fewer than 5,000
 individuals to be threatened by extinction
-(based on minimum population sizes reported by Brook \emph{et al.} 2006;
-Traill \emph{et al.} 2007, 2010).
+(based on Brook \emph{et al.} 2006; Traill \emph{et al.} 2007, 2010).
 }
 \section{Population density}{
 
-Population density data are expressed as number of individuals per
-unit area. For example, if a species has 200 individuals per hectare,
+This method requires population density data expressed as the number of
+individuals per unit area.
+For example, if a species has 200 individuals per hectare,
 then this can be specified with \code{pop_density = 200} and
 \code{density_units = "ha"}.
 Alternatively, if a species has a population density where one individual
@@ -112,12 +116,13 @@ ideally be represented (per \code{pop_size_targets}), and
 number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
 per \code{pop_density} and \code{density_units}), and
 \eqn{j} the target cap (expressed as
-\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per \code{cap_area_target}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per \code{cap_area_target}
+and \code{area_units}).
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
-t = min(f, min(j, min(n \times d))}{
-t = min(f, min(j, n * d))
+t = min(f, j, n \times d)}{
+t = min(f, j, n * d)
 }
 }
 
@@ -130,10 +135,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -141,7 +147,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -159,51 +165,45 @@ p0 <-
 # create problem with targets to ensure that, at least, 2500 individuals
 # for each feature are represented by the solution
 p1 <-
- p0 \%>\%
- add_auto_targets(
-     pop_size = 2500,
-     pop_density = sim_pop_density_per_km2,
-     density_units = "km2"
-   )
- )
+  p0 \%>\%
+  add_auto_targets(
+    method = spec_pop_size_targets(
+      pop_size = 2500,
+      pop_density = sim_pop_density_per_km2,
+      density_units = "km2"
+    )
+  )
 
-# create problem with targets to ensure that, at least, 5000 individuals
-# for each feature are represented by the solution
-p2 <-
- p0 \%>\%
- add_auto_targets(
-     pop_size = 5000,
-     pop_density = sim_pop_density_per_km2,
-     area_units = "km2"
-   )
- )
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, main = "solution based on 2500 population targets", axes = FALSE)
 
 # create problem with targets to ensure that a particular number of
-# individuals or each feature are represented by the solution
+# individuals for each feature are represented by the solution
 
 # simulate the number of number of individuals required for each feature
-target_pop_size <- round(
+target_pop_sizes <- round(
   runif(terra::nlyr(sim_complex_features), 1000, 5000)
-
-# now, create problem with these targets
-p3 <-
- p0 \%>\%
- add_auto_targets(
-     pop_size = target_pop_size,
-     pop_density = sim_pop_density_per_km2,
-     density_units = "km2"
-   )
  )
 
-# solve problems
-s <- c(solve(p1), solve(p2), solve(p3))
-names(s) <- c(
-  "2500 individuals targets", "5000 individuals targets",
-  "varying individuals targets"
-)
+# now, create problem with these targets
+p2 <-
+  p0 \%>\%
+  add_auto_targets(
+    method = spec_pop_size_targets(
+      pop_size = target_pop_sizes,
+      pop_density = sim_pop_density_per_km2,
+      density_units = "km2"
+    )
+  )
 
-# plot solutions
-plot(s, axes = FALSE)
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+plot(s2, main = "solution based on varying targets", axes = FALSE)
 }
 }
 \references{
@@ -260,7 +260,7 @@ Witting L (2024) Population dynamic life history models of the birds and
 mammals of the world. \emph{Ecological Informatics}, 80:102492.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

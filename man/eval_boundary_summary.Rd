@@ -311,7 +311,7 @@ See \link{summaries} for an overview of all functions for summarizing solutions.
 Also, see \code{\link[=add_boundary_penalties]{add_boundary_penalties()}} to penalize solutions with high
 boundary length.
 
-Other functions for summarizing solutions
+Other functions for summarizing solutions:
 \code{\link{eval_asym_connectivity_summary}()},
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},

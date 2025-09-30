@@ -26,7 +26,8 @@ between -1 and 1, and the names must correspond to column names of \code{data}.}
 \item{data}{\code{data.frame} indicating if each feature meets the criteria
 for applying each rule (or not) during the target calculations.
 Here, each row must correspond to a different feature, and each column
-contains information about the feature. In particular, \code{data}
+contains information about the feature (per \code{feature_names(x)}).
+In particular, \code{data}
 must have a \code{"feature"} column that contains \code{character} values with the
 feature names. Additionally, \code{data} must also contain columns
 with \code{logical} (\code{TRUE}/\code{FALSE}) values that indicate if the feature
@@ -35,8 +36,8 @@ For example,
 \code{data} could contain columns that indicate if each feature corresponds
 to a threatened species, ecosystem service, or culturally important site.
 Note that if different rules should be applied to species based on their
-particular threat status (e.g., Critically Endangered species should receive
-different target then Vulnerable species), then \code{data} should contain a
+particular threat status (e.g., Critically Endangered and Vulnerable species
+should receive different target thresholds), then \code{data} should contain a
 column for each threat status (separately).}
 
 \item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
@@ -50,19 +51,20 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
-Specify targets based on a rule-based
-procedure based on a set of
-ecological and ecosystem criteria. This is a customizable version of the
+Specify targets based on a set of rules for ecological and ecosystem
+criteria. This is a customizable version of the
 approach in Harris and Holness (2023).
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
 This method was designed to help set targets for a broad range of features
 (e.g., species, ecosystems, ecosystem services, ecological processes)
 at local and national scales.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
@@ -73,8 +75,9 @@ for a feature based on a linear combination of values.
 When using this method in a planning exercise, it is important to ensure
 that the criteria and values used for target setting reflect the stakeholder
 objectives.
-Additionally, the cap threshold may need to calibrated based on
-the features and spatial extent of the planning region.
+Additionally, the baseline relative target (per \code{baseline_relative_target})
+and cap threshold (per \code{cap_area_target} and \code{area_units}) may need to
+set based on the features and spatial extent of the planning region.
 Please note that this function is provided as convenient method to
 set targets for problems with a single management zone, and cannot
 be used for those with multiple management zones.
@@ -82,22 +85,19 @@ be used for those with multiple management zones.
 \section{Mathematical formulation}{
 
 This method provides a flexible approach for setting target thresholds based
-on a set of criteria.
+on a set of rules.
 To express this mathematically, we will define the following terminology.
 Let \eqn{f} denote the total abundance of a feature (e.g., geographic
-range).
-Also, let \eqn{U} denote the set of rules (indexed by \eqn{u}).
-Next, let \eqn{b} denote the baseline relative target threshold
-(per \code{baseline_relative_target}).
-To parameterize the information about the features that will be used
-for target calculations (per \code{data}),
-let \eqn{d_u}{du} indicate if the target for
+range), \eqn{b} denote the baseline relative target threshold
+(per \code{baseline_relative_target}), and let \eqn{c} denote the cap threshold
+(per \code{cap_area_target} and \code{area_units}).
+To describe the rules, let \eqn{U} denote the set of rules
+(indexed by \eqn{u}), \eqn{d_u}{du} indicate if the target for
 the feature should be calculated based on each rule \eqn{u \in U}{u in U}
-(using binary values).
-Furthermore, let \eqn{a_u} denote the value that will be used to calculate
-the target based on rule \eqn{u} (per \code{rules_relative_target}).
-Finally, let \eqn{c} denote the cap threshold (per \code{cap_area_target}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+(using binary values, per \code{data}), and \eqn{a_u} denote the value
+should be added to the target given each rule \eqn{u \in U}{u in U}
+(per \code{rules_relative_target}).
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
 t = min(f \times max(min(b + \sum_{u \in U} d_u \times a_u, 1), 0), c)
@@ -115,10 +115,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -126,34 +127,34 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
 # calculate total distribution size for features in km^2
 feature_size <- as.numeric(units::set_units(
   units::set_units(
-    terra::sum(sim_complex_features, "sum", na.rm = TRUE)[[1]] *
+    terra::global(sim_complex_features, "sum", na.rm = TRUE)[[1]] *
       prod(terra::res(sim_complex_features)),
     "m^2"
-  )
+  ),
   "km^2"
 ))
 
 # simulate data that provide additional information for each feature
-rule_data <- tibble::tibble(feature = names(sim_complex_pu_raster))
+rule_data <- tibble::tibble(feature = names(sim_complex_features))
 
 # add a column indicating if each feature has a small distribution,
 rule_data$small_distribution <- feature_size <= 1000
 
 # add a column indicating if each feature has a large distribution,
-rule_data$small_distribution <- feature_size >= 5000
+rule_data$large_distribution <- feature_size >= 5000
 
 # add a column indicating if each feature has low quality data
 # associated with it, based on random simulated values
 rule_data$low_quality <- sample(
   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-  replace = TRUE, probs = c(0.2, 0.8)
+  replace = TRUE, prob = c(0.2, 0.8)
 )
 
 # next, we will add simulate dat for columns indicating the threat status of
@@ -165,22 +166,22 @@ rule_data$low_quality <- sample(
 # add a column indicating if each feature has a Vulnerable threat status
 rule_data$vulnerable <- sample(
   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-  replace = TRUE, probs = c(0.3, 0.7)
+  replace = TRUE, prob = c(0.3, 0.7)
 )
 
 # add a column indicating if each feature has an Endangered threat status,
 # based on random simulated values
 rule_data$endangered <- sample(
   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-  replace = TRUE, probs = c(0.3, 0.7)
-) & !vulnerable
+  replace = TRUE, prob = c(0.3, 0.7)
+) & !rule_data$vulnerable
 
 # add a column indicating if each feature has a Critically Endangered threat
 # status, based on random simulated values
 rule_data$critically_endangered <- sample(
   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-  replace = TRUE, probs = c(0.3, 0.7)
-) & !endangered & !vulnerable
+  replace = TRUE, prob = c(0.3, 0.7)
+) & !rule_data$endangered & !rule_data$vulnerable
 
 # preview rule data
 print(rule_data)
@@ -197,17 +198,19 @@ print(rule_data)
 p1 <-
   problem(sim_complex_pu_raster, sim_complex_features) \%>\%
   add_min_set_objective() \%>\%
-  add_rule_targets(
-    baseline_relative_target = 0.3,
-    rules_relative_target = c(
-      "small_distribution" = 0.1,
-      "large_distribution" = -0.1,
-      "low_quality" = -0.1,
-      "vulnerable" = 0.05,
-      "endangered" = 0.1,
-      "critically_endangered" = 0.2
-    ),
-    data = rule_data
+  add_auto_targets(
+    method = spec_rule_targets(
+      baseline_relative_target = 0.3,
+      rules_relative_target = c(
+        "small_distribution" = 0.1,
+        "large_distribution" = -0.1,
+        "low_quality" = -0.1,
+        "vulnerable" = 0.05,
+        "endangered" = 0.1,
+        "critically_endangered" = 0.2
+      ),
+      data = rule_data
+    )
   ) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -216,7 +219,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -235,26 +238,7 @@ marine biodiversity targets for systematic conservation planning.
 \emph{Biological Conservation}, 285: 110218.
 }
 \seealso{
-Other target setting methods
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_absolute_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_jung_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_min_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_relative_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
-
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

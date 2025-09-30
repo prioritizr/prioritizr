@@ -5,15 +5,16 @@ NULL
 #'
 #' Targets are used to specify the minimum amount or proportion of a feature's
 #' distribution that should (ideally) be covered (represented) by a solution.
-#'
-#' **Please note that most objectives require targets, and attempting
-#' to solve a problem that requires targets will throw an error.**
+#' Most objectives require targets, and attempting
+#' to solve a problem that requires targets and does not have them specified
+#' will result in an error.
 #'
 #' @details
 #' A variety of functions can be used to specify targets for a
 #' conservation planning problem. Below we describe them in detail.
 #'
-#' The [add_auto_targets()] function can be used to add targets
+#' \itemize{
+#' \item The [add_auto_targets()] function can be used to add targets
 #' to a conservation planning problem. It provides a flexible interface
 #' for specifying targets based on a single method, or a combination
 #' of methods.
@@ -59,9 +60,9 @@ NULL
 #' )
 #' ```
 #'
-#' Targets can also be specified based on the maximum or minimum of multiple
-#' other target setting methods. For example, targets can be specified as
-#' the maximum of the Polak *et al.* (2015) and Jung *et al.* (2021)
+#' Targets can also be specified based on the maximum or minimum of
+#' multiple other target setting methods. For example, targets can be specified
+#' as the maximum of the Polak *et al.* (2015) and Jung *et al.* (2021)
 #' target setting methodologies with the following code:
 #'
 #' ```
@@ -81,13 +82,12 @@ NULL
 #'
 #' \item{[spec_relative_targets()]}{
 #' Specify targets expressed as a proportion (between 0 and 1) of the total
-#' amount of each feature in the the study area.
+#' amount of each feature.
 #' }
 #'
 #' \item{[spec_absolute_targets()]}{
-#' Specify targets expressed as the
-#' same values as the underlying feature data (ignoring any specified
-#' feature units).
+#' Specify targets expressed as the same values as the underlying feature data
+#' (ignoring any specified feature units).
 #' }
 #'
 #' \item{[spec_area_targets()]}{
@@ -96,7 +96,8 @@ NULL
 #'
 #' \item{[spec_interp_absolute_targets()]}{
 #' Specify targets based on an interpolation procedure between thresholds
-#' calculated as the sum of the features values.
+#' expressed as the same values as the underlying feature data
+#' (ignoring any specified feature units).
 #' }
 #'
 #' \item{[spec_interp_area_targets()]}{
@@ -143,7 +144,7 @@ NULL
 #' }
 #'
 #' \item{[spec_ward_targets()]}{
-#' Specify targets following Watson *et al.* (2005).
+#' Specify targets following Ward *et al.* (2025).
 #' }
 #'
 #' \item{[spec_wilson_targets()]}{
@@ -163,7 +164,7 @@ NULL
 #' }
 #' }
 #'
-#' The [add_group_targets()] function provides a convenient interface
+#' \item The [add_group_targets()] function provides a convenient interface
 #' for adding targets to a conservation planning problem. By assigning each
 #' feature to a group and then specifying a target setting method for each
 #' group, it can be used to assign targets for features based on different
@@ -207,7 +208,7 @@ NULL
 #' )
 #' ```
 #'
-#' A set of functions are available for adding targets directly to a
+#' \item A set of functions are available for adding targets directly to a
 #' conservation planning problem.
 #' These functions are especially useful when target thresholds have
 #' been pre-computed, or when considering problems that have multiple zones.
@@ -216,19 +217,17 @@ NULL
 #' \describe{
 #'
 #' \item{[add_relative_targets()]}{
-#' Add targets as a proportion (between 0 and 1) of the total amount of each
-#' feature in the the study area
-#' (i.e., where a value of 1 is equivalent to 100%).
+#' Add targets expressed as a proportion (between 0 and 1) of the total
+#' amount of each feature.
+#' Note that this function provides a convenient
+#' alternative to [spec_relative_targets()].
 #' }
 #'
 #' \item{[add_absolute_targets()]}{
-#' Add targets expressed as the
-#' same values as the underlying feature data (ignoring any specified
-#' feature units).
-#' For example,
-#' setting a target of 10 requires that the solution secure a set of
-#' planning units for which their summed feature values are equal to or greater
-#' than 10.
+#' Add targets expressed as the same values as the underlying feature data
+#' (ignoring any specified feature units).
+#' Note that this function provides a convenient
+#' alternative to [spec_absolute_targets()].
 #' }
 #'
 #' \item{[add_manual_targets()]}{
@@ -245,7 +244,7 @@ NULL
 #' smaller than or equal to -- or equal to -- target thresholds
 #' (i.e., the constraint sense for the target).
 #' }
-#'
+#' }
 #' }
 #'
 #' @references
@@ -344,23 +343,25 @@ NULL
 #' # wherein the first 3 features are assigned to group A and have
 #' # 10% targets and the remaining features are assigned to group B and
 #' # have 20% targets
-#' group_data <- c(rep("A", 3), rep("B", terra::nlyr(sim_features) - 3)
+#' group_data <- c(rep("A", 3), rep("B", terra::nlyr(sim_features) - 3))
 #' p5 <-
-#     p0 %>%
+#'    p0 %>%
 #'    add_group_targets(
-#'    groups = group_data,
-#'    method = list(
-#'      "A" = spec_relative_targets(0.1),
-#'      "B" = spec_relative_targets(0.2)
+#'      groups = group_data,
+#'      method = list(
+#'        "A" = spec_relative_targets(0.1),
+#'        "B" = spec_relative_targets(0.2)
+#'      )
 #'    )
 #'
-#' # solve problem
-#' s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
+#' # solve problems
+#' s <- c(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 #' names(s) <- c(
-#'   "relative targets", "absolute targets", "loglinear targets",
-#'   "manual targets"
+#'   "relative targets", "absolute targets", "manual targets",
+#'   "automatic targets", "group targets"
 #' )
-#' # plot solution
+#'
+#' # plot solutions
 #' plot(s, axes = FALSE)
 #' }
 #' @name targets

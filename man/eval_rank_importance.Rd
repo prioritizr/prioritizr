@@ -408,7 +408,7 @@ terrestrial biodiversity, carbon and water. \emph{Nature Ecology and Evolution},
 5: 1499--1509.
 }
 \seealso{
-Other functions for evaluating solution importance
+Other functions for evaluating solution importance:
 \code{\link{eval_ferrier_importance}()},
 \code{\link{eval_rare_richness_importance}()},
 \code{\link{eval_replacement_importance}()}

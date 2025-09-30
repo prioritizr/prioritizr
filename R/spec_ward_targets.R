@@ -8,38 +8,16 @@
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
 #' This method was designed for species protection at national-scales.
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param status `character` value denoting the IUCN Red List threat
 #' status used for target setting.
 #' Available options include `"CR"` (Critically Endangered) ,
-#' `"EN"` (Endangered), and "VU"` (Vulnerable).
+#' `"EN"` (Endangered), and `"VU"` (Vulnerable).
 #' Defaults to `"CR"`.
 #'
 #' @inheritParams spec_rodrigues_targets
-#'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on assessment
-#' criteria from the IUCN Red List (IUCN 2025).
-#' It is based on the idea that a protected area system should ideally
-#' safeguard enough of a species' distribution to ensure that a species
-#' would, at worst, be classified under a particular threat status.
-#' In particular, this method considers criteria related to
-#' the size of a species' spatial distribution (i.e., Criterion B)
-#' and population size reduction (i.e., Criterion A).
-#' By default, it considers criteria for the Critically Endangered threat status
-#' and involves setting the target threshold for a species
-#' as 100,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per subcriterion B1)
-#' or 20% (per subcriterion A2) of its spatial distribution
-#' (which ever value is larger).
-#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds.
-#' By helping to ensure that species would -- at a minimum -- meet criteria
-#' for being recognized as Critically Endangered, this method aims to reduce
-#' chances that species will become extinct.
 #'
 #' @details
 #' This target setting method was designed to protect species in
@@ -59,7 +37,33 @@
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on assessment
+#' criteria from the IUCN Red List (IUCN 2025).
+#' It is based on the rationale that protected areas prevent
+#' the local extinction of populations located inside them,
+#' and so a protected area system can safeguard enough of a species'
+#' distribution to ensure that the species
+#' -- in event that it becomes locally extinct outside of protected
+#' areas -- would, at worst, be classified under a particular threat status.
+#' In particular, this method considers criteria related to
+#' the size of a species' spatial distribution (i.e., Criterion B)
+#' and population size reduction (i.e., Criterion A).
+#' By default, it considers criteria for the Critically Endangered threat status
+#' and involves setting the target threshold for a species
+#' as 100,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per subcriterion B1)
+#' or 20% (per subcriterion A2) of its spatial distribution
+#' (which ever value is larger).
+#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
+#' thresholds (per `cap_area_threshold` and `area_units`).
+#' By helping to ensure that species would -- at a minimum -- meet criteria
+#' for being recognized as Critically Endangered, this method aims to reduce
+#' chance that species will become extinct.
+#'
 #' @inherit spec_jung_targets seealso return
 #'
 #' @family methods
@@ -91,7 +95,7 @@
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -107,7 +111,7 @@
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_ward_targets <- function(status = "CR", cap_area_target = 1000000,

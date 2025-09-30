@@ -54,7 +54,7 @@ NULL
 #'   Each layer corresponds to a different species, and
 #'   cell values indicate habitat suitability.}
 #'
-#'  \item{`get_sim_phylogeny()`}{Import phylogenetic tree for the ten species.}
+#'  \item{`get_sim_phylogeny()`}{Import phylogenetic tree for the five species.}
 #'
 #' }
 #'
@@ -376,7 +376,7 @@ get_sim_phylogeny <- function() {
 get_sim_complex_pu_raster <- function() {
   terra::rast(
     system.file(
-      "extdata", "sim_pu_complex_raster.tif", package = "prioritizr"
+      "extdata", "sim_complex_pu_raster.tif", package = "prioritizr"
     )
   )
 }

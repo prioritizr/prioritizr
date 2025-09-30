@@ -10,7 +10,8 @@ spec_ward_targets(status = "CR", cap_area_target = 1e+06, area_units = "km^2")
 \item{status}{\code{character} value denoting the IUCN Red List threat
 status used for target setting.
 Available options include \code{"CR"} (Critically Endangered) ,
-\code{"EN"} (Endangered), and "VU"\verb{(Vulnerable). Defaults to}"CR"`.}
+\code{"EN"} (Endangered), and \code{"VU"} (Vulnerable).
+Defaults to \code{"CR"}.}
 
 \item{cap_area_target}{\code{numeric} value denoting the area-based target cap.
 To avoid setting a target cap, a missing (\code{NA}) value can be specified.
@@ -23,7 +24,9 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
@@ -34,7 +37,7 @@ the Conservation of Nature (IUCN) Red List of Threatened Species (IUCN 2025).
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
 This method was designed for species protection at national-scales.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
@@ -59,9 +62,12 @@ be used for those with multiple management zones.
 
 This method involves setting target thresholds based on assessment
 criteria from the IUCN Red List (IUCN 2025).
-It is based on the idea that a protected area system should ideally
-safeguard enough of a species' distribution to ensure that a species
-would, at worst, be classified under a particular threat status.
+It is based on the rationale that protected areas prevent
+the local extinction of populations located inside them,
+and so a protected area system can safeguard enough of a species'
+distribution to ensure that the species
+-- in event that it becomes locally extinct outside of protected
+areas -- would, at worst, be classified under a particular threat status.
 In particular, this method considers criteria related to
 the size of a species' spatial distribution (i.e., Criterion B)
 and population size reduction (i.e., Criterion A).
@@ -73,10 +79,10 @@ or 20\% (per subcriterion A2) of its spatial distribution
 (which ever value is larger).
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds.
+thresholds (per \code{cap_area_threshold} and \code{area_units}).
 By helping to ensure that species would -- at a minimum -- meet criteria
 for being recognized as Critically Endangered, this method aims to reduce
-chances that species will become extinct.
+chance that species will become extinct.
 }
 
 \section{Data calculations}{
@@ -88,10 +94,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -99,7 +106,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -115,7 +122,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -139,7 +146,7 @@ progressing recovery for Australia's priority threatened species.
 \emph{Proceedings of the National Academy of Sciences}, 122: e2414985122.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

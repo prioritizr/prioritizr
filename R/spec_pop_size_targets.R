@@ -7,27 +7,27 @@ NULL
 #' feature.
 #' Briefly, this target setting method involves using population density
 #' data to set a target threshold for the minimum amount of habitat required
-#' to safeguard a pre-specified number of individuals.
+#' to safeguard a particular number of individuals.
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param pop_size_targets `numeric` vector that specifies the minimum
-#' population size for each feature.
+#' population size required for each feature.
 #' If a single `numeric` value is specified, then all
 #' features are assigned targets based on the same population size.
 #'
 #' @param pop_density `numeric` vector that specifies the population density
 #' for each feature. If a single `numeric` value is specified, then all
-#' features are assigned targets assuming the same population density factor.
+#' features are assigned targets assuming the same population density.
 #' See Population density section for more details.
 #'
 #' @param density_units `character` vector that specifies the area-based units
 #' for the population density values. For example, units can be used to
 #' express that population densities are in terms of individuals per hectare
-#' (`"ha"), acre (`"acre"`), or
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (`km^2`).
+#' (`"ha"`), acre (`"acre"`), or
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (`"km^2"`).
 #' If a single `character` value is specified, then all
 #' features are assigned targets assuming that population density values
 #' are in the same units.
@@ -35,9 +35,32 @@ NULL
 #'
 #' @inheritParams spec_rodrigues_targets
 #'
+#' @details
+#' This target setting method can be used to set targets for species based on
+#' population size thresholds.
+#' Many different population size thresholds -- and methods for calculating
+#' such thresholds -- have been proposed for guiding conservation decisions
+#' (Di Marco *et al.* 2016).
+#' For example, previous work has suggested that the number of
+#' individuals for a population should not fall below 50 individuals to avoid
+#' inbreeding depression, and 500 individuals to reduce genetic drift
+#' (reviewed by Jamieson and Allendorf 2012). Additionally, the
+#' Red List of Threatened Species by the International Union for the
+#' Conservation of Nature has criteria related to population size,
+#' where a species with fewer than 250, 2,500, or 10,000 individuals are
+#' recognized as Critically Endangered, Endangered, or Vulnerable
+#' (respectively) (IUCN 2025).
+#' Alternatively, the SAFE index (Clements *et al.* 2011) considers species
+#' with fewer than 5,000
+#' individuals to be threatened by extinction
+#' (based on Brook *et al.* 2006; Traill *et al.* 2007, 2010).
+#'
+#' @inheritSection spec_jung_targets Data calculations
+#'
 #' @section Population density:
-#' Population density data are expressed as number of individuals per
-#' unit area. For example, if a species has 200 individuals per hectare,
+#' This method requires population density data expressed as the number of
+#' individuals per unit area.
+#' For example, if a species has 200 individuals per hectare,
 #' then this can be specified with `pop_density = 200` and
 #' `density_units = "ha"`.
 #' Alternatively, if a species has a population density where one individual
@@ -68,36 +91,15 @@ NULL
 #' number of individuals per \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
 #' per `pop_density` and `density_units`), and
 #' \eqn{j} the target cap (expressed as
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per `cap_area_target`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, per `cap_area_target`
+#' and `area_units`).
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
 #' is calculated as follows.
 #' \deqn{
-#' t = min(f, min(j, min(n \times d))}{
-#' t = min(f, min(j, n * d))
+#' t = min(f, j, n \times d)}{
+#' t = min(f, j, n * d)
 #' }
 #'
-#' @details
-#' This target setting method can be used to set targets for a species based on
-#' a population size threshold.
-#' Many different population size thresholds -- and methods for calculating
-#' such thresholds -- have been proposed for guiding conservation decisions
-#' (Di Marco *et al.* 2016).
-#' For example, previous work has suggested that the number of
-#' individuals for a population should not fall short of 50 individuals to avoid
-#' inbreeding depression, and 500 individuals to reduce genetic drift
-#' (reviewed by Jamieson and Allendorf 2012). Additionally, the
-#' Red List of Threatened Species by the International Union for the
-#' Conservation of Nature has criteria related to population size,
-#' where a species with fewer than 250, 2,500, or 10,000 individuals are
-#' recognized as Critically Endangered, Endangered, or Vulnerable
-#' (respectively) (IUCN 2025).
-#' Alternatively, the SAFE index (Clements *et al.* 2011) considers species
-#' with fewer than 5,000
-#' individuals to be threatened by extinction
-#' (based on minimum population sizes reported by Brook *et al.* 2006;
-#' Traill *et al.* 2007, 2010).
-#'
-#' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
 #'
 #' @references
@@ -160,7 +162,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -178,55 +180,45 @@ NULL
 #' # create problem with targets to ensure that, at least, 2500 individuals
 #' # for each feature are represented by the solution
 #' p1 <-
-#'  p0 %>%
-#'  add_auto_targets(
-#     method = spec_pop_size_targets(
-#'      pop_size = 2500,
-#'      pop_density = sim_pop_density_per_km2,
-#'      density_units = "km2"
-#'    )
-#'  )
+#'   p0 %>%
+#'   add_auto_targets(
+#'     method = spec_pop_size_targets(
+#'       pop_size = 2500,
+#'       pop_density = sim_pop_density_per_km2,
+#'       density_units = "km2"
+#'     )
+#'   )
 #'
-#' # create problem with targets to ensure that, at least, 5000 individuals
-#' # for each feature are represented by the solution
-#' p2 <-
-#'  p0 %>%
-#'  add_auto_targets(
-#     method = spec_pop_size_targets(
-#'      pop_size = 5000,
-#'      pop_density = sim_pop_density_per_km2,
-#'      area_units = "km2"
-#'    )
-#'  )
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # plot solution
+#' plot(s1, main = "solution based on 2500 population targets", axes = FALSE)
 #'
 #' # create problem with targets to ensure that a particular number of
-#' # individuals or each feature are represented by the solution
+#' # individuals for each feature are represented by the solution
 #'
 #' # simulate the number of number of individuals required for each feature
-#' target_pop_size <- round(
+#' target_pop_sizes <- round(
 #'   runif(terra::nlyr(sim_complex_features), 1000, 5000)
-#  )
-#'
-#' # now, create problem with these targets
-#' p3 <-
-#'  p0 %>%
-#'  add_auto_targets(
-#     spec_pop_size_targets(
-#'      pop_size = target_pop_size,
-#'      pop_density = sim_pop_density_per_km2,
-#'      density_units = "km2"
-#'    )
 #'  )
 #'
-#' # solve problems
-#' s <- c(solve(p1), solve(p2), solve(p3))
-#' names(s) <- c(
-#'   "2500 individuals targets", "5000 individuals targets",
-#'   "varying individuals targets"
-#' )
+#' # now, create problem with these targets
+#' p2 <-
+#'   p0 %>%
+#'   add_auto_targets(
+#'     method = spec_pop_size_targets(
+#'       pop_size = target_pop_sizes,
+#'       pop_density = sim_pop_density_per_km2,
+#'       density_units = "km2"
+#'     )
+#'   )
 #'
-#' # plot solutions
-#' plot(s, axes = FALSE)
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(s2, main = "solution based on varying targets", axes = FALSE)
 #' }
 #' @export
 spec_pop_size_targets <- function(pop_size_targets,

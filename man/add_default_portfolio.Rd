@@ -22,7 +22,7 @@ other portfolios is manually specified.
 \seealso{
 See \link{portfolios} for an overview of all functions for adding a portfolio.
 
-Other functions for adding portfolios
+Other functions for adding portfolios:
 \code{\link{add_cuts_portfolio}()},
 \code{\link{add_extra_portfolio}()},
 \code{\link{add_gap_portfolio}()},

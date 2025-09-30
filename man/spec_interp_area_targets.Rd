@@ -41,7 +41,8 @@ a missing (\code{NA}) value can be specified.}
 features should be calculated. Available options include \code{"min"} and \code{"max"}.
 For example, a value of \code{"max"} means that the target for a rare features
 is calculated as the maximum based on \code{rare_relative_target} and
-\code{rare_area_threshold}.}
+\code{rare_area_threshold}. Note that \code{rare_method} will have no effect on
+the target calculations if \code{rare_area_target} is a missing (\code{NA}) value.}
 
 \item{common_area_threshold}{\code{numeric} value indicating the
 threshold area for identifying common features.
@@ -65,7 +66,9 @@ a missing (\code{NA}) value can be specified.}
 features should be calculated. Available options include \code{"min"} and \code{"max"}.
 For example, a value of \code{"max"} means that the target for a common feature
 is calculated as the maximum based on \code{common_relative_target} and
-\code{common_area_threshold}.}
+\code{common_area_threshold}. Note that \code{common_method} will have
+no effect on the target calculations if \code{common_area_target} is a
+missing (\code{NA}) value.}
 
 \item{cap_area_target}{\code{numeric} value denoting the area-based target
 cap.
@@ -83,7 +86,9 @@ Available options include \code{"linear"} for linear interpolation and
 for the area-based arguments (e.g., \verb{"km^2", }"ha"\verb{, }"acres"`).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets by interpolating them between area-based thresholds.
@@ -96,22 +101,22 @@ range between the those for the rare and common features.
 Additionally, features can (optionally) have their targets capped at a
 particular threshold.
 This method is especially useful for setting targets based on
-interpolation procedures when features have data in an area-based
+interpolation procedures when features have data expressed as an area-based
 unit of measurement (e.g., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
 This method has been applied to set target thresholds at global and national
 scales (e.g., Butchart \emph{et al.} 2015;
-Rodrigues \emph{et al.} 2004; Polak *et al.*2015).
+Rodrigues \emph{et al.} 2004; Polak \emph{et al.} 2015).
 It is based on the rationale that species with a smaller geographic
 distribution are at a greater risk of extinction, and so require
 a larger percentage of their geographic distribution to be represented
 by a prioritization (Rodrigues \emph{et al.} 2004).
 When using this method in a planning exercise, it is important to ensure
 that the threshold parameters reflect the stakeholder objectives.
-Additionally, the threshold parameters may need to calibrated based on
+Additionally, the threshold parameters may need to set according to
 the spatial extent of the planning region.
 }
 \section{Mathematical formulation}{
@@ -122,34 +127,41 @@ To express this mathematically, we will define the following terminology.
 Let \eqn{f} denote the total spatial extent of a feature (e.g., geographic
 range size),
 \eqn{a} the threshold for identifying rare features
-(per \code{rare_area_threshold}),
+(per \code{rare_area_threshold} and \code{area_units}),
 \eqn{b} the relative targets for rare features
 (per \code{rare_relative_target}),
 \eqn{c} the area-based targets for rare features
-(per \code{rare_area_target}),
+(per \code{rare_area_target} and \code{area_units}),
 \eqn{d()} the function for calculating targets for rare features
-as a maximum or minimum value (per \code{rare_method}).
+as a maximum or minimum value (per \code{rare_method}),
 \eqn{e} the threshold for identifying common features
-(per \code{common_area_threshold}),
+(per \code{common_area_threshold} and \code{area_units}),
 \eqn{g} the relative targets for common features
 (per \code{common_relative_target}),
 \eqn{h} the area-based targets for common features
-(per \code{common_area_target}),
+(per \code{common_area_target} and \code{area_units}),
 \eqn{i()} the method for calculating targets for common features
-as a maximum or minimum value  (per \code{common_method}).
-\eqn{j} the target cap (per \code{cap_area_target}).
+as a maximum or minimum value  (per \code{common_method}), and
+\eqn{j} the target cap (per \code{cap_area_target} and \code{area_units}), and
 \eqn{k()} the interpolation method for features with a spatial distribution
 that is larger than a rare features and smaller than a common feature
 (per \code{interp_method}).
-In particular, \eqn{j()} is either a linear or log-linear interpolation
+In particular, \eqn{k()} is either a linear or log-linear interpolation
 procedure based on the thresholds for identifying rare and common features
 as well as the relative targets for rare and common features.
-Given this terminology, the target threshold (\eqn{t}) for a feature
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \itemize{
-\item If \eqn{f < a}, then \eqn{t = min(d(c, b * f), j)}.
-\item If \eqn{f > e}, then \eqn{t = min(i(h, g * f), j)}.
-\item If \eqn{a <= f <= e}, then \eqn{t = min(k(f, a, b, e, g), j)}.
+\item If \eqn{f < a}, then \eqn{
+t = min(d(c, b \times f), j)}{
+t = min(d(c, b * f), j)
+}.
+\item If \eqn{f > e}, then \eqn{
+t = min(i(h, g \times f), j)}{.
+t = min(i(h, g * f), j)
+}.
+\item If \eqn{a \leq f \leq e}{a <= f <= e}, then
+\eqn{t = min(k(f, a, b, e, g), j)}.
 }
 }
 
@@ -162,10 +174,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -173,7 +186,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -197,7 +210,7 @@ p1 <-
      common_method = "max",            # not used
      cap_area_target = 1000000,
      interp_method = "log10",
-     area_units = "km2",
+     area_units = "km2"
     )
   ) \%>\%
   add_binary_decisions() \%>\%
@@ -207,7 +220,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -234,7 +247,7 @@ Global gap analysis: priority regions for expanding the global
 protected-area network. \emph{BioScience}, 54: 1092--1100.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

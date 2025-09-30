@@ -3,16 +3,15 @@ NULL
 
 #' Specify targets following a set of rules
 #'
-#' Specify targets based on a rule-based
-#' procedure based on a set of
-#' ecological and ecosystem criteria. This is a customizable version of the
+#' Specify targets based on a set of rules for ecological and ecosystem
+#' criteria. This is a customizable version of the
 #' approach in Harris and Holness (2023).
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
 #' This method was designed to help set targets for a broad range of features
 #' (e.g., species, ecosystems, ecosystem services, ecological processes)
 #' at local and national scales.
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param baseline_relative_target `numeric` value indicating the baseline
@@ -28,7 +27,8 @@ NULL
 #' @param data `data.frame` indicating if each feature meets the criteria
 #' for applying each rule (or not) during the target calculations.
 #' Here, each row must correspond to a different feature, and each column
-#' contains information about the feature. In particular, `data`
+#' contains information about the feature (per `feature_names(x)`).
+#' In particular, `data`
 #' must have a `"feature"` column that contains `character` values with the
 #' feature names. Additionally, `data` must also contain columns
 #' with `logical` (`TRUE`/`FALSE`) values that indicate if the feature
@@ -37,36 +37,11 @@ NULL
 #' `data` could contain columns that indicate if each feature corresponds
 #' to a threatened species, ecosystem service, or culturally important site.
 #' Note that if different rules should be applied to species based on their
-#' particular threat status (e.g., Critically Endangered species should receive
-#' different target then Vulnerable species), then `data` should contain a
+#' particular threat status (e.g., Critically Endangered and Vulnerable species
+#' should receive different target thresholds), then `data` should contain a
 #' column for each threat status (separately).
 #'
 #' @inheritParams spec_rodrigues_targets
-#'
-#' @section Mathematical formulation:
-#' This method provides a flexible approach for setting target thresholds based
-#' on a set of criteria.
-#' To express this mathematically, we will define the following terminology.
-#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
-#' range).
-#' Also, let \eqn{U} denote the set of rules (indexed by \eqn{u}).
-#' Next, let \eqn{b} denote the baseline relative target threshold
-#' (per `baseline_relative_target`).
-#' To parameterize the information about the features that will be used
-#' for target calculations (per `data`),
-#' let \eqn{d_u}{du} indicate if the target for
-#' the feature should be calculated based on each rule \eqn{u \in U}{u in U}
-#' (using binary values).
-#' Furthermore, let \eqn{a_u} denote the value that will be used to calculate
-#' the target based on rule \eqn{u} (per `rules_relative_target`).
-#' Finally, let \eqn{c} denote the cap threshold (per `cap_area_target`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
-#' is calculated as follows.
-#' \deqn{
-#' t = min(f \times max(min(b + \sum_{u \in U} d_u \times a_u, 1), 0), c)
-#' }{
-#' t = min(f * max(min(b + sum_u^U d_u * a_u, 1), 0), c)
-#' }
 #'
 #' @details
 #' This method has been applied to set target thresholds at national
@@ -76,17 +51,38 @@ NULL
 #' When using this method in a planning exercise, it is important to ensure
 #' that the criteria and values used for target setting reflect the stakeholder
 #' objectives.
-#' Additionally, the cap threshold may need to calibrated based on
-#' the features and spatial extent of the planning region.
+#' Additionally, the baseline relative target (per `baseline_relative_target`)
+#' and cap threshold (per `cap_area_target` and `area_units`) may need to
+#' set based on the features and spatial extent of the planning region.
 #' Please note that this function is provided as convenient method to
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method provides a flexible approach for setting target thresholds based
+#' on a set of rules.
+#' To express this mathematically, we will define the following terminology.
+#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
+#' range), \eqn{b} denote the baseline relative target threshold
+#' (per `baseline_relative_target`), and let \eqn{c} denote the cap threshold
+#' (per `cap_area_target` and `area_units`).
+#' To describe the rules, let \eqn{U} denote the set of rules
+#' (indexed by \eqn{u}), \eqn{d_u}{du} indicate if the target for
+#' the feature should be calculated based on each rule \eqn{u \in U}{u in U}
+#' (using binary values, per `data`), and \eqn{a_u} denote the value
+#' should be added to the target given each rule \eqn{u \in U}{u in U}
+#' (per `rules_relative_target`).
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
+#' is calculated as follows.
+#' \deqn{
+#' t = min(f \times max(min(b + \sum_{u \in U} d_u \times a_u, 1), 0), c)
+#' }{
+#' t = min(f * max(min(b + sum_u^U d_u * a_u, 1), 0), c)
+#' }
 #'
 #' @inherit spec_jung_targets return seealso
-#'
-#' @family methods
 #'
 #' @references
 #' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -110,22 +106,22 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
 #' # calculate total distribution size for features in km^2
 #' feature_size <- as.numeric(units::set_units(
 #'   units::set_units(
-#'     terra::sum(sim_complex_features, "sum", na.rm = TRUE)[[1]] *
+#'     terra::global(sim_complex_features, "sum", na.rm = TRUE)[[1]] *
 #'       prod(terra::res(sim_complex_features)),
 #'     "m^2"
-#'   )
+#'   ),
 #'   "km^2"
 #' ))
 #'
 #' # simulate data that provide additional information for each feature
-#' rule_data <- tibble::tibble(feature = names(sim_complex_pu_raster))
+#' rule_data <- tibble::tibble(feature = names(sim_complex_features))
 #'
 #' # add a column indicating if each feature has a small distribution,
 #  # based on a threshold of 1000 km^2
@@ -133,13 +129,13 @@ NULL
 #'
 #' # add a column indicating if each feature has a large distribution,
 #  # based on a threshold of 5000 km^2
-#' rule_data$small_distribution <- feature_size >= 5000
+#' rule_data$large_distribution <- feature_size >= 5000
 #'
 #' # add a column indicating if each feature has low quality data
 #' # associated with it, based on random simulated values
 #' rule_data$low_quality <- sample(
 #'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-#'   replace = TRUE, probs = c(0.2, 0.8)
+#'   replace = TRUE, prob = c(0.2, 0.8)
 #' )
 #'
 #' # next, we will add simulate dat for columns indicating the threat status of
@@ -151,22 +147,22 @@ NULL
 #' # add a column indicating if each feature has a Vulnerable threat status
 #' rule_data$vulnerable <- sample(
 #'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-#'   replace = TRUE, probs = c(0.3, 0.7)
+#'   replace = TRUE, prob = c(0.3, 0.7)
 #' )
 #'
 #' # add a column indicating if each feature has an Endangered threat status,
 #' # based on random simulated values
 #' rule_data$endangered <- sample(
 #'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-#'   replace = TRUE, probs = c(0.3, 0.7)
-#' ) & !vulnerable
+#'   replace = TRUE, prob = c(0.3, 0.7)
+#' ) & !rule_data$vulnerable
 #'
 #' # add a column indicating if each feature has a Critically Endangered threat
 #' # status, based on random simulated values
 #' rule_data$critically_endangered <- sample(
 #'   c(TRUE, FALSE), terra::nlyr(sim_complex_features),
-#'   replace = TRUE, probs = c(0.3, 0.7)
-#' ) & !endangered & !vulnerable
+#'   replace = TRUE, prob = c(0.3, 0.7)
+#' ) & !rule_data$endangered & !rule_data$vulnerable
 #'
 #' # preview rule data
 #' print(rule_data)
@@ -183,17 +179,19 @@ NULL
 #' p1 <-
 #'   problem(sim_complex_pu_raster, sim_complex_features) %>%
 #'   add_min_set_objective() %>%
-#'   add_rule_targets(
-#'     baseline_relative_target = 0.3,
-#'     rules_relative_target = c(
-#'       "small_distribution" = 0.1,
-#'       "large_distribution" = -0.1,
-#'       "low_quality" = -0.1,
-#'       "vulnerable" = 0.05,
-#'       "endangered" = 0.1,
-#'       "critically_endangered" = 0.2
-#'     ),
-#'     data = rule_data
+#'   add_auto_targets(
+#'     method = spec_rule_targets(
+#'       baseline_relative_target = 0.3,
+#'       rules_relative_target = c(
+#'         "small_distribution" = 0.1,
+#'         "large_distribution" = -0.1,
+#'         "low_quality" = -0.1,
+#'         "vulnerable" = 0.05,
+#'         "endangered" = 0.1,
+#'         "critically_endangered" = 0.2
+#'       ),
+#'       data = rule_data
+#'     )
 #'   ) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -202,7 +200,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_rule_targets <- function(baseline_relative_target,

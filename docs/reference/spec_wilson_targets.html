@@ -6,7 +6,7 @@ target thresholds based on the amount
 of habitat required to sustain populations for 100,000 years.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart et al. (2015).
-Note that this function is designed to be used within add_auto_targets()
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:description" content="Specify targets based on the methodology outlined by
 Wilson et al. (2010).
 Briefly, this method involves using population growth rate data to set
@@ -14,7 +14,7 @@ target thresholds based on the amount
 of habitat required to sustain populations for 100,000 years.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart et al. (2015).
-Note that this function is designed to be used within add_auto_targets()
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -76,7 +76,7 @@ target thresholds based on the amount
 of habitat required to sustain populations for 100,000 years.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart <em>et al.</em> (2015).
-Note that this function is designed to be used within <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
+Note that this function is designed to be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
 and <code><a href="add_group_targets.html">add_group_targets()</a></code>.</p>
     </div>
 
@@ -104,7 +104,7 @@ feature within priority areas
 If a single <code>numeric</code> value is specified, then all
 features are assigned targets based on the same average population growth
 rate.
-See Population data section for more details.</p></dd>
+See Population growth section for more details.</p></dd>
 
 
 <dt id="arg-var-growth-rates">var_growth_rates<a class="anchor" aria-label="anchor" href="#arg-var-growth-rates"></a></dt>
@@ -115,13 +115,13 @@ feature within priority areas
 If a single <code>numeric</code> value is specified, then all
 features are assigned targets assuming the same variance in population
 growth rate.
-See Population data section for more details.</p></dd>
+See Population growth section for more details.</p></dd>
 
 
 <dt id="arg-pop-density">pop_density<a class="anchor" aria-label="anchor" href="#arg-pop-density"></a></dt>
 <dd><p><code>numeric</code> vector that specifies the population density
 for each feature. If a single <code>numeric</code> value is specified, then all
-features are assigned targets assuming the same population density factor.
+features are assigned targets assuming the same population density.
 See Population density section for more details.</p></dd>
 
 
@@ -129,7 +129,9 @@ See Population density section for more details.</p></dd>
 <dd><p><code>character</code> vector that specifies the area-based units
 for the population density values. For example, units can be used to
 express that population densities are in terms of individuals per hectare
-(<code>"ha"), acre (</code>"acre"<code>), or \ifelse{html}{\out{km&lt;sup&gt;2&lt;/sup&gt;}}{\eqn{km^2}} (</code>km^2<code>). If a single </code>character` value is specified, then all
+(<code>"ha"</code>), acre (<code>"acre"</code>), or
+km<sup>2</sup> (<code>"km^2"</code>).
+If a single <code>character</code> value is specified, then all
 features are assigned targets assuming that population density values
 are in the same units.
 See Population density section for more details.</p></dd>
@@ -151,7 +153,9 @@ Defaults to <code>"km^2"</code>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets.</p>
+    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets that
+can be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code> and <code><a href="add_group_targets.html">add_group_targets()</a></code>
+to update the targets for a <code><a href="problem.html">problem()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -170,16 +174,19 @@ set targets for problems with a single management zone, and cannot
 be used for those with multiple management zones.</p>
     </div>
     <div class="section level2">
-    <h2 id="population-data">Population data<a class="anchor" aria-label="anchor" href="#population-data"></a></h2>
+    <h2 id="population-growth">Population growth<a class="anchor" aria-label="anchor" href="#population-growth"></a></h2>
 
 
-<p>Although the package does not provide population growth rate data,
-such data can be obtained from published databases or approximated
-from physiological trait databases.
-For example, Wilson <em>et al.</em> (2010) detail calculations to approximate
+<p>This method requires population growth rate data.
+Although the package does not provide such data,
+population growth rate estimates can be obtained from published datasets
+(e.g., Brook <em>et al.</em> 2006).
+Additionally, population growth rate data may be approximated from
+physiological traits
+(e.g., such as body mass, Sinclair 1996; Hilbers <em>et al.</em> 2016).
+Indeed, Wilson <em>et al.</em> (2010) detail equations for approximating
 average population growth rate and variance in population growth rate
-for mammal species based on body mass, and Santini <em>et al.</em> (2022) provide
-body mass data for mammal species globally.</p>
+for mammal species based on body mass (based on Sinclair 1996).</p>
     </div>
     <div class="section level2">
     <h2 id="mathematical-formulation">Mathematical formulation<a class="anchor" aria-label="anchor" href="#mathematical-formulation"></a></h2>
@@ -196,12 +203,15 @@ range size expressed as km<sup>2</sup>),
 (i.e.,
 number of individuals per km<sup>2</sup>,
 per <code>pop_density</code> and <code>density_units</code>),
-\(r\) the mean population growth rate of the feature,
-\(sigma^2\) the variance in population growth rate of the feature,
-\(b\) is a constant calculated from \(r\) and \(sigma^2\),
-, and \(j\) the target cap (expressed as
-km<sup>2</sup>, per <code>cap_area_target</code>).
-Given this terminology, the target threshold (\(t\)) for a feature
+\(r\) the mean population growth rate of the feature
+inside protected areas (per <code>mean_growth_rates</code>),
+\(\sigma^2\) the variance in population growth rate of the feature
+inside protected areas (per <code>var_growth_rates</code>),
+\(b\) is a constant calculated from \(r\) and \(\sigma^2\),
+and \(j\) the target cap (expressed as
+km<sup>2</sup>,
+per <code>cap_area_target</code> and <code>area_units</code>).
+Given this terminology, the target threshold (\(t\)) for the feature
 is calculated as follows.
 $$
 t = min(f, min(j, d \times k)) \\
@@ -210,11 +220,29 @@ b = (2 \times \frac{r}{\sigma^2}) - 1
 $$</p>
     </div>
     <div class="section level2">
+    <h2 id="data-calculations">Data calculations<a class="anchor" aria-label="anchor" href="#data-calculations"></a></h2>
+
+
+<p>This function involves calculating targets based on the spatial extent
+of the features in <code>x</code>.
+Although it can be readily applied to <code><a href="problem.html">problem()</a></code> objects that
+have the feature data provided as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object,
+you will need to specify the spatial units for the features
+when initializing the <code><a href="problem.html">problem()</a></code> objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a <code>data.frame</code> or <code>character</code> vector,
+then you will need to specify an argument to <code>feature_units</code> when
+using the <code><a href="problem.html">problem()</a></code> function.
+See the Examples section of the documentation for <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
+for a demonstration of specifying the spatial units for features.</p>
+    </div>
+    <div class="section level2">
     <h2 id="population-density">Population density<a class="anchor" aria-label="anchor" href="#population-density"></a></h2>
 
 
-<p>Population density data are expressed as number of individuals per
-unit area. For example, if a species has 200 individuals per hectare,
+<p>This method requires population density data expressed as the number of
+individuals per unit area.
+For example, if a species has 200 individuals per hectare,
 then this can be specified with <code>pop_density = 200</code> and
 <code>density_units = "ha"</code>.
 Alternatively, if a species has a population density where one individual
@@ -233,106 +261,10 @@ obtained from published databases
 (e.g., Santini <em>et al.</em> 2022, 2023, 2024; Witting <em>et al.</em> 2024).</p>
     </div>
     <div class="section level2">
-    <h2 id="target-setting">Target setting<a class="anchor" aria-label="anchor" href="#target-setting"></a></h2>
-
-
-<p>Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine <em>et al.</em> 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90% or 100% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.</p>
-    </div>
-    <div class="section level2">
-    <h2 id="data-calculations">Data calculations<a class="anchor" aria-label="anchor" href="#data-calculations"></a></h2>
-
-
-<p>This function involves calculating targets based on the spatial extent
-of the features in <code>x</code>.
-As such, this function may need to make particular assumptions depending
-on the data used to specify the planning units and features in <code>x</code>.
-If possible, when building <code>x</code> with <code><a href="problem.html">problem()</a></code>, it is recommended to specify
-<code>features</code> as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object to ensure correctness.
-Although this function can be used to specify targets for features
-in other data formats, you must take care to ensure that the information
-specifying the amount of each feature are in units of 1
-km<sup>2</sup>.
-To help ensure that you are aware of this limitation, this function will
-produce a warning to alert you when the features in <code>x</code> belong to such
-data formats.
-If you are confident that your data are in the correct units,
-then you can safely ignore this warning.
-Below we provide details for ensuring that the targets are calculated
-correctly.</p>
-<dl><dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units and <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> features</dt>
-<dd><p>This function will automatically ensure that the targets are calculated
-correctly. Given this, it is recommended to specify <code>features</code> in either
-of these when building a <code><a href="problem.html">problem()</a></code>.</p></dd>
-
-
-<dt><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units and <code>character</code> features</dt>
-<dd><p>Here, the argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify
-which columns of the planning unit data denote the amount of each feature
-present within each planning unit.
-All of these columns must contain values in
-units of 1 km km<sup>2</sup>.
-For example, if <code>features = c("spp1", "spp2", "spp3")</code>, then the columns
-<code>"spp1"</code>, <code>"spp2"</code>, and <code>"spp3"</code> of the planning unit denote data the amount
-of the first, second, and third features (respectively) present within each
-planning unit. If the column <code>"spp1"</code> has a value of 5 in the first row
-of the planning unit data, then this means the first planning unit
-contains 5 km km<sup>2</sup>
-of habitat for the feature <code>"spp1"</code>.</p></dd>
-
-
-<dt><code>x</code> has <code>data.frame</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij</code> must contain a <code>data.frame</code>
-with the columns <code>"pu"</code>, <code>"species"</code>, <code>"amount"</code>. For a given row,
-the <code>"pu"</code> column contains an <code>integer</code> value denoting the identifier
-for the planning unit,
-the <code>"species"</code> column contains an <code>integer</code> value denoting the
-identifier for the feature,
-and <code>"amount" contains a </code>numeric<code>value denoting the amount of the the feature (per the</code>"species"<code>column) that is present in the planning unit (per</code>"pu"<code>column). Given this, the "amount" column must contain values that in units of 1 km \ifelse{html}{\out{km&lt;sup&gt;2&lt;/sup&gt;}}{\eqn{km^2}}. For example, if the argument to</code>rij<code>has a row where the</code>"pu"<code>column has a value of 1, the</code>"species"<code>column has a value of 2, and the</code>"amount"` column has a value of 3: then this means that the
-planning unit with an identifier of 1 contains 3
-km km<sup>2</sup> of the feature
-associated with the identifier of 2.</p></dd>
-
-
-<dt><code>x</code> has <code>numeric</code> or <code>matrix</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij_matrix</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij_matrix</code> must contain a <code>matrix</code>
-(or <code>list</code> of <code>matrix</code> objects) that contains <code>numeric</code> values in units of 1
-km km<sup>2</sup>.</p></dd>
-
-
-</dl></div>
-    <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
-    <p>Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
+    <p>Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and
+global extinction risk are unrelated. Ecology Letters 9:375–382.</p>
+<p>Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
 Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
 Comeros‐Raynal MT, Cornell J, Ficetola GF, Fishpool LDC, Fuller RA,
 Geldmann J, Harwell H, Hilton‐Taylor C, Hoffmann M, Joolia A, Joppa L,
@@ -341,19 +273,35 @@ Segan DB, Skolnik B, Spalding MD, Stuart SN, Symes A, Taylor J, Visconti P,
 Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 national and global conservation area targets. <em>Conservation Letters</em>,
 8: 329–337.</p>
+<p>Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
+Huijbregts MAJ (2016) Setting population targets for mammals using body mass
+as a predictor of population persistence. Conservation Biology 31:385–393.</p>
 <p>IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 Available at <a href="https://www.iucnredlist.org" class="external-link">https://www.iucnredlist.org</a>. Accessed on 23 July 2025.</p>
+<p>Santini L, Mendez Angarita VY, Karoulis C, Fundarò D, Pranzini N, Vivaldi C,
+Zhang T, Zampetti A, Gargano SJ, Mirante D, Paltrinieri L (2024)
+TetraDENSITY 2.0—A database of population density estimates in tetrapods.
+<em>Global Ecology and Biogeography</em>, 33:e13929.</p>
 <p>Santini L, Benítez‐López A, Dormann CF, Huijbregts MAJ (2022) Population
 density estimates for terrestrial mammal species.
 <em>Global Ecology and Biogeography</em>, 31:978–994.</p>
+<p>Santini L, Tobias JA, Callaghan C, Gallego‐Zamorano J, Benítez‐López A
+(2023) Global patterns and predictors of avian population density.
+<em>Global Ecology and Biogeography</em>, 32:1189—1204.</p>
+<p>Sinclair ARE (1996) Mammal populations: fluctuation, regulation, life
+history theory and their implications for conservation.
+In Frontiers of Population Ecology (eds RB Floyd, AW Sheppard, PJ de
+Barro). CSIRO Publishing. Melbourne, Australia.</p>
 <p>Wilson KA, Meijaard E, Drummond S, Grantham HS, Boitani L, Catullo G,
 Christie L, Dennis R, Dutton I, Falcucci A, Maiorano L, Possingham HP,
 Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 production landscapes. <em>Ecological Applications</em>, 20:1721–1732.</p>
+<p>Witting L (2024) Population dynamic life history models of the birds and
+mammals of the world. <em>Ecological Informatics</em>, 80:102492.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other methods:
+    <div class="dont-index"><p>Other target setting methods:
 <code><a href="spec_absolute_targets.html">spec_absolute_targets</a>()</code>,
 <code><a href="spec_area_targets.html">spec_area_targets</a>()</code>,
 <code><a href="spec_duran_targets.html">spec_duran_targets</a>()</code>,
@@ -375,8 +323,46 @@ production landscapes. <em>Ecological Applications</em>, 20:1721–1732.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># TODO</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="va">sim_complex_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_complex_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_complex_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_complex_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># simulate mean population growth rate data for each feature</span></span></span>
+<span class="r-in"><span><span class="va">sim_mean_growth_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">sim_complex_features</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">3.0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># simulate variance in population growth rate data for each feature</span></span></span>
+<span class="r-in"><span><span class="va">sim_var_growth_rates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">sim_complex_features</span><span class="op">)</span>, <span class="fl">1.0</span>, <span class="fl">2.0</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># simulate population density data for each feature,</span></span></span>
+<span class="r-in"><span><span class="co"># expressed as number of individuals per km^2</span></span></span>
+<span class="r-in"><span><span class="va">sim_pop_density_per_km2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">sim_complex_features</span><span class="op">)</span>, <span class="fl">10</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with targets based on Wilson et al. (2010)</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_complex_pu_raster</span>, <span class="va">sim_complex_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_auto_targets.html">add_auto_targets</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method <span class="op">=</span> <span class="fu">spec_wilson_targets</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      mean_growth_rate <span class="op">=</span> <span class="va">sim_mean_growth_rates</span>,</span></span>
+<span class="r-in"><span>      var_growth_rates <span class="op">=</span> <span class="va">sim_var_growth_rates</span>,</span></span>
+<span class="r-in"><span>      pop_density <span class="op">=</span> <span class="va">sim_pop_density_per_km2</span>,</span></span>
+<span class="r-in"><span>      density_units <span class="op">=</span> <span class="st">"km2"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_wilson_targets-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -10,7 +10,7 @@ NULL
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
 #' This method was designed for species protection at national-scales.
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param rare_area_threshold `numeric` value indicating the threshold
@@ -19,28 +19,10 @@ NULL
 #'
 #' @param rare_area_target `numeric` value indicating the
 #' area-based target for features with a spatial distribution
-#' that is smaller than `rare_threshold`.
+#' that is smaller than `rare_area_threshold`.
 #' Defaults to 1000 (i.e., 1000 km^2).
 #'
 #' @inheritParams spec_rodrigues_targets
-#'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on the spatial
-#' extent of the features.
-#' By default, this method identifies rare features as those with a
-#' spatial distribution smaller than 10,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per `rare_threshold`)
-#' and common features as those with a larger spatial distribution.
-#' Given this, rare features are assigned target threshold of 100%
-#' (per `rare_relative_target`)
-#' or 1,000 km\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-#' (per `rare_absolute_target`)
-#' (whichever of these two values is smaller), and
-#' common features are assigned a target threshold of 10%
-#' (per `common_relative_target`).
-#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
-#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds.
 #'
 #' @details
 #' This target setting method was designed to protect species in
@@ -55,7 +37,7 @@ NULL
 #' may select an overly large percentage of the study area,
 #' or be biased towards over-representing common and widespread species.
 #' This is because the thresholds
-#' (i.e., `rare_threshold` and `cap_threshold`)
+#' (i.e., `rare_area_threshold` and `cap_area_threshold`)
 #' were originally developed based on criteria for national-scales.
 #' As such, if you working at the sub-national scale, it is recommended to set
 #' thresholds based on that criteria are appropriate to the spatial extent
@@ -64,7 +46,27 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on the spatial
+#' extent of the features.
+#' By default, this method identifies rare features as those with a
+#' spatial distribution smaller than 10,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+#' (per `rare_area_threshold` and `area_units`)
+#' and common features as those with a larger spatial distribution.
+#' Given this, rare features are assigned target threshold of 100%
+#' (per `rare_relative_target`)
+#' or 1,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+#' (per `rare_area_threshold`)
+#' (whichever of these two values is smaller), and
+#' common features are assigned a target threshold of 10%
+#' (per `common_relative_target`).
+#' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
+#' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
+#' thresholds  (per `cap_area_threshold` and `area_units`).
+#'
 #' @inherit spec_jung_targets return seealso
 #'
 #' @family methods
@@ -98,7 +100,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -114,7 +116,7 @@ NULL
 #' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s1, axes = FALSE)
+#' plot(s1, main = "solution", axes = FALSE)
 #' }
 #' @export
 spec_watson_targets <- function(rare_area_threshold = 10000,

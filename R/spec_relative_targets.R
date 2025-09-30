@@ -9,7 +9,7 @@ NULL
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
 #' cost values) using the [feature_abundances()] function.
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param targets `numeric` vector that specifies targets for each
@@ -25,12 +25,12 @@ NULL
 #' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
 #' range size), and \eqn{a} the relative target for the feature
 #' (per `targets`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
 #' is calculated as follows.
-#' \deqn{t = f * a}
+#' \deqn{t = f \times a}
 #'
-#' @inheritSection add_auto_targets Data calculations
 #' @inherit spec_jung_targets seealso return
+#'
 #' @seealso
 #' To add relative targets directly to a [problem()], see
 #' [add_relative_targets()].
@@ -42,7 +42,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'

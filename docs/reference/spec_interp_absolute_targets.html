@@ -11,9 +11,9 @@ range between the those for the rare and common features.
 Additionally, features can (optionally) have their targets capped at a
 particular threshold.
 This method is especially useful for setting targets based on
-interpolation procedures when features do not have data in an area-based
-unit of measurement.
-Note that this function is designed to be used within add_auto_targets()
+interpolation procedures when features do not have data expressed as an
+area-based unit of measurement.
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:description" content="Specify targets by interpolating them between thresholds expressed as the
 same values as the underlying feature data (ignoring any specified
 feature units).
@@ -26,9 +26,9 @@ range between the those for the rare and common features.
 Additionally, features can (optionally) have their targets capped at a
 particular threshold.
 This method is especially useful for setting targets based on
-interpolation procedures when features do not have data in an area-based
-unit of measurement.
-Note that this function is designed to be used within add_auto_targets()
+interpolation procedures when features do not have data expressed as an
+area-based unit of measurement.
+Note that this function is designed to be used with add_auto_targets()
 and add_group_targets()."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -95,9 +95,9 @@ range between the those for the rare and common features.
 Additionally, features can (optionally) have their targets capped at a
 particular threshold.
 This method is especially useful for setting targets based on
-interpolation procedures when features do not have data in an area-based
-unit of measurement.
-Note that this function is designed to be used within <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
+interpolation procedures when features do not have data expressed as an
+area-based unit of measurement.
+Note that this function is designed to be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code>
 and <code><a href="add_group_targets.html">add_group_targets()</a></code>.</p>
     </div>
 
@@ -150,7 +150,8 @@ a missing (<code>NA</code>) value can be specified.</p></dd>
 features should be calculated. Available options include <code>"min"</code> and <code>"max"</code>.
 For example, a value of <code>"max"</code> means that the target for a rare features
 is calculated as the maximum based on <code>rare_relative_target</code> and
-<code>rare_absolute_target</code>.</p></dd>
+<code>rare_absolute_target</code>. Note that <code>rare_method</code> will have no effect on
+the target calculations if <code>rare_absolute_target</code> is a missing (<code>NA</code>) value.</p></dd>
 
 
 <dt id="arg-common-absolute-threshold">common_absolute_threshold<a class="anchor" aria-label="anchor" href="#arg-common-absolute-threshold"></a></dt>
@@ -182,7 +183,9 @@ a missing (<code>NA</code>) value can be specified.</p></dd>
 features should be calculated. Available options include <code>"min"</code> and <code>"max"</code>.
 For example, a value of <code>"max"</code> means that the target for a common feature
 is calculated as the maximum based on <code>common_relative_target</code> and
-<code>common_absolute_target</code>.</p></dd>
+<code>common_absolute_target</code>. Note that <code>common_method</code> will have no effect on
+the target calculations if <code>common_absolute_target</code> is a missing (<code>NA</code>)
+value.</p></dd>
 
 
 <dt id="arg-cap-absolute-target">cap_absolute_target<a class="anchor" aria-label="anchor" href="#arg-cap-absolute-target"></a></dt>
@@ -203,20 +206,22 @@ Available options include <code>"linear"</code> for linear interpolation and
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets.</p>
+    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets that
+can be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code> and <code><a href="add_group_targets.html">add_group_targets()</a></code>
+to update the targets for a <code><a href="problem.html">problem()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>This method has been applied to set target thresholds at global and national
 scales (e.g., Butchart <em>et al.</em> 2015;
-Rodrigues <em>et al.</em> 2004; Polak *et al.*2015).
+Rodrigues <em>et al.</em> 2004; Polak <em>et al.</em> 2015).
 It is based on the rationale that species with a smaller geographic
 distribution are at a greater risk of extinction, and so require
 a larger percentage of their geographic distribution to be represented
 by a prioritization (Rodrigues <em>et al.</em> 2004).
 When using this method in a planning exercise, it is important to ensure
 that the threshold parameters reflect the stakeholder objectives.
-Additionally, the threshold parameters may need to calibrated based on
+Additionally, the threshold parameters may need to set according to
 the spatial extent of the planning region.</p>
     </div>
     <div class="section level2">
@@ -234,7 +239,7 @@ Let \(f\) denote the total abundance of a feature,
 \(c\) the absolute targets for rare features
 (per <code>rare_absolute_target</code>),
 \(d()\) the function for calculating targets for rare features
-as a maximum or minimum value (per <code>rare_method</code>).
+as a maximum or minimum value (per <code>rare_method</code>),
 \(e\) the threshold for identifying common features
 (per <code>common_absolute_threshold</code>),
 \(g\) the relative targets for common features
@@ -242,89 +247,22 @@ as a maximum or minimum value (per <code>rare_method</code>).
 \(h\) the absolute targets for common features
 (per <code>common_absolute_target</code>),
 \(i()\) the method for calculating targets for common features
-as a maximum or minimum value  (per <code>common_method</code>).
-\(j\) the target cap (per <code>cap_absolute_target</code>).
+as a maximum or minimum value  (per <code>common_method</code>),
+\(j\) the target cap (per <code>cap_absolute_target</code>), and
 \(k()\) the interpolation method for features with a spatial distribution
 that is larger than a rare features and smaller than a common feature
 (per <code>interp_method</code>).
-In particular, \(j()\) is either a linear or log-linear interpolation
+In particular, \(k()\) is either a linear or log-linear interpolation
 procedure based on the thresholds for identifying rare and common features
 as well as the relative targets for rare and common features.
-Given this terminology, the target threshold (\(t\)) for a feature
-is calculated as follows.</p><ul><li><p>If \(f &lt; a\), then \(t = min(d(c, b * f), j)\).</p></li>
-<li><p>If \(f &gt; e\), then \(t = min(i(h, g * f), j)\).</p></li>
-<li><p>If \(a &lt;= f &lt;= e\), then \(t = min(k(f, a, b, e, g), j)\).</p></li>
+Given this terminology, the target threshold (\(t\)) for the feature
+is calculated as follows.</p><ul><li><p>If \(f &lt; a\), then \(
+t = min(d(c, b \times f), j)\).</p></li>
+<li><p>If \(f &gt; e\), then \(
+t = min(i(h, g \times f), j)\).</p></li>
+<li><p>If \(a \leq f \leq e\), then
+\(t = min(k(f, a, b, e, g), j)\).</p></li>
 </ul></div>
-    <div class="section level2">
-    <h2 id="data-calculations">Data calculations<a class="anchor" aria-label="anchor" href="#data-calculations"></a></h2>
-
-
-<p>This function involves calculating targets based on the spatial extent
-of the features in <code>x</code>.
-As such, this function may need to make particular assumptions depending
-on the data used to specify the planning units and features in <code>x</code>.
-If possible, when building <code>x</code> with <code><a href="problem.html">problem()</a></code>, it is recommended to specify
-<code>features</code> as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object to ensure correctness.
-Although this function can be used to specify targets for features
-in other data formats, you must take care to ensure that the information
-specifying the amount of each feature are in units of 1
-km<sup>2</sup>.
-To help ensure that you are aware of this limitation, this function will
-produce a warning to alert you when the features in <code>x</code> belong to such
-data formats.
-If you are confident that your data are in the correct units,
-then you can safely ignore this warning.
-Below we provide details for ensuring that the targets are calculated
-correctly.</p>
-<dl><dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units and <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> features</dt>
-<dd><p>This function will automatically ensure that the targets are calculated
-correctly. Given this, it is recommended to specify <code>features</code> in either
-of these when building a <code><a href="problem.html">problem()</a></code>.</p></dd>
-
-
-<dt><code>x</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> or <code>data.frame</code> planning units and <code>character</code> features</dt>
-<dd><p>Here, the argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify
-which columns of the planning unit data denote the amount of each feature
-present within each planning unit.
-All of these columns must contain values in
-units of 1 km km<sup>2</sup>.
-For example, if <code>features = c("spp1", "spp2", "spp3")</code>, then the columns
-<code>"spp1"</code>, <code>"spp2"</code>, and <code>"spp3"</code> of the planning unit denote data the amount
-of the first, second, and third features (respectively) present within each
-planning unit. If the column <code>"spp1"</code> has a value of 5 in the first row
-of the planning unit data, then this means the first planning unit
-contains 5 km km<sup>2</sup>
-of habitat for the feature <code>"spp1"</code>.</p></dd>
-
-
-<dt><code>x</code> has <code>data.frame</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij</code> must contain a <code>data.frame</code>
-with the columns <code>"pu"</code>, <code>"species"</code>, <code>"amount"</code>. For a given row,
-the <code>"pu"</code> column contains an <code>integer</code> value denoting the identifier
-for the planning unit,
-the <code>"species"</code> column contains an <code>integer</code> value denoting the
-identifier for the feature,
-and <code>"amount" contains a </code>numeric<code>value denoting the amount of the the feature (per the</code>"species"<code>column) that is present in the planning unit (per</code>"pu"<code>column). Given this, the "amount" column must contain values that in units of 1 km \ifelse{html}{\out{km&lt;sup&gt;2&lt;/sup&gt;}}{\eqn{km^2}}. For example, if the argument to</code>rij<code>has a row where the</code>"pu"<code>column has a value of 1, the</code>"species"<code>column has a value of 2, and the</code>"amount"` column has a value of 3: then this means that the
-planning unit with an identifier of 1 contains 3
-km km<sup>2</sup> of the feature
-associated with the identifier of 2.</p></dd>
-
-
-<dt><code>x</code> has <code>numeric</code> or <code>matrix</code> planning units and <code>data.frame</code> features</dt>
-<dd><p>The argument to <code>features</code> of <code><a href="problem.html">problem()</a></code> is used to specify a
-unique identifier and name for each of the features.
-Additionally, the argument to <code>rij_matrix</code> of
-<code><a href="problem.html">problem()</a></code> is used to specify the amount of each feature present within
-each planning unit. The argument to <code>rij_matrix</code> must contain a <code>matrix</code>
-(or <code>list</code> of <code>matrix</code> objects) that contains <code>numeric</code> values in units of 1
-km km<sup>2</sup>.</p></dd>
-
-
-</dl></div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -349,7 +287,7 @@ protected-area network. <em>BioScience</em>, 54: 1092–1100.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other methods:
+    <div class="dont-index"><p>Other target setting methods:
 <code><a href="spec_absolute_targets.html">spec_absolute_targets</a>()</code>,
 <code><a href="spec_area_targets.html">spec_area_targets</a>()</code>,
 <code><a href="spec_duran_targets.html">spec_duran_targets</a>()</code>,
@@ -372,9 +310,59 @@ protected-area network. <em>BioScience</em>, 54: 1092–1100.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># TODO</span></span></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
+<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># this function sets targets based on the total abundance of the features</span></span></span>
+<span class="r-in"><span><span class="co"># (i.e., sum of planning unit values for the feature) and does not</span></span></span>
+<span class="r-in"><span><span class="co"># consider the spatial area covered by the planning units</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># display the total abundance of the features</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/global.html" class="external-link">global</a></span><span class="op">(</span><span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"sum"</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                sum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_1 83.29345</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_2 31.21137</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_3 71.95670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_4 42.66032</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> feature_5 56.70751</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create problem with interpolated targets.</span></span></span>
+<span class="r-in"><span><span class="co"># here, targets will be set as 70% for features with a total abundance</span></span></span>
+<span class="r-in"><span><span class="co"># (i.e., sum of planning unit values for the feature) smaller than 50,</span></span></span>
+<span class="r-in"><span><span class="co"># 20% for features with at total abundance greater than 70,</span></span></span>
+<span class="r-in"><span><span class="co"># linearly interpolated for features with an intermediate range size,</span></span></span>
+<span class="r-in"><span><span class="co"># and capped at a total abundance of 100</span></span></span>
+<span class="r-in"><span><span class="va">p1</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_auto_targets.html">add_auto_targets</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>    method <span class="op">=</span> <span class="fu">spec_interp_absolute_targets</span><span class="op">(</span></span></span>
+<span class="r-in"><span>      rare_absolute_threshold <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>      rare_relative_target <span class="op">=</span> <span class="fl">0.7</span>,</span></span>
+<span class="r-in"><span>      rare_absolute_target <span class="op">=</span> <span class="cn">NA</span>,            <span class="co"># not used</span></span></span>
+<span class="r-in"><span>      rare_method <span class="op">=</span> <span class="st">"max"</span>,                  <span class="co"># not used</span></span></span>
+<span class="r-in"><span>      common_absolute_threshold <span class="op">=</span> <span class="fl">70</span>,</span></span>
+<span class="r-in"><span>      common_relative_target <span class="op">=</span> <span class="fl">0.2</span>,</span></span>
+<span class="r-in"><span>      common_absolute_target <span class="op">=</span> <span class="cn">NA</span>,          <span class="co"># not used</span></span></span>
+<span class="r-in"><span>      common_method <span class="op">=</span> <span class="st">"max"</span>,                <span class="co"># not used</span></span></span>
+<span class="r-in"><span>      cap_absolute_target <span class="op">=</span> <span class="fl">100</span>,</span></span>
+<span class="r-in"><span>      interp_method <span class="op">=</span> <span class="st">"linear"</span></span></span>
+<span class="r-in"><span>    <span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="spec_interp_absolute_targets-1.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -20,18 +20,18 @@ Defaults to 10000 (i.e., 10000 km^2).}
 
 \item{rare_relative_target}{\code{numeric} value denoting the
 relative target for features with a spatial distribution
-that is smaller than \code{rare_threshold}.
+that is smaller than \code{rare_area_threshold}.
 Note that this value must be a proportion between 0 and 1.
 Defaults to 1 (i.e., 100\%).}
 
 \item{rare_area_target}{\code{numeric} value indicating the
 area-based target for features with a spatial distribution
-that is smaller than \code{rare_threshold}.
+that is smaller than \code{rare_area_threshold}.
 Defaults to 1000 (i.e., 1000 km^2).}
 
 \item{common_relative_target}{\code{numeric} value denoting the
 relative target for features with a spatial distribution
-that is greater than \code{common_threshold}.
+that is greater than \code{common_area_threshold}.
 Defaults to 0.1 (i.e., 10\%).
 Since this default value is based on historical levels of global protected
 area coverage, it may be appropriate to set this value based on current
@@ -49,7 +49,9 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
@@ -59,7 +61,7 @@ whether or not a feature would be considered rare.
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
 This method was designed for species protection at national-scales.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
@@ -75,7 +77,7 @@ such geographic scales, then the resulting prioritizations
 may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
 This is because the thresholds
-(i.e., \code{rare_threshold} and \code{cap_threshold})
+(i.e., \code{rare_area_threshold} and \code{cap_area_threshold})
 were originally developed based on criteria for national-scales.
 As such, if you working at the sub-national scale, it is recommended to set
 thresholds based on that criteria are appropriate to the spatial extent
@@ -90,18 +92,19 @@ This method involves setting target thresholds based on the spatial
 extent of the features.
 By default, this method identifies rare features as those with a
 spatial distribution smaller than 10,000
-\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} (per \code{rare_threshold})
+\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+(per \code{rare_area_threshold} and \code{area_units})
 and common features as those with a larger spatial distribution.
 Given this, rare features are assigned target threshold of 100\%
 (per \code{rare_relative_target})
-or 1,000 km\ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-(per \code{rare_absolute_target})
+or 1,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
+(per \code{rare_area_threshold})
 (whichever of these two values is smaller), and
 common features are assigned a target threshold of 10\%
 (per \code{common_relative_target}).
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds.
+thresholds  (per \code{cap_area_threshold} and \code{area_units}).
 }
 
 \section{Data calculations}{
@@ -113,10 +116,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -124,7 +128,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -140,7 +144,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -168,7 +172,7 @@ protected-area system to represent threatened species.
 \emph{Conservation Biology},25: 324--332.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

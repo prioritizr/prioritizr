@@ -14,16 +14,18 @@ are assigned the same target threshold.}
 \item{...}{not used.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets expressed as the
 same values as the underlying feature data (ignoring any specified
-feature units). For example,
-setting a target of 10 requires that the solution secure a set of
-planning units for which their summed feature values are equal to or greater
-than 10.
-This function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}.
+feature units).
+For example, setting an absolute target of 10 for a feature means that the
+solution should ideally select a set of planning units that have a total
+(summed) value of 10 for the feature.
+This function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}.
 }
 \section{Mathematical formulation}{
 
@@ -32,24 +34,9 @@ value.
 To express this mathematically, we will define the following terminology.
 Let \eqn{a} the absolute target for a feature
 (per \code{targets}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{t = a}
-}
-
-\section{Data calculations}{
-
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
-have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
-you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
-are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
-then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
 }
 
 \examples{
@@ -57,7 +44,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
 
@@ -81,12 +68,12 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution based on 5 targets", axes = FALSE)
+plot(s1, main = "solution based on constant targets", axes = FALSE)
 
 # targets can also be specified for each feature separately.
 # to demonstrate this, we will set a target value for each
 # feature based on a random number between 1 and 5
-target_values <- runif(terra::nlyr(sim_complex_features), 1, 5)
+target_values <- runif(terra::nlyr(sim_features), 1, 5)
 
 # create problem with targets defined separately for each feature
 p2 <-
@@ -104,7 +91,7 @@ plot(s2, main = "solution based on varying targets", axes = FALSE)
 To add relative targets directly to a \code{\link[=problem]{problem()}}, see
 \code{\link[=add_absolute_targets]{add_absolute_targets()}}.
 
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},
 \code{\link{spec_interp_absolute_targets}()},

@@ -32,41 +32,46 @@ If a single \code{character} value is specified, then all
 features are assigned targets assuming the same area units.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
 Duran \emph{et al.} (2020).
 Briefly, this target setting method involves using historical distribution
-data to infer the minimum amount of habitat required for a species to meet
-a pre-specified probability of persisting indefinitely.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+data to infer the minimum amount of habitat required for a species to have
+a particular probability of persisting indefinitely.
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
 This target setting method is derived from a framework for estimating
 the impacts of anthropogenic activities at national and global scales
 (Duran \emph{et al.} 2020).
-It involves setting targets based on the minimum amount of
+It involves setting targets based on an estimate of the minimum amount of
 habitat required for a species to have a particular probability of
 persistence.
-Although the gold standard approach for estimating such an amount would
-involve performing a population viability analysis
+Although the gold standard approach for estimating such an amount of
+habitat would involve population viability analysis
 (e.g., Taylor \emph{et al.} 2017),
-population viability analyses require a considerable amount of species-
-specific data that are often not available for conservation planning
+population viability analyses require a considerable amount of
+species-specific data that are often not available for conservation planning
 exercises (reviewed by Akçakaya and Sjögren-Gulve 2000).
 As such, this method provides a less data intensive
 alternative for setting targets based on desired probabilities of
 persistence.
+Please note that this function is provided as convenient method to
+set targets for problems with a single management zone, and cannot
+be used for those with multiple management zones.
 
-This target setting method is heavily dependent on particular assumptions.
+This target setting method relies heavily on assumptions.
 In particular, it is based on the assumption that -- for a given species --
 there is an
 idealized distribution size (e.g., geographic range size) that would allow
 for the species to have a 100\% chance of persisting indefinitely, and
 decreases in this distribution size would be associated with
-reductions in the probability of persistence
+reductions in the species' probability of persistence
 (Payne and Finnegan 2007; Purvis \emph{et al.} 2000).
 Building on this assumption, it further assumes that (i) the historical
 distribution of a species can reliably approximate its idealized
@@ -82,8 +87,8 @@ amount of habitat required to ensure that a species has, at least, a
 particular probability of persistence, and then setting the species'
 representation target accordingly.
 
-The validity of this target setting method depends heavily on its
-assumptions.
+The validity of this target setting method depends on how well its
+assumptions are justified.
 As such, great care should be taken to ensure that the
 historical distribution of a species used to approximate its idealized
 distribution does indeed have a (near) 100\% probability of persistence
@@ -99,9 +104,6 @@ Another approach involves using the area of habitat framework
 species' habitat preferences,
 current and former (i.e., now extinct) geographic ranges,
 and historical land cover data (Eyres \emph{et al.} 2025).
-Please note that this function is provided as convenient method to
-set targets for problems with a single management zone, and cannot
-be used for those with multiple management zones.
 }
 \section{Mathematical formulation}{
 
@@ -116,10 +118,10 @@ range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
 per \code{historical_area} and \code{area_units}),
 and \eqn{p} the desired threshold probability of persistence for the
 feature.
-Given this terminology, the target threshold (\eqn{t}) for a feature
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
-t = min(f, h \times p^(1/0.25))
+t = min(f, h \times p^{\frac{1}{0.25}})
 }{
 t = min(f, h * p^(1/0.25))
 }
@@ -134,10 +136,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -145,7 +148,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 sim_complex_historical_features <- get_sim_complex_historical_features()
@@ -155,15 +158,12 @@ sim_complex_historical_features <- get_sim_complex_historical_features()
 # and sim_complex_historical_features follow the same ordering
 historical_distribution_size <- as.numeric(units::set_units(
  units::set_units(
-   terra::global(sim_complex_historical_features, "sum", na.rm = TRUE)[[1]],
+   terra::global(sim_complex_historical_features, "sum", na.rm = TRUE)[[1]] *
+   prod(terra::res(sim_complex_historical_features)),
    "m^2"
  ),
  "km^2"
-)
-
-# simulate population density data for each feature,
-# expressed as number of individuals per km^2
-sim_pop_density_per_km2 <- runif(terra::nlyr(sim_complex_features), 10, 1000)
+))
 
 # create base problem
 p0 <-
@@ -179,11 +179,18 @@ p0 <-
 p1 <-
  p0 \%>\%
  add_auto_targets(
+    method = spec_duran_targets(
      probability_target = 0.95,
      historical_area = historical_distribution_size,
      area_units = "km2"
    )
  )
+
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, main = "solution based on 95\% persistence targets", axes = FALSE)
 
 # create problem with targets based on the minimum amount of habitat required
 # to ensure that each species has a particular probability of persistence,
@@ -196,18 +203,18 @@ sim_probs <- runif(terra::nlyr(sim_complex_features), 0.1, 0.99)
 p2 <-
  p0 \%>\%
  add_auto_targets(
+    method = spec_duran_targets(
      probability_target = sim_probs,
      historical_area = historical_distribution_size,
      area_units = "km2"
    )
  )
 
-# solve problems
-s <- c(solve(p1), solve(p2))
-names(s) <- c("95\% persistence targets", "varying persistence targets"))
+# solve problem
+s2 <- solve(p2)
 
 # plot solution
-plot(s, axes = FALSE)
+plot(s2, main = "solution based on varying targets", axes = FALSE)
 }
 }
 \references{
@@ -261,7 +268,7 @@ Townsend Peterson A, Phillips OL, Williams SE (2004)
 Extinction risk from climate change. \emph{Nature} 427:145--148.
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_interp_absolute_targets}()},

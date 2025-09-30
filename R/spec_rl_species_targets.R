@@ -6,19 +6,19 @@ NULL
 #' Specify targets based on criteria from the IUCN Red
 #' List of Threatened Species (IUCN 2025).
 #' Briefly, this method can be used to set targets based on
-#' criteria pertaining to geographic range size (criterion B) and
-#' population size reduction criteria (criterion A).
+#' criteria pertaining to geographic range size (Criterion B) and
+#' population size reduction criteria (Criterion A).
 #' To help prevent widespread features from obscuring priorities for
 #' rare features, targets are capped following Butchart *et al.* (2015).
 #' This method may be suitable for species protection at global and
 #' and national scales (e.g., Jung *et al.* 2021, Ward *et al.* 2025).
-#' Note that this function is designed to be used within [add_auto_targets()]
+#' Note that this function is designed to be used with [add_auto_targets()]
 #' and [add_group_targets()].
 #'
 #' @param status `character` value denoting the IUCN Red List threat
 #' status used for target setting.
 #' Available options include `"CR"` (Critically Endangered),
-#' `"EN"` (Endangered), and "VU"` (Vulnerable).
+#' `"EN"` (Endangered), and `"VU"` (Vulnerable).
 #'
 #' @param criterion_a `character` value indicating which subcriterion
 #' should be considered based on population size reduction.
@@ -42,57 +42,18 @@ NULL
 #' See Mathematical formulation below for details.
 #'
 #' @param method `character` indicating how the target thresholds
-#' should be calculated based on values from criterion A and B.
+#' should be calculated based on values derived from Criterion A and and
+#' Criterion B.
 #' Available options include `"min"` and `"max"`.
-#' For example, a value of `"max"` means that the target threshold
+#' For example, `method = "max"` means that the target threshold
 #' should be calculated as a maximum of the values from
-#' criterion A and B.
+#' Criterion A and Criterion B.
 #' Defaults to `"max"` as a precaution.
 #'
 #' @param prop_uplift `numeric` value denoting the percentage
 #' uplift as a proportion. Defaults to 0 (i.e., 0%).
 #'
 #' @inheritParams spec_rodrigues_targets
-#'
-#' @section Mathematical formulation:
-#' This method involves setting target thresholds based on assessment
-#' criteria from the International Union for the Conservation of Nature (IUCN)
-#' Red List of Threatened Species (IUCN 2025).
-#' To express this mathematically, we will define the following terminology.
-#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
-#' range size), \eqn{a} the threshold value from Criterion A based on the
-#' specified threat status (per `status`, see below for details),
-#' \eqn{b} the threshold value from Criterion B
-#' based on the specified threat status (per `status`, see below for details),
-#' \eqn{p} the percentage uplift as a proportion (per `prop_uplift`),
-#' and \eqn{c} the target cap (per `cap_threshold`).
-#' Additionally, let
-#' \eqn{m()} denote either \eqn{max()} or \eqn{min()} (per `method`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
-#' is calculated as follows.
-#' \deqn{
-#' t = min(min(m(b, f \times ((1 + p) \times (1 - a))), c), f)
-#' }
-#'
-#' Here \eqn{a} is equal to one of the following values depending on
-#' `status` and `criterion_a`.
-#' Note that if `criterion_a` has a value of `"A3"` or `"A4"`, then \eqn{a}
-#' is assigned the same value as if had a value of `"A2"`.
-#' * If `status = "CR"` and `criterion_a = "A1"`, then \eqn{a =} 90%.
-#' * If `status = "EN"` and `criterion_a = "A1"`, then \eqn{a =} 70%.
-#' * If `status = "VU"` and `criterion_a = "A1"`, then \eqn{a =} 50%.
-#' * If `status = "CR"` and `criterion_a = "A2"`, then \eqn{a =} 80%.
-#' * If `status = "EN"` and `criterion_a = "A2"`, then \eqn{a =} 50%.
-#' * If `status = "VU"` and `criterion_a = "A2"`, then \eqn{a =} 30%.
-#'
-#' Additionally, \eqn{b} is equal to one of the following values depending on
-#' `status` and `criterion_b`.
-#' * If `status = "CR"` and `criterion_a = "B1"`, then \eqn{b =} 100 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "EN"` and `criterion_a = "B1"`, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "VU"` and `criterion_a = "B1"`, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "CR"` and `criterion_a = "B2"`, then \eqn{b =} 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "EN"` and `criterion_a = "B2"`, then \eqn{b =} 50 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "VU"` and `criterion_a = "B2"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
 #' @details
 #' Targets based on criteria from the IUCN Red List of Threatened Species
@@ -114,7 +75,45 @@ NULL
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
 #'
-#' @inheritSection add_auto_targets Data calculations
+#' @inheritSection spec_jung_targets Data calculations
+#'
+#' @section Mathematical formulation:
+#' This method involves setting target thresholds based on assessment
+#' criteria from the International Union for the Conservation of Nature (IUCN)
+#' Red List of Threatened Species (IUCN 2025).
+#' To express this mathematically, we will define the following terminology.
+#' Let \eqn{f} denote the total abundance of a feature (e.g., geographic
+#' range size), \eqn{a} the threshold value from Criterion A based on the
+#' specified threat status (per `status`, see below for details),
+#' \eqn{b} the threshold value from Criterion B
+#' based on the specified threat status (per `status`, see below for details),
+#' \eqn{p} the percentage uplift as a proportion (per `prop_uplift`),
+#' \eqn{c} the target cap (per `cap_area_target` and `area_units`), and
+#' \eqn{m()} denote either \eqn{max()} or \eqn{min()} (per `method`).
+#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' is calculated as follows.
+#' \deqn{
+#' t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)
+#' }{
+#' t = min(m(b * (1 + p), f * ((1 + p) * (1 - a))), c, f)
+#' }
+#'
+#' Here \eqn{a} and \eqn{b} are equal to one of the following values
+#' depending on `status`, `criterion_a`, and `criterion_b`.
+#' Note that if `criterion_a` has a value of `"A3"` or `"A4"`, then \eqn{a}
+#' is assigned the same value as if it were `"A2"`.
+#' * If `status = "CR"` and `criterion_a = "A1"`, then \eqn{a =} 90%.
+#' * If `status = "EN"` and `criterion_a = "A1"`, then \eqn{a =} 70%.
+#' * If `status = "VU"` and `criterion_a = "A1"`, then \eqn{a =} 50%.
+#' * If `status = "CR"` and `criterion_a = "A2"`, then \eqn{a =} 80%.
+#' * If `status = "EN"` and `criterion_a = "A2"`, then \eqn{a =} 50%.
+#' * If `status = "VU"` and `criterion_a = "A2"`, then \eqn{a =} 30%.
+#' * If `status = "CR"` and `criterion_b = "B1"`, then \eqn{b =} 100 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "EN"` and `criterion_b = "B1"`, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "VU"` and `criterion_b = "B1"`, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "CR"` and `criterion_b = "B2"`, then \eqn{b =} 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "EN"` and `criterion_b = "B2"`, then \eqn{b =} 50 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "VU"` and `criterion_b = "B2"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
 #' @inherit spec_jung_targets return seealso
 #'
@@ -159,7 +158,7 @@ NULL
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
-#' # load example data
+#' # load data
 #' sim_complex_pu_raster <- get_sim_complex_pu_raster()
 #' sim_complex_features <- get_sim_complex_features()
 #'
@@ -191,6 +190,7 @@ NULL
 #' # create problem with targets based on criteria from the IUCN Red List of
 #' # Threatened Species for the Endangered threat status with a 20% uplift
 #' p2 <-
+#'   p0 %>%
 #'   add_auto_targets(
 #'     method = spec_rl_species_targets(
 #'       status = "EN",
@@ -203,6 +203,7 @@ NULL
 #' # create problem with targets based on criteria from the IUCN Red List of
 #' # Threatened Species for the Vulnerable threat status with a 20% uplift
 #' p3 <-
+#'   p0 %>%
 #'   add_auto_targets(
 #'     method = spec_rl_species_targets(
 #'       status = "VU",

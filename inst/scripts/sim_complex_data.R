@@ -222,7 +222,7 @@ assertthat::assert_that(
 
 # Exports
 terra::writeRaster(
-  sim_cost_data, "inst/extdata/sim_pu_large_raster.tif",
+  sim_cost_data, "inst/extdata/sim_complex_pu_raster.tif",
   datatype = "FLT4S",
   gdal = c("COMPRESS=DEFLATE", "TILED=YES", "PREDICTOR=3"),
   overwrite = TRUE

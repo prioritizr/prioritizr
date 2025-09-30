@@ -142,7 +142,7 @@ requirements.
 For example, targets provide a mechanism for ensuring that a
 prioritization secures enough habitat to promote the long-term persistence
 of each threatened species, culturally important species,
-or economically important ecosystem service under consideration.
+or economically important ecosystem services under consideration.
 Since there is often uncertainty regarding stakeholder objectives
 (e.g., how much habitat should be protected for a given species)
 or the influence of particular target on a prioritization
@@ -193,7 +193,7 @@ context. <em>Conservation Letters</em>, 2: 4–11.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>Other targets:
+    <div class="dont-index"><p>Other functions for adding targets:
 <code><a href="add_absolute_targets.html">add_absolute_targets</a>()</code>,
 <code><a href="add_auto_targets.html">add_auto_targets</a>()</code>,
 <code><a href="add_group_targets.html">add_group_targets</a>()</code>,
@@ -205,6 +205,8 @@ context. <em>Conservation Letters</em>, 2: 4–11.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
 <span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">sim_zones_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
@@ -287,7 +289,6 @@ context. <em>Conservation Letters</em>, 2: 4–11.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"varying targets"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_relative_targets-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

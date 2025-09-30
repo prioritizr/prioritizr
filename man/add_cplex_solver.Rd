@@ -118,7 +118,7 @@ IBM (2017) IBM ILOG CPLEX Optimization Studio CPLEX User's Manual.
 Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.
 }
 \seealso{
-Other functions for adding solvers
+Other functions for adding solvers:
 \code{\link{add_cbc_solver}()},
 \code{\link{add_default_solver}()},
 \code{\link{add_gurobi_solver}()},

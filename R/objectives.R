@@ -10,11 +10,9 @@ NULL
 #' the overall cost of the reserve network. Alternatively, the planner may
 #' require a solution that maximizes the number of conserved species while
 #' ensuring that the cost of the reserve network does not exceed the budget.
-#'
-#' **Please note that all conservation
-#' planning problems formulated using the \pkg{prioritizr} package require an
+#' Please note that all conservation planning problems require an
 #' objective function, and attempting to solve a problem without an objective
-#' will result in an error.**
+#' will result in an error.
 #'
 #' @details The following objectives can be added to a conservation planning
 #'   [problem()]:

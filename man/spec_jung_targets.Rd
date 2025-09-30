@@ -15,7 +15,8 @@ spec_jung_targets(
 \item{status}{\code{character} value denoting the IUCN Red List threat
 status used for target setting.
 Available options include \code{"CR"} (Critically Endangered) ,
-\code{"EN"} (Endangered), and "VU"\verb{(Vulnerable). Defaults to}"VU"`.}
+\code{"EN"} (Endangered), and \code{"VU"} (Vulnerable).
+Defaults to \code{"VU"}.}
 
 \item{prop_uplift}{\code{numeric} value denoting the percentage
 uplift as a proportion. Defaults to 0.1 (i.e., 10\%).}
@@ -31,7 +32,9 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
@@ -42,30 +45,49 @@ Conservation of Nature (IUCN) Red List of Threatened Species (IUCN 2025).
 To help prevent widespread features from obscuring priorities,
 targets are capped following Butchart \emph{et al.} (2015).
 This method was designed for global-scale prioritizations.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \details{
 This target setting method was designed to protect species in
 global-scale prioritizations (Jung \emph{et al.} 2021).
-Although it has been successfully applied to multiple global-scape
+Although it has been successfully applied to multiple global-scale
 prioritizations (e.g., Mogg \emph{et al.} 2019; Fastré \emph{et al.} 2021),
 it may fail to identify meaningful priorities for
 prioritizations conducted at smaller geographic scales
-(e.g., national, state-level or county scales).
+(e.g., national, state-level, or county scales).
 For example, if this target setting method is applied to
 smaller geographic scales, then the resulting prioritizations
 may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
 This is because the target thresholds were developed based on
 criteria for promoting the long-term persistence of entire species.
-As such, if you are working at smaller scales, it is recommended to set
-thresholds based on that criteria are appropriate to the spatial extent
-of the planning region.
+As such, if you are working at smaller scales that do not fully
+cover the entire spatial distribution of the study species,
+then you may need to rescale these targets
+(e.g., based on the proportion of the
+species' distribution found within the study area) or consider an
+alterative target setting method.
 Please note that this function is provided as convenient method to
 set targets for problems with a single management zone, and cannot
 be used for those with multiple management zones.
 }
+\section{Data calculations}{
+
+This function involves calculating targets based on the spatial extent
+of the features in \code{x}.
+Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
+have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
+you will need to specify the spatial units for the features
+when initializing the \code{\link[=problem]{problem()}} objects if the feature data
+are provided in a different format. In particular, if the feature
+data are provided as a \code{data.frame} or \code{character} vector,
+then you will need to specify an argument to \code{feature_units} when
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
+}
+
 \section{Mathematical formulation}{
 
 This method involves setting target thresholds based on assessment
@@ -85,27 +107,12 @@ Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 thresholds.
 }
 
-\section{Data calculations}{
-
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
-have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
-you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
-are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
-then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
-}
-
 \examples{
 \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -121,7 +128,7 @@ p1 <-
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, axes = FALSE)
+plot(s1, main = "solution", axes = FALSE)
 }
 }
 \references{
@@ -161,26 +168,7 @@ Areas to maximise the persistence of terrestrial mammals.
 \seealso{
 See \link{targets} for an overview of all functions for adding targets.
 
-Other target setting methods
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_absolute_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_min_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_relative_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_rule_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
-
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

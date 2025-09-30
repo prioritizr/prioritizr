@@ -15,7 +15,9 @@ range between 0 and 1 (corresponding to 0\% and 100\% respectively).}
 \item{...}{not used.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets expressed as a proportion (between 0 and 1) of the maximum
@@ -24,7 +26,7 @@ Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with \code{NA}
 cost values) using the \code{\link[=feature_abundances]{feature_abundances()}} function.
-Note that this function is designed to be used within \code{\link[=add_auto_targets]{add_auto_targets()}}
+Note that this function is designed to be used with \code{\link[=add_auto_targets]{add_auto_targets()}}
 and \code{\link[=add_group_targets]{add_group_targets()}}.
 }
 \section{Mathematical formulation}{
@@ -34,24 +36,9 @@ To express this mathematically, we will define the following terminology.
 Let \eqn{f} denote the total abundance of a feature (e.g., geographic
 range size), and \eqn{a} the relative target for the feature
 (per \code{targets}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
-\deqn{t = f * a}
-}
-
-\section{Data calculations}{
-
-This function involves calculating targets based on the spatial extent
-of the features in \code{x}.
-Although it can be readily applied to \code{\link[=problem]{problem()}} objects that
-have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} object,
-you will need to specify the spatial units for the features
-when initializing the \code{\link[=problem]{problem()}} objects if the feature data
-are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
-then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+\deqn{t = f \times a}
 }
 
 \examples{
@@ -59,7 +46,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -102,7 +89,7 @@ plot(s2, main = "solution based on varying targets", axes = FALSE)
 To add relative targets directly to a \code{\link[=problem]{problem()}}, see
 \code{\link[=add_relative_targets]{add_relative_targets()}}.
 
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_area_targets}()},
 \code{\link{spec_duran_targets}()},

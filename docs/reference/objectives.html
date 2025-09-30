@@ -5,13 +5,19 @@ or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget."><meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error."><meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
 problem. All conservation planning problems involve minimizing
 or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -71,17 +77,16 @@ or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget.</p>
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error.</p>
     </div>
 
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><strong>Please note that all conservation
-planning problems formulated using the <span class="pkg">prioritizr</span> package require an
-objective function, and attempting to solve a problem without an objective
-will result in an error.</strong></p>
-<p>The following objectives can be added to a conservation planning
+    <p>The following objectives can be added to a conservation planning
 <code><a href="problem.html">problem()</a></code>:</p>
 <dl><dt><code><a href="add_min_set_objective.html">add_min_set_objective()</a></code></dt>
 <dd><p>Minimize the cost of the

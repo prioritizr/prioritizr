@@ -27,6 +27,8 @@ NULL
 #' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
+#'
+#' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()

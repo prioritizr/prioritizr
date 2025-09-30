@@ -1164,9 +1164,10 @@ proportions are easier to work with.</li>
 <ul>
 <li>
 <strong>Automatic targets</strong>: Targets are set following a
-user-specified target setting method. Target setting methods can be
-specified using the following functions:
-<code><a href="../reference/spec_absolute_targets.html">spec_absolute_targets()</a></code>,
+particular target setting method. This is provided as a convenient
+interface for setting targets based on published methodologies. Target
+setting methods can be specified using the following functions:
+<code><a href="../reference/spec_absolute_targets.html">spec_absolute_targets()</a></code>, <code><a href="../reference/spec_area_targets.html">spec_area_targets()</a></code>,
 <code><a href="../reference/spec_relative_targets.html">spec_relative_targets()</a></code>,
 <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code>,
 <code><a href="../reference/spec_interp_area_targets.html">spec_interp_area_targets()</a></code>,
@@ -1215,13 +1216,13 @@ pertain to a single management zone.</li>
 <li>
 <strong>Group targets</strong>: Targets are set for groups of
 features following a user-specified target setting method. This is
-provided as a convenient alternative for
-<code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code>, where each feature in the same group is
-assigned a target following the same method (i.e., not necessarily the
-same target threshold). Similar to <code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code>,
-target setting methods can be specified using the following functions:
-<code><a href="../reference/spec_absolute_targets.html">spec_absolute_targets()</a></code>,
-<code><a href="../reference/spec_relative_targets.html">spec_relative_targets()</a></code>,
+provided as a convenient alternative for <code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code>
+when different target setting methods should be used for different
+features (e.g., when using different methods for features that
+correspond to species and habitat types). Similar to
+<code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code>, Target setting methods can be specified
+using the following functions: <code><a href="../reference/spec_absolute_targets.html">spec_absolute_targets()</a></code>,
+<code><a href="../reference/spec_area_targets.html">spec_area_targets()</a></code>, <code><a href="../reference/spec_relative_targets.html">spec_relative_targets()</a></code>,
 <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code>,
 <code><a href="../reference/spec_interp_area_targets.html">spec_interp_area_targets()</a></code>,
 <code><a href="../reference/spec_duran_targets.html">spec_duran_targets()</a></code>, <code><a href="../reference/spec_jung_targets.html">spec_jung_targets()</a></code>,
@@ -2656,7 +2657,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.106</span></span></code></pre>
+<span><span class="co">##      0.095</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -3079,7 +3080,7 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">## </span></span>
 <span><span class="co">## Cleanup yields a better solution</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.08 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 </span></span>

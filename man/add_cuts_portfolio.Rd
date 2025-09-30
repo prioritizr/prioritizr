@@ -95,7 +95,7 @@ more complex conservation problems. \emph{Ecography}, 23: 565--574.
 \seealso{
 See \link{portfolios} for an overview of all functions for adding a portfolio.
 
-Other functions for adding portfolios
+Other functions for adding portfolios:
 \code{\link{add_default_portfolio}()},
 \code{\link{add_extra_portfolio}()},
 \code{\link{add_gap_portfolio}()},

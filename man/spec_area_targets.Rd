@@ -20,7 +20,9 @@ features are assigned targets assuming that \code{targets}
 are in the same units.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{Method}}) for specifying targets that
+can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
+to update the targets for a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets expressed as area-based units.
@@ -38,8 +40,8 @@ Let \eqn{f} denote the total spatial extent of a feature (e.g., geographic
 range size expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}), and
 \eqn{a} the specified area-based target
 (expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}},
-per \code{targets} and \code{area_units})
-Given this terminology, the target threshold (\eqn{t}) for a feature
+per \code{targets} and \code{area_units}).
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
 t = min(f, a)
@@ -57,10 +59,11 @@ have the feature data provided as a \code{\link[terra:rast]{terra::rast()}} obje
 you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
-data are provided as a \code{data.frame} or \code{character} object,
+data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
-using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
-demonstration of using the \code{feature_units} parameter.
+using the \code{\link[=problem]{problem()}} function.
+See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
+for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
@@ -68,7 +71,7 @@ demonstration of using the \code{feature_units} parameter.
 # set seed for reproducibility
 set.seed(500)
 
-# load example data
+# load data
 sim_complex_pu_raster <- get_sim_complex_pu_raster()
 sim_complex_features <- get_sim_complex_features()
 
@@ -79,23 +82,23 @@ p0 <-
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
-# create problem with targets of 5 km^2 for each feature
+# create problem with targets of 50 km^2 for each feature
 p1 <-
   p0 \%>\%
   add_auto_targets(
-    method = spec_area_targets(targets = 5, area_units = "km2")
+    method = spec_area_targets(targets = 50, area_units = "km2")
   )
 
 # solve problem
 s1 <- solve(p1)
 
 # plot solution
-plot(s1, main = "solution based on 5 km^2 targets", axes = FALSE)
+plot(s1, main = "solution based on constant targets", axes = FALSE)
 
 # targets can also be specified for each feature separately.
 # to demonstrate this, we will set a target value for each
-# feature based on a random number between 500 and 3000 hectares
-target_values <- runif(terra::nlyr(sim_complex_features), 500, 3000)
+# feature based on a random number between 5000 and 30000 hectares
+target_values <- runif(terra::nlyr(sim_complex_features), 5000, 30000)
 
 # create problem with targets defined separately for each feature
 p2 <-
@@ -112,7 +115,7 @@ plot(s2, main = "solution based on varying targets", axes = FALSE)
 }
 }
 \seealso{
-Other target setting methods
+Other target setting methods:
 \code{\link{spec_absolute_targets}()},
 \code{\link{spec_duran_targets}()},
 \code{\link{spec_interp_absolute_targets}()},

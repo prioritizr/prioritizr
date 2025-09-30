@@ -153,8 +153,8 @@ print(r2)
 # plot solution
 # here we use the category layer function to generate raster showing the zone
 # that each planning unit was allocated. Specifically, pixels with the
-# value 1 (yellow) are allocated to "zone 1" and pixels with the value 2 (green)
-# are allocated to "zone 2". Units depicted in gray are not allocated
+# value 1 (green) are allocated to "zone 1" and pixels with the value 2 (yellow)
+# are allocated to "zone 2". Units depicted in purple are not allocated
 # to any zone.
 plot(
   category_layer(s2), main = "solution",

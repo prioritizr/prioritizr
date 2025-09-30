@@ -191,7 +191,7 @@ areas for conserving diversity using British birds.
 See \link{importance} for an overview of all functions for evaluating
 the importance of planning units selected in a solution.
 
-Other functions for evaluating solution importance
+Other functions for evaluating solution importance:
 \code{\link{eval_ferrier_importance}()},
 \code{\link{eval_rank_importance}()},
 \code{\link{eval_replacement_importance}()}
