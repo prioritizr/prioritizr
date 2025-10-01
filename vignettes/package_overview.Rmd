@@ -421,7 +421,7 @@ p16 <-
 # print problem
 print(p16)
 ```
-* __Manual targets__: Targets are set by manually specifying all the required information for each target This is only really recommended for advanced users or problems that involve multiple management zones. See [_Management zones tutorial_](management_zones_tutorial.html) for more information on these targets.
+* __Manual targets__: Targets are set by manually specifying all the required information for each target. This is only really recommended for advanced users or problems that involve multiple management zones. See [_Management zones tutorial_](management_zones_tutorial.html) for more information on these targets.
 ```{r}
 # create a data frame with the following targets:
 # a relative target of 10% for the second feature,

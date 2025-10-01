@@ -68,16 +68,19 @@ such thresholds -- have been proposed for guiding conservation decisions
 For example, previous work has suggested that the number of
 individuals for a population should not fall below 50 individuals to avoid
 inbreeding depression, and 500 individuals to reduce genetic drift
-(reviewed by Jamieson and Allendorf 2012). Additionally, the
+(reviewed by Jamieson and Allendorf 2012). Also, the
 Red List of Threatened Species by the International Union for the
 Conservation of Nature has criteria related to population size,
 where a species with fewer than 250, 2,500, or 10,000 individuals are
 recognized as Critically Endangered, Endangered, or Vulnerable
 (respectively) (IUCN 2025).
-Alternatively, the SAFE index (Clements \emph{et al.} 2011) considers species
+Additionally, the SAFE index (Clements \emph{et al.} 2011) considers species
 with fewer than 5,000
 individuals to be threatened by extinction
 (based on Brook \emph{et al.} 2006; Traill \emph{et al.} 2007, 2010).
+Furthermore, Hilbers \emph{et al.} (2017) and Wolff \emph{et al.} (2023) developed
+methodologies for estimating species-specific population sizes for
+protection based on population growth rates.
 }
 \section{Population density}{
 
@@ -229,6 +232,11 @@ Di Marco M, Santini L, Visconti P, Mortelliti A, Boitani L, Rondinini C
 targets for global species conservation.
 \emph{Hystrix, the Italian Journal of Mammalogy}, 27.
 
+Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
+Huijbregts MAJ (2016) Setting population targets for mammals using body mass
+as a predictor of population persistence. \emph{Conservation Biology},
+31:385--393.
+
 Jamieson IG, Allendorf FW (2012) How does the 50/500 rule apply to MVPs?
 \emph{Trends in Ecology and Evolution}, 27:578--584.
 
@@ -258,6 +266,12 @@ meta-analysis of 30 years of published estimates. \emph{Biological Conservation}
 
 Witting L (2024) Population dynamic life history models of the birds and
 mammals of the world. \emph{Ecological Informatics}, 80:102492.
+
+Wolff NH, Visconti P, Kujala H, Santini L, Hilbers JP, Possingham HP,
+Oakleaf JR, Kennedy CM, Kiesecker J, Fargione J, Game ET (2023) Prioritizing
+global land protection for population persistence can double the efficiency
+of habitat protection for reducing mammal extinction risk. \emph{One Earth},
+6:1564--1575.
 }
 \seealso{
 Other target setting methods:

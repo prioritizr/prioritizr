@@ -1,4 +1,4 @@
-# prioritizr 8.0.6.9
+# prioritizr 8.1.0.0
 
 ## New features
 

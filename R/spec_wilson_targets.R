@@ -99,7 +99,7 @@ NULL
 #'
 #' @references
 #' Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and
-#' global extinction risk are unrelated. Ecology Letters 9:375--382.
+#' global extinction risk are unrelated. *Ecology Letters*, 9:375--382.
 #'
 #' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
 #' Buchanan GM, Angulo A, Balmford A, Bertzky B, Brooks TM, Carpenter KE,
@@ -113,7 +113,8 @@ NULL
 #'
 #' Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
 #' Huijbregts MAJ (2016) Setting population targets for mammals using body mass
-#' as a predictor of population persistence. Conservation Biology 31:385--393.
+#' as a predictor of population persistence. *Conservation Biology*,
+#' 31:385--393.
 #'
 #' IUCN (2025) The IUCN Red List of Threatened Species. Version 2025-1.
 #' Available at <https://www.iucnredlist.org>. Accessed on 23 July 2025.
@@ -133,8 +134,8 @@ NULL
 #'
 #' Sinclair ARE (1996) Mammal populations: fluctuation, regulation, life
 #' history theory and their implications for conservation.
-#' In Frontiers of Population Ecology (eds RB Floyd, AW Sheppard, PJ de
-#' Barro). CSIRO Publishing. Melbourne, Australia.
+#' In Frontiers of Population Ecology. Floyd RB,Sheppard AW, de
+#' Barro PJ (Eds.). Melbourne, Australia: CSIRO Publishing.
 #'
 #' Wilson KA, Meijaard E, Drummond S, Grantham HS, Boitani L, Catullo G,
 #' Christie L, Dennis R, Dutton I, Falcucci A, Maiorano L, Possingham HP,

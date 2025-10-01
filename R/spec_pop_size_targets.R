@@ -44,16 +44,19 @@ NULL
 #' For example, previous work has suggested that the number of
 #' individuals for a population should not fall below 50 individuals to avoid
 #' inbreeding depression, and 500 individuals to reduce genetic drift
-#' (reviewed by Jamieson and Allendorf 2012). Additionally, the
+#' (reviewed by Jamieson and Allendorf 2012). Also, the
 #' Red List of Threatened Species by the International Union for the
 #' Conservation of Nature has criteria related to population size,
 #' where a species with fewer than 250, 2,500, or 10,000 individuals are
 #' recognized as Critically Endangered, Endangered, or Vulnerable
 #' (respectively) (IUCN 2025).
-#' Alternatively, the SAFE index (Clements *et al.* 2011) considers species
+#' Additionally, the SAFE index (Clements *et al.* 2011) considers species
 #' with fewer than 5,000
 #' individuals to be threatened by extinction
 #' (based on Brook *et al.* 2006; Traill *et al.* 2007, 2010).
+#' Furthermore, Hilbers *et al.* (2017) and Wolff *et al.* (2023) developed
+#' methodologies for estimating species-specific population sizes for
+#' protection based on population growth rates.
 #'
 #' @inheritSection spec_jung_targets Data calculations
 #'
@@ -125,6 +128,11 @@ NULL
 #' targets for global species conservation.
 #' *Hystrix, the Italian Journal of Mammalogy*, 27.
 #'
+#' Hilbers JP, Santini L, Visconti P, Schipper AM, Pinto C, Rondinini C,
+#' Huijbregts MAJ (2016) Setting population targets for mammals using body mass
+#' as a predictor of population persistence. *Conservation Biology*,
+#' 31:385--393.
+#'
 #' Jamieson IG, Allendorf FW (2012) How does the 50/500 rule apply to MVPs?
 #' *Trends in Ecology and Evolution*, 27:578--584.
 #'
@@ -154,6 +162,12 @@ NULL
 #'
 #' Witting L (2024) Population dynamic life history models of the birds and
 #' mammals of the world. *Ecological Informatics*, 80:102492.
+#'
+#' Wolff NH, Visconti P, Kujala H, Santini L, Hilbers JP, Possingham HP,
+#' Oakleaf JR, Kennedy CM, Kiesecker J, Fargione J, Game ET (2023) Prioritizing
+#' global land protection for population persistence can double the efficiency
+#' of habitat protection for reducing mammal extinction risk. *One Earth*,
+#' 6:1564--1575.
 #'
 #' @family methods
 #'

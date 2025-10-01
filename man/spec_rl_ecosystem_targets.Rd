@@ -240,7 +240,7 @@ Watson JEM, Wood L, Burgess ND (2015) Shortfalls and solutions for meeting
 national and global conservation area targets. \emph{Conservation Letters},
 8: 329--337.
 
-IUCN (2024). Guidelines for the application of IUCN Red List of Ecosystems
+IUCN (2024) Guidelines for the application of IUCN Red List of Ecosystems
 Categories and Criteria, Version 2.0. Keith DA, Ferrer-Paris JR,
 Ghoraba SMM, Henriksen S, Monyeki M, Murray NJ, Nicholson E, Rowland J,
 Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
