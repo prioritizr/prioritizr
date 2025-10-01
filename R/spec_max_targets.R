@@ -138,11 +138,13 @@ calc_math_targets <- function(x, features, methods, type, fun,
         rlang::try_fetch(
           m$calculate_relative_targets(x, features, call = NULL),
           error = function(cnd) {
+            # nocov start
             cli::cli_abort(
               c("i" = "Can't calculate input targets."),
               call = call,
               parent = cnd
             )
+            # nocov end
           }
         )
       }
@@ -155,11 +157,13 @@ calc_math_targets <- function(x, features, methods, type, fun,
         rlang::try_fetch(
           m$calculate_absolute_targets(x, features, call = NULL),
           error = function(cnd) {
+            # nocov start
             cli::cli_abort(
               c("i" = "Can't calculate input targets."),
               call = call,
               parent = cnd
             )
+            # nocov end
           }
         )
       }

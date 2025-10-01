@@ -73,12 +73,20 @@ TargetMethod <- R6::R6Class(
     },
 
     #' @description
-    #' Calculate targets.
+    #' Calculate targets expressed in the type of units defined for the method
+    #' (per `$type`).
     #' @param x [problem()] object.
     #' @param features `integer` feature indices.
     #' @param call `NULL` or calling environment.
     #' @return A `numeric` vector with target values.
     calculate_targets = function(x, features, call = NULL) {
+      # assert valid arguments
+      assert(
+        is_conservation_problem(x),
+        identical(number_of_zones(x), 1L),
+        is.numeric(features),
+        .internal = TRUE
+      )
       # calculate targets
       ## note that if call is NULL then we evaluate the expression outside
       ## of the tryfetch so that the error is thrown directly
@@ -120,9 +128,16 @@ TargetMethod <- R6::R6Class(
     #' @return A `numeric` vector with target values expressed in
     #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
     calculate_targets_km2 = function(x, features, call = NULL) {
+      # assert valid arguments
+      assert(
+        is_conservation_problem(x),
+        identical(number_of_zones(x), 1L),
+        is.numeric(features),
+        .internal = TRUE
+      )
       # return targets expressed as km2
       self$calculate_relative_targets(x = x, features = features, call = call) *
-      c(x$feature_abundances_km2_in_total_units()[features, ])
+      unname(c(x$feature_abundances_km2_in_total_units()[features, 1]))
     },
 
     #' @description
@@ -133,11 +148,19 @@ TargetMethod <- R6::R6Class(
     #' @return A `numeric` vector with target values expressed as relative
     #' units.
     calculate_relative_targets = function(x, features, call = NULL) {
+      # assert valid arguments
+      assert(
+        is_conservation_problem(x),
+        identical(number_of_zones(x), 1L),
+        .internal = TRUE
+      )
       # calculate targets
       out <- self$calculate_targets(x = x, features = features, call = call)
       # if units are absolute, convert to proportion of total units
       if (identical(self$type, "absolute")) {
-         out <- out / c(x$feature_abundances_in_total_units()[features, ])
+         out <-
+           out /
+           unname(c(x$feature_abundances_in_total_units()[features, 1]))
       }
       # return target values
       out
@@ -151,11 +174,20 @@ TargetMethod <- R6::R6Class(
     #' @return A `numeric` vector with target values expressed as
     #' absolute units.
     calculate_absolute_targets = function(x, features, call = NULL) {
+      # assert valid arguments
+      assert(
+        is_conservation_problem(x),
+        identical(number_of_zones(x), 1L),
+        is.numeric(features),
+        .internal = TRUE
+      )
       # calculate targets
       out <- self$calculate_targets(x = x, features = features, call = call)
       # if values are relative, then convert to absolute values
       if (identical(self$type, "relative")) {
-         out <- out * c(x$feature_abundances_in_total_units()[features, ])
+         out <-
+           out *
+           unname(c(x$feature_abundances_in_total_units()[features, 1]))
       }
       # return target values
       out

@@ -186,6 +186,7 @@ Collate:
     'adjacency_matrix.R'
     'as.R'
     'as_Matrix.R'
+    'as_units.R'
     'assertions_function.R'
     'boundary_matrix.R'
     'branch_matrix.R'

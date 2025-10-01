@@ -81,6 +81,10 @@ test_that("x = list", {
   expect_inherits(repr(list(1)), "character")
 })
 
+test_that("x = function", {
+  expect_inherits(repr(mean), "character")
+})
+
 test_that("x = NULL", {
   expect_inherits(repr(NULL), "character")
 })
