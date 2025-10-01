@@ -3,7 +3,7 @@
 \name{add_auto_targets}
 \alias{add_auto_targets}
 \alias{add_auto_targets,ConservationProblem,character-method}
-\alias{add_auto_targets,ConservationProblem,Method-method}
+\alias{add_auto_targets,ConservationProblem,TargetMethod-method}
 \alias{add_auto_targets,ConservationProblem,list-method}
 \title{Add targets automatically}
 \usage{
@@ -11,14 +11,14 @@
 
 \S4method{add_auto_targets}{ConservationProblem,list}(x, method)
 
-\S4method{add_auto_targets}{ConservationProblem,Method}(x, method)
+\S4method{add_auto_targets}{ConservationProblem,TargetMethod}(x, method)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{method}{\code{character} value, \code{character} vector, \code{list}, or object
-(\code{\linkS4class{Method}}) specifying the target setting method. See Target methods
-below for more information.}
+(\code{\linkS4class{TargetMethod}}) specifying the target setting method.
+See Target methods below for more information.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the targets added to it.

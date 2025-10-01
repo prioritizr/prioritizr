@@ -10,7 +10,7 @@
 #' ```{r child = "man/rmd/target_method_character.md"}
 #' ```
 #'
-#' @return A [`Method-class`] object.
+#' @return A [`TargetMethod-class`] object.
 #'
 #' @noRd
 get_target_method <- function(method, call = fn_caller_env()) {
@@ -66,7 +66,7 @@ get_target_method <- function(method, call = fn_caller_env()) {
   # if couldn't identify method, throw error
   assert(
     !is.null(out),
-    inherits(out, "Method"),
+    inherits(out, "TargetMethod"),
     msg = c(
       "!" = "{.arg method} must refer to a target setting method.",
       "x" = msg

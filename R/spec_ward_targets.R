@@ -122,7 +122,7 @@ spec_ward_targets <- function(status = "CR", cap_area_target = 1000000,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Ward et al. (2025) targets",
     type = "relative",
     fun = calc_rl_species_targets,

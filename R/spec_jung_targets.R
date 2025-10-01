@@ -81,7 +81,7 @@ NULL
 #' thresholds.
 #'
 #' @return
-#' An object ([`Method-class`]) for specifying targets that
+#' An object ([`TargetMethod-class`]) for specifying targets that
 #' can be used with [add_auto_targets()] and [add_group_targets()]
 #' to update the targets for a [problem()].
 #'
@@ -158,7 +158,7 @@ spec_jung_targets <- function(status = "VU", prop_uplift = 0.1,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Jung et al. (2021) targets",
     type = "relative",
     fun = calc_rl_species_targets,

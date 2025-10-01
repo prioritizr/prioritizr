@@ -215,7 +215,7 @@ spec_rule_targets <- function(baseline_relative_target,
   assert_required(data)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "rule targets",
     type = "relative",
     fun = calc_rule_targets,

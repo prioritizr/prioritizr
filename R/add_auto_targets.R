@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R target_optimization_format.R get_target_method.R
+#' @include internal.R ConservationProblem-class.R target_optimization_format.R get_target_method.R TargetMethod-class.R
 NULL
 
 #' Add targets automatically
@@ -9,8 +9,8 @@ NULL
 #' @inheritParams add_manual_targets
 #'
 #' @param method `character` value, `character` vector, `list`, or object
-#' ([`Method-class`]) specifying the target setting method. See Target methods
-#' below for more information.
+#' ([`TargetMethod-class`]) specifying the target setting method.
+#' See Target methods below for more information.
 #'
 #' @section Target setting:
 #' Many conservation planning problems require targets.
@@ -311,7 +311,7 @@ NULL
 #' }
 #' @name add_auto_targets
 #'
-#' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,Method-method add_auto_targets,ConservationProblem,list-method
+#' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,TargetMethod-method add_auto_targets,ConservationProblem,list-method
 NULL
 
 #' @export
@@ -326,7 +326,7 @@ methods::setGeneric("add_auto_targets",
     assert(
       is_inherits(
         method,
-        c("character", "Method", "list")
+        c("character", "TargetMethod", "list")
       ),
       msg = paste(
         "{.arg method} must be a {.cls character} value,",
@@ -352,7 +352,7 @@ methods::setMethod("add_auto_targets",
     # verify that method has a valid value
     ## note this will throw an error if method is not valid
     m <- get_target_method(method)
-    assert(inherits(m, "Method"), .internal = TRUE)
+    assert(inherits(m, "TargetMethod"), .internal = TRUE)
     # add method
     add_auto_targets(x, m)
   }
@@ -392,7 +392,7 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
     .internal = TRUE
   )
   assert(
-    all_elements_inherit(method, c("character", "Method")),
+    all_elements_inherit(method, c("character", "TargetMethod")),
     msg = c(
       "!" = paste(
         "All {.arg ...} arguments must contain a",
@@ -403,7 +403,7 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
     call = call
   )
 
-  # if method contains any characters, then override with Method
+  # if method contains any characters, then override with specified method
   method <- lapply(method, function(x) {
     if (is.character(x)) {
       return(get_target_method(x, call = call))
@@ -427,7 +427,7 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
   # determine target names
   target_name <- unique(vapply(method, FUN.VALUE = character(1), `[[`, "name"))
   if (length(target_name) > 1) {
-    target_name <- "Multiple method targets"
+    target_name <- "Multiple target methods"
   }
 
   # add targets to problem
@@ -460,10 +460,8 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
             is_conservation_problem(x),
             .internal = TRUE
           )
-          # get targets
-          targets <- self$get_data("targets")
-          # get targets for optimization
-          target_optimization_format(x, targets)
+          # return targets for optimization
+          target_optimization_format(x, self$get_data("targets"))
         }
       )
     )$new()
@@ -471,27 +469,27 @@ internal_add_auto_targets.list <- function(x, method, call = fn_caller_env()) {
 }
 
 #' @name add_auto_targets
-#' @usage \S4method{add_auto_targets}{ConservationProblem,Method}(x, method)
+#' @usage \S4method{add_auto_targets}{ConservationProblem,TargetMethod}(x, method)
 #' @rdname add_auto_targets
 methods::setMethod("add_auto_targets",
-  methods::signature("ConservationProblem", "Method"),
+  methods::signature("ConservationProblem", "TargetMethod"),
   function(x, method) {
     # assert arguments are valid
     assert(
       is_conservation_problem(x),
-      inherits(method, "Method")
+      inherits(method, "TargetMethod")
     )
     # add targets
-    internal_add_auto_targets.Method(x, method)
+    internal_add_auto_targets.TargetMethod(x, method)
   }
 )
 
-internal_add_auto_targets.Method <- function(x, method,
-                                             call = fn_caller_env()) {
+internal_add_auto_targets.TargetMethod <- function(x, method,
+                                                   call = fn_caller_env()) {
   # assert valid arguments
   assert(
     is_conservation_problem(x),
-    inherits(method, "Method"),
+    inherits(method, "TargetMethod"),
     call = call,
     .internal = TRUE
   )
@@ -529,10 +527,8 @@ internal_add_auto_targets.Method <- function(x, method,
             is_conservation_problem(x),
             .internal = TRUE
           )
-          # get targets
-          targets <- self$get_data("targets")
-          # get targets for optimization
-          target_optimization_format(x, targets)
+          # return targets for optimization
+          target_optimization_format(x, self$get_data("targets"))
         }
       )
     )$new()

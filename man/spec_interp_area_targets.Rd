@@ -86,7 +86,7 @@ Available options include \code{"linear"} for linear interpolation and
 for the area-based arguments (e.g., \verb{"km^2", }"ha"\verb{, }"acres"`).}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets that
+An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
 to update the targets for a \code{\link[=problem]{problem()}}.
 }

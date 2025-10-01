@@ -135,7 +135,7 @@ spec_polak_targets <- function(rare_area_threshold = 1000,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Polak et al. (2015) targets",
     type = "relative",
     fun = calc_interp_area_targets,

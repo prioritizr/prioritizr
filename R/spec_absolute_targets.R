@@ -93,7 +93,7 @@ internal_absolute_targets <- function(targets, call = fn_caller_env()) {
   assert_required(targets, call = call)
 
   # return new method
-  new_method(
+  new_target_method(
     name = "Absolute targets",
     type = "absolute",
     fun = calc_absolute_targets,

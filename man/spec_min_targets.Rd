@@ -12,7 +12,7 @@ spec_min_targets(x, ...)
 \item{...}{Additional objects specifying target setting methods.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets.
+An object (\code{\linkS4class{TargetMethod}}) for specifying targets.
 }
 \description{
 Specify targets that are calculated based on the minimum of one or more

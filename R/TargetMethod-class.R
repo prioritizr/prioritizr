@@ -2,7 +2,7 @@
 NULL
 
 #' @export
-if (!methods::isClass("Method")) methods::setOldClass("Method")
+if (!methods::isClass("TargetMethod")) methods::setOldClass("TargetMethod")
 NULL
 
 #' Target setting method class
@@ -11,13 +11,13 @@ NULL
 #' This class is used to represent methods for setting targets.
 #' **Only experts should use the fields and methods for this class directly.**
 #'
-#' @name Method-class
+#' @name TargetMethod-class
 #'
 #' @family classes
 #'
 #' @export
-Method <- R6::R6Class(
-  "Method",
+TargetMethod <- R6::R6Class(
+  "TargetMethod",
   public = list(
 
     #' @field name `character` value with name of method.
@@ -163,9 +163,9 @@ Method <- R6::R6Class(
   )
 )
 
-#' New method
+#' New target setting method
 #'
-#' Create a new method.
+#' Create a new target setting method object.
 #'
 #' @param name `character` value with name of method.
 #'
@@ -179,10 +179,10 @@ Method <- R6::R6Class(
 #'
 #' @param call Caller environment.
 #'
-#' @return A [`method-class`] object.
+#' @return A [`TargetMethod-class`] object.
 #'
 #' @noRd
-new_method <- function(name, type, fun, args, call = fn_caller_env()) {
+new_target_method <- function(name, type, fun, args, call = fn_caller_env()) {
   # assert valid arguments
   assert(
     assertthat::is.string(name),
@@ -200,7 +200,7 @@ new_method <- function(name, type, fun, args, call = fn_caller_env()) {
   )
 
   # return method
-  Method$new(
+  TargetMethod$new(
     name = name,
     type = type,
     fun = fun,

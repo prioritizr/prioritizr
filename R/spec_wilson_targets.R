@@ -201,7 +201,7 @@ spec_wilson_targets <- function(mean_growth_rates, var_growth_rates,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Wilson targets",
     type = "relative",
     fun = calc_wilson_targets,

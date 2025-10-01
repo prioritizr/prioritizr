@@ -237,7 +237,7 @@ spec_interp_absolute_targets <- function(rare_absolute_threshold,
   assert_required(cap_absolute_target)
   assert_required(interp_method)
   # return new method
-  new_method(
+  new_target_method(
     name = "interpolated absolute targets",
     type = "relative",
     fun = calc_interp_absolute_targets,

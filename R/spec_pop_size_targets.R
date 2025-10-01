@@ -247,7 +247,7 @@ spec_pop_size_targets <- function(pop_size_targets,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Population size targets",
     type = "relative",
     fun = calc_pop_size_targets,

@@ -17,7 +17,7 @@ NULL
 #' method for each group. Here, the names of `method` correspond to different
 #' values in `groups`. Additionally, the elements of `method` should be
 #' the `character` names of target setting methods, or objects
-#' ([`Method-class`]) used to specify target setting methods.
+#' ([`TargetMethod-class`]) used to specify target setting methods.
 #' See Target methods below for more information.
 #'
 #' @inheritSection add_auto_targets Target setting
@@ -192,7 +192,7 @@ add_group_targets <- function(x, groups, method) {
     )
   )
   assert(
-    all_elements_inherit(method, c("character", "Method")),
+    all_elements_inherit(method, c("character", "TargetMethod")),
     msg = c(
       "!" = paste(
         "{.arg method} must contain a",
@@ -236,7 +236,7 @@ add_group_targets <- function(x, groups, method) {
 
   # verify targets processed correctly
   assert(
-    all_elements_inherit(method, c("character", "Method")),
+    all_elements_inherit(method, c("character", "TargetMethod")),
     msg = "Failed to organize targets into groups.",
     .internal = TRUE
   )

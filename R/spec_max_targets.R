@@ -1,4 +1,4 @@
-#' @include internal.R Method-class.R
+#' @include internal.R TargetMethod-class.R
 NULL
 
 #' Specify targets based on maxima
@@ -13,7 +13,7 @@ NULL
 #' @inheritSection spec_jung_targets Data calculations
 
 #'
-#' @return An object ([`Method-class`]) for specifying targets.
+#' @return An object ([`TargetMethod-class`]) for specifying targets.
 #'
 #' @family methods
 #'
@@ -75,7 +75,7 @@ spec_max_targets <- function(x, ...) {
   assert(is_method(x))
   methods <- append(list(x), list(...))
   assert(
-    all_elements_inherit(methods, "Method"),
+    all_elements_inherit(methods, "TargetMethod"),
     msg = "{.arg ...} must have target setting method objects."
   )
   # determine types
@@ -91,7 +91,7 @@ spec_max_targets <- function(x, ...) {
     "absolute"
   )
   # return new method
-  new_method(
+  new_target_method(
     name = paste0("max[", repr.character(method_names), "]"),
     type = type,
     fun = calc_math_targets,
@@ -119,7 +119,7 @@ calc_math_targets <- function(x, features, methods, type, fun,
     all(features >= 1),
     all(features <= x$number_of_features()),
     # methods
-    all_elements_inherit(methods, "Method"),
+    all_elements_inherit(methods, "TargetMethod"),
     # type
     assertthat::is.string(type),
     is_match_of(type, c("relative", "absolute")),

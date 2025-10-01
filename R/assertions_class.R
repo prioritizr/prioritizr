@@ -77,7 +77,7 @@ assertthat::on_failure(is_conservation_problem) <- function(call, env) {
 #'
 #' @noRd
 is_method <- function(x) {
-  inherits(x, "Method")
+  inherits(x, "TargetMethod")
 }
 
 assertthat::on_failure(is_method) <- function(call, env) {

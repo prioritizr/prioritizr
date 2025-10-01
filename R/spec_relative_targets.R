@@ -87,7 +87,7 @@ spec_relative_targets <- function(targets, ...) {
   assert_required(targets)
   rlang::check_dots_empty()
   # return new method
-  new_method(
+  new_target_method(
     name = "Relative targets",
     type = "relative",
     fun = calc_relative_targets,

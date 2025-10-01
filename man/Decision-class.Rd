@@ -13,13 +13,13 @@ Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
-\code{\link{Method-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
 \code{\link{Solver-class}},
-\code{\link{Target-class}}
+\code{\link{Target-class}},
+\code{\link{TargetMethod-class}}
 }
 \concept{classes}
 \section{Super class}{

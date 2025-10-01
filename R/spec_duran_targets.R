@@ -255,7 +255,7 @@ spec_duran_targets <- function(probability_target,
   assert_required(historical_area)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "Duran et al. (2020) targets",
     type = "relative",
     fun = calc_duran_targets,

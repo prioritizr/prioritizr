@@ -203,7 +203,7 @@ spec_interp_area_targets <- function(rare_area_threshold,
   assert_required(interp_method)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "interpolated area targets",
     type = "relative",
     fun = calc_interp_area_targets,

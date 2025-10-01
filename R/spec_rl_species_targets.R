@@ -235,7 +235,7 @@ spec_rl_species_targets <- function(status, criterion_a, criterion_b,
   assert_required(cap_area_target)
   assert_required(area_units)
   # return new method
-  new_method(
+  new_target_method(
     name = "IUCN Red List of Threatened Species targets",
     type = "relative",
     fun = calc_rl_species_targets,

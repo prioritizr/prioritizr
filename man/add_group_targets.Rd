@@ -15,7 +15,7 @@ add_group_targets(x, groups, method)
 method for each group. Here, the names of \code{method} correspond to different
 values in \code{groups}. Additionally, the elements of \code{method} should be
 the \code{character} names of target setting methods, or objects
-(\code{\linkS4class{Method}}) used to specify target setting methods.
+(\code{\linkS4class{TargetMethod}}) used to specify target setting methods.
 See Target methods below for more information.}
 }
 \value{

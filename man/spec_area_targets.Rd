@@ -20,7 +20,7 @@ features are assigned targets assuming that \code{targets}
 are in the same units.}
 }
 \value{
-An object (\code{\linkS4class{Method}}) for specifying targets that
+An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
 to update the targets for a \code{\link[=problem]{problem()}}.
 }

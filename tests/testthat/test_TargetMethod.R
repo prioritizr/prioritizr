@@ -1,6 +1,6 @@
-test_that("new_method", {
+test_that("new_target_method", {
   # create object
-  m <- new_method(
+  m <- new_target_method(
     name = "METHOD",
     type = "relative",
     fun = function(x, features, fish, greg, call) {
@@ -10,7 +10,7 @@ test_that("new_method", {
   )
   # run tests
   print(m)
-  expect_inherits(m, "Method")
+  expect_inherits(m, "TargetMethod")
   expect_equal(m$name, "METHOD")
   expect_equal(m$type, "relative")
   expect_equal(m$args, list(fish = 4, greg = 5))
