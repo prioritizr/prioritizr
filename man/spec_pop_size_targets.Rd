@@ -51,7 +51,7 @@ to update the targets for a \code{\link[=problem]{problem()}}.
 \description{
 Specify targets based on the minimum number of individuals for each
 feature.
-Briefly, this target setting method involves using population density
+Briefly, this method involves using population density
 data to set a target threshold for the minimum amount of habitat required
 to safeguard a particular number of individuals.
 To help prevent widespread features from obscuring priorities,

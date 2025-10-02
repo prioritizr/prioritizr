@@ -102,7 +102,8 @@ Invisible \code{TRUE}.
 \if{html}{\out{<a id="method-TargetMethod-calculate_targets"></a>}}
 \if{latex}{\out{\hypertarget{method-TargetMethod-calculate_targets}{}}}
 \subsection{Method \code{calculate_targets()}}{
-Calculate targets.
+Calculate targets expressed in the type of units defined for the method
+(per \verb{$type}).
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{TargetMethod$calculate_targets(x, features, call = NULL)}\if{html}{\out{</div>}}
 }

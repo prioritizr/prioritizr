@@ -5,8 +5,8 @@ NULL
 #'
 #' Specify targets based on the methodology outlined by
 #' Watson *et al.* (2010).
-#' Briefly, it involves setting targets thresholds as a percentage based on
-#' whether or not a feature would be considered rare.
+#' Briefly, this method involves setting targets thresholds as a percentage
+#' based on whether or not a feature is considered rare.
 #' To help prevent widespread features from obscuring priorities,
 #' targets are capped following Butchart *et al.* (2015).
 #' This method was designed for species protection at national-scales.

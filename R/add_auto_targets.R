@@ -4,7 +4,7 @@ NULL
 #' Add targets automatically
 #'
 #' Add targets to a conservation planning problem based on a particular
-#' method for setting targets.
+#' target setting method.
 #'
 #' @inheritParams add_manual_targets
 #'

@@ -31,7 +31,7 @@ and add_group_targets()."><meta property="og:image" content="https://prioritizr.
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -147,7 +147,7 @@ Defaults to <code>"km^2"</code>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An object (<code><a href="Method-class.html">Method</a></code>) for specifying targets that
+    <p>An object (<code><a href="TargetMethod-class.html">TargetMethod</a></code>) for specifying targets that
 can be used with <code><a href="add_auto_targets.html">add_auto_targets()</a></code> and <code><a href="add_group_targets.html">add_group_targets()</a></code>
 to update the targets for a <code><a href="problem.html">problem()</a></code>.</p>
     </div>
@@ -158,8 +158,8 @@ scales (e.g., Harris <em>et al.</em> 2023).
 It is based on the rationale that it is appropriate to set the target
 for a feature based on a linear combination of values.
 When using this method in a planning exercise, it is important to ensure
-that the criteria and values used for target setting reflect the stakeholder
-objectives.
+that the criteria and values used to parameterize the rules
+reflect the stakeholder objectives.
 Additionally, the baseline relative target (per <code>baseline_relative_target</code>)
 and cap threshold (per <code>cap_area_target</code> and <code>area_units</code>) may need to
 set based on the features and spatial extent of the planning region.
@@ -182,7 +182,7 @@ To describe the rules, let \(U\) denote the set of rules
 (indexed by \(u\)), \(d_u\) indicate if the target for
 the feature should be calculated based on each rule \(u \in U\)
 (using binary values, per <code>data</code>), and \(a_u\) denote the value
-should be added to the target given each rule \(u \in U\)
+that should be added to the target given each rule \(u \in U\)
 (per <code>rules_relative_target</code>).
 Given this terminology, the target threshold (\(t\)) for the feature
 is calculated as follows.

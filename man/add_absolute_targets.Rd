@@ -29,10 +29,9 @@ An updated \code{\link[=problem]{problem()}} object with the targets added to it
 Add targets to a conservation planning problem expressed as the
 same values as the underlying feature data (ignoring any specified
 feature units).
-For example,
-setting a target of 10 requires that the solution secure a set of
-planning units for which their summed feature values are equal to or greater
-than 10.
+For example, setting a target of 10 for a feature specifies that a solution
+should ideally select a set of planning units that contain a total
+(summed) value of, at least, 10 for the feature.
 }
 \details{
 This function is used to set targets for each feature (separately).

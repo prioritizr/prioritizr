@@ -17,7 +17,6 @@
 <url><loc>https://prioritizr.net/reference/ConservationProblem-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Constraint-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Decision-class.html</loc></url>
-<url><loc>https://prioritizr.net/reference/Method-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Objective-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/OptimizationProblem-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc></url>
@@ -25,6 +24,7 @@
 <url><loc>https://prioritizr.net/reference/Portfolio-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Solver-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Target-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/TargetMethod-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_absolute_targets.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_asym_connectivity_penalties.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_auto_targets.html</loc></url>

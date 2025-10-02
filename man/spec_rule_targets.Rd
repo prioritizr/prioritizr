@@ -73,8 +73,8 @@ scales (e.g., Harris \emph{et al.} 2023).
 It is based on the rationale that it is appropriate to set the target
 for a feature based on a linear combination of values.
 When using this method in a planning exercise, it is important to ensure
-that the criteria and values used for target setting reflect the stakeholder
-objectives.
+that the criteria and values used to parameterize the rules
+reflect the stakeholder objectives.
 Additionally, the baseline relative target (per \code{baseline_relative_target})
 and cap threshold (per \code{cap_area_target} and \code{area_units}) may need to
 set based on the features and spatial extent of the planning region.
@@ -95,7 +95,7 @@ To describe the rules, let \eqn{U} denote the set of rules
 (indexed by \eqn{u}), \eqn{d_u}{du} indicate if the target for
 the feature should be calculated based on each rule \eqn{u \in U}{u in U}
 (using binary values, per \code{data}), and \eqn{a_u} denote the value
-should be added to the target given each rule \eqn{u \in U}{u in U}
+that should be added to the target given each rule \eqn{u \in U}{u in U}
 (per \code{rules_relative_target}).
 Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.

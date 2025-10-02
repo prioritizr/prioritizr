@@ -5,7 +5,7 @@ NULL
 #'
 #' Specify targets based on the methodology outlined by
 #' Duran *et al.* (2020).
-#' Briefly, this target setting method involves using historical distribution
+#' Briefly, this method involves using historical distribution
 #' data to infer the minimum amount of habitat required for a species to have
 #' a particular probability of persisting indefinitely.
 #' Note that this function is designed to be used with [add_auto_targets()]

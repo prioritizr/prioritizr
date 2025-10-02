@@ -25,7 +25,7 @@ An updated \code{\link[=problem]{problem()}} object with the targets added to it
 }
 \description{
 Add targets to a conservation planning problem based on a particular
-method for setting targets.
+target setting method.
 }
 \section{Target setting}{
 

@@ -6,9 +6,9 @@ NULL
 #' Specify targets expressed as the
 #' same values as the underlying feature data (ignoring any specified
 #' feature units).
-#' For example, setting an absolute target of 10 for a feature means that the
-#' solution should ideally select a set of planning units that have a total
-#' (summed) value of 10 for the feature.
+#' For example, setting a target of 10 for a feature specifies that a solution
+#' should ideally select a set of planning units that contain a total
+#' (summed) value of, at least, 10 for the feature.
 #' This function is designed to be used with [add_auto_targets()].
 #'
 #' @param targets `numeric` vector that specifies targets for each

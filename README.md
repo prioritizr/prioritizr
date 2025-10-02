@@ -244,13 +244,13 @@ print(p1)
     ## │├•features:    "Recurvirostra americana (breeding)", … (396 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (10757 total)
-    ## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)
-    ## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)
+    ## │ ├•costs:      continuous values (between 0.2986647 and 1804.184)
+    ## │ ├•extent:     -1816382, 247483.5, -1228382, 683483.5 (xmin, ymin, xmax, ymax)
     ## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs (projected)
     ## ├•formulation
-    ## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)
+    ## │├•objective:   minimum shortfall objective (`budget` = 8748.491)
     ## │├•penalties:   none specified
-    ## │├•targets:     relative targets (between 0.2 and 0.2)
+    ## │├•targets:     relative targets (between 0.2 and 0.2})
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
@@ -277,7 +277,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.343
+    ##      3.454
 
 ``` r
 # extract state message from the solver

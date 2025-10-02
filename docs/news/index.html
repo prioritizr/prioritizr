@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,18 +52,18 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="8.0.6.9" id="prioritizr-8069">prioritizr 8.0.6.9<a class="anchor" aria-label="anchor" href="#prioritizr-8069"></a></h2>
+<h2 class="pkg-version" data-toc-text="8.1.0.0" id="prioritizr-8100">prioritizr 8.1.0.0<a class="anchor" aria-label="anchor" href="#prioritizr-8100"></a></h2>
 <div class="section level3">
-<h3 id="new-features-8-0-6-9">New features<a class="anchor" aria-label="anchor" href="#new-features-8-0-6-9"></a></h3>
+<h3 id="new-features-8-1-0-0">New features<a class="anchor" aria-label="anchor" href="#new-features-8-1-0-0"></a></h3>
 <ul><li>New <code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code> function for adding targets to a conservation planning problem based on a target setting method. In particular, the following functions can be used in conjunction with this function to specify target setting methods: <code><a href="../reference/spec_absolute_targets.html">spec_absolute_targets()</a></code>, <code><a href="../reference/spec_area_targets.html">spec_area_targets()</a></code>, <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code>, <code><a href="../reference/spec_interp_area_targets.html">spec_interp_area_targets()</a></code> <code><a href="../reference/spec_jung_targets.html">spec_jung_targets()</a></code>, <code><a href="../reference/spec_max_targets.html">spec_max_targets()</a></code>, <code><a href="../reference/spec_min_targets.html">spec_min_targets()</a></code>, <code><a href="../reference/spec_polak_targets.html">spec_polak_targets()</a></code>, <code><a href="../reference/spec_pop_size_targets.html">spec_pop_size_targets()</a></code>, <code><a href="../reference/spec_relative_targets.html">spec_relative_targets()</a></code>, <code><a href="../reference/spec_rl_ecosystem_targets.html">spec_rl_ecosystem_targets()</a></code>, <code><a href="../reference/spec_rl_species_targets.html">spec_rl_species_targets()</a></code>, <code><a href="../reference/spec_rodrigues_targets.html">spec_rodrigues_targets()</a></code>, <code><a href="../reference/spec_rule_targets.html">spec_rule_targets()</a></code>, <code><a href="../reference/spec_ward_targets.html">spec_ward_targets()</a></code>, <code><a href="../reference/spec_watson_targets.html">spec_watson_targets()</a></code>, and <code><a href="../reference/spec_wilson_targets.html">spec_wilson_targets()</a></code>.</li>
 <li>New <code><a href="../reference/add_group_targets.html">add_group_targets()</a></code> function for adding targets to a conservation planning problem based on feature groups. This function is provided as a convenient alternative to the <code><a href="../reference/add_auto_targets.html">add_auto_targets()</a></code> function. With this function, features can be organized into groups and then have their targets calculated based on the method specified for their group.</li>
 <li>New <code><a href="../reference/linear_interpolation.html">linear_interpolation()</a></code> function for linearly interpolating values.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="major-changes-8-0-6-9">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-8-0-6-9"></a></h3>
+<h3 id="major-changes-8-1-0-0">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-8-1-0-0"></a></h3>
 <ul><li>The <code><a href="../reference/prioritizr-deprecated.html">add_loglinear_targets()</a></code> function has been deprecated. For similar functionality, see the new <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code> function.</li>
 </ul><div class="section level5">
-<h5 id="minor-improvements-and-bug-fixes-8-0-6-9">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-9"></a></h5>
+<h5 id="minor-improvements-and-bug-fixes-8-1-0-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-1-0-0"></a></h5>
 <ul><li>Update <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method for <code><a href="../reference/problem.html">problem()</a></code> objects to display a more useful number of digits for floating point numbers.</li>
 <li>Update <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> so that an alternative formulation can be used for the optimization problem. This alternative formulation may be useful when conservation planning problems are taking a long time to solve. Note that the default behavior of the function is to use the same formulation as in previous versions of the package.</li>
 <li>Update <code><a href="../reference/solve.html">solve()</a></code> to provide information on the objective bound. This represents the best estimate of the optimal objective value during optimization. Given a solution <code>x</code>, this information can be accessed using <code>attr(x, "objbound")</code>. Note that this is only supported for the Gurobi solver.</li>
@@ -73,7 +73,7 @@
 <li>Fix bug in <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> that produced poorly formatted error message.</li>
 </ul></div>
 <div class="section level5">
-<h5 id="documentation-8-0-6-9">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-0-6-9"></a></h5>
+<h5 id="documentation-8-1-0-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-1-0-0"></a></h5>
 <ul><li>Update <code><a href="../reference/targets.html">?targets</a></code> to provide a comprehensive overview of the target functions.</li>
 <li>Update <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> function documentation with better example.</li>
 <li>Fix incorrect text in Management Zones vignette (<a href="https://github.com/prioritizr/prioritizr/issues/382" class="external-link">#382</a>). Thanks to Anthony Richardson (<a href="https://github.com/ric325" class="external-link">@ric325</a>) for bug report.</li>
@@ -298,7 +298,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

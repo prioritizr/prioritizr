@@ -21,7 +21,7 @@ will result in an error."><meta property="og:image" content="https://prioritizr.
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,7 +209,8 @@ Ecosystems (IUCN 2024).</p></dd>
 
 </dl></li>
 <li><p>The <code><a href="add_group_targets.html">add_group_targets()</a></code> function provides a convenient interface
-for adding targets to a conservation planning problem. By assigning each
+for adding targets to a conservation planning problem based on groups.
+By assigning each
 feature to a group and then specifying a target setting method for each
 group, it can be used to assign targets for features based on different
 target setting methods.
@@ -248,8 +249,8 @@ the following code.</p>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    <span class="at">spp =</span> <span class="fu">spec_jung_targets</span>(<span class="at">prop_uplift =</span> <span class="fl">0.05</span>)</span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  )</span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>)</span></code></pre><p></p></div></li>
-<li><p>A set of functions are available for adding targets directly to a
-conservation planning problem.
+<li><p>A set of additional functions are available for adding targets
+directly to a conservation planning problem.
 These functions are especially useful when target thresholds have
 been pre-computed, or when considering problems that have multiple zones.
 In particular, the following functions are available.</p>

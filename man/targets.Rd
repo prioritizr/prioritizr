@@ -163,7 +163,8 @@ Specify targets based on the maximum of other target setting methods.
 }
 
 \item The \code{\link[=add_group_targets]{add_group_targets()}} function provides a convenient interface
-for adding targets to a conservation planning problem. By assigning each
+for adding targets to a conservation planning problem based on groups.
+By assigning each
 feature to a group and then specifying a target setting method for each
 group, it can be used to assign targets for features based on different
 target setting methods.
@@ -205,8 +206,8 @@ x \%>\% add_group_targets(
 )
 }\if{html}{\out{</div>}}
 
-\item A set of functions are available for adding targets directly to a
-conservation planning problem.
+\item A set of additional functions are available for adding targets
+directly to a conservation planning problem.
 These functions are especially useful when target thresholds have
 been pre-computed, or when considering problems that have multiple zones.
 In particular, the following functions are available.
