@@ -256,6 +256,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_optimization_problem_modelsense
+bool rcpp_set_optimization_problem_modelsense(SEXP x, std::string modelsense);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP xSEXP, SEXP modelsenseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type modelsense(modelsenseSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_modelsense(x, modelsense));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_optimization_problem_lb
 bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb);
 RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP xSEXP, SEXP lbSEXP) {
@@ -481,9 +493,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_hierachical_approach
-SEXP rcpp_apply_hierachical_approach(SEXP current_ptrSEXP, SEXP prev_ptrSEXP, const Rcpp::NumericVector& prev_solution, double degradation);
-RcppExport SEXP _prioritizr_rcpp_apply_hierachical_approach(SEXP current_ptrSEXPSEXP, SEXP prev_ptrSEXPSEXP, SEXP prev_solutionSEXP, SEXP degradationSEXP) {
+// rcpp_apply_hierarchical_approach
+Rcpp::List rcpp_apply_hierarchical_approach(const Rcpp::List x);
+RcppExport SEXP _prioritizr_rcpp_apply_hierarchical_approach(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_hierarchical_approach(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_hierachical_approach2
+SEXP rcpp_apply_hierachical_approach2(SEXP current_ptrSEXP, SEXP prev_ptrSEXP, const Rcpp::NumericVector& prev_solution, double degradation);
+RcppExport SEXP _prioritizr_rcpp_apply_hierachical_approach2(SEXP current_ptrSEXPSEXP, SEXP prev_ptrSEXPSEXP, SEXP prev_solutionSEXP, SEXP degradationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -491,7 +514,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type prev_ptrSEXP(prev_ptrSEXPSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type prev_solution(prev_solutionSEXP);
     Rcpp::traits::input_parameter< double >::type degradation(degradationSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_hierachical_approach(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_hierachical_approach2(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation));
     return rcpp_result_gen;
 END_RCPP
 }

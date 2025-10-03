@@ -20,7 +20,8 @@ extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_hierachical_approach(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_hierachical_approach2(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_hierarchical_approach(SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP);
@@ -64,6 +65,7 @@ extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
 extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_remove_optimization_problem_last_linear_constraint(SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_obj(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_ub(SEXP, SEXP);
@@ -81,7 +83,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_decisions",                                    (DL_FUNC) &_prioritizr_rcpp_apply_decisions,                                    4},
     {"_prioritizr_rcpp_apply_feature_contiguity_constraints",               (DL_FUNC) &_prioritizr_rcpp_apply_feature_contiguity_constraints,               3},
     {"_prioritizr_rcpp_apply_feature_weights",                              (DL_FUNC) &_prioritizr_rcpp_apply_feature_weights,                              2},
-    {"_prioritizr_rcpp_apply_hierachical_approach",                         (DL_FUNC) &_prioritizr_rcpp_apply_hierachical_approach,                         4},
+    {"_prioritizr_rcpp_apply_hierachical_approach2",                        (DL_FUNC) &_prioritizr_rcpp_apply_hierachical_approach2,                        4},
+    {"_prioritizr_rcpp_apply_hierarchical_approach",                        (DL_FUNC) &_prioritizr_rcpp_apply_hierarchical_approach,                        1},
     {"_prioritizr_rcpp_apply_linear_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_linear_constraints,                           4},
     {"_prioritizr_rcpp_apply_linear_penalties",                             (DL_FUNC) &_prioritizr_rcpp_apply_linear_penalties,                             3},
     {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           4},
@@ -125,6 +128,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_predefined_optimization_problem",                    (DL_FUNC) &_prioritizr_rcpp_predefined_optimization_problem,                    1},
     {"_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint", (DL_FUNC) &_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint, 1},
     {"_prioritizr_rcpp_set_optimization_problem_lb",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_lb,                        2},
+    {"_prioritizr_rcpp_set_optimization_problem_modelsense",                (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_modelsense,                2},
     {"_prioritizr_rcpp_set_optimization_problem_obj",                       (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_obj,                       2},
     {"_prioritizr_rcpp_set_optimization_problem_shuffled",                  (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_shuffled,                  2},
     {"_prioritizr_rcpp_set_optimization_problem_ub",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_ub,                        2},

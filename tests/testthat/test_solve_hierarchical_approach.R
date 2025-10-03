@@ -2,8 +2,8 @@ test_that("compile dual min set problems", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # define weights
-  weights <- c(1, 0.2)
+  # define rel_tol
+  rel_tol <- c(0.1)
   # calculate targets data
   targ1 <- floor(
     terra::global(sim_features[[1:2]], "sum", na.rm = TRUE)[[1]] * 0.25
@@ -23,7 +23,7 @@ test_that("compile dual min set problems", {
     add_absolute_targets(targ2) %>%
     add_binary_decisions()
   # compile problem
-  x <- compile_ws_approach(list(p1, p2), weights)
+  x <- compile_hierarchical_approach(list(p1, p2))
   # tests
 })
 
@@ -31,8 +31,8 @@ test_that("solve dual min set problems", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # define weights
-  weights <- c(1, 0.2)
+  # define rel_tol
+  rel_tol <- c(0.1)
   # calculate targets data
   targ1 <- floor(
     terra::global(sim_features[[1:2]], "sum", na.rm = TRUE)[[1]] * 0.25
@@ -52,7 +52,7 @@ test_that("solve dual min set problems", {
     add_absolute_targets(targ2) %>%
     add_binary_decisions()
   # solve problem
-  s <- solve_ws_approach(list(p1, p2), weights, FALSE)
+  s <- solve_hierachical_approach(list(p1, p2), rel_tol, FALSE)
   # run tests
   ## TODO
 

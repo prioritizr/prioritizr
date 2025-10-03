@@ -241,6 +241,7 @@ Collate:
     'run_calculations.R'
     'show.R'
     'simulate.R'
+    'solve_hierarchical_approach.R'
     'solve_ws_approach.R'
     'solvers.R'
     'st_geometry_classes.R'

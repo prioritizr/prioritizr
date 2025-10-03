@@ -21,7 +21,7 @@ solve_ws_approach <- function(x, weights, rescale_weights = FALSE) {
   assert_required(rescale_weights)
 
   # compile multi-objective problem
-  mopt <- ws_approach_compile(
+  mopt <- compile_ws_approach(
     x = x, weights = weights, rescale_weights = rescale_weights
   )
 

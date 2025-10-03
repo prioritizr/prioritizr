@@ -89,6 +89,10 @@ rcpp_set_optimization_problem_obj <- function(x, obj) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_obj`, x, obj)
 }
 
+rcpp_set_optimization_problem_modelsense <- function(x, modelsense) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_modelsense`, x, modelsense)
+}
+
 rcpp_set_optimization_problem_lb <- function(x, lb) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_lb`, x, lb)
 }
@@ -157,8 +161,12 @@ rcpp_apply_feature_weights <- function(x, weights) {
     .Call(`_prioritizr_rcpp_apply_feature_weights`, x, weights)
 }
 
-rcpp_apply_hierachical_approach <- function(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation = 0.0) {
-    .Call(`_prioritizr_rcpp_apply_hierachical_approach`, current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation)
+rcpp_apply_hierarchical_approach <- function(x) {
+    .Call(`_prioritizr_rcpp_apply_hierarchical_approach`, x)
+}
+
+rcpp_apply_hierachical_approach2 <- function(current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation = 0.0) {
+    .Call(`_prioritizr_rcpp_apply_hierachical_approach2`, current_ptrSEXP, prev_ptrSEXP, prev_solution, degradation)
 }
 
 rcpp_apply_linear_penalties <- function(x, penalty, data) {

@@ -97,6 +97,10 @@ set_obj(x, obj)
 
 \S4method{set_obj}{OptimizationProblem,ANY}(x, obj)
 
+set_modelsense(x, modelsense)
+
+\S4method{set_modelsense}{OptimizationProblem,ANY}(x, modelsense)
+
 set_lb(x, lb)
 
 \S4method{set_lb}{OptimizationProblem,ANY}(x, lb)
@@ -192,6 +196,10 @@ functions return an invisible \code{TRUE} indicating success.
 \item{\code{set_obj(x, obj)}}{override the objective in the problem.
 Here, \code{obj} is a \code{numeric} vector containing a new linear coefficient for
 each decision variable in the problem.}
+
+\item{\code{set_modelsense(x, modelsense)}}{override the model sense in the
+problem. Here, \code{modelsense} is a \code{character} value which must be
+either \code{"min"} or \code{"max"}.}
 
 \item{\code{set_lb(x, lb)}}{override the variable lower bounds in the problem.
 Here, \code{lb} is a \code{numeric} vector containing a new lower bound.for each

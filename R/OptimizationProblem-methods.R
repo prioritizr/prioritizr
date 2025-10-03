@@ -76,6 +76,10 @@ NULL
 #'  Here, `obj` is a `numeric` vector containing a new linear coefficient for
 #'  each decision variable in the problem.}
 #'
+#' \item{`set_modelsense(x, modelsense)`}{override the model sense in the
+#'  problem. Here, `modelsense` is a `character` value which must be
+#'  either `"min"` or `"max"`.}
+#'
 #' \item{`set_lb(x, lb)`}{override the variable lower bounds in the problem.
 #'  Here, `lb` is a `numeric` vector containing a new lower bound.for each
 #'  decision variable in the problem.}
@@ -346,6 +350,36 @@ methods::setMethod(
   "set_obj",
   methods::signature("OptimizationProblem", "ANY"),
   function(x, obj) x$set_obj(obj)
+)
+
+#' @name OptimizationProblem-methods
+#' @rdname OptimizationProblem-methods
+#' @exportMethod set_modelsense
+#' @usage set_modelsense(x, modelsense)
+methods::setGeneric(
+  "set_modelsense",
+  signature = methods::signature("x", "modelsense"),
+  function(x, modelsense) {
+    assert_required(x)
+    assert_required(modelsense)
+    standardGeneric("set_modelsense")
+  }
+)
+
+#' @name OptimizationProblem-methods
+#' @rdname OptimizationProblem-methods
+#' @usage \S4method{set_modelsense}{OptimizationProblem,ANY}(x, modelsense)
+methods::setMethod(
+  "set_modelsense",
+  methods::signature("OptimizationProblem", "ANY"),
+  function(x, modelsense) {
+    assert(
+      assertthat::is.string(modelsense),
+      assertthat::noNA(modelsense),
+      is_match_of(modelsense, c("min", "max"))
+    )
+    x$modelsense(modelsense)
+  }
 )
 
 #' @name OptimizationProblem-methods
