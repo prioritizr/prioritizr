@@ -45,7 +45,7 @@ all_positive.Raster <- function(x) {
 
 #' @export
 all_positive.SpatRaster <- function(x) {
-  all_positive(terra::global(x, "min", na.rm = TRUE)[[1]])
+  all_positive(terra::minmax(x, compute = TRUE)[1, ])
 }
 
 #' @export

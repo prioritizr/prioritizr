@@ -65,12 +65,13 @@
 </ul><div class="section level5">
 <h5 id="minor-improvements-and-bug-fixes-8-1-0-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-1-0-0"></a></h5>
 <ul><li>Update <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method for <code><a href="../reference/problem.html">problem()</a></code> objects to display a more useful number of digits for floating point numbers.</li>
-<li>Update <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> so that an alternative formulation can be used for the optimization problem. This alternative formulation may be useful when conservation planning problems are taking a long time to solve. Note that the default behavior of the function is to use the same formulation as in previous versions of the package.</li>
+<li>Update <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> so that an alternative formulation can be used for the optimization problem (<a href="https://github.com/prioritizr/prioritizr/issues/369" class="external-link">#369</a>). This alternative formulation may be useful when conservation planning problems are taking a long time to solve. Note that the default behavior of the function is to use the same formulation as in previous versions of the package.</li>
 <li>Update <code><a href="../reference/solve.html">solve()</a></code> to provide information on the objective bound. This represents the best estimate of the optimal objective value during optimization. Given a solution <code>x</code>, this information can be accessed using <code>attr(x, "objbound")</code>. Note that this is only supported for the Gurobi solver.</li>
 <li>Update <code>ConservationProblem</code> class so that overwriting problem components will yield a more concise warning message.</li>
 <li>Fix bug in internal <code>get_crs()</code> function when using <code><a href="https://rdrr.io/pkg/raster/man/raster.html" class="external-link">raster::raster()</a></code> or <code><a href="https://rdrr.io/pkg/raster/man/stack.html" class="external-link">raster::stack()</a></code> objects.</li>
 <li>Fix bug in <code><a href="../reference/add_relative_targets.html">add_relative_targets()</a></code> that produced an incoherent error message.</li>
 <li>Fix bug in <code><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints()</a></code> that produced poorly formatted error message.</li>
+<li>Speed up internal validation of <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> raster data. In particular, the minimum and maximum values of rasters are now computed with <code>terra::minmax(x, compute = TRUE)</code>, instead of <code>terra::global(x, "range", na.rm = TRUE)</code>.</li>
 </ul></div>
 <div class="section level5">
 <h5 id="documentation-8-1-0-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-1-0-0"></a></h5>
@@ -298,7 +299,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

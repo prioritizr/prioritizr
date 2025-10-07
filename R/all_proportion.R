@@ -53,3 +53,9 @@ all_proportion.Spatial <- function(x) {
 all_proportion.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_proportion, logical(1)))
 }
+
+#' @export
+all_proportion.SpatRaster <- function(x) {
+  x <- c(terra::minmax(x, compute = TRUE))
+  all_proportion(c(x))
+}

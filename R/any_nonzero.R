@@ -65,9 +65,9 @@ any_nonzero.Raster <- function(x) {
 
 #' @export
 any_nonzero.SpatRaster <- function(x) {
-  x <- as.matrix(terra::global(x, "range", na.rm = TRUE))
+  x <- terra::minmax(x, compute = TRUE)
   if (all(!is.finite(x))) return(TRUE)
-  all(rowSums(abs(x) > 1e-6, na.rm = TRUE) > 0)
+  all(colSums(abs(x) > 1e-6, na.rm = TRUE) > 0)
 }
 
 #' @export

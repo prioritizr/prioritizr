@@ -29,7 +29,7 @@
 - Update `print()` method for `problem()` objects to display a more useful
   number of digits for floating point numbers.
 - Update `add_boundary_penalties()` so that an alternative formulation can be
-  used for the optimization problem. This alternative formulation may be
+  used for the optimization problem (#369). This alternative formulation may be
   useful when conservation planning problems are taking a long time to solve.
   Note that the default behavior of the function is to use the same
   formulation as in previous versions of the package.
@@ -44,6 +44,10 @@
 - Fix bug in `add_relative_targets()` that produced an incoherent error message.
 - Fix bug in `add_locked_in_constraints()` that produced poorly formatted error
   message.
+- Speed up internal validation of `terra::rast()` raster data. In particular,
+  the minimum and maximum values of rasters are now computed with
+  `terra::minmax(x, compute = TRUE)`, instead of
+  `terra::global(x, "range", na.rm = TRUE)`.
 
 #### Documentation
 
