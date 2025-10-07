@@ -55,36 +55,46 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
       ## solve the problem
       curr_sol <- x[[1]]$portfolio$run(mopt, x[[1]]$solver)
       assert(
-        is_valid_raw_solution(s, time_limit = x[[1]]$solver$data$time_limit)
+        is_valid_raw_solution(curr_sol, time_limit = x[[1]]$solver$data$time_limit)
       )
-      ## calculate rhs value for new constraint
-      curr_rhs <-
-        sum(mobj[i, ] * curr_sol[[1]]$x) *
-        ifelse(
-          mmodelsense$modelsense[[1]] == "min",
-          1 + rel_tol[[1]],
-          1 - rel_tol[[1]]
-        )
-      ## apply new constraint
-      mult$append_linear_constraints(
-        rhs = curr_rhs,
-        sense = ifelse(mmodelsense$modelsense[[1]] == "min", "<=", ">="),
-        A = Matrix::drop0(
-          Matrix::sparseMatrix(
-            i = rep(1, ncol(mobj)),
-            j = seq_len(ncol(mobj)),
-            x = main_obj,
-            dims = c(1, length(main_obj))
+      
+      if (i != nrow(mobj)) { #otherwise we try to do the same calcs for the last problem where we wont have a rel_tol
+        ## calculate rhs value for new constraint
+        curr_rhs <-
+          sum(mobj[i, ] * curr_sol[[1]]$x) *
+          ifelse(
+            mmodelsense[i] == "min", #get current modelsense so we can adapt next problem
+            1 + rel_tol[i],
+            1 - rel_tol[i]
           )
-        ),
-        row_ids = "h"
-      )
-      ## if possible, update the starting solution for the solver
-      if (
-        !is.null(x$solver$data) &&
-        isTRUE("start_solution" %in% names(x$solver$data))
-      ) {
-        x$solver$data$start_solution <- curr_sol[[1]]$x
+        # ifelse(
+        #   mmodelsense$modelsense[[1]] == "min",
+        #   1 + rel_tol[[1]],
+        #   1 - rel_tol[[1]]
+        # )
+        ## apply new constraint
+        # mult$append_linear_constraints(
+        mopt$append_linear_constraints(
+          rhs = curr_rhs,
+          sense = ifelse(mmodelsense[i] == "min", "<=", ">="),#$modelsense[[1]] == "min", "<=", ">="),
+          A = Matrix::drop0(
+            Matrix::sparseMatrix(
+              i = rep(1, ncol(mobj)),
+              j = seq_len(ncol(mobj)),
+              x = mobj[i, ], #main_obj,
+              dims = c(1, length(mobj[i, ]))#(main_obj))
+            )
+          ),
+          row_ids = "h"
+        )
+        ## if possible, update the starting solution for the solver
+        if (
+          !is.null(x$solver$data) &&
+          isTRUE("start_solution" %in% names(x$solver$data))
+        ) {
+          x$solver$data$start_solution <- curr_sol[[1]]$x
+        }
+        
       }
     }
   }
@@ -93,11 +103,11 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
   solve_solution_format(
      x = planning_unit_solution_format(
       x = x[[1]],
-      status = lapply(sol, convert_raw_solution_to_solution_status, x = x[[1]]),
-      prefix = paste0("solution_", seq_along(sol)),
+      status = lapply(curr_sol, convert_raw_solution_to_solution_status, x = x[[1]]),
+      prefix = paste0("solution_", seq_along(curr_sol)),
       append = TRUE
     ),
-    raw_solution = sol
+    raw_solution = curr_sol
   )
 }
 

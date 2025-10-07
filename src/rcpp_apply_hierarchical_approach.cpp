@@ -100,8 +100,9 @@ Rcpp::List rcpp_apply_hierarchical_approach(const Rcpp::List x) {
   // prepare multi-objective model sense
   Rcpp::CharacterVector mmodelsense(n);
   for (std::size_t i = 0; i < n; ++i) {
-    mmodelsense[i] = Rcpp::wrap(opt[i]->_modelsense);
+    mmodelsense[i] = Rcpp::String(opt[i]->_modelsense);
   }
+
 
   Rcpp::print(Rcpp::wrap("here3"));
   // specify lower bounds for multi-objective problem

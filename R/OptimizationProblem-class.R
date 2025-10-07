@@ -227,6 +227,24 @@ OptimizationProblem <- R6::R6Class(
       # return success
       invisible(TRUE)
     },
+    
+    #' @description
+    #' Set the model sense for the optimization problem.
+    #' @param modelsense `character` value indicating the model sense.
+    #' @return An invisible `TRUE` indicating success.
+    set_modelsense = function(modelsense) {
+      # assert valid arguments
+      assert(
+        is.character(modelsense),
+        assertthat::noNA(modelsense),
+        identical(length(modelsense), 1L),
+        modelsense %in% c("min", "max")
+      )
+      # update
+      rcpp_set_optimization_problem_modelsense(self$ptr, modelsense)
+      # return success
+      invisible(TRUE)
+    },
 
     #' @description
     #' Set lower bounds for the decision variables in the optimization problem.
