@@ -5,9 +5,7 @@ NULL
 #'
 #' Extract the names of zones in an object.
 #'
-#' @param x [problem()] or [zones()] object.
-#'
-#' @param ... not used.
+#' @inheritParams feature_names
 #'
 #' @return A `character` vector of zone names.
 #'
@@ -29,6 +27,9 @@ NULL
 #'
 #' # print zone names in problem
 #' print(zone_names(p))
+#'
+#' # create multi-objective problem
+#' # TODO
 #' }
 #' @export
 zone_names <- function(x, ...) {
@@ -47,8 +48,15 @@ zone_names.ConservationProblem <- function(x, ...) {
 #' @rdname zone_names
 #'
 #' @export
+zone_names.MultiObjConservationProblem <- function(x, ...) {
+  rlang::check_dots_empty()
+  x$zone_names()
+}
+
+#' @rdname zone_names
+#'
+#' @export
 zone_names.ZonesRaster <- function(x, ...) {
-  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }
@@ -57,7 +65,6 @@ zone_names.ZonesRaster <- function(x, ...) {
 #'
 #' @export
 zone_names.ZonesSpatRaster <- function(x, ...) {
-  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }
@@ -66,7 +73,6 @@ zone_names.ZonesSpatRaster <- function(x, ...) {
 #'
 #' @export
 zone_names.ZonesCharacter <- function(x, ...) {
-  assert_required(x)
   rlang::check_dots_empty()
   attr(x, "zone_names")
 }
