@@ -37,3 +37,11 @@ test_that("is_conservation_problem", {
     "version"
   )
 })
+
+test_that("is_multi_conservation_problem", {
+
+})
+
+test_that("is_generic_conservation_problem", {
+
+})

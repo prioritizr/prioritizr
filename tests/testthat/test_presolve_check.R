@@ -336,3 +336,7 @@ test_that("single feature", {
     "contains a single feature"
   )
 })
+
+test_that("multi_problem()", {
+
+})

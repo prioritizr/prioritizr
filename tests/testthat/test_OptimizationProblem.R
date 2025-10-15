@@ -5,7 +5,7 @@ test_that("optimization_problem (x = NULL)", {
   suppressMessages(x$print())
   suppressMessages(x$show())
   # tests
-  expect_equal(ncell(x), 0)
+  expect_equal(x$ncell(), 0)
 })
 
 test_that("get methods", {
@@ -32,25 +32,26 @@ test_that("get methods", {
   suppressMessages(x$print())
   suppressMessages(x$show())
   # tests
-  expect_equal(nrow(x), 2)
-  expect_equal(ncol(x), 3)
-  expect_equal(ncell(x), length(l$A_x))
+  expect_equal(x$nrow(), 2)
+  expect_equal(x$ncol(), 3)
+  expect_equal(x$ncell(), length(l$A_x))
   expect_equal(
-    A(x),
+    x$A(),
     Matrix::sparseMatrix(i = l$A_i, j = l$A_j, x = l$A_x, index1 = FALSE)
   )
-  expect_equal(modelsense(x), l$modelsense)
-  expect_equal(obj(x), l$obj)
-  expect_equal(rhs(x), l$rhs)
-  expect_equal(sense(x), l$sense)
-  expect_equal(lb(x), l$lb)
-  expect_equal(ub(x), l$ub)
+  expect_equal(x$modelsense(), l$modelsense)
+  expect_equal(x$obj(), l$obj)
+  expect_equal(x$rhs(), l$rhs)
+  expect_equal(x$sense(), l$sense)
+  expect_equal(x$lb(), l$lb)
+  expect_equal(x$ub(), l$ub)
+  expect_equal(x$vtype(), l$vtype)
   expect_equal(number_of_features(x), l$number_of_features)
   expect_equal(number_of_planning_units(x), l$number_of_planning_units)
   expect_equal(number_of_zones(x), l$number_of_zones)
-  expect_equal(col_ids(x), l$col_ids)
-  expect_equal(row_ids(x), l$row_ids)
-  expect_equal(compressed_formulation(x), l$compressed_formulation)
+  expect_equal(x$col_ids(), l$col_ids)
+  expect_equal(x$row_ids(), l$row_ids)
+  expect_equal(x$compressed_formulation(), l$compressed_formulation)
 })
 
 test_that("as.list", {
@@ -118,27 +119,27 @@ test_that("shuffle_columns method", {
   reorder_key <- x$shuffle_columns(shuffle_key)
   # tests
   ## certain elements that should stay the same after shuffling
-  expect_equal(nrow(x), 2)
-  expect_equal(ncol(x), 3)
-  expect_equal(ncell(x), length(l$A_x))
-  expect_equal(modelsense(x), l$modelsense)
-  expect_equal(rhs(x), l$rhs)
-  expect_equal(sense(x), l$sense)
+  expect_equal(x$nrow(), 2)
+  expect_equal(x$ncol(), 3)
+  expect_equal(x$ncell(), length(l$A_x))
+  expect_equal(x$modelsense(), l$modelsense)
+  expect_equal(x$rhs(), l$rhs)
+  expect_equal(x$sense(), l$sense)
   expect_equal(number_of_planning_units(x), l$number_of_planning_units)
   expect_equal(number_of_features(x), l$number_of_features)
   expect_equal(number_of_zones(x), l$number_of_zones)
-  expect_equal(row_ids(x), l$row_ids)
-  expect_equal(compressed_formulation(x), l$compressed_formulation)
+  expect_equal(x$row_ids(), l$row_ids)
+  expect_equal(x$compressed_formulation(), l$compressed_formulation)
   ## certain elements that should change after shuffling
-  expect_equal(obj(x)[reorder_key], l$obj)
-  expect_equal(ub(x)[reorder_key], l$ub)
-  expect_equal(lb(x)[reorder_key], l$lb)
-  expect_equal(col_ids(x)[reorder_key], l$col_ids)
-  expect_equal(vtype(x)[reorder_key], l$vtype)
+  expect_equal(x$obj()[reorder_key], l$obj)
+  expect_equal(x$ub()[reorder_key], l$ub)
+  expect_equal(x$lb()[reorder_key], l$lb)
+  expect_equal(x$col_ids()[reorder_key], l$col_ids)
+  expect_equal(x$vtype()[reorder_key], l$vtype)
   original_matrix <- Matrix::sparseMatrix(
     i = l$A_i, j = l$A_j, x = l$A_x, index1 = FALSE
   )
-  expect_equal(A(x)[, reorder_key], original_matrix)
+  expect_equal(x$A()[, reorder_key], original_matrix)
 })
 
 test_that("copy method", {
@@ -194,19 +195,22 @@ test_that("set methods", {
   x <- optimization_problem(l)
   # obj
   new_obj <- c(100, 102, 111)
-  set_obj(x, new_obj)
+  x$set_obj(new_obj)
   expect_equal(x$obj(), new_obj)
+  # model sense
+  x$set_modelsense("max")
+  expect_equal(x$modelsense(), "max")
   # lb
   new_lb <- c(-1, -5, -12)
-  set_lb(x, new_lb)
+  x$set_lb(new_lb)
   expect_equal(x$lb(), new_lb)
   # ub
   new_ub <- c(54, 12, 90)
-  set_ub(x, new_ub)
+  x$set_ub(new_ub)
   expect_equal(x$ub(), new_ub)
   # result
   l2 <- list(
-    modelsense = "min",
+    modelsense = "max",
     number_of_features = 2,
     number_of_planning_units = 3,
     number_of_zones = 1,
@@ -253,7 +257,7 @@ test_that("append methods", {
   c1_rhs <- 123
   c1_sense <- "="
   c1_row_ids <- "c1"
-  append_linear_constraints(x, c1_rhs, c1_sense, c1_A, c1_row_ids)
+  x$append_linear_constraints(c1_rhs, c1_sense, c1_A, c1_row_ids)
   # multiple new constraints
   c2_A <- Matrix::sparseMatrix(
     i = c(1, 1, 2), j = c(3, 2, 1), x = c(12, 8, 45), dims = c(2, 3), repr = "T"
@@ -261,7 +265,7 @@ test_that("append methods", {
   c2_rhs <- c(34, 12)
   c2_sense <- c("<=", ">=")
   c2_row_ids <- c("c2", "c3")
-  append_linear_constraints(x, c2_rhs, c2_sense, c2_A, c2_row_ids)
+  x$append_linear_constraints(c2_rhs, c2_sense, c2_A, c2_row_ids)
   # tests
   expect_equal(
     x$rhs(),
@@ -311,7 +315,7 @@ test_that("remove methods", {
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   # remove last constraint
-  remove_last_linear_constraint(x)
+  x$remove_last_linear_constraint()
   # tests
   l2 <- list(
     modelsense = "min",

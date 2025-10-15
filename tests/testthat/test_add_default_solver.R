@@ -1,4 +1,4 @@
-test_that("works", {
+test_that("problem()", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
@@ -15,4 +15,8 @@ test_that("works", {
   expect_true(inherits(s, "SpatRaster"))
   expect_equal(terra::nlyr(s), 1)
   expect_true(is_comparable_raster(sim_pu_raster, s))
+})
+
+test_that("multi_problem", {
+
 })
