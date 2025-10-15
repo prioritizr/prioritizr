@@ -10,7 +10,7 @@ NULL
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is relative
 #'   and expresses the acceptable deviance from the optimal objective.
@@ -190,7 +190,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

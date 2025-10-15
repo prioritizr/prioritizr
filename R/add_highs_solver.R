@@ -75,7 +75,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

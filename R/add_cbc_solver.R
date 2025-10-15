@@ -135,7 +135,7 @@ add_cbc_solver <- function(x,
   }
   # assert valid arguments
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

@@ -6,7 +6,7 @@ NULL
 #' Specify that the best solver currently available should be
 #' used to solve a conservation planning problem.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param ... arguments passed to the solver.
 #'
@@ -34,7 +34,7 @@ NULL
 add_default_solver <- function(x, ...) {
   # assert valid arguments
   assert_required(x)
-  assert(is_conservation_problem(x), call = NULL)
+  assert(is_generic_conservation_problem(x), call = NULL)
   if (!identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")) {
     assert(
       any_solvers_installed(),
