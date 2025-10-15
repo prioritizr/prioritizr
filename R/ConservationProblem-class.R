@@ -36,6 +36,7 @@ ConservationProblem <- R6::R6Class(
       targets = TRUE,
       constraints = TRUE,
       penalties = TRUE,
+      portfolio = TRUE,
       solver = TRUE
     ),
 
