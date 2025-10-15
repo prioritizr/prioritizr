@@ -466,7 +466,7 @@ are selected or not selected for protection.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.1 and 0.1)
+## │├•targets:     relative targets (between 0.1 and 0.1})
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -620,7 +620,7 @@ using the following code.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.05 and 0.1)
+## │├•targets:     relative targets (between 0.05 and 0.1})
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -702,8 +702,8 @@ using the following code.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># value 1 (yellow) are allocated to &quot;zone 1&quot; and pixels with the value 2 (green)</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in gray are not allocated</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># value 1 (green) are allocated to &quot;zone 1&quot; and pixels with the value 2 (yellow)</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in purple are not allocated</span></span>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co"># to any zone.</span></span>
 <span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>  <span class="fu">category_layer</span>(s2), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
@@ -755,7 +755,7 @@ example.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.05 and 0.1)
+## │├•targets:     relative targets (between 0.05 and 0.1})
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -925,7 +925,7 @@ We can formulate and solve this problem using the following code.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     absolute targets (between 8 and 8)
+## │├•targets:     absolute targets (between 8 and 8})
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -1068,7 +1068,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     absolute targets (between 8 and 8)
+## │├•targets:     absolute targets (between 8 and 8})
 ## │├•constraints:
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
@@ -1217,8 +1217,8 @@ fragmented solutions.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
-## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
-## │├•targets:     absolute targets (between 8 and 8)
+## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = &quot;simple&quot;, …)
+## │├•targets:     absolute targets (between 8 and 8})
 ## │├•constraints:
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
@@ -1263,7 +1263,7 @@ fragmented solutions.</p>
 ## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 543 iterations, 0.00 seconds (0.01 work units)
+## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1273,7 +1273,7 @@ fragmented solutions.</p>
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    11132.000000 10054.0986  9.68%     -    0s
 ## 
-## Explored 1 nodes (802 simplex iterations) in 0.03 seconds (0.04 work units)
+## Explored 1 nodes (802 simplex iterations) in 0.04 seconds (0.04 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 4: 11132 11300 11408 20096 
@@ -1356,8 +1356,8 @@ unit.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
-## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
-## │├•targets:     absolute targets (between 8 and 8)
+## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = &quot;simple&quot;, …)
+## │├•targets:     absolute targets (between 8 and 8})
 ## │├•constraints:
 ## ││├•1:          mandatory allocation constraints
 ## ││└•2:          manual locked constraints (80 planning units)
@@ -1397,7 +1397,7 @@ unit.</p>
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 1120 rows and 324 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 785 rows, 876 columns, 2450 nonzeros
 ## Variable types: 0 continuous, 876 integer (876 binary)
 ## Root relaxation presolved: 785 rows, 876 columns, 2450 nonzeros
@@ -1411,7 +1411,7 @@ unit.</p>
 ##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (471 simplex iterations) in 0.02 seconds (0.03 work units)
+## Explored 1 nodes (471 simplex iterations) in 0.03 seconds (0.03 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 2: 13260 19600 

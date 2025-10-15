@@ -13,6 +13,8 @@ Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
+\code{\link{MultiObjApproach-class}},
+\code{\link{MultiObjConservationProblem-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},

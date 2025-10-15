@@ -3,6 +3,7 @@
 \name{number_of_planning_units}
 \alias{number_of_planning_units}
 \alias{number_of_planning_units.ConservationProblem}
+\alias{number_of_planning_units.MultiObjConservationProblem}
 \alias{number_of_planning_units.OptimizationProblem}
 \title{Number of planning units}
 \usage{
@@ -10,10 +11,12 @@ number_of_planning_units(x, ...)
 
 \method{number_of_planning_units}{ConservationProblem}(x, ...)
 
+\method{number_of_planning_units}{MultiObjConservationProblem}(x, ...)
+
 \method{number_of_planning_units}{OptimizationProblem}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}}, \code{\link[=multi_problem]{multi_problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
 
 \item{...}{not used.}
 }
@@ -46,5 +49,8 @@ p <-
 
 # print number of planning units
 print(number_of_planning_units(p))
+
+# create multi-objective problem
+# TODO
 }
 }

@@ -117,6 +117,7 @@ vignette. Also, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalt
 an appropriate \code{penalty} value.
 
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},
