@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of planning units in an object.
 #'
-#' @param x [problem()] or [optimization_problem()] object.
+#' @param x [problem()], [multi_problem()] or [optimization_problem()] object.
 #'
 #' @param ... not used.
 #'
@@ -34,6 +34,9 @@ NULL
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p))
+#'
+#' # create multi-objective problem
+#' # TODO
 #' }
 #' @export
 number_of_planning_units <- function(x, ...) {
@@ -46,6 +49,13 @@ number_of_planning_units <- function(x, ...) {
 #'
 #' @export
 number_of_planning_units.ConservationProblem <- function(x, ...) {
+  x$number_of_planning_units()
+}
+
+#' @rdname number_of_planning_units
+#'
+#' @export
+number_of_planning_units.MultiObjConservationProblem <- function(x, ...) {
   x$number_of_planning_units()
 }
 
