@@ -35,6 +35,7 @@ extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP, SEXP, 
 extern SEXP _prioritizr_rcpp_asym_connectivity(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
+extern SEXP _prioritizr_rcpp_compile_multi_obj_problem(SEXP);
 extern SEXP _prioritizr_rcpp_connectivity(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_copy_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_ferrier_score(SEXP, SEXP, SEXP, SEXP);
@@ -62,6 +63,7 @@ extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
 extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_remove_optimization_problem_last_linear_constraint(SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_obj(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_ub(SEXP, SEXP);
@@ -94,6 +96,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_asym_connectivity",                                  (DL_FUNC) &_prioritizr_rcpp_asym_connectivity,                                  2},
     {"_prioritizr_rcpp_boundary",                                           (DL_FUNC) &_prioritizr_rcpp_boundary,                                           6},
     {"_prioritizr_rcpp_branch_matrix",                                      (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                      1},
+    {"_prioritizr_rcpp_compile_multi_obj_problem",                          (DL_FUNC) &_prioritizr_rcpp_compile_multi_obj_problem,                          1},
     {"_prioritizr_rcpp_connectivity",                                       (DL_FUNC) &_prioritizr_rcpp_connectivity,                                       2},
     {"_prioritizr_rcpp_copy_optimization_problem",                          (DL_FUNC) &_prioritizr_rcpp_copy_optimization_problem,                          1},
     {"_prioritizr_rcpp_ferrier_score",                                      (DL_FUNC) &_prioritizr_rcpp_ferrier_score,                                      4},
@@ -121,6 +124,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_predefined_optimization_problem",                    (DL_FUNC) &_prioritizr_rcpp_predefined_optimization_problem,                    1},
     {"_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint", (DL_FUNC) &_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint, 1},
     {"_prioritizr_rcpp_set_optimization_problem_lb",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_lb,                        2},
+    {"_prioritizr_rcpp_set_optimization_problem_modelsense",                (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_modelsense,                2},
     {"_prioritizr_rcpp_set_optimization_problem_obj",                       (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_obj,                       2},
     {"_prioritizr_rcpp_set_optimization_problem_shuffled",                  (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_shuffled,                  2},
     {"_prioritizr_rcpp_set_optimization_problem_ub",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_ub,                        2},

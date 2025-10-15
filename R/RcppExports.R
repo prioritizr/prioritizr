@@ -89,6 +89,10 @@ rcpp_set_optimization_problem_obj <- function(x, obj) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_obj`, x, obj)
 }
 
+rcpp_set_optimization_problem_modelsense <- function(x, modelsense) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_modelsense`, x, modelsense)
+}
+
 rcpp_set_optimization_problem_lb <- function(x, lb) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_lb`, x, lb)
 }
@@ -211,6 +215,10 @@ rcpp_boundary <- function(edge_factor, zones_matrix, boundary_matrix, exposed_bo
 
 rcpp_branch_matrix <- function(x) {
     .Call(`_prioritizr_rcpp_branch_matrix`, x)
+}
+
+rcpp_compile_multi_obj_problem <- function(x) {
+    .Call(`_prioritizr_rcpp_compile_multi_obj_problem`, x)
 }
 
 rcpp_connectivity <- function(data, solution) {
