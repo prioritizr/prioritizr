@@ -63,7 +63,7 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
   # add approach
   x$add_approach(
     R6::R6Class(
-      "WeightedSumAppraoch",
+      "WeightedSumApproach",
       inherit = MultiObjApproach,
       public = list(
         name = "weighted sum approach",

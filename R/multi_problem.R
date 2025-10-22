@@ -79,6 +79,7 @@ multi_problem <- function(..., problem_names = NULL) {
       call = NULL
     )
   }
+  # TODO: throw warning if any of problems have a non default solver specified
 
   # return object
   new_multi_obj_conservation_problem(x)

@@ -16,6 +16,7 @@ all_comparable_problem <- function(...) {
     .internal = TRUE
   )
   isTRUE(
+    ## TODO: include zone names
     all(vapply(
       lapply(x, number_of_zones), identical,
       logical(1), x[[1]]$number_of_zones()
