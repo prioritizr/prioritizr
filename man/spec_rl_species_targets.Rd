@@ -115,7 +115,7 @@ based on the specified threat status (per \code{status}, see below for details),
 \eqn{p} the percentage uplift as a proportion (per \code{prop_uplift}),
 \eqn{c} the target cap (per \code{cap_area_target} and \code{area_units}), and
 \eqn{m()} denote either \eqn{max()} or \eqn{min()} (per \code{method}).
-Given this terminology, the target threshold (\eqn{t}) for a feature
+Given this terminology, the target threshold (\eqn{t}) for the feature
 is calculated as follows.
 \deqn{
 t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)

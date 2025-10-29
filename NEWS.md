@@ -1,4 +1,8 @@
-# prioritizr 8.1.0.0
+# prioritizr 8.1.0
+
+## Notice
+
+- CRAN release.
 
 ## New features
 

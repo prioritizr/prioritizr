@@ -159,7 +159,7 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2024
 
-* Frazier AE and Song L (2024) Artificial Intelligence in Landscape Ecology: Recent Advances, Perspectives, and Opportunities. *Current Landscape Ecology Reports*, **10**: 1.
+* Frazier AE and Song L (2024) Artificial Intelligence in landscape ecology: recent advances, perspectives, and opportunities. *Current Landscape Ecology Reports*, **10**: 1.
 
 ### 2023
 

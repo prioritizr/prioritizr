@@ -33,7 +33,7 @@ and add_group_targets()."><meta property="og:image" content="https://prioritizr.
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -208,7 +208,7 @@ based on the specified threat status (per <code>status</code>, see below for det
 \(p\) the percentage uplift as a proportion (per <code>prop_uplift</code>),
 \(c\) the target cap (per <code>cap_area_target</code> and <code>area_units</code>), and
 \(m()\) denote either \(max()\) or \(min()\) (per <code>method</code>).
-Given this terminology, the target threshold (\(t\)) for a feature
+Given this terminology, the target threshold (\(t\)) for the feature
 is calculated as follows.
 $$
 t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)
