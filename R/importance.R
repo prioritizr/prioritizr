@@ -8,50 +8,54 @@ NULL
 #' conservation planning problem.
 #'
 #' @details
-#' The following methods are available for calculating importance scores
-#' for a solution to a conservation planning [problem()]:
+#' The following functions are available for calculating importance scores
+#' for a solution to a conservation planning [problem()].
 #'
 #' \describe{
 #'
 #' \item{[eval_replacement_importance()]}{
-#'   Calculate importance scores using replacement costs (based
-#'   on Cabeza and Moilanen 2006).
-#'   These scores quantify the change in the objective
-#'   function (e.g., additional costs required to meet feature targets) of the
-#'   optimal solution if a given planning unit in a solution cannot be acquired.
-#'   They can (i) account for the cost of different planning units, (ii) account
-#'   for multiple management zones, (iii) apply to any objective function, and
-#'   (iv) identify truly irreplaceable planning units (denoted with infinite
-#'   values).}
+#' Calculate importance scores using replacement costs (based
+#' on Cabeza and Moilanen 2006).
+#' These scores quantify the change in the objective
+#' function (e.g., additional costs required to meet feature targets) of the
+#' optimal solution if a given planning unit in a solution cannot be acquired.
+#' They can (i) account for the cost of different planning units, (ii) account
+#' for multiple management zones, (iii) apply to any objective function, and
+#' (iv) identify truly irreplaceable planning units (denoted with infinite
+#' values).
+#' }
 #'
 #' \item{[eval_rank_importance()]}{
-#'   Calculate importance scores using ranks (based
-#'   on Jung *et al.* 2021).
-#'   These scores measure importance using an incremental optimization
-#'   approach.
-#'   They can (i) account for the cost of different planning units,
-#'   (ii) account for multiple management zones, and (iii) apply to solutions
-#'   generated with any objective function.}
+#' Calculate importance scores using ranks (based
+#' on Jung *et al.* 2021).
+#' These scores measure importance using an incremental optimization
+#' approach.
+#' They can (i) account for the cost of different planning units,
+#' (ii) account for multiple management zones, and (iii) apply to solutions
+#' generated with any objective function.
+#' }
 #'
 #' \item{[eval_ferrier_importance()]}{
-#'  Calculate importance scores following Ferrier *et al.* (2000).
-#'  These scores measure importance based on how critical
-#'  planning units are for meeting targets. They can only be applied to
-#'  conservation problems that use targets and a single zone
-#'  (e.g., the classic *Marxan*-type problem). Furthermore -- unlike the
-#'  replacement cost scores -- these scores provide a
-#'  score for each feature within each planning unit, providing insight into
-#'  why certain planning units are more important than other planning units.}
+#' Calculate importance scores following Ferrier *et al.* (2000).
+#' These scores measure importance based on how critical
+#' planning units are for meeting targets. They can only be applied to
+#' conservation problems that use targets and a single zone
+#' (e.g., the classic *Marxan*-type problem). Furthermore -- unlike the
+#' replacement cost scores -- these scores provide a
+#' score for each feature within each planning unit, providing insight into
+#' why certain planning units are more important than other planning units.
+#' }
 #'
 #' \item{[eval_rare_richness_importance()]}{
-#'  Calculate importance scores using the rarity weighted richness metric
+#' Calculate importance scores using the rarity weighted richness metric
 #' (based on Williams *et al.* 1996).
 #' These score are simply a measure of biodiversity.
 #' They do not account for planning costs, multiple management zones, objective
 #' functions, or feature targets (or weightings).
 #' They merely describe the spatial patterns of
 #' biodiversity, and do not account for many of the factors needed to quantify
-#' the importance of a planning unit for achieving conservation goals.}
+#' the importance of a planning unit for achieving conservation goals.
+#' }
 #'
 #' }
 #'

@@ -10,34 +10,43 @@ NULL
 #'
 #' @details
 #' The following functions can be used to summarize the performance
-#' of a solution to a conservation planning [problem()]:
+#' of a solution to a conservation planning [problem()].
 #'
-#'  \describe{
+#' \describe{
 #'
-#'  \item{[eval_n_summary()]}{Calculate the number of planning units selected
-#'    within a solution.}
+#' \item{[eval_n_summary()]}{
+#' Calculate the number of planning units selected
+#' within a solution.
+#' }
 #'
-#'  \item{[eval_cost_summary()]}{Calculate the total cost of a solution.}
+#' \item{[eval_cost_summary()]}{
+#' Calculate the total cost of a solution.
+#' }
 #'
-#'  \item{[eval_feature_representation_summary()]}{Calculate how well features
-#'    are represented by a solution. This function can be used for all
-#'    problems.}
+#' \item{[eval_feature_representation_summary()]}{
+#' Calculate how well features are represented by a solution.
+#' This function can be used for all problems.
+#' }
 #'
-#'  \item{[eval_target_coverage_summary()]}{Calculate how well feature
-#'    representation [targets] are met by a solution. This function can only be
-#'    used with problems that contain [targets].}
+#' \item{[eval_target_coverage_summary()]}{
+#' Calculate how well feature representation [targets] are met by a solution.
+#' This function can only be used with problems that contain [targets].
+#' }
 #'
-#'  \item{[eval_boundary_summary()]}{Calculate the exposed boundary length
-#'    (perimeter) associated with a solution.}
+#' \item{[eval_boundary_summary()]}{
+#' Calculate the exposed boundary length (perimeter) associated with a
+#' solution.
+#' }
 #'
-#'  \item{[eval_connectivity_summary()]}{Calculate the connectivity
-#'    held within a solution using symmetric data.}
+#' \item{[eval_connectivity_summary()]}{
+#' Calculate the connectivity held within a solution using symmetric data.
+#' }
 #'
-#'  \item{[eval_asym_connectivity_summary()]}{Calculate the connectivity
-#'    held within a solution using asymmetric data.
-#'   }
+#' \item{[eval_asym_connectivity_summary()]}{
+#' Calculate the connectivity held within a solution using asymmetric data.
+#' }
 #'
-#'  }
+#' }
 #'
 #' @family overviews
 #'

@@ -90,34 +90,6 @@ See Target methods below for more information.</p></dd>
     <p>An updated <code><a href="problem.html">problem()</a></code> object with the targets added to it.</p>
     </div>
     <div class="section level2">
-    <h2 id="target-setting">Target setting<a class="anchor" aria-label="anchor" href="#target-setting"></a></h2>
-
-
-<p>Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine <em>et al.</em> 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem services under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90% or 100% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.</p>
-    </div>
-    <div class="section level2">
     <h2 id="target-methods">Target methods<a class="anchor" aria-label="anchor" href="#target-methods"></a></h2>
 
 
@@ -252,6 +224,34 @@ data are provided as a <code>data.frame</code> or <code>character</code> vector,
 then you will need to specify an argument to <code>feature_units</code> when
 using the <code><a href="problem.html">problem()</a></code> function. See the Examples section below for a
 demonstration of using the <code>feature_units</code> parameter.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="target-setting">Target setting<a class="anchor" aria-label="anchor" href="#target-setting"></a></h2>
+
+
+<p>Many conservation planning problems require targets.
+Targets are used to specify the minimum amount, or proportion, of a
+feature's spatial distribution that should ideally be protected.
+This is important so that the optimization process can weigh the merits
+and trade-offs between improving the representation of one feature over
+another feature.
+Although it can be challenging to set meaningful targets,
+this is a critical step for ensuring that prioritizations
+meet the stakeholder objectives that underpin a prioritization exercise
+(Carwardine <em>et al.</em> 2009).
+In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements.
+For example, targets provide a mechanism for ensuring that a
+prioritization secures enough habitat to promote the long-term persistence
+of each threatened species, culturally important species,
+or economically important ecosystem services under consideration.
+Since there is often uncertainty regarding stakeholder objectives
+(e.g., how much habitat should be protected for a given species)
+or the influence of particular target on a prioritization
+(e.g., how would setting a 90% or 100% for a threatened species alter
+priorities), it is often useful to generate and compare a suite of
+prioritizations based on different target scenarios.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

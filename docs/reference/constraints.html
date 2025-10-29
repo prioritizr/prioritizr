@@ -62,28 +62,27 @@ to ensure that solutions exhibit a specific characteristic.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Constraints can be used to ensure that solutions exhibit
-a range of different characteristics. For instance, they can be
-used to lock in or lock out certain planning units from the solution, such
+    <p>Constraints are used to impose rules to ensure that solutions exhibit
+(or do not exhibit) a particular characteristic.
+For instance, they can be used to lock in or lock out certain planning units
+from the solution, such
 as protected areas or degraded land (respectively).
 Additionally, similar to the <a href="penalties.html">penalties</a> functions,
 some of the constraint functions can be used to increase connectivity in a
 solution. The key difference between a penalty and a constraint, however,
-is that constraints work by invalidating solutions that do not exhibit
+is that constraints work by forbidding solutions that do not exhibit
 a specific characteristic, whereas penalty functions work by than
-penalizing solutions which do not meet a specific characteristic. Thus
-constraints do not affect the objective function. The following constraints
-are available.</p>
-<p>The following constraints can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>:</p>
+penalizing solutions which do not meet a specific characteristic.</p>
+<p>The following functions can be used to add constraints to a
+conservation planning <code><a href="problem.html">problem()</a></code>.</p>
 <dl><dt><code><a href="add_locked_in_constraints.html">add_locked_in_constraints()</a></code></dt>
 <dd><p>Add constraints to ensure
 that certain planning units are selected in the solution.</p></dd>
 
 
 <dt><code><a href="add_locked_out_constraints.html">add_locked_out_constraints()</a></code></dt>
-<dd><p>Add constraints to ensure
-that certain planning units are not selected in the solution.</p></dd>
+<dd><p>Add constraints to ensure that certain planning units are not selected in
+the solution.</p></dd>
 
 
 <dt><code><a href="add_neighbor_constraints.html">add_neighbor_constraints()</a></code></dt>
@@ -120,8 +119,8 @@ region (e.g., different countries).</p></dd>
 
 <dt><code><a href="add_mandatory_allocation_constraints.html">add_mandatory_allocation_constraints()</a></code></dt>
 <dd><p>Add constraints to ensure that every planning unit is allocated to a
-management zone in the solution. <strong>This function can only be used
-with problems that contain multiple zones.</strong></p></dd>
+management zone in the solution. Note that this function can only be used
+with problems that contain multiple zones.</p></dd>
 
 
 

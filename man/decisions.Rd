@@ -12,38 +12,41 @@ unit to a specific management zone. If no decision is explicitly added to a
 problem, then binary decisions will be used by default.
 }
 \details{
-Only a single type of decision can be added to a conservation
-planning \code{\link[=problem]{problem()}}. Note that if multiple decisions are added
-to a problem, then the last one added will be used.
-
-The following decisions can be added to a conservation planning
-\code{\link[=problem]{problem()}}:
+The following functions can be used to add a decision type to a
+conservation planning \code{\link[=problem]{problem()}}. Note that if multiple
+of these functions are added to a \code{\link[=problem]{problem()}}, then only the last
+function added will be used.
 
 \describe{
 
-\item{\code{\link[=add_binary_decisions]{add_binary_decisions()}}}{Add a binary decision to a
+\item{\code{\link[=add_binary_decisions]{add_binary_decisions()}}}{
+Add a binary decision to a
 conservation planning problem. This is the classic decision of
 either prioritizing or not prioritizing a planning unit. Typically, this
 decision has the assumed action of buying the planning unit to include
 in a protected area network. If no decision is added to a problem object
-then this decision class will be used by default.}
+then this decision class will be used by default.
+}
 
-\item{\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}}{Add a proportion decision to
+\item{\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}}{
+Add a proportion decision to
 a conservation planning problem. This is a relaxed decision
 where a part of a planning unit can be prioritized, as opposed to the
 default of the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to
-include in a protected area network.}
+include in a protected area network.
+}
 
-\item{\code{\link[=add_semicontinuous_decisions]{add_semicontinuous_decisions()}}}{Add a semi-continuous
-decision to a conservation planning problem. This decision is
-similar to \code{add_proportion_decision} except that it has an upper
-bound parameter. By default, the decision can range from prioritizing
+\item{\code{\link[=add_semicontinuous_decisions]{add_semicontinuous_decisions()}}}{
+Add a semi-continuous decision to a conservation planning problem.
+This decision is similar to \code{add_proportion_decision} except that it has an
+upper bound parameter. By default, the decision can range from prioritizing
 none (0\%) to all (100\%) of a planning unit. However, a upper
 bound can be specified to ensure that at most only a fraction
 (e.g., 80\%) of a planning unit can be preserved. This type of
 decision may be useful when it is not practical to conserve the
-entire area encompassed by any single planning unit.}
+entire area encompassed by any single planning unit.
+}
 
 }
 }

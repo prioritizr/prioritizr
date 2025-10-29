@@ -11,31 +11,40 @@ various different summary statistics.
 }
 \details{
 The following functions can be used to summarize the performance
-of a solution to a conservation planning \code{\link[=problem]{problem()}}:
+of a solution to a conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
 
-\item{\code{\link[=eval_n_summary]{eval_n_summary()}}}{Calculate the number of planning units selected
-within a solution.}
+\item{\code{\link[=eval_n_summary]{eval_n_summary()}}}{
+Calculate the number of planning units selected
+within a solution.
+}
 
-\item{\code{\link[=eval_cost_summary]{eval_cost_summary()}}}{Calculate the total cost of a solution.}
+\item{\code{\link[=eval_cost_summary]{eval_cost_summary()}}}{
+Calculate the total cost of a solution.
+}
 
-\item{\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}}}{Calculate how well features
-are represented by a solution. This function can be used for all
-problems.}
+\item{\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}}}{
+Calculate how well features are represented by a solution.
+This function can be used for all problems.
+}
 
-\item{\code{\link[=eval_target_coverage_summary]{eval_target_coverage_summary()}}}{Calculate how well feature
-representation \link{targets} are met by a solution. This function can only be
-used with problems that contain \link{targets}.}
+\item{\code{\link[=eval_target_coverage_summary]{eval_target_coverage_summary()}}}{
+Calculate how well feature representation \link{targets} are met by a solution.
+This function can only be used with problems that contain \link{targets}.
+}
 
-\item{\code{\link[=eval_boundary_summary]{eval_boundary_summary()}}}{Calculate the exposed boundary length
-(perimeter) associated with a solution.}
+\item{\code{\link[=eval_boundary_summary]{eval_boundary_summary()}}}{
+Calculate the exposed boundary length (perimeter) associated with a
+solution.
+}
 
-\item{\code{\link[=eval_connectivity_summary]{eval_connectivity_summary()}}}{Calculate the connectivity
-held within a solution using symmetric data.}
+\item{\code{\link[=eval_connectivity_summary]{eval_connectivity_summary()}}}{
+Calculate the connectivity held within a solution using symmetric data.
+}
 
-\item{\code{\link[=eval_asym_connectivity_summary]{eval_asym_connectivity_summary()}}}{Calculate the connectivity
-held within a solution using asymmetric data.
+\item{\code{\link[=eval_asym_connectivity_summary]{eval_asym_connectivity_summary()}}}{
+Calculate the connectivity held within a solution using asymmetric data.
 }
 
 }

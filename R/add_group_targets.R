@@ -20,7 +20,7 @@ NULL
 #' ([`TargetMethod-class`]) used to specify target setting methods.
 #' See Target methods below for more information.
 #'
-#' @inheritSection add_auto_targets Target setting
+#' @inheritSection targets Target setting
 #'
 #' @section Target methods:
 #' Here `method` is used to specify a target setting method for each group.

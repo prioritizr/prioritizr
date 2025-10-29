@@ -8,43 +8,46 @@ A constraint can be added to a conservation planning problem
 to ensure that solutions exhibit a specific characteristic.
 }
 \details{
-Constraints can be used to ensure that solutions exhibit
-a range of different characteristics. For instance, they can be
-used to lock in or lock out certain planning units from the solution, such
+Constraints are used to impose rules to ensure that solutions exhibit
+(or do not exhibit) a particular characteristic.
+For instance, they can be used to lock in or lock out certain planning units
+from the solution, such
 as protected areas or degraded land (respectively).
 Additionally, similar to the \link{penalties} functions,
 some of the constraint functions can be used to increase connectivity in a
 solution. The key difference between a penalty and a constraint, however,
-is that constraints work by invalidating solutions that do not exhibit
+is that constraints work by forbidding solutions that do not exhibit
 a specific characteristic, whereas penalty functions work by than
-penalizing solutions which do not meet a specific characteristic. Thus
-constraints do not affect the objective function. The following constraints
-are available.
+penalizing solutions which do not meet a specific characteristic.
 
-The following constraints can be added to a conservation planning
-\code{\link[=problem]{problem()}}:
+The following functions can be used to add constraints to a
+conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
 
 \item{\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}}{
 Add constraints to ensure
-that certain planning units are selected in the solution.}
+that certain planning units are selected in the solution.
+}
 
 \item{\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}}}{
-Add constraints to ensure
-that certain planning units are not selected in the solution.}
+Add constraints to ensure that certain planning units are not selected in
+the solution.
+}
 
 \item{\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}}{
 Add constraints to
 ensure that all selected planning units have at least a certain number
 of neighbors. These constraints may be especially useful for
 reducing spatial fragmentation in large-scale planning problems
-or when using open source solvers.}
+or when using open source solvers.
+}
 
 \item{\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}}{
 Add constraints to a
 ensure that all selected planning units are spatially connected to each
-other and form a single contiguous unit.}
+other and form a single contiguous unit.
+}
 
 \item{\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}}}{
 Add constraints to
@@ -53,19 +56,22 @@ dispersible habitat. These constraints are a more advanced version of
 those implemented in the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}
 function, because they ensure that each feature is represented in a
 contiguous unit and not that the entire solution should form a
-contiguous unit.}
+contiguous unit.
+}
 
 \item{\code{\link[=add_linear_constraints]{add_linear_constraints()}}}{
 Add constraints to ensure that all selected planning units meet certain
 criteria. For example, they can be used to add
 multiple budgets, or limit the number of
 planning units selected in different administrative areas within a study
-region (e.g., different countries).}
+region (e.g., different countries).
+}
 
 \item{\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}}}{
 Add constraints to ensure that every planning unit is allocated to a
-management zone in the solution. \strong{This function can only be used
-with problems that contain multiple zones.}}
+management zone in the solution. Note that this function can only be used
+with problems that contain multiple zones.
+}
 
 }
 }

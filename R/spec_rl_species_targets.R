@@ -90,7 +90,7 @@ NULL
 #' \eqn{p} the percentage uplift as a proportion (per `prop_uplift`),
 #' \eqn{c} the target cap (per `cap_area_target` and `area_units`), and
 #' \eqn{m()} denote either \eqn{max()} or \eqn{min()} (per `method`).
-#' Given this terminology, the target threshold (\eqn{t}) for a feature
+#' Given this terminology, the target threshold (\eqn{t}) for the feature
 #' is calculated as follows.
 #' \deqn{
 #' t = min(m(b \times (1 + p), f \times ((1 + p) \times (1 - a))), c, f)

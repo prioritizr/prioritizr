@@ -4,42 +4,49 @@
 \alias{solvers}
 \title{Add solvers}
 \description{
-Specify the software and configuration used to solve a conservation planning
+Specify the software and settings used to solve a conservation planning
 problem. By default, the best available
 software currently installed on the system will be used.
 For information on the performance of different solvers,
-please see Schuster \emph{et al.} (2020) for benchmarks comparing the
-run time and solution quality of some of these solvers when applied to
-different sized datasets.
+please see Hanson \emph{et al.} (2025) and Schuster \emph{et al.} (2020) for
+benchmarks comparing run time and solution quality of these solvers.
 }
 \details{
-The following solvers can be used to find solutions for a
-conservation planning \code{\link[=problem]{problem()}}:
+The following functions can be used to add a solver to a
+conservation planning \code{\link[=problem]{problem()}}. Note that if multiple
+of these functions are added to a \code{\link[=problem]{problem()}}, then only the last
+function added will be used.
 
 \describe{
 
-\item{\code{\link[=add_default_solver]{add_default_solver()}}}{This solver uses the best software
-currently installed on the system.}
+\item{\code{\link[=add_default_solver]{add_default_solver()}}}{
+This solver uses the best software currently installed on the system.
+}
 
-\item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{\href{https://www.gurobi.com/}{\emph{Gurobi}}
+\item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{
+\href{https://www.gurobi.com/}{\emph{Gurobi}}
 is a state-of-the-art commercial optimization software with an R package
 interface. We recommend using this solver if at all possible.
 It is by far the fastest of the solvers available for
 generating prioritizations, however, it is not freely available. That
 said, licenses are available to academics at no cost. The
 \pkg{gurobi} package is distributed with the \emph{Gurobi} software
-suite. This solver uses the \pkg{gurobi} package to solve problems.}
+suite. This solver uses the \pkg{gurobi} package to solve problems.
+}
 
-\item{\code{\link[=add_cplex_solver]{add_cplex_solver()}}}{\href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}}
+\item{\code{\link[=add_cplex_solver]{add_cplex_solver()}}}{
+\href{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}{\emph{IBM CPLEX}}
 is a commercial optimization software. It is faster than the open
 source solvers available for generating prioritizations, however, it
 is not freely available.
 Similar to the \href{https://www.gurobi.com/}{\emph{Gurobi}}
 software, licenses are available to academics at no cost.
 This solver uses the \pkg{cplexAPI} package to solve problems using
-\emph{IBM CPLEX}.}
+\emph{IBM CPLEX}.
+}
 
-\item{\code{\link[=add_cbc_solver]{add_cbc_solver()}}}{\href{https://github.com/coin-or/Cbc}{\emph{CBC}} is an
+\item{\code{\link[=add_cbc_solver]{add_cbc_solver()}}}{
+\href{https://github.com/coin-or/Cbc}{\emph{CBC}} is an
 open-source mixed integer programming solver that is part of the
 Computational Infrastructure for Operations Research (COIN-OR) project.
 Preliminary benchmarks indicate that it is the fastest open source
@@ -50,7 +57,8 @@ It requires the \pkg{rcbc} package, which is currently only available on
 \href{https://github.com/dirkschumacher/rcbc}{GitHub}.
 }
 
-\item{\code{\link[=add_highs_solver]{add_highs_solver()}}}{\href{https://highs.dev/}{\emph{HiGHS}} is an open
+\item{\code{\link[=add_highs_solver]{add_highs_solver()}}}{
+\href{https://highs.dev/}{\emph{HiGHS}} is an open
 source optimization software. Although this solver can have
 comparable performance to the \emph{CBC} solver for particular problems and is
 generally faster than the \emph{SYMPHONY} based solvers (see below), it
@@ -76,9 +84,9 @@ faster than \pkg{Rsymphony} package interface (see below).
 This solver provides an alternative interface to the
 \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}} solver using
 the \pkg{Rsymphony} package.
-Unlike other solvers, the \pkg{Rsymphony} package can be installed
-directly from the Comprehensive R Archive Network (CRAN).
-It is also the slowest of the available solvers.}
+It is not recommended to use this solver because it has the slowest
+performance.
+}
 
 }
 }
@@ -150,6 +158,10 @@ plot(terra::rast(s), axes = FALSE)
 
 }
 \references{
+Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,
+Bennett JR, Possingham HP (2025). Systematic conservation prioritization
+with the prioritizr R package. \emph{Conservation Biology}, 39: e14376.
+
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.

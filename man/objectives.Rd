@@ -16,45 +16,63 @@ objective function, and attempting to solve a problem without an objective
 will result in an error.
 }
 \details{
-The following objectives can be added to a conservation planning
-\code{\link[=problem]{problem()}}:
+The following functions can be used to add an objective to a
+conservation planning \code{\link[=problem]{problem()}}.
+For the vast majority of conservation planning exercises,
+the minimum set and minimum shortfall objectives are most appropriate.
+Note that if multiple
+of these functions are added to a \code{\link[=problem]{problem()}}, then only the last
+function added will be used.
 
 \describe{
 
-\item{\code{\link[=add_min_set_objective]{add_min_set_objective()}}}{Minimize the cost of the
+\item{\code{\link[=add_min_set_objective]{add_min_set_objective()}}}{
+Minimize the cost of the
 solution whilst ensuring that all targets are met. This objective is
-similar to that used in \emph{Marxan}.}
+similar to that used in \emph{Marxan}.
+}
 
-\item{\code{\link[=add_max_cover_objective]{add_max_cover_objective()}}}{Represent at least one
-instance of as many features as possible within a given budget.}
-
-\item{\code{\link[=add_max_features_objective]{add_max_features_objective()}}}{Fulfill as many targets as
+\item{\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}}{
+Minimize the overall (weighted sum) shortfall for as many targets as
 possible while ensuring that the cost of the solution does not exceed a
-budget.}
+budget.
+}
 
-\item{\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}}{Minimize the overall
-(weighted sum) shortfall for as many targets as possible while ensuring
-that the cost of the solution does not exceed a budget.}
+\item{\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}}}{
+Minimize the penalties associated with a problem as much as possible subject
+to a budget. This is mainly used when performing hierarchical multi-objective
+optimization.
+}
 
-\item{\code{\link[=add_min_largest_shortfall_objective]{add_min_largest_shortfall_objective()}}}{Minimize the
-largest (maximum) shortfall among all targets while ensuring that
-the cost of the solution does not exceed a budget.}
+\item{\code{\link[=add_min_largest_shortfall_objective]{add_min_largest_shortfall_objective()}}}{
+Minimize the largest (maximum) shortfall among all targets while ensuring
+that the cost of the solution does not exceed a budget.
+}
 
-\item{\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}}{Maximize the phylogenetic
-diversity of the features represented in the solution subject to a
-budget.}
+\item{\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}}{
+Maximize the phylogenetic diversity of the features represented in the
+solution subject to a budget.
+}
 
-\item{\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}}}{Maximize the phylogenetic
-endemism of the features represented in the solution subject to a
-budget.}
+\item{\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}}}{
+Maximize the phylogenetic endemism of the features represented in the
+solution subject to a budget.
+}
 
-\item{\code{\link[=add_max_utility_objective]{add_max_utility_objective()}}}{Maximize the weighted sum of the
-features represented by the solution subject to a budget.}
-\item{\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}}}{Minimize the penalties
-associated with a problem as much as possible subject to a budget.
-This is mainly used when performing hierarchical multi-objective
-optimization.}
+\item{\code{\link[=add_max_features_objective]{add_max_features_objective()}}}{
+Fulfill as many targets as possible while ensuring that the cost of the
+solution does not exceed a budget.
+}
 
+\item{\code{\link[=add_max_cover_objective]{add_max_cover_objective()}}}{
+Represent at least one instance of as many features as possible within a
+given budget. Note that this objective is not compatible with targets.
+}
+
+\item{\code{\link[=add_max_utility_objective]{add_max_utility_objective()}}}{
+Maximize the weighted sum of the features represented by the solution
+subject to a budget. Note that this objective is not compatible with targets.
+}
 }
 }
 \examples{

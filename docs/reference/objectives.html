@@ -86,59 +86,59 @@ will result in an error.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The following objectives can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>:</p>
+    <p>The following functions can be used to add an objective to a
+conservation planning <code><a href="problem.html">problem()</a></code>.
+For the vast majority of conservation planning exercises,
+the minimum set and minimum shortfall objectives are most appropriate.
+Note that if multiple
+of these functions are added to a <code><a href="problem.html">problem()</a></code>, then only the last
+function added will be used.</p>
 <dl><dt><code><a href="add_min_set_objective.html">add_min_set_objective()</a></code></dt>
 <dd><p>Minimize the cost of the
 solution whilst ensuring that all targets are met. This objective is
 similar to that used in <em>Marxan</em>.</p></dd>
 
 
-<dt><code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code></dt>
-<dd><p>Represent at least one
-instance of as many features as possible within a given budget.</p></dd>
-
-
-<dt><code><a href="add_max_features_objective.html">add_max_features_objective()</a></code></dt>
-<dd><p>Fulfill as many targets as
+<dt><code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code></dt>
+<dd><p>Minimize the overall (weighted sum) shortfall for as many targets as
 possible while ensuring that the cost of the solution does not exceed a
 budget.</p></dd>
 
 
-<dt><code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code></dt>
-<dd><p>Minimize the overall
-(weighted sum) shortfall for as many targets as possible while ensuring
-that the cost of the solution does not exceed a budget.</p></dd>
+<dt><code><a href="add_min_penalties_objective.html">add_min_penalties_objective()</a></code></dt>
+<dd><p>Minimize the penalties associated with a problem as much as possible subject
+to a budget. This is mainly used when performing hierarchical multi-objective
+optimization.</p></dd>
 
 
 <dt><code><a href="add_min_largest_shortfall_objective.html">add_min_largest_shortfall_objective()</a></code></dt>
-<dd><p>Minimize the
-largest (maximum) shortfall among all targets while ensuring that
-the cost of the solution does not exceed a budget.</p></dd>
+<dd><p>Minimize the largest (maximum) shortfall among all targets while ensuring
+that the cost of the solution does not exceed a budget.</p></dd>
 
 
 <dt><code><a href="add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code></dt>
-<dd><p>Maximize the phylogenetic
-diversity of the features represented in the solution subject to a
-budget.</p></dd>
+<dd><p>Maximize the phylogenetic diversity of the features represented in the
+solution subject to a budget.</p></dd>
 
 
 <dt><code><a href="add_max_phylo_end_objective.html">add_max_phylo_end_objective()</a></code></dt>
-<dd><p>Maximize the phylogenetic
-endemism of the features represented in the solution subject to a
-budget.</p></dd>
+<dd><p>Maximize the phylogenetic endemism of the features represented in the
+solution subject to a budget.</p></dd>
+
+
+<dt><code><a href="add_max_features_objective.html">add_max_features_objective()</a></code></dt>
+<dd><p>Fulfill as many targets as possible while ensuring that the cost of the
+solution does not exceed a budget.</p></dd>
+
+
+<dt><code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code></dt>
+<dd><p>Represent at least one instance of as many features as possible within a
+given budget. Note that this objective is not compatible with targets.</p></dd>
 
 
 <dt><code><a href="add_max_utility_objective.html">add_max_utility_objective()</a></code></dt>
-<dd><p>Maximize the weighted sum of the
-features represented by the solution subject to a budget.</p></dd>
-
-<dt><code><a href="add_min_penalties_objective.html">add_min_penalties_objective()</a></code></dt>
-<dd><p>Minimize the penalties
-associated with a problem as much as possible subject to a budget.
-This is mainly used when performing hierarchical multi-objective
-optimization.</p></dd>
-
+<dd><p>Maximize the weighted sum of the features represented by the solution
+subject to a budget. Note that this objective is not compatible with targets.</p></dd>
 
 
 </dl></div>

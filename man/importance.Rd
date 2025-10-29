@@ -10,8 +10,8 @@ assess the relative importance of planning units selected in a solution to a
 conservation planning problem.
 }
 \details{
-The following methods are available for calculating importance scores
-for a solution to a conservation planning \code{\link[=problem]{problem()}}:
+The following functions are available for calculating importance scores
+for a solution to a conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
 
@@ -24,7 +24,8 @@ optimal solution if a given planning unit in a solution cannot be acquired.
 They can (i) account for the cost of different planning units, (ii) account
 for multiple management zones, (iii) apply to any objective function, and
 (iv) identify truly irreplaceable planning units (denoted with infinite
-values).}
+values).
+}
 
 \item{\code{\link[=eval_rank_importance]{eval_rank_importance()}}}{
 Calculate importance scores using ranks (based
@@ -33,7 +34,8 @@ These scores measure importance using an incremental optimization
 approach.
 They can (i) account for the cost of different planning units,
 (ii) account for multiple management zones, and (iii) apply to solutions
-generated with any objective function.}
+generated with any objective function.
+}
 
 \item{\code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}}}{
 Calculate importance scores following Ferrier \emph{et al.} (2000).
@@ -43,7 +45,8 @@ conservation problems that use targets and a single zone
 (e.g., the classic \emph{Marxan}-type problem). Furthermore -- unlike the
 replacement cost scores -- these scores provide a
 score for each feature within each planning unit, providing insight into
-why certain planning units are more important than other planning units.}
+why certain planning units are more important than other planning units.
+}
 
 \item{\code{\link[=eval_rare_richness_importance]{eval_rare_richness_importance()}}}{
 Calculate importance scores using the rarity weighted richness metric
@@ -53,7 +56,8 @@ They do not account for planning costs, multiple management zones, objective
 functions, or feature targets (or weightings).
 They merely describe the spatial patterns of
 biodiversity, and do not account for many of the factors needed to quantify
-the importance of a planning unit for achieving conservation goals.}
+the importance of a planning unit for achieving conservation goals.
+}
 
 }
 

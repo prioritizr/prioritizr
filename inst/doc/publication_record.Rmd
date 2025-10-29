@@ -15,6 +15,10 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ## Research articles
 
+### 2026
+
+* Hanson JO, McCune JL, Alamenciak T, and Bennett JR (2026) Increasing the credibility of conservation plans through citizen science. _Biological Conservation_, **313**: 111552.
+
 ### 2025
 
 * Binley AD, Hanson JO, Robinson OJ, Golet GH, and Bennett JR (2025) Quantifying the value of participatory science data for conservation decision‐making. _Journal of Applied Ecology_, **62**: 1024--1036.
@@ -22,8 +26,9 @@ This vignette contains a list of publications that have cited or used the _prior
 * Cavalcante T, Kujala H, Virtanen EA, O'Connor L, Lehtinen P, and Moilanen A (2025) Evaluating trade-offs between species targets and average coverage in spatial conservation planning. _Biological Conservation_, **310**: 111368.
 * Chapman M, Jung M, Leclère D, Boettiger C, Augustynczik ALD, Gusti M, Ringwald L, and Visconti P (2025) Meeting European Union biodiversity targets under future land-use demands. _Nature Ecology and Evolution_, **9**: 810--821.
 * Carroll KA, Pidgeon AM, Elsen P, Farwell L, and Radeloff VC (2025) Biodiversity metric selection and their applications for spatial conservation planning. _Diversity and Distributions_, **31**: e13952.
-* Currie J, Liang C, and Snider J (2025) Protected area targets: Spatially evaluating progress and prioritizing areas to reach 30 × 30 in Canada. _Conservation Science and Practice_, **In press**: e70087.
+* Currie J, Liang C, and Snider J (2025) Protected area targets: Spatially evaluating progress and prioritizing areas to reach 30 × 30 in Canada. _Conservation Science and Practice_, **7**: e70087.
 * Frisk CA and Hanslin HM (2025) Optimizing plant species composition of green roofs for ecological functionality and biodiversity conservation. _Urban Ecosystems_, **28**: 12.
+* Karimi S, Schuster R, Hanson JO, Riva F, Liczner A, and Bennett JR (2025) Priority areas to conserve biodiversity in Canada. _FACETS_. 10: 1--10.
 * Matus-Olivares C, Carrasco J, Weintraub A, and Lisón F (2025) From virtue to sin: Is the installation of bat boxes an effective conservation measure or a potential pitfall for vulnerable bat species? _Journal for Nature Conservation_, **83**: 126775.
 * Li L, Tang Y, Dong H, Zhao L, and Liu C (2025). Planning conservation priority areas for marine mammals accounting for human impact, climate change and multidimensionality of biodiversity. _Journal of Environmental Management_, **381**: 125193.
 * Norris E, Scheele B, and Cardillo M (2025) Land tenure contributions to protected area growth under alternative conservation targets in the Australian monsoon tropics. _Conservation Biology_, **In press**: e70143.
@@ -31,7 +36,8 @@ This vignette contains a list of publications that have cited or used the _prior
 * Poupart T, de Bettignies T, Authier M, Baccetti N, Börger L, Castège I, Cecere JG, Courbin N, Darby J, Delord K, Doremus G, Douglas HA, Faggio G, Gaibani G, Gallien F, Gicquel C, González-Solís J, Grémillet D, Imperio S, Lane JV, Lescroël A, Louzao M, de Mazières J, Michez N, Milon E, Owen E, Paiva VH, De Pascalis F, Péron C, Pezzo F, Provost P, Ramos R, Ramos JA, Robert S, Rubolini D, Scher O, and Serra L (2025) Mismatches between the current marine Natura 2000 network and seabird distributions call for enhanced protected areas off metropolitan France. Mismatches between the current marine Natura 2000 network and seabird distributions call for enhanced protected areas off metropolitan France. _Marine Policy_, **180**: 106779
 * Sacre E, Bergström U, and Berkström C (2025) Identifying priority areas for conservation to promote connectivity and mitigate the impacts of anthropogenic disturbance. _Conservation Biology_, **In press**: e70083.
 * Shyvers JE, Tarbox BC, Monroe AP, Van Lanen NJ, Robb BS, Buchholtz EK, Duchardt CJ, Edmunds DR, O'Donnell MS, Van Schmidt ND, Heinrichs JA, and Aldridge CL (2025) Different data for different goals: Exploring trade‐Offs and synergies in the use of spatial data inputs to optimize conservation action in sagebrush ecosystems. _Ecology and Evolution_, **15**: e72214.
-* Wegscheider B, Rideout NK, Monk WA, Gray MA, Steeves R, and Baird DJ (2025) Modeling nature‐based restoration potential across aquatic-terrestrial boundaries. _Conservation Biology_, **In press**: e70046.
+* Unnithan Kumar S, Baker DJ, Maclean IMD, and Gaston KJ (2025) Spatial prioritisation for nature recovery with multiple options for habitat creation. _Journal of Applied Ecology_, **62**: 2688--2700.
+* Wegscheider B, Rideout NK, Monk WA, Gray MA, Steeves R, and Baird DJ (2025) Modeling nature‐based restoration potential across aquatic-terrestrial boundaries. _Conservation Biology_, **39**: e70046.
 
 ### 2024
 
@@ -149,6 +155,7 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2025
 
 * Giakoumi S, Richardson AJ, Doxa A, Moro S, Andrello M, Hanson JO, Hermoso V, Mazor T, McGowan J, Kujala H, Law E, Álvarez Romero JG, Magris RA, Gissi E, Arafeh-Dalmau N, Metaxas A, Virtanen EA, Ban NC, Runya RM, Dunn DC, Fraschetti S, Galparsoro I, Smith RJ, Bastardie F, Stelzenmüller V, Possingham HP, and Katsanevakis S (2025) Advances in systematic conservation planning to meet global biodiversity goals. _Trends in Ecology and Evolution_, **40**: 395--410.
+* Neubert S, McGowan J, Metcalfe K, Hanson JO, Buenafe KCV, Dabalà A, Dunn DC, Everett JD, Possingham HP, Stelzenmüller V, Estep A, Ervin J, and Richardson AJ (2025) Multiple-use spatial planning for sustainable development and conservation. _Trends in Ecology and Evolution_, **In press**: 10.1016/j.tree.2025.09.007.
 
 ### 2024
 

@@ -3,80 +3,89 @@ NULL
 
 #' Add solvers
 #'
-#' Specify the software and configuration used to solve a conservation planning
+#' Specify the software and settings used to solve a conservation planning
 #' problem. By default, the best available
 #' software currently installed on the system will be used.
 #' For information on the performance of different solvers,
-#' please see Schuster _et al._ (2020) for benchmarks comparing the
-#' run time and solution quality of some of these solvers when applied to
-#' different sized datasets.
+#' please see Hanson _et al._ (2025) and Schuster _et al._ (2020) for
+#' benchmarks comparing run time and solution quality of these solvers.
 #'
-#' @details The following solvers can be used to find solutions for a
-#'   conservation planning [problem()]:
+#' @details
+#' The following functions can be used to add a solver to a
+#' conservation planning [problem()]. Note that if multiple
+#' of these functions are added to a [problem()], then only the last
+#' function added will be used.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{[add_default_solver()]}{This solver uses the best software
-#'     currently installed on the system.}
+#' \item{[add_default_solver()]}{
+#' This solver uses the best software currently installed on the system.
+#' }
 #'
-#'   \item{[add_gurobi_solver()]}{[*Gurobi*](https://www.gurobi.com/)
-#'     is a state-of-the-art commercial optimization software with an R package
-#'     interface. We recommend using this solver if at all possible.
-#'     It is by far the fastest of the solvers available for
-#'     generating prioritizations, however, it is not freely available. That
-#'     said, licenses are available to academics at no cost. The
-#'     \pkg{gurobi} package is distributed with the *Gurobi* software
-#'     suite. This solver uses the \pkg{gurobi} package to solve problems.}
+#' \item{[add_gurobi_solver()]}{
+#' [*Gurobi*](https://www.gurobi.com/)
+#' is a state-of-the-art commercial optimization software with an R package
+#' interface. We recommend using this solver if at all possible.
+#' It is by far the fastest of the solvers available for
+#' generating prioritizations, however, it is not freely available. That
+#' said, licenses are available to academics at no cost. The
+#' \pkg{gurobi} package is distributed with the *Gurobi* software
+#' suite. This solver uses the \pkg{gurobi} package to solve problems.
+#' }
 #'
-#'   \item{[add_cplex_solver()]}{[*IBM CPLEX*](  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer)
-#'     is a commercial optimization software. It is faster than the open
-#'     source solvers available for generating prioritizations, however, it
-#'     is not freely available.
-#'     Similar to the [*Gurobi*](https://www.gurobi.com/)
-#'     software, licenses are available to academics at no cost.
-#'     This solver uses the \pkg{cplexAPI} package to solve problems using
-#'     *IBM CPLEX*.}
+#' \item{[add_cplex_solver()]}{
+#' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer)
+#' is a commercial optimization software. It is faster than the open
+#' source solvers available for generating prioritizations, however, it
+#' is not freely available.
+#' Similar to the [*Gurobi*](https://www.gurobi.com/)
+#' software, licenses are available to academics at no cost.
+#' This solver uses the \pkg{cplexAPI} package to solve problems using
+#' *IBM CPLEX*.
+#' }
 #'
-#'  \item{[add_cbc_solver()]}{[*CBC*](https://github.com/coin-or/Cbc) is an
-#'    open-source mixed integer programming solver that is part of the
-#'     Computational Infrastructure for Operations Research (COIN-OR) project.
-#'     Preliminary benchmarks indicate that it is the fastest open source
-#'     solver currently supported.
-#'     We recommend using this solver if both *Gurobi* and *IBM CPLEX* are
-#'     unavailable.
-#'     It requires the \pkg{rcbc} package, which is currently only available on
-#'     [GitHub](https://github.com/dirkschumacher/rcbc).
-#'  }
+#' \item{[add_cbc_solver()]}{
+#' [*CBC*](https://github.com/coin-or/Cbc) is an
+#' open-source mixed integer programming solver that is part of the
+#' Computational Infrastructure for Operations Research (COIN-OR) project.
+#' Preliminary benchmarks indicate that it is the fastest open source
+#' solver currently supported.
+#' We recommend using this solver if both *Gurobi* and *IBM CPLEX* are
+#' unavailable.
+#' It requires the \pkg{rcbc} package, which is currently only available on
+#' [GitHub](https://github.com/dirkschumacher/rcbc).
+#' }
 #'
-#'  \item{[add_highs_solver()]}{[*HiGHS*](https://highs.dev/) is an open
-#'    source optimization software. Although this solver can have
-#'    comparable performance to the *CBC* solver for particular problems and is
-#'    generally faster than the *SYMPHONY* based solvers (see below), it
-#'    sometimes can take much longer than the *CBC* solver for particular
-#'    problems.
-#'  }
+#' \item{[add_highs_solver()]}{
+#' [*HiGHS*](https://highs.dev/) is an open
+#' source optimization software. Although this solver can have
+#' comparable performance to the *CBC* solver for particular problems and is
+#' generally faster than the *SYMPHONY* based solvers (see below), it
+#' sometimes can take much longer than the *CBC* solver for particular
+#' problems.
+#' }
 #'
-#'   \item{[add_lpsymphony_solver()]}{
-#'     [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) is an
-#'     open-source mixed integer programming solver that is also part of the
-#'     COIN-OR project. Although both *SYMPHONY* and *CBC* are part of
-#'     the COIN-OR project, they are different software.
-#'     The \pkg{lpsymphony} package provides an interface to the *SYMPHONY*
-#'     software, and is distributed through
-#'     [Bioconductor](https://doi.org/doi:10.18129/B9.bioc.lpsymphony).
-#'     We recommend using this solver if the *CBC* and *HiGHS* solvers cannot
-#'     be installed.
-#'     This solver can use parallel processing to solve problems, so it is
-#'     faster than \pkg{Rsymphony} package interface (see below).
-#'  }
+#' \item{[add_lpsymphony_solver()]}{
+#' [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) is an
+#' open-source mixed integer programming solver that is also part of the
+#' COIN-OR project. Although both *SYMPHONY* and *CBC* are part of
+#' the COIN-OR project, they are different software.
+#' The \pkg{lpsymphony} package provides an interface to the *SYMPHONY*
+#' software, and is distributed through
+#' [Bioconductor](https://doi.org/doi:10.18129/B9.bioc.lpsymphony).
+#' We recommend using this solver if the *CBC* and *HiGHS* solvers cannot
+#' be installed.
+#' This solver can use parallel processing to solve problems, so it is
+#' faster than \pkg{Rsymphony} package interface (see below).
+#' }
 #'
-#'   \item{[add_rsymphony_solver()]}{
-#'     This solver provides an alternative interface to the
-#'     [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) solver using
-#'     the \pkg{Rsymphony} package.
-#'     Unlike other solvers, the \pkg{Rsymphony} package can be installed
-#'     directly from the Comprehensive R Archive Network (CRAN).
-#'     It is also the slowest of the available solvers.}
+#' \item{[add_rsymphony_solver()]}{
+#' This solver provides an alternative interface to the
+#' [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) solver using
+#' the \pkg{Rsymphony} package.
+#' It is not recommended to use this solver because it has the slowest
+#' performance.
+#' }
 #'
 #' }
 #'
@@ -85,6 +94,10 @@ NULL
 #' @family overviews
 #'
 #' @references
+#' Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,
+#' Bennett JR, Possingham HP (2025). Systematic conservation prioritization
+#' with the prioritizr R package. *Conservation Biology*, 39: e14376.
+#'
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.

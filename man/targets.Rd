@@ -11,6 +11,69 @@ to solve a problem that requires targets and does not have them specified
 will result in an error.
 }
 \details{
+The following functions can be used to add targets to a
+conservation planning \code{\link[=problem]{problem()}}. For further information on these
+functions, see the Usage section below. Also, note that if multiple
+of these functions are added to a \code{\link[=problem]{problem()}}, then only the last
+function added will be used.
+
+\describe{
+
+\item{\code{\link[=add_auto_targets]{add_auto_targets()}}}{
+Add targets based on a particular target setting method.
+}
+
+\item{\code{\link[=add_group_targets]{add_group_targets()}}}{
+Add targets wherein each feature is assigned to a particular group and a
+target setting method is specified for each feature group.
+}
+
+\item{\code{\link[=add_relative_targets]{add_relative_targets()}}}{
+Add targets expressed as a proportion (between 0 and 1) of the maximum level
+of representation of each feature in the study area.
+}
+
+\item{\code{\link[=add_absolute_targets]{add_absolute_targets()}}}{
+Add targets expressed as the same values as the underlying feature data
+(ignoring any specified feature units).
+}
+
+\item{\code{\link[=add_manual_targets]{add_manual_targets()}}}{
+Add targets by manually specifying all the required information for each
+target. This function can be used customize all aspects of a target and is
+especially useful when working with multiple zones.
+}
+}
+}
+\section{Target setting}{
+
+Many conservation planning problems require targets.
+Targets are used to specify the minimum amount, or proportion, of a
+feature's spatial distribution that should ideally be protected.
+This is important so that the optimization process can weigh the merits
+and trade-offs between improving the representation of one feature over
+another feature.
+Although it can be challenging to set meaningful targets,
+this is a critical step for ensuring that prioritizations
+meet the stakeholder objectives that underpin a prioritization exercise
+(Carwardine \emph{et al.} 2009).
+In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements.
+For example, targets provide a mechanism for ensuring that a
+prioritization secures enough habitat to promote the long-term persistence
+of each threatened species, culturally important species,
+or economically important ecosystem services under consideration.
+Since there is often uncertainty regarding stakeholder objectives
+(e.g., how much habitat should be protected for a given species)
+or the influence of particular target on a prioritization
+(e.g., how would setting a 90\% or 100\% for a threatened species alter
+priorities), it is often useful to generate and compare a suite of
+prioritizations based on different target scenarios.
+}
+
+\section{Usage}{
+
 A variety of functions can be used to specify targets for a
 conservation planning problem. Below we describe them in detail.
 
@@ -245,6 +308,7 @@ smaller than or equal to -- or equal to -- target thresholds
 }
 }
 }
+
 \examples{
 \dontrun{
 # load data

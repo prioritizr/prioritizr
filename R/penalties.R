@@ -11,41 +11,53 @@ NULL
 #' only focuses on minimizing a particular penalty, then the minimum
 #' penalties objective should be used (i.e., [add_min_penalties_objective()]).
 #'
-#' @details Both penalties and constraints can be used to modify a problem and
-#'   identify solutions that exhibit specific characteristics. Constraints work
-#'   by invalidating solutions that do not exhibit specific characteristics.
-#'   On the other hand, penalties work by specifying trade-offs against the
-#'   primary problem objective and are mediated by a penalty factor.
+#' @details
+#' Both penalties and constraints can be used to modify a problem and
+#' identify solutions that exhibit specific characteristics. Constraints work
+#' by adding rules to ensure that solutions exhibit (or do not exhibit) a
+#' particular characteristic.
+#' On the other hand, penalties work by specifying trade-offs against the
+#' primary problem objective and are mediated by a penalty factor.
+#' Note that although multiple penalty functions can be added to a [problem()],
+#' this will likely increase solver run time.
 #'
-#'   The following penalties can be added to a conservation planning
-#'   [problem()]:
+#' The following functions can be used to add a penalty to a
+#' conservation planning [problem()].
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{[add_boundary_penalties()]}{Add penalties to a
-#'     conservation problem to favor solutions that have
-#'     planning units clumped together into contiguous areas.}
+#' \item{[add_boundary_penalties()]}{
+#' Add penalties to a
+#' conservation problem to favor solutions that have
+#' planning units clumped together into contiguous areas.
+#' }
 #'
-#'   \item{[add_neighbor_penalties()]}{Add penalties to a
-#'     conservation problem to favor solutions that have
-#'     a large number of planning units sited next to each other.
-#'     This constraints may be especially useful for
-#'     reducing spatial fragmentation in large-scale planning problems or
-#'     when using open source solvers.}
+#' \item{[add_neighbor_penalties()]}{
+#' Add penalties to a
+#' conservation problem to favor solutions that have
+#' a large number of planning units sited next to each other.
+#' This constraints may be especially useful for
+#' reducing spatial fragmentation in large-scale planning problems or
+#' when using open source solvers.
+#' }
 #'
-#'   \item{[add_asym_connectivity_penalties()]}{Add penalties to a
-#'     conservation problem to account for asymmetric connectivity.}
+#' \item{[add_asym_connectivity_penalties()]}{
+#' Add penalties to a conservation problem to account for
+#' asymmetric connectivity.
+#' }
 #'
-#'   \item{[add_connectivity_penalties()]}{Add penalties to a
-#'     conservation problem to account for
-#'     symmetric connectivity.}
+#' \item{[add_connectivity_penalties()]}{
+#' Add penalties to a conservation problem to account for
+#' symmetric connectivity.
+#' }
 #'
-#'   \item{[add_linear_penalties()]}{Add penalties to a
-#'     conservation problem to favor solutions that avoid selecting
-#'     planning units based on a certain variable
-#'     (e.g., anthropogenic pressure).}
+#' \item{[add_linear_penalties()]}{
+#' Add penalties to a conservation problem to favor solutions that avoid
+#' selecting planning units based on a certain variable
+#' (e.g., anthropogenic pressure).
+#' }
 #'
-#'   }
+#' }
 #'
 #' @family overviews
 #'

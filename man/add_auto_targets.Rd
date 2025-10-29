@@ -27,33 +27,6 @@ An updated \code{\link[=problem]{problem()}} object with the targets added to it
 Add targets to a conservation planning problem based on a particular
 target setting method.
 }
-\section{Target setting}{
-
-Many conservation planning problems require targets.
-Targets are used to specify the minimum amount, or proportion, of a
-feature's spatial distribution that should ideally be protected.
-This is important so that the optimization process can weigh the merits
-and trade-offs between improving the representation of one feature over
-another feature.
-Although it can be challenging to set meaningful targets,
-this is a critical step for ensuring that prioritizations
-meet the stakeholder objectives that underpin a prioritization exercise
-(Carwardine \emph{et al.} 2009).
-In other words, targets play an important role in ensuring that a
-priority setting process is properly tuned according to stakeholder
-requirements.
-For example, targets provide a mechanism for ensuring that a
-prioritization secures enough habitat to promote the long-term persistence
-of each threatened species, culturally important species,
-or economically important ecosystem services under consideration.
-Since there is often uncertainty regarding stakeholder objectives
-(e.g., how much habitat should be protected for a given species)
-or the influence of particular target on a prioritization
-(e.g., how would setting a 90\% or 100\% for a threatened species alter
-priorities), it is often useful to generate and compare a suite of
-prioritizations based on different target scenarios.
-}
-
 \section{Target methods}{
 
 A variety of options are available for specifying target setting methods.
@@ -201,6 +174,33 @@ data are provided as a \code{data.frame} or \code{character} vector,
 then you will need to specify an argument to \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
 demonstration of using the \code{feature_units} parameter.
+}
+
+\section{Target setting}{
+
+Many conservation planning problems require targets.
+Targets are used to specify the minimum amount, or proportion, of a
+feature's spatial distribution that should ideally be protected.
+This is important so that the optimization process can weigh the merits
+and trade-offs between improving the representation of one feature over
+another feature.
+Although it can be challenging to set meaningful targets,
+this is a critical step for ensuring that prioritizations
+meet the stakeholder objectives that underpin a prioritization exercise
+(Carwardine \emph{et al.} 2009).
+In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements.
+For example, targets provide a mechanism for ensuring that a
+prioritization secures enough habitat to promote the long-term persistence
+of each threatened species, culturally important species,
+or economically important ecosystem services under consideration.
+Since there is often uncertainty regarding stakeholder objectives
+(e.g., how much habitat should be protected for a given species)
+or the influence of particular target on a prioritization
+(e.g., how would setting a 90\% or 100\% for a threatened species alter
+priorities), it is often useful to generate and compare a suite of
+prioritizations based on different target scenarios.
 }
 
 \examples{

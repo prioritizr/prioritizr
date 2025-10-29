@@ -83,10 +83,10 @@ them with a portfolio of solutions to inform their decision.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The following portfolios can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>.
-Note that all methods for generating portfolios return solutions that
-are within the specified optimality gap.</p>
+    <p>The following functions can be used to add a portfolio to a
+conservation planning <code><a href="problem.html">problem()</a></code>. Note that if multiple
+of these functions are added to a <code><a href="problem.html">problem()</a></code>, then only the last
+function added will be used.</p>
 <dl><dt><code><a href="add_default_portfolio.html">add_default_portfolio()</a></code></dt>
 <dd><p>Generate a portfolio containing a single
 solution. This portfolio method is added to <code><a href="problem.html">problem()</a></code> objects by
@@ -115,9 +115,11 @@ Note that it requires the <em>Gurobi</em> solver.</p></dd>
 <dt><code><a href="add_gap_portfolio.html">add_gap_portfolio()</a></code></dt>
 <dd><p>Generate a portfolio of solutions
 by finding a certain number of solutions that are all within a pre-
-specified optimality gap. This method is useful for generating
+specified optimality gap. Although this method may be useful for generating
 multiple solutions that can be used to calculate selection frequencies
-for moderate and large-sized problems (similar to <em>Marxan</em>).
+(similar to <em>Marxan</em>), note that this function tends to produce solutions
+that are very similar to each other and so you will (likely) need to
+generate thousands for solutions when calculating selection frequencies.
 Note that it requires the <em>Gurobi</em> solver.</p></dd>
 
 
