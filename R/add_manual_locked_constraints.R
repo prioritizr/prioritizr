@@ -228,7 +228,9 @@ methods::setMethod("add_manual_locked_constraints",
     # add constraints
     internal_add_manual_locked_constraints(
       x,
-      data[!is.na(data$idx), , drop = FALSE]
+      data[!is.na(data$idx), , drop = FALSE],
+      lb = TRUE,
+      ub = TRUE
     )
   }
 )
@@ -241,6 +243,16 @@ methods::setMethod("add_manual_locked_constraints",
 #'
 #' @param data `data.frame` or [tibble::tibble()] object.
 #'   See the Data format section for more information.
+#'
+#' @param lb `logical` indicating if the status values should be used to
+#'   specify the lower bounds for the decision variables in the problem
+#'   formulation.
+#'   Defaults to `TRUE`.
+#'
+#' @param ub `logical` indicating if the status values should be used to
+#'   specify the upper bounds for the decision variables in the problem
+#'   formulation.
+#'   Defaults to `TRUE`.
 #'
 #' @section Data format:
 #' The argument to `data` should be a `data.frame` with the following columns:
@@ -269,7 +281,7 @@ methods::setMethod("add_manual_locked_constraints",
 #'
 #' @noRd
 internal_add_manual_locked_constraints <- function(
-  x, data, call = fn_caller_env()
+  x, data, lb = TRUE, ub = TRUE, call = fn_caller_env()
 ) {
   assert(
     ## x
@@ -287,6 +299,16 @@ internal_add_manual_locked_constraints <- function(
     assertthat::has_name(data, "status"),
     is.numeric(data$status),
     all_finite(data$status),
+    call = call
+  )
+  assert(
+    ## lb
+    assertthat::is.flag(lb),
+    assertthat::noNA(lb),
+    ## ub
+    assertthat::is.flag(ub),
+    assertthat::noNA(ub),
+    .internal = TRUE,
     call = call
   )
   # set attributes
@@ -312,7 +334,7 @@ internal_add_manual_locked_constraints <- function(
       inherit = Constraint,
       public = list(
         name = constraint_name,
-        data = list(data = data),
+        data = list(data = data, lb = lb, ub = ub),
         repr = function(compact = TRUE) {
           paste0(
             self$name, " (", nrow(self$get_data("data")), " planning units)"
@@ -327,6 +349,8 @@ internal_add_manual_locked_constraints <- function(
           )
           # get locked data
           d <- self$get_data("data")
+          lb <- self$get_data("lb")
+          ub <- self$get_data("ub")
           # if locked data is missing a zone column,
           # then this is because the problem has only one zone and the
           # user did not specify this information.
@@ -344,7 +368,7 @@ internal_add_manual_locked_constraints <- function(
           # apply constraints
           invisible(
             rcpp_apply_locked_constraints(
-              x$ptr, i[keep], d$zone[keep], d$status[keep]
+              x$ptr, i[keep], d$zone[keep], d$status[keep], lb, ub
             )
           )
         }

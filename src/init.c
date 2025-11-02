@@ -23,7 +23,7 @@ extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP, SEXP, SE
 extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -83,7 +83,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_feature_weights",                              (DL_FUNC) &_prioritizr_rcpp_apply_feature_weights,                              2},
     {"_prioritizr_rcpp_apply_linear_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_linear_constraints,                           4},
     {"_prioritizr_rcpp_apply_linear_penalties",                             (DL_FUNC) &_prioritizr_rcpp_apply_linear_penalties,                             3},
-    {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           4},
+    {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           6},
     {"_prioritizr_rcpp_apply_max_cover_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                          3},
     {"_prioritizr_rcpp_apply_max_features_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_features_objective,                       4},
     {"_prioritizr_rcpp_apply_max_phylo_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_phylo_objective,                          6},

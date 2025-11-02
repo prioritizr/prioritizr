@@ -227,13 +227,15 @@ methods::setMethod("add_locked_out_constraints",
       msg = "{.arg locked_out} must lock out at least one planning unit."
     )
     # add constraints using identifiers
-    add_manual_locked_constraints(
+    internal_add_manual_locked_constraints(
       x,
       tibble::tibble(
-        pu = locked_out,
+        idx = x$convert_total_unit_ids_to_indices(locked_out),
         zone = x$zone_names(),
         status = 0
-      )
+      ),
+      lb = FALSE,
+      ub = TRUE
     )
   }
 )
@@ -290,7 +292,9 @@ methods::setMethod("add_locked_out_constraints",
         idx = ind[, 1],
         zone = x$zone_names()[ind[, 2]],
         status = 0
-      )
+      ),
+      lb = FALSE,
+      ub = TRUE
     )
   }
 )
@@ -389,7 +393,9 @@ methods::setMethod("add_locked_out_constraints",
         idx = intersecting_units(x$data$cost, locked_out),
         zone = x$zone_names(),
         status = 0
-      )
+      ),
+      lb = FALSE,
+      ub = TRUE
     )
   }
 )

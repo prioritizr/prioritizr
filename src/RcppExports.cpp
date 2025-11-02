@@ -512,8 +512,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_locked_constraints
-bool rcpp_apply_locked_constraints(SEXP x, const Rcpp::IntegerVector pu, const Rcpp::IntegerVector zone, const Rcpp::NumericVector status);
-RcppExport SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP statusSEXP) {
+bool rcpp_apply_locked_constraints(SEXP x, const Rcpp::IntegerVector pu, const Rcpp::IntegerVector zone, const Rcpp::NumericVector status, bool lb, bool ub);
+RcppExport SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP statusSEXP, SEXP lbSEXP, SEXP ubSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -521,7 +521,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type pu(puSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type zone(zoneSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type status(statusSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_constraints(x, pu, zone, status));
+    Rcpp::traits::input_parameter< bool >::type lb(lbSEXP);
+    Rcpp::traits::input_parameter< bool >::type ub(ubSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_constraints(x, pu, zone, status, lb, ub));
     return rcpp_result_gen;
 END_RCPP
 }

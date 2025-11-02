@@ -213,6 +213,7 @@ internal_presolve_check <- function(x) {
   pass <- TRUE
   msg1 <- c()
   msg2 <- c()
+  msg3 <- c()
 
   # import constraint matrix
   y <- as_Matrix(x$A(), "dgTMatrix")
@@ -540,39 +541,85 @@ internal_presolve_check <- function(x) {
   rij <- y[
     which(rownames(y) %in% rij_rn_ids),
     which(colnames(y) %in% rij_cn_ids),
-    drop = FALSE]
+    drop = FALSE
+  ]
   ### check upper threshold
-  if (any(rij@x > upper_value)) {
+  if (nrow(rij) > 0 && ncol(rij) > 0) {
+    if (any(rij@x > upper_value)) {
+      pass <- FALSE
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Feature data in {.arg x} (specified via",
+            "({.arg feature}, {.arg rij}, or {.arg rij_matrix}) must not",
+            "be too high (> 1e6)."
+          ),
+          ">" = paste(
+            "Try re-scaling them",
+            "(e.g., convert units from m{cli::symbol$sup_2} to",
+            "km{cli::symbol$sup_2})."
+          ),
+          ""
+        )
+      )
+    }
+  }
+  ### check lower threshold
+  if (nrow(rij) > 0 && ncol(rij) > 0) {
+    if (mean(Matrix::colSums(abs(rij)) <= lower_value) >= 0.5) {
+      pass <- FALSE
+      msg2 <- c(
+        msg2,
+        c(
+          "x" = paste(
+            "Most of the planning units do not have a single",
+            "feature inside them."
+          ),
+          ">" = paste(
+            "This indicates that more features may be needed",
+            "to obtain meaningful results."
+          ),
+          ""
+        )
+      )
+    }
+  }
+
+  ## check decision variable bounds
+  n_fail_pu <- sum(x$ub()[seq_len(n_pu_vars)] < x$lb()[seq_len(n_pu_vars)])
+  if (isTRUE(n_fail_pu > 0)) {
     pass <- FALSE
-    msg1 <- c(
-      msg1,
+    msg3 <- c(
+      msg3,
       c(
-        "x" = paste(
-          "Feature data in {.arg x} (specified via",
-          "({.arg feature}, {.arg rij}, or {.arg rij_matrix}) must not",
-          "be too high (> 1e6)."
+        "x" = paste0(
+          "The same {.val {", n_fail_pu, "}} planning unit{?s} ",
+          "{?has/have} been specified to be both locked in and locked out."
         ),
         ">" = paste(
-          "Try re-scaling them",
-          "(e.g., convert units from m{cli::symbol$sup_2} to",
-          "km{cli::symbol$sup_2})."
+          "Maybe you made a mistake when specifying which planning units",
+          "should be locked in or out?"
         ),
         ""
       )
     )
   }
-  ### check lower threshold
-  if (mean(Matrix::colSums(abs(rij)) <= lower_value) >= 0.5) {
+  n_fail_extra <- sum(x$ub()[-seq_len(n_pu_vars)] < x$lb()[-seq_len(n_pu_vars)])
+  if (isTRUE(n_fail_extra > 0)) {
     pass <- FALSE
-    msg2 <- c(
-      msg2,
+    msg3 <- c(
+      msg3,
       c(
-        "x" = paste(
-          "Most of the planning units do not have a single",
-          "feature inside them."
+        "x" = paste0(
+          "The {cli::qty(", n_fail_extra, ")} ",
+          "lower bound{?s} for {.val {", n_fail_extra, "}} decision ",
+          "variable{?s} {?has a greater/have greater} value{?s} than ",
+          "{?its/their} upper bound{?s}."
         ),
         ">" = paste(
-          "This indicates that more features are needed."
+          "Maybe you made a mistake when specifying some",
+          "constraints or penalties?"
         ),
         ""
       )
@@ -595,6 +642,17 @@ internal_presolve_check <- function(x) {
         ""
       )
       msg <- c(msg, msg2)
+    }
+    if (length(msg3) > 0) {
+      msg <- c(
+        msg,
+        paste(
+          "These failures indicate that infeasibility",
+          "issues could prevent the optimizer from finding a solution:"
+        ),
+        ""
+      )
+      msg <- c(msg, msg3)
     }
     if (length(msg1) > 0) {
       msg <- c(

@@ -27,6 +27,9 @@
 
 - The `add_loglinear_targets()` function has been deprecated. For similar
   functionality, see the new `spec_interp_absolute_targets()` function.
+- The `presolve_check()` function will now catch issues where the same planning
+  unit (or planning units) has been both locked in and locked out. Thanks to
+  Jason Everett (\@jaseeverett) for the suggestion.
 
 #### Minor improvements and bug fixes
 
@@ -1739,7 +1742,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `add_manual_bounded_constraints()` function to apply lower and upper
   bounds on planning units statuses in a solution (#118). Thanks to Martin Jung
-  (\@Martin-Jung) for suggestion.
+  (\@Martin-Jung) for the suggestion.
 
 ## Minor improvements and bug fixes
 
@@ -1781,7 +1784,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `add_max_phylo_end_objective()` function to maximize the phylogenetic
   endemism of species adequately represented in a prioritization (#113).
-  Thanks to \@FerreiraPSM for suggestion.
+  Thanks to \@FerreiraPSM for the suggestion.
 
 ## Minor improvements and bug fixes
 
@@ -2150,7 +2153,8 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - The `add_loglinear_targets()` function now includes a `feature_abundances()`
   parameter for specifying the total amount of each feature to use when
-  calculating the targets (#89). Thanks to Liz Law (\@lizlaw) for suggestion.
+  calculating the targets (#89). Thanks to Liz Law (\@lizlaw) for the
+  suggestion.
 
 ## Documentation updates
 
@@ -2169,7 +2173,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `feature_abundances()` function to calculate the total amount of each
   feature in the planning units (#86). Thanks to Javier Fajardo
-  (\@javierfajnolla) for suggestion.
+  (\@javierfajnolla) for the suggestion.
 
 # prioritizr 4.0.0.11
 

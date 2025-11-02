@@ -336,3 +336,54 @@ test_that("single feature", {
     "contains a single feature"
   )
 })
+
+test_that("planning unit bounds", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()[[1]]
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_locked_in_constraints(2) %>%
+    add_locked_out_constraints(2) %>%
+    add_binary_decisions()
+  # tests
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "locked in and locked out"
+  )
+})
+
+test_that("decision variable bounds", {
+  # create problem
+  o <- optimization_problem(
+    list(
+      modelsense = "min",
+      A_i = c(0L, 1L, 1L),
+      A_j = c(0L, 1L, 2L),
+      A_x = c(7, 8, 9),
+      obj = c(9, 10, 11),
+      lb = c(12, 13, 14),
+      ub = c(15, 20, 17),
+      rhs = c(18, 19),
+      number_of_features = 2,
+      number_of_planning_units = 1,
+      number_of_zones = 1,
+      sense = c("=", "="),
+      vtype = c("B", "S", "C"),
+      row_ids = c("a", "b"),
+      col_ids = c("d", "e", "f"),
+      compressed_formulation = FALSE
+    )
+  )
+  # modify variable bounds
+  o$set_lb(c(15, 20, 20))
+  o$set_ub(c(15, 10, 17))
+  # tests
+  expect_warning(
+    expect_false(presolve_check(o)),
+    "lower bounds"
+  )
+})
