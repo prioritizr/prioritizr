@@ -95,7 +95,7 @@ NULL
 #'
 #' @references
 #' Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,
-#' Bennett JR, Possingham HP (2025). Systematic conservation prioritization
+#' Bennett JR, and Possingham HP (2025). Systematic conservation prioritization
 #' with the prioritizr R package. *Conservation Biology*, 39: e14376.
 #'
 #' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact

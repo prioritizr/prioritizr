@@ -139,7 +139,7 @@ test_that("invalid inputs", {
     ),
     "method"
   )
-  ## chaining errors
+  ## chaining errors with native pipe
   msg <- try(
     p |>
     add_auto_targets(
@@ -153,7 +153,7 @@ test_that("invalid inputs", {
   expect_length(strsplit(msg, "spec_min_targets(", fixed = TRUE)[[1]], 3)
   expect_true(grepl("spec_area_targets", msg, fixed = TRUE))
   expect_true(grepl("numeric", msg, fixed = TRUE))
-  ## chaining nested errors
+  ## chaining nested errors with magrittr pipe
   msg <- try(
     p %>%
     add_auto_targets(

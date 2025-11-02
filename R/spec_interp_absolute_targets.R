@@ -257,17 +257,17 @@ spec_interp_absolute_targets <- function(rare_absolute_threshold,
 }
 
 calc_interp_absolute_targets <- function(x, features,
-                                               rare_absolute_threshold,
-                                               rare_relative_target,
-                                               rare_absolute_target,
-                                               rare_method,
-                                               common_absolute_threshold,
-                                               common_relative_target,
-                                               common_absolute_target,
-                                               common_method,
-                                               cap_absolute_target,
-                                               interp_method,
-                                               call = fn_caller_env()) {
+                                         rare_absolute_threshold,
+                                         rare_relative_target,
+                                         rare_absolute_target,
+                                         rare_method,
+                                         common_absolute_threshold,
+                                         common_relative_target,
+                                         common_absolute_target,
+                                         common_method,
+                                         cap_absolute_target,
+                                         interp_method,
+                                         call = fn_caller_env()) {
   # assert that arguments are valid
   assert_required(x, call = call, .internal = TRUE)
   assert_required(features, call = call, .internal = TRUE)

@@ -248,12 +248,6 @@ add_cbc_solver <- function(x,
             model$row_lb <- c(model$row_lb, -Inf)
             model$row_ub <- c(model$row_ub, Inf)
           }
-          # add starting solution if specified
-          start <- self$get_data("start_solution")
-          if (!is.null(start) && !is.Waiver(start)) {
-            n_extra <- length(model$obj) - length(start)
-            model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
-          }
           # create parameters
           p <- list(
             log = as.character(as.numeric(self$get_data("verbose"))),
@@ -299,16 +293,16 @@ add_cbc_solver <- function(x,
           self$internal$model$row_ub[index[ub_idx]] <- value[ub_idx]
           invisible(TRUE)
         },
-        set_start_solution = function(value) {
-          n_extra <- length(self$internal$model$obj) - length(value)
-          value <- c(c(value), rep(NA_real_, n_extra))
-          self$internal$model$initial_solution <- value
-          invisible(TRUE)
-        },
         run = function() {
           # access input data and parameters
+          start <- self$get_data("start_solution")
           model <- self$get_internal("model")
           p <- self$get_internal("parameters")
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$initial_solution <- c(c(start), rep(NA_real_, n_extra))
+          }
           # solve problem
           rt <- system.time({
             x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))

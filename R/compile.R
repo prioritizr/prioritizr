@@ -82,7 +82,8 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
       c(
         "Targets specified for the problem will be ignored.",
         "i" = "If the targets are important, use a different objective."
-      )
+      ),
+      call = NULL
     )
   }
   # replace waivers with defaults

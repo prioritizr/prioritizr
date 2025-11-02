@@ -265,12 +265,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   invisible(gc())
 
   # if possible, update the starting solution for the solver to reduce run time
-  if (
-    !is.null(x$solver$data) &&
-    isTRUE("start_solution" %in% names(x$solver$data))
-  ) {
-    x$solver$data$start_solution <- s1[[1]]$x
-  }
+  x$solver$set_start_solution(s1[[1]]$x, warn = FALSE)
 
   # find the optimal value for penalties, when constrained
   # to be optimal according to the primary objective
@@ -327,12 +322,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
     )
 
     ## if possible, update the starting solution for the solver
-    if (
-      !is.null(x$solver$data) &&
-      isTRUE("start_solution" %in% names(x$solver$data))
-    ) {
-      x$solver$data$start_solution <- s1[[1]]$x
-    }
+    x$solver$set_start_solution(s1[[1]]$x, warn = FALSE)
 
     ## solve
     if (verbose) {
@@ -350,12 +340,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   ## penalties objective so we don't need to modify the problem
 
   # if required, clear the starting solution from the solver
-  if (
-    !is.null(x$solver$data) &&
-    isTRUE("start_solution" %in% names(x$solver$data))
-  ) {
-    x$solver$data$start_solution <- NULL
-  }
+  x$solver$remove_start_solution()
 
   # solve the problem with penalties
   if (verbose) {
@@ -386,12 +371,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
     )
 
     ## if possible, update the starting solution for the solver
-    if (
-      !is.null(x$solver$data) &&
-      isTRUE("start_solution" %in% names(x$solver$data))
-    ) {
-      x$solver$data$start_solution <- s3[[1]]$x
-    }
+    x$solver$set_start_solution(s3[[1]]$x, warn = FALSE)
 
     ## solve the problem
     if (verbose) {

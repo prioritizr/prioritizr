@@ -95,7 +95,7 @@ target_optimization_format <- function(x, targets) {
   )
   assert(
     assertthat::noNA(targets$feature),
-    msg = "all features in {.arg targets} must be present in {.arg x}.",
+    msg = "All features in {.arg targets} must be present in {.arg x}.",
     .internal = TRUE
   )
 
@@ -106,7 +106,7 @@ target_optimization_format <- function(x, targets) {
     )
     assert(
       assertthat::noNA(targets$zone[[i]]),
-      msg = "all zones in {.arg targets} must be present in {.arg x}.",
+      msg = "All zones in {.arg targets} must be present in {.arg x}.",
       .internal = TRUE
     )
   }

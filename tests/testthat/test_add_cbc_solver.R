@@ -378,9 +378,13 @@ test_that("set_start_solution", {
   p$solver$set_start_solution(c(1, 2, 3))
   # tests
   expect_equal(
-    p$solver$internal$model$initial_solution,
-    c(1, 2, 3, NA)
-    )
+    p$solver$data$start_solution,
+    c(1, 2, 3)
+  )
+  # remove start solution
+  p$solver$remove_start_solution()
+  # tests
+  expect_equal(p$solver$data$start_solution, NULL)
 })
 
 test_that("set_constraint_rhs", {

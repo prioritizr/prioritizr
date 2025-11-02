@@ -83,7 +83,7 @@ NULL
 #' @return
 #' An object ([`TargetMethod-class`]) for specifying targets that
 #' can be used with [add_auto_targets()] and [add_group_targets()]
-#' to update the targets for a [problem()].
+#' to add targets to a [problem()].
 #'
 #' @seealso
 #' See [targets] for an overview of all functions for adding targets.

@@ -11,7 +11,6 @@ NULL
 #' @param ... Additional objects specifying target setting methods.
 #'
 #' @inheritSection spec_jung_targets Data calculations
-
 #'
 #' @return An object ([`TargetMethod-class`]) for specifying targets.
 #'

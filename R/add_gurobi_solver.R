@@ -281,12 +281,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (length(control) > 0) {
             p[names(control)] <- control
           }
-          # add starting solution if specified
-          start <- self$get_data("start_solution")
-          if (!is.null(start) && !is.Waiver(start)) {
-            n_extra <- length(model$obj) - length(start)
-            model$start <- c(c(start), rep(NA_real_, n_extra))
-          }
           # add extra parameters from portfolio if needed
           p2 <- list(...)
           for (i in seq_along(p2))
@@ -309,16 +303,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           self$internal$model$rhs[index] <- value
           invisible(TRUE)
         },
-        set_start_solution = function(value) {
-          n_extra <- length(self$internal$model$obj) - length(value)
-          value <- c(c(value), rep(NA_real_, n_extra))
-          self$internal$model$start <- value
-          invisible(TRUE)
-        },
         run = function() {
           # access internal model and parameters
+          start <- self$get_data("start_solution")
           model <- self$get_internal("model")
           p <- self$get_internal("parameters")
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
           # solve problem
           rt <- system.time({
             x <- withr::with_locale(

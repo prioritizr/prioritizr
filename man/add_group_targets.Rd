@@ -15,7 +15,7 @@ add_group_targets(x, groups, method)
 method for each group. Here, the names of \code{method} correspond to different
 values in \code{groups}. Additionally, the elements of \code{method} should be
 the \code{character} names of target setting methods, or objects
-(\code{\linkS4class{TargetMethod}}) used to specify target setting methods.
+(\code{\linkS4class{TargetMethod}}) that specify target setting methods.
 See Target methods below for more information.}
 }
 \value{
@@ -39,8 +39,8 @@ that denotes the name of the method (e.g., \code{"jung"} to set targets followin
 Jung \emph{et al.} 2021). This option is particularly useful if default
 parameters should be considered during target calculations.
 Alternatively, another option for specifying a particular target setting
-method is to use a function to define an object (e.g., \code{jung_target()} to
-set targets following Jung \emph{et al.} 2021).
+method is to use a function to define an object (e.g.,
+\code{\link[=spec_jung_targets]{spec_jung_targets()}} to set targets following Jung \emph{et al.} 2021).
 This alternative option is particularly useful
 if customized parameters should be considered during target calculations.
 Note that a \code{method} can contain a mix of target setting methods defined

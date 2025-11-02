@@ -17,7 +17,7 @@ NULL
 #' method for each group. Here, the names of `method` correspond to different
 #' values in `groups`. Additionally, the elements of `method` should be
 #' the `character` names of target setting methods, or objects
-#' ([`TargetMethod-class`]) used to specify target setting methods.
+#' ([`TargetMethod-class`]) that specify target setting methods.
 #' See Target methods below for more information.
 #'
 #' @inheritSection targets Target setting
@@ -32,8 +32,8 @@ NULL
 #' Jung *et al.* 2021). This option is particularly useful if default
 #' parameters should be considered during target calculations.
 #' Alternatively, another option for specifying a particular target setting
-#' method is to use a function to define an object (e.g., `jung_target()` to
-#' set targets following Jung *et al.* 2021).
+#' method is to use a function to define an object (e.g.,
+#' [`spec_jung_targets()`] to set targets following Jung *et al.* 2021).
 #' This alternative option is particularly useful
 #' if customized parameters should be considered during target calculations.
 #' Note that a `method` can contain a mix of target setting methods defined

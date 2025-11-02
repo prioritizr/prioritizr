@@ -53,7 +53,7 @@ Defaults to \code{"km^2"}
 \value{
 An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
-to update the targets for a \code{\link[=problem]{problem()}}.
+to add targets to a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on a set of rules for ecological and ecosystem
@@ -70,6 +70,7 @@ and \code{\link[=add_group_targets]{add_group_targets()}}.
 \details{
 This method has been applied to set target thresholds at national
 scales (e.g., Harris \emph{et al.} 2023).
+It may also be especially useful for local scales.
 It is based on the rationale that it is appropriate to set the target
 for a feature based on a linear combination of values.
 When using this method in a planning exercise, it is important to ensure

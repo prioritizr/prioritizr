@@ -1,6 +1,6 @@
 #' Set zones coordinate reference system
 #'
-#' Set the  coordinate reference system for a `zones()` object.
+#' Set the coordinate reference system for a `zones()` object.
 #'
 #' @param x `zones()` object.
 #'

@@ -92,16 +92,31 @@ Solver <- R6::R6Class(
 
     #' @description
     #' Set the starting solution.
-    #' @param value `numeric` new value.
-    #' @details Note that this method should only be run after `$calculate()`.
-    #' It can be used to overwrite values after ingesting an
-    #' [optimization_problem()] object.
-    #' It is designed to be used in [portfolios] and [importance] functions.
+    #' @param value `numeric` vector.
+    #' @param warn `logical` indicating if a warning should be displayed
+    #' if the solver does not support starting solutions.
+    #' @details This method is designed used in [portfolios] and [importance]
+    #' functions.
     #' @return Invisible `TRUE`.
-    set_start_solution = function(value) {
-      # nocov start
-      cli::cli_abort("No defined $set_start_solution method.", .internal = TRUE)
-      # nocov end
+    set_start_solution = function(value, warn = TRUE) {
+      if ("start_solution" %in% names(self$data)) {
+        self$data$start_solution <- value
+      } else if (isTRUE(warn)) {
+        cli_warning("Solver does not support starting solutions.", call = FALSE)
+      }
+      invisible(TRUE)
+    },
+
+    #' @description
+    #' Remove the starting solution.
+    #' @details This method is designed used in [portfolios] and [importance]
+    #' functions.
+    #' @return Invisible `TRUE`.
+    remove_start_solution = function() {
+      if ("start_solution" %in% names(self$data)) {
+        self$data$start_solution <- NULL
+      }
+      invisible(TRUE)
     },
 
     #' @description

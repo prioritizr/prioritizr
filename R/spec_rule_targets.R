@@ -46,6 +46,7 @@ NULL
 #' @details
 #' This method has been applied to set target thresholds at national
 #' scales (e.g., Harris *et al.* 2023).
+#' It may also be especially useful for local scales.
 #' It is based on the rationale that it is appropriate to set the target
 #' for a feature based on a linear combination of values.
 #' When using this method in a planning exercise, it is important to ensure
@@ -316,8 +317,10 @@ calc_rule_targets <- function(x,
     msg = c(
       "!" =
         "{.arg data$feature} must contain names of features in {.arg x}.",
-      "x" =
-        "The following values are not feature names: {repr.character(extra_ft)}"
+      "x" = paste(
+        "The following values are not feature names:",
+        "{repr.character(extra_ft)}."
+      )
     ),
     call = call
   )
@@ -326,7 +329,7 @@ calc_rule_targets <- function(x,
     msg = c(
       "!" =
         "{.arg data$feature} is missing some of the features in {.arg x}.",
-      "i" = "The following features are missing: {repr.character(miss_ft)}"
+      "i" = "The following features are missing: {repr.character(miss_ft)}."
     ),
     call = call
   )

@@ -206,7 +206,7 @@ predefined_optimization_problem <- function(...) {
 add_loglinear_targets <- function(...) {
   cli_defunct(
     old = "add_loglinear_targets",
-    new = "add_interpolated_targets"
+    new = "spec_interp_absolute_targets"
   )
 }
 

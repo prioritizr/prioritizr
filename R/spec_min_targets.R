@@ -9,7 +9,7 @@ NULL
 #' @inheritParams spec_max_targets
 #'
 #' @inheritSection spec_jung_targets Data calculations
-
+#'
 #' @inherit spec_max_targets return
 #'
 #' @family methods

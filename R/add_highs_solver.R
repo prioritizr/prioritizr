@@ -66,7 +66,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
                              verbose = TRUE,
                              control = list()) {
-  # assert that arguments are valid (except start_solution)
+  # assert that arguments are valid
   assert_required(x)
   assert_required(gap)
   assert_required(time_limit)

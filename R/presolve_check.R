@@ -373,7 +373,7 @@ internal_presolve_check <- function(x) {
           ""
         )
       )
-    if ("b" %in% n2)
+    if (any(c("b", "b1") %in% n2))
       msg1 <- c(
         msg1,
         c(

@@ -227,9 +227,9 @@ calc_wilson_targets <- function(x, features,
   assert_required(mean_growth_rates, call = call, .internal = TRUE)
   assert_required(var_growth_rates, call = call, .internal = TRUE)
   assert_required(pop_density, call = call, .internal = TRUE)
-  assert_required(density_units, call = call,  .internal = TRUE)
-  assert_required(cap_area_target, call = call,  .internal = TRUE)
-  assert_required(area_units, call = call,  .internal = TRUE)
+  assert_required(density_units, call = call, .internal = TRUE)
+  assert_required(cap_area_target, call = call, .internal = TRUE)
+  assert_required(area_units, call = call, .internal = TRUE)
   assert(
     # x
     is_conservation_problem(x),

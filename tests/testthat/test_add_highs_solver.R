@@ -360,9 +360,9 @@ test_that("set_start_solution", {
   # force calculations
   p$solver$calculate(compile(p))
   # tests
-  expect_error(
+  expect_warning(
     p$solver$set_start_solution(c(1, 2, 3)),
-    "No defined"
+    "starting"
   )
 })
 
