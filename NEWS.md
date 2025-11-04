@@ -22,14 +22,38 @@
   function, features can be organized into groups and then have their targets
   calculated based on the method specified for their group.
 - New `linear_interpolation()` function for linearly interpolating values.
+- New `as_km2()` and `as_per_km2()` functions to help with area-based
+  calcultions.
+- New `as_Matrix()` function to assist with converting matrices to
+  to sparse matrix format. Although this function was previously only
+  provided as an internal function, it is now exported for public use.
+- Many of the internal functions used for parameter and data validation can now
+  be used by other packages that depend on the _prioritizr_ package (e.g.,
+  `assert()`, `all_binary()`, `all_positive()`). The idea here is that
+  people developing packages that build on the _prioritizr_ package can
+  use these functions to streamline their developmental efforts,
+  while helping to avoid reverse dependency issues. To use these functions
+  in your own package, you can make a local copy of the desired _prioritizr_
+  functions in your package (i.e., a process known as code vendoring).
+  In particular, you can use the `usethis::use_standalone()`
+  function to automatically make a copy of _prioritizr_ functions from the
+  _prioritizr_ online code repository. For example,
+  `usethis::use_standalone("prioritizr/prioritizr", file = "standalone-cli.R")`
+  can be used to make a copy of the `standalone-cli.R` file in the
+  _prioritizr_ source code. Note that all files in the _prioritizr_ code
+  repository that begin with `"standalone-"` can be copied with the
+  `usethis::use_standalone()` function.
 
 ## Major changes
 
 - The `add_loglinear_targets()` function has been deprecated. For similar
   functionality, see the new `spec_interp_absolute_targets()` function.
 - The `presolve_check()` function will now catch issues where the same planning
-  unit (or planning units) has been both locked in and locked out. Thanks to
-  Jason Everett (\@jaseeverett) for the suggestion.
+  unit (or planning units) has been both locked in and locked out (#386).
+  Thanks to Jason Everett (\@jaseeverett) for the suggestion.
+- The `add_feature_weights()` function can only be used once with a `problem()`,
+  and attempting to add multiple weights will over-write previously specified
+  weights (similar to how targets are handled).
 
 #### Minor improvements and bug fixes
 
@@ -40,12 +64,14 @@
   useful when conservation planning problems are taking a long time to solve.
   Note that the default behavior of the function is to use the same
   formulation as in previous versions of the package.
-- Update `solve()` to provide information on the objective bound. This
+- Update `solve()` function to provide information on the objective bound. This
   represents the best estimate of the optimal objective value during
   optimization. Given a solution `x`, this information can be accessed using
   `attr(x, "objbound")`. Note that this is only supported for the Gurobi solver.
 - Update `ConservationProblem` class so that overwriting problem components will
   yield a more concise warning message.
+- Update `compile()` function to throw more informative warnings when a
+  `problem()` have an objective that does not support weights or targets.
 - Fix bug in internal `get_crs()` function when using `raster::raster()` or
   `raster::stack()` objects.
 - Fix bug in `add_relative_targets()` that produced an incoherent error message.

@@ -355,7 +355,7 @@ methods::setMethod(
           "This function for adding targets does not account for spatial units."
         ),
         "i" = paste(
-          "See {.fun add_auto_targets} or {.fun add_group_targets} to",
+          "See {.fn add_auto_targets} or {.fn add_group_targets} to",
           "add targets that account for spatial units."
         )
       ),
@@ -378,9 +378,14 @@ methods::setMethod(
             } else {
               type <- "mixed"
             }
-            cli::format_inline(
-              "{type} targets (between {repr.numeric(range(d$target))}})"
-            )
+            if (identical(length(unique(d$target)), 1L)) {
+              out <-
+                "{type} targets (all equal to {repr.numeric(d$target[[1]])})"
+            } else {
+              out <-
+                "{type} targets (between {repr.numeric(range(d$target))})"
+            }
+            cli::format_inline(out)
           },
           output = function(x) {
             # assert x is a conservation problem

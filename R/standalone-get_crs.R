@@ -1,5 +1,8 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-get_crs.R
+# imports: [assertthat (>= 0.2.0), cli (>= 3.6.0), sf (>= 1.0-12), terra (>= 1.8-54), raster (>= 3.6.11)]
+# ---
 
 #' Get coordinate reference system
 #'
@@ -13,9 +16,11 @@ NULL
 #' @noRd
 NULL
 
-get_crs <- function(x) {
-  assert_required(x)
-  UseMethod("get_crs")
+get_crs <- function(x) UseMethod("get_crs")
+
+#' @export
+get_crs.default <- function(x) {
+  cli::cli_abort("{.arg x} is not a recognized class.")
 }
 
 #' @export

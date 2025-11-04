@@ -40,6 +40,56 @@ test_that("compile (max cover, compressed formulation, single zone)", {
   expect_equal(o$ub(), rep(1, n_f + n_pu))
 })
 
+
+test_that("compile (max utility, compressed formulation, single zone)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # calculate budget
+  b <- floor(terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.25)
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_utility_objective(budget = b) %>%
+    add_feature_weights(seq(10, 14))
+  o <- compile(p)
+  # calculations for tests
+  n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
+  n_f <- terra::nlyr(sim_features)
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
+  # tests
+  expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, seq(10, 14)))
+  expect_equal(o$sense(), c(rep("=", n_f), "<="))
+  expect_equal(o$rhs(), c(rep(0, n_f), b))
+  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("amount", n_f)))
+  expect_equal(o$row_ids(), c(rep("spp_amount", n_f), "budget"))
+  expect_true(
+    all(o$A()[seq_len(n_f), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_equal(
+    o$A()[n_f + 1, ],
+    c(p$planning_unit_costs(), rep(0, n_f))
+  )
+  expect_true(
+    all(
+      o$A()[seq_len(n_f), n_pu + seq_len(n_f)] ==
+      triplet_sparse_matrix(
+        i = seq_len(n_f), j = seq_len(n_f), x = rep(-1, n_f)
+      )
+    )
+  )
+  expect_equal(
+    o$lb(),
+    c(rep(0, n_pu), rep(0, n_f))
+  )
+  expect_equal(
+    o$ub(),
+    c(rep(1, n_pu), unname(p$feature_abundances_in_planning_units()))
+  )
+})
+
 test_that("compile (min shortfall, compressed formulation, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -116,7 +166,7 @@ test_that("solve (max utility, compressed formulation, single zone)", {
   expect_equal(terra::values(s1), terra::values(s2))
 })
 
-test_that("compile (expanded formulation, single zone)", {
+test_that("compile (max cover, expanded formulation, single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -171,7 +221,7 @@ test_that("compile (expanded formulation, single zone)", {
   )
 })
 
-test_that("solve (expanded formulation, single zone)", {
+test_that("solve (max utility, expanded formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -220,7 +270,7 @@ test_that("invalid inputs (single zone)", {
   })
 })
 
-test_that("compile (compressed formulation, multiple zones)", {
+test_that("compile (max cover, compressed formulation, multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -283,7 +333,7 @@ test_that("compile (compressed formulation, multiple zones)", {
   expect_true(all(o$A() == m))
 })
 
-test_that("solve (compressed formulation, multiple zones)", {
+test_that("solve (max features, compressed formulation, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -328,7 +378,7 @@ test_that("solve (compressed formulation, multiple zones)", {
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0, 0, NA, 1))
 })
 
-test_that("compile (expanded formulation, multiple zones)", {
+test_that("compile (max cover, expanded formulation, multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -414,7 +464,7 @@ test_that("compile (expanded formulation, multiple zones)", {
   expect_true(all(o$A() == m))
 })
 
-test_that("solve (expanded formulation, multiple zones)", {
+test_that("solve (max features, expanded formulation, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -493,32 +543,6 @@ test_that("throw warning with min set objective", {
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions()
-  p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))
-  # compile problems
-  o1 <- compile(p1)
-  expect_warning({o2 <- compile(p2)}, "ignored")
-  # tests
-  expect_equal(o1$modelsense(), o2$modelsense())
-  expect_equal(o1$obj(), o2$obj())
-  expect_equal(o1$sense(), o2$sense())
-  expect_equal(o1$rhs(), o2$rhs())
-  expect_equal(o1$col_ids(), o2$col_ids())
-  expect_equal(o1$row_ids(), o2$row_ids())
-  expect_equal(o1$A(), o2$A())
-  expect_equal(o1$lb(), o2$lb())
-  expect_equal(o1$ub(), o2$ub())
-})
-
-test_that("throw warning with min largest shortfall objective", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problems
-  p1 <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_largest_shortfall_objective(100) %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions()
   p2 <- p1 %>% add_feature_weights(runif(terra::nlyr(sim_features)))

@@ -1,5 +1,8 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-all_columns_any_finite.R
+# imports: [assertthat (>= 0.2.0), cli (>= 3.6.0), sf (>= 1.0-12)]
+# ---
 
 #' All columns have any finite values?
 #'
@@ -10,8 +13,7 @@ NULL
 #' @return A `logical` value.
 #'
 #' @noRd
-all_columns_any_finite <- function(x)
-  UseMethod("all_columns_any_finite")
+all_columns_any_finite <- function(x) UseMethod("all_columns_any_finite")
 
 assertthat::on_failure(all_columns_any_finite) <- function(call, env) {
   paste0(

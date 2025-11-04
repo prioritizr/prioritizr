@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R zones.R is_spatial_extents_overlap.R assertions.R cli.R
+#' @include internal.R ConservationProblem-class.R zones.R
 NULL
 
 #' Conservation planning problem

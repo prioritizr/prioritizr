@@ -667,7 +667,7 @@ internal_presolve_check <- function(x) {
     }
     msg = c(
       msg,
-      "i" = "For more information, see {.fun presolve_check}."
+      "i" = "For more information, see {.fn presolve_check}."
     )
   }
 

@@ -131,11 +131,11 @@ calc_absolute_targets <- function(x, features, targets,
     msg = c(
       "!" = "{.arg x} has spatial units defined for the features.",
       "i" = paste(
-        "{.fun spec_absolute_targets} does not account",
+        "{.fn spec_absolute_targets} does not account",
         "for spatial units."
       ),
       "i" = paste(
-        "See {.fun spec_area_targets} to",
+        "See {.fn spec_area_targets} to",
         "specify targets that account for spatial units."
       )
     ),

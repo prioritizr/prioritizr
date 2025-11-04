@@ -1,5 +1,8 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-assertions_sf.R
+# imports: [assertthat (>= 0.2.0), sf (>= 1.0-12)]
+# ---
 
 #' Is valid geometries?
 #'
@@ -10,7 +13,7 @@ NULL
 #' @param call Caller environment.
 #'
 #' @details
-#' Specifically, `GEOMETRYCOLLECTION` geometries are not permitted.
+#' Specifically, `GEOMETRYCOLLECTION` geometries are not considered valid.
 #'
 #' @return A `logical` value.
 #'

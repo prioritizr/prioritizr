@@ -72,11 +72,26 @@ Only experts should use the fields and methods for this class directly."><meta p
 <code><a href="Portfolio-class.html">Portfolio-class</a></code>,
 <code><a href="Solver-class.html">Solver-class</a></code>,
 <code><a href="Target-class.html">Target-class</a></code>,
-<code><a href="TargetMethod-class.html">TargetMethod-class</a></code></p></div>
+<code><a href="TargetMethod-class.html">TargetMethod-class</a></code>,
+<code><a href="Weight-class.html">Weight-class</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
     <p><code><a href="ConservationModifier-class.html">prioritizr::ConservationModifier</a></code> -&gt; <code>Objective</code></p>
+    </div>
+    <div class="section level2">
+    <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
+    <p></p><div class="r6-fields"><dl><dt><code>has_targets</code></dt>
+<dd><p><code>logical</code> value indicating if the objective
+supports targets.</p></dd>
+
+
+<dt><code>has_weights</code></dt>
+<dd><p><code>logical</code> value indicating if the objective
+supports feature weights.</p></dd>
+
+
+</dl><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
@@ -112,7 +127,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 </div>
 <div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
-<p>Invisible <code>TRUE</code>.</p>
+<p>A <code>numeric</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-Objective-apply"></a><div class="section">

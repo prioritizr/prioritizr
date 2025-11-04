@@ -19,11 +19,23 @@ Other classes:
 \code{\link{Portfolio-class}},
 \code{\link{Solver-class}},
 \code{\link{Target-class}},
-\code{\link{TargetMethod-class}}
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Super class}{
 \code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Objective}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{has_targets}}{\code{logical} value indicating if the objective
+supports targets.}
+
+\item{\code{has_weights}}{\code{logical} value indicating if the objective
+supports feature weights.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -64,7 +76,7 @@ Specify default values for weights.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisible \code{TRUE}.
+A \code{numeric} value.
 }
 }
 \if{html}{\out{<hr>}}

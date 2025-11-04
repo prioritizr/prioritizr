@@ -1,5 +1,9 @@
-#' @include internal.R get_crs.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-is_same_crs.R
+# dependencies: [standalone-assertions_handlers.R, standalone-assertions_class.R, standalone-get_crs.R]
+# imports: [assertthat (>= 0.2.0), sf (>= 1.0-12)]
+# ---
 
 #' Is same coordinate reference system?
 #'

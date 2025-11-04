@@ -1,5 +1,8 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-is_numeric_values.R
+# imports: [assertthat (>= 0.2.0), terra (>= 1.8-54), sf (>= 1.0-12)]
+# ---
 
 #' Is numeric values?
 #'

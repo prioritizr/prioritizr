@@ -1,5 +1,9 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-is_spatial_extents_overlap.R
+# dependencies: [standalone-assertions_handlers.R, standalone-assertions_class.R]
+# imports: [assertthat (>= 0.2.0), terra (>= 1.8-54), sf (>= 1.0-12)]
+# ---
 
 #' Do extents intersect?
 #'

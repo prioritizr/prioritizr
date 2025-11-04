@@ -15,7 +15,17 @@ NULL
 #'
 #' @return A `Matrix` object.
 #'
-#' @noRd
+#' @examples
+#' # create matrix
+#' m <- matrix(1:9, ncol = 3)
+#'
+#' # convert to sparse matrix format
+#' m2 <- as_Matrix(m, "dgCMatrix")
+#'
+#' # display converted matrix
+#' print(m2)
+#'
+#' @export
 as_Matrix <- function(object, class) {
   # assert valid argument
   assert(

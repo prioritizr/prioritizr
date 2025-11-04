@@ -369,11 +369,11 @@ calc_interp_absolute_targets <- function(x, features,
     msg = c(
      "!" = "{.arg x} has spatial units defined for the features.",
       "i" = paste(
-        "{.fun spec_interp_absolute_targets} does not account",
+        "{.fn spec_interp_absolute_targets} does not account",
         "for spatial units."
       ),
       "i" = paste(
-        "See {.fun spec_interp_area_targets} to",
+        "See {.fn spec_interp_area_targets} to",
         "add targets that account for spatial units."
       )
     ),

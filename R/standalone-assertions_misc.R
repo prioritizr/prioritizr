@@ -1,5 +1,9 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-assertions_class.R
+# dependencies: standalone-assertions_handlers.R
+# imports: [parallel, assertthat (>= 0.2.0), cli (>= 3.6.0), units (>= 0.8.7), prioritizr (>= 8.0.6)]
+# ---
 
 #' Is thread count?
 #'
@@ -22,31 +26,6 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
     "} must be an integer value between 1 and ",
     parallel::detectCores(TRUE),
     " (i.e., number of available cores)."
-  )
-}
-
-#' Has single zone?
-#'
-#' Check if a [problem()] has a single zone.
-#'
-#' @param x [problem()] object.
-#'
-#' @return A `logical` value.
-#'
-#' @noRd
-has_single_zone <- function(x) {
-  assert(is_conservation_problem(x), .internal = TRUE)
-  isTRUE(x$number_of_zones() == 1)
-}
-
-assertthat::on_failure(has_single_zone) <- function(call, env) {
-  x <- eval(call$x, envir = env)
-  c(
-    "!" = "Can't calculate targets.",
-    "x" = "This function is only compatible with single zone problems.",
-    "x" = paste0(
-      "{.arg ", deparse(call$x), "} has {.val {x$number_of_zones()}} zones"
-    )
   )
 }
 
@@ -180,6 +159,36 @@ assertthat::on_failure(any_solvers_installed) <- function(call, env) {
     "x" = "You must install a solver to generate prioritizations.",
     "i" = "See {.topic solvers} for options."
   )
+}
+
+#' Default solver name
+#'
+#' This function returns the name of the default solver. If no solvers are
+#' detected on the system, then a `NULL` object is returned.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \pkg{gurobi}, \pkg{cplexAPI}, \pkg{rcbc}, \pkg{highs},
+#'   \pkg{lpsymphony}, \pkg{Rsymphony}.
+#'
+#' @return `character` indicating the name of the default solver.
+#'
+#' @noRd
+default_solver_name <- function() {
+  if (requireNamespace("gurobi", quietly = TRUE)) {
+    return("gurobi")
+  } else if (requireNamespace("cplexAPI", quietly = TRUE)) {
+    return("cplexAPI")
+  } else if (requireNamespace("rcbc", quietly = TRUE)) {
+    return("rcbc")
+  } else if (requireNamespace("highs", quietly = TRUE)) {
+    return("highs")
+  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
+    return("lpsymphony")
+  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
+    return("Rsymphony")
+  } else {
+    return(NULL)
+  }
 }
 
 #' Is area unit?

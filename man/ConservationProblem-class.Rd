@@ -25,7 +25,8 @@ Other classes:
 \code{\link{Portfolio-class}},
 \code{\link{Solver-class}},
 \code{\link{Target-class}},
-\code{\link{TargetMethod-class}}
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Public fields}{
@@ -43,6 +44,9 @@ for the problem formulation.}
 
 \item{\code{targets}}{\code{\linkS4class{Target}} object specifying the representation
 targets for the problem formulation.}
+
+\item{\code{weights}}{\code{\linkS4class{Weight}} object specifying the feature weights
+for the problem formulation.}
 
 \item{\code{constraints}}{\code{list} containing \code{\linkS4class{Constraint}} objects that
 specify constraints for the problem formulation.}
@@ -90,12 +94,14 @@ generating solutions.}
 \item \href{#method-ConservationProblem-feature_abundances_km2_in_total_units}{\code{ConservationProblem$feature_abundances_km2_in_total_units()}}
 \item \href{#method-ConservationProblem-set_feature_abundances_km2_in_total_units}{\code{ConservationProblem$set_feature_abundances_km2_in_total_units()}}
 \item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
+\item \href{#method-ConservationProblem-feature_weights}{\code{ConservationProblem$feature_weights()}}
 \item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
 \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
 \item \href{#method-ConservationProblem-zone_names}{\code{ConservationProblem$zone_names()}}
 \item \href{#method-ConservationProblem-add_portfolio}{\code{ConservationProblem$add_portfolio()}}
 \item \href{#method-ConservationProblem-add_solver}{\code{ConservationProblem$add_solver()}}
 \item \href{#method-ConservationProblem-add_targets}{\code{ConservationProblem$add_targets()}}
+\item \href{#method-ConservationProblem-add_weights}{\code{ConservationProblem$add_weights()}}
 \item \href{#method-ConservationProblem-add_objective}{\code{ConservationProblem$add_objective()}}
 \item \href{#method-ConservationProblem-add_decisions}{\code{ConservationProblem$add_decisions()}}
 \item \href{#method-ConservationProblem-add_constraint}{\code{ConservationProblem$add_constraint()}}
@@ -543,6 +549,19 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-feature_weights"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-feature_weights}{}}}
+\subsection{Method \code{feature_weights()}}{
+Obtain the weights for the features.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_weights()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-has_negative_feature_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-has_negative_feature_data}{}}}
 \subsection{Method \code{has_negative_feature_data()}}{
@@ -634,6 +653,26 @@ Create a new object with targets added to the problem formulation.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\linkS4class{Target} object.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An updated \code{ConservationProblem} object.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-add_weights"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-add_weights}{}}}
+\subsection{Method \code{add_weights()}}{
+Create a new object with weights added to the problem formulation.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_weights(x)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\linkS4class{Weight} object.}
 }
 \if{html}{\out{</div>}}
 }

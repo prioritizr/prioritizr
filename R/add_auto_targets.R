@@ -493,10 +493,18 @@ internal_add_auto_targets.TargetMethod <- function(x, method,
         repr = function(compact = TRUE) {
           d <- self$get_data("targets")
           type <- d$type[[1]]
-          cli::format_inline(
-            "{self$name} ({type} values between ",
-            "{repr.numeric(range(d$target))})"
-          )
+          if (identical(length(unique(d$target)), 1L)) {
+            out <- cli::format_inline(
+              "{self$name} ({type} values all equal to ",
+              "{repr.numeric(d$target[[1]])})"
+            )
+          } else {
+            out <- cli::format_inline(
+              "{self$name} ({type} values between ",
+              "{repr.numeric(range(d$target))})"
+            )
+          }
+          out
         },
         output = function(x) {
           # assert x is a conservation problem

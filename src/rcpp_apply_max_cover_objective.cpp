@@ -3,7 +3,11 @@
 
 // [[Rcpp::export]]
 bool rcpp_apply_max_cover_objective(
-  SEXP x, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget) {
+  SEXP x,
+  const Rcpp::NumericMatrix costs,
+  const Rcpp::NumericVector budget,
+  const Rcpp::NumericVector weights
+) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_extra_ncol;
@@ -46,10 +50,10 @@ bool rcpp_apply_max_cover_objective(
   if (!ptr->_compressed_formulation)
     for (std::size_t i = 0; i < A_extra_ncol; ++i)
        ptr->_obj.push_back(0.0);
-  // add in default species weights (species treated equally)
+  // add in feature weights
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
-      ptr->_obj.push_back(1.0);
+      ptr->_obj.push_back(weights[i]);
   // add in upper and lower bounds for the decision variables representing if
   // each species is adequately conserved
   for (std::size_t i = 0;

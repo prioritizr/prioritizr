@@ -137,8 +137,11 @@ add_min_penalties_objective <- function(x, budget) {
       inherit = Objective,
       public = list(
         name = "minimum penalties objective",
+        has_weights = FALSE,
+        has_targets = TRUE,
         data = list(budget = budget),
-        apply = function(x, y) {
+        apply = function(x, y, weights) {
+          # note that weights are not used
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),

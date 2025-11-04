@@ -1,5 +1,9 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-assertions_raster.R
+# dependencies: [standalone-assertions_handlers.R, standalone-is_same_crs.R, standalone-assertions_class.R]
+# imports: [assertthat (>= 0.2.0), cli (>= 3.6.0), terra (>= 1.8-54)]
+# ---
 
 #' Are rasters comparable?
 #'
@@ -42,40 +46,6 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
     paste0(
       "{.arg ", deparse(call$x), "} must be comparable with ",
       "{.arg ", deparse(call$y),  "}."
-    ),
-    "x" = paste(
-      "They do not have the same spatial resolution, extent,",
-      "coordinate reference system, and dimensionality (rows / columns)."
-    )
-  )
-}
-
-#' Are planning unit rasters comparable?
-#'
-#' This function checks if the planning units in a [problem()] object
-#' is comparable with a raster.
-#'
-#' @param x [problem()] object.
-#'
-#' @param y [terra::rast()] or [raster::raster()] object.
-#'
-#' @param call Caller environment.
-#'
-#' @return A `logical` value indicating if the
-#'   objects have the same
-#'   resolution, extent, dimensionality, and coordinate system.
-#'
-#' @noRd
-is_pu_comparable_raster <- function(x, y) {
-  assert(is_conservation_problem(x), .internal = TRUE)
-  is_comparable_raster(x$data$cost, y)
-}
-
-assertthat::on_failure(is_pu_comparable_raster) <- function(call, env) {
-  c(
-    paste0(
-      "{.arg ", deparse(call$x), "} must have planning units that are ",
-      "comparable with {.arg ", deparse(call$y),  "}."
     ),
     "x" = paste(
       "They do not have the same spatial resolution, extent,",

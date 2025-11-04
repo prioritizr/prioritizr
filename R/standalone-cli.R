@@ -1,5 +1,8 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-cli.R
+# imports: [cli (>= 3.6.0)]
+# ---
 
 #' Package theme
 #'
@@ -14,7 +17,6 @@ cli_pkg_theme <- function() {
   list(
     .gray = list(color = "gray"),
     .val = list(digits = 4),
-    # .h = list("font-weight" = "bold")
     .h = list(color = "cyan")
   )
 }

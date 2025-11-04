@@ -25,6 +25,7 @@
 <url><loc>https://prioritizr.net/reference/Solver-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Target-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/TargetMethod-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/Weight-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_absolute_targets.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_asym_connectivity_penalties.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_auto_targets.html</loc></url>
@@ -71,6 +72,9 @@
 <url><loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_top_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/adjacency_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/as_Matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/as_km2.html</loc></url>
+<url><loc>https://prioritizr.net/reference/as_per_km2.html</loc></url>
 <url><loc>https://prioritizr.net/reference/binary_stack.html</loc></url>
 <url><loc>https://prioritizr.net/reference/boundary_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/branch_matrix.html</loc></url>

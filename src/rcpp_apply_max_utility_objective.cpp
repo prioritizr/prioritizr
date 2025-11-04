@@ -7,7 +7,8 @@ bool rcpp_apply_max_utility_objective(
   const Rcpp::NumericMatrix abundances,
   bool has_negative_feature_values,
   const Rcpp::NumericMatrix costs,
-  const Rcpp::NumericVector budget
+  const Rcpp::NumericVector budget,
+  const Rcpp::NumericVector weights
 ) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
@@ -52,10 +53,10 @@ bool rcpp_apply_max_utility_objective(
   if (!ptr->_compressed_formulation)
     for (std::size_t i = 0; i < A_extra_ncol; ++i)
        ptr->_obj.push_back(0.0);
-  // add in default feature weights (features weighted equally by default)
+  // add in feature weights
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
-      ptr->_obj.push_back(1.0);
+    ptr->_obj.push_back(weights[i]);
   // add in upper bounds representing the maximum abundances for each feature
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
     for (std::size_t i = 0; i < (ptr->_number_of_features); ++i)

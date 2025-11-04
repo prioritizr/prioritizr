@@ -3,9 +3,22 @@
 #' Standardize number to
 #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
+#' @param x `numeric` vector.
+#'
+#' @param unit `character` vector of spatial units
+#' (e.g., `"km2"`, `"acres"`, `"hectares"`.
+#' For convenience, a single `character` value can be specified if all
+#' values in `x` are the same unit.
+#'
 #' @return A `numeric` vector.
 #'
-#' @noRd
+#' @examples
+#' as_km2(5, "km2")
+#' as_km2(5, "acres")
+#' as_km2(c(5, 10), "ha")
+#' as_km2(c(5, 10), c("ha", "acres"))
+#'
+#' @export
 as_km2 <- function(x, unit) {
   # assert arguments are valid
   assert(
@@ -48,9 +61,17 @@ as_km2 <- function(x, unit) {
 #' Standardize number to density per
 #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
-#' @return A `numeric` vector.
+#' @inheritParams as_km2
 #'
-#' @noRd
+#' @inherit as_km2 return
+#'
+#' @examples
+#' as_per_km2(5, "km2")
+#' as_per_km2(5, "acres")
+#' as_per_km2(c(5, 10), "ha")
+#' as_km2(c(5, 10), c("ha", "acres"))
+#'
+#' @export
 as_per_km2 <- function(x, unit) {
   # assert arguments are valid
   assert(

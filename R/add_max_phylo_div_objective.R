@@ -240,12 +240,18 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
       inherit = Objective,
       public = list(
         name = "phylogenetic diversity objective",
+        has_weights = TRUE,
+        has_targets = TRUE,
         data = list(budget = budget, tree = tree),
-        apply = function(x, y) {
+        default_weights = function(x) {
+          0
+        },
+        apply = function(x, y, weights) {
           # assert arguments valid
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
+            is.numeric(weights),
             .internal = TRUE
           )
           # extract data
@@ -264,7 +270,8 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
               y$planning_unit_costs(),
               self$get_data("budget"),
               bm,
-              tr$edge.length
+              tr$edge.length,
+              weights
             )
           )
         }

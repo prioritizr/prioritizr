@@ -1,4 +1,4 @@
-#' @include Solver-class.R
+#' @include Solver-class.R standalone-assertions_misc.R
 NULL
 
 #' Add default solver
@@ -67,35 +67,5 @@ add_default_solver <- function(x, ...) {
       call = NULL,
       .internal = TRUE
     )
-  }
-}
-
-#' Default solver name
-#'
-#' This function returns the name of the default solver. If no solvers are
-#' detected on the system, then a `NULL` object is returned.
-#'
-#' @details This function tests if any of the following packages are installed:
-#'   \pkg{gurobi}, \pkg{cplexAPI}, \pkg{rcbc}, \pkg{highs},
-#'   \pkg{lpsymphony}, \pkg{Rsymphony}.
-#'
-#' @return `character` indicating the name of the default solver.
-#'
-#' @noRd
-default_solver_name <- function() {
-  if (requireNamespace("gurobi", quietly = TRUE)) {
-    return("gurobi")
-  } else if (requireNamespace("cplexAPI", quietly = TRUE)) {
-    return("cplexAPI")
-  } else if (requireNamespace("rcbc", quietly = TRUE)) {
-    return("rcbc")
-  } else if (requireNamespace("highs", quietly = TRUE)) {
-    return("highs")
-  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
-    return("lpsymphony")
-  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
-    return("Rsymphony")
-  } else {
-    return(NULL)
   }
 }

@@ -1,78 +1,12 @@
-test_that(
-  "assert_can_calculate_area_based_targets (raster features, geodetic)", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  terra::crs(sim_pu_raster) <- terra::crs("epsg:4326")
-  terra::crs(sim_features) <- terra::crs("epsg:4326")
-  # build message
-  msg <- try(
-    problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
-    add_binary_decisions(),
-    silent = TRUE
-  )
-  # run tests
-  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
-  expect_true(grepl("jung_targets", msg, fixed = TRUE))
-  expect_true(grepl("geodetic", msg, fixed = TRUE))
-})
-
-test_that(
-  "assert_can_calculate_area_based_targets (raster features, NA crs)", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # build message
-  msg <- try(
-    problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
-    add_binary_decisions(),
-    silent = TRUE
-  )
-  # run tests
-  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
-  expect_true(grepl("jung_targets", msg, fixed = TRUE))
-  expect_true(grepl("defined", msg, fixed = TRUE))
-})
-
-test_that(
-  "assert_can_calculate_area_based_targets (non-raster features, NA crs)", {
-  # load data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_pu_polygons$spp_1 <- 1
-  sim_pu_polygons$spp_2 <- 2
-  # build message
-  msg <- try(
-    problem(
-      sim_pu_polygons, c("spp_1", "spp_2"), cost_column = "cost",
-      feature_units = c("km^2", NA)
-    ) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
-    add_binary_decisions(),
-    silent = TRUE
-  )
-  # run tests
-  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
-  expect_true(grepl("jung_targets", msg, fixed = TRUE))
-  expect_true(grepl("spp_2", msg, fixed = TRUE))
-})
-
-test_that("assert_valid_method_arg", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # build message
-  msg <- try(
-    assert_valid_method_arg(problem(sim_pu_raster, sim_features)),
-    silent = TRUE
-  )
-  # run tests
-  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
-  expect_true(assert_valid_method_arg("a"))
+test_that("assert_dots_empty", {
+  f <- function(x, ...) {
+    assert_dots_empty()
+    TRUE
+  }
+  expect_true(f())
+  expect_true(f(x = 1))
+  expect_error(f(x = 1, y = 1))
+  expect_error(f(y = 1))
 })
 
 test_that("assert_required (simple examples)", {
@@ -302,4 +236,18 @@ test_that("assert_required (prioritizr examples, native pipe)", {
       add_relative_targets(object_not_exist) |>
       print()
   )
+})
+
+test_that("assert_valid_method_arg", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # build message
+  msg <- try(
+    assert_valid_method_arg(problem(sim_pu_raster, sim_features)),
+    silent = TRUE
+  )
+  # run tests
+  expect_true(grepl("add_auto_targets", msg, fixed = TRUE))
+  expect_true(assert_valid_method_arg("a"))
 })

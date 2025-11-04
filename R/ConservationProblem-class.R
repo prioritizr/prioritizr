@@ -34,6 +34,7 @@ ConservationProblem <- R6::R6Class(
       objective = TRUE,
       decisions = TRUE,
       targets = TRUE,
+      weights = TRUE,
       constraints = TRUE,
       penalties = TRUE,
       solver = TRUE
@@ -50,6 +51,10 @@ ConservationProblem <- R6::R6Class(
     #' @field targets [`Target-class`] object specifying the representation
     #' targets for the problem formulation.
     targets = new_waiver(),
+
+    #' @field weights [`Weight-class`] object specifying the feature weights
+    #' for the problem formulation.
+    weights = new_waiver(),
 
     #' @field constraints `list` containing [`Constraint-class`] objects that
     #' specify constraints for the problem formulation.
@@ -142,6 +147,11 @@ ConservationProblem <- R6::R6Class(
       if (!is.Waiver(self$objective)) {
         objective_text <- self$objective$repr(compact = FALSE)
       }
+      ## weights
+      weights_text <- missing_text
+      if (!is.Waiver(self$weights)) {
+        weights_text <- self$weights$repr(compact = FALSE)
+      }
       ## targets
       targets_text <- missing_text
       if (!is.Waiver(self$targets)) {
@@ -221,6 +231,11 @@ ConservationProblem <- R6::R6Class(
       cli_vtext(
        "{ch$v}{ch$j}{ch$b}targets:      ",
         targets_text
+      )
+      ## weights
+      cli_vtext(
+       "{ch$v}{ch$j}{ch$b}weights:      ",
+        weights_text
       )
       ## constraints
       if (length(self$constraints) > 0) {
@@ -350,6 +365,11 @@ ConservationProblem <- R6::R6Class(
       if (!is.Waiver(self$objective)) {
         objective_text <- self$objective$repr()
       }
+      ## weights
+      weights_text <- missing_text
+      if (!is.Waiver(self$weights)) {
+        weights_text <- self$weights$repr()
+      }
       ## targets
       targets_text <- missing_text
       if (!is.Waiver(self$targets)) {
@@ -425,6 +445,11 @@ ConservationProblem <- R6::R6Class(
       cli_vtext(
         "{ch$v}{ch$j}{ch$b}targets:     ",
         targets_text
+      )
+      ## weights
+      cli_vtext(
+        "{ch$v}{ch$j}{ch$b}weights:     ",
+        weights_text
       )
       ## constraints
       if (length(self$constraints) > 0) {
@@ -917,6 +942,15 @@ ConservationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Obtain the weights for the features.
+    #' @return A [tibble::tibble()] data frame.
+    feature_weights = function() {
+      if (is.Waiver(self$weights))
+        return(self$weights)
+      self$weights$output(self)
+    },
+
+    #' @description
     #' See if the feature data contain any negative values.
     #' @return A `logical` value.
     has_negative_feature_data = function() {
@@ -1010,6 +1044,22 @@ ConservationProblem <- R6::R6Class(
         p$defaults$targets <- FALSE
       }
       p$targets <- x
+      p
+    },
+
+    #' @description
+    #' Create a new object with weights added to the problem formulation.
+    #' @param x [Weight-class] object.
+    #' @return An updated `ConservationProblem` object.
+    add_weights = function(x) {
+      assert(inherits(x, "Weight"))
+      p <- self$clone(deep = TRUE)
+      if (!isTRUE(p$defaults$weights)) {
+        cli_warning("Overwriting previously defined weights.", call = NULL)
+      } else {
+        p$defaults$weights <- FALSE
+      }
+      p$weights <- x
       p
     },
 

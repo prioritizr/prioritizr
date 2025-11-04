@@ -157,10 +157,6 @@ rcpp_apply_feature_contiguity_constraints <- function(x, data, clusters_list) {
     .Call(`_prioritizr_rcpp_apply_feature_contiguity_constraints`, x, data, clusters_list)
 }
 
-rcpp_apply_feature_weights <- function(x, weights) {
-    .Call(`_prioritizr_rcpp_apply_feature_weights`, x, weights)
-}
-
 rcpp_apply_linear_penalties <- function(x, penalty, data) {
     .Call(`_prioritizr_rcpp_apply_linear_penalties`, x, penalty, data)
 }
@@ -169,20 +165,20 @@ rcpp_apply_locked_constraints <- function(x, pu, zone, status, lb, ub) {
     .Call(`_prioritizr_rcpp_apply_locked_constraints`, x, pu, zone, status, lb, ub)
 }
 
-rcpp_apply_max_cover_objective <- function(x, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, costs, budget)
+rcpp_apply_max_cover_objective <- function(x, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, costs, budget, weights)
 }
 
-rcpp_apply_max_features_objective <- function(x, targets_list, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_features_objective`, x, targets_list, costs, budget)
+rcpp_apply_max_features_objective <- function(x, targets_list, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_features_objective`, x, targets_list, costs, budget, weights)
 }
 
-rcpp_apply_max_phylo_objective <- function(x, targets_list, costs, budget, branch_matrix, branch_lengths) {
-    .Call(`_prioritizr_rcpp_apply_max_phylo_objective`, x, targets_list, costs, budget, branch_matrix, branch_lengths)
+rcpp_apply_max_phylo_objective <- function(x, targets_list, costs, budget, branch_matrix, branch_lengths, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_phylo_objective`, x, targets_list, costs, budget, branch_matrix, branch_lengths, weights)
 }
 
-rcpp_apply_max_utility_objective <- function(x, abundances, has_negative_feature_values, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, has_negative_feature_values, costs, budget)
+rcpp_apply_max_utility_objective <- function(x, abundances, has_negative_feature_values, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, has_negative_feature_values, costs, budget, weights)
 }
 
 rcpp_apply_min_largest_shortfall_objective <- function(x, targets_list, costs, budget) {
@@ -197,8 +193,8 @@ rcpp_apply_min_set_objective <- function(x, targets_list, costs) {
     .Call(`_prioritizr_rcpp_apply_min_set_objective`, x, targets_list, costs)
 }
 
-rcpp_apply_min_shortfall_objective <- function(x, targets_list, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_min_shortfall_objective`, x, targets_list, costs, budget)
+rcpp_apply_min_shortfall_objective <- function(x, targets_list, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_min_shortfall_objective`, x, targets_list, costs, budget, weights)
 }
 
 rcpp_apply_neighbor_constraints <- function(x, connected_data, clamp, k, max_n) {

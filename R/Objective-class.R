@@ -21,12 +21,20 @@ Objective <- R6::R6Class(
   inherit = ConservationModifier,
   public = list(
 
+    #' @field has_targets `logical` value indicating if the objective
+    #' supports targets.
+    has_targets = new_waiver(),
+
+    #' @field has_weights `logical` value indicating if the objective
+    #' supports feature weights.
+    has_weights = new_waiver(),
+
     #' @description
     #' Specify default values for weights.
     #' @param x [problem()] object.
-    #' @return Invisible `TRUE`.
+    #' @return A `numeric` value.
     default_weights = function(x) {
-      return(1)
+      1
     },
 
     #' @description

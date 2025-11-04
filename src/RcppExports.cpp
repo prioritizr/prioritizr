@@ -486,18 +486,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_feature_weights
-bool rcpp_apply_feature_weights(SEXP x, const Rcpp::NumericVector weights);
-RcppExport SEXP _prioritizr_rcpp_apply_feature_weights(SEXP xSEXP, SEXP weightsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_feature_weights(x, weights));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_apply_linear_penalties
 bool rcpp_apply_linear_penalties(SEXP x, const Rcpp::NumericVector penalty, const arma::sp_mat data);
 RcppExport SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
@@ -528,21 +516,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_max_cover_objective
-bool rcpp_apply_max_cover_objective(SEXP x, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
-RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_max_cover_objective(SEXP x, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, costs, budget));
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_features_objective
-bool rcpp_apply_max_features_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
-RcppExport SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_max_features_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -550,13 +539,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_features_objective(x, targets_list, costs, budget));
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_features_objective(x, targets_list, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_phylo_objective
-bool rcpp_apply_max_phylo_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const arma::sp_mat branch_matrix, const Rcpp::NumericVector branch_lengths);
-RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
+bool rcpp_apply_max_phylo_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const arma::sp_mat branch_matrix, const Rcpp::NumericVector branch_lengths, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -566,13 +556,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     Rcpp::traits::input_parameter< const arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets_list, costs, budget, branch_matrix, branch_lengths));
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets_list, costs, budget, branch_matrix, branch_lengths, weights));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_apply_max_utility_objective
-bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, bool has_negative_feature_values, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget);
-RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP has_negative_feature_valuesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, bool has_negative_feature_values, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP has_negative_feature_valuesSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -581,7 +572,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type has_negative_feature_values(has_negative_feature_valuesSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, has_negative_feature_values, costs, budget));
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, has_negative_feature_values, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -627,16 +619,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_min_shortfall_objective
-bool rcpp_apply_min_shortfall_objective(SEXP x, const Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
-RcppExport SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_min_shortfall_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List >::type targets_list(targets_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_shortfall_objective(x, targets_list, costs, budget));
+    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_shortfall_objective(x, targets_list, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
