@@ -3,7 +3,7 @@
 # file: standalone-assertions_ConservationProblem.R
 # dependencies: [standalone-assertions_handlers.R, standalone-assertions_class.R, standalone-assertions_functions.R, standalone-get_crs.R, standalone-assertions_raster.R]
 # imports: [assertthat (>= 0.2.0), cli (>= 3.6.0), units (>= 0.8.7), sf (>= 1.0-12)]
-# --
+# ---
 
 #' All is valid total unit identifier?
 #'

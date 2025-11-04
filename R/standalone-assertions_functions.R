@@ -1,7 +1,9 @@
 # ---
 # repo: prioritizr/prioritizr
 # file: standalone-assertions_functions.R
-# --
+# dependencies: [standalone-assertions_handlers.R, standalone-assertions_class.R]
+# imports: [assertthat (>= 0.2.0), cli (>= 3.6.0), rlang (>= 1.1.0)]
+# ---
 
 #' Assert dots are empty
 #'
