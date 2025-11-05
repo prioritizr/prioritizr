@@ -250,7 +250,9 @@ print(p1)
     ## ├•formulation
     ## │├•objective:   minimum shortfall objective (`budget` = 8748.491)
     ## │├•penalties:   none specified
-    ## │├•targets:     relative targets (between 0.2 and 0.2})
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.2)
+    ## ││└•weights:    none specified
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
@@ -277,7 +279,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.513
+    ##      3.499
 
 ``` r
 # extract state message from the solver

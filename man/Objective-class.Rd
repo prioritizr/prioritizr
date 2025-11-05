@@ -63,18 +63,11 @@ supports feature weights.}
 \if{html}{\out{<a id="method-Objective-default_weights"></a>}}
 \if{latex}{\out{\hypertarget{method-Objective-default_weights}{}}}
 \subsection{Method \code{default_weights()}}{
-Specify default values for weights.
+Specify default value for the feature weights.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
 A \code{numeric} value.
 }

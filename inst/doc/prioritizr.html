@@ -517,7 +517,9 @@ select – or not select – planning units for prioritization (using the
 ## │├•objective:   minimum set objective
 ## │├•penalties:
 ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, `formulation` = &quot;simple&quot;, …)
-## │├•targets:     relative targets (between 0.17 and 0.17})
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.17)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││└•1:          locked in constraints (257 planning units)
 ## │└•decisions:   binary decision
@@ -613,7 +615,7 @@ the <code>s1</code> object.</p>
 ##   MIR: 2
 ##   RLT: 1
 ## 
-## Explored 1 nodes (1410 simplex iterations) in 0.53 seconds (0.90 work units)
+## Explored 1 nodes (1410 simplex iterations) in 0.46 seconds (0.90 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 10: 10592.4 10693.1 10732.6 ... 11556.8
@@ -769,7 +771,9 @@ function).</p>
 ## │├•objective:   minimum set objective
 ## │├•penalties:
 ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, `formulation` = &quot;simple&quot;, …)
-## │├•targets:     relative targets (between 0.17 and 0.17})
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.17)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││└•1:          locked in constraints (257 planning units)
 ## │└•decisions:   binary decision
@@ -855,11 +859,11 @@ function).</p>
 ## H  239   239                    10578.521820 9682.80304  8.47%  76.3    1s
 ## H  239   239                    10508.435291 9682.80304  7.86%  76.3    1s
 ## H  239   239                    10497.969765 9682.80304  7.76%  76.3    1s
-## H  239   239                    10496.476241 9682.80304  7.75%  76.3    2s
-## H  239   239                    10485.373665 9682.80304  7.65%  76.3    2s
+## H  239   239                    10496.476241 9682.80304  7.75%  76.3    1s
+## H  239   239                    10485.373665 9682.80304  7.65%  76.3    1s
 ## H  512   510                    10471.621505 9682.81219  7.53%  48.0    2s
 ## H  519     4                    10417.846434 9682.81219  7.06%  47.3    3s
-##    578    60 10382.2507   41  138 10417.8464 9728.49230  6.62%  59.5    5s
+##    627   109 10570.9775   87    4 10417.8464 9728.49230  6.62%  56.9    5s
 ## H  650   130                    10401.982397 9728.49230  6.47%  55.2    5s
 ## H  650   130                    10375.652090 9728.49230  6.24%  55.2    5s
 ## H  650   130                    10374.487430 9728.49230  6.23%  55.2    5s
@@ -872,15 +876,15 @@ function).</p>
 ## H 1627   977                    9998.5862207 9735.74190  2.63%  32.3    7s
 ## H 1627   966                    9983.5761260 9735.74190  2.48%  32.3    7s
 ## H 1950  1261                    9948.6785488 9737.24570  2.13%  32.0    8s
-##   2328  1639 10603.0551   51  323 9948.67855 9761.95086  1.88%  31.0   10s
-##   4289  2674 10561.0528   88  132 9948.67855 9849.42265  1.00%  28.1   15s
+##   2334  1645 10622.6237   57  284 9948.67855 9761.95086  1.88%  31.2   10s
+##   4233  2618 10191.6812   32  317 9948.67855 9849.42265  1.00%  27.6   15s
 ## 
 ## Cutting planes:
 ##   Cover: 1
 ##   MIR: 4
 ##   RLT: 8
 ## 
-## Explored 5272 nodes (141503 simplex iterations) in 16.60 seconds (27.24 work units)
+## Explored 5272 nodes (141503 simplex iterations) in 17.34 seconds (27.24 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 1000: 9948.68 9983.58 9998.59 ... 10947.2
@@ -1068,7 +1072,9 @@ solver to generate a prioritization.</p>
 ## │├•objective:   minimum set objective
 ## │├•penalties:
 ## ││└•1:          boundary penalties (`penalty` = 0.0005, `edge_factor` = 1, `formulation` = &quot;simple&quot;, …)
-## │├•targets:     relative targets (between 0.3 and 0.3})
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.3)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││├•1:          locked in constraints (317 planning units)
 ## ││└•2:          locked out constraints (1 planning units)
