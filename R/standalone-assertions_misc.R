@@ -42,12 +42,12 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
 #' @noRd
 is_budget_length <- function(x, budget) {
   (length(budget) == 1) ||
-  (length(budget) == number_of_zones(x))
+  (length(budget) == x$number_of_zones())
 }
 
 assertthat::on_failure(is_budget_length) <- function(call, env) {
   p <- eval(call$x, envir = env)
-  nz <- number_of_zones(p)
+  nz <- p$number_of_zones()
   budget_msg <- ifelse(
     nz == 1,
     "{.arg budget} must be a single numeric value.",
