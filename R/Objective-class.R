@@ -30,10 +30,9 @@ Objective <- R6::R6Class(
     has_weights = new_waiver(),
 
     #' @description
-    #' Specify default values for weights.
-    #' @param x [problem()] object.
+    #' Specify default value for the feature weights.
     #' @return A `numeric` value.
-    default_weights = function(x) {
+    default_weights = function() {
       1
     },
 
