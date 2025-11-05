@@ -2,7 +2,7 @@
 # repo: prioritizr/prioritizr
 # file: standalone-as_Matrix.R
 # dependencies: standalone-assertions_handlers.R
-# imports: [assertthat (>= 0.2.0)]
+# imports: [assertthat (>= 0.2.0), Matrix (>= 1.3-0)]
 # ---
 
 #' Convert to Matrix
