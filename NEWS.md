@@ -24,18 +24,14 @@
 - New `linear_interpolation()` function for linearly interpolating values.
 - New `as_km2()` and `as_per_km2()` functions to help with area-based
   calcultions.
-- New `as_Matrix()` function to assist with converting matrices to
-  to sparse matrix format. Although this function was previously only
-  provided as an internal function, it is now exported for public use.
 - Many of the internal functions used for parameter and data validation can now
   be used by other packages that depend on the _prioritizr_ package (e.g.,
-  `assert()`, `all_binary()`, `all_positive()`). The idea here is that
-  people developing packages that build on the _prioritizr_ package can
-  use these functions to streamline their developmental efforts,
-  while helping to avoid reverse dependency issues. To use these functions
-  in your own package, you can make a local copy of the desired _prioritizr_
-  functions in your package (i.e., a process known as code vendoring).
-  In particular, you can use the `usethis::use_standalone()`
+  `assert()`, `as_Matrix()`, `all_binary()`, `all_positive()`).
+  The idea here is that people developing packages that build on the
+  _prioritizr_ package can use these functions to streamline their
+  developmental efforts, while helping to avoid reverse dependency issues.
+  To use these functions in your own package, you can make a local copy of the
+  desired _prioritizr_ functions in your package (i.e., a process known as code vendoring). In particular, you can use the `usethis::use_standalone()`
   function to automatically make a copy of _prioritizr_ functions from the
   _prioritizr_ online code repository. For example,
   `usethis::use_standalone("prioritizr/prioritizr", file = "standalone-cli.R")`

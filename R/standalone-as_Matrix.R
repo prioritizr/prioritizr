@@ -29,7 +29,7 @@
 #' # display converted matrix
 #' print(m2)
 #'
-#' @export
+#' @noRd
 as_Matrix <- function(object, class) {
   # assert valid argument
   assert(

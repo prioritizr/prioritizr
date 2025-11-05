@@ -199,7 +199,6 @@ reference:
       - linear_interpolation
       - loglinear_interpolation
       - knit_print
-      - as_Matrix
       - as_km2
       - as_per_km2
 
