@@ -196,7 +196,7 @@ ConservationProblem <- R6::R6Class(
       cli_tree_component(
         objective_text,
         header = "{ch$v}{ch$j}{ch$b}objective:    ",
-        subheader = " {ch$v}",
+        subheader = "{ch$v}{ch$v}",
         width = 15
       )
       ## penalties
@@ -227,14 +227,16 @@ ConservationProblem <- R6::R6Class(
           penalties_text
         )
       }
+      ## feature
+      cli_vtext("{ch$v}{ch$j}{ch$b}features:")
       ## targets
       cli_vtext(
-       "{ch$v}{ch$j}{ch$b}targets:      ",
+        "{ch$v}{ch$v}{ch$j}{ch$b}targets:     ",
         targets_text
       )
       ## weights
       cli_vtext(
-       "{ch$v}{ch$j}{ch$b}weights:      ",
+        "{ch$v}{ch$v}{ch$l}{ch$b}weights:     ",
         weights_text
       )
       ## constraints
@@ -441,14 +443,16 @@ ConservationProblem <- R6::R6Class(
           penalties_text
         )
       }
+      ## feature
+      cli_vtext("{ch$v}{ch$j}{ch$b}features:")
       ## targets
       cli_vtext(
-        "{ch$v}{ch$j}{ch$b}targets:     ",
+        "{ch$v}{ch$v}{ch$j}{ch$b}targets:    ",
         targets_text
       )
       ## weights
       cli_vtext(
-        "{ch$v}{ch$j}{ch$b}weights:     ",
+        "{ch$v}{ch$v}{ch$l}{ch$b}weights:    ",
         weights_text
       )
       ## constraints
