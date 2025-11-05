@@ -243,7 +243,7 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
         has_weights = TRUE,
         has_targets = TRUE,
         data = list(budget = budget, tree = tree),
-        default_weights = function(x) {
+        default_weights = function() {
           0
         },
         apply = function(x, y, weights) {
