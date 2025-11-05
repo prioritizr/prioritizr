@@ -1,5 +1,9 @@
-#' @include internal.R
-NULL
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-as_Matrix.R
+# dependencies: standalone-assertions_handlers.R
+# imports: [assertthat (>= 0.2.0)]
+# ---
 
 #' Convert to Matrix
 #'

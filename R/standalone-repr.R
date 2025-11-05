@@ -1,7 +1,7 @@
 # ---
 # repo: prioritizr/prioritizr
 # file: standalone-repr.R
-# dependencies: [standalone-all_binary.R]
+# dependencies: [standalone-all_binary.R, standalone-as_Matrix.R]
 # imports: [methods, utils, Matrix (>= 1.3-0), cli (>= 3.6.0), terra (>= 1.8-54), sf (>= 1.0-12)]
 # ---
 

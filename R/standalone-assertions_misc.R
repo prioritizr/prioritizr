@@ -2,7 +2,7 @@
 # repo: prioritizr/prioritizr
 # file: standalone-assertions_class.R
 # dependencies: standalone-assertions_handlers.R
-# imports: [parallel, assertthat (>= 0.2.0), cli (>= 3.6.0), units (>= 0.8.7), prioritizr (>= 8.0.6)]
+# imports: [parallel, assertthat (>= 0.2.0), cli (>= 3.6.0), units (>= 0.8.7)]
 # ---
 
 #' Is thread count?
