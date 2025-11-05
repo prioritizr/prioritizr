@@ -262,6 +262,7 @@ Collate:
     'standalone-assertions_handlers.R'
     'standalone-assertions_raster.R'
     'standalone-assertions_sf.R'
+    'standalone-assertions_solvers.R'
     'standalone-assertions_vector.R'
     'standalone-cli.R'
     'standalone-get_crs.R'
