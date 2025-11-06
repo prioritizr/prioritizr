@@ -279,7 +279,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.499
+    ##      3.526
 
 ``` r
 # extract state message from the solver

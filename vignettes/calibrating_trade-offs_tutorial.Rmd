@@ -358,7 +358,7 @@ threshold <- ceiling(threshold)
 print(threshold)
 ```
 
-After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length -- as much as possible -- whilst ensuring that (i) the total cost of the prioritization does not exceed a given cost threshold, (ii) the representation targets for the features are met, and (iii) other considerations are met (e.g., locked in constraints). To achieve this, we will use the minimum penalties objective (i.e., `add_min_penalties_objective()`). This objective is specifically designed to enable the optimization process to evaluate competing solutions based only the penalties. As such, we can use it to perform hierachical multi-objective optimization.
+After generating the cost thresholds, we can use them to generate prioritizations. Specifically, we will generate prioritizations that aim to minimize total boundary length -- as much as possible -- whilst ensuring that (i) the total cost of the prioritization does not exceed a given cost threshold, (ii) the representation targets for the features are met, and (iii) other considerations are met (e.g., locked in constraints). To achieve this, we will use the minimum penalties objective (i.e., `add_min_penalties_objective()`). This objective is specifically designed to enable the optimization process to evaluate competing solutions based only the penalties. As such, we can use it to perform hierarchical multi-objective optimization.
 
 ```{r, fig.width = 7, fig.height = 5.0, results = "hide"}
 # define a problem with the boundary penalties

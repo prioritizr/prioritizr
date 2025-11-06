@@ -164,7 +164,7 @@ NULL
 #'
 #' Taylor C, Cadenhead N, Lindenmayer DB, Wintle BA (2017) Improving the design
 #' of a conservation reserve for a critically endangered species.
-#' *PLOS ONE*, 12:e0169629.
+#' *PLoS ONE*, 12:e0169629.
 #'
 #' Thomas CD, Cameron A, Green RE, Bakkenes M, Beaumont LJ, Collingham YC,
 #' Erasmus BFN, de Siqueira MF, Grainger A, Hannah L, Hughes L, Huntley B,

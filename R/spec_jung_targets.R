@@ -44,7 +44,7 @@ NULL
 #' then you may need to rescale these targets
 #' (e.g., based on the proportion of the
 #' species' distribution found within the study area) or consider an
-#' alterative target setting method.
+#' alternative target setting method.
 #' Please note that this function is provided as convenient method to
 #' set targets for problems with a single management zone, and cannot
 #' be used for those with multiple management zones.
