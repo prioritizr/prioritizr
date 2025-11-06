@@ -65,6 +65,64 @@ Please note that this function is provided as convenient method to
 set targets for problems with a single management zone, and cannot
 be used for those with multiple management zones.
 
+This target setting method involves calculating species representation
+targets based on aspirational goals for species recovery and persistence.
+For example, let's consider setting \code{probability_target = 0.95}.
+If a species has a large amount of its historical distribution
+remaining, then this probability target threshold may result in
+setting a species representation target that is equivalent to 90\% of the
+species' current distribution. Assuming that the assumptions
+that underpin this target setting method are correct (see below), such a
+probability target threshold would seek to prevent future habitat loss
+from causing this species to have a chance of persistence below 95\%.
+Additionally, if a threatened species has a relatively small amount
+of its historical distribution remaining and not enough habitat for this
+species remains to achieve a 95\% chance of persistence, then
+this probability target threshold may result in a setting species
+representation target that is equivalent to 100\% of the species' current
+distribution. In this case -- given the assumptions of this target setting
+method (see below) -- such a probability target threshold would seek
+to enable future species recovery efforts to secure a 95\%
+chance of persistence.
+
+To use this method effectively, probability target thresholds
+(i.e., \code{probability_targets}) will need to be set carefully.
+One option for setting such thresholds could be based on probabilities
+estimated for threat statuses associated with the Red List of
+Threatened Species by the International Union for the Conservation
+of Nature (IUCN).
+For example, Davis et al. (2018) estimated that species recognized as
+Least Concern on the Red List of
+Threatened Species by the International Union for the Conservation
+of Nature (IUCN) would have a 0.9983 probability of persistence
+(i.e., 99.83\% chance of persistence).
+If less a less ambitious goal is more practical,
+then probabilities of persistence for
+other threat statuses could be more appropriate (e.g., such as the
+probability estimated for the Vulnerable threat status).
+Similar to Davis et al. (2018), Gumbs et al. (2023) also estimated
+probabilities of extinction for threat statuses recognized the IUCN Red List
+of Threatened Species. For reference, we provide the probabilities of
+persistence estimated by Davis et al. (2018) and Gumbs et al. (2023) below.
+
+Davis et al. (2018) estimated the following probabilities of persistence.
+\itemize{
+\item Least Concern (LC) has \code{probability_targets = 0.9983}.
+\item Near Threatened (NT) has \code{probability_targets = 0.9859}.
+\item Vulnerable (VU) has \code{probability_targets = 0.9}.
+\item Endangered (EN) has \code{probability_targets = 0.3277}.
+\item Critically Endangered (CR) has \code{probability_targets = 0.001}.
+}
+
+Gumbs et al. (2023) estimated the following probabilities of persistence.
+\itemize{
+\item Least Concern (LC) has \code{probability_targets = 0.939375}.
+\item Near Threatened (NT) has \code{probability_targets = 0.87875}.
+\item Vulnerable (VU) has \code{probability_targets = 0.7575}.
+\item Endangered (EN) has \code{probability_targets = 0.515}.
+\item Critically Endangered (CR) has \code{probability_targets = 0.03}.
+}
+
 This target setting method relies heavily on assumptions.
 In particular, it is based on the assumption that -- for a given species --
 there is an
@@ -234,6 +292,10 @@ Brooks TM, Pimm SL, Oyugi JO (1999) Time lag between deforestation and bird
 extinction in tropical forest fragments. \emph{Conservation Biology},
 13:1140--1150.
 
+Davis M, Faurby S, Svenning J-C (2018) Mammal diversity will take millions
+of years to recover from the current biodiversity crisis.
+\emph{Proceedings of the National Academy of Sciences}, 115:11262--11267.
+
 Durán AP, Green JMH, West CD, Visconti P, Burgess ND, Virah‐Sawmy M,
 Balmford A (2020) A practical approach to measuring the biodiversity impacts
 of land conversion. \emph{Methods in Ecology and Evolution}, 11:910--921.
@@ -242,7 +304,14 @@ Eyres A, Ball TS, Dales M, Swinfield T, Arnell A, Baisero D, Durán AP, Green
 JMH, Green RE, Madhavapeddy A, Balmford A (2025) LIFE: A metric for mapping
 the impact of land-cover change on global extinctions.
 \emph{Philosophical Transactions of the Royal Society B: Biological Sciences},
-380: 20230327.
+380:20230327.
+
+Gumbs R, Gray CL, Böhm M, Burfield IJ, Couchman OR, Faith DP, Forest F,
+Hoffmann M, Isaac NJB, Jetz W, Mace GM, Mooers AO, Safi K, Scott O, Steel M,
+Tucker CM, Pearse WD, Owen NR, Rosindell J (2023) The EDGE2 protocol:
+Advancing the prioritisation of Evolutionarily Distinct and Globally
+Endangered species for practical conservation action. \emph{PLOS Biology},
+21:e3001991.
 
 Nogués‐Bravo D (2009) Predicting the past distribution of species climatic
 niches. Predicting the past distribution of species climatic niches.
