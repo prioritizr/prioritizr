@@ -119,6 +119,7 @@ plot(s, axes = FALSE, nr = 2)
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{decisions}},
 \code{\link{importance}},
 \code{\link{objectives}},

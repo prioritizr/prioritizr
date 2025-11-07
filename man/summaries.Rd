@@ -108,6 +108,7 @@ eval_asym_connectivity_summary(p, s, data = acm)
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

@@ -31,7 +31,48 @@ assertthat::on_failure(is_matrix_ish) <- function(call, env) {
   )
 }
 
-#' Is problem?
+#' Is single-objective or multi-objective conservation planning problem?
+#'
+#' Check if an object is a `ConservationProblem` object or a
+#' `MultiObjConservationProblem` object.
+#'
+#' @param x object.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_generic_conservation_problem <- function(x) {
+  is_conservation_problem(x) || is_multi_conservation_problem(x)
+}
+
+assertthat::on_failure(is_generic_conservation_problem) <- function(call, env) {
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must be a {.fn problem} or {.fn multi_problem} object."
+  )
+}
+
+#' Is multi-objective conservation planning problem?
+#'
+#' Check if an object is a `MultiObjConservationProblem` object.
+#'
+#' @param x object.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_multi_conservation_problem <- function(x) {
+  inherits(x, "MultiObjConservationProblem")
+}
+
+assertthat::on_failure(is_multi_conservation_problem) <- function(call, env) {
+  paste0(
+    "{.arg ", deparse(call$x),
+    "} must be a {.fn multi_problem} object."
+  )
+}
+
+#' Is conservation planning problem?
 #'
 #' Check if an object is a `ConservationProblem` object.
 #'
@@ -60,12 +101,8 @@ assertthat::on_failure(is_conservation_problem) <- function(call, env) {
     )
   } else {
     return(
-      c(
-        paste0(
-          "{.arg ", deparse(call$x),
-          "} must be a {.cls ConservationProblem}."
-        ),
-        "i" = "See {.fn problem} to create a new conservation problem."
+      paste0(
+        "{.arg ", deparse(call$x), "} must be a {.fn problem} object."
       )
     )
   }

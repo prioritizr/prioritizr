@@ -443,29 +443,12 @@ internal_eval_rank_importance <- function(x,
   }
   # compile problem after updating the objective
   opt <- compile.ConservationProblem(x)
-  # run presolve check to try to identify potential problems
-  if (run_checks) {
-    ## run checks
-    presolve_res <- internal_presolve_check(opt)
-    ## prepare message
-    msg <- presolve_res$msg
-    if (!isTRUE(force)) {
-      msg <- c(
-        msg,
-        "i" = paste(
-          "To ignore checks and attempt optimization anyway,",
-          "use {.code solve(force = TRUE)}."
-        )
-      )
-    }
-    ## determine if error or warning should be thrown
-    if (!isTRUE(force)) {
-      f <- assert
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
     } else {
-      f <- verify
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
-    ## throw error or warning if checks failed
-    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
   # run calculations for compiling problem
   x$solver$calculate(opt)

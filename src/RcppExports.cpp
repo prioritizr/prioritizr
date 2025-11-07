@@ -256,6 +256,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_optimization_problem_modelsense
+bool rcpp_set_optimization_problem_modelsense(SEXP x, std::string modelsense);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP xSEXP, SEXP modelsenseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type modelsense(modelsenseSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_modelsense(x, modelsense));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_optimization_problem_lb
 bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb);
 RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP xSEXP, SEXP lbSEXP) {
@@ -684,6 +696,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_branch_matrix(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_compile_multi_obj_problem
+Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x);
+RcppExport SEXP _prioritizr_rcpp_compile_multi_obj_problem(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_compile_multi_obj_problem(x));
     return rcpp_result_gen;
 END_RCPP
 }

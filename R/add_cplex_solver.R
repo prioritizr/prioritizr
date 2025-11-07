@@ -96,7 +96,7 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(threads)
   assert_required(verbose)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

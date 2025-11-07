@@ -65,4 +65,11 @@ test_that("all_elements_inherit", {
     assert(all_elements_inherit(list("a", 2), "character")),
     "elements"
   )
+
+test_that("is_multi_conservation_problem", {
+
+})
+
+test_that("is_generic_conservation_problem", {
+
 })

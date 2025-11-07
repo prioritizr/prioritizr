@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of total units in an object.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param ... not used.
 #'
@@ -53,6 +53,9 @@ NULL
 #'
 #' # print number of total units
 #' print(number_of_total_units(p2))
+#'
+#' # create multi-objective problem
+#' # TODO
 #' }
 #' @export
 number_of_total_units <- function(x, ...) {
@@ -65,5 +68,12 @@ number_of_total_units <- function(x, ...) {
 #'
 #' @export
 number_of_total_units.ConservationProblem <- function(x, ...) {
+  x$number_of_total_units()
+}
+
+#' @rdname number_of_total_units
+#'
+#' @export
+number_of_total_units.MultiObjConservationProblem <- function(x, ...) {
   x$number_of_total_units()
 }
