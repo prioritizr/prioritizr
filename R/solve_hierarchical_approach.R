@@ -42,8 +42,6 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
   # initialize variables
   prev_sol <- NULL
   
-  browser()
-  
   # solve the problem using the specified method
   if (identical(method, "gurobi")) {
     # assert first problem has Gurobi
