@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_duran_targets.R
 \name{spec_duran_targets}
 \alias{spec_duran_targets}
-\title{Specify targets following Duran \emph{et al.} (2020)}
+\title{Specify targets following Durán \emph{et al.} (2020)}
 \usage{
 spec_duran_targets(probability_target, historical_area, area_units)
 }
@@ -38,7 +38,7 @@ to add targets to a \code{\link[=problem]{problem()}}.
 }
 \description{
 Specify targets based on the methodology outlined by
-Duran \emph{et al.} (2020).
+Durán \emph{et al.} (2020).
 Briefly, this method involves using historical distribution
 data to infer the minimum amount of habitat required for a species to have
 a particular probability of persisting indefinitely.
@@ -48,7 +48,7 @@ and \code{\link[=add_group_targets]{add_group_targets()}}.
 \details{
 This target setting method is derived from a framework for estimating
 the impacts of anthropogenic activities at national and global scales
-(Duran \emph{et al.} 2020).
+(Durán \emph{et al.} 2020).
 It involves setting targets based on an estimate of the minimum amount of
 habitat required for a species to have a particular probability of
 persistence.

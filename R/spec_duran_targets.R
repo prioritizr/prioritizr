@@ -1,10 +1,10 @@
 #' @include internal.R ConservationProblem-class.R loglinear_interpolation.R
 NULL
 
-#' Specify targets following Duran *et al.* (2020)
+#' Specify targets following Durán *et al.* (2020)
 #'
 #' Specify targets based on the methodology outlined by
-#' Duran *et al.* (2020).
+#' Durán *et al.* (2020).
 #' Briefly, this method involves using historical distribution
 #' data to infer the minimum amount of habitat required for a species to have
 #' a particular probability of persisting indefinitely.
@@ -38,7 +38,7 @@ NULL
 #' @details
 #' This target setting method is derived from a framework for estimating
 #' the impacts of anthropogenic activities at national and global scales
-#' (Duran *et al.* 2020).
+#' (Durán *et al.* 2020).
 #' It involves setting targets based on an estimate of the minimum amount of
 #' habitat required for a species to have a particular probability of
 #' persistence.

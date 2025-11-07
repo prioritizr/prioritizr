@@ -189,7 +189,7 @@ Ecosystems (IUCN 2024).
 }
 
 \item{\code{\link[=spec_duran_targets]{spec_duran_targets()}}}{
-Specify targets following Duran \emph{et al.} (2020).
+Specify targets following Durán \emph{et al.} (2020).
 }
 
 \item{\code{\link[=spec_jung_targets]{spec_jung_targets()}}}{

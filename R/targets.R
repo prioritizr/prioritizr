@@ -188,7 +188,7 @@ NULL
 #' }
 #'
 #' \item{[spec_duran_targets()]}{
-#' Specify targets following Duran *et al.* (2020).
+#' Specify targets following Durán *et al.* (2020).
 #' }
 #'
 #' \item{[spec_jung_targets()]}{
