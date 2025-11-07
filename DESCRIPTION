@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 8.0.6.8
+Version: 8.1.0
 Title: Systematic Conservation Prioritization in R
 Description:
     Systematic conservation prioritization using mixed integer linear
@@ -20,7 +20,8 @@ Description:
     the 'cplexAPI' R package (available at <https://github.com/cran/cplexAPI>).
     Additionally, the 'rcbc' R package (available at
     <https://github.com/dirkschumacher/rcbc>) can be used to generate solutions
-    using the CBC optimization software (<https://github.com/coin-or/Cbc>). For further details, see Hanson et al. (2025) <doi:10.1111/cobi.14376>.
+    using the CBC optimization software (<https://github.com/coin-or/Cbc>). For
+    further details, see Hanson et al. (2025) <doi:10.1111/cobi.14376>.
 Authors@R:
     c(person(c('Jeffrey', 'O'), 'Hanson',
         email='jeffrey.hanson@uqconnect.edu.au', role = c('aut'),
@@ -55,6 +56,7 @@ Imports:
     rlang (>= 1.1.0),
     cli (>= 3.6.0),
     sf (>= 1.0-12),
+    units (>= 0.8.7),
     terra (>= 1.8-54),
     raster (>= 3.6.11),
     Matrix (>= 1.3-0),
@@ -96,20 +98,6 @@ RoxygenNote: 7.3.2
 Collate:
     'external-classes.R'
     'internal.R'
-    'assertions_class.R'
-    'assertions_sf.R'
-    'assertions_misc.R'
-    'assertions_raster.R'
-    'assertions_vector.R'
-    'any_nonzero.R'
-    'any_nonNA.R'
-    'all_proportion.R'
-    'all_positive.R'
-    'all_finite.R'
-    'all_columns_inherit.R'
-    'all_columns_any_finite.R'
-    'all_binary.R'
-    'assertions.R'
     'waiver.R'
     'ConservationModifier-class.R'
     'category_vector.R'
@@ -119,7 +107,6 @@ Collate:
     'Constraint-class.R'
     'Decision-class.R'
     'Objective-class.R'
-    'cli.R'
     'OptimizationProblem-class.R'
     'reexports.R'
     'OptimizationProblem-methods.R'
@@ -128,10 +115,15 @@ Collate:
     'RcppExports.R'
     'Solver-class.R'
     'Target-class.R'
+    'TargetMethod-class.R'
+    'Weight-class.R'
     'zones.R'
     'add_absolute_targets.R'
     'marxan_connectivity_data_to_matrix.R'
     'add_asym_connectivity_penalties.R'
+    'get_target_method.R'
+    'target_optimization_format.R'
+    'add_auto_targets.R'
     'add_binary_decisions.R'
     'marxan_boundary_data_to_matrix.R'
     'add_boundary_penalties.R'
@@ -142,11 +134,13 @@ Collate:
     'add_cplex_solver.R'
     'add_cuts_portfolio.R'
     'add_default_portfolio.R'
+    'standalone-assertions_misc.R'
     'add_default_solver.R'
     'add_extra_portfolio.R'
     'add_feature_contiguity_constraints.R'
     'add_feature_weights.R'
     'add_gap_portfolio.R'
+    'add_group_targets.R'
     'add_gurobi_solver.R'
     'add_highs_solver.R'
     'add_linear_constraints.R'
@@ -154,8 +148,6 @@ Collate:
     'intersecting_units.R'
     'add_locked_in_constraints.R'
     'add_locked_out_constraints.R'
-    'loglinear_interpolation.R'
-    'add_loglinear_targets.R'
     'add_lpsymphony_solver.R'
     'add_mandatory_allocation_constraints.R'
     'tbl_df.R'
@@ -181,7 +173,7 @@ Collate:
     'add_top_portfolio.R'
     'adjacency_matrix.R'
     'as.R'
-    'as_Matrix.R'
+    'as_units.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'calibrate_cohon_penalty.R'
@@ -200,7 +192,6 @@ Collate:
     'eval_n_summary.R'
     'presolve_check.R'
     'solve.R'
-    'is_spatial_extents_overlap.R'
     'problem.R'
     'eval_rank_importance.R'
     'eval_rare_richness_importance.R'
@@ -210,12 +201,10 @@ Collate:
     'fast_extract.R'
     'feature_abundances.R'
     'feature_names.R'
-    'get_crs.R'
     'importance.R'
-    'is_numeric_values.R'
-    'is_same_crs.R'
     'knit_print.R'
-    'list_text.R'
+    'linear_interpolation.R'
+    'loglinear_interpolation.R'
     'read_marxan_data.R'
     'read_marxan_parameters.R'
     'marxan_problem.R'
@@ -234,14 +223,53 @@ Collate:
     'print.R'
     'problem-deprecated.R'
     'proximity_matrix.R'
-    'repr.R'
     'rescale_matrix.R'
     'rij_matrix.R'
     'run_calculations.R'
     'show.R'
     'simulate.R'
     'solvers.R'
-    'st_geometry_classes.R'
+    'spec_absolute_targets.R'
+    'spec_area_targets.R'
+    'spec_duran_targets.R'
+    'spec_interp_absolute_targets.R'
+    'spec_interp_area_targets.R'
+    'spec_jung_targets.R'
+    'spec_max_targets.R'
+    'spec_min_targets.R'
+    'spec_polak_targets.R'
+    'spec_pop_size_targets.R'
+    'spec_relative_targets.R'
+    'spec_rl_ecosystem_targets.R'
+    'spec_rl_species_targets.R'
+    'spec_rodrigues_targets.R'
+    'spec_rule_targets.R'
+    'spec_ward_targets.R'
+    'spec_watson_targets.R'
+    'spec_wilson_targets.R'
+    'standalone-all_binary.R'
+    'standalone-all_columns_any_finite.R'
+    'standalone-all_columns_inherit.R'
+    'standalone-all_finite.R'
+    'standalone-all_positive.R'
+    'standalone-all_proportion.R'
+    'standalone-any_nonNA.R'
+    'standalone-any_nonzero.R'
+    'standalone-as_Matrix.R'
+    'standalone-assertions_ConservationProblem.R'
+    'standalone-assertions_class.R'
+    'standalone-assertions_functions.R'
+    'standalone-assertions_handlers.R'
+    'standalone-assertions_raster.R'
+    'standalone-assertions_sf.R'
+    'standalone-assertions_solvers.R'
+    'standalone-assertions_vector.R'
+    'standalone-cli.R'
+    'standalone-get_crs.R'
+    'standalone-is_numeric_values.R'
+    'standalone-is_same_crs.R'
+    'standalone-is_spatial_extents_overlap.R'
+    'standalone-repr.R'
     'summaries.R'
     'summary.R'
     'targets.R'

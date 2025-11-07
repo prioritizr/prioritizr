@@ -1,4 +1,4 @@
-test_that("add_absolute_targets (numeric(1), single zone)", {
+test_that("numeric(1) (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -7,7 +7,7 @@ test_that("add_absolute_targets (numeric(1), single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_absolute_targets(5)
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   print(p)
   expect_inherits(targets, "tbl_df")
@@ -22,7 +22,7 @@ test_that("add_absolute_targets (numeric(1), single zone)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
-test_that("add_absolute_targets (numeric(5), single zone)", {
+test_that("numeric(5) (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -31,7 +31,7 @@ test_that("add_absolute_targets (numeric(5), single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_absolute_targets(5:9)
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -45,7 +45,7 @@ test_that("add_absolute_targets (numeric(5), single zone)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
-test_that("add_absolute_targets (matrix, single zone)", {
+test_that("matrix (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -54,7 +54,7 @@ test_that("add_absolute_targets (matrix, single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_absolute_targets(matrix(5:9, ncol = 1))
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -68,7 +68,7 @@ test_that("add_absolute_targets (matrix, single zone)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
-test_that("add_absolute_targets (character, single zone)", {
+test_that("character (single zone)", {
   # simulate data
   pu <- data.frame(id = seq_len(10), cost = runif(10))
   species <- data.frame(
@@ -83,7 +83,7 @@ test_that("add_absolute_targets (character, single zone)", {
     problem(pu, species, rij, "cost") %>%
     add_absolute_targets("target")
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -97,7 +97,7 @@ test_that("add_absolute_targets (character, single zone)", {
   expect_equal(targets$sense, rep(">=", nrow(species)))
 })
 
-test_that("add_absolute_targets (invalid input, single zone)", {
+test_that("invalid input (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -117,7 +117,7 @@ test_that("add_absolute_targets (invalid input, single zone)", {
   expect_warning(add_absolute_targets(p, 1e+5))
 })
 
-test_that("add_absolute_targets (matrix, multiple zones)", {
+test_that("matrix (multiple zones)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -134,7 +134,7 @@ test_that("add_absolute_targets (matrix, multiple zones)", {
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_absolute_targets(m)
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -167,7 +167,7 @@ test_that("add_absolute_targets (matrix, multiple zones)", {
   )
 })
 
-test_that("add_absolute_targets (character, multiple zones)", {
+test_that("character (multiple zones)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10),
@@ -188,7 +188,7 @@ test_that("add_absolute_targets (character, multiple zones)", {
     problem(pu, species, rij, c("cost_1", "cost_2"), zone) %>%
     add_absolute_targets(c("target_1", "target_2"))
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -202,7 +202,7 @@ test_that("add_absolute_targets (character, multiple zones)", {
   expect_equal(targets$sense, rep(">=", 10))
 })
 
-test_that("add_absolute_targets (invalid input, multiple zones)", {
+test_that("invalid input (multiple zones)", {
   # simulate data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -249,7 +249,7 @@ test_that("add_absolute_targets (invalid input, multiple zones)", {
   expect_tidy_error(add_absolute_targets(p, c("target_1", "target_2")))
 })
 
-test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
+test_that("matrix (multiple zones, negative data)", {
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -271,7 +271,7 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
     "negative values"
   )
   # calculate absolute targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -301,5 +301,28 @@ test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
       number_of_zones(sim_zones_features) *
         number_of_features(sim_zones_features)
     )
+  )
+})
+
+test_that("warnings", {
+  # load data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # prepare data
+  sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_3 <- runif(nrow(sim_pu_polygons))
+  # create problem
+  p <-
+    problem(
+      sim_pu_polygons,
+      c("spp_1", "spp_2", "spp_3"),
+      cost_column = "cost",
+      feature_units = "km2"
+    ) %>%
+    add_min_set_objective()
+  # run tests
+  expect_warning(
+    add_absolute_targets(p, 1),
+    "spatial units"
   )
 })

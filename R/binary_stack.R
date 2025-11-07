@@ -76,14 +76,14 @@ binary_stack.SpatRaster <- function(x, keep_all = TRUE) {
   # create segregated raster
   y <- terra::segregate(
     x,
-    classes = seq_len(round(terra::global(x, "max", na.rm = TRUE)[[1]])),
+    classes = seq_len(round(terra::minmax(x, compute = TRUE)[2, 1])),
     keep = FALSE,
     round = TRUE
   )
 
   # if needed, remove empty layers
   if (!isTRUE(keep_all)) {
-    idx <- which(terra::global(y, "max", na.rm = TRUE)[[1]] > 0)
+    idx <- which(terra::minmax(y, compute = TRUE)[2, ] > 0)
     y <- y[[idx]]
   }
 

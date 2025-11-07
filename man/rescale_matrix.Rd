@@ -35,7 +35,39 @@ data prior to optimization (e.g., before using \code{\link[=add_boundary_penalti
 during optimization.
 }
 \examples{
-# TODO
+\dontrun{
+# rescale_matrix() is especially useful for re-scaling boundary length data
+# prior to optimization, and so here we provide an example showing how
+# this can be accomplished
+
+# set seed for reproducibility
+set.seed(500)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# compute boundary data
+bd <- boundary_matrix(sim_pu_raster)
+
+# re-scale boundary data
+bd <- rescale_matrix(bd)
+
+# create problem with boundary penalties
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_boundary_penalties(0.01, data = bd) \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s <- solve(p)
+
+# plot solution
+plot(s)
+}
 
 }
 \seealso{

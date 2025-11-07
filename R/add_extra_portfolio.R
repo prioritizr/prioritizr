@@ -120,7 +120,8 @@ add_extra_portfolio <- function(x) {
                   objective = z$objective,
                   status = z$status,
                   runtime = sol$runtime,
-                  gap = z$gap
+                  gap = z$gap,
+                  objbound = z$objbound
                 )
               )
             )

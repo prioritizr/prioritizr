@@ -65,7 +65,13 @@ it is also possible that the solution in this example
 -- even though it is actually 5\% from optimality -- might have a gap value
 of 7\% (i.e., 0.07). Note that only some solvers are able to
 provide this information (i.e., the \emph{Gurobi} and \emph{HiGHS} solvers),
-and the gap value for other solvers will contain missing (\code{NA}) values.
+and other solvers will have a missing (\code{NA}) value.
+}
+\item{\code{objbound}}{
+\code{numeric} best known bound of the optimal objective.
+Note that only some solvers are able to
+provide this information (i.e., the \emph{Gurobi} solvers),
+and other solvers will have a missing (\code{NA}) value.
 }
 }
 }

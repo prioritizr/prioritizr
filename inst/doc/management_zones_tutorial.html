@@ -466,7 +466,9 @@ are selected or not selected for protection.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.1 and 0.1)
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.1)
+## ││└•weights:    none specified
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -620,7 +622,9 @@ using the following code.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.05 and 0.1)
+## │├•features:
+## ││├•targets:    relative targets (between 0.05 and 0.1)
+## ││└•weights:    none specified
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -702,8 +706,8 @@ using the following code.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># value 1 (yellow) are allocated to &quot;zone 1&quot; and pixels with the value 2 (green)</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in gray are not allocated</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co"># value 1 (green) are allocated to &quot;zone 1&quot; and pixels with the value 2 (yellow)</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co"># are allocated to &quot;zone 2&quot;. Units depicted in purple are not allocated</span></span>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co"># to any zone.</span></span>
 <span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>  <span class="fu">category_layer</span>(s2), <span class="at">main =</span> <span class="st">&quot;solution&quot;</span>,</span>
@@ -755,7 +759,9 @@ example.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.05 and 0.1)
+## │├•features:
+## ││├•targets:    relative targets (between 0.05 and 0.1)
+## ││└•weights:    none specified
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -925,7 +931,9 @@ We can formulate and solve this problem using the following code.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     absolute targets (between 8 and 8)
+## │├•features:
+## ││├•targets:    absolute targets (all equal to 8)
+## ││└•weights:    none specified
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -1068,7 +1076,9 @@ third zone (baiting) to obtain a more useful solution.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     absolute targets (between 8 and 8)
+## │├•features:
+## ││├•targets:    absolute targets (all equal to 8)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
@@ -1217,8 +1227,10 @@ fragmented solutions.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
-## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
-## │├•targets:     absolute targets (between 8 and 8)
+## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = &quot;simple&quot;, …)
+## │├•features:
+## ││├•targets:    absolute targets (all equal to 8)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
@@ -1356,8 +1368,10 @@ unit.</p>
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
-## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, …)
-## │├•targets:     absolute targets (between 8 and 8)
+## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = &quot;simple&quot;, …)
+## │├•features:
+## ││├•targets:    absolute targets (all equal to 8)
+## ││└•weights:    none specified
 ## │├•constraints:
 ## ││├•1:          mandatory allocation constraints
 ## ││└•2:          manual locked constraints (80 planning units)

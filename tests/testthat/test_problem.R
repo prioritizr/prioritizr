@@ -2,6 +2,10 @@ test_that("x = SpatRaster, features = SpatRaster", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # define spatial properties
+  terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
+  terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  unit_factor <- prod(terra::res(sim_features)) / (1000 * 1000)
   # create problem
   x <- problem(sim_pu_raster, sim_features)
   # verify that object can be printed
@@ -29,14 +33,14 @@ test_that("x = SpatRaster, features = SpatRaster", {
     terra::cells(is.na(sim_pu_raster), 0)[[1]]
   )
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     sim_pu_raster[[1]][!is.na(sim_pu_raster)],
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), names(sim_pu_raster))
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(
@@ -54,7 +58,7 @@ test_that("x = SpatRaster, features = SpatRaster", {
     rownames(x$feature_abundances_in_planning_units()),
     x$feature_names()
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(terra::global(sim_features, "sum", na.rm = TRUE)[[1]], ncol = 1),
@@ -66,6 +70,21 @@ test_that("x = SpatRaster, features = SpatRaster", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    x$feature_names()
+  )
+  # test for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(terra::global(sim_features, "sum", na.rm = TRUE)[[1]], ncol = 1) *
+    unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    x$zone_names()
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     x$feature_names()
   )
   # tests for rij_matrix field
@@ -91,6 +110,13 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   sim_units_mask <- max(!is.na(sim_zones_pu_raster))
+  # define spatial properties
+  terra::crs(sim_zones_pu_raster) <- terra::crs("epsg:3857")
+  sim_zones_features <- set_zones_crs(
+    sim_zones_features, terra::crs("epsg:3857")
+  )
+  terra::crs(sim_units_mask) <- terra::crs(sim_zones_pu_raster)
+  unit_factor <- prod(terra::res(sim_zones_features[[1]])) / (1000 * 1000)
   # create problem
   x <- problem(sim_zones_pu_raster, sim_zones_features)
   # verify that object can be printed
@@ -116,7 +142,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
   )
   expect_equal(x$number_of_total_units(), terra::ncell(sim_zones_pu_raster))
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     sim_zones_pu_raster[min(is.na(sim_zones_pu_raster)) == 0],
@@ -126,7 +152,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     colnames(x$planning_unit_costs()),
     zone_names(sim_zones_features)
   )
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
@@ -145,7 +171,7 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
     rownames(x$feature_abundances_in_planning_units()),
     feature_names(sim_zones_features)
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
@@ -159,6 +185,23 @@ test_that("x = SpatRaster, features = ZonesSpatRaster", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    feature_names(sim_zones_features)
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    sapply(seq_len(terra::nlyr(sim_zones_pu_raster)), function(i) {
+      terra::global(sim_zones_features[[i]], "sum", na.rm = TRUE)[[1]] *
+      unit_factor
+    }),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    zone_names(sim_zones_features)
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     feature_names(sim_zones_features)
   )
   # tests for rij_matrix field
@@ -200,6 +243,12 @@ test_that("x = sf, features = SpatRaster", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_pu_polygons) <- sf::st_crs(3857)
+  )
+  terra::crs(sim_features) <- terra::crs("epsg:3857")
+  unit_factor <- prod(terra::res(sim_features)) / (1000 * 1000)
   # create problem
   x <- problem(sim_pu_polygons, sim_features, "cost")
   # verify that object can be printed
@@ -218,14 +267,14 @@ test_that("x = sf, features = SpatRaster", {
   expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(sim_pu_polygons$cost[!is.na(sim_pu_polygons$cost)], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "cost")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     Matrix::rowSums(x$data$rij_matrix[[1]]),
@@ -239,7 +288,7 @@ test_that("x = sf, features = SpatRaster", {
     rownames(x$feature_abundances_in_planning_units()),
     names(sim_features)
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -259,6 +308,28 @@ test_that("x = sf, features = SpatRaster", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    names(sim_features)
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        exactextractr::exact_extract(
+          sim_features, sim_pu_polygons, "sum", progress = FALSE
+        )
+      ) * unit_factor,
+      ncol = 1
+    ),
+    ignore_attr = TRUE,
+    tolerance = 1e-6
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     names(sim_features)
   )
   # tests for rij_matrix field
@@ -287,6 +358,14 @@ test_that("x = sf, features = ZonesSpatRaster", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_zones_pu_polygons) <- sf::st_crs("epsg:3857")
+  )
+  sim_zones_features <- set_zones_crs(
+    sim_zones_features, terra::crs("epsg:3857")
+  )
+  unit_factor <- prod(terra::res(sim_zones_features[[1]])) / (1000 * 1000)
   # update data
   sim_zones_pu_polygons[5, paste0("cost_", 1:3)] <- NA
   # create problem
@@ -310,7 +389,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     as.matrix(
@@ -322,7 +401,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     colnames(x$planning_unit_costs()),
     zone_names(sim_zones_features)
   )
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     sapply(seq_along(x$data$rij_matrix), function(i) {
@@ -341,7 +420,7 @@ test_that("x = sf, features = ZonesSpatRaster", {
     rownames(x$feature_abundances_in_planning_units()),
     feature_names(sim_zones_features)
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     sapply(
@@ -366,6 +445,33 @@ test_that("x = sf, features = ZonesSpatRaster", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    feature_names(sim_zones_features)
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    sapply(
+      lapply(
+        sim_zones_features,
+        function(x) {
+          terra::extract(
+            x, terra::vect(sim_zones_pu_polygons), "sum", na.rm = TRUE,
+            ID = FALSE
+          )
+        }
+      ),
+      colSums,
+      na.rm = TRUE
+    ) * unit_factor,
+    ignore_attr = TRUE,
+    tolerance = 1e-6
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    zone_names(sim_zones_features)
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     feature_names(sim_zones_features)
   )
   # tests for rij_matrix field
@@ -405,8 +511,13 @@ test_that("x = sf, features = character", {
   sim_pu_polygons$cost[2] <- NA
   sim_pu_polygons$spp1 <- runif(nrow(sim_pu_polygons))
   sim_pu_polygons$spp2 <- c(NA, rpois(nrow(sim_pu_polygons) - 1, 5))
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_pu_polygons) <- sf::st_crs(3875)
+  )
+  unit_factor <- as_km2(1, "ha")
   # create problem
-  x <- problem(sim_pu_polygons, c("spp1", "spp2"), "cost")
+  x <- problem(sim_pu_polygons, c("spp1", "spp2"), "cost", "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -424,14 +535,14 @@ test_that("x = sf, features = character", {
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(sim_pu_polygons))))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(sim_pu_polygons$cost[-2], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "cost")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(
@@ -451,7 +562,7 @@ test_that("x = sf, features = character", {
     rownames(x$feature_abundances_in_planning_units()),
     c("spp1", "spp2")
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -469,6 +580,26 @@ test_that("x = sf, features = character", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    c("spp1", "spp2")
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        sf::st_drop_geometry(sim_pu_polygons)[, c("spp1", "spp2")],
+        na.rm = TRUE
+      ) * unit_factor,
+      ncol = 1
+    ),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     c("spp1", "spp2")
   )
   # tests for rij_matrix field
@@ -513,6 +644,11 @@ test_that("x = sf, features = ZonesCharacter", {
   sim_zones_pu_polygons$spp1_2 <- runif(nrow(sim_zones_pu_polygons))
   sim_zones_pu_polygons$spp2_2 <- runif(nrow(sim_zones_pu_polygons))
   sim_zones_pu_polygons <- sim_zones_pu_polygons[1:5, ]
+  # define spatial properties
+  suppressWarnings(
+    sf::st_crs(sim_zones_pu_polygons) <- sf::st_crs(3875)
+  )
+  unit_factor <- as_km2(1, "ha")
   # create problem
   x <- problem(
     sim_zones_pu_polygons,
@@ -520,7 +656,8 @@ test_that("x = sf, features = ZonesCharacter", {
       c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2"),
       zone_names = c("z1", "z2"),
       feature_names = c("spp1", "spp2")),
-    c("cost_1", "cost_2")
+    c("cost_1", "cost_2"),
+    "ha"
   )
   # verify that object can be printed
   suppressMessages(print(x))
@@ -542,7 +679,7 @@ test_that("x = sf, features = ZonesCharacter", {
   )
   expect_equal(x$number_of_total_units(), nrow(sim_zones_pu_polygons))
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     as.matrix(
@@ -551,7 +688,7 @@ test_that("x = sf, features = ZonesCharacter", {
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), c("z1", "z2"))
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(
@@ -586,7 +723,7 @@ test_that("x = sf, features = ZonesCharacter", {
     rownames(x$feature_abundances_in_planning_units()),
     c("spp1", "spp2")
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -606,6 +743,28 @@ test_that("x = sf, features = ZonesCharacter", {
   )
   expect_equal(
     rownames(x$feature_abundances_in_total_units()),
+    c("spp1", "spp2")
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      colSums(
+        sf::st_drop_geometry(sim_zones_pu_polygons)[,
+          c("spp1_1", "spp2_1", "spp1_2", "spp2_2")
+        ],
+        na.rm = TRUE
+      ) * unit_factor,
+      ncol = 2
+    ),
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    c("z1", "z2")
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
     c("spp1", "spp2")
   )
   # tests for rij_matrix field
@@ -658,8 +817,9 @@ test_that("x = data.frame, features = character", {
     id = seq_len(10), cost = c(runif(1), NA, runif(8)),
     spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
+  unit_factor <- as_km2(1, "ha")
   # create problem
-  x <- problem(pu, c("spp1", "spp2"), "cost")
+  x <- problem(pu, c("spp1", "spp2"), "cost", "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -677,14 +837,14 @@ test_that("x = data.frame, features = character", {
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   expect_equal(x$total_unit_ids(), pu$id)
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(pu$cost[-2], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "cost")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(colSums(pu[-2, c("spp1", "spp2")], na.rm = TRUE), ncol = 1),
@@ -698,7 +858,7 @@ test_that("x = data.frame, features = character", {
     colnames(x$feature_abundances_in_planning_units()),
     c("cost")
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(colSums(pu[, c("spp1", "spp2")], na.rm = TRUE), ncol = 1),
@@ -710,6 +870,21 @@ test_that("x = data.frame, features = character", {
   )
   expect_equal(
     colnames(x$feature_abundances_in_total_units()),
+    c("cost")
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(colSums(pu[, c("spp1", "spp2")], na.rm = TRUE), ncol = 1) *
+    unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    c("spp1", "spp2")
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
     c("cost")
   )
   # tests for rij_matrix field
@@ -746,10 +921,11 @@ test_that("x = data.frame, features = ZonesCharacter", {
     spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
+  unit_factor <- as_km2(1, "ha")
   # create problem
   x <- problem(
     pu, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
-    c("cost_1", "cost_2")
+    c("cost_1", "cost_2"), "ha"
   )
   # verify that object can be printed
   suppressMessages(print(x))
@@ -768,13 +944,13 @@ test_that("x = data.frame, features = ZonesCharacter", {
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   expect_equal(x$total_unit_ids(), pu$id)
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     `colnames<-`(as.matrix(pu[-2, 2:3]), x$zone_names())
   )
   expect_equal(colnames(x$planning_unit_costs()), c("1", "2"))
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(
@@ -796,7 +972,7 @@ test_that("x = data.frame, features = ZonesCharacter", {
     colnames(x$feature_abundances_in_planning_units()),
     c("1", "2")
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(colSums(pu[, 4:7], na.rm = TRUE), ncol = 2),
@@ -808,6 +984,20 @@ test_that("x = data.frame, features = ZonesCharacter", {
   )
   expect_equal(
     colnames(x$feature_abundances_in_total_units()),
+    c("1", "2")
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(colSums(pu[, 4:7], na.rm = TRUE), ncol = 2) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    c("1", "2")
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
     c("1", "2")
   )
   # tests for rij_matrix field
@@ -853,8 +1043,9 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   species <- data.frame(id = seq_len(5), name = letters[1:5], targets = 0.5)
   rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
   rij$amount <- runif(nrow(rij))
+  unit_factor <- as_km2(1, "ha")
   # create problem
-  x <- problem(pu, species, rij, "cost")
+  x <- problem(pu, species, rij, "cost", feature_units = "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -870,14 +1061,14 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   expect_equal(x$total_unit_ids(), pu$id)
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(pu$cost[-2], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "cost")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   rij2 <- rij[rij$pu != 2, ]
   expect_equal(
     x$feature_abundances_in_planning_units(),
@@ -894,7 +1085,7 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   )
   expect_equal(rownames(x$feature_abundances_in_planning_units()), letters[1:5])
   expect_equal(colnames(x$feature_abundances_in_planning_units()), "cost")
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -910,6 +1101,28 @@ test_that("x = data.frame, features = data.frame (single zone)", {
   )
   expect_equal(rownames(x$feature_abundances_in_total_units()), letters[1:5])
   expect_equal(colnames(x$feature_abundances_in_total_units()), "cost")
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      Matrix::rowSums(
+        Matrix::sparseMatrix(
+          i = rij[[2]],
+          j = rij[[1]],
+          x = rij[[3]]
+        )
+      ),
+      dimnames = list(x$feature_names(), x$zone_names())
+    ) * unit_factor
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    letters[1:5]
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
   # tests for rij_matrix field
   rij2 <- rij[rij$pu != 2, ]
   rij2$pu <- match(rij2$pu, pu$id[-2])
@@ -943,8 +1156,9 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   )
   rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
   rij$amount <- runif(nrow(rij))
+  unit_factor <- as_km2(1, "ha")
   # create problem
-  x <- problem(pu, species, rij, "cost")
+  x <- problem(pu, species, rij, "cost", feature_units = "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -960,14 +1174,14 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   expect_equal(x$total_unit_ids(), pu$id)
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(pu$cost[-2], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "cost")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   rij2 <- rij[rij$pu != 2, ]
   expect_equal(
     x$feature_abundances_in_planning_units(),
@@ -984,7 +1198,7 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   )
   expect_equal(rownames(x$feature_abundances_in_planning_units()), letters[1:5])
   expect_equal(colnames(x$feature_abundances_in_planning_units()), "cost")
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -1000,6 +1214,28 @@ test_that("x = data.frame, features = data.frame (factor, single zone)", {
   )
   expect_equal(rownames(x$feature_abundances_in_total_units()), letters[1:5])
   expect_equal(colnames(x$feature_abundances_in_total_units()), "cost")
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      Matrix::rowSums(
+        Matrix::sparseMatrix(
+          i = rij[[2]],
+          j = rij[[1]],
+          x = rij[[3]]
+        )
+      ),
+      dimnames = list(x$feature_names(), x$zone_names())
+    ) * unit_factor
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    letters[1:5]
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "cost"
+  )
   # tests for rij_matrix field
   rij2 <- rij[rij$pu != 2, ]
   rij2$pu <- match(rij2$pu, pu$id[-2])
@@ -1035,8 +1271,9 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   rij <- expand.grid(pu = seq_len(9), species = seq_len(5), zone = 1:2)
   rij$amount <- runif(nrow(rij))
   z <- data.frame(id = 1:2, name = c("z1", "z2"))
+  unit_factor <- as_km2(1, "ha")
   # create problem
-  x <- problem(pu, species, rij, c("cost_1", "cost_2"), z)
+  x <- problem(pu, species, rij, c("cost_1", "cost_2"), z, "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -1052,13 +1289,13 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   expect_equal(x$total_unit_ids(), pu$id)
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     `colnames<-`(as.matrix(pu[-2, 2:3]), x$zone_names())
   )
   expect_equal(colnames(x$planning_unit_costs()), c("z1", "z2"))
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   rij2 <- rij
   rij2 <- rij2[!(rij2$pu %in% pu$id[is.na(pu$cost_1)] & rij2$zone == 1), ]
   rij2 <- rij2[!(rij2$pu %in% pu$id[is.na(pu$cost_2)] & rij2$zone == 2), ]
@@ -1078,7 +1315,7 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
     colnames(x$feature_abundances_in_planning_units()),
     c("z1", "z2")
   )
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -1093,6 +1330,23 @@ test_that("x = data.frame, features = data.frame (multiple zones)", {
   )
   expect_equal(
     colnames(x$feature_abundances_in_total_units()),
+    c("z1", "z2")
+  )
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      aggregate(rij[[4]], by = list(rij[[2]], rij[[3]]), sum)[[3]],
+      ncol = 2
+    ) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    letters[1:5]
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
     c("z1", "z2")
   )
   # tests for rij_matrix field
@@ -1141,8 +1395,9 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   # create problem
   x <- problem(
     pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-    as.matrix(t(pu[, 3:4]))
+    as.matrix(t(pu[, 3:4])), feature_units = "ha"
   )
+  unit_factor <- as_km2(1, "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -1160,14 +1415,14 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
   expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     matrix(pu$cost[-2], ncol = 1),
     ignore_attr = TRUE
   )
   expect_equal(colnames(x$planning_unit_costs()), "1")
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     rowSums(t(pu[-2, 3:4]), na.rm = TRUE),
@@ -1178,7 +1433,7 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
     c("spp1", "spp2")
   )
   expect_equal(colnames(x$feature_abundances_in_planning_units()), "1")
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(
@@ -1191,6 +1446,22 @@ test_that("x = numeric, features = data.frame, rij_matrix = matrix", {
     c("spp1", "spp2")
   )
   expect_equal(colnames(x$feature_abundances_in_total_units()), "1")
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(
+      rowSums(t(pu[, 3:4]), na.rm = TRUE) * unit_factor,
+      dimnames = list(x$feature_names(), x$zone_names())
+    )
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    c("spp1", "spp2")
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    "1"
+  )
   # tests for rij_matrix field
   expect_equal(names(x$data$rij_matrix), "1")
   expect_equal(
@@ -1226,8 +1497,10 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   x <- problem(
     as.matrix(pu[, 2:3]),
     data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-    list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+    list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7]))),
+    "ha"
   )
+  unit_factor <- as_km2(1, "ha")
   # verify that object can be printed
   suppressMessages(print(x))
   suppressMessages(summary(x))
@@ -1245,7 +1518,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
   expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   expect_error(x$total_unit_ids())
-  # tests for planning_unit_costs field
+  # tests for planning_unit_costs method
   expect_equal(
     x$planning_unit_costs(),
     {
@@ -1256,7 +1529,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
     }
   )
   expect_equal(colnames(x$planning_unit_costs()), c("1", "2"))
-  # tests for feature_abundances_in_planning_units field
+  # tests for feature_abundances_in_planning_units method
   expect_equal(
     x$feature_abundances_in_planning_units(),
     matrix(
@@ -1275,7 +1548,7 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
     c("spp1", "spp2")
   )
   expect_equal(colnames(x$feature_abundances_in_planning_units()), c("1", "2"))
-  # tests for feature_abundances_in_total_units field
+  # tests for feature_abundances_in_total_units method
   expect_equal(
     x$feature_abundances_in_total_units(),
     matrix(colSums(pu[, 4:7], na.rm = TRUE), ncol = 2),
@@ -1286,6 +1559,20 @@ test_that("x = matrix, features = data.frame, rij_matrix = matrix", {
     c("spp1", "spp2")
   )
   expect_equal(colnames(x$feature_abundances_in_total_units()), c("1", "2"))
+  # tests for feature_abundances_km2_in_total_units method
+  expect_equal(
+    x$feature_abundances_km2_in_total_units(),
+    matrix(colSums(pu[, 4:7], na.rm = TRUE), ncol = 2) * unit_factor,
+    ignore_attr = TRUE
+  )
+  expect_equal(
+    rownames(x$feature_abundances_km2_in_total_units()),
+    c("spp1", "spp2")
+  )
+  expect_equal(
+    colnames(x$feature_abundances_km2_in_total_units()),
+    c("1", "2")
+  )
   # tests for rij_matrix field
   expect_equal(names(x$data$rij_matrix), c("1", "2"))
   expect_equal(
@@ -1333,12 +1620,14 @@ test_that("x = matrix, features = data.frame, rij_matrix = dgCMatrix", {
   x1 <- problem(
     as.matrix(pu[, 2:3]),
     data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-    rij_matrix = rij
+    rij_matrix = rij,
+    feature_units = "ha"
   )
   x2 <- problem(
     as.matrix(pu[, 2:3]),
     data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-    rij_matrix = lapply(rij, as_Matrix, "dgCMatrix")
+    rij_matrix = lapply(rij, as_Matrix, "dgCMatrix"),
+    feature_units = "ha"
   )
   # verify that object can be printed
   suppressMessages(print(x1))
@@ -1395,6 +1684,39 @@ test_that("invalid problem inputs (all planning units have NA costs)", {
   expect_tidy_error(
     problem(sf::st_drop_geometry(sim_pu_polygons), c("spp_1", "spp_2"), "cost"),
     "missing"
+  )
+})
+
+test_that("invalid problem inputs (feature_units)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_pu_polygons$spp_1 <- 1
+  sim_pu_polygons$spp_2 <- 1
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # tests
+  expect_tidy_error(
+    problem(sim_pu_raster, sim_features, feature_units = "g"),
+    "feature_units"
+  )
+  expect_tidy_error(
+    problem(sim_pu_polygons, sim_features, "cost", feature_units = "g"),
+    "feature_units"
+  )
+  expect_tidy_error(
+    problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost", feature_units = "g"),
+    "area"
+  )
+  expect_tidy_error(
+    problem(sim_pu_polygons, c("spp_1", "spp_2"), "cost", feature_units = "g"),
+    "area"
+  )
+  expect_tidy_error(
+    problem(
+      sf::st_drop_geometry(sim_pu_polygons),
+      c("spp_1", "spp_2"), "cost", feature_units = "g"
+    ),
+    "area"
   )
 })
 
@@ -1540,14 +1862,6 @@ test_that("warnings on overriding components", {
   )
   expect_warning(
     add_absolute_targets(p, 3),
-    "targets"
-  )
-  expect_warning(
-    add_relative_targets(p, 0.1),
-    "targets"
-  )
-  expect_warning(
-    add_loglinear_targets(p, 10, 1, 35, 0.1),
     "targets"
   )
   expect_warning(

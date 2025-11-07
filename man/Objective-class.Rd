@@ -18,11 +18,24 @@ Other classes:
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
 \code{\link{Solver-class}},
-\code{\link{Target-class}}
+\code{\link{Target-class}},
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Super class}{
 \code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Objective}
+}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{has_targets}}{\code{logical} value indicating if the objective
+supports targets.}
+
+\item{\code{has_weights}}{\code{logical} value indicating if the objective
+supports feature weights.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -50,20 +63,13 @@ Other classes:
 \if{html}{\out{<a id="method-Objective-default_weights"></a>}}
 \if{latex}{\out{\hypertarget{method-Objective-default_weights}{}}}
 \subsection{Method \code{default_weights()}}{
-Specify default values for weights.
+Specify default value for the feature weights.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights(x)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Objective$default_weights()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{\link[=problem]{problem()}} object.}
-}
-\if{html}{\out{</div>}}
-}
 \subsection{Returns}{
-Invisible \code{TRUE}.
+A \code{numeric} value.
 }
 }
 \if{html}{\out{<hr>}}

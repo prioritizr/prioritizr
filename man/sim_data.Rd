@@ -24,6 +24,11 @@
 \alias{get_sim_features}
 \alias{get_sim_zones_features}
 \alias{get_sim_phylogeny}
+\alias{get_sim_complex_pu_raster}
+\alias{get_sim_complex_locked_in_raster}
+\alias{get_sim_complex_locked_out_raster}
+\alias{get_sim_complex_features}
+\alias{get_sim_complex_historical_features}
 \title{Get simulated conservation planning data}
 \format{
 \describe{
@@ -74,16 +79,26 @@ get_sim_features()
 get_sim_zones_features()
 
 get_sim_phylogeny()
+
+get_sim_complex_pu_raster()
+
+get_sim_complex_locked_in_raster()
+
+get_sim_complex_locked_out_raster()
+
+get_sim_complex_features()
+
+get_sim_complex_historical_features()
 }
 \description{
 A set of functions are available for importing simulated datasets. These
 datasets are designed for creating small example spatial prioritizations.
 }
-\section{Single zone datasets}{
+\section{Small-scale single zone datasets}{
 
 
-The following functions are provided for generating spatial prioritizations
-that only contain a single management zone.
+The following functions are provided for generating small-scale spatial
+prioritizations that only contain a single management zone.
 
 \describe{
 
@@ -128,7 +143,52 @@ Here, data describe the spatial distribution of five species.
 Each layer corresponds to a different species, and
 cell values indicate habitat suitability.}
 
-\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the ten species.}
+\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the five species.}
+
+}
+}
+
+\section{Complex single zone datasets}{
+
+
+The following functions are provided for generating spatial
+prioritizations based on a complex dataset that contains a single management
+zone.
+
+\describe{
+
+\item{\code{get_sim_complex_pu_raster()}}{
+Import planning unit data that are stored in raster format.
+Here, cell values indicate planning unit cost and missing (\code{NA})
+values indicate that a cell is not a planning unit.}
+
+\item{\code{get_sim_complex_locked_in_raster()}}{
+Import planning unit data
+that are stored in raster format.
+Here, cell values are binary and indicate if planning units should be
+locked in to a solution.}
+
+\item{\code{get_sim_complex_locked_out_raster()}}{
+Import planning unit data
+that are stored in raster format.
+Here, cell values are binary and indicate if planning units
+should be locked out from a solution.}
+
+\item{\code{get_sim_complex_features()}}{
+Import feature data stored in raster
+format.
+Here, data describe the spatial distribution of 100 species.
+Each layer corresponds to a different species, and
+cells contain binary values indicating if they currently contain
+habitat for a given species.}
+
+\item{\code{get_sim_complex_historical_features()}}{
+Import potential feature data
+stored in raster format.
+Here, data describe the spatial distribution of 100 species.
+Each layer corresponds to a different species, and
+cells contain binary values indicating if they historically contained
+habitat for a given species.}
 
 }
 }

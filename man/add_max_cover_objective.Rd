@@ -165,7 +165,7 @@ covering location problem. \emph{Biological Conservation}, 76: 105--112.
 See \link{objectives} for an overview of all functions for adding objectives.
 Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
 
-Other objectives: 
+Other functions for adding objectives:
 \code{\link{add_max_features_objective}()},
 \code{\link{add_max_phylo_div_objective}()},
 \code{\link{add_max_phylo_end_objective}()},

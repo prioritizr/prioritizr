@@ -138,11 +138,14 @@ add_min_shortfall_objective <- function(x, budget) {
       inherit = Objective,
       public = list(
         name = "minimum shortfall objective",
+        has_weights = TRUE,
+        has_targets = TRUE,
         data = list(budget = budget),
-        apply = function(x, y) {
+        apply = function(x, y, weights) {
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
+            is.numeric(weights),
             .internal = TRUE
           )
           invisible(
@@ -150,7 +153,8 @@ add_min_shortfall_objective <- function(x, budget) {
               x$ptr,
               y$feature_targets(),
               y$planning_unit_costs(),
-              self$get_data("budget")
+              self$get_data("budget"),
+              weights
             )
           )
         }

@@ -27,7 +27,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +89,9 @@ with them (e.g., <code><a href="number_of_features.html">number_of_features()</a
 <code><a href="Penalty-class.html">Penalty-class</a></code>,
 <code><a href="Portfolio-class.html">Portfolio-class</a></code>,
 <code><a href="Solver-class.html">Solver-class</a></code>,
-<code><a href="Target-class.html">Target-class</a></code></p></div>
+<code><a href="Target-class.html">Target-class</a></code>,
+<code><a href="TargetMethod-class.html">TargetMethod-class</a></code>,
+<code><a href="Weight-class.html">Weight-class</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
@@ -114,6 +116,11 @@ for the problem formulation.</p></dd>
 <dt><code>targets</code></dt>
 <dd><p><code><a href="Target-class.html">Target</a></code> object specifying the representation
 targets for the problem formulation.</p></dd>
+
+
+<dt><code>weights</code></dt>
+<dd><p><code><a href="Weight-class.html">Weight</a></code> object specifying the feature weights
+for the problem formulation.</p></dd>
 
 
 <dt><code>constraints</code></dt>
@@ -169,13 +176,18 @@ generating solutions.</p></dd>
 <li><p><a href="#method-ConservationProblem-feature_positive_abundances_in_planning_units"><code>ConservationProblem$feature_positive_abundances_in_planning_units()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-set_feature_positive_abundances_in_planning_units"><code>ConservationProblem$set_feature_positive_abundances_in_planning_units()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-feature_abundances_in_total_units"><code>ConservationProblem$feature_abundances_in_total_units()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-feature_units"><code>ConservationProblem$feature_units()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-feature_abundances_km2_in_total_units"><code>ConservationProblem$feature_abundances_km2_in_total_units()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-set_feature_abundances_km2_in_total_units"><code>ConservationProblem$set_feature_abundances_km2_in_total_units()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-feature_targets"><code>ConservationProblem$feature_targets()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-feature_weights"><code>ConservationProblem$feature_weights()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-has_negative_feature_data"><code>ConservationProblem$has_negative_feature_data()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-number_of_zones"><code>ConservationProblem$number_of_zones()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-zone_names"><code>ConservationProblem$zone_names()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_portfolio"><code>ConservationProblem$add_portfolio()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_solver"><code>ConservationProblem$add_solver()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_targets"><code>ConservationProblem$add_targets()</code></a></p></li>
+<li><p><a href="#method-ConservationProblem-add_weights"><code>ConservationProblem$add_weights()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_objective"><code>ConservationProblem$add_objective()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_decisions"><code>ConservationProblem$add_decisions()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-add_constraint"><code>ConservationProblem$add_constraint()</code></a></p></li>
@@ -183,7 +195,7 @@ generating solutions.</p></dd>
 <li><p><a href="#method-ConservationProblem-remove_all_penalties"><code>ConservationProblem$remove_all_penalties()</code></a></p></li>
 <li><p><a href="#method-ConservationProblem-clone"><code>ConservationProblem$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-ConservationProblem-new"></a><div class="section">
-<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<h3 id="method-new-">Method <code><a href="https://rdrr.io/r/methods/new.html" class="external-link">new()</a></code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
 <p>Create a new conservation problem object.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/ConservationProblem-class.html">ConservationProblem</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div><p></p></div>
@@ -540,58 +552,116 @@ the planning units.</p><div class="section">
 and each row corresponds to a different feature.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-feature_targets"></a><div class="section">
-<h3 id="method-feature-targets-">Method <code>feature_targets()</code><a class="anchor" aria-label="anchor" href="#method-feature-targets-"></a></h3>
-<p>Obtain the representation targets for the features.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-feature_units"></a><div class="section">
+<h3 id="method-feature-units-">Method <code>feature_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-units-"></a></h3>
+<p>Obtain the units of the features.</p><div class="section">
 <h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_targets</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="returns-25">Returns<a class="anchor" aria-label="anchor" href="#returns-25"></a></h4>
+<p>A <code>character</code> value. Each element corresponds to a different
+feature.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_abundances_km2_in_total_units"></a><div class="section">
+<h3 id="method-feature-abundances-km-in-total-units-">Method <code>feature_abundances_km2_in_total_units()</code><a class="anchor" aria-label="anchor" href="#method-feature-abundances-km-in-total-units-"></a></h3>
+<p>Obtain the abundance of the features in area-based units of
+km<sup>2</sup>.</p><div class="section">
+<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_abundances_km2_in_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h4>
+<p>Note that if a feature has missing (<code>NA</code>) units
+then missing values are returned.</p>
+</div>
+
+<div class="section">
+<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
+<p>A <code>numeric</code> matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-set_feature_abundances_km2_in_total_units"></a><div class="section">
+<h3 id="method-set-feature-abundances-km-in-total-units-">Method <code>set_feature_abundances_km2_in_total_units()</code><a class="anchor" aria-label="anchor" href="#method-set-feature-abundances-km-in-total-units-"></a></h3>
+<p>Perform calculations to cache the abundance of the features in
+area-based units of km<sup>2</sup>.</p><div class="section">
+<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">set_feature_abundances_km2_in_total_units</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
+<p>Invisible <code>TRUE</code>.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_targets"></a><div class="section">
+<h3 id="method-feature-targets-">Method <code>feature_targets()</code><a class="anchor" aria-label="anchor" href="#method-feature-targets-"></a></h3>
+<p>Obtain the representation targets for the features.</p><div class="section">
+<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_targets</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-28">Returns<a class="anchor" aria-label="anchor" href="#returns-28"></a></h4>
+<p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> data frame.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-feature_weights"></a><div class="section">
+<h3 id="method-feature-weights-">Method <code>feature_weights()</code><a class="anchor" aria-label="anchor" href="#method-feature-weights-"></a></h3>
+<p>Obtain the weights for the features.</p><div class="section">
+<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">feature_weights</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="returns-29">Returns<a class="anchor" aria-label="anchor" href="#returns-29"></a></h4>
 <p>A <code><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble::tibble()</a></code> data frame.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-has_negative_feature_data"></a><div class="section">
 <h3 id="method-has-negative-feature-data-">Method <code>has_negative_feature_data()</code><a class="anchor" aria-label="anchor" href="#method-has-negative-feature-data-"></a></h3>
 <p>See if the feature data contain any negative values.</p><div class="section">
-<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">has_negative_feature_data</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
+<h4 id="returns-30">Returns<a class="anchor" aria-label="anchor" href="#returns-30"></a></h4>
 <p>A <code>logical</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-number_of_zones"></a><div class="section">
 <h3 id="method-number-of-zones-">Method <code><a href="number_of_zones.html">number_of_zones()</a></code><a class="anchor" aria-label="anchor" href="#method-number-of-zones-"></a></h3>
 <p>Obtain the number of zones.</p><div class="section">
-<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
+<h4 id="usage-31">Usage<a class="anchor" aria-label="anchor" href="#usage-31"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">number_of_zones</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
+<h4 id="returns-31">Returns<a class="anchor" aria-label="anchor" href="#returns-31"></a></h4>
 <p>An <code>integer</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-zone_names"></a><div class="section">
 <h3 id="method-zone-names-">Method <code><a href="zone_names.html">zone_names()</a></code><a class="anchor" aria-label="anchor" href="#method-zone-names-"></a></h3>
 <p>Obtain the zone names.</p><div class="section">
-<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
+<h4 id="usage-32">Usage<a class="anchor" aria-label="anchor" href="#usage-32"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">zone_names</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="returns-28">Returns<a class="anchor" aria-label="anchor" href="#returns-28"></a></h4>
+<h4 id="returns-32">Returns<a class="anchor" aria-label="anchor" href="#returns-32"></a></h4>
 <p>A <code>character</code> vector.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-add_portfolio"></a><div class="section">
 <h3 id="method-add-portfolio-">Method <code>add_portfolio()</code><a class="anchor" aria-label="anchor" href="#method-add-portfolio-"></a></h3>
 <p>Create a new object with a portfolio added to the problem formulation.</p><div class="section">
-<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
+<h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_portfolio</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -604,14 +674,14 @@ and each row corresponds to a different feature.</p>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-29">Returns<a class="anchor" aria-label="anchor" href="#returns-29"></a></h4>
+<h4 id="returns-33">Returns<a class="anchor" aria-label="anchor" href="#returns-33"></a></h4>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-add_solver"></a><div class="section">
 <h3 id="method-add-solver-">Method <code>add_solver()</code><a class="anchor" aria-label="anchor" href="#method-add-solver-"></a></h3>
 <p>Create a new object with a solver added to the problem formulation.</p><div class="section">
-<h4 id="usage-30">Usage<a class="anchor" aria-label="anchor" href="#usage-30"></a></h4>
+<h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_solver</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -624,14 +694,14 @@ and each row corresponds to a different feature.</p>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-30">Returns<a class="anchor" aria-label="anchor" href="#returns-30"></a></h4>
+<h4 id="returns-34">Returns<a class="anchor" aria-label="anchor" href="#returns-34"></a></h4>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
 </div><p></p><hr><a id="method-ConservationProblem-add_targets"></a><div class="section">
 <h3 id="method-add-targets-">Method <code>add_targets()</code><a class="anchor" aria-label="anchor" href="#method-add-targets-"></a></h3>
 <p>Create a new object with targets added to the problem formulation.</p><div class="section">
-<h4 id="usage-31">Usage<a class="anchor" aria-label="anchor" href="#usage-31"></a></h4>
+<h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_targets</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -644,102 +714,21 @@ and each row corresponds to a different feature.</p>
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-31">Returns<a class="anchor" aria-label="anchor" href="#returns-31"></a></h4>
+<h4 id="returns-35">Returns<a class="anchor" aria-label="anchor" href="#returns-35"></a></h4>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-add_objective"></a><div class="section">
-<h3 id="method-add-objective-">Method <code>add_objective()</code><a class="anchor" aria-label="anchor" href="#method-add-objective-"></a></h3>
-<p>Create a new object with an objective added to the problem formulation.</p><div class="section">
-<h4 id="usage-32">Usage<a class="anchor" aria-label="anchor" href="#usage-32"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_objective</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><hr><a id="method-ConservationProblem-add_weights"></a><div class="section">
+<h3 id="method-add-weights-">Method <code>add_weights()</code><a class="anchor" aria-label="anchor" href="#method-add-weights-"></a></h3>
+<p>Create a new object with weights added to the problem formulation.</p><div class="section">
+<h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_weights</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Objective-class.html">Objective</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-32">Returns<a class="anchor" aria-label="anchor" href="#returns-32"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_decisions"></a><div class="section">
-<h3 id="method-add-decisions-">Method <code>add_decisions()</code><a class="anchor" aria-label="anchor" href="#method-add-decisions-"></a></h3>
-<p>Create a new object with decisions added to the problem formulation.</p><div class="section">
-<h4 id="usage-33">Usage<a class="anchor" aria-label="anchor" href="#usage-33"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_decisions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Decision-class.html">Decision</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-33">Returns<a class="anchor" aria-label="anchor" href="#returns-33"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_constraint"></a><div class="section">
-<h3 id="method-add-constraint-">Method <code>add_constraint()</code><a class="anchor" aria-label="anchor" href="#method-add-constraint-"></a></h3>
-<p>Create a new object with a constraint added to the problem formulation.</p><div class="section">
-<h4 id="usage-34">Usage<a class="anchor" aria-label="anchor" href="#usage-34"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Constraint-class.html">Constraint</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-34">Returns<a class="anchor" aria-label="anchor" href="#returns-34"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-add_penalty"></a><div class="section">
-<h3 id="method-add-penalty-">Method <code>add_penalty()</code><a class="anchor" aria-label="anchor" href="#method-add-penalty-"></a></h3>
-<p>Create a new object with a penalty added to the problem formulation.</p><div class="section">
-<h4 id="usage-35">Usage<a class="anchor" aria-label="anchor" href="#usage-35"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_penalty</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><a href="Penalty-class.html">Penalty</a> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
-<div class="section">
-<h4 id="returns-35">Returns<a class="anchor" aria-label="anchor" href="#returns-35"></a></h4>
-<p>An updated <code>ConservationProblem</code> object.</p>
-</div>
-
-</div><p></p><hr><a id="method-ConservationProblem-remove_all_penalties"></a><div class="section">
-<h3 id="method-remove-all-penalties-">Method <code>remove_all_penalties()</code><a class="anchor" aria-label="anchor" href="#method-remove-all-penalties-"></a></h3>
-<p>Create a new object without any penalties.</p><div class="section">
-<h4 id="usage-36">Usage<a class="anchor" aria-label="anchor" href="#usage-36"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">remove_all_penalties</span><span class="op">(</span>retain <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>retain</code></dt>
-<dd><p><code>character</code> vector of classes to retain. Defaults to
-<code>NULL</code> such that all penalties are excluded.</p></dd>
+<dd><p><a href="Weight-class.html">Weight</a> object.</p></dd>
 
 
 </dl><p></p></div>
@@ -749,15 +738,116 @@ and each row corresponds to a different feature.</p>
 <p>An updated <code>ConservationProblem</code> object.</p>
 </div>
 
-</div><p></p><hr><a id="method-ConservationProblem-clone"></a><div class="section">
-<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
-<p>The objects of this class are cloneable with this method.</p><div class="section">
+</div><p></p><hr><a id="method-ConservationProblem-add_objective"></a><div class="section">
+<h3 id="method-add-objective-">Method <code>add_objective()</code><a class="anchor" aria-label="anchor" href="#method-add-objective-"></a></h3>
+<p>Create a new object with an objective added to the problem formulation.</p><div class="section">
 <h4 id="usage-37">Usage<a class="anchor" aria-label="anchor" href="#usage-37"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_objective</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-8">Arguments<a class="anchor" aria-label="anchor" href="#arguments-8"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Objective-class.html">Objective</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-37">Returns<a class="anchor" aria-label="anchor" href="#returns-37"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_decisions"></a><div class="section">
+<h3 id="method-add-decisions-">Method <code>add_decisions()</code><a class="anchor" aria-label="anchor" href="#method-add-decisions-"></a></h3>
+<p>Create a new object with decisions added to the problem formulation.</p><div class="section">
+<h4 id="usage-38">Usage<a class="anchor" aria-label="anchor" href="#usage-38"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_decisions</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-9">Arguments<a class="anchor" aria-label="anchor" href="#arguments-9"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Decision-class.html">Decision</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-38">Returns<a class="anchor" aria-label="anchor" href="#returns-38"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_constraint"></a><div class="section">
+<h3 id="method-add-constraint-">Method <code>add_constraint()</code><a class="anchor" aria-label="anchor" href="#method-add-constraint-"></a></h3>
+<p>Create a new object with a constraint added to the problem formulation.</p><div class="section">
+<h4 id="usage-39">Usage<a class="anchor" aria-label="anchor" href="#usage-39"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_constraint</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-10">Arguments<a class="anchor" aria-label="anchor" href="#arguments-10"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Constraint-class.html">Constraint</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-39">Returns<a class="anchor" aria-label="anchor" href="#returns-39"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-add_penalty"></a><div class="section">
+<h3 id="method-add-penalty-">Method <code>add_penalty()</code><a class="anchor" aria-label="anchor" href="#method-add-penalty-"></a></h3>
+<p>Create a new object with a penalty added to the problem formulation.</p><div class="section">
+<h4 id="usage-40">Usage<a class="anchor" aria-label="anchor" href="#usage-40"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">add_penalty</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-11">Arguments<a class="anchor" aria-label="anchor" href="#arguments-11"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>x</code></dt>
+<dd><p><a href="Penalty-class.html">Penalty</a> object.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-40">Returns<a class="anchor" aria-label="anchor" href="#returns-40"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-remove_all_penalties"></a><div class="section">
+<h3 id="method-remove-all-penalties-">Method <code>remove_all_penalties()</code><a class="anchor" aria-label="anchor" href="#method-remove-all-penalties-"></a></h3>
+<p>Create a new object without any penalties.</p><div class="section">
+<h4 id="usage-41">Usage<a class="anchor" aria-label="anchor" href="#usage-41"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">remove_all_penalties</span><span class="op">(</span>retain <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-12">Arguments<a class="anchor" aria-label="anchor" href="#arguments-12"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>retain</code></dt>
+<dd><p><code>character</code> vector of classes to retain. Defaults to
+<code>NULL</code> such that all penalties are excluded.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+<div class="section">
+<h4 id="returns-41">Returns<a class="anchor" aria-label="anchor" href="#returns-41"></a></h4>
+<p>An updated <code>ConservationProblem</code> object.</p>
+</div>
+
+</div><p></p><hr><a id="method-ConservationProblem-clone"></a><div class="section">
+<h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
+<p>The objects of this class are cloneable with this method.</p><div class="section">
+<h4 id="usage-42">Usage<a class="anchor" aria-label="anchor" href="#usage-42"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">ConservationProblem</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-13">Arguments<a class="anchor" aria-label="anchor" href="#arguments-13"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

@@ -15,37 +15,48 @@ penalties objective should be used (i.e., \code{\link[=add_min_penalties_objecti
 \details{
 Both penalties and constraints can be used to modify a problem and
 identify solutions that exhibit specific characteristics. Constraints work
-by invalidating solutions that do not exhibit specific characteristics.
+by adding rules to ensure that solutions exhibit (or do not exhibit) a
+particular characteristic.
 On the other hand, penalties work by specifying trade-offs against the
 primary problem objective and are mediated by a penalty factor.
+Note that although multiple penalty functions can be added to a \code{\link[=problem]{problem()}},
+this will likely increase solver run time.
 
-The following penalties can be added to a conservation planning
-\code{\link[=problem]{problem()}}:
+The following functions can be used to add a penalty to a
+conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
 
-\item{\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}}{Add penalties to a
+\item{\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}}{
+Add penalties to a
 conservation problem to favor solutions that have
-planning units clumped together into contiguous areas.}
+planning units clumped together into contiguous areas.
+}
 
-\item{\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}}{Add penalties to a
+\item{\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}}{
+Add penalties to a
 conservation problem to favor solutions that have
 a large number of planning units sited next to each other.
 This constraints may be especially useful for
 reducing spatial fragmentation in large-scale planning problems or
-when using open source solvers.}
+when using open source solvers.
+}
 
-\item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{Add penalties to a
-conservation problem to account for asymmetric connectivity.}
+\item{\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}}}{
+Add penalties to a conservation problem to account for
+asymmetric connectivity.
+}
 
-\item{\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}}{Add penalties to a
-conservation problem to account for
-symmetric connectivity.}
+\item{\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}}{
+Add penalties to a conservation problem to account for
+symmetric connectivity.
+}
 
-\item{\code{\link[=add_linear_penalties]{add_linear_penalties()}}}{Add penalties to a
-conservation problem to favor solutions that avoid selecting
-planning units based on a certain variable
-(e.g., anthropogenic pressure).}
+\item{\code{\link[=add_linear_penalties]{add_linear_penalties()}}}{
+Add penalties to a conservation problem to favor solutions that avoid
+selecting planning units based on a certain variable
+(e.g., anthropogenic pressure).
+}
 
 }
 }

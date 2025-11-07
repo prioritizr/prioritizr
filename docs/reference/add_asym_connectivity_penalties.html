@@ -31,7 +31,7 @@ unit."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- 
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -257,7 +257,7 @@ conservation planning problems with integer linear programming.
     <div class="dont-index"><p>See <a href="penalties.html">penalties</a> for an overview of all functions for adding penalties.
 Also see <code><a href="calibrate_cohon_penalty.html">calibrate_cohon_penalty()</a></code> for assistance with selecting
 an appropriate <code>penalty</code> value.</p>
-<p>Other penalties:
+<p>Other functions for adding penalties:
 <code><a href="add_boundary_penalties.html">add_boundary_penalties</a>()</code>,
 <code><a href="add_connectivity_penalties.html">add_connectivity_penalties</a>()</code>,
 <code><a href="add_feature_weights.html">add_feature_weights</a>()</code>,
@@ -289,7 +289,7 @@ an appropriate <code>penalty</code> value.</p>
 <span class="r-in"><span><span class="co"># through the study area, connectivity from northern planning units to</span></span></span>
 <span class="r-in"><span><span class="co"># southern planning units is ten times stronger than the reverse.</span></span></span>
 <span class="r-in"><span><span class="va">acm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span>, <span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">acm1</span> <span class="op">&lt;-</span> <span class="fu">as</span><span class="op">(</span><span class="va">acm1</span>, <span class="st">"Matrix"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">acm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/methods/as.html" class="external-link">as</a></span><span class="op">(</span><span class="va">acm1</span>, <span class="st">"Matrix"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">centroids</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_coordinates.html" class="external-link">st_coordinates</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_unary.html" class="external-link">st_centroid</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>

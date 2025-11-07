@@ -99,16 +99,18 @@ loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
     assertthat::noNA(coordinate_one_y),
     assertthat::noNA(coordinate_two_x),
     assertthat::noNA(coordinate_two_y),
-    coordinate_one_x < coordinate_two_x
+    coordinate_one_x <= coordinate_two_x
   )
   out <- rep(NA_real_, length(x))
-  out[x <= coordinate_one_x] <- coordinate_one_y
-  out[x >= coordinate_two_x] <- coordinate_two_y
-  between.pos <- which(is.na(out))
-  out[between.pos] <- stats::approx(
-    x = log10(c(coordinate_one_x, coordinate_two_x)),
-    y = c(coordinate_one_y, coordinate_two_y),
-    xout = log10(x[between.pos]), method = "linear"
-  )$y
+  out[x < coordinate_one_x] <- coordinate_one_y
+  out[x > coordinate_two_x] <- coordinate_two_y
+  idx <- is.na(out)
+  if (any(idx)) {
+    out[idx] <- stats::approx(
+      x = log10(c(coordinate_one_x, coordinate_two_x)),
+      y = c(coordinate_one_y, coordinate_two_y),
+      xout = log10(x[idx]), method = "linear"
+    )$y
+  }
   out
 }

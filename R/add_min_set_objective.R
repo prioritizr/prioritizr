@@ -110,7 +110,10 @@ add_min_set_objective <- function(x) {
       inherit = Objective,
       public = list(
         name = "minimum set objective",
-        apply = function(x, y) {
+        has_weights = FALSE,
+        has_targets = TRUE,
+        apply = function(x, y, weights) {
+          # note that weights are not used
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),

@@ -1,4 +1,4 @@
-test_that("compile (compressed formulation)", {
+test_that("compressed formulation", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -25,7 +25,7 @@ test_that("compile (compressed formulation)", {
   expect_true(all(o$ub() == 1))
 })
 
-test_that("compile (compressed formulation, negative data)", {
+test_that("compressed formulation (negative data)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -78,7 +78,7 @@ test_that("compile (compressed formulation, negative data)", {
   expect_true(all(o$ub() == 1))
 })
 
-test_that("compile (expanded formulation)", {
+test_that("expanded formulation", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -131,7 +131,7 @@ test_that("compile (expanded formulation)", {
   }
 })
 
-test_that("compile (expanded formulation, negative data)", {
+test_that("expanded formulation (negative data)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -165,7 +165,7 @@ test_that("compile (expanded formulation, negative data)", {
   expect_error(compile(p, FALSE))
 })
 
-test_that("compile (error with negative values and expanded formulation)", {
+test_that("invalid inputs (negative values and expanded formulation)", {
   # create data
   spp1_habitat <- terra::rast(matrix(c(
     5, 0, 5,
@@ -211,4 +211,66 @@ test_that("compile (error with negative values and expanded formulation)", {
     compile(p, compressed = FALSE),
     "compressed_formulation"
   )
+})
+
+test_that("invalid inputs (no objective)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <- problem(sim_pu_raster, sim_features)
+  # tests
+  expect_error(compile(p), "must have an objective")
+})
+
+test_that("invalid inputs (objective requires targets)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective()
+  # tests
+  expect_error(compile(p), "must have targets")
+})
+
+test_that("warning (objective does not use targets)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_utility_objective(20) %>%
+    add_absolute_targets(1)
+  # tests
+  expect_warning(compile(p), "does not support targets")
+})
+
+test_that("warning (feature weights not used)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_feature_weights(seq_len(terra::nlyr(sim_features))) %>%
+    add_absolute_targets(1)
+  # tests
+  expect_warning(compile(p), "does not support weights")
+})
+
+test_that("warning (missing penalties and min penalties objective)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_penalties_objective(budget = 25) %>%
+    add_absolute_targets(1)
+  # tests
+  expect_warning(compile(p), "not have any penalties")
 })

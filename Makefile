@@ -1,16 +1,13 @@
-all: clean contrib initc data docs test check
+all: clean contrib initc docs test check
 
 clean:
-	rm -rf man/*
+	rm -rf man/*.Rd
 
 initc:
 	R --slave -e "Rcpp::compileAttributes()"
 	R --slave -e "tools::package_native_routine_registration_skeleton('.', 'src/init.c', character_only = FALSE)"
 
 docs: man readme site vigns
-
-data:
-	Rscript --slave inst/scripts/builtin-data.R
 
 man:
 	R --slave -e "devtools::document()"
@@ -47,27 +44,17 @@ check_vigns:
 	rm -f Rplots.pdf
 
 quicksite:
-	cp docs/favicon.ico /tmp
-	cp docs/logo.png /tmp
 	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 	rm docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
-	cp /tmp/favicon.ico docs
-	cp /tmp/logo.png docs
-	cp /tmp/logo.png docs/reference/figures
 
 site:
-	cp docs/favicon.ico /tmp
-	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::clean_site(force = TRUE)"
 	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
 	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
-	cp /tmp/favicon.ico docs
-	cp /tmp/logo.png docs
-	cp /tmp/logo.png docs/reference/figures
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1

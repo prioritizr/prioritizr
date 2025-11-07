@@ -25,7 +25,7 @@ penalties objective should be used (i.e., add_min_penalties_objective())."><meta
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,11 +79,14 @@ penalties objective should be used (i.e., <code><a href="add_min_penalties_objec
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Both penalties and constraints can be used to modify a problem and
 identify solutions that exhibit specific characteristics. Constraints work
-by invalidating solutions that do not exhibit specific characteristics.
+by adding rules to ensure that solutions exhibit (or do not exhibit) a
+particular characteristic.
 On the other hand, penalties work by specifying trade-offs against the
-primary problem objective and are mediated by a penalty factor.</p>
-<p>The following penalties can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>:</p>
+primary problem objective and are mediated by a penalty factor.
+Note that although multiple penalty functions can be added to a <code><a href="problem.html">problem()</a></code>,
+this will likely increase solver run time.</p>
+<p>The following functions can be used to add a penalty to a
+conservation planning <code><a href="problem.html">problem()</a></code>.</p>
 <dl><dt><code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code></dt>
 <dd><p>Add penalties to a
 conservation problem to favor solutions that have
@@ -100,20 +103,18 @@ when using open source solvers.</p></dd>
 
 
 <dt><code><a href="add_asym_connectivity_penalties.html">add_asym_connectivity_penalties()</a></code></dt>
-<dd><p>Add penalties to a
-conservation problem to account for asymmetric connectivity.</p></dd>
+<dd><p>Add penalties to a conservation problem to account for
+asymmetric connectivity.</p></dd>
 
 
 <dt><code><a href="add_connectivity_penalties.html">add_connectivity_penalties()</a></code></dt>
-<dd><p>Add penalties to a
-conservation problem to account for
+<dd><p>Add penalties to a conservation problem to account for
 symmetric connectivity.</p></dd>
 
 
 <dt><code><a href="add_linear_penalties.html">add_linear_penalties()</a></code></dt>
-<dd><p>Add penalties to a
-conservation problem to favor solutions that avoid selecting
-planning units based on a certain variable
+<dd><p>Add penalties to a conservation problem to favor solutions that avoid
+selecting planning units based on a certain variable
 (e.g., anthropogenic pressure).</p></dd>
 
 

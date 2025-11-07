@@ -15,48 +15,62 @@ As such, conservation planners can help decision makers by providing
 them with a portfolio of solutions to inform their decision.
 }
 \details{
-The following portfolios can be added to a conservation planning
-\code{\link[=problem]{problem()}}.
-Note that all methods for generating portfolios return solutions that
-are within the specified optimality gap.
+The following functions can be used to add a portfolio to a
+conservation planning \code{\link[=problem]{problem()}}. Note that if multiple
+of these functions are added to a \code{\link[=problem]{problem()}}, then only the last
+function added will be used.
 
 \describe{
 
-\item{\code{\link[=add_default_portfolio]{add_default_portfolio()}}}{Generate a portfolio containing a single
+\item{\code{\link[=add_default_portfolio]{add_default_portfolio()}}}{
+Generate a portfolio containing a single
 solution. This portfolio method is added to \code{\link[=problem]{problem()}} objects by
-default.}
+default.
+}
 
-\item{\code{\link[=add_extra_portfolio]{add_extra_portfolio()}}}{Generate a portfolio of solutions
+\item{\code{\link[=add_extra_portfolio]{add_extra_portfolio()}}}{
+Generate a portfolio of solutions
 by storing feasible solutions found during the optimization
 process. This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or
 the quality of solutions.
-Note that it requires the \emph{Gurobi} solver.}
+Note that it requires the \emph{Gurobi} solver.
+}
 
-\item{\code{\link[=add_top_portfolio]{add_top_portfolio()}}}{Generate a portfolio of
+\item{\code{\link[=add_top_portfolio]{add_top_portfolio()}}}{
+Generate a portfolio of
 solutions by finding a pre-specified number of solutions that
 are closest to optimality (i.e., the top solutions). This is useful
 for examining differences among near-optimal solutions.
 It can also be used to generate multiple solutions and, in turn,
 to calculate selection frequencies for small problems.
-Note that it requires the \emph{Gurobi} solver.}
+Note that it requires the \emph{Gurobi} solver.
+}
 
-\item{\code{\link[=add_gap_portfolio]{add_gap_portfolio()}}}{Generate a portfolio of solutions
+\item{\code{\link[=add_gap_portfolio]{add_gap_portfolio()}}}{
+Generate a portfolio of solutions
 by finding a certain number of solutions that are all within a pre-
-specified optimality gap. This method is useful for generating
+specified optimality gap. Although this method may be useful for generating
 multiple solutions that can be used to calculate selection frequencies
-for moderate and large-sized problems (similar to \emph{Marxan}).
-Note that it requires the \emph{Gurobi} solver.}
+(similar to \emph{Marxan}), note that this function tends to produce solutions
+that are very similar to each other and so you will (likely) need to
+generate thousands for solutions when calculating selection frequencies.
+Note that it requires the \emph{Gurobi} solver.
+}
 
-\item{\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}}}{Generate a portfolio of distinct
+\item{\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}}}{
+Generate a portfolio of distinct
 solutions within a pre-specified optimality gap using Bender's cuts.
 This is recommended as a replacement for \code{\link[=add_top_portfolio]{add_top_portfolio()}}
-when the \emph{Gurobi} software is not available.}
-\item{\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}}}{Generate a portfolio of
+when the \emph{Gurobi} software is not available.
+}
+\item{\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}}}{
+Generate a portfolio of
 solutions by randomly reordering the data prior to attempting to solve
 the problem.
 This is recommended as a replacement for \code{\link[=add_gap_portfolio]{add_gap_portfolio()}}
-when the \emph{Gurobi} software is not available.}
+when the \emph{Gurobi} software is not available.
+}
 
 }
 }

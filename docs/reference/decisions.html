@@ -23,7 +23,7 @@ problem, then binary decisions will be used by default."><meta property="og:imag
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,11 +74,10 @@ problem, then binary decisions will be used by default.</p>
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Only a single type of decision can be added to a conservation
-planning <code><a href="problem.html">problem()</a></code>. Note that if multiple decisions are added
-to a problem, then the last one added will be used.</p>
-<p>The following decisions can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>:</p>
+    <p>The following functions can be used to add a decision type to a
+conservation planning <code><a href="problem.html">problem()</a></code>. Note that if multiple
+of these functions are added to a <code><a href="problem.html">problem()</a></code>, then only the last
+function added will be used.</p>
 <dl><dt><code><a href="add_binary_decisions.html">add_binary_decisions()</a></code></dt>
 <dd><p>Add a binary decision to a
 conservation planning problem. This is the classic decision of
@@ -98,10 +97,9 @@ include in a protected area network.</p></dd>
 
 
 <dt><code><a href="add_semicontinuous_decisions.html">add_semicontinuous_decisions()</a></code></dt>
-<dd><p>Add a semi-continuous
-decision to a conservation planning problem. This decision is
-similar to <code>add_proportion_decision</code> except that it has an upper
-bound parameter. By default, the decision can range from prioritizing
+<dd><p>Add a semi-continuous decision to a conservation planning problem.
+This decision is similar to <code>add_proportion_decision</code> except that it has an
+upper bound parameter. By default, the decision can range from prioritizing
 none (0%) to all (100%) of a planning unit. However, a upper
 bound can be specified to ensure that at most only a fraction
 (e.g., 80%) of a planning unit can be preserved. This type of

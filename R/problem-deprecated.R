@@ -126,7 +126,6 @@ methods::setMethod(
   function(x, features, cost_column, run_checks = TRUE, ...) {
     cli_warning(sp_pkg_deprecation_notice)
     cli_warning(raster_pkg_deprecation_notice)
-    # assert valid arguments
     # assert that arguments are valid
     assert_required(cost_column)
     assert(
@@ -201,31 +200,50 @@ methods::setMethod(
 )
 
 #' @name problem
-#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
+#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, feature_units, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "character"),
-  function(x, features, cost_column, ...) {
+  function(x, features, cost_column, feature_units = NULL, ...) {
+    # set defaults
+    if (is.null(feature_units)) {
+      feature_units <- rep(NA_character_, length(features))
+    } else if (assertthat::is.string(feature_units)) {
+      feature_units <- rep(feature_units, length(features))
+    }
+    # assert that arguments are valid
     assert_required(cost_column)
-    assert(assertthat::is.string(cost_column))
+    assert(
+      assertthat::is.string(cost_column),
+      all_area_units(feature_units, na.rm = TRUE),
+      length(feature_units) == length(features)
+    )
+    # create ConservationProblem object
     problem(
       x,
       zones(features, feature_names = features, zone_names = cost_column),
       cost_column = cost_column,
+      feature_units = feature_units,
       ...
     )
   }
 )
 
 #' @name problem
-#' @usage \S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, ...)
+#' @usage \S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, feature_units, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "ZonesCharacter"),
-  function(x, features, cost_column, ...) {
+  function(x, features, cost_column, feature_units = NULL, ...) {
     cli_warning(sp_pkg_deprecation_notice)
+    # set defaults
+    if (is.null(feature_units)) {
+      feature_units <- rep(NA_character_, number_of_features(features))
+    } else if (assertthat::is.string(feature_units)) {
+      feature_units <- rep(feature_units, length(features))
+    }
     # assert that arguments are valid
     assert_required(cost_column)
     assert(
@@ -242,7 +260,9 @@ methods::setMethod(
       assertthat::noNA(cost_column),
       number_of_zones(features) == length(cost_column),
       all_match_of(cost_column, names(x)),
-      all_columns_any_finite(x[, cost_column])
+      all_columns_any_finite(x[, cost_column]),
+      all_area_units(feature_units, na.rm = TRUE),
+      length(feature_units) == number_of_features(features)
     )
     assert_dots_empty()
     assert(
@@ -294,7 +314,8 @@ methods::setMethod(
         rij_matrix = rij,
         feature_abundances_in_total_units = fatu,
         planning_unit_indices = idx,
-        is_ids_equivalent_to_indices = TRUE
+        is_ids_equivalent_to_indices = TRUE,
+        feature_units = feature_units
       )
     )
   }

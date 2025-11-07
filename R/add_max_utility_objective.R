@@ -140,11 +140,14 @@ add_max_utility_objective <- function(x, budget) {
       inherit = Objective,
       public = list(
         name = "maximum utility objective",
+        has_weights = TRUE,
+        has_targets = FALSE,
         data = list(budget = budget),
-        apply = function(x, y) {
+        apply = function(x, y, weights) {
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
+            is.numeric(weights),
             .internal = TRUE
           )
           invisible(
@@ -153,7 +156,8 @@ add_max_utility_objective <- function(x, budget) {
               unname(y$feature_positive_abundances_in_planning_units()),
               y$has_negative_feature_data(),
               y$planning_unit_costs(),
-              self$get_data("budget")
+              self$get_data("budget"),
+              weights
             )
           )
         }

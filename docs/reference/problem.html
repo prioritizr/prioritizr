@@ -29,7 +29,7 @@ solve() function can be used to identify solutions."><meta property="og:image" c
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,19 +91,19 @@ customized to meet specific goals using <a href="objectives.html">objectives</a>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'data.frame,character'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'data.frame,ZonesCharacter'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'data.frame,data.frame'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij</span>, <span class="va">cost_column</span>, <span class="va">zones</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij</span>, <span class="va">cost_column</span>, <span class="va">zones</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'numeric,data.frame'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'matrix,data.frame'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">rij_matrix</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf,SpatRaster'</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -112,10 +112,10 @@ customized to meet specific goals using <a href="objectives.html">objectives</a>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf,character'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf,ZonesCharacter'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Raster,Raster'</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -130,10 +130,10 @@ customized to meet specific goals using <a href="objectives.html">objectives</a>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Spatial,character'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'Spatial,ZonesCharacter'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf,Raster'</span></span>
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
@@ -247,6 +247,15 @@ argument to <code>x</code> is a <code><a href="https://r-spatial.github.io/sf/re
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
 set the argument to <code>cost_column</code> as a single column name.</p></dd>
+
+
+<dt id="arg-feature-units">feature_units<a class="anchor" aria-label="anchor" href="#arg-feature-units"></a></dt>
+<dd><p><code>character</code> vector containing the unit of
+measurement for the data associated with each feature.
+Although the data associated with a feature can any unit,
+the <code>feature_units</code> must refer to area-based units
+(e.g., <code>"km^2", "ha", "acre"). If a feature does not have an area-based unit, then a missing (</code>NA<code>) value should be specified for it. Note that </code>feature_units<code>must not be specified if</code>features<code>has [terra::rast()] data. Defaults to</code>NULL<code>, such that a missing (</code>NA`) value is used for each
+feature.</p></dd>
 
 
 <dt id="arg-rij">rij<a class="anchor" aria-label="anchor" href="#arg-rij"></a></dt>
@@ -547,6 +556,8 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "gap")= Named num 0.0334</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "objbound")= Named num 3496</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create some problems with multiple zones</span></span></span>

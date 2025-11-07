@@ -33,5 +33,24 @@ test_that("is_budget_length", {
 
 test_that("is_installed", {
   expect_true(is_installed("base"))
-  expect_false(is_installed("a a a")) # r pkgs should not have space in name
+  expect_false(is_installed("a a a")) # R pkgs should not have space in name
+})
+
+test_that("is_area_units", {
+  expect_true(is_area_units("km^2"))
+  expect_true(is_area_units("m^2"))
+  expect_false(is_area_units("g"))
+  expect_false(is_area_units("greg"))
+  expect_false(is_area_units(c("m^2", "km^2")))
+})
+
+test_that("all_area_units", {
+  expect_true(all_area_units("km^2"))
+  expect_true(all_area_units("m^2"))
+  expect_true(all_area_units(c("m^2", "km^2")))
+  expect_false(all_area_units("g"))
+  expect_false(all_area_units("g", "km^2"))
+  expect_false(all_area_units("greg"))
+  expect_false(all_area_units(1))
+  expect_false(all_area_units("greg", "km^2"))
 })

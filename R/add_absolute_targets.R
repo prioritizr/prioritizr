@@ -3,11 +3,12 @@ NULL
 
 #' Add absolute targets
 #'
-#' Set targets expressed as the actual value of features in the study area
-#' that need to be represented in the prioritization. For instance,
-#' setting a target of 10 requires that the solution secure a set of
-#' planning units for which their summed feature values are equal to or greater
-#' than 10.
+#' Add targets to a conservation planning problem expressed as the
+#' same values as the underlying feature data (ignoring any specified
+#' feature units).
+#' For example, setting a target of 10 for a feature specifies that a solution
+#' should ideally select a set of planning units that contain a total
+#' (summed) value of, at least, 10 for the feature.
 #'
 #' @param x [problem()] object.
 #'
@@ -15,29 +16,20 @@ NULL
 #'   See the Targets format section for more information.
 #'
 #' @details
-#' Targets are used to specify the minimum amount or proportion of a
-#' feature's distribution that needs to be protected. Most conservation
-#' planning problems require targets with the exception of the maximum cover
-#' (see [add_max_cover_objective()]) and maximum utility
-#' (see [add_max_utility_objective()]) problems. Attempting to solve
-#' problems with objectives that require targets without specifying targets
-#' will throw an error.
-#'
-#' For problems associated with multiple management zones,
-#' [add_absolute_targets()] can
-#' be used to set targets that each pertain to a single feature and a single
-#' zone. To set targets that can be met through allocating different
-#' planning units to multiple zones, see the [add_manual_targets()]
-#' function. An example of a target that could be met through allocations
-#' to multiple zones might be where each management zone is expected to
-#' result in a different amount of a feature and the target requires that
-#' the total amount of the feature in all zones must exceed a certain
-#' threshold. In other words, the target does not require that any single
-#' zone secure a specific amount of the feature, but the total amount held
-#' in all zones must secure a specific amount. Thus the target could,
-#' potentially, be met through allocating all planning units to any specific
-#' management zone, or through allocating the planning units to different
-#' combinations of management zones.
+#' This function is used to set targets for each feature (separately).
+#' For problems associated with a single management zone, this function
+#' may be useful to specify individual targets for each feature.
+#' For problems associated with multiple management zones, this function
+#' can also be used to specify a target for each feature within each zone
+#' (separately). For example, this may be useful in planning exercises
+#' where it is important to ensure that some of the features are adequately
+#' represented by multiple zones. For example, in a marine spatial planning
+#' exercise, it may be important for some features (e.g., commercial
+#' important fish species) to be adequately represented by a conservation zone
+#' for ensuring their long-term persistence, and also by a fishing zone to
+#' for ensure food security. For greater flexibility in target setting
+#' (such as setting targets that can be met through the allocation of
+#' multiple zones), see the [add_manual_targets()] function.
 #'
 #' @section Targets format:
 #' The `targets` for a problem can be specified using the following formats.
@@ -68,10 +60,9 @@ NULL
 #'
 #' }
 #'
-#' @inherit add_manual_targets return
-#'
-#' @seealso
-#' See [targets] for an overview of all functions for adding targets.
+#' @inheritSection add_auto_targets Target setting
+#' @inherit add_manual_targets return seealso
+#' @inherit add_manual_targets references
 #'
 #' @family targets
 #'

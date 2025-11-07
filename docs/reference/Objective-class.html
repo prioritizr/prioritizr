@@ -15,7 +15,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,11 +71,27 @@ Only experts should use the fields and methods for this class directly."><meta p
 <code><a href="Penalty-class.html">Penalty-class</a></code>,
 <code><a href="Portfolio-class.html">Portfolio-class</a></code>,
 <code><a href="Solver-class.html">Solver-class</a></code>,
-<code><a href="Target-class.html">Target-class</a></code></p></div>
+<code><a href="Target-class.html">Target-class</a></code>,
+<code><a href="TargetMethod-class.html">TargetMethod-class</a></code>,
+<code><a href="Weight-class.html">Weight-class</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
     <p><code><a href="ConservationModifier-class.html">prioritizr::ConservationModifier</a></code> -&gt; <code>Objective</code></p>
+    </div>
+    <div class="section level2">
+    <h2 id="public-fields">Public fields<a class="anchor" aria-label="anchor" href="#public-fields"></a></h2>
+    <p></p><div class="r6-fields"><dl><dt><code>has_targets</code></dt>
+<dd><p><code>logical</code> value indicating if the objective
+supports targets.</p></dd>
+
+
+<dt><code>has_weights</code></dt>
+<dd><p><code>logical</code> value indicating if the objective
+supports feature weights.</p></dd>
+
+
+</dl><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
@@ -96,22 +112,14 @@ Only experts should use the fields and methods for this class directly."><meta p
 <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="show"><a href="ConservationModifier.html#method-show"><code>prioritizr::ConservationModifier$show()</code></a></span></li>
 </ul></details></p><hr><a id="method-Objective-default_weights"></a><div class="section">
 <h3 id="method-default-weights-">Method <code>default_weights()</code><a class="anchor" aria-label="anchor" href="#method-default-weights-"></a></h3>
-<p>Specify default values for weights.</p><div class="section">
+<p>Specify default value for the feature weights.</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Objective</span><span class="op">$</span><span class="fu">default_weights</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Objective</span><span class="op">$</span><span class="fu">default_weights</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
-<div class="section">
-<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>x</code></dt>
-<dd><p><code><a href="problem.html">problem()</a></code> object.</p></dd>
-
-
-</dl><p></p></div>
-</div>
 <div class="section">
 <h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
-<p>Invisible <code>TRUE</code>.</p>
+<p>A <code>numeric</code> value.</p>
 </div>
 
 </div><p></p><hr><a id="method-Objective-apply"></a><div class="section">
@@ -122,7 +130,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 </div>
 
 <div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
+<h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p><code><a href="optimization_problem.html">optimization_problem()</a></code> object.</p></dd>
 
@@ -142,7 +150,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 </div>
 
 <div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 

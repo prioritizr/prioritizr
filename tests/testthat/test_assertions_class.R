@@ -5,13 +5,6 @@ test_that("is_matrix_ish", {
   expect_error(assert(is_matrix_ish(new_waiver())), "matrix")
 })
 
-test_that("is_integer", {
-  expect_true(is_integer(c(1, 2, 3, NA)))
-  expect_false(is_integer(c(0.5, 2, 3, NA)))
-  expect_false(is_integer("a"))
-  expect_error(assert(is_integer("a")), "integer")
-})
-
 test_that("is_conservation_problem", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -35,5 +28,41 @@ test_that("is_conservation_problem", {
       )
     ),
     "version"
+  )
+})
+
+test_that("is_method", {
+  expect_true(is_method(spec_jung_targets()))
+  expect_false(is_method("a"))
+  expect_error(assert(is_method("a")), "method object")
+})
+
+test_that("is_inherits", {
+  expect_true(is_inherits("a", "character"))
+  expect_true(is_inherits("a", c("character", "integer")))
+  expect_false(is_inherits("a", "integer"))
+  expect_error(assert(is_inherits("a", "integer")))
+})
+
+test_that("is_spatially_explicit", {
+  expect_true(is_spatially_explicit(get_sim_pu_raster()))
+  expect_false(is_spatially_explicit("a"))
+  expect_error(assert(is_spatially_explicit("a")), "spatially explicit")
+})
+
+test_that("is_spatially_explicit", {
+  expect_true(is_spatially_explicit(get_sim_pu_raster()))
+  expect_false(is_spatially_explicit("a"))
+  expect_error(assert(is_spatially_explicit("a")), "spatially explicit")
+})
+
+test_that("all_elements_inherit", {
+  expect_true(all_elements_inherit(list("a"), "character"))
+  expect_true(all_elements_inherit(list("a", "b"), "character"))
+  expect_false(all_elements_inherit(list("a"), "integer"))
+  expect_false(all_elements_inherit(list("a", "b"), "integer"))
+  expect_error(
+    assert(all_elements_inherit(list("a", 2), "character")),
+    "elements"
   )
 })

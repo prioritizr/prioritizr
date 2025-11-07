@@ -93,7 +93,7 @@ Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex
 method. \emph{Mathematical Programming Computation}, 10: 119-142.
 }
 \seealso{
-Other solvers: 
+Other functions for adding solvers:
 \code{\link{add_cbc_solver}()},
 \code{\link{add_cplex_solver}()},
 \code{\link{add_default_solver}()},

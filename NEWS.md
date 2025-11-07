@@ -1,3 +1,91 @@
+# prioritizr 8.1.0
+
+## Notice
+
+- CRAN release.
+
+## New features
+
+- New `add_auto_targets()` function for adding targets to a conservation
+  planning problem based on a target setting method. In particular, the
+  following functions can be used in conjunction with this function to specify
+  target setting methods: `spec_absolute_targets()`, `spec_area_targets()`,
+  `spec_interp_absolute_targets()`, `spec_interp_area_targets()`
+  `spec_jung_targets()`, `spec_max_targets()`, `spec_min_targets()`,
+  `spec_polak_targets()`, `spec_pop_size_targets()`, `spec_relative_targets()`,
+  `spec_rl_ecosystem_targets()`, `spec_rl_species_targets()`,
+  `spec_rodrigues_targets()`, `spec_rule_targets()`,
+  `spec_ward_targets()`, `spec_watson_targets()`, and `spec_wilson_targets()`.
+- New `add_group_targets()` function for adding targets to a conservation
+  planning problem based on feature groups. This function is provided as a
+  convenient alternative to the `add_auto_targets()` function. With this
+  function, features can be organized into groups and then have their targets
+  calculated based on the method specified for their group.
+- New `linear_interpolation()` function for linearly interpolating values.
+- New `as_km2()` and `as_per_km2()` functions to help with area-based
+  calcultions.
+- Many of the internal functions used for parameter and data validation can now
+  be used by other packages that depend on the _prioritizr_ package (e.g.,
+  `assert()`, `as_Matrix()`, `all_binary()`, `all_positive()`).
+  The idea here is that people developing packages that build on the
+  _prioritizr_ package can use these functions to streamline their
+  developmental efforts, while helping to avoid reverse dependency issues.
+  To use these functions in your own package, you can make a local copy of the
+  desired _prioritizr_ functions in your package (i.e., a process known as code vendoring). In particular, you can use the `usethis::use_standalone()`
+  function to automatically make a copy of _prioritizr_ functions from the
+  _prioritizr_ online code repository. For example,
+  `usethis::use_standalone("prioritizr/prioritizr", file = "standalone-cli.R")`
+  can be used to make a copy of the `standalone-cli.R` file in the
+  _prioritizr_ source code. Note that all files in the _prioritizr_ code
+  repository that begin with `"standalone-"` can be copied with the
+  `usethis::use_standalone()` function.
+
+## Major changes
+
+- The `add_loglinear_targets()` function has been deprecated. For similar
+  functionality, see the new `spec_interp_absolute_targets()` function.
+- The `presolve_check()` function will now catch issues where the same planning
+  unit (or planning units) has been both locked in and locked out (#386).
+  Thanks to Jason Everett (\@jaseeverett) for the suggestion.
+- The `add_feature_weights()` function can only be used once with a `problem()`,
+  and attempting to add multiple weights will over-write previously specified
+  weights (similar to how targets are handled).
+
+#### Minor improvements and bug fixes
+
+- Update `print()` method for `problem()` objects to display a more useful
+  number of digits for floating point numbers.
+- Update `add_boundary_penalties()` so that an alternative formulation can be
+  used for the optimization problem (#369). This alternative formulation may be
+  useful when conservation planning problems are taking a long time to solve.
+  Note that the default behavior of the function is to use the same
+  formulation as in previous versions of the package.
+- Update `solve()` function to provide information on the objective bound. This
+  represents the best estimate of the optimal objective value during
+  optimization. Given a solution `x`, this information can be accessed using
+  `attr(x, "objbound")`. Note that this is only supported for the Gurobi solver.
+- Update `ConservationProblem` class so that overwriting problem components will
+  yield a more concise warning message.
+- Update `compile()` function to throw more informative warnings when a
+  `problem()` have an objective that does not support weights or targets.
+- Fix bug in internal `get_crs()` function when using `raster::raster()` or
+  `raster::stack()` objects.
+- Fix bug in `add_relative_targets()` that produced an incoherent error message.
+- Fix bug in `add_locked_in_constraints()` that produced poorly formatted error
+  message.
+- Speed up internal validation of `terra::rast()` raster data. In particular,
+  the minimum and maximum values of rasters are now computed with
+  `terra::minmax(x, compute = TRUE)`, instead of
+  `terra::global(x, "range", na.rm = TRUE)`.
+
+#### Documentation
+
+- Update `?targets` to provide a comprehensive overview of the target functions.
+- Update `boundary_matrix()` function documentation with better example.
+- Fix incorrect text in Management Zones vignette (#382). Thanks to
+  Anthony Richardson (\@ric325) for bug report.
+- Update publication record.
+
 # prioritizr 8.0.6.8
 
 #### Minor improvements and bug fixes
@@ -1676,7 +1764,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `add_manual_bounded_constraints()` function to apply lower and upper
   bounds on planning units statuses in a solution (#118). Thanks to Martin Jung
-  (\@Martin-Jung) for suggestion.
+  (\@Martin-Jung) for the suggestion.
 
 ## Minor improvements and bug fixes
 
@@ -1718,7 +1806,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `add_max_phylo_end_objective()` function to maximize the phylogenetic
   endemism of species adequately represented in a prioritization (#113).
-  Thanks to \@FerreiraPSM for suggestion.
+  Thanks to \@FerreiraPSM for the suggestion.
 
 ## Minor improvements and bug fixes
 
@@ -2087,7 +2175,8 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - The `add_loglinear_targets()` function now includes a `feature_abundances()`
   parameter for specifying the total amount of each feature to use when
-  calculating the targets (#89). Thanks to Liz Law (\@lizlaw) for suggestion.
+  calculating the targets (#89). Thanks to Liz Law (\@lizlaw) for the
+  suggestion.
 
 ## Documentation updates
 
@@ -2106,7 +2195,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - New `feature_abundances()` function to calculate the total amount of each
   feature in the planning units (#86). Thanks to Javier Fajardo
-  (\@javierfajnolla) for suggestion.
+  (\@javierfajnolla) for the suggestion.
 
 # prioritizr 4.0.0.11
 

@@ -242,7 +242,12 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
       inherit = Objective,
       public = list(
         name = "phylogenetic endemism objective",
+        has_weights = TRUE,
+        has_targets = TRUE,
         data = list(budget = budget, tree = tree),
+        default_weights = function() {
+          0
+        },
         calculate = function(x) {
           # assert valid argument
           assert(is_conservation_problem(x))
@@ -275,11 +280,12 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
           # return success
           invisible(TRUE)
         },
-        apply = function(x, y) {
+        apply = function(x, y, weights) {
           # assert arguments valid
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
+            is.numeric(weights),
             .internal = TRUE
           )
           # get tree
@@ -307,7 +313,8 @@ add_max_phylo_end_objective <- function(x, budget, tree) {
               y$planning_unit_costs(),
               self$get_data("budget"),
               bm,
-              tr$edge.length
+              tr$edge.length,
+              weights
             )
           )
         }

@@ -3,8 +3,10 @@ NULL
 
 #' Add relative targets
 #'
-#' Set targets as a proportion (between 0 and 1) of the maximum level of
-#' representation of features in the study area. Please note that proportions
+#' Add targets to a conservation planning problem expressed as a proportion
+#' (between 0 and 1) of the maximum level of representation of each feature in
+#' the study area.
+#' Please note that proportions
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
 #' cost values) using the [feature_abundances()] function.
@@ -14,11 +16,10 @@ NULL
 #' @param targets Object that specifies the targets for each feature.
 #'   See the Targets format section for more information.
 #'
-#' @inherit add_absolute_targets details return
+#' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_absolute_targets Targets format
 #'
-#' @seealso
-#' See [targets] for an overview of all functions for adding targets.
+#' @inherit add_absolute_targets details return seealso references
 #'
 #' @family targets
 #'
@@ -26,6 +27,8 @@ NULL
 #' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(500)
+#'
+#' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -50,7 +53,7 @@ NULL
 #' names(s3) <- c("10% targets", "varying targets")
 #'
 #' # plot solution
-#' plot(s3, main = , axes = FALSE)
+#' plot(s3, axes = FALSE)
 #'
 #' # create a problem with multiple management zones
 #' p4 <-
@@ -93,7 +96,6 @@ NULL
 #' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s6), main = "varying targets")
 #' }
-#'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method
 #'
 #' @name add_relative_targets
@@ -195,7 +197,7 @@ methods::setMethod(
       msg = c(
         "{.arg targets} must not be a character vector.",
         "i" = paste(
-          "This is because the feature data for {arg. x}",
+          "This is because the feature data for {.arg x}",
           "are not a data frame."
         )
       )

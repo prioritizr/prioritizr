@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,13 +145,21 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.8.54</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## terra 1.8.80</span></span></code></pre>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'terra'</span></span></code></pre>
+<pre><code><span><span class="co">## The following object is masked from 'package:prioritizr':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     rescale</span></span></code></pre>
+<pre><code><span><span class="co">## The following objects are masked from 'package:testthat':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     compare, describe</span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/" class="external-link">tibble</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># set seed for reproducibility</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># load data</span></span>
 <span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -179,14 +187,16 @@ are selected or not selected for protection.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.1</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -239,7 +249,7 @@ are selected or not selected for protection.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></span></code></pre></div>
@@ -251,7 +261,7 @@ are selected or not selected for protection.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.34         0.102</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.35         0.102</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          6.01         0.106</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
@@ -272,7 +282,7 @@ must be allocated to either zone or not selected for management at all.
 In this example, each planning unit costs the same when it is allocated
 to either of the two zones. We can formulate and solve this problem
 using the following code.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a matrix with the targets</span></span>
 <span><span class="co"># here each column corresponds to a different zone,</span></span>
 <span><span class="co"># each row corresponds to a different feature, and</span></span>
@@ -289,7 +299,7 @@ using the following code.</p>
 <span><span class="co">## [3,]  0.1 0.05</span></span>
 <span><span class="co">## [4,]  0.1 0.05</span></span>
 <span><span class="co">## [5,]  0.1 0.05</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a zones object that contains the amount of each feature</span></span>
 <span><span class="co"># in each planning unit when it is allocated to each zone</span></span>
 <span><span class="co"># since our zones pertain to the same habitat data, we will</span></span>
@@ -301,7 +311,7 @@ using the following code.</p>
 <pre><code><span><span class="co">## A zones object <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> zones:    <span style="color: #0000BB;">"zone 1"</span> and <span style="color: #0000BB;">"zone 2"</span> (2 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"1"</span>, <span style="color: #0000BB;">"2"</span>, <span style="color: #0000BB;">"3"</span>, <span style="color: #0000BB;">"4"</span>, and <span style="color: #0000BB;">"5"</span> (5 total)</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a multi-layer raster with the planning unit data</span></span>
 <span><span class="co">## since our planning unit costs are the same for each zone,</span></span>
 <span><span class="co">## we will create a raster with two replicates of the cost data</span></span>
@@ -319,7 +329,7 @@ using the following code.</p>
 <span><span class="co">## names       :    layer,    layer </span></span>
 <span><span class="co">## min values  : 190.1328, 190.1328 </span></span>
 <span><span class="co">## max values  : 215.8638, 215.8638</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build two-zone problem</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -341,14 +351,16 @@ using the following code.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -400,7 +412,7 @@ using the following code.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.222464019775e+03, best bound 2.911333356299e+03, gap 9.6551%</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span></code></pre></div>
@@ -422,12 +434,12 @@ using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          4.21        0.058<span style="text-decoration: underline;">6</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.73        0.064<span style="text-decoration: underline;">0</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          3.58        0.063<span style="text-decoration: underline;">1</span></span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
 <span><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
-<span><span class="co"># value 1 (yellow) are allocated to "zone 1" and pixels with the value 2 (green)</span></span>
-<span><span class="co"># are allocated to "zone 2". Units depicted in gray are not allocated</span></span>
+<span><span class="co"># value 1 (green) are allocated to "zone 1" and pixels with the value 2 (yellow)</span></span>
+<span><span class="co"># are allocated to "zone 2". Units depicted in purple are not allocated</span></span>
 <span><span class="co"># to any zone.</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
@@ -450,7 +462,7 @@ the habitat we would get if we managed the unit in the first zone (e.g.,
 because the second zone is a partial-take zone and the first zone is a
 no-take zone). We will use the same target data as in the previous
 example.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new planning unit and cost data</span></span>
 <span><span class="va">pu3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
@@ -460,7 +472,7 @@ example.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -482,14 +494,16 @@ example.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -541,7 +555,7 @@ example.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.199667068481e+03, best bound 2.884872007846e+03, gap 9.8384%</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></span></code></pre></div>
@@ -563,7 +577,7 @@ example.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         2.16         0.060<span style="text-decoration: underline;">0</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.37         0.064<span style="text-decoration: underline;">2</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.74         0.061<span style="text-decoration: underline;">3</span></span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
@@ -594,7 +608,7 @@ targets are for each feature and across multiple zones. In other words,
 we don’t really care which management actions we implement, we just want
 the set of actions that will meet our targets for minimum expenditure.
 We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create planning unit data with costs</span></span>
 <span><span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
@@ -609,7 +623,7 @@ We can formulate and solve this problem using the following code.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="624" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create targets</span></span>
 <span><span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  feature <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,</span>
@@ -628,7 +642,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -659,14 +673,16 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">8</span> and <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -721,7 +737,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></span></code></pre></div>
@@ -748,7 +764,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          15.2          0.264</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1          11.6          0.340</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4          12.7          0.281</span></span></code></pre>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
@@ -761,7 +777,7 @@ recall that we can’t use baits in most of the planning units because
 they contain native species that are susceptible to baits. So now we
 need to specify which of our planning units cannot be assigned to the
 third zone (baiting) to obtain a more useful solution.</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create data.frame to specify that we cannot bait in the first 80 units</span></span>
 <span><span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>, zone <span class="op">=</span> <span class="st">"baiting"</span>, status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -776,7 +792,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>     4 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>     5 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>     6 baiting      0</span></span></code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -808,7 +824,9 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">8</span> and <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
@@ -816,7 +834,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -872,7 +890,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></span></code></pre></div>
@@ -899,7 +917,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;"></p>
@@ -915,7 +933,7 @@ units allocated to the two trapping zones together, and penalties that
 will cluster the planning units allocated to the baiting zone together.
 We will also set an overall penalty factor to 640 to strongly penalize
 fragmented solutions.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describes boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
@@ -930,7 +948,7 @@ fragmented solutions.</p>
 <span><span class="co">## few traps          1          1       0</span></span>
 <span><span class="co">## many traps         1          1       0</span></span>
 <span><span class="co">## baiting            0          0       1</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p6</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -963,8 +981,10 @@ fragmented solutions.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, <span style="color: #0000BB;">0.5</span>, and <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">8</span> and <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5, 0.5</span>, and <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
@@ -972,7 +992,7 @@ fragmented solutions.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -1027,7 +1047,7 @@ fragmented solutions.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.113200000000e+04, best bound 1.005600000000e+04, gap 9.6658%</span></span></code></pre>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></span></code></pre></div>
@@ -1054,7 +1074,7 @@ fragmented solutions.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;"></p>
@@ -1072,7 +1092,7 @@ planning unit needs to be allocated to a specific management zone.
 Though it makes less sense here, let’s see what happens to the solution
 if we needed to do at least one form of control in every single planning
 unit.</p>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">p7</span> <span class="op">&lt;-</span></span>
@@ -1107,8 +1127,10 @@ unit.</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, <span style="color: #0000BB;">0.5</span>, and <span style="color: #0000BB;">0.5</span>, …)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     absolute targets (between <span style="color: #0000BB;">8</span> and <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5, 0.5</span>, and <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          mandatory allocation constraints</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          manual locked constraints (80 planning units)</span></span>
@@ -1117,7 +1139,7 @@ unit.</p>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
@@ -1149,7 +1171,7 @@ unit.</p>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2450 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2450 nonzeros</span></span>
@@ -1170,7 +1192,7 @@ unit.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></span></code></pre>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></span></code></pre></div>
@@ -1197,7 +1219,7 @@ unit.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7         0.203 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05        0.177 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98        0.220</span></span></code></pre>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>

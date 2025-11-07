@@ -281,12 +281,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (length(control) > 0) {
             p[names(control)] <- control
           }
-          # add starting solution if specified
-          start <- self$get_data("start_solution")
-          if (!is.null(start) && !is.Waiver(start)) {
-            n_extra <- length(model$obj) - length(start)
-            model$start <- c(c(start), rep(NA_real_, n_extra))
-          }
           # add extra parameters from portfolio if needed
           p2 <- list(...)
           for (i in seq_along(p2))
@@ -309,16 +303,16 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           self$internal$model$rhs[index] <- value
           invisible(TRUE)
         },
-        set_start_solution = function(value) {
-          n_extra <- length(self$internal$model$obj) - length(value)
-          value <- c(c(value), rep(NA_real_, n_extra))
-          self$internal$model$start <- value
-          invisible(TRUE)
-        },
         run = function() {
           # access internal model and parameters
+          start <- self$get_data("start_solution")
           model <- self$get_internal("model")
           p <- self$get_internal("parameters")
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
           # solve problem
           rt <- system.time({
             x <- withr::with_locale(
@@ -339,11 +333,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             x$x <- pmax(x$x, model$lb)
             x$x <- pmin(x$x, model$ub)
           }
-          # set default mip gap to NA if missing
-          ## this is needed for earlier versions of Gurobi that don't
-          ## return the mip gpa for a solution
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
           if (is.null(x$mipgap)) {
             x$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            x$objbound <- NA_real_
           }
           # extract solutions
           out <- list(
@@ -351,7 +347,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             objective = x$objval,
             status = x$status,
             runtime = rt[[3]],
-            gap = x$mipgap
+            gap = x$mipgap,
+            objbound = x$objbound
           )
           # add pool if required
           if (!is.null(p$PoolSearchMode) &&
@@ -360,11 +357,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           ) {
             out$pool <- x$pool[-1]
             # get bound for objective value for optimal solution
-            if (identical(model$modelsense, "min")) {
-              optimal_obj <- x$objval / (1 + x$mipgap)
-            } else {
-              optimal_obj <- x$objval * (1 + x$mipgap)
-            }
+            optimal_obj <- x$objbound
             for (i in seq_len(length(out$pool))) {
               # fix binary variables for i'th solution in pool
               out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
@@ -393,6 +386,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               # set remaining values for i'th solution
               out$pool[[i]]$objective <- out$pool[[i]]$objval
               out$pool[[i]]$gap <- i_gap
+              out$pool[[i]]$objbound <- x$objbound
             }
           }
           out

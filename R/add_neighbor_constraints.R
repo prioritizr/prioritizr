@@ -144,7 +144,7 @@ NULL
 #'   )
 #'
 #' # solve problems
-#' s1 <- terra::rast(list(solve(p1), solve(p2), solve(p3), solve(p4)))
+#' s1 <- c(solve(p1), solve(p2), solve(p3), solve(p4))
 #' names(s1) <- c("basic solution", "1 neighbor", "2 neighbors", "3 neighbors")
 #'
 #' # plot solutions

@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -250,13 +250,15 @@ establishment).</p>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"Banksia woodlands"</span>, … (33 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;sf&gt;</span> (1130 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1925</span> and <span style="color: #0000BB;">61.9273</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.5764</span>, <span style="color: #0000BB;">5167774.5993</span>, <span style="color: #0000BB;">613818.7743</span>, <span style="color: #0000BB;">5502543.7119</span> (xmin, ymin, xmax, ymax)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0.1924883</span> and <span style="color: #0000BB;">61.92727</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">298809.6</span>, <span style="color: #0000BB;">5167775</span>, <span style="color: #0000BB;">613818.8</span>, <span style="color: #0000BB;">5502544</span> (xmin, ymin, xmax, ymax)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>targets:     relative targets (between <span style="color: #0000BB;">0.17</span> and <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.17</span>)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
@@ -675,7 +677,7 @@ constraints). To achieve this, we will use the minimum penalties
 objective (i.e., <code><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective()</a></code>). This
 objective is specifically designed to enable the optimization process to
 evaluate competing solutions based only the penalties. As such, we can
-use it to perform hierachical multi-objective optimization.</p>
+use it to perform hierarchical multi-objective optimization.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define a problem with the boundary penalties</span></span>
 <span><span class="co">## note that it doesn't actually matter what penalty value is used with the</span></span>

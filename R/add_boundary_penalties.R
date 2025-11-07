@@ -27,6 +27,15 @@ NULL
 #'   Note that this argument must have an element for each zone in the argument
 #'   to `x`.
 #'
+#' @param formulation `character` value denoting the name of the linearization
+#'  technique used to formulate the penalties. Available options are `"simple"`
+#'  and `"knapsack"`. Defaults to `"simple"`. If you are having issues with
+#'  solving problems within a reasonable period of time using the `"simple"`
+#'  technique, then consider trying the `"knapsack"` technique.
+#'  Note that the `"knapsack"` technique is likely to yield better
+#'  performance when each planning unit has a large number of neighbors
+#'  (e.g., planning units are based on a hexagonal grid or irregular polygons).
+#'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   clumping scheme for different zones. Each row and column corresponds to a
 #'   different zone in the argument to `x`, and cell values indicate the
@@ -253,21 +262,23 @@ NULL
 #'
 #' @name add_boundary_penalties
 #'
-#' @aliases add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,array-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,matrix-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,data.frame-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY-method
+#' @aliases add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,array-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,matrix-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,data.frame-method add_boundary_penalties,ConservationProblem,ANY,ANY,ANY,ANY,ANY-method
 NULL
 
 #' @export
 methods::setGeneric("add_boundary_penalties",
   signature = methods::signature(
-    "x", "penalty", "edge_factor", "zones", "data"
+    "x", "penalty", "edge_factor", "formulation", "zones", "data"
   ),
   function(
     x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
+    formulation = "simple",
     zones = diag(number_of_zones(x)), data = NULL
   ) {
     assert_required(x)
     assert_required(penalty)
     assert_required(edge_factor)
+    assert_required(formulation)
     assert_required(zones)
     assert_required(data)
     assert(
@@ -279,38 +290,42 @@ methods::setGeneric("add_boundary_penalties",
 )
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, zones, data)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,data.frame}(x, penalty, edge_factor, formulation, zones, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
-  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "data.frame"),
-  function(x, penalty, edge_factor, zones, data) {
+  methods::signature(
+    "ConservationProblem", "ANY", "ANY", "ANY", "ANY", "data.frame"
+  ),
+  function(x, penalty, edge_factor, formulation, zones, data) {
     # add constraints
     add_boundary_penalties(
-      x, penalty, edge_factor, zones,
+      x, penalty, edge_factor, formulation, zones,
       internal_marxan_boundary_data_to_matrix(x, data)
     )
   }
 )
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, zones, data)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,matrix}(x, penalty, edge_factor, formulation, zones, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
-  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "matrix"),
-  function(x, penalty, edge_factor, zones, data) {
+  methods::signature(
+    "ConservationProblem", "ANY", "ANY", "ANY", "ANY", "matrix"
+  ),
+  function(x, penalty, edge_factor, formulation, zones, data) {
     # add constraints
     add_boundary_penalties(
-      x, penalty, edge_factor, zones, as_Matrix(data, "dgCMatrix")
+      x, penalty, edge_factor, formulation, zones, as_Matrix(data, "dgCMatrix")
     )
   }
 )
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, zones, data)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,ANY,ANY,ANY,ANY,ANY}(x, penalty, edge_factor, formulation, zones, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
-  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "ANY"),
-  function(x, penalty, edge_factor, zones, data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "ANY", "ANY", "ANY"),
+  function(x, penalty, edge_factor, formulation, zones, data) {
     # assert valid arguments
     assert(
       is_conservation_problem(x),
@@ -320,6 +335,9 @@ methods::setMethod("add_boundary_penalties",
       is.numeric(edge_factor),
       all_finite(edge_factor),
       all_proportion(edge_factor),
+      assertthat::is.string(formulation),
+      assertthat::noNA(formulation),
+      is_match_of(formulation, c("simple", "knapsack")),
       length(edge_factor) == number_of_zones(x),
       is_matrix_ish(zones),
       all_finite(zones)
@@ -335,6 +353,30 @@ methods::setMethod("add_boundary_penalties",
         all_finite(data),
         Matrix::isSymmetric(data)
       )
+      # assert valid arguments for knapsack formulation
+      if (identical(formulation, "knapsack")) {
+        assert(
+          all_positive(penalty),
+          msg = paste(
+            "{.arg penalty} must be a positive value",
+            "when using {.code formulation = \"knapsack\"}."
+          )
+        )
+        assert(
+          all_positive(zones),
+          msg = paste(
+            "{.arg zones} must contain only positive values",
+            "when using {.code formulation = \"knapsack\"}."
+          )
+        )
+        assert(
+          all_positive(data),
+          msg = paste(
+            "{.arg data} must contain only positive values",
+            "when using {.code formulation = \"knapsack\"}."
+          )
+        )
+      }
       # verify diagonal is >= edge lengths
       verify(
         all(
@@ -391,6 +433,7 @@ methods::setMethod("add_boundary_penalties",
           data = list(
             penalty = penalty,
             edge_factor = edge_factor,
+            formulation = formulation,
             data = data,
             zones = zones
           ),
@@ -417,6 +460,7 @@ methods::setMethod("add_boundary_penalties",
             # extract data
             p <- self$get_data("penalty")
             bm <- self$get_data("data")
+            form <- self$get_data("formulation")
             if (is.null(bm)) {
               bm <- y$get_data("boundary")
             }
@@ -435,15 +479,27 @@ methods::setMethod("add_boundary_penalties",
             # apply constraint
             if (abs(p) > 1e-50) {
               # apply penalties
-              rcpp_apply_boundary_penalties(
-                x$ptr,
-                p,
-                self$get_data("edge_factor"),
-                self$get_data("zones"),
-                bm,
-                exposed_boundary,
-                total_boundary
-              )
+              if (identical(form, "knapsack")) {
+                rcpp_apply_boundary_penalties2(
+                  x$ptr,
+                  p,
+                  self$get_data("edge_factor"),
+                  self$get_data("zones"),
+                  bm,
+                  exposed_boundary,
+                  total_boundary
+                )
+              } else {
+                rcpp_apply_boundary_penalties(
+                  x$ptr,
+                  p,
+                  self$get_data("edge_factor"),
+                  self$get_data("zones"),
+                  bm,
+                  exposed_boundary,
+                  total_boundary
+                )
+              }
             }
             # return success
             invisible(TRUE)

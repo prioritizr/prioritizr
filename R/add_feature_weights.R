@@ -301,52 +301,24 @@ methods::setMethod("add_feature_weights",
       )
     }
     # add weights to problem
-    x$add_penalty(
+    x$add_weights(
       R6::R6Class(
         "FeatureWeights",
-        inherit = Penalty,
+        inherit = Weight,
         public = list(
           name = "feature weights",
           data = list(weights = weights),
-          apply = function(x, y) {
-            # assert arguments valid
+          repr = function(compact = TRUE) {
+            repr_cost(self$get_data("weights"))
+          },
+          output = function(x) {
+            # assert x is a conservation problem
             assert(
-              inherits(x, "OptimizationProblem"),
-              inherits(y, "ConservationProblem"),
+              is_conservation_problem(x),
               .internal = TRUE
             )
-            # extract data
-            weights <- c(self$get_data("weights"))
-            # check weights are compatible with targets
-            if (!is.Waiver(y$targets)) {
-              n_targets <- nrow(y$targets$output())
-              assert(
-                length(weights) == n_targets,
-                call = rlang::expr(add_feature_weights()),
-                msg = c(
-                  paste(
-                    "{.arg weights} should have a value for each target."
-                  ),
-                  "x" = "Number of weights = {.val {length(weights)}}.",
-                  "x" = "Number of targets = {.val {n_targets}}."
-                )
-              )
-            }
-            # use scale the weights to adjust the default weights
-            default_weights <- y$objective$default_weights(y)
-            if (length(default_weights) == 1) {
-              default_weights <- rep(default_weights, length(weights))
-            }
-            assert(
-              length(weights) == length(default_weights),
-              call = rlang::expr(add_feature_weights()),
-              msg = "Failed to calculate weights.",
-              .internal = TRUE
-            )
-            # apply targets
-            invisible(
-              rcpp_apply_feature_weights(x$ptr, weights * default_weights)
-            )
+            # return weights
+            c(self$get_data("weights"))
           }
         )
       )$new()

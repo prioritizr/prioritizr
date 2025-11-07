@@ -182,7 +182,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             objective = x$objval,
             status = x$status,
             runtime = rt[[3]],
-            gap = x$gap
+            gap = x$gap,
+            objbound = x$objbound
           )
         },
         set_variable_ub = function(index, value) {
@@ -331,7 +332,8 @@ cplex <- function(model, control) {
         objval = sol$objval,
         status = stat,
         runtime = rt[[3]],
-        gap = NA_real_
+        gap = NA_real_,
+        objbound = NA_real_
       )
     } else {
       out <- list(
@@ -339,7 +341,8 @@ cplex <- function(model, control) {
         objval = NULL,
         status = stat,
         runtime = NULL,
-        gap = NULL
+        gap = NULL,
+        objbound = NULL
       )
     }
   } else {
@@ -347,7 +350,8 @@ cplex <- function(model, control) {
       x = NULL,
       objval = NULL,
       status = stat,
-      gap = NULL
+      gap = NULL,
+      objbound = NULL
     )
   }
   # clean up

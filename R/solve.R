@@ -125,7 +125,13 @@ NULL
 #' -- even though it is actually 5% from optimality -- might have a gap value
 #' of 7% (i.e., 0.07). Note that only some solvers are able to
 #' provide this information (i.e., the *Gurobi* and *HiGHS* solvers),
-#' and the gap value for other solvers will contain missing (`NA`) values.
+#' and other solvers will have a missing (`NA`) value.
+#' }
+#' \item{\code{objbound}}{
+#' \code{numeric} best known bound of the optimal objective.
+#' Note that only some solvers are able to
+#' provide this information (i.e., the *Gurobi* solvers),
+#' and other solvers will have a missing (`NA`) value.
 #' }
 #' }
 #'
@@ -346,6 +352,9 @@ solve.ConservationProblem <- function(a, b, ...,
   )
   attr(ret, "gap") <- stats::setNames(
     vapply(sol, `[[`, numeric(1), 5), paste0("solution_", seq_along(sol))
+  )
+  attr(ret, "objbound") <- stats::setNames(
+    vapply(sol, `[[`, numeric(1), 6), paste0("solution_", seq_along(sol))
   )
   # return object
   ret

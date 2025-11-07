@@ -23,7 +23,9 @@ Other classes:
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
 \code{\link{Solver-class}},
-\code{\link{Target-class}}
+\code{\link{Target-class}},
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Public fields}{

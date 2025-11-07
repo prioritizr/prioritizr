@@ -5,13 +5,19 @@ or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget."><meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error."><meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
 problem. All conservation planning problems involve minimizing
 or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error."><meta property="og:image" content="https://prioritizr.net/logo.png"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
@@ -25,7 +31,7 @@ ensuring that the cost of the reserve network does not exceed the budget."><meta
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,69 +77,68 @@ or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
-ensuring that the cost of the reserve network does not exceed the budget.</p>
+ensuring that the cost of the reserve network does not exceed the budget.
+Please note that all conservation planning problems require an
+objective function, and attempting to solve a problem without an objective
+will result in an error.</p>
     </div>
 
 
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p><strong>Please note that all conservation
-planning problems formulated using the <span class="pkg">prioritizr</span> package require an
-objective function, and attempting to solve a problem without an objective
-will result in an error.</strong></p>
-<p>The following objectives can be added to a conservation planning
-<code><a href="problem.html">problem()</a></code>:</p>
+    <p>The following functions can be used to add an objective to a
+conservation planning <code><a href="problem.html">problem()</a></code>.
+For the vast majority of conservation planning exercises,
+the minimum set and minimum shortfall objectives are most appropriate.
+Note that if multiple
+of these functions are added to a <code><a href="problem.html">problem()</a></code>, then only the last
+function added will be used.</p>
 <dl><dt><code><a href="add_min_set_objective.html">add_min_set_objective()</a></code></dt>
 <dd><p>Minimize the cost of the
 solution whilst ensuring that all targets are met. This objective is
 similar to that used in <em>Marxan</em>.</p></dd>
 
 
-<dt><code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code></dt>
-<dd><p>Represent at least one
-instance of as many features as possible within a given budget.</p></dd>
-
-
-<dt><code><a href="add_max_features_objective.html">add_max_features_objective()</a></code></dt>
-<dd><p>Fulfill as many targets as
+<dt><code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code></dt>
+<dd><p>Minimize the overall (weighted sum) shortfall for as many targets as
 possible while ensuring that the cost of the solution does not exceed a
 budget.</p></dd>
 
 
-<dt><code><a href="add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code></dt>
-<dd><p>Minimize the overall
-(weighted sum) shortfall for as many targets as possible while ensuring
-that the cost of the solution does not exceed a budget.</p></dd>
+<dt><code><a href="add_min_penalties_objective.html">add_min_penalties_objective()</a></code></dt>
+<dd><p>Minimize the penalties associated with a problem as much as possible subject
+to a budget. This is mainly used when performing hierarchical multi-objective
+optimization.</p></dd>
 
 
 <dt><code><a href="add_min_largest_shortfall_objective.html">add_min_largest_shortfall_objective()</a></code></dt>
-<dd><p>Minimize the
-largest (maximum) shortfall among all targets while ensuring that
-the cost of the solution does not exceed a budget.</p></dd>
+<dd><p>Minimize the largest (maximum) shortfall among all targets while ensuring
+that the cost of the solution does not exceed a budget.</p></dd>
 
 
 <dt><code><a href="add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code></dt>
-<dd><p>Maximize the phylogenetic
-diversity of the features represented in the solution subject to a
-budget.</p></dd>
+<dd><p>Maximize the phylogenetic diversity of the features represented in the
+solution subject to a budget.</p></dd>
 
 
 <dt><code><a href="add_max_phylo_end_objective.html">add_max_phylo_end_objective()</a></code></dt>
-<dd><p>Maximize the phylogenetic
-endemism of the features represented in the solution subject to a
-budget.</p></dd>
+<dd><p>Maximize the phylogenetic endemism of the features represented in the
+solution subject to a budget.</p></dd>
+
+
+<dt><code><a href="add_max_features_objective.html">add_max_features_objective()</a></code></dt>
+<dd><p>Fulfill as many targets as possible while ensuring that the cost of the
+solution does not exceed a budget.</p></dd>
+
+
+<dt><code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code></dt>
+<dd><p>Represent at least one instance of as many features as possible within a
+given budget. Note that this objective is not compatible with targets.</p></dd>
 
 
 <dt><code><a href="add_max_utility_objective.html">add_max_utility_objective()</a></code></dt>
-<dd><p>Maximize the weighted sum of the
-features represented by the solution subject to a budget.</p></dd>
-
-<dt><code><a href="add_min_penalties_objective.html">add_min_penalties_objective()</a></code></dt>
-<dd><p>Minimize the penalties
-associated with a problem as much as possible subject to a budget.
-This is mainly used when performing hierarchical multi-objective
-optimization.</p></dd>
-
+<dd><p>Maximize the weighted sum of the features represented by the solution
+subject to a budget. Note that this objective is not compatible with targets.</p></dd>
 
 
 </dl></div>
@@ -196,10 +201,12 @@ optimization.</p></dd>
 <span class="r-in"><span>  <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p8</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Targets specified for the problem will be ignored.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If the targets are important, use a different objective.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Targets specified for the problem will be ignored.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If the targets are important, use a different objective.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`problem()` has an objective that does not support targets.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The specified targets will be ignored during optimization.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If the targets are important, then use a different objective.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`problem()` has an objective that does not support targets.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The specified targets will be ignored during optimization.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> If the targets are important, then use a different objective.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"min set"</span>, <span class="st">"max coverage"</span>, <span class="st">"max features"</span>, <span class="st">"min shortfall"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"min largest shortfall"</span>, <span class="st">"max phylogenetic diversity"</span>,</span></span>

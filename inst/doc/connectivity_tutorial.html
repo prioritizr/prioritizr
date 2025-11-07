@@ -560,13 +560,15 @@ baseline problem.</p>
 ## │├•features:    &quot;old forest&quot;, &quot;savanna&quot;, &quot;wetland&quot;, and &quot;shrub&quot; (4 total)
 ## │└•planning units:
 ## │ ├•data:       &lt;SpatRaster&gt; (2010 total)
-## │ ├•costs:      continuous values (between 0.0255 and 8290.3832)
-## │ ├•extent:     454589.8809, 5394413.7968, 474689.8809, 5422613.7968 (xmin, ymin, xmax, ymax)
+## │ ├•costs:      continuous values (between 0.02552 and 8290.383)
+## │ ├•extent:     454589.9, 5394414, 474689.9, 5422614 (xmin, ymin, xmax, ymax)
 ## │ └•CRS:        WGS 84 / UTM zone 10N (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
-## │├•targets:     relative targets (between 0.17 and 0.17)
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.17)
+## ││└•weights:    none specified
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
@@ -646,8 +648,7 @@ targets and the contiguity constraints.</p>
 <span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="fu">add_contiguity_constraints</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>  <span class="fu">add_gurobi_solver</span>(<span class="at">first_feasible =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>  <span class="fu">solve</span>()</span></code></pre></div>
-<pre><code>## Warning in x$add_solver(R6::R6Class(&quot;GurobiSolver&quot;, inherit = Solver, public =
-## list(name = &quot;gurobi solver&quot;, : Overwriting previously defined solver.</code></pre>
+<pre><code>## Warning: Overwriting previously defined solver.</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># plot solutions</span></span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>  <span class="fu">c</span>(s0, s2), <span class="at">main =</span> <span class="fu">c</span>(<span class="st">&quot;baseline&quot;</span>, <span class="st">&quot;contiguity constraints&quot;</span>),</span>

@@ -1,4 +1,4 @@
-test_that("add_relative_targets (numeric(1), single zone)", {
+test_that("numeric(1) (single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -7,7 +7,7 @@ test_that("add_relative_targets (numeric(1), single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_relative_targets(0.1)
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # run tests
   print(p)
   expect_inherits(targets, "tbl_df")
@@ -22,7 +22,7 @@ test_that("add_relative_targets (numeric(1), single zone)", {
   expect_equal(targets$value, c(0.1 * p$feature_abundances_in_total_units()))
 })
 
-test_that("add_relative_targets (numeric(5), single zone)", {
+test_that("numeric(5) (single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -31,7 +31,7 @@ test_that("add_relative_targets (numeric(5), single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_relative_targets(seq(0.1, 0.6, length.out = 5))
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -51,7 +51,7 @@ test_that("add_relative_targets (numeric(5), single zone)", {
   )
 })
 
-test_that("add_relative_targets (matrix, single zone)", {
+test_that("matrix (single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -60,7 +60,7 @@ test_that("add_relative_targets (matrix, single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_relative_targets(matrix(seq(0.1, 0.6, length.out = 5), ncol = 1))
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -77,7 +77,7 @@ test_that("add_relative_targets (matrix, single zone)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
-test_that("add_relative_targets (character, single zone)", {
+test_that("character (single zone)", {
   # create data
   pu <- data.frame(id = seq_len(10), cost = runif(10))
   species <- data.frame(id = seq_len(5), name = letters[1:5], target = runif(5))
@@ -88,7 +88,7 @@ test_that("add_relative_targets (character, single zone)", {
     problem(pu, species, rij, "cost") %>%
     add_relative_targets("target")
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -105,7 +105,7 @@ test_that("add_relative_targets (character, single zone)", {
   expect_equal(targets$sense, rep(">=", nrow(species)))
 })
 
-test_that("add_relative_targets (invalid input, single zone)", {
+test_that("invalid input (single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -127,7 +127,7 @@ test_that("add_relative_targets (invalid input, single zone)", {
   expect_tidy_error(add_relative_targets(p, 1.2))
 })
 
-test_that("add_relative_targets (matrix, multiple zones)", {
+test_that("matrix (multiple zones)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -144,7 +144,7 @@ test_that("add_relative_targets (matrix, multiple zones)", {
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_relative_targets(m)
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -179,7 +179,7 @@ test_that("add_relative_targets (matrix, multiple zones)", {
   )
 })
 
-test_that("add_relative_targets (character, multiple zones)", {
+test_that("character (multiple zones)", {
   # import data
   pu <- data.frame(id = seq_len(10), cost_1 = runif(10), cost_2 = runif(10))
   species <- data.frame(
@@ -194,7 +194,7 @@ test_that("add_relative_targets (character, multiple zones)", {
     problem(pu, species, rij, c("cost_1", "cost_2"), zone) %>%
     add_relative_targets(c("target_1", "target_2"))
   # calculate relative targets
-  targets <- p$targets$output()
+  targets <- p$targets$output(p)
   # tests
   expect_inherits(targets, "tbl_df")
   expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
@@ -212,7 +212,7 @@ test_that("add_relative_targets (character, multiple zones)", {
   expect_equal(targets$sense, rep(">=", 10))
 })
 
-test_that("add_relative_targets (invalid input, multiple zones)", {
+test_that("invalid input (multiple zones)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -255,4 +255,27 @@ test_that("add_relative_targets (invalid input, multiple zones)", {
   expect_tidy_error(add_relative_targets(p, "target_1"))
   expect_tidy_error(add_relative_targets(p, c("target_1", "name")))
   expect_tidy_error(add_relative_targets(p, c("target_1", "target_2")))
+})
+
+test_that("warnings", {
+  # load data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  # prepare data
+  sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_2 <- runif(nrow(sim_pu_polygons))
+  sim_pu_polygons$spp_3 <- runif(nrow(sim_pu_polygons))
+  # create problem
+  p <-
+    problem(
+      sim_pu_polygons,
+      c("spp_1", "spp_2", "spp_3"),
+      cost_column = "cost",
+      feature_units = "km2"
+    ) %>%
+    add_min_set_objective()
+  # run tests
+  expect_warning(
+    add_relative_targets(p, 0.1),
+    "spatial units"
+  )
 })

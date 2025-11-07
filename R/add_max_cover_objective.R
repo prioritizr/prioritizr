@@ -179,16 +179,22 @@ add_max_cover_objective <- function(x, budget) {
       inherit = Objective,
       public = list(
         name = "maximum coverage objective",
+        has_weights = TRUE,
+        has_targets = FALSE,
         data = list(budget = budget),
-        apply = function(x, y) {
+        apply = function(x, y, weights) {
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
+            is.numeric(weights),
             .internal = TRUE
           )
           invisible(
             rcpp_apply_max_cover_objective(
-              x$ptr, y$planning_unit_costs(), self$get_data("budget")
+              x$ptr,
+              y$planning_unit_costs(),
+              self$get_data("budget"),
+              weights
             )
           )
         }

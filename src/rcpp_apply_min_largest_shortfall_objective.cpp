@@ -6,7 +6,8 @@ bool rcpp_apply_min_largest_shortfall_objective(
   SEXP x,
   const Rcpp::List targets_list,
   const Rcpp::NumericMatrix costs,
-  const Rcpp::NumericVector budget) {
+  const Rcpp::NumericVector budget
+) {
   // initialize
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
     Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);

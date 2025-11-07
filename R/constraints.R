@@ -6,66 +6,73 @@ NULL
 #' A constraint can be added to a conservation planning problem
 #' to ensure that solutions exhibit a specific characteristic.
 #'
-#' @details Constraints can be used to ensure that solutions exhibit
-#'   a range of different characteristics. For instance, they can be
-#'   used to lock in or lock out certain planning units from the solution, such
-#'   as protected areas or degraded land (respectively).
-#'   Additionally, similar to the [penalties] functions,
-#'   some of the constraint functions can be used to increase connectivity in a
-#'   solution. The key difference between a penalty and a constraint, however,
-#'   is that constraints work by invalidating solutions that do not exhibit
-#'   a specific characteristic, whereas penalty functions work by than
-#'   penalizing solutions which do not meet a specific characteristic. Thus
-#'   constraints do not affect the objective function. The following constraints
-#'   are available.
+#' @details
+#' Constraints are used to impose rules to ensure that solutions exhibit
+#' (or do not exhibit) a particular characteristic.
+#' For instance, they can be used to lock in or lock out certain planning units
+#' from the solution, such
+#' as protected areas or degraded land (respectively).
+#' Additionally, similar to the [penalties] functions,
+#' some of the constraint functions can be used to increase connectivity in a
+#' solution. The key difference between a penalty and a constraint, however,
+#' is that constraints work by forbidding solutions that do not exhibit
+#' a specific characteristic, whereas penalty functions work by than
+#' penalizing solutions which do not meet a specific characteristic.
 #'
-#'   The following constraints can be added to a conservation planning
-#'   [problem()]:
+#' The following functions can be used to add constraints to a
+#' conservation planning [problem()].
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{[add_locked_in_constraints()]}{
-#'     Add constraints to ensure
-#'     that certain planning units are selected in the solution.}
+#' \item{[add_locked_in_constraints()]}{
+#' Add constraints to ensure
+#' that certain planning units are selected in the solution.
+#' }
 #'
-#'   \item{[add_locked_out_constraints()]}{
-#'     Add constraints to ensure
-#'     that certain planning units are not selected in the solution.}
+#' \item{[add_locked_out_constraints()]}{
+#' Add constraints to ensure that certain planning units are not selected in
+#' the solution.
+#' }
 #'
-#'   \item{[add_neighbor_constraints()]}{
-#'     Add constraints to
-#'     ensure that all selected planning units have at least a certain number
-#'     of neighbors. These constraints may be especially useful for
-#'     reducing spatial fragmentation in large-scale planning problems
-#'     or when using open source solvers.}
+#' \item{[add_neighbor_constraints()]}{
+#' Add constraints to
+#' ensure that all selected planning units have at least a certain number
+#' of neighbors. These constraints may be especially useful for
+#' reducing spatial fragmentation in large-scale planning problems
+#' or when using open source solvers.
+#' }
 #'
-#'   \item{[add_contiguity_constraints()]}{
-#'     Add constraints to a
-#'     ensure that all selected planning units are spatially connected to each
-#'     other and form a single contiguous unit.}
+#' \item{[add_contiguity_constraints()]}{
+#' Add constraints to a
+#' ensure that all selected planning units are spatially connected to each
+#' other and form a single contiguous unit.
+#' }
 #'
-#'   \item{[add_feature_contiguity_constraints()]}{
-#'     Add constraints to
-#'     ensure that each feature is represented in a contiguous unit of
-#'     dispersible habitat. These constraints are a more advanced version of
-#'     those implemented in the [add_contiguity_constraints()]
-#'     function, because they ensure that each feature is represented in a
-#'     contiguous unit and not that the entire solution should form a
-#'     contiguous unit.}
+#' \item{[add_feature_contiguity_constraints()]}{
+#' Add constraints to
+#' ensure that each feature is represented in a contiguous unit of
+#' dispersible habitat. These constraints are a more advanced version of
+#' those implemented in the [add_contiguity_constraints()]
+#' function, because they ensure that each feature is represented in a
+#' contiguous unit and not that the entire solution should form a
+#' contiguous unit.
+#' }
 #'
-#'   \item{[add_linear_constraints()]}{
-#'     Add constraints to ensure that all selected planning units meet certain
-#'     criteria. For example, they can be used to add
-#'     multiple budgets, or limit the number of
-#'     planning units selected in different administrative areas within a study
-#'     region (e.g., different countries).}
+#' \item{[add_linear_constraints()]}{
+#' Add constraints to ensure that all selected planning units meet certain
+#' criteria. For example, they can be used to add
+#' multiple budgets, or limit the number of
+#'  planning units selected in different administrative areas within a study
+#' region (e.g., different countries).
+#' }
 #'
-#'   \item{[add_mandatory_allocation_constraints()]}{
-#'     Add constraints to ensure that every planning unit is allocated to a
-#'     management zone in the solution. **This function can only be used
-#'     with problems that contain multiple zones.**}
+#' \item{[add_mandatory_allocation_constraints()]}{
+#' Add constraints to ensure that every planning unit is allocated to a
+#' management zone in the solution. Note that this function can only be used
+#' with problems that contain multiple zones.
+#' }
 #'
-#'  }
+#' }
 #'
 #' @family overviews
 #'

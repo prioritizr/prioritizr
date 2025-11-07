@@ -18,7 +18,9 @@ Other classes:
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
 \code{\link{Solver-class}},
-\code{\link{Target-class}}
+\code{\link{Target-class}},
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Super class}{

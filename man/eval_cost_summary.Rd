@@ -219,7 +219,7 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 \seealso{
 See \link{summaries} for an overview of all functions for summarizing solutions.
 
-Other summaries: 
+Other functions for summarizing solutions:
 \code{\link{eval_asym_connectivity_summary}()},
 \code{\link{eval_boundary_summary}()},
 \code{\link{eval_connectivity_summary}()},

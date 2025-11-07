@@ -1,4 +1,4 @@
-#' @include internal.R waiver.R assertions.R
+#' @include internal.R waiver.R
 NULL
 
 #' @export

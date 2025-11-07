@@ -114,7 +114,7 @@ integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
-Other solvers: 
+Other functions for adding solvers:
 \code{\link{add_cbc_solver}()},
 \code{\link{add_cplex_solver}()},
 \code{\link{add_default_solver}()},

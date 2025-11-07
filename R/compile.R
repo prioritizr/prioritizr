@@ -70,47 +70,67 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   )
   assert_dots_empty()
   # sanity checks
-  targets_not_supported <- c(
-    "MaximumUtilityObjective",
-    "MaximumCoverageObjective"
-  )
+  ## problem must have objective
+  if (is.Waiver(x$objective)) {
+    cli::cli_abort(
+      c(
+        "{.fn problem} must have an objective.",
+        "i" = paste(
+          "See {.topic prioritizr::objectives} for guidance on selecting",
+          "an objective."
+        )
+      )
+    )
+  }
+  ## problem must have targets if required by objective
   if (
-    inherits(x$objective, targets_not_supported) &&
+    is.Waiver(x$targets) &&
+    isTRUE(x$objective$has_targets)
+  ) {
+    cli::cli_abort(
+      c(
+        "{.fn problem} must have targets added to it.",
+        "i" = "This is because it has an objective that requires targets.",
+        "i" =
+          "See {.topic prioritizr::targets} for guidance on selecting targets."
+      )
+    )
+  }
+  ## throw warning if targets are specified and will not be used
+  if (
+    !isTRUE(x$objective$has_targets) &&
     !is.Waiver(x$targets)
   ) {
     cli_warning(
       c(
-        "Targets specified for the problem will be ignored.",
-        "i" = "If the targets are important, use a different objective."
-      )
+        "{.fn problem} has an objective that does not support targets.",
+        "i" = "The specified targets will be ignored during optimization.",
+        "i" = "If the targets are important, then use a different objective."
+      ),
+      call = NULL
     )
   }
-  # replace waivers with defaults
-  if (is.Waiver(x$objective)) {
-    cli::cli_abort(
-      "{.fn problem} must have an objective.",
-      "i" = paste(
-        "See {.topic prioritizr::objectives} for guidance on selecting",
-        "an objective."
-      )
-    )
-  }
+  ## throw warning if weights are specified and will not be used
   if (
-    is.Waiver(x$targets) &&
-    !inherits(
-      x$objective,
-      c("MaximumUtilityObjective", "MaximumCoverageObjective"))
+    !isTRUE(x$objective$has_weights) &&
+    !is.Waiver(x$weights)
   ) {
-    cli::cli_abort(
-      "{.fn problem} must have targets.",
-      "i" =
-        "See {.topic prioritizr::targets} for guidance on selecting targets."
+    cli_warning(
+      c(
+        "{.fn problem} has an objective that does not support weights.",
+        "i" = "The specified weights will be ignored during optimization.",
+        "i" = "If the weights are important, then use a different objective."
+      ),
+      call = NULL
     )
   }
-  if (inherits(x$objective, "MinimumPenaltiesObjective")) {
-    verify(
-      length(x$penalties) >= 1,
-      msg = c(
+  ## problem should have penalties if using minimum penalties objective
+  if (
+    inherits(x$objective, "MinimumPenaltiesObjective") &&
+    identical(length(x$penalties), 0L)
+  ) {
+    cli_warning(
+      c(
         "{.arg problem} does not have any penalties.",
         "i" = paste(
           "Using {.fn add_min_penalties_objective} without any penalties",
@@ -119,7 +139,8 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
         "i" = paste(
           "See {.topic prioritizr::penalties} for available penalties."
         )
-      )
+      ),
+      call = NULL
     )
   }
   # add defaults if needed
@@ -213,6 +234,33 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     # generate "real" targets
     targets <- x$feature_targets()
   }
+  # generate weights
+  weights <- x$feature_weights()
+  if (!is.Waiver(weights)) {
+    if (isTRUE(x$objective$has_targets)) {
+      msg <- c(
+        paste(
+          "{.fn problem} must have a weight value for each target."
+        ),
+        "x" = "Number of weights = {.val {length(weights)}}.",
+        "x" = "Number of targets = {.val {nrow(targets)}}."
+      )
+    } else {
+      msg <- c(
+        paste(
+          "{.fn problem} must have a weight value for each feature."
+        ),
+        "x" = "Number of weights = {.val {length(weights)}}.",
+        "x" = "Number of features = {.val {nrow(targets)}}."
+      )
+    }
+    assert(
+      identical(length(weights), nrow(targets)),
+      msg = msg
+    )
+  } else {
+    weights <- rep(x$objective$default_weights(), nrow(targets))
+  }
   # add rij data to optimization problem
   rcpp_add_rij_data(
     op$ptr, x$get_data("rij_matrix"), as.list(targets), compressed_formulation
@@ -222,7 +270,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$decisions$apply(op)
   # add objective to optimization problem
   x$objective$calculate(x)
-  x$objective$apply(op, x)
+  x$objective$apply(op, x, weights)
   # add constraints for zones
   if ((x$number_of_zones() > 1)) {
     # detect if mandatory allocation constraints should be applied
@@ -257,22 +305,6 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   }
   # add penalties to optimization problem
   for (i in seq_along(x$penalties)) {
-    ## run sanity check
-    if (
-      inherits(x$penalties[[i]], "FeatureWeights") &&
-      inherits(
-        x$objective,
-        c("MinimumSetObjective", "MinimumLargestShortfallObjective")
-      )
-    ) {
-      cli_warning(
-        c(
-          "Weights specified for the problem will be ignored.",
-          "i" = "If the weights are important, use a different objective."
-        )
-      )
-      next()
-    }
     ## apply penalty if it makes sense to do so
     x$penalties[[i]]$calculate(x)
     x$penalties[[i]]$apply(op, x)

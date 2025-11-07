@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,19 +209,21 @@
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="do">## │├•features:    "Recurvirostra americana (breeding)", … (396 total)</span></span>
 <span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="do">## │└•planning units:</span></span>
 <span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="do">## │ ├•data:       &lt;SpatRaster&gt; (10757 total)</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="do">## │ ├•costs:      continuous values (between 0.2987 and 1804.1838)</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="do">## │ ├•extent:     -1816381.6182, 247483.5211, -1228381.6182, 683483.5211 (xmin, ymin, xmax, ymax)</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="do">## │ ├•costs:      continuous values (between 0.2986647 and 1804.184)</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="do">## │ ├•extent:     -1816382, 247483.5, -1228382, 683483.5 (xmin, ymin, xmax, ymax)</span></span>
 <span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="do">## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs (projected)</span></span>
 <span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="do">## ├•formulation</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="do">## │├•objective:   minimum shortfall objective (`budget` = 8748.4908)</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="do">## │├•objective:   minimum shortfall objective (`budget` = 8748.491)</span></span>
 <span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="do">## │├•penalties:   none specified</span></span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="do">## │├•targets:     relative targets (between 0.2 and 0.2)</span></span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="do">## │├•constraints: none specified</span></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="do">## │└•decisions:   binary decision</span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="do">## └•optimization</span></span>
-<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="do">##  ├•portfolio:   default portfolio</span></span>
-<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="do">##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="do">## # ℹ Use `summary(...)` to see complete formulation.</span></span></code></pre></div>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="do">## │├•features:</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="do">## ││├•targets:    relative targets (all equal to 0.2)</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="do">## ││└•weights:    none specified</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="do">## │├•constraints: none specified</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="do">## │└•decisions:   binary decision</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="do">## └•optimization</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="do">##  ├•portfolio:   default portfolio</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="do">##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="do">## # ℹ Use `summary(...)` to see complete formulation.</span></span></code></pre></div>
 <p>After we have built a <code><a href="reference/problem.html">problem()</a></code>, we can solve it to obtain a solution.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
@@ -235,7 +237,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.343</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.526</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

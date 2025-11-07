@@ -140,7 +140,7 @@ test_that("correct solution (simple)", {
     terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
   )
   names(features) <- make.unique(names(features))
-  # create problems
+  # create problem
   p <-
     problem(cost, features) %>%
     add_min_set_objective() %>%
@@ -212,6 +212,8 @@ test_that("solver information (single solution)", {
   expect_length(attr(s, "status"), 1)
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 1)
+  expect_true(is.numeric(attr(s, "objbound")))
+  expect_length(attr(s, "objbound"), 1)
 })
 
 test_that("solver information (multiple solutions)", {
@@ -239,6 +241,8 @@ test_that("solver information (multiple solutions)", {
   expect_length(attr(s, "status"), 3)
   expect_true(is.numeric(attr(s, "gap")))
   expect_length(attr(s, "gap"), 3)
+  expect_true(is.numeric(attr(s, "objbound")))
+  expect_length(attr(s, "objbound"), 3)
 })
 
 test_that("set_start_solution", {
@@ -266,12 +270,10 @@ test_that("set_start_solution", {
     ) %>%
     add_binary_decisions() %>%
     add_cplex_solver(verbose = FALSE)
-  # force calculations
-  p$solver$calculate(compile(p))
   # tests
-  expect_error(
+  expect_warning(
     p$solver$set_start_solution(c(1, 2, 3)),
-    "No defined"
+    "starting"
   )
 })
 

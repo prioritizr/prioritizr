@@ -18,7 +18,9 @@ Other classes:
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
-\code{\link{Target-class}}
+\code{\link{Target-class}},
+\code{\link{TargetMethod-class}},
+\code{\link{Weight-class}}
 }
 \concept{classes}
 \section{Super class}{
@@ -33,6 +35,7 @@ Other classes:
 \item \href{#method-Solver-set_variable_lb}{\code{Solver$set_variable_lb()}}
 \item \href{#method-Solver-set_constraint_rhs}{\code{Solver$set_constraint_rhs()}}
 \item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
+\item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
 \item \href{#method-Solver-solve}{\code{Solver$solve()}}
 \item \href{#method-Solver-clone}{\code{Solver$clone()}}
 }
@@ -182,21 +185,40 @@ Invisible \code{TRUE}.
 \subsection{Method \code{set_start_solution()}}{
 Set the starting solution.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$set_start_solution(value)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solver$set_start_solution(value, warn = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{value}}{\code{numeric} new value.}
+\item{\code{value}}{\code{numeric} vector.}
+
+\item{\code{warn}}{\code{logical} indicating if a warning should be displayed
+if the solver does not support starting solutions.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Note that this method should only be run after \verb{$calculate()}.
-It can be used to overwrite values after ingesting an
-\code{\link[=optimization_problem]{optimization_problem()}} object.
-It is designed to be used in \link{portfolios} and \link{importance} functions.
+This method is designed used in \link{portfolios} and \link{importance}
+functions.
+}
+
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-remove_start_solution"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-remove_start_solution}{}}}
+\subsection{Method \code{remove_start_solution()}}{
+Remove the starting solution.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$remove_start_solution()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+This method is designed used in \link{portfolios} and \link{importance}
+functions.
 }
 
 \subsection{Returns}{

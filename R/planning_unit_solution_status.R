@@ -428,8 +428,7 @@ methods::setMethod(
     )
     ## values in the solution
     assert(
-      min(terra::global(solution, "min", na.rm = TRUE)[[1]]) >= 0,
-      max(terra::global(solution, "max", na.rm = TRUE)[[1]]) <= 1,
+      all_proportion(solution),
       call = call,
       msg = paste(
         "{.arg solution} must only contain",

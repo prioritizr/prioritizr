@@ -15,7 +15,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.0.6.8</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,9 @@ Only experts should use the fields and methods for this class directly."><meta p
 <code><a href="OptimizationProblem-class.html">OptimizationProblem-class</a></code>,
 <code><a href="Penalty-class.html">Penalty-class</a></code>,
 <code><a href="Portfolio-class.html">Portfolio-class</a></code>,
-<code><a href="Target-class.html">Target-class</a></code></p></div>
+<code><a href="Target-class.html">Target-class</a></code>,
+<code><a href="TargetMethod-class.html">TargetMethod-class</a></code>,
+<code><a href="Weight-class.html">Weight-class</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="super-class">Super class<a class="anchor" aria-label="anchor" href="#super-class"></a></h2>
@@ -89,6 +91,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 <li><p><a href="#method-Solver-set_variable_lb"><code>Solver$set_variable_lb()</code></a></p></li>
 <li><p><a href="#method-Solver-set_constraint_rhs"><code>Solver$set_constraint_rhs()</code></a></p></li>
 <li><p><a href="#method-Solver-set_start_solution"><code>Solver$set_start_solution()</code></a></p></li>
+<li><p><a href="#method-Solver-remove_start_solution"><code>Solver$remove_start_solution()</code></a></p></li>
 <li><p><a href="#method-Solver-solve"><code>Solver$solve()</code></a></p></li>
 <li><p><a href="#method-Solver-clone"><code>Solver$clone()</code></a></p></li>
 </ul></div><p><details><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_data"><a href="ConservationModifier.html#method-get_data"><code>prioritizr::ConservationModifier$get_data()</code></a></span></li>
@@ -238,23 +241,26 @@ It is designed to be used in <a href="portfolios.html">portfolios</a> and <a hre
 <h3 id="method-set-start-solution-">Method <code>set_start_solution()</code><a class="anchor" aria-label="anchor" href="#method-set-start-solution-"></a></h3>
 <p>Set the starting solution.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">set_start_solution</span><span class="op">(</span><span class="va">value</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">set_start_solution</span><span class="op">(</span><span class="va">value</span>, warn <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>value</code></dt>
-<dd><p><code>numeric</code> new value.</p></dd>
+<dd><p><code>numeric</code> vector.</p></dd>
+
+
+<dt><code>warn</code></dt>
+<dd><p><code>logical</code> indicating if a warning should be displayed
+if the solver does not support starting solutions.</p></dd>
 
 
 </dl><p></p></div>
 </div>
 <div class="section">
 <h4 id="details-3">Details<a class="anchor" aria-label="anchor" href="#details-3"></a></h4>
-<p>Note that this method should only be run after <code>$calculate()</code>.
-It can be used to overwrite values after ingesting an
-<code><a href="optimization_problem.html">optimization_problem()</a></code> object.
-It is designed to be used in <a href="portfolios.html">portfolios</a> and <a href="importance.html">importance</a> functions.</p>
+<p>This method is designed used in <a href="portfolios.html">portfolios</a> and <a href="importance.html">importance</a>
+functions.</p>
 </div>
 
 <div class="section">
@@ -262,10 +268,28 @@ It is designed to be used in <a href="portfolios.html">portfolios</a> and <a hre
 <p>Invisible <code>TRUE</code>.</p>
 </div>
 
+</div><p></p><hr><a id="method-Solver-remove_start_solution"></a><div class="section">
+<h3 id="method-remove-start-solution-">Method <code>remove_start_solution()</code><a class="anchor" aria-label="anchor" href="#method-remove-start-solution-"></a></h3>
+<p>Remove the starting solution.</p><div class="section">
+<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">remove_start_solution</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="details-4">Details<a class="anchor" aria-label="anchor" href="#details-4"></a></h4>
+<p>This method is designed used in <a href="portfolios.html">portfolios</a> and <a href="importance.html">importance</a>
+functions.</p>
+</div>
+
+<div class="section">
+<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
+<p>Invisible <code>TRUE</code>.</p>
+</div>
+
 </div><p></p><hr><a id="method-Solver-solve"></a><div class="section">
 <h3 id="method-solve-">Method <code><a href="solve.html">solve()</a></code><a class="anchor" aria-label="anchor" href="#method-solve-"></a></h3>
 <p>Solve an optimization problem.</p><div class="section">
-<h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">solve</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
@@ -282,14 +306,14 @@ It is designed to be used in <a href="portfolios.html">portfolios</a> and <a hre
 </dl><p></p></div>
 </div>
 <div class="section">
-<h4 id="returns-6">Returns<a class="anchor" aria-label="anchor" href="#returns-6"></a></h4>
+<h4 id="returns-7">Returns<a class="anchor" aria-label="anchor" href="#returns-7"></a></h4>
 <p>Invisible <code>TRUE</code>.</p>
 </div>
 
 </div><p></p><hr><a id="method-Solver-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
+<h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
