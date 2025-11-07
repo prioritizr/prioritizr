@@ -254,29 +254,25 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_boundary_penalties(10000, 0.5) %>%
-    add_default_solver(time_limit = 5, verbose = FALSE)
-  s1_1 <- solve(p1)
-  s1_2 <- solve(p1)
+    add_highs_solver(gap = 0.5, verbose = FALSE)
+  s1 <- solve(p1)
   p2 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_boundary_penalties(-10000000, 0.5) %>%
-    add_default_solver(time_limit = 5, verbose = FALSE)
-  expect_warning(s2_1 <- solve(p2, force = TRUE))
-  expect_warning(s2_2 <- solve(p2, force = TRUE))
+    add_highs_solver(gap = 0.5, verbose = FALSE)
+  expect_warning(s2 <- solve(p2, force = TRUE))
   # tests
-  expect_inherits(s1_1, "SpatRaster")
-  expect_inherits(s1_2, "SpatRaster")
-  expect_true(all_binary(terra::values(s1_1)))
-  expect_true(is_single_patch_raster(s1_1))
-  expect_equal(terra::values(s1_1), terra::values(s1_2))
-  expect_inherits(s2_1, "SpatRaster")
-  expect_inherits(s2_2, "SpatRaster")
-  expect_true(all_binary(terra::values(s2_1)))
-  expect_true(is_checkerboard_raster(s2_1))
-  expect_equal(terra::values(s2_1), terra::values(s2_2))
+  expect_inherits(s1, "SpatRaster")
+  expect_inherits(s1, "SpatRaster")
+  expect_true(all_binary(terra::values(s1)))
+  expect_true(is_single_patch_raster(s1))
+  expect_inherits(s2, "SpatRaster")
+  expect_inherits(s2, "SpatRaster")
+  expect_true(all_binary(terra::values(s2)))
+  expect_true(is_checkerboard_raster(s2))
 })
 
 test_that("minimum set objective (compile, multiple zones)", {

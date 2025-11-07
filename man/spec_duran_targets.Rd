@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_duran_targets.R
 \name{spec_duran_targets}
 \alias{spec_duran_targets}
-\title{Specify targets following Duran \emph{et al.} 2020}
+\title{Specify targets following Duran \emph{et al.} (2020)}
 \usage{
 spec_duran_targets(probability_target, historical_area, area_units)
 }

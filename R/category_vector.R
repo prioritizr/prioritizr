@@ -4,19 +4,20 @@ NULL
 #' Category vector
 #'
 #' Convert an object containing binary (`integer`) columns into a
-#' `integer` vector indicating the column index where each row is
-#' `1`.
+#' `integer` vector indicating the column index where each row has the
+#' highest value.
 #'
 #' @param x `matrix`, `data.frame`, or [sf::sf()] object.
 #'
-#' @details This function is conceptually similar to [base::max.col()]
-#'   except that rows with no values equal to `1` values are assigned a
-#'   value of zero. Also, note that in the argument to `x`, each row must
-#'   contain only a single value equal to `1`.
+#' @details
+#' This function is conceptually similar to [base::max.col()]
+#' except that rows with all values equal to zero value are assigned a
+#' value of zero.
 #'
 #' @return An `integer` vector.
 #'
-#' @seealso [base::max.col()].
+#' @seealso
+#' The [base::max.col()] provides similar functionality.
 #'
 #' @examples
 #' # create matrix with logical columns
@@ -76,8 +77,7 @@ category_vector.matrix <- function(x) {
     is.matrix(x),
     is.numeric(x),
     nrow(x) >= 1,
-    ncol(x) >= 1,
-    all_binary(x)
+    ncol(x) >= 1
   )
   out <- max.col(x, ties.method = "first")
   out[out == 1 & x[, 1] == 0] <- 0

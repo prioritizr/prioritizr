@@ -28,7 +28,9 @@ NULL
 #'
 #' @return A [terra::rast()] object.
 #'
-#' @seealso [category_layer()], [terra::segregate()].
+#' @seealso
+#' The [category_layer()] function performs the reverse of this function.
+#' Also the [terra::segregate()] function provides similar functionality.
 #'
 #' @examples
 #' # create raster with categorical values

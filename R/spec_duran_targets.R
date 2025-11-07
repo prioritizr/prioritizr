@@ -1,7 +1,7 @@
 #' @include internal.R ConservationProblem-class.R loglinear_interpolation.R
 NULL
 
-#' Specify targets following Duran *et al.* 2020
+#' Specify targets following Duran *et al.* (2020)
 #'
 #' Specify targets based on the methodology outlined by
 #' Duran *et al.* (2020).

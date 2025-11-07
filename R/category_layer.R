@@ -3,23 +3,24 @@ NULL
 
 #' Category layer
 #'
-#' Convert a [terra::rast()] object where each layer corresponds to a different
-#' identifier and values indicate the presence/absence of that category into a
-#' [terra::rast()] object containing categorical
-#' identifiers.
+#' Convert a multi-layer [terra::rast()] object into a single-layer
+#' [terra::rast()] object where pixel values indicate which input layer
+#' had the greatest value.
 #'
 #' @param x [terra::rast()] object containing multiple
-#'   layers. Note that cell values must be 0, 1 or `NA` values.
+#'   layers.
 #'
-#' @details This function is provided to help manage data that encompass
-#'   multiple management zones. For instance, this function may be helpful
-#'   for interpreting solutions for problems associated with multiple zones that
-#'   have binary decisions.
-#'   It is essentially a wrapper for [terra::which.lyr()].
+#' @details
+#' This function is provided to help manage data that encompass
+#' multiple management zones. For instance, this function may be helpful
+#' for interpreting solutions for problems associated with multiple zones that
+#' have binary decisions.
+#' It is essentially a wrapper for [terra::which.max()].
 #'
 #' @return A [terra::rast()] object.
 #'
-#' @seealso [binary_stack()].
+#' @seealso
+#' The [binary_stack()] function performs the reverse of this function.
 #'
 #' @examples
 #' # create a binary raster stack
@@ -64,7 +65,7 @@ category_layer.default <- function(x) {
     is_numeric_values(x)
   )
   # create layer
-  r <- terra::which.lyr(x)
+  r <- terra::which.max(x)
   # ensure that category layer has zeros in correct places
   r[all(x == 0)] <- 0
   # return result

@@ -14,23 +14,22 @@ category_layer(x)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple
-layers. Note that cell values must be 0, 1 or \code{NA} values.}
+layers.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.
 }
 \description{
-Convert a \code{\link[terra:rast]{terra::rast()}} object where each layer corresponds to a different
-identifier and values indicate the presence/absence of that category into a
-\code{\link[terra:rast]{terra::rast()}} object containing categorical
-identifiers.
+Convert a multi-layer \code{\link[terra:rast]{terra::rast()}} object into a single-layer
+\code{\link[terra:rast]{terra::rast()}} object where pixel values indicate which input layer
+had the greatest value.
 }
 \details{
 This function is provided to help manage data that encompass
 multiple management zones. For instance, this function may be helpful
 for interpreting solutions for problems associated with multiple zones that
 have binary decisions.
-It is essentially a wrapper for \code{\link[terra:which]{terra::which.lyr()}}.
+It is essentially a wrapper for \code{\link[terra:summarize-generics]{terra::which.max()}}.
 }
 \examples{
 # create a binary raster stack
@@ -52,5 +51,5 @@ plot(y)
 }
 }
 \seealso{
-\code{\link[=binary_stack]{binary_stack()}}.
+The \code{\link[=binary_stack]{binary_stack()}} function performs the reverse of this function.
 }

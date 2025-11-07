@@ -58,5 +58,6 @@ plot(y)
 }
 }
 \seealso{
-\code{\link[=category_layer]{category_layer()}}, \code{\link[terra:segregate]{terra::segregate()}}.
+The \code{\link[=category_layer]{category_layer()}} function performs the reverse of this function.
+Also the \code{\link[terra:segregate]{terra::segregate()}} function provides similar functionality.
 }

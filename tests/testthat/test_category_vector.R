@@ -1,6 +1,15 @@
-test_that("matrix", {
+test_that("matrix (binary)", {
   # create data
   x <- matrix(c(1, 0, 0, NA, 0, 1, 0, NA, 0, 0, 0, NA), ncol = 3)
+  # create category vector
+  y <- category_vector(x)
+  # run tests
+  expect_equal(y, c(1, 2, 0, NA))
+})
+
+test_that("matrix (continuous)", {
+  # create data
+  x <- matrix(c(0.9, 0.2, 0, NA, 0.3, 0.3, 0, NA, 0, 0, 0, NA), ncol = 3)
   # create category vector
   y <- category_vector(x)
   # run tests
@@ -47,10 +56,6 @@ test_that("sf", {
 
 test_that("invalid inputs", {
   expect_tidy_error(category_vector(data.frame(integer(0), integer(0))))
-  expect_tidy_error(category_vector(data.frame(a = 1, b = 2)))
-  expect_tidy_error(category_vector(data.frame(a = 1, b = -1)))
   expect_tidy_error(category_vector(data.frame(a = 1, b = "a")))
-  expect_tidy_error(category_vector(matrix(c(1, 2), ncol = 2)))
-  expect_tidy_error(category_vector(matrix(c(1, -1), ncol = 2)))
   expect_tidy_error(category_vector(matrix(c("a", "b"), ncol = 2)))
 })

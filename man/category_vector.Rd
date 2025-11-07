@@ -26,14 +26,13 @@ An \code{integer} vector.
 }
 \description{
 Convert an object containing binary (\code{integer}) columns into a
-\code{integer} vector indicating the column index where each row is
-\code{1}.
+\code{integer} vector indicating the column index where each row has the
+highest value.
 }
 \details{
 This function is conceptually similar to \code{\link[base:maxCol]{base::max.col()}}
-except that rows with no values equal to \code{1} values are assigned a
-value of zero. Also, note that in the argument to \code{x}, each row must
-contain only a single value equal to \code{1}.
+except that rows with all values equal to zero value are assigned a
+value of zero.
 }
 \examples{
 # create matrix with logical columns
@@ -49,5 +48,5 @@ y <- category_vector(x)
 print(y)
 }
 \seealso{
-\code{\link[base:maxCol]{base::max.col()}}.
+The \code{\link[base:maxCol]{base::max.col()}} provides similar functionality.
 }

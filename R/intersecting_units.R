@@ -218,6 +218,13 @@ methods::setMethod("intersecting_units",
       is_same_crs(x, y),
       is_spatial_extents_overlap(x, y)
     )
+    assert(
+      all(!st_geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      msg = paste(
+        "{.arg x} must not contain",
+        "{.cls GEOMETRYCOLLECTION} or {.cls MULTIPOINT} geometries."
+      )
+    )
     # find out which units in y contain at least one element of x
     ## precision is 1e-7
     which(c(fast_extract(y[[1]] > 0, x, fun = "mean")) > 1e-7)

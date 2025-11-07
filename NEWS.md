@@ -7,7 +7,7 @@
 ## New features
 
 - New `add_auto_targets()` function for adding targets to a conservation
-  planning problem based on a target setting method. In particular, the
+  planning problem based on a target setting method (#377). In particular, the
   following functions can be used in conjunction with this function to specify
   target setting methods: `spec_absolute_targets()`, `spec_area_targets()`,
   `spec_interp_absolute_targets()`, `spec_interp_area_targets()`
@@ -68,6 +68,10 @@
   yield a more concise warning message.
 - Update `compile()` function to throw more informative warnings when a
   `problem()` have an objective that does not support weights or targets.
+- Update `category_layer()` and `category_vector()` to work with continuous
+  values (#381). In cases, where a given pixel has multiple non-zero values, it
+  will be allocated to the category with the greatest value. Thanks to Martin
+  Jung (\@Martin-Jung) for the suggestion.
 - Fix bug in internal `get_crs()` function when using `raster::raster()` or
   `raster::stack()` objects.
 - Fix bug in `add_relative_targets()` that produced an incoherent error message.
@@ -77,6 +81,10 @@
   the minimum and maximum values of rasters are now computed with
   `terra::minmax(x, compute = TRUE)`, instead of
   `terra::global(x, "range", na.rm = TRUE)`.
+- Fix bug in `intersecting_units()` function that caused it to throw
+  an incorrect error message when used with an `sf::st_sf()` object containing
+  geometry collection data (#379). Thanks to Alan Jackson (\@alankjackson) for
+  bug report.
 
 #### Documentation
 
