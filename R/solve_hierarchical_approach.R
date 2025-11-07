@@ -35,17 +35,103 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
   mopt_list <- compile_hierarchical_approach(x = x)
 
   # extract components
-  mopt <- mopt_list$mopt               # OptimizationProblem
-  mobj <- mopt_list$obj                # matrix with the obj for each problem
-  mmodelsense <- mopt_list$modelsense  # vector with modelsense for each problem
+  mopt <- mopt_list$mopt # OptimizationProblem
+  mobj <- mopt_list$obj # matrix with the obj for each problem
+  mmodelsense <- mopt_list$modelsense # vector with modelsense for each problem
 
   # initialize variables
   prev_sol <- NULL
-
+  
+  browser()
+  
   # solve the problem using the specified method
   if (identical(method, "gurobi")) {
-    # TODO
-    stop("TODO")
+    # assert first problem has Gurobi
+    if (x[[1]]$solver$name != "gurobi solver") {
+      stop('Gurobi solver is needed in the problem with highest priority for the method "gurobi"')
+    }
+    
+    # warn if other problems have different solvers
+    other_solvers <- vapply(x[-1], function(p) p$solver$name, character(1))
+    if (any(other_solvers != "gurobi solver")) {
+      warning("While the first problem has Gurobi, other problems seem to have other solvers specified.")
+    }
+    
+    # extract parameters directly from the first problem's solver
+    solver_data <- x[[1]]$solver$data
+
+    p <- list(
+      LogToConsole = as.numeric(solver_data$verbose),
+      LogFile = "",
+      Presolve = solver_data$presolve,
+      MIPGap = solver_data$gap,
+      TimeLimit = solver_data$time_limit,
+      Threads = solver_data$threads,
+      NumericFocus = as.numeric(solver_data$numeric_focus) * 2,
+      NodeFileStart = solver_data$node_file_start,
+      SolutionLimit = as.numeric(solver_data$first_feasible)
+    )
+
+    # clean up missing or invalid ones
+    if (p$SolutionLimit == 0) p$SolutionLimit <- NULL
+    if (p$NodeFileStart < 0) p$NodeFileStart <- NULL
+
+    # add custom control parameters, if present
+    control <- solver_data$control
+    if (length(control) > 0) {
+      p[names(control)] <- control
+    }
+
+    # build model
+    model <- list(
+      A = mopt$A(),
+      rhs = mopt$rhs(),
+      sense = mopt$sense(),
+      vtype = mopt$vtype(),
+      lb = mopt$lb(),
+      ub = mopt$ub(),
+      modelsense = "min",
+      multiobj = lapply(seq_len(nrow(mobj)), function(i) {
+        list(
+          objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
+          priority = nrow(mobj) - i + 1,
+          weight = 1.0,
+          reltol = if (i < nrow(mobj)) rel_tol[i] else NULL,
+          name = paste0("Objective_", i)
+        )
+      })
+    )
+
+    # run gurobi with these parameters
+    res <- withr::with_locale(
+      c(LC_CTYPE = "C"),
+      gurobi::gurobi(model = model, params = p)
+    )
+
+    # fix potential floating point rounding issues for binary vars
+    b <- model$vtype == "B"
+    if (is.numeric(res$x)) res$x[b] <- round(res$x[b])
+
+    # extract solution
+    out <- list(
+      x = res$x,
+      objective = res$objval,
+      status = res$status,
+      gap = res$mipgap,
+      objbound = res$objbound,
+      runtime = res$runtime
+    )
+
+    curr_sol <- list(
+      list(
+        x = out$x,
+        objective = out$objective[length(out$objective)],
+        status = if (!is.null(out$status)) out$status else "UNKNOWN",
+        gap = if (!is.null(out$mipgap)) out$mipgap else NA_real_,
+        objbound = if (!is.null(out$objbound)) out$objbound else NA_real_,
+        runtime = if (!is.null(out$runtime)) out$runtime else NA_real_
+      )
+    )
   } else {
     # iterate over each objective and solve the problem hierarchically
     for (i in seq_len(nrow(mobj))) {
@@ -57,32 +143,26 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
       assert(
         is_valid_raw_solution(curr_sol, time_limit = x[[1]]$solver$data$time_limit)
       )
-      
-      if (i != nrow(mobj)) { #otherwise we try to do the same calcs for the last problem where we wont have a rel_tol
+
+      if (i != nrow(mobj)) { # otherwise we try to do the same calcs for the last problem where we wont have a rel_tol
         ## calculate rhs value for new constraint
         curr_rhs <-
           sum(mobj[i, ] * curr_sol[[1]]$x) *
-          ifelse(
-            mmodelsense[i] == "min", #get current modelsense so we can adapt next problem
-            1 + rel_tol[i],
-            1 - rel_tol[i]
-          )
-        # ifelse(
-        #   mmodelsense$modelsense[[1]] == "min",
-        #   1 + rel_tol[[1]],
-        #   1 - rel_tol[[1]]
-        # )
+            ifelse(
+              mmodelsense[i] == "min", # get current modelsense so we can adapt next problem
+              1 + rel_tol[i],
+              1 - rel_tol[i]
+            )
         ## apply new constraint
-        # mult$append_linear_constraints(
         mopt$append_linear_constraints(
           rhs = curr_rhs,
-          sense = ifelse(mmodelsense[i] == "min", "<=", ">="),#$modelsense[[1]] == "min", "<=", ">="),
+          sense = ifelse(mmodelsense[i] == "min", "<=", ">="), # $modelsense[[1]] == "min", "<=", ">="),
           A = Matrix::drop0(
             Matrix::sparseMatrix(
               i = rep(1, ncol(mobj)),
               j = seq_len(ncol(mobj)),
-              x = mobj[i, ], #main_obj,
-              dims = c(1, length(mobj[i, ]))#(main_obj))
+              x = mobj[i, ], # main_obj,
+              dims = c(1, length(mobj[i, ])) # (main_obj))
             )
           ),
           row_ids = "h"
@@ -90,18 +170,17 @@ solve_hierarchical_approach <- function(x, rel_tol, method = "gurobi") {
         ## if possible, update the starting solution for the solver
         if (
           !is.null(x$solver$data) &&
-          isTRUE("start_solution" %in% names(x$solver$data))
+            isTRUE("start_solution" %in% names(x$solver$data))
         ) {
           x$solver$data$start_solution <- curr_sol[[1]]$x
         }
-        
       }
     }
   }
 
   # return solution
   solve_solution_format(
-     x = planning_unit_solution_format(
+    x = planning_unit_solution_format(
       x = x[[1]],
       status = lapply(curr_sol, convert_raw_solution_to_solution_status, x = x[[1]]),
       prefix = paste0("solution_", seq_along(curr_sol)),

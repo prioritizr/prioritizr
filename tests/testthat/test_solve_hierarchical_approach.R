@@ -248,6 +248,9 @@ test_that("solve multiple mixed problems", {
   # solve problem
   s1 <- solve_hierarchical_approach(list(p1, p2), rel_tol_vector[1], method = "manual")
   s2 <- solve_hierarchical_approach(list(p1, p2), rel_tol_vector[2], method = "manual")
+  
+  s1 <- solve_hierarchical_approach(list(p1, p2), rel_tol_vector[1], method = "gurobi")
+  s2 <- solve_hierarchical_approach(list(p1, p2), rel_tol_vector[2], method = "gurobi")
   # run tests
   expect_true(all(terra::values(s1) %in% c(0, 1, NA, NaN)))
   expect_true(all(terra::values(s2) %in% c(0, 1, NA, NaN)))

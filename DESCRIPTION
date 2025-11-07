@@ -180,7 +180,6 @@ Collate:
     'add_semicontinuous_decisions.R'
     'add_shuffle_portfolio.R'
     'add_top_portfolio.R'
-    'add_ws_approach.R'
     'adjacency_matrix.R'
     'as.R'
     'as_Matrix.R'
