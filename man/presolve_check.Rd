@@ -13,6 +13,8 @@ presolve_check(x, warn = TRUE)
 
 \method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
 
+\method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
+
 \method{presolve_check}{MultiObjConservationProblem}(x, warn = TRUE)
 }
 \arguments{

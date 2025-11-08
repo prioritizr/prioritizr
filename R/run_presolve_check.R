@@ -134,7 +134,7 @@ run_presolve_check <- function(x) {
     n1 <- x$col_ids()[r1]
     n2 <- x$col_ids()[r2]
     ### throw warnings
-    if (("pu" %in% n1) && (!any("ac", "b", "b1", "c") %in% n2)
+    if (("pu" %in% n1) && (!any("ac", "b", "b1", "c") %in% n2)) {
       msg1 <- c(
         msg1,
         c(
@@ -149,7 +149,9 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-    if ("spp_met" %in% n1)
+    }
+    
+    if ("spp_met" %in% n1){
       msg1 <- c(
         msg1,
         c(
@@ -161,7 +163,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-    if ("amount" %in% n1)
+    }
+    if ("amount" %in% n1){
       msg1 <- c(
         msg1,
         c(
@@ -172,7 +175,8 @@ run_presolve_check <- function(x) {
           ">" = "Try using lower values in {.fn add_feature_weights}."
         )
       )
-    if ("branch_met" %in% n1)
+  }
+    if ("branch_met" %in% n1) {
       msg1 <- c(
         msg1,
         c(
@@ -187,7 +191,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-    if (any("b", "b1") %in% n2)
+}
+    if (any("b", "b1") %in% n2) {
       msg1 <- c(
         msg1,
         c(
@@ -203,7 +208,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-    if ("c" %in% n2)
+}
+    if ("c" %in% n2) {
       msg1 <- c(
         msg1,
         c(
@@ -219,7 +225,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-    if ("ac" %in% n2)
+    }
+    if ("ac" %in% n2) {
       msg1 <- c(
         msg1,
         c(
@@ -236,6 +243,7 @@ run_presolve_check <- function(x) {
         )
       )
   }
+}
 
   ## check rhs
   ### check upper threshold

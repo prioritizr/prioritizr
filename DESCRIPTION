@@ -142,6 +142,7 @@ Collate:
     'add_gap_portfolio.R'
     'add_group_targets.R'
     'add_gurobi_solver.R'
+    'add_hierarchical_approach.R'
     'add_highs_solver.R'
     'add_linear_constraints.R'
     'add_linear_penalties.R'

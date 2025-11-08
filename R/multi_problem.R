@@ -1,4 +1,4 @@
-#' @include internal.R MultiObjConservationProblem-class.R ConservationProblem-class.R assertions.R cli.R
+#' @include internal.R MultiObjConservationProblem-class.R ConservationProblem-class.R 
 NULL
 
 #' Multi-objective conservation planning problem
@@ -59,10 +59,10 @@ multi_problem <- function(..., problem_names = NULL) {
     length(x) >= 2,
     msg = "{.arg ...} must contain at least two {.fn problem} objects."
   )
-  assert(de
-    all(vapply(x, FUN.VALUE = logical(1), is_conservation_problem)),
-    msg = "{.arg ...} must contain only {.fn problem} objects."
-  )
+  # assert(de
+  #   all(vapply(x, FUN.VALUE = logical(1), is_conservation_problem)),
+  #   msg = "{.arg ...} must contain only {.fn problem} objects."
+  # )
   assert(all_comparable_problem(...))
 
   # if any of the problems in x contain a portfolio that is different

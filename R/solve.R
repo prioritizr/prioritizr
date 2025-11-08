@@ -420,7 +420,7 @@ solve_solution_format <- function(x, raw_solution) {
   attr(x, "gap") <- solve_solution_attribute_format(
     raw_solution, "gap", "numeric"
   )
-  attr(ret, "objbound") <-  solve_solution_attribute_format(
+  attr(x, "objbound") <-  solve_solution_attribute_format(
     raw_solution, "gap", "numeric"
   )
   # return result
