@@ -251,29 +251,13 @@ internal_eval_replacement_importance <- function(x, status, rescale,
   x <- add_shuffle_portfolio(x, 1)
   # compile problem
   opt <- compile.ConservationProblem(x)
-  # run presolve check to try to identify potential problems
-  if (run_checks) {
-    ## run checks
-    presolve_res <- internal_presolve_check(opt)
-    ## prepare message
-    msg <- presolve_res$msg
-    if (!isTRUE(force)) {
-      msg <- c(
-        msg,
-        "i" = paste(
-          "To ignore checks and attempt optimization anyway,",
-          "use {.code solve(force = TRUE)}."
-        )
-      )
-    }
-    ## determine if error or warning should be thrown
-    if (!isTRUE(force)) {
-      f <- assert
+  # run presolve check
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
     } else {
-      f <- verify
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
-    ## throw error or warning if checks failed
-    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
   # solve problem
   x$solver$calculate(opt)

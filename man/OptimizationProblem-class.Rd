@@ -19,6 +19,8 @@ Other classes:
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiObjApproach-class}},
+\code{\link{MultiObjConservationProblem-class}},
 \code{\link{Objective-class}},
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
@@ -62,6 +64,7 @@ Create a new optimization problem object.}
 \item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
 \item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
 \item \href{#method-OptimizationProblem-set_obj}{\code{OptimizationProblem$set_obj()}}
+\item \href{#method-OptimizationProblem-set_modelsense}{\code{OptimizationProblem$set_modelsense()}}
 \item \href{#method-OptimizationProblem-set_lb}{\code{OptimizationProblem$set_lb()}}
 \item \href{#method-OptimizationProblem-set_ub}{\code{OptimizationProblem$set_ub()}}
 \item \href{#method-OptimizationProblem-remove_last_linear_constraint}{\code{OptimizationProblem$remove_last_linear_constraint()}}
@@ -382,6 +385,27 @@ optimization problem.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{obj}}{\code{numeric} vector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An invisible \code{TRUE} indicating success.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-set_modelsense"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-set_modelsense}{}}}
+\subsection{Method \code{set_modelsense()}}{
+Set the model sense for the optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_modelsense(modelsense)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{modelsense}}{\code{character} value indicating the model sense.
+(i.e., either \code{"min"} or \code{"max"}).}
 }
 \if{html}{\out{</div>}}
 }

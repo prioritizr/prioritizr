@@ -3,14 +3,17 @@
 \name{number_of_total_units}
 \alias{number_of_total_units}
 \alias{number_of_total_units.ConservationProblem}
+\alias{number_of_total_units.MultiObjConservationProblem}
 \title{Number of total units}
 \usage{
 number_of_total_units(x, ...)
 
 \method{number_of_total_units}{ConservationProblem}(x, ...)
+
+\method{number_of_total_units}{MultiObjConservationProblem}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{...}{not used.}
 }
@@ -60,5 +63,8 @@ print(number_of_planning_units(p2))
 
 # print number of total units
 print(number_of_total_units(p2))
+
+# create multi-objective problem
+# TODO
 }
 }

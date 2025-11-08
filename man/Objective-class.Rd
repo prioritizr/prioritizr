@@ -14,6 +14,8 @@ Other classes:
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiObjApproach-class}},
+\code{\link{MultiObjConservationProblem-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},

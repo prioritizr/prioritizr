@@ -387,3 +387,7 @@ test_that("decision variable bounds", {
     "lower bounds"
   )
 })
+
+test_that("multi_problem()", {
+
+})

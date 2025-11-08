@@ -52,8 +52,6 @@ NULL
 #'
 #' @return An [OptimizationProblem-class] object.
 #'
-#' @seealso [OptimizationProblem-methods].
-#'
 #' @examples
 #' # create new empty object
 #' x1 <- optimization_problem()

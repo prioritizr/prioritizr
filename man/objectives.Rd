@@ -131,6 +131,7 @@ plot(s, axes = FALSE)
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

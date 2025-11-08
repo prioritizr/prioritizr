@@ -3,12 +3,15 @@
 \name{solve}
 \alias{solve}
 \alias{solve.ConservationProblem}
+\alias{solve.MultiObjConservationProblem}
 \title{Solve}
 \usage{
 \method{solve}{ConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE)
+
+\method{solve}{MultiObjConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link[=problem]{problem()}} object.}
+\item{a}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{b}{missing.}
 
