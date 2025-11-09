@@ -57,15 +57,24 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
             multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
               list(
                 objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
-                priority = nrow(mobj) - i + 1,
+                priority = i,
                 weight = 1.0,
                 reltol = if (i < nrow(mobj)) rel_tol[i] else NULL,
                 name = paste0("Objective_", i)
               )
             })
+
+            # use multiobj
             
-            # store it in the solver data
-            mopt$set_multiobj(multiobj) # something like this here
+            #browser()
+            # solver$calculate(mopt)       
+            # solver$set_multiobj(multiobj) 
+            # solver$run()  
+            # 
+            solver$set_multiobj(multiobj)
+            #solver$get_data("multiobj")
+            sols[[nrow(mobj)]] <- solver$solve(mopt)
+    
           } else {
             for (i in seq_len(nrow(mobj))) {
               if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")

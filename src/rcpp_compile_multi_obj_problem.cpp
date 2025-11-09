@@ -80,7 +80,6 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
     true                                  // compressed_formulation
   );
 
-
   // Prepare multi-objective obj matrix
   Rcpp::NumericMatrix obj(n, mopt_ncol);
   for (std::size_t i = 0; i < n; ++i) {
