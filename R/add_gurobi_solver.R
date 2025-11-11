@@ -247,7 +247,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           verbose = verbose,
           control = control
         ),
-        calculate = function(x, ...) {
+        calculate = function(x, mobj = NULL, mmodelsense = NULL, ...) {
           # create problem
           model <- list(
             modelsense = x$modelsense(),
@@ -259,6 +259,25 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             lb = x$lb(),
             ub = x$ub()
           )
+          
+          # pop something in here to init the multiobj part if it's not empty?
+          if (!is.null(mobj) & !is.null(mmodelsense)) {
+            # build multiobj list from the problems
+            multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
+              list(
+                objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
+                priority = i,
+                weight = 1.0,
+                reltol = NULL, # placeholder
+                name = paste0("Objective_", i)
+              )
+            })
+            
+            # adapt model
+            model$multiobj <- multiobj
+            model$obj <- NULL
+          }
+          
           # create parameters
           p <- list(
             LogToConsole = as.numeric(self$get_data("verbose")),
@@ -291,6 +310,14 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           # return success
           invisible(TRUE)
         },
+        # set_multiobj = function(value) {
+        #   # store in solver data (always)
+        #   self$set_data("multiobj", value)
+        #   # attach to internal model if it exists
+        #   model <- self$get_internal("model")
+        #   if (!is.null(model)) model$multiobj <- value
+        #   invisible(TRUE)
+        # },
         set_variable_ub = function(index, value) {
           self$internal$model$ub[index] <- value
           invisible(TRUE)
@@ -313,6 +340,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             n_extra <- max(length(model$obj) - length(start), 0)
             model$start <- c(c(start), rep(NA_real_, n_extra))
           }
+
           # solve problem
           rt <- system.time({
             x <- withr::with_locale(
@@ -350,6 +378,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             gap = x$mipgap,
             objbound = x$objbound
           )
+          
           # add pool if required
           if (!is.null(p$PoolSearchMode) &&
               is.numeric(x$x) &&
@@ -390,6 +419,72 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             }
           }
           out
+        },
+        
+        run_multiobj = function(rel_tol) {
+          # access internal model and parameters
+          start <- self$get_data("start_solution")
+          model <- self$get_internal("model")
+          p <- self$get_internal("parameters")
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
+
+          verbose <- self$get_data("verbose")
+          #browser()
+          
+          rel_tol <- as.matrix(rel_tol)
+          # now pop in rel_tol vals here
+          # rel_tol has ncol = nobj - 1
+          for (j in seq_len(ncol(rel_tol))) {
+            model$multiobj[[j + 1]]$reltol <- rel_tol[1, j]
+          }
+
+          # solve problem
+          rt <- system.time({
+            x <- withr::with_locale(
+              c(LC_CTYPE = "C"),
+              gurobi::gurobi(model = model, params = p)
+            )
+          })
+          
+          # only get final solution
+         # x <- x[[ncol(rel_tol)]]
+          
+          # fix potential floating point arithmetic issues
+          b <- model$vtype == "B"
+          if (is.numeric(x$x)) {
+            ## round binary variables because default precision is 1e-5
+            x$x[b] <- round(x$x[b])
+            ## truncate semi-continuous variables
+            v <- model$vtype == "S"
+            x$x[v] <- pmax(x$x[v], 0)
+            x$x[v] <- pmin(x$x[v], 1)
+            ## truncate variables to account for rounding issues
+            x$x <- pmax(x$x, model$lb)
+            x$x <- pmin(x$x, model$ub)
+          }
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
+          if (is.null(x$mipgap)) {
+            x$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            x$objbound <- NA_real_
+          }
+          # extract solutions
+          out <- list(
+            x = x$x,
+            objective = x$objval,
+            status = x$status,
+            runtime = rt[[3]],
+            gap = x$mipgap,
+            objbound = x$objbound
+          )
+          
+          
         }
       )
     )$new()

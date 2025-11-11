@@ -32,6 +32,7 @@ Other classes:
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Solver-run}{\code{Solver$run()}}
+\item \href{#method-Solver-run_multiobj}{\code{Solver$run_multiobj()}}
 \item \href{#method-Solver-calculate}{\code{Solver$calculate()}}
 \item \href{#method-Solver-set_variable_ub}{\code{Solver$set_variable_ub()}}
 \item \href{#method-Solver-set_variable_lb}{\code{Solver$set_variable_lb()}}
@@ -39,6 +40,7 @@ Other classes:
 \item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
 \item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
 \item \href{#method-Solver-solve}{\code{Solver$solve()}}
+\item \href{#method-Solver-solve_multiobj}{\code{Solver$solve_multiobj()}}
 \item \href{#method-Solver-clone}{\code{Solver$clone()}}
 }
 }
@@ -66,6 +68,26 @@ Run the solver to generate a solution.
 
 \subsection{Returns}{
 \code{list} of solutions.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-run_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-run_multiobj}{}}}
+\subsection{Method \code{run_multiobj()}}{
+Run the solver to generate a solution.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$run_multiobj(rel_tol)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{rel_tol}}{numeric vector of coefficients}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\code{list} of with solution.
 }
 }
 \if{html}{\out{<hr>}}
@@ -233,13 +255,43 @@ Invisible \code{TRUE}.
 \subsection{Method \code{solve()}}{
 Solve an optimization problem.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$solve(x, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solver$solve(x, mobj = NULL, mmodelsense = NULL, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{mobj}}{numeric matrix of multiobjective coefficients. Each row is ... each column i s..}
+
+\item{\code{mmodelsense}}{...}
+
+\item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-solve_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-solve_multiobj}{}}}
+\subsection{Method \code{solve_multiobj()}}{
+Solve an optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, mobj, mmodelsense, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{mobj}}{numeric matrix of multiobjective coefficients. Each row is ... each column i s..}
+
+\item{\code{mmodelsense}}{...}
 
 \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
 }

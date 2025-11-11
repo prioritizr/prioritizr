@@ -15,8 +15,7 @@ add_gurobi_solver(
   node_file_start = Inf,
   start_solution = NULL,
   verbose = TRUE,
-  control = list(),
-  multiobj = NULL
+  control = list()
 )
 }
 \arguments{
