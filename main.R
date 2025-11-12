@@ -26,15 +26,21 @@ test1 <- add_hierarchical_approach(multi_test, 0.9) %>%
 test2 <- add_hierarchical_approach(multi_test, 0.001) %>%
   solve()
 
-terra::plot(c(test1, test2))
-
 test3 <- p1 %>% solve()
 test4 <- p2 %>% solve()
-terra::plot(c(test3, test4))
 
+terra::plot(c(test1, test4))
+terra::plot(c(test2, test3))
 #I'd expect these to be similar: 
-terra::plot(c(test4, test2))
-terra::plot(c(test3, test1)) # not as similar, why not -> because still have hard constraints for my p1 that have to be met
+# test1 has a high degradation, so should be more similar to our second problem (so test4)
+# test2 has low degradation, so should be similar to first problem (so test3)
+
+# alternative
+rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
+test5 <- add_hierarchical_approach(multi_test, rel_tol_mat) %>%
+  solve()
+
+terra::plot(c(test5[[1]], test5[[2]]))
 
 #########
 
@@ -62,15 +68,19 @@ test1 <- add_hierarchical_approach(multi_highs, 0.9) %>%
 test2 <- add_hierarchical_approach(multi_highs, 0.1) %>%
   solve()
 
-terra::plot(c(test1, test2))
-
 test3 <- p1 %>% solve()
 test4 <- p2 %>% solve()
-terra::plot(c(test3, test4))
 
-#this is weird, the wrong ones are similar!! Go over code
+#these have the ones I expect to be similar
 terra::plot(c(test1, test4))
 terra::plot(c(test2, test3))
+
+
+# alternative
+rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
+test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
+  solve() #currently getting an error here, caused in line 58 in Solver-class.R when i = 2 in add hierarchical_approach()
+
 
 #### this doesn't work (rel_tol smaller <0.1): 
 test2 <- add_hierarchical_approach(multi_highs, 0.01) %>%

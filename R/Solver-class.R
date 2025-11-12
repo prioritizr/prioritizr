@@ -54,13 +54,12 @@ Solver <- R6::R6Class(
         mopt$set_obj(mobj[i, ])
         mopt$set_modelsense(mmodelsense[i])
         
-        browser()
         # solve problem directly
-        sols_inter[[i]] <- self$solve(mopt) # is this correct? Check!!!!!
+        sols_inter[[i]] <- self$solve(mopt) # this: self$internal <- list() in solve() wipes what I get from calculate() before when I have i = 2;  so currently getting error here
         
         if (i != nrow(mobj)) {
           # calculate hierarchical constraint for next objective
-          browser()
+         # browser()
           rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
             ifelse(mmodelsense[i] == "min", 1 + rel_tol[i], 1 - rel_tol[i])
           sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")

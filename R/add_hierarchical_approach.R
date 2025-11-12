@@ -27,7 +27,7 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
     is_multi_conservation_problem(x),
     is.numeric(rel_tol),
     all_positive(rel_tol),
-    length(rel_tol) == (number_of_problems(x) - 1),
+    length(as.matrix(rel_tol)[1,]) == (number_of_problems(x) - 1), #TODO write more elaborate error message for this
     assertthat::is.string(method),
     is_match_of(method, c("gurobi", "manual")),
     assertthat::is.flag(verbose)
@@ -46,10 +46,12 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
           rel_tol <- as.matrix(self$get_data("rel_tol"))
           
           solver$calculate(x = x$opt, 
-                           mobj = x$obj, # this is a problem at the moment because will init gurobi internal structure also for other solvers. Need to do something about that?
+                           mobj = x$obj, 
                            mmodelsense = x$modelsense) # only needed once because only rel_tol will change later and we only use that in run()
           
           sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
+          
+          browser()
           for (i in seq_len(nrow(rel_tol))) {
   
             sols[[i]] <- solver$run_multiobj(rel_tol[i, ])  #either go into standard Solver-class run_multiobj or gurobi specific one

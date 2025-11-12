@@ -266,7 +266,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
               list(
                 objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
-                priority = i,
+                priority = nrow(mobj) - i + 1, # NOTE: gurobi has OPPOSITE to intuitive priorities (meaning higher numbers get optimized first, obj1 for us has priority 2, obj2 has priority 1 for two objective)
                 weight = 1.0,
                 reltol = NULL, # placeholder
                 name = paste0("Objective_", i)
@@ -433,13 +433,12 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
 
           verbose <- self$get_data("verbose")
-          #browser()
           
           rel_tol <- as.matrix(rel_tol)
           # now pop in rel_tol vals here
           # rel_tol has ncol = nobj - 1
           for (j in seq_len(ncol(rel_tol))) {
-            model$multiobj[[j + 1]]$reltol <- rel_tol[1, j]
+            model$multiobj[[j]]$reltol <- rel_tol[1, j]
           }
 
           # solve problem
