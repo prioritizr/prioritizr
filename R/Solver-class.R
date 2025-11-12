@@ -181,7 +181,9 @@ Solver <- R6::R6Class(
     #' @description
     #' Solve an optimization problem.
     #' @param x [optimization_problem()] object.
-    #' @param mobj numeric matrix of multiobjective coefficients. Each row is ... each column i s..
+    #' @param mobj numeric matrix of multiobjective coefficients, where
+    #' each row corresponds to a different solution and each columns
+    #' corresponds to a different objective.
     #' @param mmodelsense ...
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.
@@ -198,7 +200,9 @@ Solver <- R6::R6Class(
     #' @description
     #' Solve an optimization problem.
     #' @param x [optimization_problem()] object.
-    #' @param mobj numeric matrix of multiobjective coefficients. Each row is ... each column i s..
+    #' @param mobj numeric matrix of multiobjective coefficients, where
+    #' each row corresponds to a different solution and each columns
+    #' corresponds to a different objective.
     #' @param mmodelsense ...
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.

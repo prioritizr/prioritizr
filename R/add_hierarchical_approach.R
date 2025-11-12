@@ -5,8 +5,12 @@
 #'
 #' @param x [multi_problem()] object.
 #'
-#' @param rel_tol `numeric` vector of relative tolerances between objectives.
-#' The length should be one less than the number of objectives.
+#' @param rel_tol `numeric` vector containing the weights for each
+#' objective. To generate multiple solutions based on different
+#' combinations of weights, `rel_tol` can be a `numeric` matrix where
+#' each row corresponds to a different solution and each columns
+#' corresponds to a different objective.
+#' The length/number of columns should be one less than the number of objectives.
 #'
 #' @param method `character` specifying the solving method.
 #' Options: `"gurobi"` (default) or `"manual"`.

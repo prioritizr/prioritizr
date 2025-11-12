@@ -75,7 +75,6 @@ test4 <- p2 %>% solve()
 terra::plot(c(test1, test4))
 terra::plot(c(test2, test3))
 
-
 # alternative
 rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
 test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
