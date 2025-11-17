@@ -111,7 +111,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           verbose = verbose,
           control = control
         ),
-        calculate = function(x, mobj = NULL, mmodelsense = NULL, ...) {
+        calculate = function(x, ...) {
           # prepare constraints
           ## extract info
           rhs <- x$rhs()
@@ -171,14 +171,6 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           control <- self$get_data("control")
           if (length(control) > 0) {
             p[names(control)] <- control
-          }
-          
-          # pop something in here to init the multiobj part if it's not empty?
-          if (!is.null(mobj) & !is.null(mmodelsense)) {
-            multiobj_inputs <- list("opt" = x, #replication from what we already had in main code..
-                                    "mobj" = mobj,
-                                    "mmodelsense" = mmodelsense) # so we can access them later?
-            self$set_internal("multiobj_inputs", multiobj_inputs)
           }
           
           # store internal data and parameters

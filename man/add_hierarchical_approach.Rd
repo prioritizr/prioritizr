@@ -9,8 +9,12 @@ add_hierarchical_approach(x, rel_tol, method = "gurobi", verbose = TRUE)
 \arguments{
 \item{x}{\code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{rel_tol}{\code{numeric} vector of relative tolerances between objectives.
-The length should be one less than the number of objectives.}
+\item{rel_tol}{\code{numeric} vector containing the weights for each
+objective. To generate multiple solutions based on different
+combinations of weights, \code{rel_tol} can be a \code{numeric} matrix where
+each row corresponds to a different solution and each columns
+corresponds to a different objective.
+The length/number of columns should be one less than the number of objectives.}
 
 \item{method}{\code{character} specifying the solving method.
 Options: \code{"gurobi"} (default) or \code{"manual"}.}

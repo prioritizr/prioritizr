@@ -23,7 +23,7 @@ multi_test <- multi_problem(p1, p2) %>%
 
 test1 <- add_hierarchical_approach(multi_test, 0.9) %>%
   solve()
-test2 <- add_hierarchical_approach(multi_test, 0.001) %>%
+test2 <- add_hierarchical_approach(multi_test, 0.1) %>%
   solve()
 
 test3 <- p1 %>% solve()
@@ -40,7 +40,8 @@ rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
 test5 <- add_hierarchical_approach(multi_test, rel_tol_mat) %>%
   solve()
 
-terra::plot(c(test5[[1]], test5[[2]]))
+terra::plot(c(test5[[1]], test4))
+terra::plot(c(test5[[2]], test3))
 
 #########
 
@@ -78,9 +79,8 @@ terra::plot(c(test2, test3))
 # alternative
 rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
 test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
-  solve() #currently getting an error here, caused in line 58 in Solver-class.R when i = 2 in add hierarchical_approach()
-
+  solve() 
 
 #### this doesn't work (rel_tol smaller <0.1): 
-test2 <- add_hierarchical_approach(multi_highs, 0.01) %>%
+testx <- add_hierarchical_approach(multi_highs, 0.01) %>%
   solve()

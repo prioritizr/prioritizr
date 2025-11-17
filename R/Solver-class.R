@@ -29,66 +29,6 @@ Solver <- R6::R6Class(
       cli::cli_abort("No defined $run method.", .internal = TRUE)
       # nocov end
     },
-    
-    #' @description
-    #' Run the solver to generate a solution.
-    #' @param rel_tol numeric vector of coefficients
-    #' @return `list` of with solution.
-    run_multiobj = function(rel_tol) {
-    
-      verbose <- self$get_data("verbose")
-      
-      #where do i get these from in here? So far we have only introduced them in calculate()
-      opt <- self$get_internal("multiobj_inputs")
-      
-      mobj <- opt$mobj
-      mmodelsense <- opt$mmodelsense
-      mopt <- opt$opt
-
-      sols_inter <- vector("list", length = nrow(mobj))
-      
-      for (i in seq_len(nrow(mobj))) {
-        if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
-        
-        # set current objective
-        mopt$set_obj(mobj[i, ])
-        mopt$set_modelsense(mmodelsense[i])
-        
-        # solve problem directly
-        sols_inter[[i]] <- self$solve(mopt) # this: self$internal <- list() in solve() wipes what I get from calculate() before when I have i = 2;  so currently getting error here
-        
-        if (i != nrow(mobj)) {
-          # calculate hierarchical constraint for next objective
-         # browser()
-          rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
-            ifelse(mmodelsense[i] == "min", 1 + rel_tol[i], 1 - rel_tol[i])
-          sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
-          
-          # prev_val <- sum(mobj[i, ] * sols_inter[[i]]$x)
-          # rhs2 <- ifelse(mmodelsense[i] == "min",
-          #                prev_val + rel_tol[i] * abs(prev_val),
-          #                prev_val - rel_tol[i] * abs(prev_val))
-          # sense2 <- ifelse(mmodelsense[i] == "min", "<=", ">=")
-          
-          if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
-          
-          mopt$append_linear_constraints(
-            rhs = rhs,
-            sense = sense,
-            A = Matrix::drop0(Matrix::sparseMatrix(
-              i = rep(1, length(mobj[i, ])),
-              j = seq_along(mobj[i, ]),
-              x = mobj[i, ],
-              dims = c(1, length(mobj[i, ]))
-            )),
-            row_ids = "h"
-          )
-          
-        }
-      }
-      sols_inter[[nrow(mobj)]] # only get last solution
-    },
-
     #' @description
     #' Perform computations that need to be completed before applying
     #' the object.
@@ -181,15 +121,11 @@ Solver <- R6::R6Class(
     #' @description
     #' Solve an optimization problem.
     #' @param x [optimization_problem()] object.
-    #' @param mobj numeric matrix of multiobjective coefficients, where
-    #' each row corresponds to a different solution and each columns
-    #' corresponds to a different objective.
-    #' @param mmodelsense ...
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.
-    solve = function(x, mobj = NULL, mmodelsense = NULL, ...) {
+    solve = function(x, ...) {
       # build optimization problem
-      self$calculate(x, mobj = NULL, mmodelsense = NULL, ...)
+      self$calculate(x, ...)
       # run solver and get solution
       out <- self$run()
       # clear internal store to reduce memory consumption
@@ -200,21 +136,71 @@ Solver <- R6::R6Class(
     #' @description
     #' Solve an optimization problem.
     #' @param x [optimization_problem()] object.
-    #' @param mobj numeric matrix of multiobjective coefficients, where
-    #' each row corresponds to a different solution and each columns
-    #' corresponds to a different objective.
-    #' @param mmodelsense ...
+    #' @param rel_tol numeric vector of coefficients
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.
-    solve_multiobj = function(x, mobj, mmodelsense, ...) {
-      # build optimization problem
-      self$calculate(x, mobj, mmodelsense, ...) 
-      # run solver and get solution
-      out <- self$run_multiobj()
-      # clear internal store to reduce memory consumption
-      self$internal <- list()
-      # return output
-      out
+    solve_multiobj = function(x, rel_tol, ...) {
+      # verbose <- self$get_data("verbose") #TODO add verbose == "TRUE"
+      mobj <- x$obj
+      mmodelsense <- x$modelsense
+      mopt <- x$opt
+
+      sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
+
+      for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
+
+        sols_inter <- vector("list", length = nrow(mobj))
+
+        for (i in seq_len(nrow(mobj))) {
+          #  if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
+
+          # set current objective
+          mopt$set_obj(mobj[i, ])
+          mopt$set_modelsense(mmodelsense[i])
+
+          # solve problem directly
+          sols_inter[[i]] <- self$solve(mopt)
+
+          if (i != nrow(mobj)) {
+            # calculate hierarchical constraint for next objective
+            rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
+              ifelse(mmodelsense[i] == "min", 1 + rel_tol[j], 1 - rel_tol[j])
+            sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
+
+            #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
+
+            mopt$append_linear_constraints(
+              rhs = rhs,
+              sense = sense,
+              A = Matrix::drop0(Matrix::sparseMatrix(
+                i = rep(1, length(mobj[i, ])),
+                j = seq_along(mobj[i, ]),
+                x = mobj[i, ],
+                dims = c(1, length(mobj[i, ]))
+              )),
+              row_ids = "h"
+            )
+          }
+        }
+
+        sols[[j]] <- sols_inter[[nrow(mobj)]] # only get last solution
+
+        ### compute and store objective values for each objective
+        if (!is.null(sols[[j]]$x)) {
+          sols[[j]]$objective <- stats::setNames(
+            rowSums(
+              x$obj *
+                matrix(
+                  sols[[j]]$x,
+                  ncol = ncol(x$obj),
+                  nrow = nrow(x$obj), byrow = TRUE
+                )
+            ),
+            rownames(x$obj)
+          )
+        }
+      }
+      sols
     }
   )
 )
