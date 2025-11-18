@@ -145,62 +145,60 @@ Solver <- R6::R6Class(
       mmodelsense <- x$modelsense
       mopt <- x$opt
 
-      sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
+      rel_tol <- as.matrix(rel_tol)
 
-      for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
+      sols_inter <- vector("list", length = nrow(mobj))
 
-        sols_inter <- vector("list", length = nrow(mobj))
+      for (i in seq_len(nrow(mobj))) {
+        #  if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
 
-        for (i in seq_len(nrow(mobj))) {
-          #  if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
+        print("here")
+        # set current objective
+        mopt$set_obj(mobj[i, ])
+        mopt$set_modelsense(mmodelsense[i])
 
-          # set current objective
-          mopt$set_obj(mobj[i, ])
-          mopt$set_modelsense(mmodelsense[i])
+        # solve problem directly
+        sols_inter[[i]] <- self$solve(mopt)
 
-          # solve problem directly
-          sols_inter[[i]] <- self$solve(mopt)
+        if (i != nrow(mobj)) {
+          # calculate hierarchical constraint for next objective
+          rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
+            ifelse(mmodelsense[i] == "min", 1 + rel_tol[1, i], 1 - rel_tol[1, i])
+          sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
 
-          if (i != nrow(mobj)) {
-            # calculate hierarchical constraint for next objective
-            rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
-              ifelse(mmodelsense[i] == "min", 1 + rel_tol[j], 1 - rel_tol[j])
-            sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
+          #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
 
-            #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
-
-            mopt$append_linear_constraints(
-              rhs = rhs,
-              sense = sense,
-              A = Matrix::drop0(Matrix::sparseMatrix(
-                i = rep(1, length(mobj[i, ])),
-                j = seq_along(mobj[i, ]),
-                x = mobj[i, ],
-                dims = c(1, length(mobj[i, ]))
-              )),
-              row_ids = "h"
-            )
-          }
-        }
-
-        sols[[j]] <- sols_inter[[nrow(mobj)]] # only get last solution
-
-        ### compute and store objective values for each objective
-        if (!is.null(sols[[j]]$x)) {
-          sols[[j]]$objective <- stats::setNames(
-            rowSums(
-              x$obj *
-                matrix(
-                  sols[[j]]$x,
-                  ncol = ncol(x$obj),
-                  nrow = nrow(x$obj), byrow = TRUE
-                )
-            ),
-            rownames(x$obj)
+          mopt$append_linear_constraints(
+            rhs = rhs,
+            sense = sense,
+            A = Matrix::drop0(Matrix::sparseMatrix(
+              i = rep(1, length(mobj[i, ])),
+              j = seq_along(mobj[i, ]),
+              x = mobj[i, ],
+              dims = c(1, length(mobj[i, ]))
+            )),
+            row_ids = "h"
           )
         }
       }
-      sols
+
+      sol <- sols_inter[[length(sols_inter)]] # only get last solution
+
+      ### compute and store objective values for each objective
+      if (!is.null(sol$x)) {
+        sol$objective <- stats::setNames(
+          rowSums(
+            x$obj *
+              matrix(
+                sol$x,
+                ncol = ncol(x$obj),
+                nrow = nrow(x$obj), byrow = TRUE
+              )
+          ),
+          rownames(x$obj)
+        )
+      }
+      sol
     }
   )
 )

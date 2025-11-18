@@ -82,5 +82,10 @@ test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
   solve() 
 
 #### this doesn't work (rel_tol smaller <0.1): 
-testx <- add_hierarchical_approach(multi_highs, 0.01) %>%
+testx <- add_hierarchical_approach(multi_highs, 0.099) %>%
   solve()
+
+terra::plot(c(testx, test2))
+
+terra::plot(c(testx, test3))
+terra::plot(c(testx, test4))

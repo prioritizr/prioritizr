@@ -48,9 +48,14 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
         run = function(x, solver) {
           
           rel_tol <- as.matrix(self$get_data("rel_tol"))
-
-          sols <- solver$solve_multiobj(x, rel_tol)
           
+          sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
+          
+          for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
+            
+            sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ]) #check here!!!!
+            
+          }
           sols
          }
       )

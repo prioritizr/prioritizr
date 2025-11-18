@@ -396,71 +396,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
           out
         },
-        #
-        # run_multiobj = function(rel_tol) {
-        #   # access internal model and parameters
-        #   start <- self$get_data("start_solution")
-        #   model <- self$get_internal("model")
-        #   p <- self$get_internal("parameters")
-        #   # add starting solution if specified
-        #   if (!is.null(start) && !is.Waiver(start)) {
-        #     n_extra <- max(length(model$obj) - length(start), 0)
-        #     model$start <- c(c(start), rep(NA_real_, n_extra))
-        #   }
-        #
-        #   verbose <- self$get_data("verbose")
-        #
-        #   rel_tol <- as.matrix(rel_tol)
-        #   # now pop in rel_tol vals here
-        #   # rel_tol has ncol = nobj - 1
-        #   for (j in seq_len(ncol(rel_tol))) {
-        #     model$multiobj[[j]]$reltol <- rel_tol[1, j]
-        #   }
-        #
-        #   # solve problem
-        #   rt <- system.time({
-        #     x <- withr::with_locale(
-        #       c(LC_CTYPE = "C"),
-        #       gurobi::gurobi(model = model, params = p)
-        #     )
-        #   })
-        #
-        #   # only get final solution
-        #  # x <- x[[ncol(rel_tol)]]
-        #
-        #   # fix potential floating point arithmetic issues
-        #   b <- model$vtype == "B"
-        #   if (is.numeric(x$x)) {
-        #     ## round binary variables because default precision is 1e-5
-        #     x$x[b] <- round(x$x[b])
-        #     ## truncate semi-continuous variables
-        #     v <- model$vtype == "S"
-        #     x$x[v] <- pmax(x$x[v], 0)
-        #     x$x[v] <- pmin(x$x[v], 1)
-        #     ## truncate variables to account for rounding issues
-        #     x$x <- pmax(x$x, model$lb)
-        #     x$x <- pmin(x$x, model$ub)
-        #   }
-        #   # set defaults to NA if missing
-        #   ## this is because earlier versions of Gurobi didn't return this info
-        #   if (is.null(x$mipgap)) {
-        #     x$mipgap <- NA_real_
-        #   }
-        #   if (is.null(x$objbound)) {
-        #     x$objbound <- NA_real_
-        #   }
-        #   # extract solutions
-        #   out <- list(
-        #     x = x$x,
-        #     objective = x$objval,
-        #     status = x$status,
-        #     runtime = rt[[3]],
-        #     gap = x$mipgap,
-        #     objbound = x$objbound
-        #   )
-        #
-        #
-        # },
+       
         solve_multiobj = function(x, rel_tol, ...) {
           # get multiobj info
           mobj <- x$obj
@@ -538,58 +474,53 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           verbose <- self$get_data("verbose")
 
           rel_tol <- as.matrix(rel_tol)
-
-          sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
-
-          for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
-            # now pop in rel_tol vals here
-            # rel_tol has ncol = nobj - 1
-            for (i in seq_len(ncol(rel_tol))) {
-              model$multiobj[[i]]$reltol <- rel_tol[j, i]
-            }
-
-            # solve problem
-            rt <- system.time({
-              x <- withr::with_locale(
-                c(LC_CTYPE = "C"),
-                gurobi::gurobi(model = model, params = p)
-              )
-            })
-
-            # fix potential floating point arithmetic issues
-            b <- model$vtype == "B"
-            if (is.numeric(x$x)) {
-              ## round binary variables because default precision is 1e-5
-              x$x[b] <- round(x$x[b])
-              ## truncate semi-continuous variables
-              v <- model$vtype == "S"
-              x$x[v] <- pmax(x$x[v], 0)
-              x$x[v] <- pmin(x$x[v], 1)
-              ## truncate variables to account for rounding issues
-              x$x <- pmax(x$x, model$lb)
-              x$x <- pmin(x$x, model$ub)
-            }
-            # set defaults to NA if missing
-            ## this is because earlier versions of Gurobi didn't return this info
-            if (is.null(x$mipgap)) {
-              x$mipgap <- NA_real_
-            }
-            if (is.null(x$objbound)) {
-              x$objbound <- NA_real_
-            }
-            # extract solutions
-            out <- list(
-              x = x$x,
-              objective = x$objval,
-              status = x$status,
-              runtime = rt[[3]],
-              gap = x$mipgap,
-              objbound = x$objbound
-            )
-
-            sols[[j]] <- out
+          # now pop in rel_tol vals here
+          # rel_tol has ncol = nobj - 1
+          for (i in seq_len(ncol(rel_tol))) {
+            model$multiobj[[i]]$reltol <- rel_tol[1, i]
           }
-          sols
+
+          # solve problem
+          rt <- system.time({
+            x <- withr::with_locale(
+              c(LC_CTYPE = "C"),
+              gurobi::gurobi(model = model, params = p)
+            )
+          })
+
+          # fix potential floating point arithmetic issues
+          b <- model$vtype == "B"
+          if (is.numeric(x$x)) {
+            ## round binary variables because default precision is 1e-5
+            x$x[b] <- round(x$x[b])
+            ## truncate semi-continuous variables
+            v <- model$vtype == "S"
+            x$x[v] <- pmax(x$x[v], 0)
+            x$x[v] <- pmin(x$x[v], 1)
+            ## truncate variables to account for rounding issues
+            x$x <- pmax(x$x, model$lb)
+            x$x <- pmin(x$x, model$ub)
+          }
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
+          if (is.null(x$mipgap)) {
+            x$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            x$objbound <- NA_real_
+          }
+
+          # extract solutions
+          out <- list(
+            x = x$x,
+            objective = x$objval,
+            status = x$status,
+            runtime = rt[[3]],
+            gap = x$mipgap,
+            objbound = x$objbound
+          )
+
+          out
         }
       )
     )$new()
