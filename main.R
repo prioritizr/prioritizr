@@ -50,16 +50,14 @@ library(highs)
 p1 <- problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
-  add_binary_decisions() %>%
-  add_highs_solver(gap = 0, verbose = FALSE)
+  add_binary_decisions() 
 
 p2 <- problem(sim_pu_raster, sim_features) %>%
   add_min_shortfall_objective(
-    budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
+    budget = 0.5 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
   ) %>%
   add_relative_targets(0.2) %>%
-  add_binary_decisions() %>%
-  add_highs_solver(gap = 0, verbose = FALSE)
+  add_binary_decisions() 
 
 multi_highs <- multi_problem(p1, p2) %>%
   add_highs_solver(gap = 0, verbose = FALSE)
@@ -82,7 +80,7 @@ test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
   solve() 
 
 #### this works now (rel_tol smaller <0.1): 
-testx <- add_hierarchical_approach(multi_highs, 0.001) %>%
+testx <- add_hierarchical_approach(multi_highs, 0.00001) %>%
   solve()
 
 terra::plot(c(testx, test2))
@@ -102,7 +100,7 @@ p1 <- problem(sim_pu_raster, sim_features) %>%
 
 p2 <- problem(sim_pu_raster, sim_features) %>%
   add_min_shortfall_objective(
-    budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
+    budget = 0.1 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
   ) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() 

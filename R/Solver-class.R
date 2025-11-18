@@ -151,23 +151,25 @@ Solver <- R6::R6Class(
 
       for (i in seq_len(nrow(mobj))) {
         #  if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
-
-        print("here")
+        
         # set current objective
         mopt$set_obj(mobj[i, ])
         mopt$set_modelsense(mmodelsense[i])
 
         # solve problem directly
-        sols_inter[[i]] <- self$solve(mopt)
+        sols_inter[i] <- list(self$solve(mopt))
+       # sols_inter[[i]] <- self$solve(mopt)
 
         if (i != nrow(mobj)) {
           # calculate hierarchical constraint for next objective
-          rhs <- sum(mobj[i, ] * sols_inter[[i]]$x) *
+          rhs <- sols_inter[[i]]$objective *
+            #sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
             ifelse(mmodelsense[i] == "min", 1 + rel_tol[1, i], 1 - rel_tol[1, i])
+          
+          print(rhs)
           sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
 
           #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
-
           mopt$append_linear_constraints(
             rhs = rhs,
             sense = sense,
@@ -182,7 +184,7 @@ Solver <- R6::R6Class(
         }
       }
 
-      sol <- sols_inter[[length(sols_inter)]] # only get last solution
+      sol <- sols_inter[[nrow(mobj)]] # only get last solution
 
       ### compute and store objective values for each objective
       if (!is.null(sol$x)) {
@@ -198,6 +200,7 @@ Solver <- R6::R6Class(
           rownames(x$obj)
         )
       }
+
       sol
     }
   )
