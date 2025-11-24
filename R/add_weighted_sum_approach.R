@@ -50,15 +50,30 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
     assert(number_of_problems(x) == length(weights))
     weights <- matrix(weights, nrow = 1)
   }
-  assert(number_of_problems(x) == ncol(weights))
+
+  if (length(as.matrix(weights)[1, ]) != (number_of_problems(x))) {
+    msg <- ifelse(is.matrix(weights),
+      cli::cli_abort(c(
+        "The number of columns of {.arg weights} must be the same as the number of objectives.",
+        "i" = "{.arg weights} has {length(as.matrix(weights)[1, ])} values.",
+        "x" = "{.arg weights} must have {number_of_problems(x)} values."
+      )),
+      cli::cli_abort(c(
+        "The length of {.arg weights} must be one less than the number of objectives.",
+        "i" = "{.arg weights} has {length(as.matrix(weights)[1, ])} values.",
+        "x" = "{.arg weights} must have {number_of_problems(x)} values."
+      ))
+    )
+  }
+
 
   # rescale weights
   weights <-
     weights /
-    matrix(
-      rowSums(weights),
-      nrow = nrow(weights), ncol = ncol(weights), byrow = FALSE
-    )
+      matrix(
+        rowSums(weights),
+        nrow = nrow(weights), ncol = ncol(weights), byrow = FALSE
+      )
 
   # add approach
   x$add_approach(
@@ -81,7 +96,8 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             pb <- cli::cli_progress_bar(
-              "Generating solutions", total = nrow(weights)
+              "Generating solutions",
+              total = nrow(weights)
             )
           }
           ## set modelsense to max
@@ -92,11 +108,12 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
             x$opt$set_obj(
               colSums(
                 x$obj *
-                obj_signs *
-                matrix(
-                  weights[i, ], ncol = ncol(x$obj),
-                  nrow = nrow(x$obj), byrow = FALSE
-                )
+                  obj_signs *
+                  matrix(
+                    weights[i, ],
+                    ncol = ncol(x$obj),
+                    nrow = nrow(x$obj), byrow = FALSE
+                  )
               )
             )
             ### solve problem
@@ -106,10 +123,11 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
               sols[[i]]$objective <- stats::setNames(
                 rowSums(
                   x$obj *
-                  matrix(
-                    sols[[i]]$x, ncol = ncol(x$obj),
-                    nrow = nrow(x$obj), byrow = TRUE
-                  )
+                    matrix(
+                      sols[[i]]$x,
+                      ncol = ncol(x$obj),
+                      nrow = nrow(x$obj), byrow = TRUE
+                    )
                 ),
                 rownames(x$obj)
               )
@@ -117,8 +135,8 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
             ## if possible, update the starting solution for the solver
             if (
               !is.null(solver$data) &&
-              !is.null(sols[[i]]$x) &&
-              isTRUE("start_solution" %in% names(solver$data))
+                !is.null(sols[[i]]$x) &&
+                isTRUE("start_solution" %in% names(solver$data))
             ) {
               solver$data$start_solution <- sols[[i]]$x
             }

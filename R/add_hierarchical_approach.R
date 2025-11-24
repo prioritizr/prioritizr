@@ -35,10 +35,9 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
     is_match_of(method, c("gurobi", "manual")),
     assertthat::is.flag(verbose)
   )
-  assert(
 
-    if (length(as.matrix(rel_tol)[1, ]) != (number_of_problems(x) - 1)) {
-      msg = ifelse(is.matrix(rel_tol), 
+  if (length(as.matrix(rel_tol)[1, ]) != (number_of_problems(x) - 1)) {
+    msg <- ifelse(is.matrix(rel_tol),
       cli::cli_abort(c(
         "The number of columns of {.arg rel_tol} must be one less than the number of objectives.",
         "i" = "{.arg rel_tol} has {length(as.matrix(rel_tol)[1, ])} values.",
@@ -49,18 +48,9 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
         "i" = "{.arg rel_tol} has {length(as.matrix(rel_tol)[1, ])} values.",
         "x" = "{.arg rel_tol} must have {number_of_problems(x) - 1} values."
       ))
-      )
-    }
+    )
+  }
 
-    # length(as.matrix(rel_tol)[1,]) == (number_of_problems(x) - 1), #TODO write more elaborate error message for this
-    # msg = ifelse(is.matrix(rel_tol), 
-    #              list("The number of columns of {.arg rel_tol} must be one less than the number of objectives.", 
-    #                "i" = "{.arg rel_tol} has THIS many values",
-    #                "x" = "{.arg rel_tol}  must have THAT many values"), 
-    #              list("The length of {.arg rel_tol} must be one less than the number of objectives.", 
-    #                "i" = "{.arg rel_tol} has THIS many values",
-    #                "x" = "{.arg rel_tol}  must have THAT many values"))
-  )
   # add approach
   x$add_approach(
     R6::R6Class(
@@ -70,20 +60,25 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
         name = "hierarchical approach",
         data = list(rel_tol = rel_tol, verbose = verbose),
         run = function(x, solver) {
-          
           rel_tol <- as.matrix(self$get_data("rel_tol"))
-          
-          sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
 
+          sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
+          
           for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
 
-            sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ]) #check here!!!!
+            cli::cli_inform(
+              c(
+                "Solving problem for objective {j}/{nrow(rel_tol)}",
+                "Relative tolerance(s): {paste(rel_tol[j, ], collapse = ', ')}"
+              )
+            )
+            
+            sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ])
             
           }
           sols
-         }
+        }
       )
     )$new()
   )
 }
-

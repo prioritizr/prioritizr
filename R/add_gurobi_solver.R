@@ -456,11 +456,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           for (i in seq_along(p2)) {
             p[[names(p2)[i]]] <- p2[[i]]
           }
-          # store internal model and parameters
-          # self$set_internal("model", model) # do I need this here if I use it stright away anyway?
-          # self$set_internal("parameters", p) # do I need this here if I use it stright away anyway?
-          # # return success
-          # invisible(TRUE) # do I need this here if I use it stright away anyway?
 
           # access internal model and parameters
           start <- self$get_data("start_solution")
