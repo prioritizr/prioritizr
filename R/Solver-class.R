@@ -140,7 +140,7 @@ Solver <- R6::R6Class(
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.
     solve_multiobj = function(x, rel_tol, ...) {
-      # verbose <- self$get_data("verbose") #TODO add verbose == "TRUE"
+
       mobj <- x$obj
       mmodelsense <- x$modelsense
       mopt <- x$opt
@@ -150,7 +150,7 @@ Solver <- R6::R6Class(
       sols_inter <- vector("list", length = nrow(mobj))
 
       for (i in seq_len(nrow(mobj))) {
-        #  if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
+        #if (verbose) cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
         
         # set current objective
         mopt$set_obj(mobj[i, ])
@@ -159,17 +159,22 @@ Solver <- R6::R6Class(
         # solve problem directly
         sols_inter[i] <- list(self$solve(mopt))
        # sols_inter[[i]] <- self$solve(mopt)
+        #browser()
 
         if (i != nrow(mobj)) {
           # calculate hierarchical constraint for next objective
-          rhs <- sols_inter[[i]]$objective *
-            #sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
+          print( sum(mobj[i, ] * sols_inter[[i]]$x))
+          print(sols_inter[[i]]$objective )
+          
+          rhs <- 
+            #sols_inter[[i]]$objective *
+            sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
             ifelse(mmodelsense[i] == "min", 1 + rel_tol[1, i], 1 - rel_tol[1, i])
           
           print(rhs)
           sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
 
-          #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
+      #  if (verbose) cli::cli_alert_info("Adding hierarchical constraint for next objective: rhs={rhs}, sense={mmodelsense}")
           mopt$append_linear_constraints(
             rhs = rhs,
             sense = sense,

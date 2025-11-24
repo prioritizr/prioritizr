@@ -205,6 +205,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               append(model, list(control = do.call(highs::highs_control, p)))
             )
           })
+          
           # manually return NULL to indicate error if no solution
           # nocov start
           if (
@@ -233,6 +234,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           } else {
             x_gap <- NA_real_ # nocov
           }
+          
           # return solution
           list(
             x = sol,

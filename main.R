@@ -3,7 +3,7 @@ sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
 
 # define rel_tol
-rel_tol_vector <- c(0.1, 0.9)
+#rel_tol_vector <- c(0.1, 0.9)
 
 # create two small example problems
 p1 <- problem(sim_pu_raster, sim_features) %>%
@@ -60,7 +60,7 @@ p2 <- problem(sim_pu_raster, sim_features) %>%
   add_binary_decisions() 
 
 multi_highs <- multi_problem(p1, p2) %>%
-  add_highs_solver(gap = 0, verbose = FALSE)
+  add_highs_solver(gap = 0, verbose = TRUE)
 
 test1 <- add_hierarchical_approach(multi_highs, 0.9) %>%
   solve()
@@ -80,7 +80,7 @@ test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
   solve() 
 
 #### this works now (rel_tol smaller <0.1): 
-testx <- add_hierarchical_approach(multi_highs, 0.00001) %>%
+testx <- add_hierarchical_approach(multi_highs, 0.000001) %>%
   solve()
 
 terra::plot(c(testx, test2))
@@ -105,12 +105,12 @@ p2 <- problem(sim_pu_raster, sim_features) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() 
 
-multi_highs <- multi_problem(p1, p2) %>%
-  add_cbc_solver(gap = 0, verbose = FALSE)
+multi_cbc <- multi_problem(p1, p2) %>%
+  add_cbc_solver(gap = 0, verbose = TRUE)
 
-test1 <- add_hierarchical_approach(multi_highs, 0.9) %>%
+test1 <- add_hierarchical_approach(multi_cbc, 0.9) %>%
   solve()
-test2 <- add_hierarchical_approach(multi_highs, 0.1) %>%
+test2 <- add_hierarchical_approach(multi_cbc, 0.1) %>%
   solve()
 
 test3 <- p1 %>% solve()
@@ -122,11 +122,11 @@ terra::plot(c(test2, test3))
 
 # alternative
 rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
-test5 <- add_hierarchical_approach(multi_highs, rel_tol_mat) %>%
+test5 <- add_hierarchical_approach(multi_cbc, rel_tol_mat) %>%
   solve() 
 
 #### this works now (rel_tol smaller <0.1): 
-testx <- add_hierarchical_approach(multi_highs, 0.001) %>%
+testx <- add_hierarchical_approach(multi_cbc, 0.00001) %>%
   solve()
 
 terra::plot(c(testx, test2))
