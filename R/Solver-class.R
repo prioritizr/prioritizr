@@ -164,7 +164,7 @@ Solver <- R6::R6Class(
           rhs <- 
             #sols_inter[[i]]$objective *
             sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
-            ifelse(mmodelsense[i] == "min", 1 + rel_tol[1, i], 1 - rel_tol[1, i])
+            ifelse(mmodelsense[i] == "min", 1 + rel_tol[i, 1], 1 - rel_tol[i, 1])
           
           sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
 

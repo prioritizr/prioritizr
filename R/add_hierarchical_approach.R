@@ -36,7 +36,7 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
     assertthat::is.flag(verbose)
   )
 
-  if (length(as.matrix(rel_tol)[1, ]) != (number_of_problems(x) - 1)) {
+  if (length((if (is.matrix(rel_tol)) rel_tol else matrix(rel_tol, nrow = 1))[1, ]) != (number_of_problems(x) - 1)) {
     msg <- ifelse(is.matrix(rel_tol),
       cli::cli_abort(c(
         "The number of columns of {.arg rel_tol} must be one less than the number of objectives.",
@@ -60,15 +60,17 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
         name = "hierarchical approach",
         data = list(rel_tol = rel_tol, verbose = verbose),
         run = function(x, solver) {
-          rel_tol <- as.matrix(self$get_data("rel_tol"))
-
+          
+          rel_tol <- self$get_data("rel_tol")
+          rel_tol <- if (is.matrix(rel_tol)) rel_tol else matrix(rel_tol, nrow = 1)
+          
           sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
           
           for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
 
             cli::cli_inform(
               c(
-                "Solving problem for objective {j}/{nrow(rel_tol)}",
+                "Solving problem for degradation {j}/{nrow(rel_tol)}",
                 "Relative tolerance(s): {paste(rel_tol[j, ], collapse = ', ')}"
               )
             )

@@ -467,12 +467,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
 
           verbose <- self$get_data("verbose")
-
+  
           rel_tol <- as.matrix(rel_tol)
+
           # now pop in rel_tol vals here
-          # rel_tol has ncol = nobj - 1
-          for (i in seq_len(ncol(rel_tol))) {
-            model$multiobj[[i]]$reltol <- rel_tol[1, i]
+          # rel_tol has nrow = nobj - 1
+          for (i in seq_len(nrow(rel_tol))) {
+            model$multiobj[[i]]$reltol <- rel_tol[i, 1]
           }
 
           # solve problem
