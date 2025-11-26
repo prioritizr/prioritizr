@@ -35,19 +35,19 @@ multi_s1 <- solve(multi_p1)
 # plot solutions for problems associated with spatial data
 plot(multi_s1, main = "High degradation", axes = FALSE)
 
-# define relative tolerance (low degradation)
-rel_tol <- 0.1
-
-# create multi-objective problem
-multi_p2 <- multi_problem(p1, p2) %>%
-  add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
-
-# solve problem
-multi_s2 <- solve(multi_p2)
-
-# plot solutions for problems associated with spatial data
-plot(multi_s2, main = "Low degradation", axes = FALSE)
+# # define relative tolerance (low degradation)
+# rel_tol <- 0.1
+# 
+# # create multi-objective problem
+# multi_p2 <- multi_problem(p1, p2) %>%
+#   add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+#   add_gurobi_solver(gap = 0, verbose = FALSE)
+# 
+# # solve problem
+# multi_s2 <- solve(multi_p2)
+# 
+# # plot solutions for problems associated with spatial data
+# plot(multi_s2, main = "Low degradation", axes = FALSE)
 
 #### Using an input matrix
 rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
@@ -72,7 +72,6 @@ multi_p3 <- multi_problem(
 multi_s3 <- solve(multi_p3)
 
 # plot solutions for problems associated with spatial data
-par(mfrow = c(2, 1))
 plot(c(multi_s3[[1]], multi_s3[[2]]), main = c("High degradation", "Low degradation"), axes = FALSE)
 
 #### What does high and low degradation mean?
@@ -154,7 +153,8 @@ plot(
   main = "Pareto front (approximated)"
 )
 
-##### Minimum set with minimum shortfall and another minimum shortfall ####
+##### Minimum set with two min shortfall ####
+
 # create multi-objective problem
 multi_p6 <- multi_problem(
   obj1 = problem(sim_pu_raster, sim_features) %>% # can also name objectives
