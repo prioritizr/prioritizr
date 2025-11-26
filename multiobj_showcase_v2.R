@@ -136,7 +136,7 @@ rel_tol_mat <- matrix(c(0.9, 0.1, 0.1, 0.9), nrow = 2, ncol = 2)
 
 # create multi-objective problem
 mp6 <- multi_problem(
-  obj1 = problem(con_cost, keystone_spp) %>% 
+  obj1 = problem(con_cost, keystone_spp) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions(),
@@ -162,16 +162,16 @@ plot(c(ms6[[1]], ms6[[2]]), main = c("High/low degradation", "Low/high degradati
 
 #### part 4: zones ####
 con_zone_cost <- get_sim_pu_raster() # layer
-agr_zone_cost <- get_sim_pu_raster() * 20 # layer 
+agr_zone_cost <- get_sim_pu_raster() * 20 # layer
 con_zone_con_ft <- get_sim_features()[[1:3]] # stack with 3 layers
-con_zone_agr_ft <- get_sim_features()[[4:5]] * 0 # stack with 2 layers, vals 0 
+con_zone_agr_ft <- get_sim_features()[[4:5]] * 0 # stack with 2 layers, vals 0
 agr_zone_con_ft <- get_sim_features()[[1:3]] * 0 # stack with 3 layers, vals 0
 agr_zone_agr_ft <- get_sim_features()[[4:5]] * 100 # stack with 2 layer
 
 con_budget <- terra::global(con_zone_cost, "sum", na.rm = TRUE)[[1]] * 0.2
 agr_budget <- terra::global(agr_zone_cost, "sum", na.rm = TRUE)[[1]] * 0.2
 
-p <- multi_problem(
+mp7 <- multi_problem(
   con_obj = problem(
     c(con_zone_cost, agr_zone_cost),
     zones(
@@ -180,9 +180,8 @@ p <- multi_problem(
     )
   ) %>%
     add_min_shortfall_objective(c(con_budget, agr_budget)) %>%
-    add_relative_targets(matrix(0.4, nrow = 5, ncol = 2)) %>%
+    add_relative_targets(matrix(0.4, nrow = 3, ncol = 2)) %>%
     add_binary_decisions(),
-  
   agr_obj = problem(
     c(con_zone_cost, agr_zone_cost),
     zones(
@@ -191,8 +190,10 @@ p <- multi_problem(
     )
   ) %>%
     add_min_shortfall_objective(c(con_budget, agr_budget)) %>%
-    add_relative_targets(matrix(0.9, nrow = 5, ncol = 2)) %>%
+    add_relative_targets(matrix(0.9, nrow = 2, ncol = 2)) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol) %>%
+  add_hierarchical_approach(rel_tol = 0.1) %>%
   add_gurobi_solver()
+
+ms7 <- solve(mp7) # throws error at the moment
