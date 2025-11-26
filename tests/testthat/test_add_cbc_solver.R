@@ -539,3 +539,7 @@ test_that("control and backwards-compatibility presolve", {
   expect_true(all_binary(s1))
   expect_true(is_comparable_raster(sim_pu_raster, s1))
 })
+
+test_that("multi_problem", {
+
+})

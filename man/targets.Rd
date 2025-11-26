@@ -427,6 +427,7 @@ production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

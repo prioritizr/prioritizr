@@ -10,7 +10,7 @@ NULL
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is relative
 #'   and expresses the acceptable deviance from the optimal objective.
@@ -85,7 +85,7 @@ NULL
 #'  set the `Method` parameter.
 #'  See the [online documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
 #'  for information on the parameters.
-#"
+# "
 #' @details
 #' [*Gurobi*](https://www.gurobi.com/) is a
 #' state-of-the-art commercial optimization software with an R package
@@ -190,7 +190,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -259,6 +259,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             lb = x$lb(),
             ub = x$ub()
           )
+
           # create parameters
           p <- list(
             LogToConsole = as.numeric(self$get_data("verbose")),
@@ -271,8 +272,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             NodeFileStart = self$get_data("node_file_start"),
             SolutionLimit = as.numeric(self$get_data("first_feasible"))
           )
-          if (p$SolutionLimit == 0)
+          if (p$SolutionLimit == 0) {
             p$SolutionLimit <- NULL
+          }
           if (p$NodeFileStart < 0) {
             p$NodeFileStart <- NULL
           }
@@ -283,8 +285,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
           # add extra parameters from portfolio if needed
           p2 <- list(...)
-          for (i in seq_along(p2))
+          for (i in seq_along(p2)) {
             p[[names(p2)[i]]] <- p2[[i]]
+          }
           # store internal model and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)
@@ -313,6 +316,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             n_extra <- max(length(model$obj) - length(start), 0)
             model$start <- c(c(start), rep(NA_real_, n_extra))
           }
+
           # solve problem
           rt <- system.time({
             x <- withr::with_locale(
@@ -350,10 +354,11 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             gap = x$mipgap,
             objbound = x$objbound
           )
+
           # add pool if required
           if (!is.null(p$PoolSearchMode) &&
-              is.numeric(x$x) &&
-              isTRUE(length(x$pool) > 1)
+            is.numeric(x$x) &&
+            isTRUE(length(x$pool) > 1)
           ) {
             out$pool <- x$pool[-1]
             # get bound for objective value for optimal solution
@@ -389,6 +394,128 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               out$pool[[i]]$objbound <- x$objbound
             }
           }
+          out
+        },
+       
+        solve_multiobj = function(x, rel_tol, ...) {
+          # get multiobj info
+          mobj <- x$obj
+          mmodelsense <- x$modelsense
+          mopt <- x$opt
+
+          # create problem
+          model <- list(
+            modelsense = mopt$modelsense(),
+            vtype = mopt$vtype(),
+            A = mopt$A(),
+            rhs = mopt$rhs(),
+            sense = mopt$sense(),
+            lb = mopt$lb(),
+            ub = mopt$ub()
+          )
+
+          # build multiobj list from the problems
+          multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
+            list(
+              objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
+              priority = nrow(mobj) - i + 1, # NOTE: gurobi has OPPOSITE to intuitive priorities (meaning higher numbers get optimized first, obj1 for us has priority 2, obj2 has priority 1 for two objective)
+              weight = 1.0,
+              reltol = NULL, # placeholder
+              name = paste0("Objective_", i)
+            )
+          })
+
+          # adapt model
+          model$multiobj <- multiobj
+
+          # create parameters
+          p <- list(
+            LogToConsole = as.numeric(self$get_data("verbose")),
+            LogFile = "",
+            Presolve = self$get_data("presolve"),
+            MIPGap = self$get_data("gap"),
+            TimeLimit = self$get_data("time_limit"),
+            Threads = self$get_data("threads"),
+            NumericFocus = as.numeric(self$get_data("numeric_focus")) * 2,
+            NodeFileStart = self$get_data("node_file_start"),
+            SolutionLimit = as.numeric(self$get_data("first_feasible"))
+          )
+          if (p$SolutionLimit == 0) {
+            p$SolutionLimit <- NULL
+          }
+          if (p$NodeFileStart < 0) {
+            p$NodeFileStart <- NULL
+          }
+          # specify custom parameters
+          control <- self$get_data("control")
+          if (length(control) > 0) {
+            p[names(control)] <- control
+          }
+          # add extra parameters from portfolio if needed
+          p2 <- list(...)
+          for (i in seq_along(p2)) {
+            p[[names(p2)[i]]] <- p2[[i]]
+          }
+
+          # access internal model and parameters
+          start <- self$get_data("start_solution")
+
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
+
+          verbose <- self$get_data("verbose")
+  
+          rel_tol <- as.matrix(rel_tol)
+
+          # now pop in rel_tol vals here
+          # rel_tol has nrow = nobj - 1
+          for (i in seq_len(nrow(rel_tol))) {
+            model$multiobj[[i]]$reltol <- rel_tol[i, 1]
+          }
+
+          # solve problem
+          rt <- system.time({
+            x <- withr::with_locale(
+              c(LC_CTYPE = "C"),
+              gurobi::gurobi(model = model, params = p)
+            )
+          })
+
+          # fix potential floating point arithmetic issues
+          b <- model$vtype == "B"
+          if (is.numeric(x$x)) {
+            ## round binary variables because default precision is 1e-5
+            x$x[b] <- round(x$x[b])
+            ## truncate semi-continuous variables
+            v <- model$vtype == "S"
+            x$x[v] <- pmax(x$x[v], 0)
+            x$x[v] <- pmin(x$x[v], 1)
+            ## truncate variables to account for rounding issues
+            x$x <- pmax(x$x, model$lb)
+            x$x <- pmin(x$x, model$ub)
+          }
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
+          if (is.null(x$mipgap)) {
+            x$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            x$objbound <- NA_real_
+          }
+
+          # extract solutions
+          out <- list(
+            x = x$x,
+            objective = x$objval,
+            status = x$status,
+            runtime = rt[[3]],
+            gap = x$mipgap,
+            objbound = x$objbound
+          )
+
           out
         }
       )

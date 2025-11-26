@@ -5,7 +5,8 @@ NULL
 #'
 #' Extract the number of features in an object.
 #'
-#' @param x A [problem()], [optimization_problem()], or [zones()] object.
+#' @param x A [problem()], [multi_problem()]
+#' [optimization_problem()], or [zones()] object.
 #'
 #' @param ... not used.
 #'
@@ -26,6 +27,9 @@ NULL
 #'
 #' # print number of features
 #' print(number_of_features(p))
+#'
+#' # create multi-objective problem
+#' # TODO
 #' }
 #' @export
 number_of_features <- function(x, ...) {
@@ -38,6 +42,13 @@ number_of_features <- function(x, ...) {
 #'
 #' @export
 number_of_features.ConservationProblem <- function(x, ...) {
+  x$number_of_features()
+}
+
+#' @rdname number_of_features
+#'
+#' @export
+number_of_features.MultiObjConservationProblem <- function(x, ...) {
   x$number_of_features()
 }
 

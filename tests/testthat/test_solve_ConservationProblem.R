@@ -377,8 +377,8 @@ test_that("numerical instability (error when force = FALSE)", {
     add_default_solver(verbose = FALSE)
   # tests
   expect_tidy_error(
-    expect_warning(solve(p), "numerical issues"),
-    "failed presolve checks"
+    expect_message(solve(p), "Numerical issues"),
+    "failed presolve check"
   )
 })
 
@@ -415,8 +415,11 @@ test_that("numerical instability (solution when force = TRUE)", {
     add_default_solver(first_feasible = TRUE, verbose = FALSE)
   # solve problem
   expect_warning(
-    s <- solve(p, force = TRUE),
-    "numerical issues"
+    expect_message(
+      s <- solve(p, force = TRUE),
+      "Numerical issues"
+    ),
+    "presolve"
   )
   # tests
   expect_inherits(s, "sf")

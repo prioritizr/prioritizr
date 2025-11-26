@@ -91,6 +91,3 @@ x2 <- optimization_problem(l)
 # print fully formulated object
 print(x2)
 }
-\seealso{
-\link{OptimizationProblem-methods}.
-}

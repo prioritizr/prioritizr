@@ -3,6 +3,7 @@
 \name{zone_names}
 \alias{zone_names}
 \alias{zone_names.ConservationProblem}
+\alias{zone_names.MultiObjConservationProblem}
 \alias{zone_names.ZonesRaster}
 \alias{zone_names.ZonesSpatRaster}
 \alias{zone_names.ZonesCharacter}
@@ -12,6 +13,8 @@ zone_names(x, ...)
 
 \method{zone_names}{ConservationProblem}(x, ...)
 
+\method{zone_names}{MultiObjConservationProblem}(x, ...)
+
 \method{zone_names}{ZonesRaster}(x, ...)
 
 \method{zone_names}{ZonesSpatRaster}(x, ...)
@@ -19,7 +22,7 @@ zone_names(x, ...)
 \method{zone_names}{ZonesCharacter}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=zones]{zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}}, \code{\link[=multi_problem]{multi_problem()}}, or \code{\link[=Zones]{Zones()}} object.}
 
 \item{...}{not used.}
 }
@@ -46,5 +49,8 @@ p <-
 
 # print zone names in problem
 print(zone_names(p))
+
+# create multi-objective problem
+# TODO
 }
 }

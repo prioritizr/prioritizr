@@ -14,6 +14,8 @@ Other classes:
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiObjApproach-class}},
+\code{\link{MultiObjConservationProblem-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
@@ -37,6 +39,7 @@ Other classes:
 \item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
 \item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
 \item \href{#method-Solver-solve}{\code{Solver$solve()}}
+\item \href{#method-Solver-solve_multiobj}{\code{Solver$solve_multiobj()}}
 \item \href{#method-Solver-clone}{\code{Solver$clone()}}
 }
 }
@@ -238,6 +241,30 @@ Solve an optimization problem.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Invisible \code{TRUE}.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-solve_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-solve_multiobj}{}}}
+\subsection{Method \code{solve_multiobj()}}{
+Solve an optimization problem.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, rel_tol, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{rel_tol}}{numeric vector of coefficients}
 
 \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
 }

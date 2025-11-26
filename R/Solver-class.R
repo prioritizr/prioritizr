@@ -29,7 +29,6 @@ Solver <- R6::R6Class(
       cli::cli_abort("No defined $run method.", .internal = TRUE)
       # nocov end
     },
-
     #' @description
     #' Perform computations that need to be completed before applying
     #' the object.
@@ -133,6 +132,74 @@ Solver <- R6::R6Class(
       self$internal <- list()
       # return output
       out
+    },
+    #' @description
+    #' Solve an optimization problem.
+    #' @param x [optimization_problem()] object.
+    #' @param rel_tol numeric vector of coefficients
+    #' @param ... Additional arguments passed to the `calculate()` method.
+    #' @return Invisible `TRUE`.
+    solve_multiobj = function(x, rel_tol, ...) {
+
+      mobj <- x$obj
+      mmodelsense <- x$modelsense
+      mopt <- x$opt
+
+      rel_tol <- as.matrix(rel_tol)
+
+      sols_inter <- vector("list", length = nrow(mobj))
+
+      for (i in seq_len(nrow(mobj))) {
+        cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
+        
+        # set current objective
+        mopt$set_obj(mobj[i, ])
+        mopt$set_modelsense(mmodelsense[i])
+
+        # solve problem directly
+        sols_inter[i] <- list(self$solve(mopt))
+
+        if (i != nrow(mobj)) {
+          # calculate hierarchical constraint for next objective
+          rhs <- 
+            #sols_inter[[i]]$objective *
+            sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
+            ifelse(mmodelsense[i] == "min", 1 + rel_tol[i, 1], 1 - rel_tol[i, 1])
+          
+          sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
+
+          mopt$append_linear_constraints(
+            rhs = rhs,
+            sense = sense,
+            A = Matrix::drop0(Matrix::sparseMatrix(
+              i = rep(1, length(mobj[i, ])),
+              j = seq_along(mobj[i, ]),
+              x = mobj[i, ],
+              dims = c(1, length(mobj[i, ]))
+            )),
+            row_ids = "h"
+          )
+        }
+      }
+
+      sol <- sols_inter[[nrow(mobj)]] # only get last solution
+
+      ### compute and store objective values for each objective
+      if (!is.null(sol$x)) {
+        sol$objective <- stats::setNames(
+          rowSums(
+            x$obj *
+              matrix(
+                sol$x,
+                ncol = ncol(x$obj),
+                nrow = nrow(x$obj), byrow = TRUE
+              )
+          ),
+          rownames(x$obj)
+        )
+      }
+
+      sol
     }
   )
 )

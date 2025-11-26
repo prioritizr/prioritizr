@@ -168,6 +168,7 @@ solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

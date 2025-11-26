@@ -84,6 +84,7 @@ plot(s)
 }
 \seealso{
 Other overviews: 
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{importance}},
 \code{\link{objectives}},

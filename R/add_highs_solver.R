@@ -75,7 +75,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -172,6 +172,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (length(control) > 0) {
             p[names(control)] <- control
           }
+          
           # store internal data and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)
@@ -204,6 +205,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               append(model, list(control = do.call(highs::highs_control, p)))
             )
           })
+          
           # manually return NULL to indicate error if no solution
           # nocov start
           if (
@@ -232,6 +234,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           } else {
             x_gap <- NA_real_ # nocov
           }
+          
           # return solution
           list(
             x = sol,

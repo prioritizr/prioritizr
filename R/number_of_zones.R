@@ -29,6 +29,9 @@ NULL
 #'
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
+#'
+#' # create multi-objective problem
+#' # TODO
 #' }
 #' @export
 number_of_zones <- function(x, ...) {
@@ -41,6 +44,13 @@ number_of_zones <- function(x, ...) {
 #'
 #' @export
 number_of_zones.ConservationProblem <- function(x, ...) {
+  x$number_of_zones()
+}
+
+#' @rdname number_of_zones
+#'
+#' @export
+number_of_zones.MultiObjConservationProblem <- function(x, ...) {
   x$number_of_zones()
 }
 
