@@ -515,18 +515,16 @@ R</em> package to solve an optimization problem. Copy and paste the
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2599748
-## Academic license - for non-commercial use only - expires 2025-12-16
-## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Set parameter LicenseID to value 2738655
+## Academic license - for non-commercial use only - expires 2026-11-14
+## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
 ## 
-## Non-default parameters:
-## LogToConsole  0
-## 
-## Optimize a model with 2 rows, 3 columns and 5 nonzeros
+## Optimize a model with 2 rows, 3 columns and 5 nonzeros (Max)
 ## Model fingerprint: 0xba2d0add
+## Model has 3 linear objective coefficients
 ## Variable types: 0 continuous, 3 integer (3 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 3e+00]
@@ -593,13 +591,13 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2599748
+## Set parameter LicenseID to value 2738655
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2025-12-16
-## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Academic license - for non-commercial use only - expires 2026-11-14
+## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -607,12 +605,12 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 ## Non-default parameters:
 ## TimeLimit  2147483647
 ## MIPGap  0.1
-## LogToConsole  0
 ## Presolve  2
 ## Threads  1
 ## 
-## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Optimize a model with 5 rows, 90 columns and 450 nonzeros (Min)
 ## Model fingerprint: 0x4bb5d283
+## Model has 90 linear objective coefficients
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]

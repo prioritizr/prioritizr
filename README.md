@@ -37,6 +37,9 @@ read input data formatted for the *Marxan* conservation planning
 program, and find much cheaper solutions in a much shorter period of
 time than *Marxan*.
 
+[![YouTube
+video](man/figures/youtube-thumbnail.png)](https://www.youtube.com/watch?v=c7XgODGr9lE)
+
 ## Installation
 
 #### Official version
@@ -279,7 +282,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.526
+    ##      3.302
 
 ``` r
 # extract state message from the solver
@@ -574,9 +577,11 @@ Additional resources can also be found in [online repositories under the
 *prioritizr* organization](https://github.com/prioritizr). These
 resources include [slides for talks and seminars about the
 package](https://github.com/prioritizr/teaching). Additionally, workshop
-materials are available too (e.g., the [Carleton 2023
-workshop](https://prioritizr.github.io/workshop/) and [ECCB 2024
-workshop](https://iiasa.github.io/eccb2024/)).
+materials are available too (e.g., [Carleton 2023
+workshop](https://prioritizr.github.io/workshop/), [ECCB 2024
+workshop](https://iiasa.github.io/eccb2024/), and [Statistical Methods
+Webinar series 2025
+workshop](https://github.com/eco4cast/Statistical-Methods-Seminar-Series/tree/main/schuster_prioritizr)).
 
 ## Getting help
 

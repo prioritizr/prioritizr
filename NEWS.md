@@ -1,3 +1,18 @@
+# prioritizr 8.1.0.1
+
+## Minor improvements and bug fixes
+
+- Update `add_gurobi_solver()` to be compatible with Gurobi version 13 (#389).
+- Standardize procedures for sanitizing solver outputs to provide more
+  consistent behavior from different solvers.
+
+## Documentation
+
+- Update README with video and materials for the _prioritizr_ workshop as part
+  of the Statistical Methods Webinar series by the Ecological Forecasting
+  Initiative and ESA Statistical Ecology Section.
+- Update publication record.
+
 # prioritizr 8.1.0
 
 ## Notice
@@ -51,7 +66,7 @@
   and attempting to add multiple weights will over-write previously specified
   weights (similar to how targets are handled).
 
-#### Minor improvements and bug fixes
+## Minor improvements and bug fixes
 
 - Update `print()` method for `problem()` objects to display a more useful
   number of digits for floating point numbers.
@@ -86,7 +101,7 @@
   geometry collection data (#379). Thanks to Alan Jackson (\@alankjackson) for
   bug report.
 
-#### Documentation
+## Documentation
 
 - Update `?targets` to provide a comprehensive overview of the target functions.
 - Update `boundary_matrix()` function documentation with better example.
@@ -96,7 +111,7 @@
 
 # prioritizr 8.0.6.8
 
-#### Minor improvements and bug fixes
+## Minor improvements and bug fixes
 
 - Update `rij_matrix()` function to reduce run time.
 - Update `solve()` function and the importance functions to ensure consistency

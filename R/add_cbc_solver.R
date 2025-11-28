@@ -313,14 +313,13 @@ add_cbc_solver <- function(x,
               x$is_abandoned) {
             return(NULL)
           }
-          # fix potential floating point arithmetic issues
+          # sanitize solver output
           if (is.numeric(x$objective_value)) {
-            ## round binary variables because default precision is 1e-5
-            x$column_solution[model$is_integer] <-
-              round(x$column_solution[model$is_integer])
-            ## truncate variables to account for rounding issues
-            x$column_solution <- pmax(x$column_solution, model$col_lb)
-            x$column_solution <- pmin(x$column_solution, model$col_ub)
+            x$column_solution <- sanitize_solver_output(
+              x$column_solution,
+              lb = model$col_lb, ub = model$col_ub,
+              is_integer = model$is_integer
+            )
           }
           # return output
           list(

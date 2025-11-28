@@ -2843,13 +2843,13 @@ progress when searching for a suitable solution.</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" tabindex="-1"></a><span class="co"># solve the problem (using the default solver)</span></span>
 <span id="cb124-2"><a href="#cb124-2" tabindex="-1"></a>s46 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p46)</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2599748
+## Set parameter LicenseID to value 2738655
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2025-12-16
-## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Academic license - for non-commercial use only - expires 2026-11-14
+## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -2857,12 +2857,12 @@ progress when searching for a suitable solution.</p>
 ## Non-default parameters:
 ## TimeLimit  2147483647
 ## MIPGap  0.1
-## LogToConsole  0
 ## Presolve  2
 ## Threads  1
 ## 
-## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+## Optimize a model with 293 rows, 234 columns and 1026 nonzeros (Min)
 ## Model fingerprint: 0x4021dbe5
+## Model has 234 linear objective coefficients
 ## Variable types: 144 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 1e+00]
@@ -2883,41 +2883,37 @@ progress when searching for a suitable solution.</p>
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s
-## H    0     0                    3058.9371490 2265.86242  25.9%     -    0s
-## H    0     0                    3009.2433014 2265.86242  24.7%     -    0s
-##      0     0 2328.27423    0  232 3009.24330 2328.27423  22.6%     -    0s
-##      0     0 2357.91894    0  229 3009.24330 2357.91894  21.6%     -    0s
-##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s
-##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s
-## H    0     0                    2869.1061249 2379.43275  17.1%     -    0s
-## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s
-## H    0     0                    2813.5474548 2379.43275  15.4%     -    0s
-## H    0     0                    2793.5406494 2379.43275  14.8%     -    0s
-## H    0     0                    2735.9537048 2379.43275  13.0%     -    0s
-## H    0     0                    2715.9353333 2379.43275  12.4%     -    0s
-## H    0     0                    2668.5003204 2379.43275  10.8%     -    0s
-## H    0     0                    2667.3308105 2379.43275  10.8%     -    0s
-## H    0     0                    2666.1707611 2379.43275  10.8%     -    0s
-##      0     2 2379.78730    0  197 2666.17076 2379.78730  10.7%     -    0s
-## H   27    26                    2664.0213318 2382.48313  10.6%  19.5    0s
-## H   27    25                    2640.7490387 2382.48313  9.78%  19.5    0s
+##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s
+## H    0     0                    2978.9843750 2328.27423  21.8%     -    0s
+## H    0     0                    2949.7553711 2328.27423  21.1%     -    0s
+##      0     0 2357.91894    0  229 2949.75537 2357.91894  20.1%     -    0s
+##      0     0 2379.43275    0  197 2949.75537 2379.43275  19.3%     -    0s
+##      0     0 2379.43275    0  197 2949.75537 2379.43275  19.3%     -    0s
+## H    0     0                    2946.1551056 2379.43275  19.2%     -    0s
+## H    0     0                    2934.5331268 2379.43275  18.9%     -    0s
+## H    0     0                    2932.7628632 2379.43275  18.9%     -    0s
+## H    0     0                    2930.7731476 2379.43275  18.8%     -    0s
+## H    0     0                    2876.9359283 2379.43275  17.3%     -    0s
+## H    0     0                    2738.0825806 2379.43275  13.1%     -    0s
+##      0     2 2379.78730    0  197 2738.08258 2379.78730  13.1%     -    0s
+## H   20    20                    2648.2596588 2382.48313  10.0%  23.4    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)
+## Explored 34 nodes (1117 simplex iterations) in 0.13 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
-## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16
+## Solution count 10: 2648.26 2738.08 2876.94 ... 3087.96
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.640749038696e+03, best bound 2.382483134863e+03, gap 9.7800%</code></pre>
+## Best objective 2.648259658813e+03, best bound 2.391338223393e+03, gap 9.7015%</code></pre>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
 <span id="cb126-2"><a href="#cb126-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb126-3"><a href="#cb126-3" tabindex="-1"></a>  s46, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
 <span id="cb126-4"><a href="#cb126-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">axes =</span> <span class="cn">FALSE</span></span>
 <span id="cb126-5"><a href="#cb126-5" tabindex="-1"></a>)</span></code></pre></div>
-<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p><img role="img" src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>We can plot this solution because the planning unit input data are
 spatially referenced in a raster format. The output format will always
 match the planning unit data used to initialize the problem. For
@@ -2932,11 +2928,11 @@ quality of the solution and the optimization process.</p>
 <span id="cb127-2"><a href="#cb127-2" tabindex="-1"></a><span class="co"># (numerical value that is being minimized or maximized during optimization)</span></span>
 <span id="cb127-3"><a href="#cb127-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s46, <span class="st">&quot;objective&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##   2640.749</code></pre>
+##    2648.26</code></pre>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb129-2"><a href="#cb129-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s46, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.088</code></pre>
+##      0.137</code></pre>
 <div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb131-2"><a href="#cb131-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb131-3"><a href="#cb131-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s46, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>
@@ -2946,7 +2942,7 @@ quality of the solution and the optimization process.</p>
 <span id="cb133-2"><a href="#cb133-2" tabindex="-1"></a><span class="co"># (best estimate of lower or upper limit for optimal objective value)</span></span>
 <span id="cb133-3"><a href="#cb133-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s46, <span class="st">&quot;objbound&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##   2382.483</code></pre>
+##   2391.338</code></pre>
 </div>
 </div>
 <div id="evaluate-the-solution" class="section level2">
@@ -2982,7 +2978,7 @@ solution.</li>
 <pre><code>## # A tibble: 1 × 2
 ##   summary  cost
 ##   &lt;chr&gt;   &lt;dbl&gt;
-## 1 overall 2041.</code></pre>
+## 1 overall 2048.</code></pre>
 <ul>
 <li><strong>Feature representation summary</strong>: Calculate how well
 features are represented by a solution. This function can be used for
@@ -2993,11 +2989,11 @@ any type of problem.</li>
 <pre><code>## # A tibble: 5 × 5
 ##   summary feature   total_amount absolute_held relative_held
 ##   &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 overall feature_1         83.3          8.63         0.104
-## 2 overall feature_2         31.2          3.16         0.101
-## 3 overall feature_3         72.0          7.26         0.101
-## 4 overall feature_4         42.7          4.99         0.117
-## 5 overall feature_5         56.7          5.80         0.102</code></pre>
+## 1 overall feature_1         83.3          8.57         0.103
+## 2 overall feature_2         31.2          3.18         0.102
+## 3 overall feature_3         72.0          7.28         0.101
+## 4 overall feature_4         42.7          5.01         0.118
+## 5 overall feature_5         56.7          5.71         0.101</code></pre>
 <ul>
 <li><strong>Target coverage summary</strong>: Calculate how well
 representation targets are met by a solution. This function can only be
@@ -3008,11 +3004,11 @@ used with problems contain targets.</li>
 <pre><code>## # A tibble: 5 × 9
 ##   feature   met   total_amount absolute_target absolute_held absolute_shortfall
 ##   &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
-## 1 feature_1 TRUE          83.3            8.33          8.63                  0
-## 2 feature_2 TRUE          31.2            3.12          3.16                  0
-## 3 feature_3 TRUE          72.0            7.20          7.26                  0
-## 4 feature_4 TRUE          42.7            4.27          4.99                  0
-## 5 feature_5 TRUE          56.7            5.67          5.80                  0
+## 1 feature_1 TRUE          83.3            8.33          8.57                  0
+## 2 feature_2 TRUE          31.2            3.12          3.18                  0
+## 3 feature_3 TRUE          72.0            7.20          7.28                  0
+## 4 feature_4 TRUE          42.7            4.27          5.01                  0
+## 5 feature_5 TRUE          56.7            5.67          5.71                  0
 ## # ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,
 ## #   relative_shortfall &lt;dbl&gt;</code></pre>
 <ul>
@@ -3053,7 +3049,7 @@ connectivity of a solution using asymmetric connectivity data.</li>
 <pre><code>## # A tibble: 1 × 2
 ##   summary asym_connectivity
 ##   &lt;chr&gt;               &lt;dbl&gt;
-## 1 overall              48.6</code></pre>
+## 1 overall              46.8</code></pre>
 </div>
 <div id="evaluating-importance" class="section level3">
 <h3>Evaluating importance</h3>
@@ -3081,13 +3077,13 @@ importance methods.</p>
 <span id="cb149-8"><a href="#cb149-8" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb149-9"><a href="#cb149-9" tabindex="-1"></a>s47 <span class="ot">&lt;-</span> <span class="fu">solve</span>(p47)</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2599748
+## Set parameter LicenseID to value 2738655
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2025-12-16
-## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Academic license - for non-commercial use only - expires 2026-11-14
+## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -3095,12 +3091,12 @@ importance methods.</p>
 ## Non-default parameters:
 ## TimeLimit  2147483647
 ## MIPGap  0.1
-## LogToConsole  0
 ## Presolve  2
 ## Threads  1
 ## 
-## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Optimize a model with 5 rows, 90 columns and 450 nonzeros (Min)
 ## Model fingerprint: 0x4bb5d283
+## Model has 90 linear objective coefficients
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]
@@ -3123,7 +3119,7 @@ importance methods.</p>
 ## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s
 ## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
+## Explored 1 nodes (12 simplex iterations) in 0.01 seconds (0.00 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 1987.4 2207.85 2337.96 
@@ -3287,13 +3283,13 @@ function can be used to read <em>Marxan</em> input files and the
 <div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb158-2"><a href="#cb158-2" tabindex="-1"></a>ms <span class="ot">&lt;-</span> <span class="fu">solve</span>(mp)</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2599748
+## Set parameter LicenseID to value 2738655
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2025-12-16
-## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Academic license - for non-commercial use only - expires 2026-11-14
+## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -3301,12 +3297,12 @@ function can be used to read <em>Marxan</em> input files and the
 ## Non-default parameters:
 ## TimeLimit  2147483647
 ## MIPGap  0.1
-## LogToConsole  0
 ## Presolve  2
 ## Threads  1
 ## 
-## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros (Min)
 ## Model fingerprint: 0x49c86f37
+## Model has 6780 linear objective coefficients
 ## Variable types: 5029 continuous, 1751 integer (1751 binary)
 ## Coefficient statistics:
 ##   Matrix range     [5e-05, 4e+03]
@@ -3315,13 +3311,13 @@ function can be used to read <em>Marxan</em> input files and the
 ##   RHS range        [5e+03, 3e+05]
 ## Found heuristic solution: objective 1.255825e+08
 ## Presolve removed 4707 rows and 3103 columns
-## Presolve time: 0.05s
+## Presolve time: 0.07s
 ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## Variable types: 0 continuous, 3677 integer (3677 binary)
 ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
 ## 
 ## 
-## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.02 work units)
+## Root relaxation: objective 9.975843e+07, 652 iterations, 0.02 seconds (0.02 work units)
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -3331,7 +3327,7 @@ function can be used to read <em>Marxan</em> input files and the
 ## 
 ## Cleanup yields a better solution
 ## 
-## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)
+## Explored 1 nodes (652 simplex iterations) in 0.10 seconds (0.12 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 

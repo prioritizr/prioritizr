@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -270,13 +270,13 @@ establishment).</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s0</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -284,12 +284,12 @@ establishment).</p>
 <span><span class="co">## Non-default parameters:</span></span>
 <span><span class="co">## TimeLimit  2147483647</span></span>
 <span><span class="co">## MIPGap  0.1</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
 <span><span class="co">## Presolve  2</span></span>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 33 rows, 1130 columns and 8157 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 33 rows, 1130 columns and 8157 nonzeros (Min)</span></span>
 <span><span class="co">## Model fingerprint: 0xd205b612</span></span>
+<span><span class="co">## Model has 1130 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 0 continuous, 1130 integer (1130 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
@@ -765,15 +765,15 @@ generated using the blended approach.</strong></p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 3</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length threshold</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.       355</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>       522.              2<span style="text-decoration: underline;">280</span>881.       532</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>       704.              2<span style="text-decoration: underline;">135</span>498.       709</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.       886</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>061.              1<span style="text-decoration: underline;">959</span>503.      <span style="text-decoration: underline;">1</span>063</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.      <span style="text-decoration: underline;">1</span>241</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>416.              1<span style="text-decoration: underline;">848</span>058.      <span style="text-decoration: underline;">1</span>418</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>590.              1<span style="text-decoration: underline;">794</span>642.      <span style="text-decoration: underline;">1</span>595</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>772.              1<span style="text-decoration: underline;">695</span>679.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">869</span>559.       355</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>       517.              2<span style="text-decoration: underline;">298</span>458.       532</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>       668.              2<span style="text-decoration: underline;">141</span>521.       709</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>       883.              2<span style="text-decoration: underline;">020</span>987.       886</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>060.              1<span style="text-decoration: underline;">965</span>032.      <span style="text-decoration: underline;">1</span>063</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>240.              1<span style="text-decoration: underline;">910</span>963.      <span style="text-decoration: underline;">1</span>241</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>414.              1<span style="text-decoration: underline;">827</span>306.      <span style="text-decoration: underline;">1</span>418</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>594.              1<span style="text-decoration: underline;">774</span>384.      <span style="text-decoration: underline;">1</span>595</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>771.              1<span style="text-decoration: underline;">713</span>437.      <span style="text-decoration: underline;">1</span>772</span></span></code></pre>
 <p>After calculating the metrics, let’s we can use them to help select a
 prioritization.</p>
 </div>
@@ -808,15 +808,15 @@ prioritizations selected by different methods, let’s create a
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 6</span></span></span>
 <span><span class="co">##   total_cost total_boundary_length value name           label            method</span></span>
 <span><span class="co">##        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">889</span>449.   355 threshold_355  Threshold = 355  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span>       522.              2<span style="text-decoration: underline;">280</span>881.   532 threshold_532  Threshold = 532  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span>       704.              2<span style="text-decoration: underline;">135</span>498.   709 threshold_709  Threshold = 709  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span>       884.              2<span style="text-decoration: underline;">030</span>790.   886 threshold_886  Threshold = 886  none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>061.              1<span style="text-decoration: underline;">959</span>503.  <span style="text-decoration: underline;">1</span>063 threshold_1063 Threshold = 1063 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>241.              1<span style="text-decoration: underline;">896</span>302.  <span style="text-decoration: underline;">1</span>241 threshold_1241 Threshold = 1241 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>416.              1<span style="text-decoration: underline;">848</span>058.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>590.              1<span style="text-decoration: underline;">794</span>642.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>772.              1<span style="text-decoration: underline;">695</span>679.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>       355.              2<span style="text-decoration: underline;">869</span>559.   355 threshold_355  Threshold = 355  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>       517.              2<span style="text-decoration: underline;">298</span>458.   532 threshold_532  Threshold = 532  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>       668.              2<span style="text-decoration: underline;">141</span>521.   709 threshold_709  Threshold = 709  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>       883.              2<span style="text-decoration: underline;">020</span>987.   886 threshold_886  Threshold = 886  none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>      <span style="text-decoration: underline;">1</span>060.              1<span style="text-decoration: underline;">965</span>032.  <span style="text-decoration: underline;">1</span>063 threshold_1063 Threshold = 1063 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>      <span style="text-decoration: underline;">1</span>240.              1<span style="text-decoration: underline;">910</span>963.  <span style="text-decoration: underline;">1</span>241 threshold_1241 Threshold = 1241 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span>      <span style="text-decoration: underline;">1</span>414.              1<span style="text-decoration: underline;">827</span>306.  <span style="text-decoration: underline;">1</span>418 threshold_1418 Threshold = 1418 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span>      <span style="text-decoration: underline;">1</span>594.              1<span style="text-decoration: underline;">774</span>384.  <span style="text-decoration: underline;">1</span>595 threshold_1595 Threshold = 1595 none  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span>      <span style="text-decoration: underline;">1</span>771.              1<span style="text-decoration: underline;">713</span>437.  <span style="text-decoration: underline;">1</span>772 threshold_1772 Threshold = 1772 none</span></span></code></pre>
 <p>Next, let’s examine some different methods for selecting
 prioritizations.</p>
 <div class="section level3">
@@ -892,15 +892,15 @@ we want equal weighting for total cost and total boundary length.</p>
 <span><span class="co"># print results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">topsis_results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   alt.row     score rank</span></span>
-<span><span class="co">## 1       1 0.6818979    3</span></span>
-<span><span class="co">## 2       2 0.7802452    1</span></span>
-<span><span class="co">## 3       3 0.7291563    2</span></span>
-<span><span class="co">## 4       4 0.6424656    4</span></span>
-<span><span class="co">## 5       5 0.5486430    5</span></span>
-<span><span class="co">## 6       6 0.4613062    6</span></span>
-<span><span class="co">## 7       7 0.3886903    7</span></span>
-<span><span class="co">## 8       8 0.3385608    8</span></span>
-<span><span class="co">## 9       9 0.3181021    9</span></span></code></pre>
+<span><span class="co">## 1       1 0.6890516    3</span></span>
+<span><span class="co">## 2       2 0.7812698    1</span></span>
+<span><span class="co">## 3       3 0.7491596    2</span></span>
+<span><span class="co">## 4       4 0.6439785    4</span></span>
+<span><span class="co">## 5       5 0.5471350    5</span></span>
+<span><span class="co">## 6       6 0.4568871    6</span></span>
+<span><span class="co">## 7       7 0.3898302    7</span></span>
+<span><span class="co">## 8       8 0.3371559    8</span></span>
+<span><span class="co">## 9       9 0.3109484    9</span></span></code></pre>
 <p>The candidate prioritization with the greatest TOPSIS score is
 considered to represent the best trade-off between total cost and total
 boundary length. So, based on this method, we would select the
