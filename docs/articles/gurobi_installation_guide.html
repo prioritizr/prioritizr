@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -260,18 +260,16 @@ R</em> package to solve an optimization problem. Copy and paste the
 <span><span class="co"># solve the optimization problem using Gurobi</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Non-default parameters:</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 2 rows, 3 columns and 5 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 2 rows, 3 columns and 5 nonzeros (Max)</span></span>
 <span><span class="co">## Model fingerprint: 0xba2d0add</span></span>
+<span><span class="co">## Model has 3 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3 integer (3 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [1e+00, 3e+00]</span></span>
@@ -342,13 +340,13 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span><span class="co"># solve the problem</span></span>
 <span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -356,12 +354,12 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span><span class="co">## Non-default parameters:</span></span>
 <span><span class="co">## TimeLimit  2147483647</span></span>
 <span><span class="co">## MIPGap  0.1</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
 <span><span class="co">## Presolve  2</span></span>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros (Min)</span></span>
 <span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
+<span><span class="co">## Model has 90 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>

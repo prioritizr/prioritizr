@@ -217,14 +217,13 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           # nocov end
           # extract solution values
           sol <- x$primal_solution
-          ## fix potential floating point arithmetic issues
-          i <- model$types == "I"
+          # sanitize solver output
           if (is.numeric(sol)) {
-            ## round integer variables
-            sol[i] <- round(sol[i])
-            ## truncate variables to account for rounding issues
-            sol <- pmax(sol, model$lower)
-            sol <- pmin(sol, model$upper)
+            sol <- sanitize_solver_output(
+              sol,
+              lb = model$lower, ub = model$upper,
+              is_integer = model$types == "I"
+            )
           }
           # extract optimality gap
           if (!is.null(x$info) && !is.null(x$info$mip_gap)) {

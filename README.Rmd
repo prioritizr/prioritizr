@@ -34,6 +34,7 @@ plot <- function(...) terra::plot(..., cex = 1.5)
 h <- 4.5
 w <- 6.5
 ow <- "500"
+is_github_readme <- isTRUE(knitr::pandoc_to()[[1]] %in% c("gfm", "markdown"))
 knitr::opts_chunk$set(
   fig.height = h,
   fig.width = w,
@@ -56,6 +57,8 @@ print <- function(x, ...) {
 ```
 
 The _prioritizr R_ package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program, and find much cheaper solutions in a much shorter period of time than _Marxan_.
+
+[![YouTube video](man/figures/youtube-thumbnail.png)](https://www.youtube.com/watch?v=c7XgODGr9lE)
 
 ## Installation
 
@@ -297,7 +300,7 @@ The [package website](https://prioritizr.net/index.html) contains information on
 * [**Solver benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html): Performance comparison of optimization solvers for generating prioritizations.
 * [**Publication record**](https://prioritizr.net/articles/publication_record.html): List of publications that have cited the package.
 
-Additional resources can also be found in [online repositories under the _prioritizr_ organization](https://github.com/prioritizr). These resources include [slides for talks and seminars about the package](https://github.com/prioritizr/teaching). Additionally, workshop materials are available too (e.g., the [Carleton 2023 workshop](https://prioritizr.github.io/workshop/) and [ECCB 2024 workshop](https://iiasa.github.io/eccb2024/)).
+Additional resources can also be found in [online repositories under the _prioritizr_ organization](https://github.com/prioritizr). These resources include [slides for talks and seminars about the package](https://github.com/prioritizr/teaching). Additionally, workshop materials are available too (e.g., [Carleton 2023 workshop](https://prioritizr.github.io/workshop/), [ECCB 2024 workshop](https://iiasa.github.io/eccb2024/), and [Statistical Methods Webinar series 2025 workshop](https://github.com/eco4cast/Statistical-Methods-Seminar-Series/tree/main/schuster_prioritizr)).
 
 ## Getting help
 

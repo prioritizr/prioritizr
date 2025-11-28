@@ -163,14 +163,13 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           rt <- system.time({
             x <- cplex(model, p)
           })
-          # fix potential floating point arithmetic issues
-          b <- model$vtype == "B"
+          # sanitize solver output
           if (is.numeric(x$x)) {
-            ## round binary variables because default precision is 1e-5
-            x$x[b] <- round(x$x[b])
-            ## truncate variables to account for rounding issues
-            x$x <- pmax(x$x, model$lb)
-            x$x <- pmin(x$x, model$ub)
+            x$x <- sanitize_solver_output(
+              x$x,
+              lb = model$lb, ub = model$ub,
+              is_integer = model$vtype %in% c("B", "I")
+            )
           }
           # extract solution values, and
           # set values to NULL if any values have NA in result

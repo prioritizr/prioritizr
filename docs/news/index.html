@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="8.1.0" id="prioritizr-810">prioritizr 8.1.0<a class="anchor" aria-label="anchor" href="#prioritizr-810"></a></h2>
+<h2 class="pkg-version" data-toc-text="8.1.0.1" id="prioritizr-8101">prioritizr 8.1.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-8101"></a></h2>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-1-0-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-1-0-1"></a></h3>
+<ul><li>Update <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> to be compatible with Gurobi version 13 (<a href="https://github.com/prioritizr/prioritizr/issues/389" class="external-link">#389</a>).</li>
+<li>Standardize procedures for sanitizing solver outputs to provide more consistent behavior from different solvers.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-8-1-0-1">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-1-0-1"></a></h3>
+<ul><li>Update README with video and materials for the <em>prioritizr</em> workshop as part of the Statistical Methods Webinar series by the Ecological Forecasting Initiative and ESA Statistical Ecology Section.</li>
+<li>Update publication record.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="8.1.0" id="prioritizr-810">prioritizr 8.1.0<a class="anchor" aria-label="anchor" href="#prioritizr-810"></a></h2><p class="text-muted">CRAN release: 2025-11-10</p>
 <div class="section level3">
 <h3 id="notice-8-1-0">Notice<a class="anchor" aria-label="anchor" href="#notice-8-1-0"></a></h3>
 <ul><li>CRAN release.</li>
@@ -70,8 +83,9 @@
 <ul><li>The <code><a href="../reference/prioritizr-deprecated.html">add_loglinear_targets()</a></code> function has been deprecated. For similar functionality, see the new <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code> function.</li>
 <li>The <code><a href="../reference/presolve_check.html">presolve_check()</a></code> function will now catch issues where the same planning unit (or planning units) has been both locked in and locked out (<a href="https://github.com/prioritizr/prioritizr/issues/386" class="external-link">#386</a>). Thanks to Jason Everett (<a href="https://github.com/jaseeverett" class="external-link">@jaseeverett</a>) for the suggestion.</li>
 <li>The <code><a href="../reference/add_feature_weights.html">add_feature_weights()</a></code> function can only be used once with a <code><a href="../reference/problem.html">problem()</a></code>, and attempting to add multiple weights will over-write previously specified weights (similar to how targets are handled).</li>
-</ul><div class="section level5">
-<h5 id="minor-improvements-and-bug-fixes-8-1-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-1-0"></a></h5>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-1-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-1-0"></a></h3>
 <ul><li>Update <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> method for <code><a href="../reference/problem.html">problem()</a></code> objects to display a more useful number of digits for floating point numbers.</li>
 <li>Update <code><a href="../reference/add_boundary_penalties.html">add_boundary_penalties()</a></code> so that an alternative formulation can be used for the optimization problem (<a href="https://github.com/prioritizr/prioritizr/issues/369" class="external-link">#369</a>). This alternative formulation may be useful when conservation planning problems are taking a long time to solve. Note that the default behavior of the function is to use the same formulation as in previous versions of the package.</li>
 <li>Update <code><a href="../reference/solve.html">solve()</a></code> function to provide information on the objective bound. This represents the best estimate of the optimal objective value during optimization. Given a solution <code>x</code>, this information can be accessed using <code>attr(x, "objbound")</code>. Note that this is only supported for the Gurobi solver.</li>
@@ -84,19 +98,18 @@
 <li>Speed up internal validation of <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> raster data. In particular, the minimum and maximum values of rasters are now computed with <code>terra::minmax(x, compute = TRUE)</code>, instead of <code>terra::global(x, "range", na.rm = TRUE)</code>.</li>
 <li>Fix bug in <code><a href="../reference/intersecting_units.html">intersecting_units()</a></code> function that caused it to throw an incorrect error message when used with an <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> object containing geometry collection data (<a href="https://github.com/prioritizr/prioritizr/issues/379" class="external-link">#379</a>). Thanks to Alan Jackson (<a href="https://github.com/alankjackson" class="external-link">@alankjackson</a>) for bug report.</li>
 </ul></div>
-<div class="section level5">
-<h5 id="documentation-8-1-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-1-0"></a></h5>
+<div class="section level3">
+<h3 id="documentation-8-1-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-8-1-0"></a></h3>
 <ul><li>Update <code><a href="../reference/targets.html">?targets</a></code> to provide a comprehensive overview of the target functions.</li>
 <li>Update <code><a href="../reference/boundary_matrix.html">boundary_matrix()</a></code> function documentation with better example.</li>
 <li>Fix incorrect text in Management Zones vignette (<a href="https://github.com/prioritizr/prioritizr/issues/382" class="external-link">#382</a>). Thanks to Anthony Richardson (<a href="https://github.com/ric325" class="external-link">@ric325</a>) for bug report.</li>
 <li>Update publication record.</li>
 </ul></div>
 </div>
-</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="8.0.6.8" id="prioritizr-8068">prioritizr 8.0.6.8<a class="anchor" aria-label="anchor" href="#prioritizr-8068"></a></h2>
-<div class="section level5">
-<h5 id="minor-improvements-and-bug-fixes-8-0-6-8">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-8"></a></h5>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-8-0-6-8">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-6-8"></a></h3>
 <ul><li>Update <code><a href="../reference/rij_matrix.html">rij_matrix()</a></code> function to reduce run time.</li>
 <li>Update <code><a href="../reference/solve.html">solve()</a></code> function and the importance functions to ensure consistency their in output formats. Note that these changes do not alter their outputs.</li>
 <li>Update <code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code> function to better provide error messages with improved formatting.</li>

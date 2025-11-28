@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -2655,13 +2655,13 @@ progress when searching for a suitable solution.</p>
 <code class="sourceCode R"><span><span class="co"># solve the problem (using the default solver)</span></span>
 <span><span class="va">s46</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p46</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -2669,12 +2669,12 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">## Non-default parameters:</span></span>
 <span><span class="co">## TimeLimit  2147483647</span></span>
 <span><span class="co">## MIPGap  0.1</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
 <span><span class="co">## Presolve  2</span></span>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 293 rows, 234 columns and 1026 nonzeros (Min)</span></span>
 <span><span class="co">## Model fingerprint: 0x4021dbe5</span></span>
+<span><span class="co">## Model has 234 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 144 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 1e+00]</span></span>
@@ -2695,35 +2695,31 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##      0     0 2265.86242    0  234 3087.96178 2265.86242  26.6%     -    0s</span></span>
-<span><span class="co">## H    0     0                    3058.9371490 2265.86242  25.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    3009.2433014 2265.86242  24.7%     -    0s</span></span>
-<span><span class="co">##      0     0 2328.27423    0  232 3009.24330 2328.27423  22.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2357.91894    0  229 3009.24330 2357.91894  21.6%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s</span></span>
-<span><span class="co">##      0     0 2379.43275    0  197 3009.24330 2379.43275  20.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2869.1061249 2379.43275  17.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2846.1551056 2379.43275  16.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2813.5474548 2379.43275  15.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2793.5406494 2379.43275  14.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2735.9537048 2379.43275  13.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2715.9353333 2379.43275  12.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2668.5003204 2379.43275  10.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2667.3308105 2379.43275  10.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    2666.1707611 2379.43275  10.8%     -    0s</span></span>
-<span><span class="co">##      0     2 2379.78730    0  197 2666.17076 2379.78730  10.7%     -    0s</span></span>
-<span><span class="co">## H   27    26                    2664.0213318 2382.48313  10.6%  19.5    0s</span></span>
-<span><span class="co">## H   27    25                    2640.7490387 2382.48313  9.78%  19.5    0s</span></span>
+<span><span class="co">##      0     0 2328.27423    0  232 3087.96178 2328.27423  24.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2978.9843750 2328.27423  21.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2949.7553711 2328.27423  21.1%     -    0s</span></span>
+<span><span class="co">##      0     0 2357.91894    0  229 2949.75537 2357.91894  20.1%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 2949.75537 2379.43275  19.3%     -    0s</span></span>
+<span><span class="co">##      0     0 2379.43275    0  197 2949.75537 2379.43275  19.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2946.1551056 2379.43275  19.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2934.5331268 2379.43275  18.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2932.7628632 2379.43275  18.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2930.7731476 2379.43275  18.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2876.9359283 2379.43275  17.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    2738.0825806 2379.43275  13.1%     -    0s</span></span>
+<span><span class="co">##      0     2 2379.78730    0  197 2738.08258 2379.78730  13.1%     -    0s</span></span>
+<span><span class="co">## H   20    20                    2648.2596588 2382.48313  10.0%  23.4    0s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 28 nodes (937 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 10: 2640.75 2664.02 2666.17 ... 2846.16</span></span>
+<span><span class="co">## Solution count 10: 2648.26 2738.08 2876.94 ... 3087.96</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 2.640749038696e+03, best bound 2.382483134863e+03, gap 9.7800%</span></span></code></pre>
+<span><span class="co">## Best objective 2.648259658813e+03, best bound 2.391338223393e+03, gap 9.7015%</span></span></code></pre>
 <div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
@@ -2746,12 +2742,12 @@ quality of the solution and the optimization process.</p>
 <span><span class="co"># (numerical value that is being minimized or maximized during optimization)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##   2640.749</span></span></code></pre>
+<span><span class="co">##    2648.26</span></span></code></pre>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##       0.09</span></span></code></pre>
+<span><span class="co">##      0.098</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -2763,7 +2759,7 @@ quality of the solution and the optimization process.</p>
 <span><span class="co"># (best estimate of lower or upper limit for optimal objective value)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"objbound"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##   2382.483</span></span></code></pre>
+<span><span class="co">##   2391.338</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -2805,7 +2801,7 @@ solution.</li>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary  cost</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>041.</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">2</span>048.</span></span></code></pre>
 <ul>
 <li>
 <strong>Feature representation summary</strong>: Calculate how well
@@ -2818,11 +2814,11 @@ any type of problem.</li>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 5</span></span></span>
 <span><span class="co">##   summary feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.63         0.104</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.16         0.101</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.26         0.101</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.99         0.117</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.80         0.102</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.57         0.103</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.18         0.102</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.28         0.101</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          5.01         0.118</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          5.71         0.101</span></span></code></pre>
 <ul>
 <li>
 <strong>Target coverage summary</strong>: Calculate how well
@@ -2835,11 +2831,11 @@ used with problems contain targets.</li>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 5 × 9</span></span></span>
 <span><span class="co">##   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.63                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.16                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.26                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.99                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.80                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.57                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.18                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.28                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          5.01                  0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          5.71                  0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
 <ul>
@@ -2886,7 +2882,7 @@ connectivity of a solution using asymmetric connectivity data.</li>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 1 × 2</span></span></span>
 <span><span class="co">##   summary asym_connectivity</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              52.6</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> overall              50.1</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="evaluating-importance">Evaluating importance<a class="anchor" aria-label="anchor" href="#evaluating-importance"></a>
@@ -2916,13 +2912,13 @@ importance methods.</p>
 <span><span class="co"># solve the problem</span></span>
 <span><span class="va">s47</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p47</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -2930,12 +2926,12 @@ importance methods.</p>
 <span><span class="co">## Non-default parameters:</span></span>
 <span><span class="co">## TimeLimit  2147483647</span></span>
 <span><span class="co">## MIPGap  0.1</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
 <span><span class="co">## Presolve  2</span></span>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 5 rows, 90 columns and 450 nonzeros (Min)</span></span>
 <span><span class="co">## Model fingerprint: 0x4bb5d283</span></span>
+<span><span class="co">## Model has 90 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 0 continuous, 90 integer (90 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-01, 9e-01]</span></span>
@@ -3132,13 +3128,13 @@ function can be used to read <em>Marxan</em> input files and the
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
 <span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2599748</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2025-12-16</span></span>
-<span><span class="co">## Gurobi Optimizer version 12.0.2 build v12.0.2rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -3146,12 +3142,12 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">## Non-default parameters:</span></span>
 <span><span class="co">## TimeLimit  2147483647</span></span>
 <span><span class="co">## MIPGap  0.1</span></span>
-<span><span class="co">## LogToConsole  0</span></span>
 <span><span class="co">## Presolve  2</span></span>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros</span></span>
+<span><span class="co">## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros (Min)</span></span>
 <span><span class="co">## Model fingerprint: 0x49c86f37</span></span>
+<span><span class="co">## Model has 6780 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 5029 continuous, 1751 integer (1751 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [5e-05, 4e+03]</span></span>
@@ -3176,7 +3172,7 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">## </span></span>
 <span><span class="co">## Cleanup yields a better solution</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.08 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 </span></span>

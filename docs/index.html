@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,6 +91,7 @@
 
 <!-- badges: end -->
 <p>The <em>prioritizr R</em> package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the <em>Marxan</em> conservation planning program, and find much cheaper solutions in a much shorter period of time than <em>Marxan</em>.</p>
+<p><a href="https://www.youtube.com/watch?v=c7XgODGr9lE" class="external-link"><img src="reference/figures/youtube-thumbnail.png" alt="YouTube video"></a></p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -237,7 +238,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.526</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.302</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -418,7 +419,7 @@
 <li>
 <a href="https://prioritizr.net/articles/publication_record.html"><strong>Publication record</strong></a>: List of publications that have cited the package.</li>
 </ul>
-<p>Additional resources can also be found in <a href="https://github.com/prioritizr" class="external-link">online repositories under the <em>prioritizr</em> organization</a>. These resources include <a href="https://github.com/prioritizr/teaching" class="external-link">slides for talks and seminars about the package</a>. Additionally, workshop materials are available too (e.g., the <a href="https://prioritizr.github.io/workshop/" class="external-link">Carleton 2023 workshop</a> and <a href="https://iiasa.github.io/eccb2024/" class="external-link">ECCB 2024 workshop</a>).</p>
+<p>Additional resources can also be found in <a href="https://github.com/prioritizr" class="external-link">online repositories under the <em>prioritizr</em> organization</a>. These resources include <a href="https://github.com/prioritizr/teaching" class="external-link">slides for talks and seminars about the package</a>. Additionally, workshop materials are available too (e.g., <a href="https://prioritizr.github.io/workshop/" class="external-link">Carleton 2023 workshop</a>, <a href="https://iiasa.github.io/eccb2024/" class="external-link">ECCB 2024 workshop</a>, and <a href="https://github.com/eco4cast/Statistical-Methods-Seminar-Series/tree/main/schuster_prioritizr" class="external-link">Statistical Methods Webinar series 2025 workshop</a>).</p>
 </div>
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>

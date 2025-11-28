@@ -320,18 +320,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               gurobi::gurobi(model = model, params = p)
             )
           })
-          # fix potential floating point arithmetic issues
-          b <- model$vtype == "B"
+          # sanitize solver output
+          is_integer <- model$vtype %in% c("I", "B")
           if (is.numeric(x$x)) {
-            ## round binary variables because default precision is 1e-5
-            x$x[b] <- round(x$x[b])
-            ## truncate semi-continuous variables
-            v <- model$vtype == "S"
-            x$x[v] <- pmax(x$x[v], 0)
-            x$x[v] <- pmin(x$x[v], 1)
-            ## truncate variables to account for rounding issues
-            x$x <- pmax(x$x, model$lb)
-            x$x <- pmin(x$x, model$ub)
+            x$x <- sanitize_solver_output(
+              x$x, lb = model$lb, ub = model$ub,
+              is_integer = is_integer
+            )
           }
           # set defaults to NA if missing
           ## this is because earlier versions of Gurobi didn't return this info
@@ -355,18 +350,27 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               is.numeric(x$x) &&
               isTRUE(length(x$pool) > 1)
           ) {
+            # remove first solution in the pool because this is simply the
+            # main solution
             out$pool <- x$pool[-1]
             # get bound for objective value for optimal solution
             optimal_obj <- x$objbound
+            # specify element name with solutions
+            pool_elem <- "xn"
+            if (utils::packageVersion("gurobi") >= package_version("13.0.0")) {
+              pool_elem <- "poolnx"
+            }
+            # extract solutions
             for (i in seq_len(length(out$pool))) {
-              # fix binary variables for i'th solution in pool
-              out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-              # calculate gap for i'th solution in pool
-              i_gap <- ifelse(
-                identical(model$modelsense, "min"),
-                (out$pool[[i]]$objval - optimal_obj) / optimal_obj,
-                (optimal_obj - out$pool[[i]]$objval) / optimal_obj
+              # sanitize i'th solution in pool
+              out$pool[[i]]$xn <- sanitize_solver_output(
+                out$pool[[i]][[pool_elem]],
+                lb = model$lb, ub = model$ub,
+                is_integer = is_integer
               )
+              out$pool[[i]]$poolnx <- NULL
+              # calculate gap for i'th solution in pool
+              i_gap <- abs(out$pool[[i]]$objval - optimal_obj) / optimal_obj
               # if the solver has OPTIMAL status this means that main
               # solution is within optimality gap,
               # so now we need to set a separate status for each solution
@@ -380,7 +384,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               } else {
                 # if solver has a status other than OPTIMAL,
                 # then we just assign this status to each solution in
-                # the solution  pool
+                # the solution pool
                 out$pool[[i]]$status <- x$status
               }
               # set remaining values for i'th solution
@@ -394,4 +398,33 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       )
     )$new()
   )
+}
+
+#' Sanitize solver output
+#'
+#' This function is used to process solver outputs to ensure consistency.
+#' In particular, integer values are rounded, and values are clamped
+#' according to the lower and upper bounds. This is needed to resolve
+#' discrepancies that arise due to floating point arithmetic.
+#'
+#' @param x `numeric` vector with solution values.
+#'
+#' @param lb `numeric` vector with lower bounds for values.
+#'
+#' @param ub `numeric` vector with upper bounds for values.
+#'
+#' @param is_integer `logical` vector with values indicating if each
+#' value should have an integer value or not.
+#'
+#' @return A `numeric` vector with updated values for `x`.
+#'
+#' @noRd
+sanitize_solver_output <- function(x, lb, ub, is_integer) {
+  # round integer variables because default precision is 1e-5
+  x[is_integer] <- round(x[is_integer])
+  # truncate variables to account for rounding issues
+  x <- pmax(x, lb)
+  x <- pmin(x, ub)
+  # return solution
+  x
 }

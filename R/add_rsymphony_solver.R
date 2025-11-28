@@ -158,13 +158,13 @@ add_rsymphony_solver <- function(x, gap = 0.1,
             x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
           })
           # manually return NULL to indicate error if no solution
-          #nocov start
+          # nocov start
           if (is.null(x$solution) ||
               names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
             return(NULL)
-          #nocov end
+          # nocov end
           # fix floating point issues with binary variables
-          #nocov start
+          # nocov start
           b <- which(model$types == "B")
           if (any(x$solution[b] > 1)) {
             if (max(x$solution[b]) < 1.01) {
@@ -198,13 +198,15 @@ add_rsymphony_solver <- function(x, gap = 0.1,
               )
             }
           }
-          #nocov end
-          # fix floating point issues with continuous variables
-          cv <- which(model$types == "C")
-          x$solution[cv] <-
-            pmax(x$solution[cv], self$internal$model$bounds$lower$val[cv])
-          x$solution[cv] <-
-            pmin(x$solution[cv], self$internal$model$bounds$upper$val[cv])
+          # nocov end
+          # sanitize solver output
+          if (is.numeric(x$solution)) {
+            x$solution <- sanitize_solver_output(
+              x$solution,
+              lb = model$bounds$lower$val, ub = model$bounds$upper$val,
+              is_integer = model$types %in% c("I", "B")
+            )
+          }
           # return output
           list(
             x = x$solution,
