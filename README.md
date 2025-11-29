@@ -37,8 +37,7 @@ read input data formatted for the *Marxan* conservation planning
 program, and find much cheaper solutions in a much shorter period of
 time than *Marxan*.
 
-[![YouTube
-video](man/figures/youtube-thumbnail.png)](https://www.youtube.com/watch?v=c7XgODGr9lE)
+<a href="https://www.youtube.com/watch?v=c7XgODGr9lE" rel="nofollow" target="_blank"><img src="man/figures/youtube-thumbnail.png" alt="YouTube video" style="max-width: 100%;"></a>
 
 ## Installation
 
@@ -282,7 +281,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.302
+    ##      3.576
 
 ``` r
 # extract state message from the solver

@@ -58,7 +58,7 @@ print <- function(x, ...) {
 
 The _prioritizr R_ package uses mixed integer linear programming (MILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program, and find much cheaper solutions in a much shorter period of time than _Marxan_.
 
-[![YouTube video](man/figures/youtube-thumbnail.png)](https://www.youtube.com/watch?v=c7XgODGr9lE)
+<a href="https://www.youtube.com/watch?v=c7XgODGr9lE" rel="nofollow" target="_blank"><img src="man/figures/youtube-thumbnail.png" alt="YouTube video" style="max-width: 100%;"></a>
 
 ## Installation
 
