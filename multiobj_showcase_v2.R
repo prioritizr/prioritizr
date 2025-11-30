@@ -39,11 +39,13 @@ eval_target_coverage_summary(p2, s2)$relative_held
 # create multi-objective problem
 mp1 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>% # under the hood takes these two problems and merges them strategically together
-  add_weighted_sum_approach(c(0.5, 0.5), verbose = FALSE) %>% # use input vector with equal weights
+  add_weighted_sum_approach(c(0.5, 0.5), verbose = TRUE) %>% # use input vector with equal weights
   add_default_solver()
 
 # solve problem
 ms1 <- solve(mp1)
+
+plot(ms1)
 
 # create multi-objective problem
 mp2 <-
@@ -53,9 +55,10 @@ mp2 <-
       0.5, 0.5, # balanced
       1.0, 0.0, # all in on keystone
       0.0, 1.0 # all in on iconic
-    ), ncol = 2)
+    ), ncol = 2, byrow = TRUE),
+    verbose = TRUE
   ) %>%
-  add_default_solver()
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 ms2 <- solve(mp2)
@@ -68,16 +71,16 @@ plot(obj_mat)
 mp3 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
   add_weighted_sum_approach(
-    matrix(runif(300), ncol = 2),
+    matrix(runif(50), ncol = 2),
     # expand.grid( # alternative
     #   v1 = seq(0.01, 1, length.out = 20),
     #   v2 = seq(0.01, 1, length.out = 20)
     # ) %>%
     #   dplyr::filter(v1 != v2) %>%
     #   as.matrix(),
-    verbose = FALSE
+    verbose = TRUE
   ) %>%
-  add_default_solver()
+  add_default_solver(verbose = FALSE)
 
 # solve problem
 ms3 <- solve(mp3)
@@ -123,8 +126,8 @@ plot(c(ms4[[2]], s1), main = c("Low degradation", "Solution 1"), axes = FALSE) #
 
 rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
 mp5 <- multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_hierarchical_approach(rel_tol) %>%
-  add_default_solver()
+  add_hierarchical_approach(rel_tol, verbose = TRUE) %>%
+  add_default_solver(verbose = FALSE)
 ms5 <- solve(mp5)
 
 # extract objective values and plot approximated pareto front (very few weight values)

@@ -66,17 +66,29 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
           
           sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
           
-          for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
-
-            cli::cli_inform(
-              c(
-                "Solving problem for degradation {j}/{nrow(rel_tol)}",
-                "Relative tolerance(s): {paste(rel_tol[j, ], collapse = ', ')}"
-              )
+          ## if needed, set up progress bar
+          if (isTRUE(verbose)) {
+            cli::cli_inform(paste("Generating", nrow(rel_tol), "solutions..."))
+            pb <-  cli::cli_progress_bar(
+              "Generating solutions",
+              total = nrow(rel_tol),
+              .envir = parent.frame()   # can only get progress bar to work witht this
             )
+          }
+          
+          for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
             
             sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ])
             
+            ## if needed, update progress bar
+            if (isTRUE(verbose)) {
+              cli::cli_progress_update(id = pb)
+            }
+            
+          }
+          ## if needed, clean up progress bar
+          if (isTRUE(verbose)) {
+            cli::cli_progress_done(id = pb)
           }
           sols
         }
