@@ -140,7 +140,6 @@ Solver <- R6::R6Class(
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return Invisible `TRUE`.
     solve_multiobj = function(x, rel_tol, ...) {
-
       mobj <- x$obj
       mmodelsense <- x$modelsense
       mopt <- x$opt
@@ -150,8 +149,6 @@ Solver <- R6::R6Class(
       sols_inter <- vector("list", length = nrow(mobj))
 
       for (i in seq_len(nrow(mobj))) {
-        cli::cli_alert_info("Solving objective {i}/{nrow(mobj)}")
-        
         # set current objective
         mopt$set_obj(mobj[i, ])
         mopt$set_modelsense(mmodelsense[i])
@@ -161,11 +158,10 @@ Solver <- R6::R6Class(
 
         if (i != nrow(mobj)) {
           # calculate hierarchical constraint for next objective
-          rhs <- 
-            #sols_inter[[i]]$objective *
-            sum(mobj[i, ] * sols_inter[[i]]$x) * #what we had previously. Smaller than what is returned by solver
-            ifelse(mmodelsense[i] == "min", 1 + rel_tol[i, 1], 1 - rel_tol[i, 1])
-          
+          rhs <-
+            sum(mobj[i, ] * sols_inter[[i]]$x) *
+              ifelse(mmodelsense[i] == "min", 1 + rel_tol[i, 1], 1 - rel_tol[i, 1])
+
           sense <- ifelse(mmodelsense[i] == "min", "<=", ">=")
 
           mopt$append_linear_constraints(

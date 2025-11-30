@@ -95,11 +95,11 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
           )
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
-           cli::cli_inform(paste("Generating", nrow(weights), "solutions..."))
-           pb <-  cli::cli_progress_bar(
+            cli::cli_inform(paste("Generating", nrow(weights), "solutions..."))
+            pb <- cli::cli_progress_bar(
               "Generating solutions",
               total = nrow(weights),
-              .envir = parent.frame()   # can only get progress bar to work witht this
+              .envir = parent.frame() # can only get progress bar to work witht this
             )
           }
           ## set modelsense to max

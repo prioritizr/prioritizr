@@ -60,40 +60,38 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
         name = "hierarchical approach",
         data = list(rel_tol = rel_tol, verbose = verbose),
         run = function(x, solver) {
-          
           rel_tol <- self$get_data("rel_tol")
           rel_tol <- if (is.matrix(rel_tol)) rel_tol else matrix(rel_tol, nrow = 1)
-          
+
           sols <- vector("list", length = nrow(rel_tol)) # as many solutions as we have multiobj coefficients
-          
+
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             cli::cli_inform(paste("Generating", nrow(rel_tol), "solutions..."))
-            pb <-  cli::cli_progress_bar(
+            pb <- cli::cli_progress_bar(
               "Generating solutions",
               total = nrow(rel_tol),
-              .envir = parent.frame()   # can only get progress bar to work witht this
+              .envir = parent.frame() # can only get progress bar to work witht this
             )
           }
-          
+
           for (j in seq_len(nrow(rel_tol))) { # loop over rel_tol rows (different degradations)
-            
+
             sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ])
-            
+
             ## if possible, update the starting solution for the solver
             if (
               !is.null(solver$data) &&
-              !is.null(sols[[j]]$x) &&
-              isTRUE("start_solution" %in% names(solver$data))
+                !is.null(sols[[j]]$x) &&
+                isTRUE("start_solution" %in% names(solver$data))
             ) {
               solver$data$start_solution <- sols[[j]]$x
             }
-            
+
             ## if needed, update progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_update(id = pb)
             }
-            
           }
           ## if needed, clean up progress bar
           if (isTRUE(verbose)) {
