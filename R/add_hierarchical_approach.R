@@ -80,6 +80,15 @@ add_hierarchical_approach <- function(x, rel_tol, method = "gurobi", verbose = T
             
             sols[[j]] <- solver$solve_multiobj(x, rel_tol[j, ])
             
+            ## if possible, update the starting solution for the solver
+            if (
+              !is.null(solver$data) &&
+              !is.null(sols[[j]]$x) &&
+              isTRUE("start_solution" %in% names(solver$data))
+            ) {
+              solver$data$start_solution <- sols[[j]]$x
+            }
+            
             ## if needed, update progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_update(id = pb)
