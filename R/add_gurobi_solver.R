@@ -515,6 +515,11 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             gap = x$mipgap,
             objbound = x$objbound
           )
+          
+          out$objective <- stats::setNames(
+            x$objval,
+            rownames(mobj)  
+          )
 
           out
         }
