@@ -18,19 +18,125 @@ NULL
 #' displayed? Defaults to `TRUE`.
 #'
 #' @details
-#' TODO.
+#' The weighted sum approach is a method for solving 
+#' multi-objective optimization problems by transforming several
+#' objectives into a single objective. This is done by taking a 
+#' weighted linear combination of the objective expressions from each 
+#' problem in the `multi_problem()` object.
+#' 
+#' Specifically, if a multi-objective problem contains \(k\) objectives
+#' with values \(y_1, y_2, \ldots, y_k\) corresponding to each objective, and the
+#' user supplies a weight vector \(w = (w_1, \ldots, w_k)\), then the
+#' transformed optimization problem minimizes the function:
+#'
+#' \deqn{F = \sum_{i=1}^{k} w_i \, y_i}
+#' 
+#' The weights determine the relative importance of the objectives and
+#' can be used to explore trade-offs among conservation, cost, and other
+#' planning outcomes.  
+#' 
+#' When `weights` is a matrix, each row is interpreted as an independent
+#' weighting scheme and columns are the individual objectives. Thehe approach 
+#' stores a separate solution for each resulting weighted-sum problem. 
+#' These will be solved sequentially when `solve()`.
+#' 
+#' This approach is suitable when objectives can be meaningfully combined
+#' after weighting, and when there is no clear priority that needs to be 
+#' defined with [add_hierarchical_approach()].
 #'
 #' @return
-#' TODO.
+#' A modified `multi_problem()` object with the weighted-sum approach
+#' added. This function does not solve the problem; it only records the
+#' approach so that the problem can be compiled and solved later. After calling 
+#' [solve()], the output will either be an individual solution or a list of 
+#' solutions if a matrix was supplied for `weights`. 
 #'
 #' @seealso
 #' See [approaches] for an overview of all functions for adding an approach.
+#' 
+#' @references
+#' TODO
 #'
 #' @family approaches
 #'
 #' @examples
 #' \dontrun{
-#' # TODO
+#' # import data
+#' con_cost <- get_sim_pu_raster()
+#' keystone_spp <- get_sim_features()[[1:3]]
+#' iconic_spp <- get_sim_features()[[4:5]]
+#' 
+#' # set budget
+#' con_budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
+#' 
+#' # define individual problems
+#' p1 <-
+#'   problem(con_cost, keystone_spp) %>%
+#'   add_min_shortfall_objective(con_budget) %>%
+#'   add_relative_targets(0.4) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver()
+#' p2 <-
+#'   problem(con_cost, iconic_spp) %>%
+#'   add_min_shortfall_objective(con_budget) %>%
+#'   add_relative_targets(0.4) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver()
+#' 
+#' # solve problems for comparison
+#' s1 <- solve(p1)
+#' s2 <- solve(p2)
+#' 
+#' # plot
+#' plot(s1)
+#' plot(s2)
+#' 
+#' # now create multi-objective problem
+#' mp1 <-
+#'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>% 
+#'   add_weighted_sum_approach(c(0.5, 0.5), verbose = TRUE) %>% 
+#'   add_default_solver()
+#' 
+#' # solve problem
+#' ms1 <- solve(mp1)
+#' 
+#' plot(ms1)
+#' 
+#' # create multi-objective problem using input matrix
+#' mp2 <-
+#'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
+#'   add_weighted_sum_approach(
+#'     matrix(c( 
+#'       0.5, 0.5, # balanced
+#'       1.0, 0.0, # all in on keystone
+#'       0.0, 1.0 # all in on iconic
+#'     ), ncol = 2, byrow = TRUE),
+#'     verbose = TRUE
+#'   ) %>%
+#'   add_default_solver(verbose = FALSE)
+#' 
+#' # solve problem
+#' ms2 <- solve(mp2)
+#' 
+#' # extract objective values and plot approximated pareto front (very few weight values)
+#' obj_mat <- attributes(ms2)$objective
+#' plot(obj_mat)
+#' 
+#' # create multi-objective problem using input matrix
+#' mp3 <-
+#'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
+#'   add_weighted_sum_approach(
+#'     matrix(runif(50), ncol = 2),
+#'     verbose = TRUE
+#'   ) %>%
+#'   add_default_solver(verbose = FALSE)
+#' 
+#' # solve problem
+#' ms3 <- solve(mp3)
+#' 
+#' # extract objective values and plot approximated pareto front (more weight values)
+#' obj_mat <- attributes(ms3)$objective
+#' plot(obj_mat)
 #' }
 #'
 #' @export
