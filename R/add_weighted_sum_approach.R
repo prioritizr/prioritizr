@@ -46,9 +46,7 @@ NULL
 #'
 #' @return
 #' A modified `multi_problem()` object with the weighted-sum approach
-#' added. This function does not solve the problem; it only records the
-#' approach so that the problem can be compiled and solved later. After calling 
-#' [solve()], the output will either be an individual solution or a list of 
+#' added. After calling [solve()], the output will either be an individual solution or a list of 
 #' solutions if a matrix was supplied for `weights`. 
 #'
 #' @seealso

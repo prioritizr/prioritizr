@@ -256,13 +256,15 @@ Invisible \code{TRUE}.
 \subsection{Method \code{solve_multiobj()}}{
 Solve an optimization problem.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, rel_tol, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, priority = NULL, rel_tol = NULL, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{priority}}{numeric vector of the order of the supplied problems TODO: also allow a character vector with problem names}
 
 \item{\code{rel_tol}}{numeric vector of coefficients}
 

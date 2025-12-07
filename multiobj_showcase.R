@@ -65,7 +65,7 @@ multi_p3 <- multi_problem(
     add_relative_targets(0.2) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
+  add_hierarchical_approach(rel_tol = rel_tol_mat, priority = c(1,2), verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE)
 
 # solve problem
@@ -132,7 +132,7 @@ multi_p5 <- multi_problem(
     add_binary_decisions()
 ) %>%
   add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
+  add_highs_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 multi_s5 <- solve(multi_p5)
@@ -181,7 +181,8 @@ multi_p6 <- multi_problem(
 multi_s6 <- solve(multi_p6) # show error message
 
 # re-define rel_tol_mat
-rel_tol_mat <- matrix(c(0.9, 0.1, 0.1, 0.9), nrow = 2, ncol = 2)
+rel_tol_mat <- matrix(c(0.6, 0.1, 0.4, 0.9), nrow = 2, ncol = 2)
+priority <- c(1,2,3)
 
 # create multi-objective problem
 multi_p6 <- multi_problem(
@@ -202,7 +203,7 @@ multi_p6 <- multi_problem(
     add_relative_targets(0.3) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
+  add_hierarchical_approach(priority = priority, rel_tol = rel_tol_mat, verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE)
 
 # solve problem

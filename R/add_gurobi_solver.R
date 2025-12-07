@@ -397,7 +397,15 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           out
         },
        
-        solve_multiobj = function(x, rel_tol, ...) {
+        solve_multiobj = function(x, priority = NULL, rel_tol = NULL, ...) {
+          # init rel_tol and priority
+          if (is.null(rel_tol)) {
+            rel_tol <- rep(0, nrow(x$obj) - 1)
+          }
+          if (is.null(priority)) {
+            priority <- seq(nrow(x$obj), 1)
+          }
+          
           # get multiobj info
           mobj <- x$obj
           mmodelsense <- x$modelsense
@@ -405,7 +413,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
 
           # create problem
           model <- list(
-            modelsense = mopt$modelsense(),
+            modelsense = "min",
             vtype = mopt$vtype(),
             A = mopt$A(),
             rhs = mopt$rhs(),
@@ -417,10 +425,10 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           # build multiobj list from the problems
           multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
             list(
-              objn = if (mmodelsense[i] == "min") mobj[i, ] else -mobj[i, ],
-              priority = nrow(mobj) - i + 1, # NOTE: gurobi has OPPOSITE to intuitive priorities (meaning higher numbers get optimized first, obj1 for us has priority 2, obj2 has priority 1 for two objective)
+              objn = if (mmodelsense[[i]] == "min") mobj[i, ] else -mobj[i, ],
+              priority = priority[[i]], #nrow(mobj) - i + 1, # NOTE: gurobi has OPPOSITE to intuitive priorities (meaning higher numbers get optimized first, obj1 for us has priority 2, obj2 has priority 1 for two objective)
               weight = 1.0,
-              reltol = NULL, # placeholder
+              reltol = if (i <= length(rel_tol)) rel_tol[[i]] else NULL, 
               name = paste0("Objective_", i)
             )
           })
@@ -467,14 +475,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
 
           verbose <- self$get_data("verbose")
-  
-          rel_tol <- as.matrix(rel_tol)
-
-          # now pop in rel_tol vals here
-          # rel_tol has nrow = nobj - 1
-          for (i in seq_len(nrow(rel_tol))) {
-            model$multiobj[[i]]$reltol <- rel_tol[i, 1]
-          }
 
           # solve problem
           rt <- system.time({

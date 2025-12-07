@@ -7,26 +7,94 @@
 multi_problem(..., problem_names = NULL)
 }
 \arguments{
-\item{...}{\code{\link[=problem]{problem()}} objects.}
+\item{...}{\code{\link[=problem]{problem()}} objects. Each argument represents an individual
+single-objective conservation planning problem that will be combined into a
+multi-objective problem. All supplied problems must share the same
+planning units and zones, as well as locked-in/out areas, but may differ in their objectives, targets,
+additional constraints, or penalties.}
 
 \item{problem_names}{\code{character} vector with a name for each problem
 in \code{...}. Defaults to \code{NULL}, such that the problem names are defined
 automatically.}
 }
 \description{
-Create a multi-objective systematic conservation planning problem.
+Create a multi-objective systematic conservation planning problem. This
+function is used to combine multiple single-objective
+\code{\link[=problem]{problem()}} objects into a multi-objective optimization formulation.
+After constructing this object, a multi-objective approach (e.g.,
+weighted sum or hierarchical) can be added
+using \code{\link[=add_weighted_sum_approach]{add_weighted_sum_approach()}} or \code{\link[=add_hierarchical_approach]{add_hierarchical_approach()}}.
+The resulting object can then be solved using \code{\link[=solve]{solve()}} to obtain
+solutions that explicitly balance multiple conservation objectives.
 }
 \details{
-TODO.
+A systematic conservation planning exercise frequently requires balancing
+multiple, often competing objectives. For example, planners may want to minimize cost,
+maximize habitat representation or minimizing shortfalls of as many targets as possible.
+
+Although each of these objectives can be formulated independently using
+\code{\link[=problem]{problem()}}, achieving them \emph{jointly} requires a framework for
+multi-objective optimization.
+
+The \code{multi_problem()} function provides this framework by creating an
+object that strategically combines a collection of single-objective conservation planning
+problems. Each sub-problem contains its own planning units, features,
+costs, targets, constraints, and penalties, exactly as if it were solved
+independently.
+
+After constructing a multi-objective problem, you can specify a multi-objective optimization approach, using:
+\itemize{
+\item \strong{Weighted sum method}: collapses multiple objectives into a single
+scalar objective by assigning a weight to each problem
+(see \code{\link[=add_weighted_sum_approach]{add_weighted_sum_approach()}}).
+\item \strong{Hierarchical (lexicographic) method}: solves objectives sequentially,
+respecting a priority ordering and passing constraints
+from earlier solutions to later ones (see \code{\link[=add_hierarchical_approach]{add_hierarchical_approach()}}).
+}
+
+You will receive a single or a set of multiple solutions after running \code{\link[=solve]{solve()}},
+depending on the inputs to the chosen multi-objective optimization approach.
 }
 \examples{
 \dontrun{
-# TODO
+# import data
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_features <- get_sim_features()
+
+weights <- runif(2)
+
+# create multi-object problem
+p <-
+  multi_problem(
+    obj1 = problem(sim_zones_pu_raster[[1]], sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(seq_along(terra::nlyr(sim_features))) \%>\%
+      add_binary_decisions(),
+    obj2 = problem(sim_zones_pu_raster[[2]], sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) \%>\%
+      add_binary_decisions()
+  ) \%>\%
+  add_weighted_sum_approach(weights = weights, verbose = FALSE) \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s <- solve(p)
 }
 }
 \references{
-TODO.
+Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
+for ecological problems with an application to cackling goose management.
+Ecological Modelling, 343: 54-67
+
+TODO add more
 }
 \seealso{
-TODO.
+\code{\link[=problem]{problem()}} for constructing single-objective problems.
+Multi-objective methods:
+• \code{\link[=add_weighted_sum]{add_weighted_sum()}}
+• \code{\link[=add_hierarchical_approach]{add_hierarchical_approach()}}
+
+Solving and inspecting problems:
+• \code{\link[=solve]{solve()}}
 }
