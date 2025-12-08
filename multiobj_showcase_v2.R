@@ -199,4 +199,5 @@ mp7 <- multi_problem(
   add_hierarchical_approach(rel_tol = 0.1) %>%
   add_gurobi_solver()
 
-ms7 <- solve(mp7) # throws error at the moment
+ms7 <- solve(mp7, run_checks = FALSE) 
+terra::plot(ms7)

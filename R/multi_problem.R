@@ -6,17 +6,12 @@ NULL
 #' Create a multi-objective systematic conservation planning problem. This
 #' function is used to combine multiple single-objective
 #' [problem()] objects into a multi-objective optimization formulation.
-#' After constructing this object, a multi-objective approach (e.g.,
-#' weighted sum or hierarchical) can be added
-#' using [add_weighted_sum_approach()] or [add_hierarchical_approach()].
-#' The resulting object can then be solved using [solve()] to obtain
-#' solutions that explicitly balance multiple conservation objectives.
 #'
 #' @param ... [problem()] objects. Each argument represents an individual
 #' single-objective conservation planning problem that will be combined into a
 #' multi-objective problem. All supplied problems must share the same
-#' planning units and zones, as well as locked-in/out areas, but may differ in their objectives, targets,
-#' additional constraints, or penalties.
+#' planning units and zones, as well as locked-in/out areas, but may differ in 
+#' their objectives, targets, additional constraints, or penalties.
 #'
 #' @param problem_names `character` vector with a name for each problem
 #' in `...`. Defaults to `NULL`, such that the problem names are defined
@@ -24,31 +19,17 @@ NULL
 #'
 #' @details
 #' A systematic conservation planning exercise frequently requires balancing
-#' multiple, often competing objectives. For example, planners may want to minimize cost,
-#' maximize habitat representation or minimizing shortfalls of as many targets as possible.
-#'
-#' Although each of these objectives can be formulated independently using
-#' [problem()], achieving them *jointly* requires a framework for
-#' multi-objective optimization.
+#' multiple, often competing objectives. For example, planners may want to 
+#' minimize cost, maximize habitat representation or minimizing shortfalls of as 
+#' many targets as possible. Although each of these objectives can be formulated 
+#' independently using [problem()], achieving them jointly requires a framework 
+#' for multi-objective optimization.
 #'
 #' The `multi_problem()` function provides this framework by creating an
 #' object that strategically combines a collection of single-objective conservation planning
 #' problems. Each sub-problem contains its own planning units, features,
 #' costs, targets, constraints, and penalties, exactly as if it were solved
 #' independently.
-#'
-#' After constructing a multi-objective problem, you can specify a multi-objective optimization approach, using:
-#'
-#' * **Weighted sum method**: collapses multiple objectives into a single
-#'   scalar objective by assigning a weight to each problem
-#'   (see [add_weighted_sum_approach()]).
-#'
-#' * **Hierarchical (lexicographic) method**: solves objectives sequentially,
-#'   respecting a priority ordering and passing constraints
-#'   from earlier solutions to later ones (see [add_hierarchical_approach()]).
-#'   
-#' You will receive a single or a set of multiple solutions after running [solve()],
-#' depending on the inputs to the chosen multi-objective optimization approach.
 #'
 #' @seealso
 #' [problem()] for constructing single-objective problems.
