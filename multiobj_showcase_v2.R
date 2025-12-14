@@ -201,3 +201,35 @@ mp7 <- multi_problem(
 
 ms7 <- solve(mp7, run_checks = FALSE) 
 terra::plot(ms7)
+
+
+
+
+mp8 <- multi_problem(
+  con_obj = problem(
+    c(con_zone_cost, agr_zone_cost),
+    zones(
+      con_zone = con_zone_con_ft,
+      agr_zone = agr_zone_con_ft
+    )
+  ) %>%
+    add_min_shortfall_objective(c(con_budget, agr_budget)) %>%
+    add_relative_targets(matrix(0.4, nrow = 3, ncol = 2)) %>%
+    add_binary_decisions(),
+  agr_obj = problem(
+    c(con_zone_cost, agr_zone_cost),
+    zones(
+      con_zone = con_zone_agr_ft,
+      agr_zone = agr_zone_agr_ft
+    )
+  ) %>%
+    add_min_shortfall_objective(c(con_budget, agr_budget)) %>%
+    add_relative_targets(matrix(0.9, nrow = 2, ncol = 2)) %>%
+    add_binary_decisions()
+) %>%
+  add_weighted_sum_approach(weights = c(0.9, 0.1)) %>%
+  add_gurobi_solver()
+
+ms8 <- solve(mp8, run_checks = FALSE) 
+terra::plot(ms8)
+

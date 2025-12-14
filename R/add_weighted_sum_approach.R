@@ -36,7 +36,7 @@ NULL
 #' planning outcomes.  
 #' 
 #' When `weights` is a matrix, each row is interpreted as an independent
-#' weighting scheme and columns are the individual objectives. Thehe approach 
+#' weighting scheme and columns are the individual objectives. The approach 
 #' stores a separate solution for each resulting weighted-sum problem. 
 #' These will be solved sequentially when `solve()`.
 #' 
@@ -169,7 +169,6 @@ add_weighted_sum_approach <- function(x, weights, verbose = TRUE) {
       ))
     )
   }
-
 
   # rescale weights
   weights <-
