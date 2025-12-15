@@ -6,172 +6,112 @@ helper_ws_multi_compile <- function(multi_obj_list) {
     multi_obj_list[[prob]] <- l
   }
   
-  #objective and modelsense
-  new_obj <- multi_obj_list # extract objectives + append
-  new_modelsense <-  multi_obj_list # extract modelsenses
+  opt <- multi_obj_list
+  n   <- length(opt)
   
-  # lb, ub, vtype
+  # counters
+  n_pu    <- opt[[1]]$number_of_planning_units
+  n_zone  <- opt[[1]]$number_of_zones
+  n_status <- n_pu * n_zone
+  
+  # init stuff
+  opt_n_ncol     <- vapply(opt, function(x) length(x$obj), integer(1))
+  opt_n_nrow     <- vapply(opt, function(x) length(x$rhs), integer(1))
+  opt_n_A        <- vapply(opt, function(x) length(x$A_i), integer(1))
+  opt_n_features <- vapply(opt, function(x) x$number_of_features, double(1))
+  
+  # offsets
+  opt_row_offset <- c(0, cumsum(opt_n_nrow[-n]))
+  opt_col_offset <- c(0, cumsum(opt_n_ncol[-n] - n_status))
+  opt_A_offset   <- c(0, cumsum(opt_n_A[-n]))
+  
+  # multi-obj dims
+  mopt_ncol <- sum(opt_n_ncol) - (n - 1) * n_status
+  mopt_nrow <- sum(opt_n_nrow)
+  mopt_n_A  <- sum(opt_n_A)
+  
+  # obj
+  obj <- matrix(0, nrow = n, ncol = mopt_ncol)
+  
+  for (i in seq_len(n)) {
+    ## planning unit status variables
+    obj[i, seq_len(n_status)] <- obj[i, seq_len(n_status)] +
+      opt[[i]]$obj[seq_len(n_status)]
+    
+    ## extra variables
+    if (opt_n_ncol[i] > n_status) {
+      idx <- (n_status + 1):opt_n_ncol[i]
+      obj[i, idx + opt_col_offset[i]] <- opt[[i]]$obj[idx]
+    }
+  }
+  
+  # modelsense
+  modelsense <- vapply(opt, `[[`, character(1), "modelsense")
+
+  # lb, ub
+  lb <- numeric(mopt_ncol)
+  ub <- numeric(mopt_ncol)
+  vtype <- character(mopt_ncol)
+  col_ids <- character(mopt_ncol)
+  
+  lb[seq_along(opt[[1]]$lb)] <- opt[[1]]$lb
+  ub[seq_along(opt[[1]]$ub)] <- opt[[1]]$ub
+  vtype[seq_along(opt[[1]]$vtype)] <- opt[[1]]$vtype
+  col_ids[seq_along(opt[[1]]$col_ids)] <- opt[[1]]$col_ids
+  
+  for (i in 2:n) {
+    if (opt_n_ncol[i] > n_status) {
+      idx <- (n_status + 1):opt_n_ncol[i]
+      lb[idx + opt_col_offset[i]] <- opt[[i]]$lb[idx]
+      ub[idx + opt_col_offset[i]] <- opt[[i]]$ub[idx]
+      vtype[idx + opt_col_offset[i]]   <- opt[[i]]$vtype[idx]
+      col_ids[idx + opt_col_offset[i]] <- opt[[i]]$col_ids[idx]
+    }
+  }
   
   # sense, rhs
+  rhs <- unlist(lapply(opt, `[[`, "rhs"))
+  sense <- unlist(lapply(opt, `[[`, "sense"))
+  row_ids <- unlist(lapply(opt, `[[`, "row_ids"))
   
   # A
+  A_i <- integer(mopt_n_A)
+  A_j <- integer(mopt_n_A)
+  A_x <- numeric(mopt_n_A)
   
-  ## make new ws model
-  list(
-    modelsense = new_modelsense,
-    obj = new_obj,
-    lb = new_lb,
-    ub = new_ub,
-    vtype = new_vtype,
-    A = new_A,
-    rhs = new_rhs,
-    sense = new_sense)
-  
-}
-
-add_ws_approach <- function(multi_obj_list, 
-                            obj_weights, 
-                            gap = 0.01,
-                            rescale = FALSE) {
-  # multi_obj_list = multi-objective problem object with multiple models in multi_obj_list$problems (list)
-  # obj_weights = numeric vector of weights for each problem's objective
-  
-  if (length(multi_obj_list) != length(obj_weights)) {
-    stop("Number of objective weights must match number of problems")
-  }
-  
-  # normalize the objective weights to sum to 1
-  obj_weights <- obj_weights / sum(obj_weights)
-  
-  # before we do anything else, let's normalise and weight our objectives:
-  # get sign for each objective
-  signs <- vector("numeric", length(multi_obj_list))
-  for (i in seq_along(multi_obj_list)) {
-    p <- multi_obj_list[[i]]
-    if (p$modelsense == "min") {
-      signs[i] <- 1
-    } else if (p$modelsense == "max") {
-      signs[i] <- -1
-    } else {
-      stop("Unknown modelsense")
-    }
-  }
-  
-  for (i in seq_along(multi_obj_list)) {
-    obj <- multi_obj_list[[i]]$obj
+  for (i in seq_len(n)) {
     
-    if (rescale) {
-      # normalize entire objective btw 0 and 1, otherwise not really comparable? use this: x-min/max-min
-      rng <- range(obj)
-      if (diff(rng) == 0) {
-        obj <- rep(0, length(obj))
-      } else {
-        obj <- (obj - rng[1]) / diff(rng)
-      }
-      
-    }
-    # multiply by weight and sign
-    obj_weighted <- obj * obj_weights[i] * signs[i]
-    # overwrite original objective
-    multi_obj_list[[i]]$obj <- obj_weighted
+    if (opt_n_A[i] == 0L) next
+    
+    a_idx <- seq_len(opt_n_A[i]) + opt_A_offset[i]
+    
+    ## row indices
+    A_i[a_idx] <- opt[[i]]$A_i + opt_row_offset[i] + 1
+    
+    ## column indices
+    A_j[a_idx] <- opt[[i]]$A_j +
+      opt_col_offset[i] * (opt[[i]]$A_j >= n_status) + 1
+    
+    #vals
+    A_x[a_idx] <- opt[[i]]$A_x
   }
   
-  # before combining the objectives, we need to make sure all objectives have the same length
-  # and the right variables at the right location:
-  # e.g. obj one has cost vals (1-400 and penalties)
-  # obj 2 is min shortfall, so all 0s for PUs and then 1s for # features representing shortfall vars
-  # obj 3 is max utility, so has summed rep for each PU (1-400)
-  
-  ## we now need to pad the different obj
-  ## split all objectives in planning unit part and non PU part
-  # get last pu name
-  last_pu <- tail(multi_obj_list[[1]]$pus, 1)
-  
-  # Find position of that column
-  insert_after <- which(colnames(multi_obj_list[[1]]$A) == last_pu)
-  rm(last_pu)
-  
-  # get parts of just pus and then extras
-  split_multi_objs <- vector("list", length(multi_obj_list))
-  for (i in seq_along(multi_obj_list)) {
-    split_multi_objs[[i]] <- split_pu_extra(multi_obj_list[[i]]$obj, insert_after)
-  }
-  names(split_multi_objs) <- paste0("p", seq_along(split_multi_objs))
-  
-  # combined PU objective
-  combined_pu_obj <- split_multi_objs[[1]]$pu
-  if (length(multi_obj_list) > 1) {
-    for (i in 2:length(split_multi_objs)) {
-      combined_pu_obj <- combined_pu_obj + split_multi_objs[[i]]$pu
-    }
-  }
-  
-  # combine extra objective (go in order of problems)
-  extras_obj <- c()
-  for (i in seq_along(split_multi_objs)) {
-    if (!is.null(split_multi_objs[[i]]$extra)) {
-      extras_obj <- c(extras_obj, split_multi_objs[[i]]$extra)
-    }
-  }
-  
-  # then bind combined and extras
-  new_obj <- c(combined_pu_obj, extras_obj)
-  rm(split_multi_objs, combined_pu_obj, extras_obj)
-  
-  # now need to think about:
-  ## A
-  split_multi_A <- vector("list", length(multi_obj_list))
-  for (i in seq_along(multi_obj_list)) {
-    split_multi_A[[i]] <- split_pu_extra(multi_obj_list[[i]]$A, insert_after)
-  }
-  names(split_multi_A) <- paste0("p", seq_along(split_multi_A))
-  
-  # combined PU A
-  combined_pu_A <- do.call(rbind, lapply(split_multi_A, function(x) x$pu))
-  
-  # now extra
-  combined_extra_A <- combine_extras_A(split_multi_A)
-  
-  # final A
-  new_A <- base::cbind(combined_pu_A, combined_extra_A)
-  
-  ## rhs, sense
-  new_rhs <- unlist(lapply(multi_obj_list, function(x) x$rhs))
-  new_sense <- unlist(lapply(multi_obj_list, function(x) x$sense))
-  
-  ## lb, ub, vtype, pus, all_vars
-  new_bounds <- check_and_combine_other_old(multi_obj_list, new_obj, insert_after)
-  
-  new_lb <- new_bounds$lb
-  new_ub <- new_bounds$ub
-  new_vtype <- new_bounds$vtype
-  new_pus <- new_bounds$pus
-  new_all_vars <- new_bounds$all_vars
-  
-  ## other stuff like name, type, vars, modelsense (always set to min)
-  new_modelsense <- "min"
-  
-  new_s_vars <- c()
-  for (i in seq_along(multi_obj_list)) {
-    new_s_vars <- c(new_s_vars, multi_obj_list[[i]]$s_vars)
-  }
-  
-  ## make new ws model
-  list(
-    modelsense = new_modelsense,
-    obj = new_obj,
-    lb = new_lb,
-    ub = new_ub,
-    vtype = new_vtype,
-    A = new_A,
-    rhs = new_rhs,
-    sense = new_sense,
-    name = "weighted sum",
-    type = "ws",
-    which_obj = unlist(lapply(multi_obj_list, function(x) x$name)),
-    pus = new_pus,
-    s_vars = new_s_vars,
-    all_vars = new_all_vars#,
-    #feature_names = feature_names # not sure how do best go about it because we can have duplicate features from the different models
+  A = Matrix::sparseMatrix(
+    i = A_i,
+    j = A_j,
+    x = A_x,
+    dims = c(length(row_ids), length(col_ids))
   )
+  
+  ## make new model
+  list(
+    modelsense = modelsense,
+    obj = obj,
+    lb = lb,
+    ub = ub,
+    vtype = vtype,
+    A = A,
+    rhs = rhs,
+    sense = sense)
+  
 }

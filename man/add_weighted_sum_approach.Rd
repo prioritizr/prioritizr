@@ -46,7 +46,7 @@ can be used to explore trade-offs among conservation, cost, and other
 planning outcomes.
 
 When \code{weights} is a matrix, each row is interpreted as an independent
-weighting scheme and columns are the individual objectives. Thehe approach
+weighting scheme and columns are the individual objectives. The approach
 stores a separate solution for each resulting weighted-sum problem.
 These will be solved sequentially when \code{solve()}.
 
