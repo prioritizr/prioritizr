@@ -142,6 +142,6 @@ TODO
 See \link{approaches} for an overview of all functions for adding an approach.
 
 Other approaches: 
-\code{\link{add_hierarchical_approach}()}
+\code{\link{add_rel_constraint_approach}()}
 }
 \concept{approaches}

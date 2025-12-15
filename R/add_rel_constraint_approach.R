@@ -1,9 +1,9 @@
 #' @include internal.R MultiObjApproach-class.R
 NULL
 
-#' Add a hierarchical approach
+#' Add a relative constraint approach
 #'
-#' Add a hierarchical multi-objective optimization approach to a
+#' Add a relative constraint (hierarchical) multi-objective optimization approach to a
 #' conservation planning problem.
 #'
 #' @param x [multi_problem()] object.
@@ -27,7 +27,7 @@ NULL
 #' be displayed? Defaults to `TRUE`.
 #'
 #' @details
-#' The hierarchical approach is a lexicographic multi-objective optimization method
+#' The relative constraint or hierarchical approach is a lexicographic multi-objective optimization method
 #' that solves objectives sequentially based on a pre-defined order of priority.
 #' In this method, the first objective is optimized, and the solutions
 #' obtained constrain subsequent objectives using the relative tolerances (or level of degradation) specified
@@ -35,7 +35,7 @@ NULL
 #' before lower-priority objectives are considered. For example, if we have two objectives and a `rel_tol` of 0.1, then
 #' the first objective is solved, and the objective value of its solution (e.g., minimized cost), cannot
 #' degrade by more than 10% (i.e., 10% more costly) in the subsequent solution
-#' when the next objective is optimized and the first one is used as aconstraint.
+#' when the next objective is optimized and the first one is used as a constraint.
 #'
 #' Specifically, let \(y_1, y_2, \ldots, y_k\) denote the values of the
 #' objectives in the hierarchy. The hierarchical approach first optimizes \(y_1\),
@@ -117,7 +117,7 @@ NULL
 #'     add_binary_decisions() %>%
 #'     add_default_solver()
 #' ) %>%
-#'   add_hierarchical_approach(rel_tol = 0.1, verbose = FALSE) %>%
+#'   add_rel_constraint_approach(rel_tol = 0.1, verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
@@ -138,7 +138,7 @@ NULL
 #'     add_binary_decisions() %>%
 #'     add_default_solver()
 #' ) %>%
-#'   add_hierarchical_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) %>%
+#'   add_rel_constraint_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
@@ -150,7 +150,7 @@ NULL
 #' rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
 #'
 #' mp3 <- multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-#'   add_hierarchical_approach(rel_tol, verbose = TRUE) %>%
+#'   add_rel_constraint_approach(rel_tol, verbose = TRUE) %>%
 #'   add_default_solver(verbose = FALSE)
 #' ms3 <- solve(mp3)
 #'
@@ -160,7 +160,7 @@ NULL
 #' }
 #'
 #' @export
-add_hierarchical_approach <- function(x, priority = NULL, rel_tol = NULL, method = "gurobi", verbose = TRUE) {
+add_rel_constraint_approach <- function(x, priority = NULL, rel_tol = NULL, method = "gurobi", verbose = TRUE) {
   # assert arguments
   assert_required(x)
   assert_required(rel_tol)

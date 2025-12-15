@@ -17,7 +17,7 @@ test_that("gurobi solver information (single solution)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+    add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -62,7 +62,7 @@ test_that("gurobi solver information (multiple solutions)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+    add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
     add_highs_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -196,15 +196,11 @@ test_that("invalid inputs", {
     )
   # run tests
   expect_tidy_error(
-    add_hierarchical_approach(p, "a"),
+    add_rel_constraint_approach(p, rel_tol = "a"),
     "numeric"
   )
   expect_tidy_error(
-    add_hierarchical_approach(p),
-    "rel_tol"
-  )
-  expect_tidy_error(
-    add_hierarchical_approach(p, c(0.2, 0.3)),
+    add_rel_constraint_approach(p, rel_tol = c(0.2, 0.3)),
     "length"
   )
 })

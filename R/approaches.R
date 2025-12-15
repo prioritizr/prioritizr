@@ -20,7 +20,7 @@ NULL
 #' 
 #' \describe{
 #'
-#' \item{[add_hierarchical_approach()]}{
+#' \item{[add_rel_constraint_approach()]}{
 #' Add approach to solve objectives sequentially, respecting a priority ordering
 #' and passing constraints from earlier solutions to later ones using 
 #' a specified relative tolerances (or level of degradation).
