@@ -422,12 +422,15 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             ub = mopt$ub()
           )
 
+          
+      #   browser()
           # build multiobj list from the problems
           multiobj <- lapply(seq_len(nrow(mobj)), function(i) {
             list(
-              objn = if (mmodelsense[[i]] == "min") mobj[i, ] else -mobj[i, ],
+              modelsense = mmodelsense[[i]],
+              objn = mobj[i, ], #if (mmodelsense[[i]] == "min") mobj[i, ] else -mobj[i, ],
               priority = priority[[i]], #nrow(mobj) - i + 1, # NOTE: gurobi has OPPOSITE to intuitive priorities (meaning higher numbers get optimized first, obj1 for us has priority 2, obj2 has priority 1 for two objective)
-              weight = 1.0,
+              weight = if (mmodelsense[[i]] == "min") 1.0 else -1.0,#1.0,
               reltol = if (i <= length(rel_tol)) rel_tol[[i]] else NULL, 
               name = paste0("Objective_", i)
             )

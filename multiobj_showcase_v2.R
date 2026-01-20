@@ -103,7 +103,7 @@ mp4 <- multi_problem(
     add_binary_decisions() %>%
     add_default_solver()
 ) %>%
-  add_hierarchical_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE) # uses gurobi internal functionality, but we have also added functionality that works with all other solvers
 
 # solve problem
@@ -126,7 +126,7 @@ plot(c(ms4[[2]], s1), main = c("Low degradation", "Solution 1"), axes = FALSE) #
 
 rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
 mp5 <- multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_hierarchical_approach(rel_tol, verbose = TRUE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol, verbose = TRUE) %>%
   add_default_solver(verbose = FALSE)
 ms5 <- solve(mp5)
 
@@ -154,7 +154,7 @@ mp6 <- multi_problem(
     add_binary_decisions() %>%
     add_default_solver()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE)
 
 # solve problem
@@ -196,14 +196,14 @@ mp7 <- multi_problem(
     add_relative_targets(matrix(0.9, nrow = 2, ncol = 2)) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = 0.1) %>%
+  add_rel_constraint_approach(rel_tol = 0.1) %>%
   add_gurobi_solver()
 
 ms7 <- solve(mp7, run_checks = FALSE) 
 terra::plot(ms7)
 
 
-
+# several rel_tols
 
 mp8 <- multi_problem(
   con_obj = problem(

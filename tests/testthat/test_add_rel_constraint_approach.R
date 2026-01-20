@@ -222,6 +222,48 @@ test_that("relative constraint tolerance controls objective trade-off (gurobi)",
   expect_lt(abs(obj_high[1, "obj1"]), abs(obj_low[1, "obj1"]))
 })
 
+test_that("relative constraint tolerance controls objective trade-off (max utility)", {
+  skip_on_cran()
+  skip_if_not_installed("highs")
+  
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  
+  b1 <- 0.8 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
+  # use exactly one feature per objective
+  f1 <- sim_features[[1]]
+  f2 <- sim_features[[2]]
+  
+  p <-
+    multi_problem(
+      obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
+        add_max_utility_objective(budget = b1) %>%
+        add_binary_decisions(),
+      obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
+        add_max_utility_objective(budget = b1) %>%
+        add_binary_decisions()
+    ) %>%
+    add_rel_constraint_approach(rel_tol = matrix(c(0.01, 0.99), ncol = 1),
+                                verbose = FALSE) %>%
+    add_gurobi_solver(gap = 0, verbose = FALSE) #TODO with gurobi I get negative objective values
+  
+  s <- solve(p, run_checks = FALSE)
+  
+  # low tolerance: protect obj1 strongly
+  obj_low <- attr(s, "objective")["solution_1", , drop = FALSE]
+  
+  # high tolerance: allow degradation of obj1 to improve obj2
+  obj_high <- attr(s, "objective")["solution_2", , drop = FALSE]
+  
+  # high tolerance should improve objective 2
+  expect_gt(obj_high[1, "obj2"], obj_low[1, "obj2"])
+  
+  # improvement in obj2 should come at a cost to obj1
+  expect_lt(obj_high[1, "obj1"], obj_low[1, "obj1"])
+})
+
+
 test_that("relative constraint tolerance controls objective trade-off (other solvers)", {
   skip_on_cran()
   skip_if_not_installed("highs")

@@ -26,7 +26,7 @@ rel_tol <- 0.9
 
 # create multi-objective problem
 multi_p1 <- multi_problem(p1, p2) %>% # under the hood takes these two problems and merges them strategically together
-  add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE) # uses special internal gurobi functionality
 
 # solve problem
@@ -36,18 +36,18 @@ multi_s1 <- solve(multi_p1)
 plot(multi_s1, main = "High degradation", axes = FALSE)
 
 # # define relative tolerance (low degradation)
-# rel_tol <- 0.1
-# 
-# # create multi-objective problem
-# multi_p2 <- multi_problem(p1, p2) %>%
-#   add_hierarchical_approach(rel_tol = rel_tol, verbose = FALSE) %>%
-#   add_gurobi_solver(gap = 0, verbose = FALSE)
-# 
-# # solve problem
-# multi_s2 <- solve(multi_p2)
-# 
-# # plot solutions for problems associated with spatial data
-# plot(multi_s2, main = "Low degradation", axes = FALSE)
+rel_tol <- 0.1
+
+# create multi-objective problem
+multi_p2 <- multi_problem(p1, p2) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+  add_gurobi_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+multi_s2 <- solve(multi_p2)
+
+# plot solutions for problems associated with spatial data
+plot(multi_s2, main = "Low degradation", axes = FALSE)
 
 #### Using an input matrix
 rel_tol_mat <- matrix(c(0.9, 0.1), nrow = 2, ncol = 1)
@@ -65,7 +65,7 @@ multi_p3 <- multi_problem(
     add_relative_targets(0.2) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, priority = c(1,2), verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol_mat, priority = c(1,2), verbose = FALSE) %>%
   add_gurobi_solver(gap = 0, verbose = FALSE)
 
 # solve problem
@@ -103,7 +103,7 @@ multi_p4 <- multi_problem(
     add_relative_targets(0.2) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
   add_highs_solver(gap = 0, verbose = FALSE) # uses default hierarchical approach
 
 # solve problem
@@ -131,7 +131,7 @@ multi_p5 <- multi_problem(
     add_relative_targets(0.2) %>%
     add_binary_decisions()
 ) %>%
-  add_hierarchical_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
+  add_rel_constraint_approach(rel_tol = rel_tol_mat, verbose = FALSE) %>%
   add_highs_solver(gap = 0, verbose = FALSE)
 
 # solve problem
