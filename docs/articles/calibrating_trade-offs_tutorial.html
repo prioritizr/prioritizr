@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -212,11 +212,11 @@ zero).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of planning unit costs</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of planning unit statuses</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"locked_in"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-2.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-2.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <p>The <code>tas_features</code> object describes the spatial
 distribution of different vegetation communities (using presence/absence
 data). We will use the vegetation communities as the biodiversity
@@ -224,7 +224,7 @@ features for the prioritization.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of the first four vegetation classes</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="432" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="432" style="display: block; margin: auto;"></p>
 <p>We can use this dataset to generate a prioritization. Specifically,
 we will use the minimum set objective so that the optimization process
 minimizes total cost. We will add representation targets to ensure that
@@ -298,7 +298,7 @@ establishment).</p>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## Found heuristic solution: objective 10337.581214</span></span>
 <span><span class="co">## Presolve removed 19 rows and 354 columns</span></span>
-<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 776 integer (776 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 14 rows, 776 columns, 2296 nonzeros</span></span>
@@ -354,7 +354,7 @@ establishment).</p>
 <span>  <span class="va">s0</span><span class="op">[</span>, <span class="st">"map_1"</span><span class="op">]</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="cn">NULL</span>, key.pos <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <p>We can see that the priority areas identified by the prioritization
 are scattered across the study area (shown in green). Indeed, none of
 the priority areas are connected to existing protected areas (shown in
@@ -389,7 +389,7 @@ establishing new protected areas.</strong></p>
 <span></span>
 <span><span class="co"># plot map of planning unit costs</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <p>The second procedure involves pre-computing the boundary length data
 and manually re-scaling the boundary length values. This procedure is
 important because boundary length values are often very high, which can
@@ -532,7 +532,7 @@ prioritizations.</p>
 <span>    <span class="op">}</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-13-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that as the <code>penalty</code> value used to generate
 the prioritizations increases, the spatial fragmentation of the
 prioritizations decreases. In particular, we can see that a
@@ -580,7 +580,7 @@ gap (i.e., default gap of 10%).</p>
 <span>    <span class="op">}</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We now have a set of candidate prioritizations generated using the
 blended approach. The main advantages of this approach is that it is
 similar calibration analyses used by other decision support tools for
@@ -640,7 +640,7 @@ function).</p>
 <span>  <span class="va">s1</span><span class="op">[</span>, <span class="st">"map_1"</span><span class="op">]</span>, pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>,</span>
 <span>  main <span class="op">=</span> <span class="cn">NULL</span>, key.pos <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-17-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-17-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <p>Next, we will calculate the total cost of the initial
 prioritization.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -723,7 +723,7 @@ use it to perform hierarchical multi-objective optimization.</p>
 <span>    <span class="op">}</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-20-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We now have a set of candidate prioritizations generated using the
 hierarchical approach. This approach can be much faster than the blended
 approach because it does not require generating a set of prioritizations
@@ -846,7 +846,7 @@ plot to select a prioritization.</p>
 <span></span>
 <span><span class="co"># render plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_plot</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that there is a clear relationship between total cost and
 total boundary length. It would seem that in order to achieve a lower
 total boundary length – and thus lower spatial fragmentation – the
@@ -1009,7 +1009,7 @@ methods.</p>
 <span></span>
 <span><span class="co"># render plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_plot</span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-30-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that the different methods selected different
 prioritizations. To further compare the results from the different
 methods, let’s create some maps showing the selected
@@ -1050,7 +1050,7 @@ prioritizations.</p>
 <span>    <span class="op">}</span><span class="op">)</span>,</span>
 <span>  pal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"purple"</span>, <span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>How do we determine which one is best? This is difficult to say.
 Ideally, additional information could be used to help select a
 prioritization, such as knowledge on available resources, species’
@@ -1195,7 +1195,7 @@ Earth</em>, <em>3</em>, 371–382.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

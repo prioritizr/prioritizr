@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.8.80</span></span></code></pre>
+<pre><code><span><span class="co">## terra 1.8.93</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'terra'</span></span></code></pre>
 <pre><code><span><span class="co">## The following object is masked from 'package:prioritizr':</span></span>
@@ -267,7 +267,7 @@ are selected or not selected for protection.</p>
 <span>  <span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="adding-management-zones">Adding management zones<a class="anchor" aria-label="anchor" href="#adding-management-zones"></a>
@@ -445,7 +445,7 @@ using the following code.</p>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-varying-costs">Multiple zones with varying costs<a class="anchor" aria-label="anchor" href="#multiple-zones-with-varying-costs"></a>
@@ -471,7 +471,7 @@ example.</p>
 <span>  <span class="va">pu3</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span><span class="op">)</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span></span>
@@ -583,7 +583,7 @@ example.</p>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-7-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-complex-targets">Multiple zones with complex targets<a class="anchor" aria-label="anchor" href="#multiple-zones-with-complex-targets"></a>
@@ -622,7 +622,7 @@ We can formulate and solve this problem using the following code.</p>
 <span>  <span class="va">pu4</span>, nr <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="624" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="624" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create targets</span></span>
 <span><span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
@@ -767,7 +767,7 @@ We can formulate and solve this problem using the following code.</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-extra-constraints">Multiple zones with extra constraints<a class="anchor" aria-label="anchor" href="#multiple-zones-with-extra-constraints"></a>
@@ -920,7 +920,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="multiple-zones-with-fragmentation-penalties">Multiple zones with fragmentation penalties<a class="anchor" aria-label="anchor" href="#multiple-zones-with-fragmentation-penalties"></a>
@@ -1030,7 +1030,7 @@ fragmented solutions.</p>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.00 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -1077,7 +1077,7 @@ fragmented solutions.</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>Finally, it appears we might have a viable solution for this made-up
 conservation problem.</p>
 </div>
@@ -1171,7 +1171,7 @@ unit.</p>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
@@ -1222,7 +1222,7 @@ unit.</p>
 <div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -1298,7 +1298,7 @@ others. (2010). Conserving biodiversity in production landscapes.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

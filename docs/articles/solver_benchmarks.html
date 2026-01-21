@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -452,7 +452,7 @@ prioritizations than the other solvers.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Solver"</span>, y <span class="op">=</span> <span class="st">"Run time (hours)"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning: Removed 33 rows containing non-finite outside the scale range</span></span>
 <span><span class="co">## (`stat_boxplot()`).</span></span></code></pre>
-<p><img src="solver_benchmarks_files/figure-html/overall_average_run_times-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/overall_average_run_times-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <div class="section level3">
 <h3 id="minimum-set-results-no-boundary-penalty">Minimum set results (no boundary penalty)<a class="anchor" aria-label="anchor" href="#minimum-set-results-no-boundary-penalty"></a>
 </h3>
@@ -476,7 +476,7 @@ investigated.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem
 involving 12,902 planning units and see how the timing of the different
 solvers used compares. Note that all other factors (e.g., absence of
@@ -487,7 +487,7 @@ boundary length penalties) are the same as for the previous graph.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. Now we really start to see the difference between the
 <em>Rsymphony</em> and <em>lpsymphony</em> solvers – which use the
@@ -498,7 +498,7 @@ units. Now we really start to see the difference between the
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. We can see that both the <em>Rsymphony</em> and
 <em>lpsymphony</em> solvers are really taking a much longer time to
@@ -509,7 +509,7 @@ generate prioritizations now.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>To get a better sense of how the faster solvers (i.e., based on
 <em>CBC</em>, <em>IBM CPLEX</em>, <em>Gurobi</em>) compare for such a
 large problem, let’s take a closer look at these three solvers.
@@ -523,7 +523,7 @@ other solvers.</p>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_fast_only-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_fast_only-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="minimum-set-results-with-low-boundary-penalty">Minimum set results with low boundary penalty<a class="anchor" aria-label="anchor" href="#minimum-set-results-with-low-boundary-penalty"></a>
@@ -540,7 +540,7 @@ only 1,478 planning units.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 used compares.</p>
@@ -550,7 +550,7 @@ used compares.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. Now we really start to see the difference between
 <em>lpsymphony</em> and <em>Rsymphony</em> solvers and the other
@@ -561,7 +561,7 @@ solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. As with the scenario without boundary penalties,
 <em>lpsymphony</em> and <em>Rsymphony</em> solvers take a lot longer to
@@ -572,7 +572,7 @@ generate prioritizations than the other three solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Similar to earlier, let’s take a look at just the <em>CBC</em>,
 <em>IBM CPLEX</em>, and <em>Gurobi</em> solvers. We can see that the
 <em>Gurobi</em> solver has the best performance, generating
@@ -586,7 +586,7 @@ solvers for large-scale problems with boundary length penalties.</p>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_low_boundary_penalty_and_fast_solvers-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="minimum-set-results-with-high-boundary-penalty">Minimum set results with high boundary penalty<a class="anchor" aria-label="anchor" href="#minimum-set-results-with-high-boundary-penalty"></a>
@@ -604,7 +604,7 @@ second).</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_1_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 used compares.</p>
@@ -614,7 +614,7 @@ used compares.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_2_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. We again see the difference between <em>Rsymphony</em> and
 <em>lpsymphony</em> solvers and the other solvers.</p>
@@ -624,7 +624,7 @@ units. We again see the difference between <em>Rsymphony</em> and
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_3_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. As with the previous scenarios,
 <em>Rsymphony</em> and <em>lpsymphony</em> solvers take a lot longer to
@@ -635,7 +635,7 @@ generate prioritizations than the other solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Similar to before, let’s take a look at just the <em>CBC</em>,
 <em>IBM CPLEX</em>, and <em>Gurobi</em> solvers. We can see that
 <em>Gurobi</em> has the best performance. This result further emphasizes
@@ -648,7 +648,7 @@ conservation planning problems with boundary penalties.</p>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_set_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_set_pu_n_4_with_high_boundary_penalty_and_fast_solvers-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="minimize-shortfall-results-no-boundary-penalty">Minimize shortfall results (no boundary penalty)<a class="anchor" aria-label="anchor" href="#minimize-shortfall-results-no-boundary-penalty"></a>
@@ -664,7 +664,7 @@ comparable amount of time across all targets investigated.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 used compares. Here, the <em>CBC</em> solver takes slightly longer than
@@ -675,7 +675,7 @@ the other solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. Now we see a larger difference between the <em>CBC</em> solver
 and the other solvers, with the <em>CBC</em> solver taking several
@@ -686,7 +686,7 @@ minutes longer to complete.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. We can see that all the open source solvers
 (i.e., <em>CBC</em>, <em>Rsymphony</em> and <em>lpsymphony</em>) take a
@@ -698,7 +698,7 @@ lot longer than the commercial solvers (i.e., <em>IBM CPLEX</em> and
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="fl">0</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="minimize-shortfall-results-with-low-boundary-penalty">Minimize shortfall results with low boundary penalty<a class="anchor" aria-label="anchor" href="#minimize-shortfall-results-with-low-boundary-penalty"></a>
@@ -714,7 +714,7 @@ units.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a more realistic problem with
 12,902 planning units and see how the timing of the different solvers
 compare. Similar to before, we can see the <em>CBC</em> solver takes
@@ -725,7 +725,7 @@ slightly longer than the other solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. Now we really start to see the difference between the
 <em>CBC</em> solver and the other solvers. Additionally, the
@@ -737,7 +737,7 @@ considerably longer than the commercial solvers too.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. The <em>CBC</em> solver now performs better than
 the <em>Rsymphony</em> and <em>lpsymphony</em> solvers, which can take
@@ -748,7 +748,7 @@ over a whole day to complete.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_low_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_low_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>To get a better sense of how the faster solvers compare (i.e.,
 <em>CBC</em>, <em>IBM CPLEX</em>, and <em>Gurobi</em>), let’s take a
 closer look at these three solvers. We can see that the <em>CBC</em>
@@ -764,7 +764,7 @@ penalties and the minimum shortfall objective function.</p>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  solver <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"add_cbc_solver"</span>, <span class="st">"add_cplex_solver"</span>, <span class="st">"add_gurobi_solver"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_and_boundary_penalty_and_fast_solvers-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_and_boundary_penalty_and_fast_solvers-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="minimize-shortfall-results-with-high-boundary-penalty">Minimize shortfall results with high boundary penalty<a class="anchor" aria-label="anchor" href="#minimize-shortfall-results-with-high-boundary-penalty"></a>
@@ -780,7 +780,7 @@ units.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_1_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the results for a greater number of planning
 units (i.e., 12,902 planning units) and see how the timings compare. All
 the solvers have a similar run time now. Interestingly, the
@@ -792,7 +792,7 @@ the solvers have a similar run time now. Interestingly, the
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2%20with%20boundary%20penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_2%20with%20boundary%20penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Next, we will look at a medium sized problem with 102,242 planning
 units. Similar to some of the previous results for the minimum shortfall
 objective, the <em>CBC</em> solver is the slowest and the <em>IBM
@@ -803,7 +803,7 @@ CPLEX</em> and <em>Gurobi</em> commercial solvers are fastest.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_3_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Finally, let’s look at timing comparisons for a large problem with
 606,180 planning units. We can see that the benchmark times vary greatly
 for the <em>Rsymphony</em> and <em>lpsymphony</em> solvers, with run
@@ -819,7 +819,7 @@ solvers.</p>
 <span>  n_pu <span class="op">=</span> <span class="va">n_planning_units</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span>,</span>
 <span>  boundary_penalty <span class="op">=</span> <span class="va">boundary_penalty_values</span><span class="op">$</span><span class="va">add_min_shortfall_objective</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_high_boundary_penalty-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="solver_benchmarks_files/figure-html/min_short_pu_n_4_with_high_boundary_penalty-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
 <div class="section level2">
@@ -855,7 +855,7 @@ time to solve a particular problem.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -406,7 +406,7 @@ planning unit.</p>
 <span>  <span class="va">sim_pu_raster</span>, main <span class="op">=</span> <span class="st">"Planning unit costs"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-4-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>Secondly, we will load one of the spatial vector planning unit data
 sets (<code>sim_pu_polygons</code>). Here, each polygon (i.e., feature
 using ArcGIS terminology) corresponds to a different planning unit. This
@@ -442,7 +442,7 @@ unit.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the planning units, and color them according to cost values</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">sim_pu_polygons</span><span class="op">[</span>, <span class="st">"cost"</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>Thirdly, we will load some planning unit data stored in tabular
 format (i.e., <code>data.frame</code> format). For those familiar with
 <em>Marxan</em> or dealing with very large conservation planning
@@ -462,7 +462,7 @@ documentation</a>.</p>
 <span><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load in the tabular planning unit data</span></span>
-<span><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">pu_path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">pu_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">pu_path</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">1751</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -502,7 +502,7 @@ coordinate reference system) so their pixels line up perfectly.</p>
 <span>  <span class="va">sim_features</span>, nr <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-7-1.png" width="624" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="624" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="initialize-a-problem">Initialize a problem<a class="anchor" aria-label="anchor" href="#initialize-a-problem"></a>
@@ -613,7 +613,7 @@ planning unit.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load in feature data</span></span>
-<span><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">spec_path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">spec_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">spec_path</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">17</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">4</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -642,7 +642,7 @@ planning unit.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># load in planning unit vs feature data</span></span>
-<span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">puvspr_path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">puvspr_dat</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.tidyverse.org/reference/vroom.html" class="external-link">vroom</a></span><span class="op">(</span><span class="va">puvspr_path</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">4662</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">3</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span></span>
 <span><span class="co">## <span style="font-weight: bold;">Delimiter:</span> ","</span></span>
@@ -1637,7 +1637,7 @@ should be locked in or locked out.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Locked in"</span>, <span class="st">"Locked out"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-33-1.png" width="624" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="624" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a problem using raster planning unit data and use the locked raster</span></span>
 <span><span class="co"># data to lock in some planning units and lock out some other planning units</span></span>
@@ -2726,7 +2726,7 @@ progress when searching for a suitable solution.</p>
 <span>  <span class="va">s46</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-55-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-55-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>We can plot this solution because the planning unit input data are
 spatially referenced in a raster format. The output format will always
 match the planning unit data used to initialize the problem. For
@@ -2747,7 +2747,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.098</span></span></code></pre>
+<span><span class="co">##      0.096</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -2954,7 +2954,7 @@ importance methods.</p>
 <span><span class="co">## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.04 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1987.4 2207.85 2337.96 </span></span>
@@ -2967,7 +2967,7 @@ importance methods.</p>
 <span>  <span class="va">s47</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-64-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-64-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>The following methods are available for computing importance
 scores.</p>
 <ul>
@@ -2997,7 +2997,7 @@ amount of time to complete for large and complex problems.</li>
 <span>  <span class="va">rc47</span>, main <span class="op">=</span> <span class="st">"Replacement cost scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-65-1.png" width="480" style="display: block; margin: auto;">
+<p><img src="package_overview_files/figure-html/unnamed-chunk-65-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;">
 * <strong>Incremental ranks</strong>: Evaluate importance scores by
 calculating ranks via an incremental optimization process <span class="citation">(Jung <em>et al.</em> 2021)</span>. Briefly, this
 approach involves generating incremental prioritizations with increasing
@@ -3021,7 +3021,7 @@ apply to solutions generated using any objective function.</p>
 <span>  <span class="va">rs47</span>, main <span class="op">=</span> <span class="st">"Rank scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-66-1.png" width="480" style="display: block; margin: auto;">
+<p><img src="package_overview_files/figure-html/unnamed-chunk-66-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;">
 * <strong>Ferrier method</strong>: Evaluate importance by computing
 irreplaceability scores following Ferrier <em>et al.</em> <span class="citation">(2000)</span>. The advantages of this method are that
 it (i) can be computed relatively quickly for moderate problems, and
@@ -3039,7 +3039,7 @@ similar to <em>Marxan</em>-type problems).</p>
 <span>  <span class="va">fs47</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-67-1.png" width="480" style="display: block; margin: auto;">
+<p><img src="package_overview_files/figure-html/unnamed-chunk-67-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;">
 * <strong>Rarity weighted richness</strong>: Evaluate importance by
 computing rarity weighted richness scores <span class="citation">(Williams <em>et al.</em> 1996)</span>. The only
 advantage with this method is that it can be computed very quickly for
@@ -3057,7 +3057,7 @@ objective functions, or feature representation targets.</p>
 <span>  <span class="va">rwr47</span>, main <span class="op">=</span> <span class="st">"Rarity weighted richness scores"</span>,</span>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="package_overview_files/figure-html/unnamed-chunk-68-1.png" width="480" style="display: block; margin: auto;"></p>
+<p><img src="package_overview_files/figure-html/unnamed-chunk-68-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
 <p>In general, we recommend using replacement cost scores for small and
 moderate sized problems (e.g., less than 30,000 planning units) when it
 is feasible to do so. It can take a very long time to compute
@@ -3172,7 +3172,7 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">## </span></span>
 <span><span class="co">## Cleanup yields a better solution</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.08 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 </span></span>
@@ -3448,7 +3448,7 @@ Modeling &amp;amp; Assessment</em>, <em>10</em>, 163–181.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
