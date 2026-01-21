@@ -156,7 +156,7 @@ print(wa_pu)
 plot(wa_pu, main = "Costs", axes = FALSE)
 ```
 
-<img src="man/figures/README-planning_units-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-planning_units-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 Next, we will use the `get_wa_features()` function to import the
 conservation feature data. Although the *prioritizr R* package can
@@ -192,7 +192,7 @@ print(wa_features)
 plot(wa_features[[1:9]], nr = 3, axes = FALSE)
 ```
 
-<img src="man/figures/README-features-1.png" width="800" style="display: block; margin: auto;" />
+<img src="man/figures/README-features-1.png" alt="" width="800" style="display: block; margin: auto;" />
 
 Let’s make sure that you have a solver installed on your computer. This
 is important so that you can use optimization algorithms to generate
@@ -281,7 +281,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.576
+    ##      3.951
 
 ``` r
 # extract state message from the solver
@@ -296,7 +296,7 @@ print(attr(s1, "status"))
 plot(s1, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-minimal_solution-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-minimal_solution-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 After generating a solution, it is important to evaluate it. Here, we
 will calculate the number of planning units selected by the solution,
@@ -386,7 +386,7 @@ print(wa_locked_in)
 plot(wa_locked_in, main = "Existing protected areas", axes = FALSE)
 ```
 
-<img src="man/figures/README-locked_in_constraints-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_in_constraints-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 ``` r
 # create new problem with locked in constraints added to it
@@ -401,7 +401,7 @@ s2 <- solve(p2)
 plot(s2, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-locked_in_constraints-2.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_in_constraints-2.png" alt="" width="500" style="display: block; margin: auto;" />
 
 This solution is an improvement over the previous solution. However,
 there are some places in the study area that are not available for
@@ -437,7 +437,7 @@ print(wa_locked_out)
 plot(wa_locked_out, main = "Areas not available for protection", axes = FALSE)
 ```
 
-<img src="man/figures/README-locked_out_constraints-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_out_constraints-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 ``` r
 # create new problem with locked out constraints added to it
@@ -452,7 +452,7 @@ s3 <- solve(p3)
 plot(s3, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-locked_out_constraints-2.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_out_constraints-2.png" alt="" width="500" style="display: block; margin: auto;" />
 
 This solution is even better then the previous solution. However, we are
 not finished yet. The planning units selected by the solution are fairly
@@ -478,7 +478,7 @@ s4 <- solve(p4)
 plot(s4, main = "Solution", axes = FALSE)
 ```
 
-<img src="man/figures/README-boundary_penalties-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-boundary_penalties-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 Now, let’s explore which planning units selected by the solution are
 most important for cost-effectively meeting the targets. To achieve
@@ -523,7 +523,7 @@ imp <- terra::mask(imp, s4, maskvalues = 0, updatevalue = -1)
 plot(imp, axes = FALSE,  main = "Importance scores")
 ```
 
-<img src="man/figures/README-importance-1.png" width="500" style="display: block; margin: auto;" />
+<img src="man/figures/README-importance-1.png" alt="" width="500" style="display: block; margin: auto;" />
 
 This short example demonstrates how the *prioritizr R* package can be
 used to build and customize conservation problems, and then solve them

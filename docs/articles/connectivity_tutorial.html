@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -196,7 +196,7 @@ them on a map.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the planning units costs on a log-scale</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs (log)"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-6-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the <code>salt_features</code> object. It has
 multiple layers. Each layer corresponds to different ecological
 communities (i.e., <em>Old Forest</em>, <em>Savannah</em>,
@@ -218,7 +218,7 @@ given community.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the feature data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_features</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-8-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <p>Let’s look at the <code>salt_con</code> object. It describes the
 inverse probability of occurrence of human commensal species. Here we
 will assume that human modified areas impede connectivity for native
@@ -239,7 +239,7 @@ connectivity.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map showing the connectivity data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-10-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level2">
 <h2 id="baseline-problem">Baseline problem<a class="anchor" aria-label="anchor" href="#baseline-problem"></a>
@@ -312,7 +312,7 @@ prioritization.</p>
 <span>  <span class="va">s0</span>, main <span class="op">=</span> <span class="st">"Baseline prioritization"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-14-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <p>Next, let’s explore some options for incorporating connectivity.</p>
 </div>
 <div class="section level2">
@@ -348,7 +348,7 @@ neighbors.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s1</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"neighbors constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-16-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div class="section level3">
 <h3 id="contiguity-constraints">Contiguity constraints<a class="anchor" aria-label="anchor" href="#contiguity-constraints"></a>
@@ -377,7 +377,7 @@ targets and the contiguity constraints.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"contiguity constraints"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-18-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>There is also an even more complex version of the contiguity
 constraints that is available. These constraints – termed feature
 contiguity constraints <span class="citation">(similar to Cerdeira
@@ -426,7 +426,7 @@ effectively be treating connectivity as an additional feature <span class="citat
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints"</span><span class="op">)</span>,</span>
 <span>   axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Although using continuous values has the advantage that the
 prioritization process can explicitly account for differences in the
 relative amount of connectivity facilitated by different planning units,
@@ -451,7 +451,7 @@ threshold limit).</p>
 <span></span>
 <span><span class="co"># plot binary values</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_binary</span>, main <span class="op">=</span> <span class="st">"salt_con_binary"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-23-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-23-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
@@ -469,7 +469,7 @@ threshold limit).</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (binary)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Another strategy is to clamp the continuous values below a threshold
 limit and assign them a value of zero <span class="citation">(similar to
 Hanson <em>et al.</em> 2020)</span>. This strategy has the advantage
@@ -485,7 +485,7 @@ high amount of connectivity.</p>
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-27-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
@@ -503,7 +503,7 @@ high amount of connectivity.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-29-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>If we were concerned that the prioritization did not facilitate a
 high enough level of connectivity, we could increase the
 <code>threshold</code> value or the <code>threshold_limit</code> value.
@@ -521,7 +521,7 @@ to clamp the continuous connectivity values.</p>
 <span></span>
 <span><span class="co"># plot clamped values</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">salt_con_clamp2</span>, main <span class="op">=</span> <span class="st">"salt_con_clamp"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-31-1.png" width="384" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-31-1.png" class="r-plt" alt="" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem with added linear constraints and solve it</span></span>
 <span><span class="co">## note that we use the original threshold computed before,</span></span>
@@ -539,7 +539,7 @@ to clamp the continuous connectivity values.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"linear constraints (clamped 2)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-33-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Despite the advantages of clamping the connectivity values, we can
 see that the prioritization has a relatively high level of spatial
 fragmentation. In fact, all prioritizations generated using the linear
@@ -599,7 +599,7 @@ prioritization with a <code>penalty</code> value of 0.001.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-36-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that the resulting prioritization is still relatively
 fragmented, so let’s try generating another prioritization with a higher
 <code>penalty</code> value.</p>
@@ -615,7 +615,7 @@ fragmented, so let’s try generating another prioritization with a higher
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s8</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"boundary penalties (10)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-38-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Although the prioritization is now less fragmented, it has also
 selected a greater number of planning units. Let’s calculate the cost of
 the prioritizations to see how they vary in overall cost.</p>
@@ -701,7 +701,7 @@ prioritization with a <code>penalty</code> value of 0.001.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s9</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.001)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-42-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>Now let’s try generating another prioritization with a higher
 <code>penalty</code> value.</p>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
@@ -716,7 +716,7 @@ prioritization with a <code>penalty</code> value of 0.001.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s0</span>, <span class="va">s10</span><span class="op">)</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"baseline"</span>, <span class="st">"connectivity penalties (0.002)"</span><span class="op">)</span>,</span>
 <span>  axes <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"classes"</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="connectivity_tutorial_files/figure-html/unnamed-chunk-44-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
 <p>We can see that increasing the <code>penalty</code> parameter causes
 the prioritizations to select planning units in regions with greater
 connectivity values (i.e., per the <code>salt_con</code> object). As
@@ -886,7 +886,7 @@ Modelling &amp; Software</em>, <em>24</em>, 1513–1521.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

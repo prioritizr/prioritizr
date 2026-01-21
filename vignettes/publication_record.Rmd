@@ -17,7 +17,14 @@ This vignette contains a list of publications that have cited or used the _prior
 
 ### 2026
 
+* Aragão ACC, de Lima Costa T, and Colli GR (2026) Optimizing restoration outcomes in the Brazilian Cerrado: A spatial planning framework integrating endemic lizard biodiversity, connectivity, and costs. _Biological Conservation_, **314**: 111673.
+* Durand M, Bennun L, Berger J, Eyres A, Kuipers KJJ, Mair L, Schipper AM, and Martinet V (2025) Comparison of three biodiversity metrics to evaluate corporate no net loss achievement under spatial constraints. _Journal of Environmental Management_, **396**: 128158.
+* Geary WL, Tulloch AIT, Doherty TS, Nimmo DG, Ritchie EG, Hanson JO, Maxwell MA, and Wayne AF (2026) Optimising fire and predator management for conservation. _Journal of Applied Ecology_, **63**: e70256.
+* Giménez J, Cañadas A, and de Stephanis R (2025) Mediterranean Gate Sanctuary for the Protection of Cetaceans. _Aquatic Conservation: Marine and Freshwater Ecosystems_, **35**: e70255.
 * Hanson JO, McCune JL, Alamenciak T, and Bennett JR (2026) Increasing the credibility of conservation plans through citizen science. _Biological Conservation_, **313**: 111552.
+* Liu Y, Wang J, Wu Z, Xu Z, and Abulike K (2026) Integrating multidimensional biodiversity into spatial conservation planning to bridge conservation gaps in China. _Biological Conservation_, **314**: 111664.
+* Reine Sheirita TF, Rodrigue I, Benjamin L, Jean Eudes Crédo GF, and Amadé O (2026) Climate change risks and conservation needs of _Lophira lanceolata_ in West Africa. _Journal for Nature Conservation_, **90**: 127182.
+* Trethowan LA, Jennings L, Arifin H, Borosova R, Bramley GLC, Briggs M, Chu O, Clark RP, Dawson S, Dhanjal‐Adams KL, de Freitas Y, Hartup J, Heatubun EGE, Lee‐Grant C, Mapandin LV, Marwa J, Moore A, Murdjoko A, Puglisi C, Schuiteman A, Seaman DJI, Sinaga N, Struebig MJ, Trias Blasi A, Utteridge T, Voigt M, Wanma JF, and Heatubun CD (2025) Informing spatial conservation prioritization with species' traits. _Conservation Biology_, **In press**: e70199.
 
 ### 2025
 
@@ -79,7 +86,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Massante JC, de Castro AF, de Medeiros Sarmento PS, da Silva GM, Caldeira CF, Ramos S, and Gastauer M (2023) Species selection for optimizing mine land rehabilitation: Integrating functional traits with the minimum set prioritization technique. _Ecological Engineering_, **194**: 107039.
 * Rick K, Byrne M, Cameron S, Cooper SJB, Dunlop J, Hill B, Lohr C, Mitchell NJ, Moritz C, Travouillon KJ, von Takach B, and Ottewell K (2023). Population genomic diversity and structure in the golden bandicoot: a history of isolation, extirpation, and conservation. _Heredity_, **131**: 374--386.
 * Nielsen ES, Beger M, Henriques R, and von der Heyden S (2023) Integrating environmental, evolutionary, and socioeconomic vulnerability to future-proof coastal conservation planning. _Biological Conservation_, **286**: 110302.
-* Nogales J, Rogéliz-Prada C, Cañon MA, and Vargas-Luna A (2023) An integrated methodological framework for the durable conservation of freshwater ecosystems: a case study in Colombia’s Caquetá River basin. _Frontiers in Environmental Science_, **11**: 1264392.
+* Nogales J, Rogéliz-Prada C, Cañon MA, and Vargas-Luna A (2023) An integrated methodological framework for the durable conservation of freshwater ecosystems: a case study in Colombia's Caquetá River basin. _Frontiers in Environmental Science_, **11**: 1264392.
 * Shen X, Liu M, Hanson JO, Wang J, Locke H, Watson JEM, Ellis EC, Li S, and Ma K (2023) Countries' differentiated responsibilities to fulfill area-based conservation targets of the Kunming-Montreal Global Biodiversity Framework. _One Earth_, **6**:  548--559.
 * Sievers M, Brown CJ, McGowan J, Turschwell MP, Buelow CA, Holgate B, Pearson, RM, Adame MF, Andradi-Brown DA, Arnell A, Mackey BG, zu Ermgassen PSE, Gosling, J, McOwen CJ, Worthington TA, and Connolly RM (2023) Co-occurrence of biodiversity, carbon storage, coastal protection, and fish and invertebrate production to inform global mangrove conservation planning. _Science of The Total Environment_, **904**: 166357.
 * Tack JD, Jakes AF, Jones PF, Hebblewhite M, Naugle DE, Doherty KE, Sather M K, Martin BH, and Pritchert R (2023) Grassland intactness outcompetes species as a more efficient surrogate in conservation design. _Conservation Science and Practice_, **5**: e13020.
@@ -152,6 +159,11 @@ This vignette contains a list of publications that have cited or used the _prior
 * Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**: 20170627.
 
 ## Review articles
+
+### 2026
+
+* Dalla D, Papazekou M, Konsta K, Katsanevakis S, Mazaris AD (2025) A review of alternative cost layers for spatial prioritization tools. _Landscape Ecology_, **41**: 7.
+* Stralberg D, Lewis DW, Stolar J, Kehm GJ, Cosgrove CF, Morgan DG, Nelson EA, Kuntzemann CE, Raymundo A, Sang Z, Viliani L, Jumean Z, Meier M, Enslow C, Estevo CA, Fraser‐Reid EC, Campbell EM, Grant JA, Howard S, Naujokaitis‐Lewis I, Nielsen SE, Carroll C (2025) Integrating climate‐change exposure and refugia into landscape planning: A practical guide. _Conservation Science and Practice_, **8**: e70171.
 
 ### 2025
 
