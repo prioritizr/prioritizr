@@ -8,28 +8,21 @@ NULL
 #'
 #' @param x [multi_problem()] object.
 #'
-#' @param weights `numeric` vector containing the weights for each
-#' objective. To generate multiple solutions based on different
-#' combinations of weights, `weights` can be a `numeric` matrix where
-#' each row corresponds to a different solution and each columns
-#' corresponds to a different objective.
+#' @param weights `numeric` vector or matrix containing the weights for each 
+#' [problem()] in `x`. If `x` is a vector, a single solution will be 
+#' generated. If `x`is a matrix, then multiple solutions based on different
+#' combinations of weights will be generated where each row corresponds to a 
+#' different solution and each column corresponds to a different problem.
 #'
 #' @param verbose `logical` should progress on generating solutions
 #' displayed? Defaults to `TRUE`.
 #'
 #' @details
-#' The weighted sum approach is a method for solving 
+#' The weighted sum approach is an approach for solving 
 #' multi-objective optimization problems by transforming several
 #' objectives into a single objective. This is done by taking a 
 #' weighted linear combination of the objective expressions from each 
-#' problem in the `multi_problem()` object.
-#' 
-#' Specifically, if a multi-objective problem contains \(k\) objectives
-#' with values \(y_1, y_2, \ldots, y_k\) corresponding to each objective, and the
-#' user supplies a weight vector \(w = (w_1, \ldots, w_k)\), then the
-#' transformed optimization problem minimizes the function:
-#'
-#' \deqn{F = \sum_{i=1}^{k} w_i \* y_i}
+#' [problem()] in the [multi_problem()] object.
 #' 
 #' The weights determine the relative importance of the objectives and
 #' can be used to explore trade-offs among conservation, cost, and other
@@ -43,17 +36,40 @@ NULL
 #' This approach is suitable when objectives can be meaningfully combined
 #' after weighting, and when there is no clear priority that needs to be 
 #' defined with [add_rel_constraint_approach()].
+#' 
+#' @section Mathematical formulation:
+#' 
+#' Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be defined for a
+#' multi-objective optimization problem, and let \eqn{y_k}{yk} denote the value
+#' of objective \eqn{k}{k}. If the user supplies a weight vector
+#' \eqn{w = (w_1, \ldots, w_K)}{w = (w1, ..., wK)}, the weighted-sum approach
+#' combines all objectives into a single scalar objective function.
+#'
+#' Specifically, the transformed optimization problem can be written as:
+#'
+#' \deqn{\mathit{Minimize} \space \sum_{k = 1}^{K} w_k \times y_k}{
+#' Minimize sum_k^K wk * yk}
+#'
+#' where \eqn{w_k}{wk} denotes the weight associated with objective \eqn{k}{k},
+#' and \eqn{y_k}{yk} is the corresponding objective value. The relative magnitude
+#' of \eqn{w_k}{wk} determines the contribution of objective \eqn{k}{k} to the
+#' overall objective function.
+#'
+#' This formulation enables trade-offs among objectives to be controlled
+#' explicitly through the choice of weights, with all objectives optimized
+#' simultaneously within a single optimization problem.
 #'
 #' @return
 #' A modified `multi_problem()` object with the weighted-sum approach
-#' added. After calling [solve()], the output will either be an individual solution or a list of 
-#' solutions if a matrix was supplied for `weights`. 
+#' added. 
 #'
 #' @seealso
 #' See [approaches] for an overview of all functions for adding an approach.
 #' 
 #' @references
-#' TODO
+#' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
+#' for ecological problems with an application to cackling goose management.
+#' _Ecological Modelling_, **343**: 54-67.
 #'
 #' @family approaches
 #'
