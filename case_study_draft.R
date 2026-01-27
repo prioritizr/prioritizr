@@ -37,6 +37,8 @@ names(agr_feat) <- crop_names
 # agr_feat_aus <- terra::mask(agr_feat, aus_moll)
 # terra::plot(agr_feat_aus)
 
+baseline <- terra::rast(file.path(input_dat, "0_sourcedata_ProjectedCropDistribution", "baseline2010_ESAcropland.tif"))
+
 
 ## targets
 con_feat_targets <- read_csv(file.path(input_dat, "speciestarget.csv"))

@@ -220,10 +220,10 @@ test_that("invalid inputs", {
   )
   expect_tidy_error(
     add_weighted_sum_approach(p, matrix(seq_len(3), nrow = 3)),
-    "ncol"
+    "columns"
   )
   expect_tidy_error(
     add_weighted_sum_approach(p, matrix(seq_len(9), nrow = 3)),
-    "ncol"
+    "columns"
   )
 })

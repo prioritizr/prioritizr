@@ -29,7 +29,7 @@ NULL
 #' user supplies a weight vector \(w = (w_1, \ldots, w_k)\), then the
 #' transformed optimization problem minimizes the function:
 #'
-#' \deqn{F = \sum_{i=1}^{k} w_i \, y_i}
+#' \deqn{F = \sum_{i=1}^{k} w_i \* y_i}
 #' 
 #' The weights determine the relative importance of the objectives and
 #' can be used to explore trade-offs among conservation, cost, and other
@@ -42,7 +42,7 @@ NULL
 #' 
 #' This approach is suitable when objectives can be meaningfully combined
 #' after weighting, and when there is no clear priority that needs to be 
-#' defined with [add_hierarchical_approach()].
+#' defined with [add_rel_constraint_approach()].
 #'
 #' @return
 #' A modified `multi_problem()` object with the weighted-sum approach

@@ -32,13 +32,9 @@ NULL
 #' independently.
 #'
 #' @seealso
-#' [problem()] for constructing single-objective problems.
-#' Multi-objective methods:
-#' • [add_weighted_sum()]
-#' • [add_hierarchical_approach()]
-#'
-#' Solving and inspecting problems:
-#' • [solve()]
+#' See [problem()] for constructing single-objective problems.
+#' Also see [approaches()] for multi-objective methods.
+#' Finally, see [solve()] for details on generating solutions.
 #'
 #' @references
 #' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
@@ -49,6 +45,7 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' TODO add example from weighted-sum approach after updating it with some more context
 #' # import data
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_features <- get_sim_features()

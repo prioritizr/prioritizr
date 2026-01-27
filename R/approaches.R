@@ -15,6 +15,9 @@ NULL
 #' example by combining them to a single objective or optimizing them 
 #' sequentially.
 #' 
+#' TODO add advice for when to use which approach. Also add this to details section for each approach (e.g., rel con is the recommended approach for most cases)
+#' In general, we recommend using the rel_constraint approach because it can better approximate the pareto front and is mor
+#' 
 #' After constructing a [multi_problem()], the following functions can be used to 
 #' specify a multi-objective optimization approach.
 #' 
