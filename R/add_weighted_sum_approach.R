@@ -75,24 +75,29 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' # In this example we select a set of planning units under a conservation 
+#' # budget, aiming to meet representation targets for two species groups:
+#' # (1) keystone species (higher ecological priority) and
+#' # (2) iconic species (high social or cultural value).
+#' 
 #' # import data
 #' con_cost <- get_sim_pu_raster()
 #' keystone_spp <- get_sim_features()[[1:3]]
 #' iconic_spp <- get_sim_features()[[4:5]]
 #' 
-#' # set budget
-#' con_budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
+#' # define a total conservation budget (30% of total cost)
+#' budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 #' 
 #' # define individual problems
 #' p1 <-
 #'   problem(con_cost, keystone_spp) %>%
-#'   add_min_shortfall_objective(con_budget) %>%
+#'   add_min_shortfall_objective(budget) %>%
 #'   add_relative_targets(0.4) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver()
 #' p2 <-
 #'   problem(con_cost, iconic_spp) %>%
-#'   add_min_shortfall_objective(con_budget) %>%
+#'   add_min_shortfall_objective(budget) %>%
 #'   add_relative_targets(0.4) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver()
@@ -102,8 +107,8 @@ NULL
 #' s2 <- solve(p2)
 #' 
 #' # plot
-#' plot(s1)
-#' plot(s2)
+#' plot(s1, main = "Keystone Species")
+#' plot(s2, main = "Iconic Species")
 #' 
 #' # now create multi-objective problem
 #' mp1 <-
@@ -114,17 +119,13 @@ NULL
 #' # solve problem
 #' ms1 <- solve(mp1)
 #' 
-#' plot(ms1)
+#' plot(ms1, main = "Equal weights")
 #' 
 #' # create multi-objective problem using input matrix
 #' mp2 <-
 #'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
 #'   add_weighted_sum_approach(
-#'     matrix(c( 
-#'       0.5, 0.5, # balanced
-#'       1.0, 0.0, # all in on keystone
-#'       0.0, 1.0 # all in on iconic
-#'     ), ncol = 2, byrow = TRUE),
+#'     matrix(runif(100), ncol = 2),
 #'     verbose = TRUE
 #'   ) %>%
 #'   add_default_solver(verbose = FALSE)
@@ -132,25 +133,11 @@ NULL
 #' # solve problem
 #' ms2 <- solve(mp2)
 #' 
-#' # extract objective values and plot approximated pareto front (very few weight values)
+#' # extract objective values and plot approximated pareto front
 #' obj_mat <- attributes(ms2)$objective
-#' plot(obj_mat)
-#' 
-#' # create multi-objective problem using input matrix
-#' mp3 <-
-#'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-#'   add_weighted_sum_approach(
-#'     matrix(runif(50), ncol = 2),
-#'     verbose = TRUE
-#'   ) %>%
-#'   add_default_solver(verbose = FALSE)
-#' 
-#' # solve problem
-#' ms3 <- solve(mp3)
-#' 
-#' # extract objective values and plot approximated pareto front (more weight values)
-#' obj_mat <- attributes(ms3)$objective
-#' plot(obj_mat)
+#' plot(obj_mat, main = "Approximated pareto front", 
+#' xlab = "Keystone objective (shortfall)", 
+#' ylab = "Iconic objective (shortfall)")
 #' }
 #'
 #' @export

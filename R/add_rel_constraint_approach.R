@@ -110,12 +110,17 @@ NULL
 #'
 #' @examples
 #' \dontrun{
+#' # In this example we select a set of planning units under a conservation 
+#' # budget, aiming to meet representation targets for two species groups:
+#' # (1) keystone species (higher ecological priority) and
+#' # (2) iconic species (high social or cultural value).
+#' 
 #' # import data
 #' con_cost <- get_sim_pu_raster()
 #' keystone_spp <- get_sim_features()[[1:3]]
 #' iconic_spp <- get_sim_features()[[4:5]]
 #'
-#' # set budget
+#' # define a total conservation budget (30% of total cost)
 #' budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 #'
 #' # define individual problems
@@ -137,62 +142,42 @@ NULL
 #' s2 <- solve(p2)
 #'
 #' # plot
-#' plot(s1)
-#' plot(s2)
+#' plot(s1, main = "Keystone Species")
+#' plot(s2, main = "Iconic Species")
 #'
 #' # now create multi-objective problem
 #' mp1 <- multi_problem(
-#'   obj1 = problem(con_cost, keystone_spp) %>%
-#'     add_min_shortfall_objective(con_budget) %>%
+#'   keystone_obj = problem(con_cost, keystone_spp) %>%
+#'     add_min_shortfall_objective(budget) %>%
 #'     add_relative_targets(0.4) %>%
 #'     add_binary_decisions() %>%
 #'     add_default_solver(),
-#'   obj2 = problem(con_cost, iconic_spp) %>%
-#'     add_min_shortfall_objective(con_budget) %>%
+#'   iconic_obj = problem(con_cost, iconic_spp) %>%
+#'     add_min_shortfall_objective(budget) %>%
 #'     add_relative_targets(0.4) %>%
 #'     add_binary_decisions() %>%
 #'     add_default_solver()
 #' ) %>%
-#'   add_rel_constraint_approach(rel_tol = 0.1, verbose = FALSE) %>%
+#'   add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
 #' ms1 <- solve(mp1)
 #'
-#' plot(ms1)
-#'
-#' # create multi-objective problem using input matrix
-#' mp2 <- multi_problem(
-#'   obj1 = problem(con_cost, keystone_spp) %>%
-#'     add_min_shortfall_objective(con_budget) %>%
-#'     add_relative_targets(0.4) %>%
-#'     add_binary_decisions() %>%
-#'     add_default_solver(),
-#'   obj2 = problem(con_cost, iconic_spp) %>%
-#'     add_min_shortfall_objective(con_budget) %>%
-#'     add_relative_targets(0.4) %>%
-#'     add_binary_decisions() %>%
-#'     add_default_solver()
-#' ) %>%
-#'   add_rel_constraint_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) %>%
-#'   add_gurobi_solver(gap = 0, verbose = FALSE)
-#'
-#' # solve problem
-#' ms2 <- solve(mp2)
-#'
-#' plot(c(ms2[[1]], ms2[[2]]), main = c("High degradation", "Low degradation"), axes = FALSE)
+#' plot(ms1, main = "Low degradation")
 #'
 #' # create multi-objective problem using input matrix
 #' rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
 #'
-#' mp3 <- multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-#'   add_rel_constraint_approach(rel_tol, verbose = TRUE) %>%
+#' mp2 <- multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
+#'   add_rel_constraint_approach(rel_tol = rel_tol, verbose = TRUE) %>%
 #'   add_default_solver(verbose = FALSE)
-#' ms3 <- solve(mp3)
+#' ms2 <- solve(mp2)
 #'
-#' # extract objective values and plot approximated pareto front (very few weight values)
-#' obj_mat <- attributes(ms5)$objective
-#' plot(obj_mat)
+#' # extract objective values and plot approximated pareto front 
+#' obj_mat <- attributes(ms2)$objective
+#' plot(obj_mat, main = "Approximated pareto front", 
+#' xlab = "Keystone objective (shortfall)", ylab = "Iconic objective (shortfall)")
 #' }
 #'
 #' @export

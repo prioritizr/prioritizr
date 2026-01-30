@@ -49,7 +49,7 @@ print <- function(x, ...) {
 ## Introduction
 3 paragraphs: 
 - point of tutorial
-- concepts of pareto frontier
+- multi-objective general + concepts of pareto frontier
 - vignette content
 
 Use Washington data

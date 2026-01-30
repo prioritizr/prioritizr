@@ -40,35 +40,42 @@ NULL
 #' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
 #' for ecological problems with an application to cackling goose management.
 #' Ecological Modelling, 343: 54-67
-#' 
-#' TODO add more
 #'
 #' @examples
 #' \dontrun{
-#' TODO add example from weighted-sum approach after updating it with some more context
+#' # In this example we select a set of planning units under a conservation 
+#' # budget, aiming to meet representation targets for two species groups:
+#' # (1) keystone species (higher ecological priority) and
+#' # (2) iconic species (high social or cultural value).
+#' 
 #' # import data
-#' sim_zones_pu_raster <- get_sim_zones_pu_raster()
-#' sim_features <- get_sim_features()
+#' con_cost <- get_sim_pu_raster()
+#' keystone_spp <- get_sim_features()[[1:3]]
+#' iconic_spp <- get_sim_features()[[4:5]]
+#' 
+#' # define a total conservation budget (30% of total cost)
+#' budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 #'
-#' weights <- runif(2)
-#'
-#' # create multi-object problem
-#' p <-
-#'   multi_problem(
-#'     obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-#'       add_binary_decisions(),
-#'     obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-#'       add_binary_decisions()
-#'   ) %>%
-#'   add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
-#'   add_default_solver(gap = 0, verbose = FALSE)
+#' # now create multi-objective problem
+#' mp1 <- multi_problem(
+#'   keystone_obj = problem(con_cost, keystone_spp) %>%
+#'     add_min_shortfall_objective(budget) %>%
+#'     add_relative_targets(0.4) %>%
+#'     add_binary_decisions() %>%
+#'     add_default_solver(),
+#'   iconic_obj = problem(con_cost, iconic_spp) %>%
+#'     add_min_shortfall_objective(budget) %>%
+#'     add_relative_targets(0.4) %>%
+#'     add_binary_decisions() %>%
+#'     add_default_solver()
+#' ) %>%
+#'   add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) %>%
+#'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
-#' s <- solve(p)
+#' ms1 <- solve(mp1)
+#'
+#' plot(ms1, main = "Low degradation")
 #' }
 #' @export
 multi_problem <- function(..., problem_names = NULL) {

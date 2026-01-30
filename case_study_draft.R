@@ -2,7 +2,7 @@
 
 #### Prelims ####
 # paths
-input_dat <- "C:/Users/sandr/Documents/PhDQuex/MOO_chapter/case_study_data/jianqiao-data"
+input_dat <- "C:/Users/sandr/Documents/PhDQuex/MOO_chapter/case_study_data/featuredata"
 
 # packages
 
@@ -10,6 +10,28 @@ input_dat <- "C:/Users/sandr/Documents/PhDQuex/MOO_chapter/case_study_data/jianq
 
 #### Load data ####
 # features
+# crop
+crop_dat <- arrow::read_feather(file.path(input_dat, "crop_features.feather"))
+
+# 
+land_avail <- terra::rast(file.path(input_dat, "s5_aggre_LandAvail_moll_10km.tif"))
+pa <- terra::rast(file.path(input_dat, "s5_aggre_PA_moll_10km.tif"))
+
+df.pu$pa.cover <- terra::extract(pa,df.pu[,c("x","y")], method="simple")/100
+df.pu$pa.cover <- ifelse(is.na(df.pu$pa.cover), 0, df.pu$pa.cover)
+
+
+
+# biodiversity
+install.packages(c("DBI", "RSQLite"))
+library(DBI)
+library(RSQLite)
+library(tidyverse)
+conn <- dbConnect(RSQLite::SQLite(), dbname = file.path(input_dat,"rij.db" ))
+rij.sp <- tbl(conn, "table_rij_update") %>% 
+  collect()   
+dbDisconnect(conn)
+
 agr_path <- file.path(input_dat, "0_sourcedata_ProjectedCropDistribution", "Proactive")
 rcp45_files <- list.files(
   agr_path,
