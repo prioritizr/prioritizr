@@ -42,7 +42,7 @@ NULL
 #' @section Output format:
 #' This function will output solutions in a similar format to the
 #' planning units associated with `a`. Specifically, it will return
-#' solutions based on the following types of planning units.
+#' solutions based on the following types of planning units. 
 #'
 #'   \describe{
 #'
@@ -82,6 +82,10 @@ NULL
 #'     of the management zone (e.g., `"solution_1_zone1"`).}
 #'
 #'   }
+#'   
+#'  Note that if `a`was a [multi_problem()], the output will be a list. The 
+#'  individual list items are output solutions that are in a similar format to 
+#'  the planning units of the problems in [multi-problem()].
 #'
 #' @return
 #' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
@@ -139,7 +143,8 @@ NULL
 #' See [problem()] to create conservation planning problems, and
 #' [presolve_check()] to check problems for potential issues.
 #' Also, see the [category_layer()] and [category_vector()] function to
-#' reformat solutions that contain multiple zones.
+#' reformat solutions that contain multiple zones. See [multi_problem()] to 
+#' create multi-objective conservation planning problems.
 #'
 #' @examples
 #' \dontrun{
