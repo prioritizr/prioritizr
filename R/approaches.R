@@ -69,9 +69,9 @@ NULL
 #' 
 #' # define a total conservation budget (30% of total cost)
 #' budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
-#'
+#' 
 #' # now create multi-objective problem
-#' mp1 <- multi_problem(
+#' mp <- multi_problem(
 #'   keystone_obj = problem(con_cost, keystone_spp) %>%
 #'     add_min_shortfall_objective(budget) %>%
 #'     add_relative_targets(0.4) %>%
@@ -83,13 +83,23 @@ NULL
 #'     add_binary_decisions() %>%
 #'     add_default_solver()
 #' ) %>%
-#'   add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
-#' # solve problem
-#' ms1 <- solve(mp1)
+#' # create multi-problem with relative constraint approach
+#' mp1 <- mp %>%
+#'   add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) 
 #'
-#' plot(ms1, main = "Low degradation")
+#' # create multi-problem with relative constraint approach
+#' mp2 <- mp %>%
+#'   add_weighted_sum_approach(c(0.9, 0.1), verbose = FALSE) 
+#' 
+#' #' # solve problems
+#' s <- c(solve(mp1), solve(mp2))
+#'   
+#' names(s) <- c("relative constraint", "weighted sum")
+#' 
+#' # plot solutions
+#' plot(s, axes = FALSE)
 #' }
 #'
 #' @name approaches

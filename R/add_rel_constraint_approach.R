@@ -3,117 +3,122 @@ NULL
 
 #' Add a relative constraint approach
 #'
-#' Add a relative constraint (hierarchical) multi-objective optimization 
+#' Add a relative constraint (hierarchical) multi-objective optimization
 #' approach to a conservation planning problem.
 #'
 #' @param x [multi_problem()] object.
 #'
-#' @param priority `numeric` vector of the priority order of the supplied 
-#' problems in `x`. Problems with higher order priorities will be optimized 
-#' first. For example, if `x` has two [problem()] objects and
-#' `priority = c(2,1)`, then the first problem will be optimized for firstly and the 
-#' second problem secondly. if priority = NULL, then the prioirty order will 
-#' correspond to the order of the problems in x. 
-#' 
-#' @param rel_tol `numeric` vector or matrix containing the relative tolerances 
-#' for each [problem()] in `x`. If `rel_tol` is a vector, a single solution will be 
-#' generated. If `rel_tol`is a matrix, then multiple solutions based on different
-#' combinations of tolerances will be generated where each row corresponds to a 
-#' different solution and each column corresponds to a different problem. Each 
-#' `rel_tol` value represents an optimality that is equivalent to the `gap` 
-#' specified when adding a solver to the problem, for example 
-#' [add_gurobi_solver()]. `rel_tol` is relative and expresses the acceptable 
-#' deviance from the optimal objective of the previous problem. For example, 
-#' a value of 0 means no deviation from the objective value of the previous
-#' problem is allowed. In turn, a value of 0.1 denotes that the objective value
-#' of the previous solution can degrade by a maximum of 10%, for example by 
-#' being 10% more costly if the previous problem minimised cost.
-#' The length/number of columns should be one less than the number of problems 
+#' @param rel_tol `numeric` vector or matrix containing the relative tolerances
+#' for each [problem()] in `x`. If `rel_tol` is a vector, a single solution 
+#' will be generated. If `rel_tol`is a matrix, then multiple solutions based on 
+#' different combinations of tolerances will be generated where each row 
+#' corresponds to a different solution and each column corresponds to a 
+#' different problem. Each `rel_tol` value represents an optimality that is 
+#' equivalent to the `gap` specified when adding a solver to the problem, for 
+#' example [add_gurobi_solver()]. `rel_tol` is relative and expresses the 
+#' acceptable deviance from the optimal objective of the previous problem. For 
+#' example, a value of 0 means no deviation from the objective value of the 
+#' previous problem is allowed. In turn, a value of 0.1 denotes that the 
+#' objective value of the previous solution can degrade by a maximum of 10%, 
+#' for example by being 10% more costly if the previous problem minimised cost.
+#' The length/number of columns should be one less than the number of problems
 #' in `x`.
+#' 
+#' @param priority `numeric` vector of the priority order of the supplied
+#' problems in `x`. Problems with higher order priorities will be optimized
+#' first. For example, if `x` has two [problem()] objects and
+#' `priority = c(2,1)`, then the first problem will be optimized for firstly 
+#' and the second problem secondly. If `priority = NULL`, then the priority 
+#' order will correspond to the order of the problems in `x`.
 #'
-#' @param method `character` value specifying the solving method. Available options 
-#' are: (`"gurobi"`) using the internal Gurobi methodology for solving 
+#' @param method `character` value specifying the solving method. Available 
+#' options are: (`"gurobi"`) using the internal Gurobi methodology for solving
 #' multi-objective problems hierarchically (default) and (`"manual"`) using a
 #' manual methodology for any of the other solvers available in `prioritizr`.
-#' We recommend using `"gurobi"` if the [*Gurobi*](https://www.gurobi.com/) 
+#' We recommend using `"gurobi"` if the [*Gurobi*](https://www.gurobi.com/)
 #' solver is available.
 #'
-#' @param verbose `logical` value should progress on generating solutions
+#' @param verbose `logical` value. Should progress on generating solutions
 #' be displayed? Defaults to `TRUE`.
 #'
 #' @details
-#' The relative constraint or hierarchical approach is a lexicographic 
-#' multi-objective optimization approach that solves [problem()] objects 
-#' sequentially based on a pre-defined order of priority. In this approach, the 
-#' first problem is solved, and the solution obtained constrain subsequent 
+#' The relative constraint or hierarchical approach is a lexicographic
+#' multi-objective optimization approach that solves [problem()] objects
+#' sequentially based on a pre-defined order of priority. In this approach, the
+#' first problem is solved, and the solution obtained constrain subsequent
 #' problems using the relative tolerances (or level of degradation) specified
 #' in `rel_tol`. This ensures that higher-priority objectives are satisfied
-#' before lower-priority objectives are considered. 
-#' 
-#' When `rel_tol` is a matrix, each row is interpreted as an independent
-#' hierarchical configuration. These will be solved sequentially when `solve()`.
+#' before lower-priority objectives are considered.
 #'
-#' This approach is especially useful when there is a clear priority order among
-#' objectives, and when it is important that higher-priority objectives
-#' are not compromised while optimizing lower-priority objectives.In general, 
-#' we recommend using this approach because it can better approximate the 
+#' When `rel_tol` is a matrix, each row is interpreted as an independent
+#' hierarchical configuration. These will be solved sequentially when running
+#'  `solve()`.
+#'
+#' This approach is especially useful when there is a clear priority order 
+#' among objectives, and when it is important that higher-priority objectives
+#' are not compromised while optimizing lower-priority objectives.In general,
+#' we recommend using this approach because it can better approximate the
 #' Pareto Front than alternative approaches.
-#' 
+#'
 #' @section Mathematical formulation:
 #'
-#' Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be ordered 
-#' according to a predefined hierarchy, with objective \eqn{1}{1} having the 
-#' highest priority. Let \eqn{y_k}{yk} denote the value of objective \eqn{k}{k}. 
+#' Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be ordered
+#' according to a predefined hierarchy, with objective \eqn{1}{1} having the
+#' highest priority. Let \eqn{y_k}{yk} denote the value of objective \eqn{k}{k}.
 #' The hierarchical approach proceeds by optimizing objectives sequentially.
 #'
-#' First, the highest-priority objective \eqn{y_1}{y1} is optimized independently
-#' to identify an optimal objective value \eqn{y_1^*}{y1*}. Each subsequent objective
-#' \eqn{y_i}{yi} is then optimized subject to constraints that limit the
-#' degradation of all higher-priority objectives. Specifically, for objective
-#' \eqn{i}{i}, the optimization problem can be written as:
+#' First, the highest-priority objective \eqn{y_1}{y1} is optimized 
+#' independently to identify an optimal objective value \eqn{\hat{y}_1}{y1}. 
+#' Each subsequent objective \eqn{y_i}{yi} is then optimized subject to 
+#' constraints that limit the degradation of all higher-priority objectives. 
+#' Specifically, for objective \eqn{i}{i}, the optimization problem can be 
+#' written as:
 #'
-#' \deqn{\mathit{Optimize} \space y_i \\
+#' \deqn{\mathit{Minimize} \space y_i \\
 #' \mathit{subject \space to} \\
-#' y_k \leq y_k^* (1 + \text{rel\_tol}_k) \quad \forall k < i}{
+#' y_k \leq \hat{y}_k (1 + r_k) \quad \forall k < i}{
 #' Minimize yi subject to
-#' yk <= yk* (1 + rel_tolk) for all k < i}
+#' yk <= yk^ (1 + r_k) for all k < i, where r corresponds to the 
+#' input \code{rel_tol}}
 #'
-#' where \eqn{y_k^*}{yk*} denotes the optimal value of higher-priority objective
-#' \eqn{k}{k} obtained in previous optimization steps, and
-#' \eqn{\text{rel\_tol}_k}{rel_tolk} is the allowable relative tolerance for
-#' objective \eqn{k}{k}. This process is repeated sequentially for all objectives
-#' in the hierarchy. TODO: Note that if the objective is maximized, then >= to constraint. 
+#' where \eqn{\hat{y}_k}{yk} denotes the optimal value of higher-priority 
+#' objective
+#' \eqn{k}{k} obtained in previous optimization steps, and \eqn{r_k}{rk} (our
+#' function input \code{rel_tol}) is the allowable relative tolerance for
+#' objective \eqn{k}{k}. If an objective is to be maximized, the constraints are
+#' reversed so that higher-priority objectives are maintained above the allowable
+#' degradation.
 #'
 #' This formulation ensures that higher-priority objectives are achieved within
-#' user-defined tolerances of optimality, while lower-priority objectives are optimized as
-#' much as possible within those constraints.
+#' user-defined tolerances of optimality, while lower-priority objectives are 
+#' optimized as much as possible within those constraints.
 #'
-#' @return 
+#' @return
 #' An updated `multi_problem()` object with the approach
-#' added to it. 
+#' added to it.
 #'
-#' @seealso 
+#' @seealso
 #' See [approaches] for an overview of all functions for adding an approach.
 #'
 #' @references
-#' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
+#' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
 #' for ecological problems with an application to cackling goose management.
 #' _Ecological Modelling_, **343**: 54-67.
-#' 
-#' Schuster R, Buxton R, Hanson JO, Binley AD, Pittman J, Tulloch V, La Sorte 
-#' FA, Roehrdanz PR, Verburg PH, Rodewald AD, Wilson S, Possingham HP, and 
-#' Bennett JR (2023) Protected area planning to conserve biodiversity in an 
-#' uncertain future. _Conservation Biology_, **37**: e14048. 
+#'
+#' Schuster R, Buxton R, Hanson JO, Binley AD, Pittman J, Tulloch V, La Sorte
+#' FA, Roehrdanz PR, Verburg PH, Rodewald AD, Wilson S, Possingham HP, and
+#' Bennett JR (2023) Protected area planning to conserve biodiversity in an
+#' uncertain future. _Conservation Biology_, **37**: e14048.
 #'
 #' @family approaches
 #'
 #' @examples
 #' \dontrun{
-#' # In this example we select a set of planning units under a conservation 
+#' # In this example we select a set of planning units under a conservation
 #' # budget, aiming to meet representation targets for two species groups:
 #' # (1) keystone species (higher ecological priority) and
 #' # (2) iconic species (high social or cultural value).
-#' 
+#'
 #' # import data
 #' con_cost <- get_sim_pu_raster()
 #' keystone_spp <- get_sim_features()[[1:3]]
@@ -157,7 +162,7 @@ NULL
 #'     add_binary_decisions() %>%
 #'     add_default_solver()
 #' ) %>%
-#'   add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) %>%
+#'   add_rel_constraint_approach(0.01, verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
@@ -173,14 +178,18 @@ NULL
 #'   add_default_solver(verbose = FALSE)
 #' ms2 <- solve(mp2)
 #'
-#' # extract objective values and plot approximated pareto front 
+#' # extract objective values and plot approximated pareto front
 #' obj_mat <- attributes(ms2)$objective
-#' plot(obj_mat, main = "Approximated pareto front", 
-#' xlab = "Keystone objective (shortfall)", ylab = "Iconic objective (shortfall)")
+#' plot(obj_mat,
+#'   main = "Approximated pareto front",
+#'   xlab = "Keystone objective (shortfall)", 
+#'   ylab = "Iconic objective (shortfall)"
+#' )
 #' }
 #'
 #' @export
-add_rel_constraint_approach <- function(x, priority = NULL, rel_tol = NULL, method = "gurobi", verbose = TRUE) {
+add_rel_constraint_approach <- function(x, rel_tol = NULL, priority = NULL,
+                                        method = "gurobi", verbose = TRUE) {
   # assert arguments
   assert_required(x)
   assert_required(rel_tol)

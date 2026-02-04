@@ -55,9 +55,12 @@ justify. Additionally,it assumes that objectives can be combined linearly.
 
 Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be defined for a
 multi-objective optimization problem, and let \eqn{y_k}{yk} denote the value
-of objective \eqn{k}{k}. Also, let   TODO  a weight vector
-\eqn{w = (w_1, \ldots, w_K)}{w = (w1, ..., wK)}, the weighted-sum approach
-combines all objectives into a single scalar objective function.
+of objective \eqn{k}{k}. Also,
+let \eqn{w = (w_1, \ldots, w_K)}{w = (w1, ..., wK)}
+be a vector of weights (our
+function input \code{weights}) specifying the relative importance of each
+objective; the weighted-sum approach combines all objectives into a single
+scalar objective function.
 
 Specifically, the multi-objective optimization problem is formulated as the
 following:
@@ -66,9 +69,9 @@ following:
 Minimize sum_k^K wk * yk}
 
 where \eqn{w_k}{wk} denotes the weight associated with objective \eqn{k}{k},
-and \eqn{y_k}{yk} is the corresponding objective value. The relative magnitude
-of \eqn{w_k}{wk} determines the contribution of objective \eqn{k}{k} to the
-overall objective function.
+and \eqn{y_k}{yk} is the corresponding objective value. The relative
+magnitude of \eqn{w_k}{wk} determines the contribution of
+objective \eqn{k}{k} to the overall objective function.
 
 This formulation enables trade-offs among objectives to be controlled
 explicitly through the choice of weights, with all objectives optimized
@@ -149,7 +152,9 @@ for ecological problems with an application to cackling goose management.
 \emph{Ecological Modelling}, \strong{343}: 54-67.
 }
 \seealso{
-See \link{approaches} for
+See \code{\link[=create_objective_weights]{create_objective_weights()}} for creating a weights matrix.
+
+Other approaches: \code{\link[=add_rel_constraint_approach]{add_rel_constraint_approach()}}
 
 Other approaches: 
 \code{\link{add_rel_constraint_approach}()}
