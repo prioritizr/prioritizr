@@ -103,7 +103,9 @@ to see if these potential issues are actually causing issues
 \section{Output format}{
 
 This function will output solutions in a similar format to the
-planning units associated with \code{a}. Specifically, it will return
+planning units associated with \code{a}. Note that if multiple solutions are
+generated,e.g., using a multi-objective approach
+these solutions will be returned as a list object. Specifically,
 solutions based on the following types of planning units.
 
 \describe{
@@ -144,6 +146,10 @@ containing solutions will be named as \code{"solution_XXX_YYY"} where
 of the management zone (e.g., \code{"solution_1_zone1"}).}
 
 }
+
+Note that if \code{a}was a \code{\link[=multi_problem]{multi_problem()}}, the output will be a list. The
+individual list items are output solutions that are in a similar format to
+the planning units of the problems in \code{\link[=multi-problem]{multi-problem()}}.
 }
 
 \examples{
@@ -266,5 +272,6 @@ plot(s4[, "solution"])
 See \code{\link[=problem]{problem()}} to create conservation planning problems, and
 \code{\link[=presolve_check]{presolve_check()}} to check problems for potential issues.
 Also, see the \code{\link[=category_layer]{category_layer()}} and \code{\link[=category_vector]{category_vector()}} function to
-reformat solutions that contain multiple zones.
+reformat solutions that contain multiple zones. See \code{\link[=multi_problem]{multi_problem()}} to
+create multi-objective conservation planning problems.
 }

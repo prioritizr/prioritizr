@@ -9,37 +9,30 @@ add_weighted_sum_approach(x, weights, verbose = TRUE)
 \arguments{
 \item{x}{\code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{weights}{\code{numeric} vector containing the weights for each
-objective. To generate multiple solutions based on different
-combinations of weights, \code{weights} can be a \code{numeric} matrix where
-each row corresponds to a different solution and each columns
-corresponds to a different objective.}
+\item{weights}{\code{numeric} vector or matrix containing the weights for each
+\code{\link[=problem]{problem()}} in \code{x}. If \code{x} is a vector, a single solution will be
+generated using \code{\link[=solve]{solve()}}. If \code{x}is a matrix, then multiple solutions based
+on different combinations of weights will be generated where each row
+corresponds to a different solution and each column corresponds to a
+different problem in \code{x}.}
 
-\item{verbose}{\code{logical} should progress on generating solutions
-displayed? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value should progress on generating solutions
+be displayed? Defaults to \code{TRUE}.}
 }
 \value{
-A modified \code{multi_problem()} object with the weighted-sum approach
-added. After calling \code{\link[=solve]{solve()}}, the output will either be an individual solution or a list of
-solutions if a matrix was supplied for \code{weights}.
+An updated \code{multi_problem()} object with the approach
+added to it.
 }
 \description{
 Add a weighted sum approach for multi-objective optimization to a
 conservation planning problem.
 }
 \details{
-The weighted sum approach is a method for solving
+The weighted sum approach is an approach for solving
 multi-objective optimization problems by transforming several
 objectives into a single objective. This is done by taking a
 weighted linear combination of the objective expressions from each
-problem in the \code{multi_problem()} object.
-
-Specifically, if a multi-objective problem contains \(k\) objectives
-with values \(y_1, y_2, \ldots, y_k\) corresponding to each objective, and the
-user supplies a weight vector \(w = (w_1, \ldots, w_k)\), then the
-transformed optimization problem minimizes the function:
-
-\deqn{F = \sum_{i=1}^{k} w_i \, y_i}
+\code{\link[=problem]{problem()}} in the \code{\link[=multi_problem]{multi_problem()}} object.
 
 The weights determine the relative importance of the objectives and
 can be used to explore trade-offs among conservation, cost, and other
@@ -48,32 +41,65 @@ planning outcomes.
 When \code{weights} is a matrix, each row is interpreted as an independent
 weighting scheme and columns are the individual objectives. The approach
 stores a separate solution for each resulting weighted-sum problem.
-These will be solved sequentially when \code{solve()}.
+These will be solved sequentially when \code{\link[=solve]{solve()}}.
 
-This approach is suitable when objectives can be meaningfully combined
-after weighting, and when there is no clear priority that needs to be
-defined with \code{\link[=add_hierarchical_approach]{add_hierarchical_approach()}}.
+In practice, however, choosing and justifying weights is often difficult.
+Small changes in weights can largely affect solutions, and weights can
+unintentionally mix preference strength with differences in objective scale.
+This can make it unclear which objectives are being traded off and typically
+requires substantial calibration to arrive at outcomes that are easy to
+justify. Additionally,it assumes that objectives can be combined linearly.
 }
+\section{Mathematical formulation}{
+
+
+Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be defined for a
+multi-objective optimization problem, and let \eqn{y_k}{yk} denote the value
+of objective \eqn{k}{k}. Also, let   TODO  a weight vector
+\eqn{w = (w_1, \ldots, w_K)}{w = (w1, ..., wK)}, the weighted-sum approach
+combines all objectives into a single scalar objective function.
+
+Specifically, the multi-objective optimization problem is formulated as the
+following:
+
+\deqn{\mathit{Minimize} \space \sum_{k = 1}^{K} w_k \times y_k}{
+Minimize sum_k^K wk * yk}
+
+where \eqn{w_k}{wk} denotes the weight associated with objective \eqn{k}{k},
+and \eqn{y_k}{yk} is the corresponding objective value. The relative magnitude
+of \eqn{w_k}{wk} determines the contribution of objective \eqn{k}{k} to the
+overall objective function.
+
+This formulation enables trade-offs among objectives to be controlled
+explicitly through the choice of weights, with all objectives optimized
+simultaneously within a single optimization problem.
+}
+
 \examples{
 \dontrun{
+# In this example we select a set of planning units under a conservation 
+# budget, aiming to meet representation targets for two species groups:
+# (1) keystone species (higher ecological priority) and
+# (2) iconic species (high social or cultural value).
+
 # import data
 con_cost <- get_sim_pu_raster()
 keystone_spp <- get_sim_features()[[1:3]]
 iconic_spp <- get_sim_features()[[4:5]]
 
-# set budget
-con_budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
+# define a total conservation budget (30\% of total cost)
+budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 
 # define individual problems
 p1 <-
   problem(con_cost, keystone_spp) \%>\%
-  add_min_shortfall_objective(con_budget) \%>\%
+  add_min_shortfall_objective(budget) \%>\%
   add_relative_targets(0.4) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver()
 p2 <-
   problem(con_cost, iconic_spp) \%>\%
-  add_min_shortfall_objective(con_budget) \%>\%
+  add_min_shortfall_objective(budget) \%>\%
   add_relative_targets(0.4) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver()
@@ -83,8 +109,8 @@ s1 <- solve(p1)
 s2 <- solve(p2)
 
 # plot
-plot(s1)
-plot(s2)
+plot(s1, main = "Keystone Species", axes = FALSE)
+plot(s2, main = "Iconic Species", axes = FALSE)
 
 # now create multi-objective problem
 mp1 <-
@@ -95,17 +121,13 @@ mp1 <-
 # solve problem
 ms1 <- solve(mp1)
 
-plot(ms1)
+plot(ms1, main = "Equal weights", axes = FALSE)
 
 # create multi-objective problem using input matrix
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
   add_weighted_sum_approach(
-    matrix(c( 
-      0.5, 0.5, # balanced
-      1.0, 0.0, # all in on keystone
-      0.0, 1.0 # all in on iconic
-    ), ncol = 2, byrow = TRUE),
+    matrix(runif(100), ncol = 2),
     verbose = TRUE
   ) \%>\%
   add_default_solver(verbose = FALSE)
@@ -113,33 +135,21 @@ mp2 <-
 # solve problem
 ms2 <- solve(mp2)
 
-# extract objective values and plot approximated pareto front (very few weight values)
+# extract objective values and plot approximated pareto front
 obj_mat <- attributes(ms2)$objective
-plot(obj_mat)
-
-# create multi-objective problem using input matrix
-mp3 <-
-  multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
-  add_weighted_sum_approach(
-    matrix(runif(50), ncol = 2),
-    verbose = TRUE
-  ) \%>\%
-  add_default_solver(verbose = FALSE)
-
-# solve problem
-ms3 <- solve(mp3)
-
-# extract objective values and plot approximated pareto front (more weight values)
-obj_mat <- attributes(ms3)$objective
-plot(obj_mat)
+plot(obj_mat, main = "Approximated pareto front", 
+xlab = "Keystone objective (shortfall)", 
+ylab = "Iconic objective (shortfall)")
 }
 
 }
 \references{
-TODO
+Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
+for ecological problems with an application to cackling goose management.
+\emph{Ecological Modelling}, \strong{343}: 54-67.
 }
 \seealso{
-See \link{approaches} for an overview of all functions for adding an approach.
+See \link{approaches} for
 
 Other approaches: 
 \code{\link{add_rel_constraint_approach}()}

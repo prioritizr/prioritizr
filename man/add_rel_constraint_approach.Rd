@@ -15,85 +15,121 @@ add_rel_constraint_approach(
 \arguments{
 \item{x}{\code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{priority}{numeric vector of the priority order of the supplied problems.
-Higher order priorities will be optimized first (e.g., for two problems (p1 and p2)
-with \code{priority} = c(2,1), p1 will be optimized for first and p second).
-When no priority is provided, the problems provided first will be assumed to have higher priority.}
+\item{priority}{\code{numeric} vector of the priority order of the supplied
+problems in \code{x}. Problems with higher order priorities will be optimized
+first. For example, if \code{x} has two \code{\link[=problem]{problem()}} objects and
+\code{priority = c(2,1)}, then the first problem will be optimized for firstly and the
+second problem secondly. if priority = NULL, then the prioirty order will
+correspond to the order of the problems in x.}
 
-\item{rel_tol}{\code{numeric} vector containing the relative tolerances for each
-objective. To generate multiple solutions based on different
-combinations of tolerances, \code{rel_tol} can be a \code{numeric} matrix where
-each row corresponds to a different solution and each column
-corresponds to a different objective.
-The length/number of columns should be one less than the number of objectives.}
+\item{rel_tol}{\code{numeric} vector or matrix containing the relative tolerances
+for each \code{\link[=problem]{problem()}} in \code{x}. If \code{rel_tol} is a vector, a single solution will be
+generated. If \code{rel_tol}is a matrix, then multiple solutions based on different
+combinations of tolerances will be generated where each row corresponds to a
+different solution and each column corresponds to a different problem. Each
+\code{rel_tol} value represents an optimality that is equivalent to the \code{gap}
+specified when adding a solver to the problem, for example
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. \code{rel_tol} is relative and expresses the acceptable
+deviance from the optimal objective of the previous problem. For example,
+a value of 0 means no deviation from the objective value of the previous
+problem is allowed. In turn, a value of 0.1 denotes that the objective value
+of the previous solution can degrade by a maximum of 10\%, for example by
+being 10\% more costly if the previous problem minimised cost.
+The length/number of columns should be one less than the number of problems
+in \code{x}.}
 
-\item{method}{\code{character} specifying the solving method.
-Options: \code{"gurobi"} (default) or \code{"manual"}.}
+\item{method}{\code{character} value specifying the solving method. Available options
+are: (\code{"gurobi"}) using the internal Gurobi methodology for solving
+multi-objective problems hierarchically (default) and (\code{"manual"}) using a
+manual methodology for any of the other solvers available in \code{prioritizr}.
+We recommend using \code{"gurobi"} if the \href{https://www.gurobi.com/}{\emph{Gurobi}}
+solver is available.}
 
-\item{verbose}{\code{logical} should progress on generating solutions
+\item{verbose}{\code{logical} value should progress on generating solutions
 be displayed? Defaults to \code{TRUE}.}
 }
 \value{
-A modified \code{multi_problem()} object with the hierarchical approach
-added. This function does not solve the problem; it only records the
-approach so that the problem can be compiled and solved later. After calling
-\code{\link[=solve]{solve()}}, the output will either be an individual solution or a list of
-solutions if a matrix was supplied for \code{rel_tol}.
+An updated \code{multi_problem()} object with the approach
+added to it.
 }
 \description{
-Add a relative constraint (hierarchical) multi-objective optimization approach to a
-conservation planning problem.
+Add a relative constraint (hierarchical) multi-objective optimization
+approach to a conservation planning problem.
 }
 \details{
-The relative constraint or hierarchical approach is a lexicographic multi-objective optimization method
-that solves objectives sequentially based on a pre-defined order of priority.
-In this method, the first objective is optimized, and the solutions
-obtained constrain subsequent objectives using the relative tolerances (or level of degradation) specified
+The relative constraint or hierarchical approach is a lexicographic
+multi-objective optimization approach that solves \code{\link[=problem]{problem()}} objects
+sequentially based on a pre-defined order of priority. In this approach, the
+first problem is solved, and the solution obtained constrain subsequent
+problems using the relative tolerances (or level of degradation) specified
 in \code{rel_tol}. This ensures that higher-priority objectives are satisfied
-before lower-priority objectives are considered. For example, if we have two objectives and a \code{rel_tol} of 0.1, then
-the first objective is solved, and the objective value of its solution (e.g., minimized cost), cannot
-degrade by more than 10\% (i.e., 10\% more costly) in the subsequent solution
-when the next objective is optimized and the first one is used as a constraint.
-
-Specifically, let \(y_1, y_2, \ldots, y_k\) denote the values of the
-objectives in the hierarchy. The hierarchical approach first optimizes \(y_1\),
-then optimizes \(y_2\) subject to
-
-\deqn{y_1 \le y_1^* (1 + \text{rel_tol}_1),}
-
-where \code{rel_tol_1} is the first element of \code{rel_tol}, and \(y_1^*\) is the optimal value of \(y_1\).
-This process is repeated sequentially for each subsequent objective,
-with each objective \(y_i\) being optimized subject to the constraints
-imposed by all higher-priority objectives \(y_1, \dots, y_{i-1}\)
-according to the corresponding relative tolerances \verb{rel_tol_1, \\dots, rel_tol_\{i-1\}}.
+before lower-priority objectives are considered.
 
 When \code{rel_tol} is a matrix, each row is interpreted as an independent
 hierarchical configuration. These will be solved sequentially when \code{solve()}.
 
-This approach is appropriate when there is a clear priority order among
+This approach is especially useful when there is a clear priority order among
 objectives, and when it is important that higher-priority objectives
-are not compromised while optimizing lower-priority objectives.
+are not compromised while optimizing lower-priority objectives.In general,
+we recommend using this approach because it can better approximate the
+Pareto Front than alternative approaches.
 }
+\section{Mathematical formulation}{
+
+
+Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be ordered
+according to a predefined hierarchy, with objective \eqn{1}{1} having the
+highest priority. Let \eqn{y_k}{yk} denote the value of objective \eqn{k}{k}.
+The hierarchical approach proceeds by optimizing objectives sequentially.
+
+First, the highest-priority objective \eqn{y_1}{y1} is optimized independently
+to identify an optimal objective value \eqn{y_1^*}{y1*}. Each subsequent objective
+\eqn{y_i}{yi} is then optimized subject to constraints that limit the
+degradation of all higher-priority objectives. Specifically, for objective
+\eqn{i}{i}, the optimization problem can be written as:
+
+\deqn{\mathit{Optimize} \space y_i \\
+\mathit{subject \space to} \\
+y_k \leq y_k^* (1 + \text{rel\_tol}_k) \quad \forall k < i}{
+Minimize yi subject to
+yk <= yk* (1 + rel_tolk) for all k < i}
+
+where \eqn{y_k^*}{yk*} denotes the optimal value of higher-priority objective
+\eqn{k}{k} obtained in previous optimization steps, and
+\eqn{\text{rel\_tol}_k}{rel_tolk} is the allowable relative tolerance for
+objective \eqn{k}{k}. This process is repeated sequentially for all objectives
+in the hierarchy. TODO: Note that if the objective is maximized, then >= to constraint.
+
+This formulation ensures that higher-priority objectives are achieved within
+user-defined tolerances of optimality, while lower-priority objectives are optimized as
+much as possible within those constraints.
+}
+
 \examples{
 \dontrun{
+# In this example we select a set of planning units under a conservation 
+# budget, aiming to meet representation targets for two species groups:
+# (1) keystone species (higher ecological priority) and
+# (2) iconic species (high social or cultural value).
+
 # import data
 con_cost <- get_sim_pu_raster()
 keystone_spp <- get_sim_features()[[1:3]]
 iconic_spp <- get_sim_features()[[4:5]]
 
-# set budget
-con_budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
+# define a total conservation budget (30\% of total cost)
+budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 
 # define individual problems
 p1 <-
   problem(con_cost, keystone_spp) \%>\%
-  add_min_shortfall_objective(con_budget) \%>\%
+  add_min_shortfall_objective(budget) \%>\%
   add_relative_targets(0.4) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver()
 p2 <-
   problem(con_cost, iconic_spp) \%>\%
-  add_min_shortfall_objective(con_budget) \%>\%
+  add_min_shortfall_objective(budget) \%>\%
   add_relative_targets(0.4) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver()
@@ -103,71 +139,57 @@ s1 <- solve(p1)
 s2 <- solve(p2)
 
 # plot
-plot(s1)
-plot(s2)
+plot(s1, main = "Keystone Species")
+plot(s2, main = "Iconic Species")
 
 # now create multi-objective problem
 mp1 <- multi_problem(
-  obj1 = problem(con_cost, keystone_spp) \%>\%
-    add_min_shortfall_objective(con_budget) \%>\%
+  keystone_obj = problem(con_cost, keystone_spp) \%>\%
+    add_min_shortfall_objective(budget) \%>\%
     add_relative_targets(0.4) \%>\%
     add_binary_decisions() \%>\%
     add_default_solver(),
-  obj2 = problem(con_cost, iconic_spp) \%>\%
-    add_min_shortfall_objective(con_budget) \%>\%
+  iconic_obj = problem(con_cost, iconic_spp) \%>\%
+    add_min_shortfall_objective(budget) \%>\%
     add_relative_targets(0.4) \%>\%
     add_binary_decisions() \%>\%
     add_default_solver()
 ) \%>\%
-  add_rel_constraint_approach(rel_tol = 0.1, verbose = FALSE) \%>\%
+  add_rel_constraint_approach(rel_tol = 0.01, verbose = FALSE) \%>\%
   add_gurobi_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 ms1 <- solve(mp1)
 
-plot(ms1)
-
-# create multi-objective problem using input matrix
-mp2 <- multi_problem(
-  obj1 = problem(con_cost, keystone_spp) \%>\%
-    add_min_shortfall_objective(con_budget) \%>\%
-    add_relative_targets(0.4) \%>\%
-    add_binary_decisions() \%>\%
-    add_default_solver(),
-  obj2 = problem(con_cost, iconic_spp) \%>\%
-    add_min_shortfall_objective(con_budget) \%>\%
-    add_relative_targets(0.4) \%>\%
-    add_binary_decisions() \%>\%
-    add_default_solver()
-) \%>\%
-  add_rel_constraint_approach(rel_tol = matrix(c(0.9, 0.1), nrow = 2, ncol = 1), verbose = FALSE) \%>\%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
-
-# solve problem
-ms2 <- solve(mp2)
-
-plot(c(ms2[[1]], ms2[[2]]), main = c("High degradation", "Low degradation"), axes = FALSE)
+plot(ms1, main = "Low degradation")
 
 # create multi-objective problem using input matrix
 rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
 
-mp3 <- multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
-  add_rel_constraint_approach(rel_tol, verbose = TRUE) \%>\%
+mp2 <- multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
+  add_rel_constraint_approach(rel_tol = rel_tol, verbose = TRUE) \%>\%
   add_default_solver(verbose = FALSE)
-ms3 <- solve(mp3)
+ms2 <- solve(mp2)
 
-# extract objective values and plot approximated pareto front (very few weight values)
-obj_mat <- attributes(ms5)$objective
-plot(obj_mat)
+# extract objective values and plot approximated pareto front 
+obj_mat <- attributes(ms2)$objective
+plot(obj_mat, main = "Approximated pareto front", 
+xlab = "Keystone objective (shortfall)", ylab = "Iconic objective (shortfall)")
 }
 
 }
 \references{
-TODO
+Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
+for ecological problems with an application to cackling goose management.
+\emph{Ecological Modelling}, \strong{343}: 54-67.
+
+Schuster R, Buxton R, Hanson JO, Binley AD, Pittman J, Tulloch V, La Sorte
+FA, Roehrdanz PR, Verburg PH, Rodewald AD, Wilson S, Possingham HP, and
+Bennett JR (2023) Protected area planning to conserve biodiversity in an
+uncertain future. \emph{Conservation Biology}, \strong{37}: e14048.
 }
 \seealso{
-See \link{approaches} for an overview of all functions for adding a multi-objective
-approach.
+See \link{approaches} for an overview of all functions for adding an approach.
 
 Other approaches: 
 \code{\link{add_weighted_sum_approach}()}

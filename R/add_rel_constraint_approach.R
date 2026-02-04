@@ -10,14 +10,14 @@ NULL
 #'
 #' @param priority `numeric` vector of the priority order of the supplied 
 #' problems in `x`. Problems with higher order priorities will be optimized 
-#' first. For example, if `x` has two [problem()] objects with specified 
-#' `priority = c(2,1)`, the first problem will be optimized for first and the 
-#' second problem second. When no priority is provided, the problems provided 
-#' first will be assumed to have higher priority.
-#'
+#' first. For example, if `x` has two [problem()] objects and
+#' `priority = c(2,1)`, then the first problem will be optimized for firstly and the 
+#' second problem secondly. if priority = NULL, then the prioirty order will 
+#' correspond to the order of the problems in x. 
+#' 
 #' @param rel_tol `numeric` vector or matrix containing the relative tolerances 
-#' for each [problem()] in `x`. If `x` is a vector, a single solution will be 
-#' generated. If `x`is a matrix, then multiple solutions based on different
+#' for each [problem()] in `x`. If `rel_tol` is a vector, a single solution will be 
+#' generated. If `rel_tol`is a matrix, then multiple solutions based on different
 #' combinations of tolerances will be generated where each row corresponds to a 
 #' different solution and each column corresponds to a different problem. Each 
 #' `rel_tol` value represents an optimality that is equivalent to the `gap` 
@@ -31,14 +31,14 @@ NULL
 #' The length/number of columns should be one less than the number of problems 
 #' in `x`.
 #'
-#' @param method `character` specifying the solving method. Available options 
+#' @param method `character` value specifying the solving method. Available options 
 #' are: (`"gurobi"`) using the internal Gurobi methodology for solving 
 #' multi-objective problems hierarchically (default) and (`"manual"`) using a
 #' manual methodology for any of the other solvers available in `prioritizr`.
 #' We recommend using `"gurobi"` if the [*Gurobi*](https://www.gurobi.com/) 
 #' solver is available.
 #'
-#' @param verbose `logical` should progress on generating solutions
+#' @param verbose `logical` value should progress on generating solutions
 #' be displayed? Defaults to `TRUE`.
 #'
 #' @details
@@ -53,7 +53,7 @@ NULL
 #' When `rel_tol` is a matrix, each row is interpreted as an independent
 #' hierarchical configuration. These will be solved sequentially when `solve()`.
 #'
-#' This approach is appropriate when there is a clear priority order among
+#' This approach is especially useful when there is a clear priority order among
 #' objectives, and when it is important that higher-priority objectives
 #' are not compromised while optimizing lower-priority objectives.In general, 
 #' we recommend using this approach because it can better approximate the 
@@ -67,7 +67,7 @@ NULL
 #' The hierarchical approach proceeds by optimizing objectives sequentially.
 #'
 #' First, the highest-priority objective \eqn{y_1}{y1} is optimized independently
-#' to obtain an optimal value \eqn{y_1^*}{y1*}. Each subsequent objective
+#' to identify an optimal objective value \eqn{y_1^*}{y1*}. Each subsequent objective
 #' \eqn{y_i}{yi} is then optimized subject to constraints that limit the
 #' degradation of all higher-priority objectives. Specifically, for objective
 #' \eqn{i}{i}, the optimization problem can be written as:
@@ -75,26 +75,25 @@ NULL
 #' \deqn{\mathit{Optimize} \space y_i \\
 #' \mathit{subject \space to} \\
 #' y_k \leq y_k^* (1 + \text{rel\_tol}_k) \quad \forall k < i}{
-#' Optimize yi subject to
+#' Minimize yi subject to
 #' yk <= yk* (1 + rel_tolk) for all k < i}
 #'
 #' where \eqn{y_k^*}{yk*} denotes the optimal value of higher-priority objective
 #' \eqn{k}{k} obtained in previous optimization steps, and
 #' \eqn{\text{rel\_tol}_k}{rel_tolk} is the allowable relative tolerance for
 #' objective \eqn{k}{k}. This process is repeated sequentially for all objectives
-#' in the hierarchy.
+#' in the hierarchy. TODO: Note that if the objective is maximized, then >= to constraint. 
 #'
-#' This formulation ensures that higher-priority objectives are preserved within
-#' user-defined tolerances, while lower-priority objectives are optimized as
+#' This formulation ensures that higher-priority objectives are achieved within
+#' user-defined tolerances of optimality, while lower-priority objectives are optimized as
 #' much as possible within those constraints.
 #'
-#' @return
-#' A modified `multi_problem()` object with the relative constraint approach
-#' added. 
+#' @return 
+#' An updated `multi_problem()` object with the approach
+#' added to it. 
 #'
-#' @seealso
-#' See [approaches] for an overview of all functions for adding a 
-#' multi-objective approach.
+#' @seealso 
+#' See [approaches] for an overview of all functions for adding an approach.
 #'
 #' @references
 #' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 

@@ -6,16 +6,14 @@ NULL
 #' Add a weighted sum approach for multi-objective optimization to a
 #' conservation planning problem.
 #'
-#' @param x [multi_problem()] object.
-#'
+#' @inheritParams add_rel_constraint_approach
+#' 
 #' @param weights `numeric` vector or matrix containing the weights for each 
 #' [problem()] in `x`. If `x` is a vector, a single solution will be 
-#' generated. If `x`is a matrix, then multiple solutions based on different
-#' combinations of weights will be generated where each row corresponds to a 
-#' different solution and each column corresponds to a different problem.
-#'
-#' @param verbose `logical` should progress on generating solutions
-#' displayed? Defaults to `TRUE`.
+#' generated using [solve()]. If `x`is a matrix, then multiple solutions based 
+#' on different combinations of weights will be generated where each row 
+#' corresponds to a different solution and each column corresponds to a 
+#' different problem in `x`.
 #'
 #' @details
 #' The weighted sum approach is an approach for solving 
@@ -31,21 +29,25 @@ NULL
 #' When `weights` is a matrix, each row is interpreted as an independent
 #' weighting scheme and columns are the individual objectives. The approach 
 #' stores a separate solution for each resulting weighted-sum problem. 
-#' These will be solved sequentially when `solve()`.
+#' These will be solved sequentially when [solve()].
 #' 
-#' This approach is suitable when objectives can be meaningfully combined
-#' after weighting, and when there is no clear priority that needs to be 
-#' defined with [add_rel_constraint_approach()].
+#' In practice, however, choosing and justifying weights is often difficult. 
+#' Small changes in weights can largely affect solutions, and weights can 
+#' unintentionally mix preference strength with differences in objective scale. 
+#' This can make it unclear which objectives are being traded off and typically 
+#' requires substantial calibration to arrive at outcomes that are easy to 
+#' justify. Additionally,it assumes that objectives can be combined linearly.
 #' 
 #' @section Mathematical formulation:
 #' 
 #' Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be defined for a
 #' multi-objective optimization problem, and let \eqn{y_k}{yk} denote the value
-#' of objective \eqn{k}{k}. If the user supplies a weight vector
+#' of objective \eqn{k}{k}. Also, let   TODO  a weight vector
 #' \eqn{w = (w_1, \ldots, w_K)}{w = (w1, ..., wK)}, the weighted-sum approach
 #' combines all objectives into a single scalar objective function.
 #'
-#' Specifically, the transformed optimization problem can be written as:
+#' Specifically, the multi-objective optimization problem is formulated as the 
+#' following:
 #'
 #' \deqn{\mathit{Minimize} \space \sum_{k = 1}^{K} w_k \times y_k}{
 #' Minimize sum_k^K wk * yk}
@@ -59,12 +61,11 @@ NULL
 #' explicitly through the choice of weights, with all objectives optimized
 #' simultaneously within a single optimization problem.
 #'
-#' @return
-#' A modified `multi_problem()` object with the weighted-sum approach
-#' added. 
+#' @inherit add_rel_constraint_approach return
 #'
+#' @inherit add_rel_constraint_approach seealso
 #' @seealso
-#' See [approaches] for an overview of all functions for adding an approach.
+#' See [approaches] for
 #' 
 #' @references
 #' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
@@ -107,8 +108,8 @@ NULL
 #' s2 <- solve(p2)
 #' 
 #' # plot
-#' plot(s1, main = "Keystone Species")
-#' plot(s2, main = "Iconic Species")
+#' plot(s1, main = "Keystone Species", axes = FALSE)
+#' plot(s2, main = "Iconic Species", axes = FALSE)
 #' 
 #' # now create multi-objective problem
 #' mp1 <-
@@ -119,7 +120,7 @@ NULL
 #' # solve problem
 #' ms1 <- solve(mp1)
 #' 
-#' plot(ms1, main = "Equal weights")
+#' plot(ms1, main = "Equal weights", axes = FALSE)
 #' 
 #' # create multi-objective problem using input matrix
 #' mp2 <-

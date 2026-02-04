@@ -41,7 +41,9 @@ NULL
 #'
 #' @section Output format:
 #' This function will output solutions in a similar format to the
-#' planning units associated with `a`. Specifically, it will return
+#' planning units associated with `a`. Note that if multiple solutions are 
+#' generated,e.g., using a multi-objective approach
+#' these solutions will be returned as a list object. Specifically, 
 #' solutions based on the following types of planning units. 
 #'
 #'   \describe{

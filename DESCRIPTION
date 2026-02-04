@@ -187,6 +187,7 @@ Collate:
     'calibrate_cohon_penalty.R'
     'connectivity_matrix.R'
     'constraints.R'
+    'create_objective_weights.R'
     'data.R'
     'decisions.R'
     'deprecated.R'
