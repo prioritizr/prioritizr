@@ -16,7 +16,7 @@ on different combinations of weights will be generated where each row
 corresponds to a different solution and each column corresponds to a
 different problem in \code{x}.}
 
-\item{verbose}{\code{logical} value should progress on generating solutions
+\item{verbose}{\code{logical} value. Should progress on generating solutions
 be displayed? Defaults to \code{TRUE}.}
 }
 \value{
@@ -153,8 +153,6 @@ for ecological problems with an application to cackling goose management.
 }
 \seealso{
 See \code{\link[=create_objective_weights]{create_objective_weights()}} for creating a weights matrix.
-
-Other approaches: \code{\link[=add_rel_constraint_approach]{add_rel_constraint_approach()}}
 
 Other approaches: 
 \code{\link{add_rel_constraint_approach}()}

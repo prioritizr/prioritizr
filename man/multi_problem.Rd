@@ -31,7 +31,7 @@ independently using \code{\link[=problem]{problem()}}, achieving them jointly re
 for multi-objective optimization.
 
 The \code{multi_problem()} function provides this framework by creating an
-object that strategically combines a collection of single-objective conservation planning
+object that strategically combines a collection of single-objective
 problems. Each sub-problem contains its own planning units, features,
 costs, targets, constraints, and penalties, exactly as if it were solved
 independently.

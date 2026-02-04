@@ -42,9 +42,9 @@ NULL
 #' @section Output format:
 #' This function will output solutions in a similar format to the
 #' planning units associated with `a`. Note that if multiple solutions are 
-#' generated,e.g., using a multi-objective approach
-#' these solutions will be returned as a list object. Specifically, 
-#' solutions based on the following types of planning units. 
+#' generated (e.g., using a multi-objective approach), the results will be 
+#' returned as a list. Specifically, each element of the list corresponds
+#' to a solution based on the following types of planning units. 
 #'
 #'   \describe{
 #'
@@ -84,10 +84,6 @@ NULL
 #'     of the management zone (e.g., `"solution_1_zone1"`).}
 #'
 #'   }
-#'   
-#'  Note that if `a`was a [multi_problem()], the output will be a list. The 
-#'  individual list items are output solutions that are in a similar format to 
-#'  the planning units of the problems in [multi-problem()].
 #'
 #' @return
 #' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or

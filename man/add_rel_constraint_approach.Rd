@@ -45,7 +45,7 @@ manual methodology for any of the other solvers available in \code{prioritizr}.
 We recommend using \code{"gurobi"} if the \href{https://www.gurobi.com/}{\emph{Gurobi}}
 solver is available.}
 
-\item{verbose}{\code{logical} value should progress on generating solutions
+\item{verbose}{\code{logical} value. Should progress on generating solutions
 be displayed? Defaults to \code{TRUE}.}
 }
 \value{
@@ -180,7 +180,8 @@ ms2 <- solve(mp2)
 obj_mat <- attributes(ms2)$objective
 plot(obj_mat,
   main = "Approximated pareto front",
-  xlab = "Keystone objective (shortfall)", ylab = "Iconic objective (shortfall)"
+  xlab = "Keystone objective (shortfall)", 
+  ylab = "Iconic objective (shortfall)"
 )
 }
 

@@ -104,9 +104,9 @@ to see if these potential issues are actually causing issues
 
 This function will output solutions in a similar format to the
 planning units associated with \code{a}. Note that if multiple solutions are
-generated,e.g., using a multi-objective approach
-these solutions will be returned as a list object. Specifically,
-solutions based on the following types of planning units.
+generated (e.g., using a multi-objective approach), the results will be
+returned as a list. Specifically, each element of the list corresponds
+to a solution based on the following types of planning units.
 
 \describe{
 
@@ -146,10 +146,6 @@ containing solutions will be named as \code{"solution_XXX_YYY"} where
 of the management zone (e.g., \code{"solution_1_zone1"}).}
 
 }
-
-Note that if \code{a}was a \code{\link[=multi_problem]{multi_problem()}}, the output will be a list. The
-individual list items are output solutions that are in a similar format to
-the planning units of the problems in \code{\link[=multi-problem]{multi-problem()}}.
 }
 
 \examples{
