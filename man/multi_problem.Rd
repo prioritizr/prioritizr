@@ -76,7 +76,7 @@ plot(ms1, main = "Low degradation")
 \references{
 Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
 for ecological problems with an application to cackling goose management.
-Ecological Modelling, 343: 54-67
+\emph{Ecological Modelling}, \strong{343}: 54-67.
 }
 \seealso{
 See \code{\link[=problem]{problem()}} for constructing single-objective problems.

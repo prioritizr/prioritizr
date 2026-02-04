@@ -37,9 +37,9 @@ NULL
 #' Finally, see [solve()] for details on generating solutions.
 #'
 #' @references
-#' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization 
+#' Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
 #' for ecological problems with an application to cackling goose management.
-#' Ecological Modelling, 343: 54-67
+#' _Ecological Modelling_, **343**: 54-67.
 #'
 #' @examples
 #' \dontrun{

@@ -64,6 +64,7 @@ reference:
     desc: Functions for creating new problems and solving them.
     contents:
       - problem
+      - multi_problem
       - solve
       - zones
 
@@ -77,6 +78,12 @@ reference:
     contents:
       - objectives
       - has_concept("objectives")
+      
+  - title: Multi-objective approaches
+    desc: Functions for adding a multi-objective optimization approach.
+    contents:
+      - approaches
+      - had_concept("approaches")
 
   - title: Targets
     desc: Functions for adding targets to a problem.
@@ -201,6 +208,7 @@ reference:
       - knit_print
       - as_km2
       - as_per_km2
+      - create_objective_weights
 
   - title: Deprecated functions
     desc: Documentation for functions that are no longer available.
