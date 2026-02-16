@@ -1,19 +1,21 @@
-test_that("gurobi solver information (single solution)", {
+test_that("format (gurobi solver, single solution)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_not_installed("gurobi")
-  #skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  rel_tol <- runif(1)
+  rel_tol <- c(0.1, 0)
   # create multi-object problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
@@ -43,23 +45,24 @@ test_that("gurobi solver information (single solution)", {
   expect_named(attr(s, "gap"), "solution_1")
 })
 
-
-test_that("gurobi solver information (multiple solutions)", {
+test_that("format (gurobi solver, multiple solutions)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_not_installed("gurobi")
- # skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  rel_tol <- matrix(runif(5), ncol = 1)
+  rel_tol <- matrix(c(0.1, 0.2, 0.3, 0.4, 0.45, rep(0, 5)), ncol = 2)
   # create multi-object problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
@@ -90,27 +93,29 @@ test_that("gurobi solver information (multiple solutions)", {
   expect_named(attr(s, "gap"), names(s))
 })
 
-test_that("other solver information (single solution)", {
+test_that("format (generic solver, single solution)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_not_installed("highs")
- # skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  weights <- runif(2)
+  rel_tol <- c(0.1, 0)
   # create multi-object problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
     add_highs_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -135,28 +140,30 @@ test_that("other solver information (single solution)", {
   expect_named(attr(s, "gap"), "solution_1")
 })
 
-test_that("other solver information (multiple solutions)", {
+test_that("format (generic solver, multiple solutions)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_not_installed("highs")
-  #skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  weights <- matrix(runif(10), ncol = 2)
+  rel_tol <- matrix(c(0.1, 0.2, 0.3, 0.4, 0.45, rep(0, 5)), ncol = 2)
   # create multi-object problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
-    add_highs_solver(gap = 0, verbose = FALSE)
+    add_rel_constraint_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # run tests
@@ -181,135 +188,97 @@ test_that("other solver information (multiple solutions)", {
   expect_named(attr(s, "gap"), names(s))
 })
 
-test_that("relative constraint tolerance controls objective trade-off (gurobi)", {
+test_that("expected trade-off behavior (gurobi solver)", {
   skip_on_cran()
-  skip_if_not_installed("highs")
-  
+  skip_if_not_installed("fields")
+  skip_if_not_installed("gurobi")
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  
-  b1 <- 0.2 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
-  # use exactly one feature per objective
+  # prepare data
+  b <- 0.2 * terra::global(sim_zones_pu_raster[[1]], "sum", na.rm = TRUE)[[1]]
   f1 <- sim_features[[1]]
   f2 <- sim_features[[2]]
-  
+  rel_tol <- matrix(c(0, 0.99, 0.01, 0), byrow = TRUE, nrow = 2)
+  priority <- matrix(c(1, 2, 2, 1), byrow = TRUE, nrow = 2)
+  # build problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
-        add_max_utility_objective(budget = b1) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], f1) %>%
+        add_max_utility_objective(budget = b) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
-        add_max_utility_objective(budget = b1) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[1]], f2) %>%
+        add_max_utility_objective(budget = b) %>%
         add_binary_decisions()
     ) %>%
-    add_rel_constraint_approach(rel_tol = matrix(c(0.01, 0.99), ncol = 1),
-                                verbose = FALSE) %>%
-    add_gurobi_solver(gap = 0, verbose = FALSE) #TODO with gurobi I get negative objective values
-  
+    add_rel_constraint_approach(
+      rel_tol = rel_tol, priority = priority, verbose = FALSE
+    ) %>%
+    add_gurobi_solver(gap = 0, verbose = FALSE)
+  # solve problem
   s <- solve(p, run_checks = FALSE)
-  
-  # low tolerance: protect obj1 strongly
+  # extract solution statistics
+  ## low tolerance: protect obj1 strongly
   obj_low <- attr(s, "objective")["solution_1", , drop = FALSE]
-  
-  # high tolerance: allow degradation of obj1 to improve obj2
+  ## high tolerance: allow degradation of obj1 to improve obj2
   obj_high <- attr(s, "objective")["solution_2", , drop = FALSE]
-  
-  # high tolerance should improve objective 2
+  # run tests
+  ## high tolerance should improve objective 2
   expect_gt(abs(obj_high[1, "obj2"]), abs(obj_low[1, "obj2"]))
-  
-  # improvement in obj2 should come at a cost to obj1
+  ## improvement in obj2 should come at a cost to obj1
   expect_lt(abs(obj_high[1, "obj1"]), abs(obj_low[1, "obj1"]))
 })
 
-test_that("relative constraint tolerance controls objective trade-off (max utility)", {
+test_that("expected trade-off behavior (generic solver, verbose = TRUE)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_not_installed("highs")
-  
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  
-  b1 <- 0.8 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
-  # use exactly one feature per objective
+  # prepare data
+  b <- 0.2 * terra::global(sim_zones_pu_raster[[1]], "sum", na.rm = TRUE)[[1]]
   f1 <- sim_features[[1]]
   f2 <- sim_features[[2]]
-  
+  rel_tol <- matrix(c(0, 0.99, 0.01, 0), byrow = TRUE, nrow = 2)
+  priority <- matrix(c(1, 2, 2, 1), byrow = TRUE, nrow = 2)
+  # build problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
-        add_max_utility_objective(budget = b1) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], f1) %>%
+        add_max_utility_objective(budget = b) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
-        add_max_utility_objective(budget = b1) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[1]], f2) %>%
+        add_max_utility_objective(budget = b) %>%
         add_binary_decisions()
     ) %>%
-    add_rel_constraint_approach(rel_tol = matrix(c(0.01, 0.99), ncol = 1),
-                                verbose = FALSE) %>%
-    add_gurobi_solver(gap = 0, verbose = FALSE) #TODO with gurobi I get negative objective values
-  
-  s <- solve(p, run_checks = FALSE)
-  
-  # low tolerance: protect obj1 strongly
-  obj_low <- attr(s, "objective")["solution_1", , drop = FALSE]
-  
-  # high tolerance: allow degradation of obj1 to improve obj2
-  obj_high <- attr(s, "objective")["solution_2", , drop = FALSE]
-  
-  # high tolerance should improve objective 2
-  expect_gt(obj_high[1, "obj2"], obj_low[1, "obj2"])
-  
-  # improvement in obj2 should come at a cost to obj1
-  expect_lt(obj_high[1, "obj1"], obj_low[1, "obj1"])
-})
-
-
-test_that("relative constraint tolerance controls objective trade-off (other solvers)", {
-  skip_on_cran()
-  skip_if_not_installed("highs")
-  
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_features <- get_sim_features()
-  
-  b1 <- 0.2 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
-  # use exactly one feature per objective
-  f1 <- sim_features[[1]]
-  f2 <- sim_features[[2]]
-  
-  p <-
-    multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
-        add_max_utility_objective(budget = b1) %>%
-        add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
-        add_max_utility_objective(budget = b1) %>%
-        add_binary_decisions()
+    add_rel_constraint_approach(
+      rel_tol = rel_tol, priority = priority, verbose = TRUE
     ) %>%
-    add_rel_constraint_approach(rel_tol = matrix(c(0.01, 0.99), ncol = 1),
-                                verbose = FALSE) %>%
     add_highs_solver(gap = 0, verbose = FALSE)
-  
+  # solve problem
   s <- solve(p, run_checks = FALSE)
-  
-  # low tolerance: protect obj1 strongly
+  # extract solution statistics
+  ## low tolerance: protect obj1 strongly
   obj_low <- attr(s, "objective")["solution_1", , drop = FALSE]
-  
-  # high tolerance: allow degradation of obj1 to improve obj2
+  ## high tolerance: allow degradation of obj1 to improve obj2
   obj_high <- attr(s, "objective")["solution_2", , drop = FALSE]
-  
-  # high tolerance should improve objective 2
-  expect_gt(obj_high[1, "obj2"], obj_low[1, "obj2"])
-  
-  # improvement in obj2 should come at a cost to obj1
-  expect_lt(obj_high[1, "obj1"], obj_low[1, "obj1"])
+  # run tests
+  ## high tolerance should improve objective 2
+  expect_gt(abs(obj_high[1, "obj2"]), abs(obj_low[1, "obj2"]))
+  ## improvement in obj2 should come at a cost to obj1
+  expect_lt(abs(obj_high[1, "obj1"]), abs(obj_low[1, "obj1"]))
 })
 
 test_that("invalid inputs", {
+  skip_if_not_installed("fields")
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  rel_tol <- matrix(runif(5), ncol = 1)
   # create multi-object problem
   p <-
     multi_problem(
@@ -323,12 +292,71 @@ test_that("invalid inputs", {
         add_binary_decisions()
     )
   # run tests
+  ## rel_tol
   expect_tidy_error(
     add_rel_constraint_approach(p, rel_tol = "a"),
     "numeric"
   )
   expect_tidy_error(
-    add_rel_constraint_approach(p, rel_tol = c(0.2, 0.3)),
-    "length"
+    add_rel_constraint_approach(p, rel_tol = c(0.1, NA)),
+    "missing"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(p, rel_tol = c(0.2, 0.3, 0.9)),
+    "value for each problem"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = matrix(c(0.2, 0.3, 0.9), nrow = 1)
+    ),
+    "column for each problem"
+  )
+  ## priority
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = c(0.1, 0), priority = "a"
+    ),
+    "numeric"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = c(0.1, 0), priority = c(0.1, NA)
+    ),
+    "missing"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = c(0.1, 0), priority = c(0.2, 0.3, 0.9)
+    ),
+    "value for each problem"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = matrix(c(0.1, 0), nrow = 1),
+      priority = matrix(c(0.2, 0.3, 0.9), nrow = 1)
+    ),
+    "column for each problem"
+  )
+  ## cross checks between priority and rel_tol
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = matrix(c(0.1, 0), nrow = 1),
+      priority = matrix(c(0.2, 0.3), ncol = 2, nrow = 2)
+    ),
+    "same number of rows"
+  )
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = c(0.1, 0),
+      priority = matrix(c(0.2, 0.3), nrow = 1)
+    ),
+    "both have the same class"
+  )
+  ## verbose
+  expect_tidy_error(
+    add_rel_constraint_approach(
+      p, rel_tol = c(0.1, 0), verbose = NA_character_
+    ),
+    "logical"
   )
 })
