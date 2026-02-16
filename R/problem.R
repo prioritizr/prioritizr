@@ -10,7 +10,8 @@ NULL
 #' constructing this object, it can be
 #' customized to meet specific goals using [objectives],
 #' [targets], [constraints], and
-#' [penalties]. After building the problem, the
+#' [penalties]. Additionally, [solvers] can be added to customize the
+#' optimization software and settings. After building the problem, the
 #' [solve()] function can be used to identify solutions.
 #'
 #' @param x [terra::rast()], [sf::st_sf()], `data.frame`, `matrix`, or
