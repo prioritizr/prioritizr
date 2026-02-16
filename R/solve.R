@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R presolve_check.R assertions_problem.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R presolve_check.R assertions_pass_presolve_check.R
 NULL
 
 #' Solve
@@ -41,10 +41,10 @@ NULL
 #'
 #' @section Output format:
 #' This function will output solutions in a similar format to the
-#' planning units associated with `a`. Note that if multiple solutions are 
-#' generated (e.g., using a multi-objective approach), the results will be 
-#' returned as a list. Specifically, each element of the list corresponds
-#' to a solution based on the following types of planning units. 
+#' planning units associated with `a`. Note that if multiple solutions are
+#' generated (e.g., using a multi-objective approach), the solutions will be
+#' returned as a `list` object. Specifically, each element of the list
+#' corresponds to a solution based on the following types of planning units.
 #'
 #'   \describe{
 #'
@@ -85,11 +85,8 @@ NULL
 #'
 #'   }
 #'
-#' @return
-#' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
-#' [terra::rast()] object containing the solution to the problem.
-#' Additionally, the returned object has attributes that describe
-#' optimization process or solution (see below  for examples on accessing
+#' The output solutions have attributes that describe
+#' optimization process or solution (see below for examples on accessing
 #' these attributes). These attributes provide the following information.
 #' \describe{
 #' \item{\code{objective}}{
@@ -137,12 +134,19 @@ NULL
 #' }
 #' }
 #'
+#' @return
+#' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
+#' [terra::rast()], or `list` object containing the solution(s) to the problem.
+#' Although solutions will generally be returned in the same format
+#' as the planning units in `a`, these solutions may be returned in a `list`
+#' object if multiple solutions are produced during the optimization process
+#' (see Output format section for further details).
+#'
 #' @seealso
-#' See [problem()] to create conservation planning problems, and
-#' [presolve_check()] to check problems for potential issues.
-#' Also, see the [category_layer()] and [category_vector()] function to
-#' reformat solutions that contain multiple zones. See [multi_problem()] to 
-#' create multi-objective conservation planning problems.
+#' See [problem()] and [multi_problem()] to create conservation planning
+#' problems. Also, see [presolve_check()] to check problems for potential
+#' issues prior to solving a problem, and [category_layer()] and
+#' [category_vector()] to reformat solutions that contain multiple zones.
 #'
 #' @examples
 #' \dontrun{
