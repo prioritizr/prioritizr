@@ -300,3 +300,53 @@ assertthat::on_failure(has_single_zone) <- function(call, env) {
     )
   )
 }
+
+#' All conservation planning problems comparable?
+#'
+#' @param x set of [problem()] objects.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+all_comparable_problem <- function(...) {
+  x <- list(...)
+  assert(
+    is.list(x),
+    all_elements_inherit(x, "ConservationProblem"),
+    .internal = TRUE
+  )
+  isTRUE(
+    all(vapply(
+      lapply(x, number_of_zones), identical,
+      logical(1), x[[1]]$number_of_zones()
+    )) &&
+    all(vapply(
+      lapply(x, zone_names), identical,
+      logical(1), x[[1]]$zone_names()
+    )) &&
+    all(vapply(
+      lapply(x, number_of_planning_units), identical,
+      logical(1), x[[1]]$number_of_planning_units()
+    )) &&
+    all(vapply(
+      lapply(x, number_of_total_units), identical,
+      logical(1), x[[1]]$number_of_total_units()
+    )) &&
+    all(vapply(
+      lapply(x, function(z) z$planning_unit_class()), identical,
+      logical(1), x[[1]]$planning_unit_class()
+    )) &&
+    all(vapply(
+      lapply(x, function(z) z$planning_unit_indices()), identical,
+      logical(1), x[[1]]$planning_unit_indices()
+    )) &&
+    all(vapply(
+      lapply(x, function(z) z$decisions$name), identical,
+      logical(1), x[[1]]$decisions$name
+    ))
+  )
+}
+
+assertthat::on_failure(all_comparable_problem) <- function(call, env) {
+  "TODO"
+}
