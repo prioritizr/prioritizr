@@ -2,9 +2,15 @@
 % Please edit documentation in R/multi_compile.R
 \name{multi_compile}
 \alias{multi_compile}
+\alias{multi_compile.MultiObjConservationProblem}
+\alias{multi_compile.list}
 \title{Compile a multi-objective optimization problem}
 \usage{
 multi_compile(x, ...)
+
+\method{multi_compile}{MultiObjConservationProblem}(x, ...)
+
+\method{multi_compile}{list}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=multi_problem]{multi_problem()}} or \code{list} of \code{\linkS4class{OptimizationProblem}}
@@ -28,7 +34,36 @@ Compile multiple \code{\linkS4class{OptimizationProblem}} objects for
 multi-objective optimization.
 }
 \examples{
-# TODO
+\dontrun{
+# import data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# define a total conservation budget (30\% of total cost)
+budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.3
+
+# create multi-objective conservation planning problem
+mp <-
+  multi_problem(
+    keystone_obj =
+      problem(sim_pu_raster, sim_features[[1:3]]) \%>\%
+      add_min_shortfall_objective(budget) \%>\%
+      add_relative_targets(0.4) \%>\%
+      add_binary_decisions(),
+    iconic_obj =
+      problem(sim_pu_raster, sim_features[[4:5]]) \%>\%
+      add_min_shortfall_objective(budget) \%>\%
+      add_relative_targets(0.45) \%>\%
+      add_binary_decisions()
+  ) \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# compile into multi-objective optimization problem
+mo <- multi_compile(mp)
+
+# print multi-objective optimization problem
+print(mo)
+}
 }
 \seealso{
 See \code{\link[=compile]{compile()}} to create an \code{\linkS4class{OptimizationProblem}} object.

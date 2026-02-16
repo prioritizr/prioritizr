@@ -120,11 +120,11 @@ solving each problem separately.</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>See <a href="portfolios.html">portfolios</a> for an overview of all functions for adding a portfolio.</p>
 <p>Other functions for adding portfolios:
-<code><a href="add_cuts_portfolio.html">add_cuts_portfolio</a>()</code>,
-<code><a href="add_default_portfolio.html">add_default_portfolio</a>()</code>,
-<code><a href="add_extra_portfolio.html">add_extra_portfolio</a>()</code>,
-<code><a href="add_gap_portfolio.html">add_gap_portfolio</a>()</code>,
-<code><a href="add_top_portfolio.html">add_top_portfolio</a>()</code></p></div>
+<code><a href="add_cuts_portfolio.html">add_cuts_portfolio()</a></code>,
+<code><a href="add_default_portfolio.html">add_default_portfolio()</a></code>,
+<code><a href="add_extra_portfolio.html">add_extra_portfolio()</a></code>,
+<code><a href="add_gap_portfolio.html">add_gap_portfolio()</a></code>,
+<code><a href="add_top_portfolio.html">add_top_portfolio()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -149,17 +149,20 @@ solving each problem separately.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem and generate 10 solutions within 20% of optimality</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Timing stopped at: 0.002 0 0.012</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert portfolio into a multi-layer raster</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'rast': object 's1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print number of solutions found</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'nlyr': object 's1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions in portfolio</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_shuffle_portfolio-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 's1' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># build multi-zone conservation problem with shuffle portfolio</span></span></span>
 <span class="r-in"><span><span class="va">p2</span> <span class="op">&lt;-</span></span></span>
@@ -172,17 +175,20 @@ solving each problem separately.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve the problem</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Timing stopped at: 0.004 0 0.013</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert each solution in the portfolio into a single category layer</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">category_layer</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'rast': object 's2' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># print number of solutions found</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/dimensions.html" class="external-link">nlyr</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'nlyr': object 's2' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solutions in portfolio</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="add_shuffle_portfolio-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 's2' not found</span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -191,11 +197,11 @@ solving each problem separately.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Sandra Neubuert, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

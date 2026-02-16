@@ -28,9 +28,83 @@ the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame}, \code{\link[sf:sf]{sf::st_sf()}}, or
-\code{\link[terra:rast]{terra::rast()}} object containing the solution to the problem.
-Additionally, the returned object has attributes that describe
-optimization process or solution (see below  for examples on accessing
+\code{\link[terra:rast]{terra::rast()}}, or \code{list} object containing the solution(s) to the problem.
+Although solutions will generally be returned in the same format
+as the planning units in \code{a}, these solutions may be returned in a \code{list}
+object if multiple solutions are produced during the optimization process
+(see Output format section for further details).
+}
+\description{
+Solve a conservation planning problem.
+}
+\details{
+After formulating a conservation planning \code{\link[=problem]{problem()}},
+it can be solved using an exact algorithm solver (see \link{solvers}
+for available solvers). If no solver has been explicitly specified,
+then the best available exact algorithm solver will be used by default
+(see \code{\link[=add_default_solver]{add_default_solver()}}). Although these exact algorithm
+solvers will often display a lot of information that isn't really that
+helpful (e.g., nodes, cutting planes), they do display information
+about the progress they are making on solving the problem (e.g., the
+performance of the best solution found at a given point in time). If
+potential issues were detected during the
+presolve checks (see \code{\link[=presolve_check]{presolve_check()}})
+and the problem is being forcibly solved (i.e., with \code{force = TRUE}),
+then it is also worth checking for any warnings displayed by the solver
+to see if these potential issues are actually causing issues
+(e.g., \emph{Gurobi} can display warnings that include
+\code{"Warning: Model contains large matrix coefficient range"} and
+\code{"Warning: Model contains large rhs"}).
+}
+\section{Output format}{
+
+This function will output solutions in a similar format to the
+planning units associated with \code{a}. Note that if multiple solutions are
+generated (e.g., using a multi-objective approach), the solutions will be
+returned as a \code{list} object. Specifically, each element of the list
+corresponds to a solution based on the following types of planning units.
+
+\describe{
+
+\item{\code{a} has \code{numeric} planning units}{The solution will be
+returned as a \code{numeric} vector. Here, each element in the vector
+corresponds to a different planning unit.
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of such \code{numeric} vectors will be returned.}
+
+\item{\code{a} has \code{matrix} planning units}{The solution will be
+returned as a \code{matrix} object.
+Here, rows correspond to different planning units,
+and columns correspond to different  management zones.
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of such \code{matrix} objects will be returned.}
+
+\item{\code{a} has \code{\link[terra:rast]{terra::rast()}} planning units}{The solution
+will be returned as a \code{\link[terra:rast]{terra::rast()}} object.
+If the argument to \code{x} contains multiple zones, then the object
+will have a different layer for each management zone.
+Note that if a portfolio is used to generate multiple solutions,
+then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be returned.}
+
+\item{\code{a} has \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} planning units}{
+The solution will be returned in the same data format as the planning
+units.
+Here, each row corresponds to a different planning unit,
+and columns contain solutions.
+If the argument to \code{a} contains a single zone, then the solution object
+will contain columns named by solution.
+Specifically, the column names containing the solution values
+be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
+identifier (e.g., \code{"solution_1"}).
+If the argument to \code{a} contains multiple zones, then the columns
+containing solutions will be named as \code{"solution_XXX_YYY"} where
+\code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
+of the management zone (e.g., \code{"solution_1_zone1"}).}
+
+}
+
+The output solutions have attributes that describe
+optimization process or solution (see below for examples on accessing
 these attributes). These attributes provide the following information.
 \describe{
 \item{\code{objective}}{
@@ -76,75 +150,6 @@ Note that only some solvers are able to
 provide this information (i.e., the \emph{Gurobi} solvers),
 and other solvers will have a missing (\code{NA}) value.
 }
-}
-}
-\description{
-Solve a conservation planning problem.
-}
-\details{
-After formulating a conservation planning \code{\link[=problem]{problem()}},
-it can be solved using an exact algorithm solver (see \link{solvers}
-for available solvers). If no solver has been explicitly specified,
-then the best available exact algorithm solver will be used by default
-(see \code{\link[=add_default_solver]{add_default_solver()}}). Although these exact algorithm
-solvers will often display a lot of information that isn't really that
-helpful (e.g., nodes, cutting planes), they do display information
-about the progress they are making on solving the problem (e.g., the
-performance of the best solution found at a given point in time). If
-potential issues were detected during the
-presolve checks (see \code{\link[=presolve_check]{presolve_check()}})
-and the problem is being forcibly solved (i.e., with \code{force = TRUE}),
-then it is also worth checking for any warnings displayed by the solver
-to see if these potential issues are actually causing issues
-(e.g., \emph{Gurobi} can display warnings that include
-\code{"Warning: Model contains large matrix coefficient range"} and
-\code{"Warning: Model contains large rhs"}).
-}
-\section{Output format}{
-
-This function will output solutions in a similar format to the
-planning units associated with \code{a}. Note that if multiple solutions are
-generated (e.g., using a multi-objective approach), the results will be
-returned as a list. Specifically, each element of the list corresponds
-to a solution based on the following types of planning units.
-
-\describe{
-
-\item{\code{a} has \code{numeric} planning units}{The solution will be
-returned as a \code{numeric} vector. Here, each element in the vector
-corresponds to a different planning unit.
-Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of such \code{numeric} vectors will be returned.}
-
-\item{\code{a} has \code{matrix} planning units}{The solution will be
-returned as a \code{matrix} object.
-Here, rows correspond to different planning units,
-and columns correspond to different  management zones.
-Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of such \code{matrix} objects will be returned.}
-
-\item{\code{a} has \code{\link[terra:rast]{terra::rast()}} planning units}{The solution
-will be returned as a \code{\link[terra:rast]{terra::rast()}} object.
-If the argument to \code{x} contains multiple zones, then the object
-will have a different layer for each management zone.
-Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be returned.}
-
-\item{\code{a} has \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} planning units}{
-The solution will be returned in the same data format as the planning
-units.
-Here, each row corresponds to a different planning unit,
-and columns contain solutions.
-If the argument to \code{a} contains a single zone, then the solution object
-will contain columns named by solution.
-Specifically, the column names containing the solution values
-be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
-identifier (e.g., \code{"solution_1"}).
-If the argument to \code{a} contains multiple zones, then the columns
-containing solutions will be named as \code{"solution_XXX_YYY"} where
-\code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
-of the management zone (e.g., \code{"solution_1_zone1"}).}
-
 }
 }
 
@@ -265,9 +270,8 @@ plot(s4[, "solution"])
 }
 }
 \seealso{
-See \code{\link[=problem]{problem()}} to create conservation planning problems, and
-\code{\link[=presolve_check]{presolve_check()}} to check problems for potential issues.
-Also, see the \code{\link[=category_layer]{category_layer()}} and \code{\link[=category_vector]{category_vector()}} function to
-reformat solutions that contain multiple zones. See \code{\link[=multi_problem]{multi_problem()}} to
-create multi-objective conservation planning problems.
+See \code{\link[=problem]{problem()}} and \code{\link[=multi_problem]{multi_problem()}} to create conservation planning
+problems. Also, see \code{\link[=presolve_check]{presolve_check()}} to check problems for potential
+issues prior to solving a problem, and \code{\link[=category_layer]{category_layer()}} and
+\code{\link[=category_vector]{category_vector()}} to reformat solutions that contain multiple zones.
 }

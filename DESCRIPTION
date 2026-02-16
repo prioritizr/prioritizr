@@ -94,7 +94,7 @@ URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Collate:
     'external-classes.R'
     'internal.R'
@@ -173,7 +173,7 @@ Collate:
     'add_semicontinuous_decisions.R'
     'add_shuffle_portfolio.R'
     'add_top_portfolio.R'
-    'add_weighted_sum_approach.R'
+    'add_wtd_sum_approach.R'
     'adjacency_matrix.R'
     'approaches.R'
     'as.R'
@@ -181,13 +181,12 @@ Collate:
     'run_presolve_check.R'
     'compile.R'
     'presolve_check.R'
-    'assertions_problem.R'
+    'assertions_pass_presolve_check.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'calibrate_cohon_penalty.R'
     'connectivity_matrix.R'
     'constraints.R'
-    'create_objective_weights.R'
     'data.R'
     'decisions.R'
     'deprecated.R'
@@ -223,6 +222,7 @@ Collate:
     'number_of_problems.R'
     'number_of_total_units.R'
     'number_of_zones.R'
+    'objective_weights_matrix.R'
     'objectives.R'
     'optimization_problem.R'
     'package.R'

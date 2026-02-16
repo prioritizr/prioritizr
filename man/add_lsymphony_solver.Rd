@@ -39,7 +39,7 @@ solution is not an arbitrary solution, rather it is derived from the
 relaxed solution, and is therefore often reasonably close to optimality.
 Defaults to \code{FALSE}.}
 
-\item{verbose}{\code{logical} should information be printed while solving
+\item{verbose}{\code{logical} should information be displayed while solving
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{

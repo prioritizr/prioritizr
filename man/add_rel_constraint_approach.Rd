@@ -4,48 +4,51 @@
 \alias{add_rel_constraint_approach}
 \title{Add a relative constraint approach}
 \usage{
-add_rel_constraint_approach(
-  x,
-  rel_tol = NULL,
-  priority = NULL,
-  method = "gurobi",
-  verbose = TRUE
-)
+add_rel_constraint_approach(x, rel_tol, priority = NULL, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{rel_tol}{\code{numeric} vector or matrix containing the relative tolerances
-for each \code{\link[=problem]{problem()}} in \code{x}. If \code{rel_tol} is a vector, a single solution
-will be generated. If \code{rel_tol}is a matrix, then multiple solutions based on
-different combinations of tolerances will be generated where each row
-corresponds to a different solution and each column corresponds to a
-different problem. Each \code{rel_tol} value represents an optimality that is
-equivalent to the \code{gap} specified when adding a solver to the problem, for
-example \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. \code{rel_tol} is relative and expresses the
-acceptable deviance from the optimal objective of the previous problem. For
-example, a value of 0 means no deviation from the objective value of the
-previous problem is allowed. In turn, a value of 0.1 denotes that the
-objective value of the previous solution can degrade by a maximum of 10\%,
-for example by being 10\% more costly if the previous problem minimised cost.
-The length/number of columns should be one less than the number of problems
-in \code{x}.}
+\item{rel_tol}{\code{numeric} vector or matrix denoting a set of the relative
+tolerance values for each \code{\link[=problem]{problem()}} in \code{x}. A vector
+can be used to specify a set of values for generating a single solution,
+wherein each value corresponds to a different \code{\link[=problem]{problem()}} in \code{x}.
+Alternatively, a matrix can be used to specify multiple sets of values for
+generating multiple solutions, wherein each column corresponds to a different
+\code{\link[=problem]{problem()}} in \code{x} and each row corresponds to a different solution.
+Here, \code{rel_tol} values specify how much each objective can be degraded
+in subsequent optimization procedures (in other words, how much
+wiggle room is allowed when optimizing other \code{\link[=problem]{problem()}} objects with a
+lower priority).
+Greater \code{rel_tol} values denote a greater degree of sub-optimality
+(similar to the \code{gap} parameters in the \link{solvers}, such as
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}). For example, a value of 0
+corresponds to zero reduction in quality,
+and a value of 0.05 allows for up to a 5\% reduction in quality.
+Note that, because \code{rel_tol} values affect how a given \code{\link[=problem]{problem()}} in
+\code{x} is degraded when considering others with a lower priority, the
+\code{rel_tol} parameter has no effect for the \code{\link[=problem]{problem()}} in
+\code{x} with the lowest \code{priority} value.
+See Details section below for more information.}
 
-\item{priority}{\code{numeric} vector of the priority order of the supplied
-problems in \code{x}. Problems with higher order priorities will be optimized
-first. For example, if \code{x} has two \code{\link[=problem]{problem()}} objects and
-\code{priority = c(2,1)}, then the first problem will be optimized for firstly
-and the second problem secondly. If \code{priority = NULL}, then the priority
-order will correspond to the order of the problems in \code{x}.}
+\item{priority}{\code{numeric} vector or matrix denoting the priority order for
+each \code{\link[=problem]{problem()}} in \code{x}. A vector
+can be used to specify a set of values for generating a single solution,
+wherein each value corresponds to a different \code{\link[=problem]{problem()}} in \code{x}.
+Alternatively, a matrix can be used to specify multiple sets of values for
+generating multiple solutions, wherein each column corresponds to a different
+\code{\link[=problem]{problem()}} in \code{x} and each row corresponds to a different solution.
+Note that \code{priority} and \code{rel_tol} must have the
+same format (e.g., both must be a vector, or both must be a matrix).
+With the \code{priority} values, \code{\link[=problem]{problem()}} objects in \code{x} that
+are associated with a higher value will be optimized before those
+with a lower value. See Details section below for
+more information. Defaults to \code{NULL} such that each \code{\link[=problem]{problem()}} in \code{x}
+is assigned a priority reflecting their order in \code{x} (i.e., the first
+\code{\link[=problem]{problem()}} is assigned the highest priority value, and subsequent
+\code{\link[=problem]{problem()}} objects are assigned decreasing priority values).}
 
-\item{method}{\code{character} value specifying the solving method. Available
-options are: (\code{"gurobi"}) using the internal Gurobi methodology for solving
-multi-objective problems hierarchically (default) and (\code{"manual"}) using a
-manual methodology for any of the other solvers available in \code{prioritizr}.
-We recommend using \code{"gurobi"} if the \href{https://www.gurobi.com/}{\emph{Gurobi}}
-solver is available.}
-
-\item{verbose}{\code{logical} value. Should progress on generating solutions
+\item{verbose}{\code{logical} should progress on generating multiple solutions
 be displayed? Defaults to \code{TRUE}.}
 }
 \value{
@@ -53,69 +56,170 @@ An updated \code{multi_problem()} object with the approach
 added to it.
 }
 \description{
-Add a relative constraint (hierarchical) multi-objective optimization
-approach to a conservation planning problem.
+Add a relative constraint approach for multi-objective optimization
+to a conservation planning problem (Jaimes \emph{et al.} 2009).
+Broadly speaking, this approach involves solving each \code{\link[=problem]{problem()}} in a
+\code{\link[=multi_problem]{multi_problem()}} object following a hierarchical (lexicographic) ordering,
+wherein those associated with a higher priority order are solved before
+those with a lower priority order.
 }
 \details{
-The relative constraint or hierarchical approach is a lexicographic
-multi-objective optimization approach that solves \code{\link[=problem]{problem()}} objects
-sequentially based on a pre-defined order of priority. In this approach, the
-first problem is solved, and the solution obtained constrain subsequent
-problems using the relative tolerances (or level of degradation) specified
-in \code{rel_tol}. This ensures that higher-priority objectives are satisfied
-before lower-priority objectives are considered.
+This multi-objective optimization approach is especially useful when there
+is a well-defined order of importance among objectives in a planning
+exercise (Williams and Kendall 2017; Schuster \emph{et al.} 2023).
+In general, we recommend using this approach because it is highly
+flexible and can better approximate the Pareto Frontier than alternative
+approaches.
+By specifying an explicit priority order for each objective
+(per \code{priority}) and an acceptable tolerance for degradation of
+each objective (per \code{rel_tol}), the parameters for this approach
+are highly transparent and easily accessible. Additionally, the approach
+is not sensitive to differences in the range of values among
+different objectives (unlike the weighted sum approach,
+\code{\link[=add_wtd_sum_approach]{add_wtd_sum_approach()}}; see Das and Dennis 1997 for details), and so it
+can be readily applied to a wide range of objectives.
 
-When \code{rel_tol} is a matrix, each row is interpreted as an independent
-hierarchical configuration. These will be solved sequentially when running
-\code{solve()}.
+The relative constraint approach involves solving the \code{\link[=problem]{problem()}} objects
+in \code{x} in a hierarchical manner based on a pre-defined order of priority
+(per \code{priority}).
+In particular, it involves the following steps:
+(i) the problem with the highest priority is selected (per \code{priority});
+(ii) a solution is generated to this problem;
+(ii) the performance of the solution is measured
+based on its ability to achieve the objective for this problem
+(i.e., the objective value);
+(iii) the objective value and the relative tolerance parameter for this
+problem (per \code{rel_tol}) are used constrain
+subsequent optimization analyses (i.e., wherein a greater \code{rel_tol} value
+means that subsequent solutions do not have to achieve such a good
+level of performance according to the objective for this problem);
+(iv) the problem with the next highest priority is selected (per \code{priority});
+(v) steps (ii) -- (iv) are repeated until a solution has been generated
+to the problem with the lowest priority (per \code{priority}); and
+(vi) the solution obtained from solving the problem with the lowest priority
+(per \code{priority}) is returned.
+Note that any constraints specified for any of the
+\code{\link[=problem]{problem()}} objects in \code{x} will be considered during any of the
+optimization analyses. For example, if \code{x} has three \code{\link[=problem]{problem()}} objects and
+the second problem has locked in constraints (per
+\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}, then these constraints will be considered
+when generating solutions to each of the three problems.
+Additionally, if any of the \code{\link[=problem]{problem()}} objects in \code{x} are based
+on the minimum set formulation of the reserve selection problem
+(per \code{\link[=add_min_set_objective]{add_min_set_objective()}}), then the targets will be considered
+when generating solutions to any of the problems in \code{x}. This is because
+the targets in a minimum set formulation are treated as (hard) constraints,
+and solutions must always meet them.
 
-This approach is especially useful when there is a clear priority order
-among objectives, and when it is important that higher-priority objectives
-are not compromised while optimizing lower-priority objectives.In general,
-we recommend using this approach because it can better approximate the
-Pareto Front than alternative approaches.
+The \code{priority} and \code{rel_tol} parameters specify how much influence each
+\code{\link[=problem]{problem()}} in \code{x} has over the multi-objective optimization process.
+For example, let's consider an example where \code{x} has three problems,
+\code{priority = c(2, 4, 1)}, and \code{rel_tol = c(0.2, 0, 0)}.
+In this example, the second \code{\link[=problem]{problem()}} in \code{x} will be optimized first
+because it has the highest \code{priority} value (i.e., 4) .
+After generating a solution to the second problem, subsequent optimization
+analyses will be constrained to ensure that all subsequent solutions
+perform no worse than optimality according to the objective
+of the second problem (because it has a \code{rel_tol} value of 0).
+The first \code{\link[=problem]{problem()}} in \code{x} will then be optimized next, because it has the
+next highest \code{priority} value (i.e., 2).
+After generating a solution based on the first problem, subsequent
+optimization analyses will be constrained to ensure that all subsequent
+solutions perform  (i) no worse than optimality according to the objective
+of the second problem (because it has a \code{rel_tol} value of 0), and (ii) no
+worse than a 10\% reduction in performance according to the objective of the
+first problem (because it has a \code{rel_tol} value of 0.1).
+Note that, because this new solution was generated with constraints
+to ensure optimal performance according to the second problem,
+this solution would likely have worse performance according to the objective
+of the first problem than a solution that was generated by
+solving the first problem directly.
+The third \code{\link[=problem]{problem()}} in \code{x} will be optimized next, because
+it has the next highest \code{priority} value (i.e., 1).
+Since the problems optimized previously had relatively low relative
+tolerance parameters (i.e., 0 and 0.1), the performance of this new solution
+according to the objective of the third problem would probably have much
+worse than a solution that was generated by solving the third problem
+directly.
+Although this \code{\link[=problem]{problem()}} has a \code{rel_tol} value of 0, this
+parameter will have no influence on the optimization process because there
+are no remaining \code{\link[=problem]{problem()}} objects in \code{x} for subsequent optimization.
+Finally, the solution obtained by optimizing the third problem will be
+returned as the resulting solution from the multi-objective optimization
+approach.
 }
 \section{Mathematical formulation}{
 
+This approach can be expressed mathematically for a set of
+objectives associated with the \code{\link[=problem]{problem()}} objects in \code{x}.
+Let \eqn{O}{O} denote the set of objectives (indexed by \eqn{o}{o}).
+For brevity, we will assume that all of the objectives should ideally be
+maximized and have been sorted in order of
+priority (per \code{priority}), such that the objective with the highest priority
+is \eqn{o=1}{o=1}, objective with the second highest priority is
+\eqn{o=2}{o=2}, and so on.
+Also, let \eqn{f_o(x)}{fo(x)} denote the objective function for each
+objective \eqn{o \in O}{o in O}, where \eqn{x} represents all the decision
+variables for calculating the objective values (e.g., planning unit selection
+status values).
+Additionally, let \eqn{r_o}{ro} denote the relative tolerance (per
+\code{rel_tol}) parameter for each objective \eqn{o \in O}{o in O}.
+Furthermore, let \eqn{Z}{Z} represent the set (region) of feasible
+values for \eqn{x} based on the constraints for all of the objectives.
+Given this terminology, the approach starts by solving the following
+optimization problem based on the first objective.
 
-Let a set of objectives (\eqn{K}{K} indexed by \eqn{k}{k}) be ordered
-according to a predefined hierarchy, with objective \eqn{1}{1} having the
-highest priority. Let \eqn{y_k}{yk} denote the value of objective \eqn{k}{k}.
-The hierarchical approach proceeds by optimizing objectives sequentially.
+\deqn{
+\mathit{Maximize} \space f_1(x) \\
+\mathit{subject \space to \space} x \in Z
+}{
+Maximize f1(x), subject to x in Z
+}
 
-First, the highest-priority objective \eqn{y_1}{y1} is optimized
-independently to identify an optimal objective value \eqn{\hat{y}_1}{y1}.
-Each subsequent objective \eqn{y_i}{yi} is then optimized subject to
-constraints that limit the degradation of all higher-priority objectives.
-Specifically, for objective \eqn{i}{i}, the optimization problem can be
-written as:
+After solving this problem, let \eqn{v_1}{v1} denote the optimal objective
+value for the solution. Next, the approach involves solving the following
+optimization problem based on the second objective, along with a constraint
+based on \eqn{v_1}{v1} and the relative tolerance parameter for the first
+objective (i.e., \eqn{r_1}{r1}).
+\deqn{
+\mathit{Maximize} \space f_2(x) \\
+\mathit{subject \space to \space} x \in Z \\
+f_1(x) \geq v_1 \times (1 - r_1)
+}{
+Maximize f2(x) subject to x in Z & f1(x) & f1(x) >= v1 * (1 - r1)
+}
 
-\deqn{\mathit{Minimize} \space y_i \\
-\mathit{subject \space to} \\
-y_k \leq \hat{y}_k (1 + r_k) \quad \forall k < i}{
-Minimize yi subject to
-yk <= yk^ (1 + r_k) for all k < i, where r corresponds to the 
-input \code{rel_tol}}
+Similar to the previous step, let \eqn{v_2}{v2}
+denote the optimal objective value for the solution.
+The approach then involves solving the following
+optimization problem based on the third objective, along with
+constraints based on \eqn{v_1}{v1} and \eqn{v_2}{v2} and the relative
+tolerance parameters for the first and second objectives (i.e.,
+\eqn{r_1}{r1} and \eqn{r_2}{r2}).
+\deqn{
+\mathit{Maximize} \space f_3(x) \\
+\mathit{subject \space to \space} x \in Z \\
+f_1(x) \geq v_1 \times (1 - r_1) \\
+f_2(x) \geq v_2 \times (1 - r_1)
+}{
+Maximize f2(x) subject to x in Z & f1(x) &
+f1(x) >= v1 * (1 - r1) &
+f2(x) >= v2 * (1 - r2)
+}
 
-where \eqn{\hat{y}_k}{yk} denotes the optimal value of higher-priority
-objective
-\eqn{k}{k} obtained in previous optimization steps, and \eqn{r_k}{rk} (our
-function input \code{rel_tol}) is the allowable relative tolerance for
-objective \eqn{k}{k}. If an objective is to be maximized, the constraints are
-reversed so that higher-priority objectives are maintained above the allowable
-degradation.
-
-This formulation ensures that higher-priority objectives are achieved within
-user-defined tolerances of optimality, while lower-priority objectives are
-optimized as much as possible within those constraints.
+In this manner, the approach involves iteratively formulating and solving
+optimization problems until all of the objectives \eqn{o \in O}{o in O} have
+been considered. After a solution has been generated based on the last
+objective (i.e., lowest priority objective), then this solution is returned.
 }
 
 \examples{
 \dontrun{
-# In this example we select a set of planning units under a conservation
-# budget, aiming to meet representation targets for two species groups:
-# (1) keystone species (higher ecological priority) and
-# (2) iconic species (high social or cultural value).
+# in this example, we aim to identify a set of planning units that will
+# not exceed a particular budget and meet objectives for
+# (i) representing species that are important for ecosystem
+# functioning (hereafter, keystone species) and (ii) representing species
+# that have high social or cultural value (hereafter, iconic species)
 
 # import data
 con_cost <- get_sim_pu_raster()
@@ -125,81 +229,133 @@ iconic_spp <- get_sim_features()[[4:5]]
 # define a total conservation budget (30\% of total cost)
 budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
 
-# define individual problems
+# define a single-objective problem for the keystone species objective
 p1 <-
   problem(con_cost, keystone_spp) \%>\%
   add_min_shortfall_objective(budget) \%>\%
   add_relative_targets(0.4) \%>\%
-  add_binary_decisions() \%>\%
-  add_default_solver()
+  add_binary_decisions()
+
+# define a single-objective problem for the iconic species objective
 p2 <-
   problem(con_cost, iconic_spp) \%>\%
   add_min_shortfall_objective(budget) \%>\%
-  add_relative_targets(0.4) \%>\%
-  add_binary_decisions() \%>\%
-  add_default_solver()
+  add_relative_targets(0.45) \%>\%
+  add_binary_decisions()
 
-# solve problems for comparison
-s1 <- solve(p1)
-s2 <- solve(p2)
+# solve the single-objective problems
+s1 <-
+  p1 \%>\%
+  add_default_solver(verbose = FALSE) \%>\%
+  solve()
+s2 <-
+  p2 \%>\%
+  add_default_solver(verbose = FALSE) \%>\%
+  solve()
 
-# plot
-plot(s1, main = "Keystone Species")
-plot(s2, main = "Iconic Species")
+# plot the solutions to the single-objective problems
+plot(s1, main = "Keystone species", axes = FALSE)
+plot(s2, main = "Iconic species", axes = FALSE)
 
-# now create multi-objective problem
-mp1 <- multi_problem(
-  keystone_obj = problem(con_cost, keystone_spp) \%>\%
-    add_min_shortfall_objective(budget) \%>\%
-    add_relative_targets(0.4) \%>\%
-    add_binary_decisions() \%>\%
-    add_default_solver(),
-  iconic_obj = problem(con_cost, iconic_spp) \%>\%
-    add_min_shortfall_objective(budget) \%>\%
-    add_relative_targets(0.4) \%>\%
-    add_binary_decisions() \%>\%
-    add_default_solver()
-) \%>\%
-  add_rel_constraint_approach(0.01, verbose = FALSE) \%>\%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
+# now we will a create multi-objective problem that simultaneously
+# considers both of these objectives
 
-# solve problem
+# the first objective for keystone species will have a higher order of
+# priority than the second objective for iconic species -- because
+# the long-term persistence of iconic species depends on ecosystem
+# functioning -- and we will specify a very small relative tolerance
+# parameter so that the solution has a relatively high performance according
+# to the first objective (i.e., relatively low representation shortfalls for
+# keystone species)
+mp1 <-
+  multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
+  add_rel_constraint_approach(
+    rel_tol = c(0.01, 0),
+    priority = c(2, 1),
+    verbose = FALSE
+  ) \%>\%
+  add_default_solver(verbose = FALSE)
+
+# solve multi-objective problem
 ms1 <- solve(mp1)
 
-plot(ms1, main = "Low degradation")
+# plot solution to multi-objective problem
+plot(ms1, main = "multi-objective solution", axes = FALSE)
 
-# create multi-objective problem using input matrix
-rel_tol <- matrix(seq(0, 1, length.out = 40), ncol = 1)
+# we will explore trade-offs between the two objectives, by generating
+# multiple solutions using multi-objective optimization
 
-mp2 <- multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
-  add_rel_constraint_approach(rel_tol = rel_tol, verbose = TRUE) \%>\%
+# create a matrix with 40 different combinations of relative tolerance values
+# that can be used to generate 40 solutions
+rel_tol_matrix <- matrix(c(seq(0, 1, length.out = 40), rep(0, 40)), ncol = 2)
+colnames(rel_tol_matrix) <- c("keystone_obj", "iconic_obj")
+
+# preview matrix with relative tolerance values
+head(rel_tol_matrix)
+
+# create a matrix with priority values, and this will matrix will
+# simply assign priority value of 2 for the keystone objective
+# and a value of 1 for the iconic objective
+priority_matrix <- matrix(c(2, 1), ncol = 2, nrow = 40, byrow = TRUE)
+colnames(priority_matrix) <- c("keystone_obj", "iconic_obj")
+
+# preview matrix with priority values
+head(priority_matrix)
+
+# create a multi-objective problem with the matrix of relative tolerance
+# values
+mp2 <-
+  multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
+  add_rel_constraint_approach(
+    rel_tol = rel_tol_matrix,
+    priority = priority_matrix,
+    verbose = FALSE
+  ) \%>\%
   add_default_solver(verbose = FALSE)
+
+# solve multi-objective problem and generate 40 solutions
 ms2 <- solve(mp2)
 
-# extract objective values and plot approximated pareto front
-obj_mat <- attributes(ms2)$objective
-plot(obj_mat,
-  main = "Approximated pareto front",
-  xlab = "Keystone objective (shortfall)", 
+# extract objective values for the solutions
+obj_matrix <- attributes(ms2)$objective
+
+# preview the objective values
+head(obj_matrix)
+
+# plot the objectives values to visualize the approximated Pareto frontier
+# (note that smaller values are better because these objectives seek to
+# minimize representation shortfalls)
+plot(
+  obj_matrix,
+  main = "Approximated Pareto frontier",
+  xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
 }
-
 }
 \references{
-Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
-for ecological problems with an application to cackling goose management.
-\emph{Ecological Modelling}, \strong{343}: 54-67.
+Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted
+sums of objectives for Pareto set generation in multicriteria optimization
+problems. \emph{Structural Optimization}, \strong{14}: 63--69.
+
+Jaimes AL, Saúl ZM, and Coello Coello CA (2009) \emph{An introduction to
+multiobjective optimization techniques} in Optimization in Polymer
+Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers Inc,
+New York, United States.
 
 Schuster R, Buxton R, Hanson JO, Binley AD, Pittman J, Tulloch V, La Sorte
 FA, Roehrdanz PR, Verburg PH, Rodewald AD, Wilson S, Possingham HP, and
 Bennett JR (2023) Protected area planning to conserve biodiversity in an
 uncertain future. \emph{Conservation Biology}, \strong{37}: e14048.
+
+Williams PJ and Kendall WL (2017) A guide to multi-objective optimization
+for ecological problems with an application to cackling goose management.
+\emph{Ecological Modelling}, \strong{343}: 54-67.
 }
 \seealso{
 See \link{approaches} for an overview of all functions for adding an approach.
 
-Other approaches: 
-\code{\link{add_weighted_sum_approach}()}
+Other functions for adding multi-objective optimization approaches:
+\code{\link{add_wtd_sum_approach}()}
 }
 \concept{approaches}

@@ -48,7 +48,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Feature names</h1>
-      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/feature_names.R" class="external-link"><code>R/feature_names.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/feature_names.R" class="external-link"><code>R/feature_names.R</code></a>, <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem_names.R" class="external-link"><code>R/problem_names.R</code></a></small>
       <div class="d-none name"><code>feature_names.Rd</code></div>
     </div>
 
@@ -63,6 +63,9 @@
 <span><span class="co"># S3 method for class 'ConservationProblem'</span></span>
 <span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># S3 method for class 'MultiObjConservationProblem'</span></span>
+<span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># S3 method for class 'ZonesRaster'</span></span>
 <span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -70,7 +73,10 @@
 <span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ZonesCharacter'</span></span>
-<span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">feature_names</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'MultiObjConservationProblem'</span></span>
+<span><span class="fu"><a href="problem_names.html">problem_names</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -78,7 +84,7 @@
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p><code><a href="problem.html">problem()</a></code> or <code><a href="zones.html">Zones()</a></code> object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code>, <code><a href="multi_problem.html">multi_problem()</a></code>, or <code><a href="zones.html">Zones()</a></code> object.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -107,6 +113,9 @@
 <span class="r-in"><span><span class="co"># print feature names</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">feature_names</span><span class="op">(</span><span class="va">p</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "feature_1" "feature_2" "feature_3" "feature_4" "feature_5"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create multi-objective problem</span></span></span>
+<span class="r-in"><span><span class="co"># TODO</span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -115,11 +124,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Sandra Neubuert, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

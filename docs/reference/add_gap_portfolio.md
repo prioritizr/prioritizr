@@ -1,0 +1,131 @@
+# Add a gap portfolio
+
+Generate a portfolio of solutions for a conservation planning problem by
+finding a certain number of solutions that are all within a
+pre-specified optimality gap. This method is useful for generating
+multiple solutions that can be used to calculate selection frequencies
+for moderate and large-sized problems (similar to *Marxan*).
+
+## Usage
+
+``` r
+add_gap_portfolio(x, number_solutions = 10, pool_gap = 0.1)
+```
+
+## Arguments
+
+- x:
+
+  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+
+- number_solutions:
+
+  `integer` number of solutions required. Defaults to 10.
+
+- pool_gap:
+
+  `numeric` gap to optimality for solutions in the portfolio. This
+  relative gap specifies a threshold worst-case performance for
+  solutions in the portfolio. For example, value of 0.1 will result in
+  the portfolio returning solutions that are within 10% of an optimal
+  solution. Note that the gap specified in the solver (i.e.,
+  [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md)
+  must be less than or equal to the gap specified to generate the
+  portfolio. Defaults to 0.1.
+
+## Value
+
+An updated [`problem()`](https://prioritizr.net/reference/problem.md)
+object with the portfolio added to it.
+
+## Details
+
+This strategy for generating a portfolio requires problems to be solved
+using the *Gurobi* software suite (i.e., using
+[`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md).
+Specifically, version 9.0.0 (or greater) of the gurobi package must be
+installed. Note that the number of solutions returned may be less than
+the argument to `number_solutions`, if the total number of solutions
+that meet the optimality gap is less than the number of solutions
+requested. Also, note that this portfolio function only works with
+problems that have binary decisions (i.e., specified using
+[`add_binary_decisions()`](https://prioritizr.net/reference/add_binary_decisions.md)).
+
+## See also
+
+See [portfolios](https://prioritizr.net/reference/portfolios.md) for an
+overview of all functions for adding a portfolio.
+
+Other functions for adding portfolios:
+[`add_cuts_portfolio()`](https://prioritizr.net/reference/add_cuts_portfolio.md),
+[`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md),
+[`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
+[`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+[`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
+
+## Examples
+
+``` r
+# \dontrun{
+# set seed for reproducibility
+set.seed(600)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
+
+# create minimal problem with a portfolio containing 10 solutions within 20%
+# of optimality
+p1 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.05) %>%
+  add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem and generate portfolio
+s1 <- solve(p1)
+#> Error: Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)
+#> Timing stopped at: 0.004 0 0.013
+
+# convert portfolio into a multi-layer raster
+s1 <- terra::rast(s1)
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'rast': object 's1' not found
+
+# print number of solutions found
+print(terra::nlyr(s1))
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'nlyr': object 's1' not found
+
+# plot solutions
+plot(s1, axes = FALSE)
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's1' not found
+
+# create multi-zone  problem with a portfolio containing 10 solutions within
+# 20% of optimality
+p2 <-
+  problem(sim_zones_pu_raster, sim_zones_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
+  add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem and generate portfolio
+s2 <- solve(p2)
+#> Error: Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)
+#> Timing stopped at: 0.003 0 0.013
+
+# convert portfolio into a multi-layer raster of category layers
+s2 <- terra::rast(lapply(s2, category_layer))
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'rast': object 's2' not found
+
+# print number of solutions found
+print(terra::nlyr(s2))
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'nlyr': object 's2' not found
+
+# plot solutions in portfolio
+plot(s2, axes = FALSE)
+#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's2' not found
+# }
+```

@@ -55,7 +55,25 @@ p <-
 # print number of features
 print(number_of_features(p))
 
+# define budget for multi-objective problem
+b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+
 # create multi-objective problem
-# TODO
+  multi_problem(
+   obj1 =
+     problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
+     add_max_utility_objective(budget = b) \%>\%
+     add_relative_targets(0.2) \%>\%
+     add_binary_decisions(),
+   obj2 =
+     problem(sim_pu_raster, sim_features[[3:5]]) \%>\%
+     add_min_shortfall_objective(budget = b) \%>\%
+     add_relative_targets(0.8) \%>\%
+     add_binary_decisions()
+  ) \%>\%
+  add_rel_constraint_approach(c(0, 0))
+
+# print number of features
+print(number_of_features(mp))
 }
 }

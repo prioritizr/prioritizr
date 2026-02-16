@@ -107,6 +107,7 @@ solution.</p></dd>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other overviews:
+<code><a href="approaches.html">approaches</a></code>,
 <code><a href="constraints.html">constraints</a></code>,
 <code><a href="decisions.html">decisions</a></code>,
 <code><a href="importance.html">importance</a></code>,
@@ -134,51 +135,38 @@ solution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
 <span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Timing stopped at: 0.002 0 0.012</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate number of selected planning units in solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary     n</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall    10</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_n_summary(p, s):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate solution cost</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary  cost</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall <span style="text-decoration: underline;">1</span>987.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_cost_summary(p, s):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate feature representation by solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 5</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary feature   total_amount absolute_held relative_held</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall feature_1         83.3          8.91         0.107</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> overall feature_2         31.2          3.13         0.100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.34         0.102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.35         0.102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          6.01         0.106</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_feature_representation_summary(p, s):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate target coverage by solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 5 × 9</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   feature   met   total_amount absolute_target absolute_held absolute_shortfall</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> feature_1 TRUE          83.3            8.33          8.91                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> feature_2 TRUE          31.2            3.12          3.13                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> feature_3 TRUE          72.0            7.20          7.34                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> feature_4 TRUE          42.7            4.27          4.35                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> feature_5 TRUE          56.7            5.67          6.01                  0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_target_coverage_summary(p, s):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate exposed boundary (perimeter) length by solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary boundary</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall     2.25</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_boundary_summary(p, s):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a symmetric connectivity matrix to describe pair-wise connectivity</span></span></span>
 <span class="r-in"><span><span class="co"># values between combinations of planning units,</span></span></span>
@@ -190,10 +178,9 @@ solution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate connectivity of solution using symmetric data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span>, data <span class="op">=</span> <span class="va">cm</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary connectivity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall         198.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_connectivity_summary(p, s, data = cm):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create an asymmetric connectivity matrix to describe pair-wise</span></span></span>
 <span class="r-in"><span><span class="co"># connectivity values between combinations of planning units</span></span></span>
@@ -206,10 +193,9 @@ solution.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># evaluate connectivity of solution using asymmetric data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="eval_asym_connectivity_summary.html">eval_asym_connectivity_summary</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">s</span>, data <span class="op">=</span> <span class="va">acm</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   summary asym_connectivity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> overall              50.5</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval_asym_connectivity_summary(p, s, data = acm):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `solution`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 's' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
@@ -219,11 +205,11 @@ solution.</p></dd>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Sandra Neubuert, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

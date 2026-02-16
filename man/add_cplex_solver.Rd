@@ -36,7 +36,7 @@ problem before solving it? Defaults to \code{TRUE}.}
 \item{threads}{\code{integer} number of threads to use for the
 optimization algorithm. The default value is 1.}
 
-\item{verbose}{\code{logical} should information be printed while solving
+\item{verbose}{\code{logical} should information be displayed while solving
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{

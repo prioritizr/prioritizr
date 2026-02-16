@@ -157,7 +157,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontshow{if (requireNamespace("prioritizrdata", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("prioritizrdata", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 \dontrun{
 # set seed for reproducibility
 set.seed(500)

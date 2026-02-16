@@ -50,7 +50,6 @@ p <-
 # print number of planning units
 print(number_of_planning_units(p))
 
-# create multi-objective problem
-# TODO
+# TODO: multi_problem example
 }
 }

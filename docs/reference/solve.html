@@ -59,6 +59,9 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'ConservationProblem'</span></span>
+<span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'MultiObjConservationProblem'</span></span>
 <span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -67,7 +70,7 @@
 
 
 <dl><dt id="arg-a">a<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>
-<dd><p><code><a href="problem.html">problem()</a></code> object.</p></dd>
+<dd><p><code><a href="problem.html">problem()</a></code> or <code><a href="multi_problem.html">multi_problem()</a></code> object.</p></dd>
 
 
 <dt id="arg-b">b<a class="anchor" aria-label="anchor" href="#arg-b"></a></dt>
@@ -94,9 +97,86 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A <code>numeric</code>, <code>matrix</code>, <code>data.frame</code>, <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code>, or
-<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object containing the solution to the problem.
-Additionally, the returned object has attributes that describe
-optimization process or solution (see below  for examples on accessing
+<code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code>, or <code>list</code> object containing the solution(s) to the problem.
+Although solutions will generally be returned in the same format
+as the planning units in <code>a</code>, these solutions may be returned in a <code>list</code>
+object if multiple solutions are produced during the optimization process
+(see Output format section for further details).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p>After formulating a conservation planning <code><a href="problem.html">problem()</a></code>,
+it can be solved using an exact algorithm solver (see <a href="solvers.html">solvers</a>
+for available solvers). If no solver has been explicitly specified,
+then the best available exact algorithm solver will be used by default
+(see <code><a href="add_default_solver.html">add_default_solver()</a></code>). Although these exact algorithm
+solvers will often display a lot of information that isn't really that
+helpful (e.g., nodes, cutting planes), they do display information
+about the progress they are making on solving the problem (e.g., the
+performance of the best solution found at a given point in time). If
+potential issues were detected during the
+presolve checks (see <code><a href="presolve_check.html">presolve_check()</a></code>)
+and the problem is being forcibly solved (i.e., with <code>force = TRUE</code>),
+then it is also worth checking for any warnings displayed by the solver
+to see if these potential issues are actually causing issues
+(e.g., <em>Gurobi</em> can display warnings that include
+<code>"Warning: Model contains large matrix coefficient range"</code> and
+<code>"Warning: Model contains large rhs"</code>).</p>
+    </div>
+    <div class="section level2">
+    <h2 id="output-format">Output format<a class="anchor" aria-label="anchor" href="#output-format"></a></h2>
+
+
+<p>This function will output solutions in a similar format to the
+planning units associated with <code>a</code>. Note that if multiple solutions are
+generated (e.g., using a multi-objective approach), the solutions will be
+returned as a <code>list</code> object. Specifically, each element of the list
+corresponds to a solution based on the following types of planning units.</p>
+<dl><dt><code>a</code> has <code>numeric</code> planning units</dt>
+<dd><p>The solution will be
+returned as a <code>numeric</code> vector. Here, each element in the vector
+corresponds to a different planning unit.
+Note that if a portfolio is used to generate multiple solutions,
+then a <code>list</code> of such <code>numeric</code> vectors will be returned.</p></dd>
+
+
+<dt><code>a</code> has <code>matrix</code> planning units</dt>
+<dd><p>The solution will be
+returned as a <code>matrix</code> object.
+Here, rows correspond to different planning units,
+and columns correspond to different  management zones.
+Note that if a portfolio is used to generate multiple solutions,
+then a <code>list</code> of such <code>matrix</code> objects will be returned.</p></dd>
+
+
+<dt><code>a</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
+<dd><p>The solution
+will be returned as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object.
+If the argument to <code>x</code> contains multiple zones, then the object
+will have a different layer for each management zone.
+Note that if a portfolio is used to generate multiple solutions,
+then a <code>list</code> of <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> objects will be returned.</p></dd>
+
+
+<dt><code>a</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or <code>data.frame</code> planning units</dt>
+<dd><p>The solution will be returned in the same data format as the planning
+units.
+Here, each row corresponds to a different planning unit,
+and columns contain solutions.
+If the argument to <code>a</code> contains a single zone, then the solution object
+will contain columns named by solution.
+Specifically, the column names containing the solution values
+be will named as <code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to a solution
+identifier (e.g., <code>"solution_1"</code>).
+If the argument to <code>a</code> contains multiple zones, then the columns
+containing solutions will be named as <code>"solution_XXX_YYY"</code> where
+<code>"XXX"</code> corresponds to the solution identifier and <code>"YYY"</code> is the name
+of the management zone (e.g., <code>"solution_1_zone1"</code>).</p></dd>
+
+
+
+</dl><p>The output solutions have attributes that describe
+optimization process or solution (see below for examples on accessing
 these attributes). These attributes provide the following information.</p><dl><dt><code>objective</code></dt>
 <dd><p><code>numeric</code> mathematical objective value for the solution used
 to evaluate the prioritization during optimization.</p></dd>
@@ -143,82 +223,11 @@ and other solvers will have a missing (<code>NA</code>) value.</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>After formulating a conservation planning <code><a href="problem.html">problem()</a></code>,
-it can be solved using an exact algorithm solver (see <a href="solvers.html">solvers</a>
-for available solvers). If no solver has been explicitly specified,
-then the best available exact algorithm solver will be used by default
-(see <code><a href="add_default_solver.html">add_default_solver()</a></code>). Although these exact algorithm
-solvers will often display a lot of information that isn't really that
-helpful (e.g., nodes, cutting planes), they do display information
-about the progress they are making on solving the problem (e.g., the
-performance of the best solution found at a given point in time). If
-potential issues were detected during the
-presolve checks (see <code><a href="presolve_check.html">presolve_check()</a></code>)
-and the problem is being forcibly solved (i.e., with <code>force = TRUE</code>),
-then it is also worth checking for any warnings displayed by the solver
-to see if these potential issues are actually causing issues
-(e.g., <em>Gurobi</em> can display warnings that include
-<code>"Warning: Model contains large matrix coefficient range"</code> and
-<code>"Warning: Model contains large rhs"</code>).</p>
-    </div>
-    <div class="section level2">
-    <h2 id="output-format">Output format<a class="anchor" aria-label="anchor" href="#output-format"></a></h2>
-
-
-<p>This function will output solutions in a similar format to the
-planning units associated with <code>a</code>. Specifically, it will return
-solutions based on the following types of planning units.</p>
-<dl><dt><code>a</code> has <code>numeric</code> planning units</dt>
-<dd><p>The solution will be
-returned as a <code>numeric</code> vector. Here, each element in the vector
-corresponds to a different planning unit.
-Note that if a portfolio is used to generate multiple solutions,
-then a <code>list</code> of such <code>numeric</code> vectors will be returned.</p></dd>
-
-
-<dt><code>a</code> has <code>matrix</code> planning units</dt>
-<dd><p>The solution will be
-returned as a <code>matrix</code> object.
-Here, rows correspond to different planning units,
-and columns correspond to different  management zones.
-Note that if a portfolio is used to generate multiple solutions,
-then a <code>list</code> of such <code>matrix</code> objects will be returned.</p></dd>
-
-
-<dt><code>a</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units</dt>
-<dd><p>The solution
-will be returned as a <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object.
-If the argument to <code>x</code> contains multiple zones, then the object
-will have a different layer for each management zone.
-Note that if a portfolio is used to generate multiple solutions,
-then a <code>list</code> of <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> objects will be returned.</p></dd>
-
-
-<dt><code>a</code> has <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::sf()</a></code>, or <code>data.frame</code> planning units</dt>
-<dd><p>The solution will be returned in the same data format as the planning
-units.
-Here, each row corresponds to a different planning unit,
-and columns contain solutions.
-If the argument to <code>a</code> contains a single zone, then the solution object
-will contain columns named by solution.
-Specifically, the column names containing the solution values
-be will named as <code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to a solution
-identifier (e.g., <code>"solution_1"</code>).
-If the argument to <code>a</code> contains multiple zones, then the columns
-containing solutions will be named as <code>"solution_XXX_YYY"</code> where
-<code>"XXX"</code> corresponds to the solution identifier and <code>"YYY"</code> is the name
-of the management zone (e.g., <code>"solution_1_zone1"</code>).</p></dd>
-
-
-
-</dl></div>
-    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>See <code><a href="problem.html">problem()</a></code> to create conservation planning problems, and
-<code><a href="presolve_check.html">presolve_check()</a></code> to check problems for potential issues.
-Also, see the <code><a href="category_layer.html">category_layer()</a></code> and <code><a href="category_vector.html">category_vector()</a></code> function to
-reformat solutions that contain multiple zones.</p></div>
+    <div class="dont-index"><p>See <code><a href="problem.html">problem()</a></code> and <code><a href="multi_problem.html">multi_problem()</a></code> to create conservation planning
+problems. Also, see <code><a href="presolve_check.html">presolve_check()</a></code> to check problems for potential
+issues prior to solving a problem, and <code><a href="category_layer.html">category_layer()</a></code> and
+<code><a href="category_vector.html">category_vector()</a></code> to reformat solutions that contain multiple zones.</p></div>
     </div>
 
     <div class="section level2">
@@ -265,7 +274,7 @@ reformat solutions that contain multiple zones.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1987.399 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.004 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.006 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "OPTIMAL" </span>
@@ -370,26 +379,26 @@ reformat solutions that contain multiple zones.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 20 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    summary feature   total_amount absolute_held relative_held</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> overall feature_1        250.          48.0          0.192</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> overall feature_2         93.6         18.2          0.195</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> overall feature_3        216.          43.0          0.199</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> overall feature_4        128.          23.1          0.181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> overall feature_5        170.          31.7          0.186</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> zone_1  feature_1         83.3         16.9          0.203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> zone_1  feature_2         31.2          5.75         0.184</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> zone_1  feature_3         72.0         15.2          0.211</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> zone_1  feature_4         42.7          6.70         0.157</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> zone_1  feature_5         56.7         11.0          0.194</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> zone_2  feature_1         83.3         15.9          0.191</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> zone_2  feature_2         31.2          6.12         0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> zone_2  feature_3         72.0         14.3          0.199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> overall feature_1        250.          46.6          0.186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> overall feature_2         93.6         17.7          0.189</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> overall feature_3        216.          41.6          0.193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> overall feature_4        128.          22.2          0.174</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> overall feature_5        170.          30.7          0.180</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> zone_1  feature_1         83.3         16.0          0.193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> zone_1  feature_2         31.2          5.47         0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> zone_1  feature_3         72.0         14.4          0.200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> zone_1  feature_4         42.7          6.41         0.150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> zone_1  feature_5         56.7         10.4          0.184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> zone_2  feature_1         83.3         16.0          0.192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> zone_2  feature_2         31.2          6.18         0.198</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> zone_2  feature_3         72.0         14.5          0.201</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> zone_2  feature_4         42.7          8.38         0.196</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> zone_2  feature_5         56.7         10.3          0.182</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> zone_3  feature_1         83.3         15.2          0.183</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> zone_3  feature_2         31.2          6.37         0.204</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> zone_3  feature_3         72.0         13.4          0.187</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> zone_3  feature_4         42.7          8.03         0.188</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> zone_3  feature_5         56.7         10.4          0.184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> zone_2  feature_5         56.7         10.3          0.181</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> zone_3  feature_1         83.3         14.6          0.175</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> zone_3  feature_2         31.2          6.01         0.193</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> zone_3  feature_3         72.0         12.8          0.178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">19</span> zone_3  feature_4         42.7          7.42         0.174</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">20</span> zone_3  feature_5         56.7          9.94         0.175</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -484,7 +493,7 @@ reformat solutions that contain multiple zones.</p></div>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>

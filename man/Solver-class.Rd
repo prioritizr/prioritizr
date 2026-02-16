@@ -247,33 +247,46 @@ Solve an optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisible \code{TRUE}.
+A \code{list} object with the solution and additional information.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-solve_multiobj"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-solve_multiobj}{}}}
 \subsection{Method \code{solve_multiobj()}}{
-Solve an optimization problem.
+Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, priority = NULL, rel_tol = NULL, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, priority, rel_tol, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+\item{\code{x}}{\code{list} object with multi-objective optimization problem.
+Arguments must contain the following elements:
+(\code{"opt"}) \code{\linkS4class{OptimizationProblem}} object;
+(\code{"modelsense"}) \code{character} vector containing the model sense values
+for each objective; and (\code{"obj"}) numeric` matrix containing the
+coefficients for each of the objectives, wherein rows correspond to
+different objectives, columns to different decision variables and
+row names can be optionally specify names for the objectives.}
 
-\item{\code{priority}}{numeric vector of the order of the supplied problems TODO: also allow a character vector with problem names}
+\item{\code{priority}}{\code{numeric} vector with values indicating the
+priority for each objective. Greater values denote greater priority,
+and so objectives associated with greater values are optimized
+earlier in the multi-objective process.}
 
-\item{\code{rel_tol}}{numeric vector of coefficients}
+\item{\code{rel_tol}}{\code{numeric} vector with relative tolerance values
+for each objective. Greater values denote a greater degree of
+sub-optimality.}
 
 \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-Invisible \code{TRUE}.
+A \code{list} object with the solution and additional information.
 }
 }
 \if{html}{\out{<hr>}}

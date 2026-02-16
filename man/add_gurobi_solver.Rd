@@ -85,7 +85,7 @@ be in the same format as the planning units (i.e., a \code{NULL}, \code{numeric}
 \code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).
 See the Start solution format section for more information.}
 
-\item{verbose}{\code{logical} should information be printed while solving
+\item{verbose}{\code{logical} should information be displayed while solving
 optimization problems? Defaults to \code{TRUE}.}
 
 \item{control}{\code{list} with additional parameters for tuning

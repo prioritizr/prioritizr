@@ -208,7 +208,8 @@ the features (e.g., species, ecosystems) that need to be conserved. After
 constructing this object, it can be
 customized to meet specific goals using \link{objectives},
 \link{targets}, \link{constraints}, and
-\link{penalties}. After building the problem, the
+\link{penalties}. Additionally, \link{solvers} can be added to customize the
+optimization software and settings. After building the problem, the
 \code{\link[=solve]{solve()}} function can be used to identify solutions.
 }
 \details{
