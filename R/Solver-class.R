@@ -122,7 +122,7 @@ Solver <- R6::R6Class(
     #' Solve an optimization problem.
     #' @param x [optimization_problem()] object.
     #' @param ... Additional arguments passed to the `calculate()` method.
-    #' @return Invisible `TRUE`.
+    #' @return A `list` object with the solution and additional information.
     solve = function(x, ...) {
       # build optimization problem
       self$calculate(x, ...)
@@ -134,32 +134,62 @@ Solver <- R6::R6Class(
       out
     },
     #' @description
-    #' Solve an optimization problem.
-    #' @param x [optimization_problem()] object.
-    #' @param priority numeric vector of the order of the supplied problems TODO: also allow a character vector with problem names
-    #' @param rel_tol numeric vector of coefficients
+    #' Solve a multi-objective optimization problem using a hierarchical
+    #' multi-objective optimization approach.
+    #' @param x `list` object with multi-objective optimization problem.
+    #' Arguments must contain the following elements:
+    #' (`"opt"`) [`OptimizationProblem-class`] object;
+    #' (`"modelsense"`) `character` vector containing the model sense values
+    #' for each objective; and (`"obj"`) numeric` matrix containing the
+    #' coefficients for each of the objectives, wherein rows correspond to
+    #' different objectives, columns to different decision variables and
+    #' row names can be optionally specify names for the objectives.
+    #' @param priority `numeric` vector with values indicating the
+    #' priority for each objective. Greater values denote greater priority,
+    #' and so objectives associated with greater values are optimized
+    #' earlier in the multi-objective process.
+    #' @param rel_tol `numeric` vector with relative tolerance values
+    #' for each objective. Greater values denote a greater degree of
+    #' sub-optimality.
     #' @param ... Additional arguments passed to the `calculate()` method.
-    #' @return Invisible `TRUE`.
-    solve_multiobj = function(x, priority = NULL, rel_tol = NULL, ...) {
+    #' @return A `list` object with the solution and additional information.
+    solve_multiobj = function(x, priority, rel_tol, ...) {
       # assert arguments are valid
-      ## TODO
+      assert(
+        is.list(x),
+        is.matrix(x$obj),
+        is.character(x$modelsense),
+        is.numeric(priority),
+        is.numeric(rel_tol),
+        nrow(x$obj) == length(priority),
+        nrow(x$obj) == length(rel_tol),
+        nrow(x$obj) == length(x$modelsense),
+        assertthat::noNA(priority),
+        assertthat::noNA(rel_tol),
+        all(rel_tol >= 0),
+        .internal = TRUE
+      )
+
+      # set objective names
+      obj_names <- rownames(x$obj)
+      if (is.null(obj_names)) {
+        obj_names <- paste0("objective_", seq_len(nrow(x$obj)))
+      }
+
+      # store initial model components
+      init_modelsense <- x$opt$modelsense()
+      init_obj <- x$opt$obj()
+
       # initialization
       n_obj <- nrow(x$obj)
       n_dv <- ncol(x$obj)
-      init_modelsense <- x$opt$modelsense()
-      init_obj <- x$opt$obj()
       n_extra_constraints <- 0
-      if (is.null(rel_tol)) {
-        rel_tol <- rep(0, nrow(x$obj) - 1)
-      }
-      if (is.null(priority)) {
-        priority <- seq(nrow(x$obj), 1)
-      }
-      
-      # Reorder according to priority 
+
+      # reorder according to priority
       solve_order <- order(priority, decreasing = TRUE)
       mobj <- x$obj[solve_order, , drop = FALSE]
       mmodelsense <- x$modelsense[solve_order]
+      rel_tol <- rel_tol[solve_order]
 
       # perform optimization
       for (i in seq_len(n_obj)) {
@@ -168,12 +198,12 @@ Solver <- R6::R6Class(
         x$opt$set_modelsense(mmodelsense[[i]])
         ## solve problem
         sol <- self$solve(x$opt, ...)
+
         ## if feasible solution found and there are remaining objectives,
         ## then add linear constraint for next iteration
         if (!is.null(sol) && !is.null(sol$x) && !identical(i, n_obj)) {
           ## increment counter
           n_extra_constraints <- n_extra_constraints + 1
-          print(rel_tol[[i]])
           ## calculate values for rhs constraint for next objective
           rhs <-
             sum(x$obj[i, ] * sol$x) *
@@ -197,32 +227,31 @@ Solver <- R6::R6Class(
           ## set start solution
           self$set_start_solution(sol$x, warn = FALSE)
         } else {
-          ## otherwise, exit the loop
+          ## otherwise, if solution is not feasible, then exit the loop
           break
         }
       }
-      
+
       # clean up
       ## reset obj
       x$opt$set_obj(init_obj)
       ## reset modelsense
       x$opt$set_modelsense(init_modelsense)
-      ## remove linear constraints that were added to x$opt
+      ## remove all linear constraints that were added to x$opt
       for (i in seq_len(n_extra_constraints)) {
         x$opt$remove_last_linear_constraint()
       }
-      
+
       # compute objective value for each objective
       if (!is.null(sol$x)) {
         sol$objective <- stats::setNames(
           rowSums(
-            x$obj *
-              matrix(sol$x, ncol = n_dv, nrow = n_obj, byrow = TRUE)
+            x$obj * matrix(sol$x, ncol = n_dv, nrow = n_obj, byrow = TRUE)
           ),
           rownames(x$obj)
         )
       }
-      
+
       # return solution
       sol
     }
