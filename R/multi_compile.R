@@ -10,6 +10,7 @@ NULL
 #' objects.
 #'
 #' @param ... arguments passed to [compile()].
+#'
 #' @return
 #' A `list` containing a (`$obj`) `numeric` matrix with the coefficients
 #' for each of the objectives (i.e., rows correspond to different
@@ -25,14 +26,43 @@ NULL
 #' See [compile()] to create an [`OptimizationProblem-class`] object.
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # import data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # define a total conservation budget (30% of total cost)
+#' budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.3
+#'
+#' # create multi-objective conservation planning problem
+#' mp <-
+#'   multi_problem(
+#'     keystone_obj =
+#'       problem(sim_pu_raster, sim_features[[1:3]]) %>%
+#'       add_min_shortfall_objective(budget) %>%
+#'       add_relative_targets(0.4) %>%
+#'       add_binary_decisions(),
+#'     iconic_obj =
+#'       problem(sim_pu_raster, sim_features[[4:5]]) %>%
+#'       add_min_shortfall_objective(budget) %>%
+#'       add_relative_targets(0.45) %>%
+#'       add_binary_decisions()
+#'   ) %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # compile into multi-objective optimization problem
+#' mo <- multi_compile(mp)
+#'
+#' # print multi-objective optimization problem
+#' print(mo)
+#' }
 #' @export
 multi_compile <- function(x, ...) {
   assert_required(x)
   UseMethod("multi_compile")
 }
 
-#' @rdname compile
+#' @rdname multi_compile
 #' @export
 multi_compile.MultiObjConservationProblem <- function(x, ...) {
   # compile each problem individually, and compile into multi-objective problem
@@ -44,7 +74,7 @@ multi_compile.MultiObjConservationProblem <- function(x, ...) {
   )
 }
 
-#' @rdname compile
+#' @rdname multi_compile
 #' @export
 multi_compile.list <- function(x, ...) {
   # assert arguments are valid
