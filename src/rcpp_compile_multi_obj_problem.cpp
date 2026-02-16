@@ -12,11 +12,11 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
   for (std::size_t i = 0; i < n; ++i) {
     opt.push_back(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x[i]));
   }
-  // define additional counters for optimization problems
+  /// define additional counters for optimization problems
   const std::size_t n_pu = opt[0]->_number_of_planning_units;
   const std::size_t n_zone = opt[0]->_number_of_zones;
   const std::size_t n_status = n_pu * n_zone;
-  // define counters to store object sizes
+  /// define counters to store object sizes
   std::vector<std::size_t> opt_n_ncol(n);
   std::vector<std::size_t> opt_n_nrow(n);
   std::vector<std::size_t> opt_n_A(n);
@@ -27,7 +27,7 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
     opt_n_A[i] = opt[i]->_A_i.size();
     opt_n_features[i] = opt[i]->_number_of_features;
   }
-  // define offset variables for rows and columns
+  /// define offset variables for rows and columns
   std::vector<std::size_t> opt_row_offset(n, 0);
   for (std::size_t i = 1; i < n; ++i) {
     opt_row_offset[i] = opt_n_nrow[i - 1];
@@ -49,7 +49,7 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
   for (std::size_t i = 1; i < n; ++i) {
     opt_A_offset[i] = opt_A_offset[i] + opt_A_offset[i - 1];
   }
-  // compute dimensions for multi-objective problem
+  /// compute dimensions for multi-objective problem
   const std::size_t mopt_ncol =
     std::accumulate(opt_n_ncol.begin(), opt_n_ncol.end(), 0) -
     ((n - 1) * n_status);
@@ -57,7 +57,7 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
     std::accumulate(opt_n_nrow.begin(), opt_n_nrow.end(), 0);
   const std::size_t mopt_n_A =
     std::accumulate(opt_n_A.begin(), opt_n_A.end(), 0);
-  // initialize new optimization problem
+  /// initialize new optimization problem
   OPTIMIZATIONPROBLEM* mopt = new OPTIMIZATIONPROBLEM(
     std::string("min"),                   // modelsense
     std::accumulate(                      // number_of_features
@@ -115,6 +115,13 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
       mopt->_lb.begin() + n_status + opt_col_offset[i]
     );
   }
+  /// constrain lower bounds for planning unit status variables based
+  /// on maximum across all constituent problems
+  for (std::size_t i = 1; i < n; ++i) {
+    for (std::size_t j = 0; j < n_status; ++j) {
+      mopt->_lb[j] = std::max(mopt->_lb[j], opt[i]->_lb[j]);
+    }
+  }
 
   // Specify upper bounds for multi-objective problem
   /// store values for planning unit status variables based on 1st problem
@@ -131,6 +138,13 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
       opt[i]->_ub.end(),
       mopt->_ub.begin() + n_status + opt_col_offset[i]
     );
+  }
+  /// constrain upper bounds for planning unit status variables based
+  /// on minimum across all constituent problems
+  for (std::size_t i = 1; i < n; ++i) {
+    for (std::size_t j = 0; j < n_status; ++j) {
+      mopt->_ub[j] = std::min(mopt->_ub[j], opt[i]->_ub[j]);
+    }
   }
 
   // Specify variable types for multi-objective problem
