@@ -64,7 +64,6 @@ reference:
     desc: Functions for creating new problems and solving them.
     contents:
       - problem
-      - multi_problem
       - solve
       - zones
 
@@ -78,12 +77,6 @@ reference:
     contents:
       - objectives
       - has_concept("objectives")
-      
-  - title: Multi-objective approaches
-    desc: Functions for adding a multi-objective optimization approach.
-    contents:
-      - approaches
-      - had_concept("approaches")
 
   - title: Targets
     desc: Functions for adding targets to a problem.
@@ -136,6 +129,13 @@ reference:
       - importance
       - has_concept("importances")
 
+  - title: Multi-objective optimization
+    desc: Functions for multi-objective optimization approach.
+    contents:
+      - multi_problem
+      - approaches
+      - has_concept("approaches")
+
   - title: Data simulation
     desc: Functions for simulating new datasets.
     contents:
@@ -163,6 +163,7 @@ reference:
       - boundary_matrix
       - branch_matrix
       - connectivity_matrix
+      - objective_weights_matrix
       - proximity_matrix
       - rij_matrix
       - rescale_matrix
@@ -180,11 +181,14 @@ reference:
       - compile
       - feature_abundances
       - feature_names
+      - multi_compile
       - number_of_features
       - number_of_planning_units
+      - number_of_problems
       - number_of_total_units
       - number_of_zones
       - presolve_check
+      - problem_names
       - run_calculations
       - write_problem
       - zone_names
@@ -208,7 +212,6 @@ reference:
       - knit_print
       - as_km2
       - as_per_km2
-      - create_objective_weights
 
   - title: Deprecated functions
     desc: Documentation for functions that are no longer available.
