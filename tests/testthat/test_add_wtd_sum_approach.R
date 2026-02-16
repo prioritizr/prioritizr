@@ -1,10 +1,11 @@
-test_that("solver information (single solution)", {
+test_that("format (single solution)", {
   skip_on_cran()
-  skip_if_no_solvers_installed()
+  skip_if_not_installed("fields")
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  weights <- runif(2)
+  weights <- c(0.1, 0.5)
   # create multi-object problem
   p <-
     multi_problem(
@@ -17,7 +18,7 @@ test_that("solver information (single solution)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -42,13 +43,14 @@ test_that("solver information (single solution)", {
   expect_named(attr(s, "gap"), "solution_1")
 })
 
-test_that("solver information (multiple solutions)", {
+test_that("format (multiple solutions)", {
   skip_on_cran()
-  skip_if_no_solvers_installed()
+  skip_if_not_installed("fields")
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  weights <- matrix(runif(10), ncol = 2)
+  weights <- matrix(seq_len(10), ncol = 2)
   # create multi-object problem
   p <-
     multi_problem(
@@ -61,7 +63,7 @@ test_that("solver information (multiple solutions)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -87,8 +89,9 @@ test_that("solver information (multiple solutions)", {
   expect_named(attr(s, "gap"), names(s))
 })
 
-test_that("solve (single solution)", {
+test_that("correct solution (single solution)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -106,7 +109,7 @@ test_that("solve (single solution)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create equivalent single objective problem
   p2 <-
@@ -133,8 +136,9 @@ test_that("solve (single solution)", {
   expect_equal(terra::values(s1), terra::values(s2))
 })
 
-test_that("solve (multiple solutions)", {
+test_that("correct solution (multiple solutions)", {
   skip_on_cran()
+  skip_if_not_installed("fields")
   skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -152,7 +156,7 @@ test_that("solve (multiple solutions)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_weighted_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create equivalent single objective problem
   p2 <- lapply(seq_len(5), function(i) {
@@ -185,10 +189,11 @@ test_that("solve (multiple solutions)", {
 })
 
 test_that("invalid inputs", {
+  skip_if_not_installed("fields")
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  weights <- matrix(runif(10), ncol = 2)
+  weights <- matrix(seq_len(10), ncol = 2)
   # create multi-object problem
   p <-
     multi_problem(
@@ -202,28 +207,34 @@ test_that("invalid inputs", {
         add_binary_decisions()
     )
   # run tests
+  ## weights
   expect_tidy_error(
-    add_weighted_sum_approach(p, "a"),
+    add_wtd_sum_approach(p, "a"),
      "numeric"
   )
   expect_tidy_error(
-    add_weighted_sum_approach(p, c(1, NA_real_)),
+    add_wtd_sum_approach(p, c(1, NA_real_)),
     "missing"
   )
   expect_tidy_error(
-    add_weighted_sum_approach(p, 1),
-    "length"
+    add_wtd_sum_approach(p, 1),
+    "value for each problem"
   )
   expect_tidy_error(
-    add_weighted_sum_approach(p, seq_len(3)),
-    "length"
+    add_wtd_sum_approach(p, seq_len(3)),
+    "value for each problem"
   )
   expect_tidy_error(
-    add_weighted_sum_approach(p, matrix(seq_len(3), nrow = 3)),
-    "columns"
+    add_wtd_sum_approach(p, matrix(seq_len(3), nrow = 3)),
+    "column for each problem"
   )
   expect_tidy_error(
-    add_weighted_sum_approach(p, matrix(seq_len(9), nrow = 3)),
-    "columns"
+    add_wtd_sum_approach(p, matrix(seq_len(9), nrow = 3)),
+    "column for each problem"
+  )
+  ## verbose
+  expect_tidy_error(
+    add_wtd_sum_approach(p, weights, NA),
+     "missing"
   )
 })
