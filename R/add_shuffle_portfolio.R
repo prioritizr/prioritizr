@@ -215,7 +215,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
               generate_single_solution
             )
           } else {
-            ### if NOT using paralell processing, then...
+            ### if NOT using parallel processing, then...
             sol <- lapply(
               seq_len(self$get_data("number_solutions")),
               generate_single_solution
