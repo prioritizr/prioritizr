@@ -30,8 +30,10 @@ NULL
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
 #'
-#' # create multi-objective problem
-#' # TODO
+#' # define budget for multi-objective problem
+#' b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+#'
+#' # TODO: example for multi-objective problem
 #' }
 #' @export
 number_of_zones <- function(x, ...) {
