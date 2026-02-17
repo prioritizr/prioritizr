@@ -164,16 +164,19 @@ variables for calculating the objective values (e.g., planning unit selection
 status values).
 Additionally, let \eqn{r_o}{ro} denote the relative tolerance (per
 \code{rel_tol}) parameter for each objective \eqn{o \in O}{o in O}.
-Furthermore, let \eqn{Z}{Z} represent the set (region) of feasible
-values for \eqn{x} based on the constraints for all of the objectives.
+Furthermore, let \eqn{S}{S} represent the set (region) of feasible
+values for \eqn{x} based on the constraints for all of the objectives
+(e.g., if the first problem in \code{x} has locked in constraints and the
+second problem has locked out constraints, then \eqn{S}{S} would
+account for both the locked in and locked out constraints).
 Given this terminology, the approach starts by solving the following
 optimization problem based on the first objective.
 
 \deqn{
 \mathit{Maximize} \space f_1(x) \\
-\mathit{subject \space to \space} x \in Z
+\mathit{subject \space to \space} x \in S
 }{
-Maximize f1(x), subject to x in Z
+Maximize f1(x), subject to x in S
 }
 
 After solving this problem, let \eqn{v_1}{v1} denote the optimal objective
@@ -183,10 +186,10 @@ based on \eqn{v_1}{v1} and the relative tolerance parameter for the first
 objective (i.e., \eqn{r_1}{r1}).
 \deqn{
 \mathit{Maximize} \space f_2(x) \\
-\mathit{subject \space to \space} x \in Z \\
+\mathit{subject \space to \space} x \in S \\
 f_1(x) \geq v_1 \times (1 - r_1)
 }{
-Maximize f2(x) subject to x in Z & f1(x) & f1(x) >= v1 * (1 - r1)
+Maximize f2(x) subject to x in S & f1(x) & f1(x) >= v1 * (1 - r1)
 }
 
 Similar to the previous step, let \eqn{v_2}{v2}
@@ -198,11 +201,11 @@ tolerance parameters for the first and second objectives (i.e.,
 \eqn{r_1}{r1} and \eqn{r_2}{r2}).
 \deqn{
 \mathit{Maximize} \space f_3(x) \\
-\mathit{subject \space to \space} x \in Z \\
+\mathit{subject \space to \space} x \in S \\
 f_1(x) \geq v_1 \times (1 - r_1) \\
 f_2(x) \geq v_2 \times (1 - r_1)
 }{
-Maximize f2(x) subject to x in Z & f1(x) &
+Maximize f2(x) subject to x in S & f1(x) &
 f1(x) >= v1 * (1 - r1) &
 f2(x) >= v2 * (1 - r2)
 }

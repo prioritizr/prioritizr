@@ -85,12 +85,15 @@ objective \\o \in O\\, where \\x\\ represents all the decision variables
 for calculating the objective values (e.g., planning unit selection
 status values). Additionally, let \\w_o\\ denote the weight (per
 `weights`) parameter for each objective \\o \in O\\. Furthermore, let
-\\Z\\ represent the set (region) of feasible values for \\x\\ based on
-the constraints for all of the objectives. Given this terminology, the
-approach involves solving the following optimization problem.
+\\S\\ represent the set (region) of feasible values for \\x\\ based on
+the constraints for all of the objectives (e.g., if the first problem in
+`x` has locked in constraints and the second problem has locked out
+constraints, then \\S\\ would account for both the locked in and locked
+out constraints). Given this terminology, the approach involves solving
+the following optimization problem.
 
 \$\$ \mathit{Maximize} \space \sum\_{o \in O} \frac{w_o}{\sum\_{o \in O}
-w_o} \times f_o(x) \\ \mathit{subject \space to \space} x \in Z \$\$
+w_o} \times f_o(x) \\ \mathit{subject \space to \space} x \in S \$\$
 
 By specifying the relative importance of each objective through a
 particular choice of weights, the optimization process can identify a

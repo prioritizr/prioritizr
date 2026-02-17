@@ -356,7 +356,7 @@ Functions for calculating importance scores for a solution.
 
 ## Multi-objective optimization
 
-Functions for multi-objective optimization approach.
+Functions for multi-objective optimization.
 
 - [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
   : Multi-objective conservation planning problem
@@ -366,6 +366,8 @@ Functions for multi-objective optimization approach.
   : Add a relative constraint approach
 - [`add_wtd_sum_approach()`](https://prioritizr.net/reference/add_wtd_sum_approach.md)
   : Add a weighted sum approach
+- [`objective_weights_matrix()`](https://prioritizr.net/reference/objective_weights_matrix.md)
+  : Create objective weights
 
 ## Data simulation
 
@@ -419,8 +421,6 @@ problems.
   : Branch matrix
 - [`connectivity_matrix()`](https://prioritizr.net/reference/connectivity_matrix.md)
   : Connectivity matrix
-- [`objective_weights_matrix()`](https://prioritizr.net/reference/objective_weights_matrix.md)
-  : Create objective weights
 - [`proximity_matrix()`](https://prioritizr.net/reference/proximity_matrix.md)
   : Proximity matrix
 - [`rij_matrix()`](https://prioritizr.net/reference/rij_matrix.md) :

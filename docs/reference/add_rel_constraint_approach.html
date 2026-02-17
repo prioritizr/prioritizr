@@ -239,13 +239,16 @@ variables for calculating the objective values (e.g., planning unit selection
 status values).
 Additionally, let \(r_o\) denote the relative tolerance (per
 <code>rel_tol</code>) parameter for each objective \(o \in O\).
-Furthermore, let \(Z\) represent the set (region) of feasible
-values for \(x\) based on the constraints for all of the objectives.
+Furthermore, let \(S\) represent the set (region) of feasible
+values for \(x\) based on the constraints for all of the objectives
+(e.g., if the first problem in <code>x</code> has locked in constraints and the
+second problem has locked out constraints, then \(S\) would
+account for both the locked in and locked out constraints).
 Given this terminology, the approach starts by solving the following
 optimization problem based on the first objective.</p>
 <p>$$
 \mathit{Maximize} \space f_1(x) \\
-\mathit{subject \space to \space} x \in Z
+\mathit{subject \space to \space} x \in S
 $$</p>
 <p>After solving this problem, let \(v_1\) denote the optimal objective
 value for the solution. Next, the approach involves solving the following
@@ -254,7 +257,7 @@ based on \(v_1\) and the relative tolerance parameter for the first
 objective (i.e., \(r_1\)).
 $$
 \mathit{Maximize} \space f_2(x) \\
-\mathit{subject \space to \space} x \in Z \\
+\mathit{subject \space to \space} x \in S \\
 f_1(x) \geq v_1 \times (1 - r_1)
 $$</p>
 <p>Similar to the previous step, let \(v_2\)
@@ -266,7 +269,7 @@ tolerance parameters for the first and second objectives (i.e.,
 \(r_1\) and \(r_2\)).
 $$
 \mathit{Maximize} \space f_3(x) \\
-\mathit{subject \space to \space} x \in Z \\
+\mathit{subject \space to \space} x \in S \\
 f_1(x) \geq v_1 \times (1 - r_1) \\
 f_2(x) \geq v_2 \times (1 - r_1)
 $$</p>
@@ -451,7 +454,7 @@ for ecological problems with an application to cackling goose management.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Sandra Neubuert, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

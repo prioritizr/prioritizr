@@ -141,14 +141,17 @@ variables for calculating the objective values (e.g., planning unit selection
 status values).
 Additionally, let \(w_o\) denote the weight (per
 <code>weights</code>) parameter for each objective \(o \in O\).
-Furthermore, let \(Z\) represent the set (region) of feasible
-values for \(x\) based on the constraints for all of the objectives.
+Furthermore, let \(S\) represent the set (region) of feasible
+values for \(x\) based on the constraints for all of the objectives
+(e.g., if the first problem in <code>x</code> has locked in constraints and the
+second problem has locked out constraints, then \(S\) would
+account for both the locked in and locked out constraints).
 Given this terminology, the approach involves solving the following
 optimization problem.</p>
 <p>$$
 \mathit{Maximize} \space
 \sum_{o \in O} \frac{w_o}{\sum_{o \in O} w_o} \times f_o(x) \\
-\mathit{subject \space to \space} x \in Z
+\mathit{subject \space to \space} x \in S
 $$</p>
 <p>By specifying the relative importance of each objective through a particular
 choice of weights, the optimization process can identify a solution
@@ -305,7 +308,7 @@ for <code>weights</code>.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Sandra Neubuert, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

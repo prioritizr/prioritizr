@@ -61,17 +61,20 @@ NULL
 #' status values).
 #' Additionally, let \eqn{w_o}{wo} denote the weight (per
 #' `weights`) parameter for each objective \eqn{o \in O}{o in O}.
-#' Furthermore, let \eqn{Z}{Z} represent the set (region) of feasible
-#' values for \eqn{x} based on the constraints for all of the objectives.
+#' Furthermore, let \eqn{S}{S} represent the set (region) of feasible
+#' values for \eqn{x} based on the constraints for all of the objectives
+#' (e.g., if the first problem in `x` has locked in constraints and the
+#' second problem has locked out constraints, then \eqn{S}{S} would
+#' account for both the locked in and locked out constraints).
 #' Given this terminology, the approach involves solving the following
 #' optimization problem.
 #'
 #' \deqn{
 #' \mathit{Maximize} \space
 #' \sum_{o \in O} \frac{w_o}{\sum_{o \in O} w_o} \times f_o(x) \\
-#' \mathit{subject \space to \space} x \in Z
+#' \mathit{subject \space to \space} x \in S
 #' }{
-#' Maximize sum_o^O (wo / sum_o^O wo) * fo(x), subject to x in Z
+#' Maximize sum_o^O (wo / sum_o^O wo) * fo(x), subject to x in S
 #' }
 #'
 #' By specifying the relative importance of each objective through a particular

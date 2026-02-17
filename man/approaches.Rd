@@ -58,7 +58,8 @@ multiple solutions, they are conceptually different to
 methods for generating portfolios of solutions
 (see \link{portfolios} for details).
 This is because methods for generating solution portfolios
-identify multiple solutions for achieving the same particular objective
+identify multiple solutions that represent alternative spatial configurations
+for achieving the same particular objective
 (e.g., minimizing cost per \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 Conversely, multi-objective approaches generate a single solution
 based on a set of parameters (e.g., weight or relative tolerance parameters)

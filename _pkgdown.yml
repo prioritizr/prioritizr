@@ -130,11 +130,12 @@ reference:
       - has_concept("importances")
 
   - title: Multi-objective optimization
-    desc: Functions for multi-objective optimization approach.
+    desc: Functions for multi-objective optimization.
     contents:
       - multi_problem
       - approaches
       - has_concept("approaches")
+      - objective_weights_matrix
 
   - title: Data simulation
     desc: Functions for simulating new datasets.
@@ -163,7 +164,6 @@ reference:
       - boundary_matrix
       - branch_matrix
       - connectivity_matrix
-      - objective_weights_matrix
       - proximity_matrix
       - rij_matrix
       - rescale_matrix

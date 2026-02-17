@@ -192,21 +192,23 @@ with the second highest priority is \\o=2\\, and so on. Also, let
 where \\x\\ represents all the decision variables for calculating the
 objective values (e.g., planning unit selection status values).
 Additionally, let \\r_o\\ denote the relative tolerance (per `rel_tol`)
-parameter for each objective \\o \in O\\. Furthermore, let \\Z\\
+parameter for each objective \\o \in O\\. Furthermore, let \\S\\
 represent the set (region) of feasible values for \\x\\ based on the
-constraints for all of the objectives. Given this terminology, the
-approach starts by solving the following optimization problem based on
-the first objective.
+constraints for all of the objectives (e.g., if the first problem in `x`
+has locked in constraints and the second problem has locked out
+constraints, then \\S\\ would account for both the locked in and locked
+out constraints). Given this terminology, the approach starts by solving
+the following optimization problem based on the first objective.
 
 \$\$ \mathit{Maximize} \space f_1(x) \\ \mathit{subject \space to
-\space} x \in Z \$\$
+\space} x \in S \$\$
 
 After solving this problem, let \\v_1\\ denote the optimal objective
 value for the solution. Next, the approach involves solving the
 following optimization problem based on the second objective, along with
 a constraint based on \\v_1\\ and the relative tolerance parameter for
 the first objective (i.e., \\r_1\\). \$\$ \mathit{Maximize} \space
-f_2(x) \\ \mathit{subject \space to \space} x \in Z \\ f_1(x) \geq v_1
+f_2(x) \\ \mathit{subject \space to \space} x \in S \\ f_1(x) \geq v_1
 \times (1 - r_1) \$\$
 
 Similar to the previous step, let \\v_2\\ denote the optimal objective
@@ -215,7 +217,7 @@ optimization problem based on the third objective, along with
 constraints based on \\v_1\\ and \\v_2\\ and the relative tolerance
 parameters for the first and second objectives (i.e., \\r_1\\ and
 \\r_2\\). \$\$ \mathit{Maximize} \space f_3(x) \\ \mathit{subject \space
-to \space} x \in Z \\ f_1(x) \geq v_1 \times (1 - r_1) \\ f_2(x) \geq
+to \space} x \in S \\ f_1(x) \geq v_1 \times (1 - r_1) \\ f_2(x) \geq
 v_2 \times (1 - r_1) \$\$
 
 In this manner, the approach involves iteratively formulating and
