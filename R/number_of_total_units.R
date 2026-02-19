@@ -70,8 +70,7 @@ NULL
 #'      add_min_shortfall_objective(budget = b) %>%
 #'      add_relative_targets(0.8) %>%
 #'      add_binary_decisions()
-#'   ) %>%
-#'   add_rel_constraint_approach(c(0, 0))
+#'   )
 #'
 #' # print number of total units
 #' print(number_of_total_units(mp))

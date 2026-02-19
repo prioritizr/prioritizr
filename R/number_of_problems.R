@@ -13,7 +13,27 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' # TODO
+#' # load data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # create multi-objective problem
+#  mp <-
+#'   multi_problem(
+#'    obj1 =
+#'      problem(sim_pu_raster, sim_features[[1:2]]) %>%
+#'      add_max_utility_objective(budget = b) %>%
+#'      add_relative_targets(0.2) %>%
+#'      add_binary_decisions(),
+#'    obj2 =
+#'      problem(sim_pu_raster, sim_features[[3:5]]) %>%
+#'      add_min_shortfall_objective(budget = b) %>%
+#'      add_relative_targets(0.8) %>%
+#'      add_binary_decisions()
+#'   )
+#'
+#' # print number of problems
+#' print(number_of_problems(mp))
 #' }
 #' @export
 number_of_problems <- function(x, ...) {
