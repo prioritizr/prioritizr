@@ -1,9 +1,9 @@
 test_that("format (single solution)", {
   skip_on_cran()
-  skip_if_not_installed("fields")
   skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features <- get_sim_features()
   weights <- c(0.1, 0.5)
   # create multi-object problem
@@ -45,10 +45,10 @@ test_that("format (single solution)", {
 
 test_that("format (multiple solutions)", {
   skip_on_cran()
-  skip_if_not_installed("fields")
   skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features <- get_sim_features()
   weights <- matrix(seq_len(10), ncol = 2)
   # create multi-object problem
@@ -91,10 +91,10 @@ test_that("format (multiple solutions)", {
 
 test_that("correct solution (single solution)", {
   skip_on_cran()
-  skip_if_not_installed("fields")
   skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features <- get_sim_features()
   weights <- runif(2)
   # create multi-object problem
@@ -138,10 +138,10 @@ test_that("correct solution (single solution)", {
 
 test_that("correct solution (multiple solutions)", {
   skip_on_cran()
-  skip_if_not_installed("fields")
   skip_if_no_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features <- get_sim_features()
   weights <- matrix(runif(10), ncol = 2)
   # create multi-object problem
@@ -189,9 +189,9 @@ test_that("correct solution (multiple solutions)", {
 })
 
 test_that("invalid inputs", {
-  skip_if_not_installed("fields")
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features <- get_sim_features()
   weights <- matrix(seq_len(10), ncol = 2)
   # create multi-object problem

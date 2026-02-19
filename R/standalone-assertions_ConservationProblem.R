@@ -316,33 +316,50 @@ all_comparable_problem <- function(...) {
     .internal = TRUE
   )
   isTRUE(
+    ## all problems must have same number of zones
     all(vapply(
       lapply(x, number_of_zones), identical,
       logical(1), x[[1]]$number_of_zones()
     )) &&
-    all(vapply(
-      lapply(x, zone_names), identical,
-      logical(1), x[[1]]$zone_names()
-    )) &&
-    all(vapply(
-      lapply(x, number_of_planning_units), identical,
-      logical(1), x[[1]]$number_of_planning_units()
-    )) &&
-    all(vapply(
-      lapply(x, number_of_total_units), identical,
-      logical(1), x[[1]]$number_of_total_units()
-    )) &&
+    ## if these are multi-zone problems, then they must have the same zone
+    ## names. note that this is not so important for the single-zone
+    ## problems because the zone name is automatically derived from the
+    ## name of the cost layer, and so it could be more reasonable for
+    ## a user to consider single-zone problems that have different
+    ## zone names
+    (
+      isTRUE(identical(x[[1]]$number_of_zones(), 1L)) ||
+      all(vapply(
+        lapply(x, zone_names), identical,
+        logical(1), x[[1]]$zone_names()
+      ))
+    ) &&
+    ## all problems have same types of planning units
     all(vapply(
       lapply(x, function(z) z$planning_unit_class()), identical,
       logical(1), x[[1]]$planning_unit_class()
     )) &&
+    ## all problems have the same decision types
+    all(vapply(
+      lapply(x, function(z) z$decisions$name), identical,
+      logical(1), x[[1]]$decisions$name
+    )) &&
+    ## all problems have same number of total units
+    all(vapply(
+      lapply(x, number_of_total_units), identical,
+      logical(1), x[[1]]$number_of_total_units()
+    )) &&
+    ## all problems have same planning unit indices (in other words,
+    ## the pixel or row number indices for planning units are the
+    ## same across all problems)
     all(vapply(
       lapply(x, function(z) z$planning_unit_indices()), identical,
       logical(1), x[[1]]$planning_unit_indices()
     )) &&
+    ## all problems have same number of planning units
     all(vapply(
-      lapply(x, function(z) z$decisions$name), identical,
-      logical(1), x[[1]]$decisions$name
+      lapply(x, number_of_planning_units), identical,
+      logical(1), x[[1]]$number_of_planning_units()
     ))
   )
 }

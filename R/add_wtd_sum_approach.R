@@ -4,9 +4,13 @@ NULL
 #' Add a weighted sum approach
 #'
 #' Add a weighted sum approach for multi-objective optimization to a
-#' conservation planning problem (Jaimes *et al.* 2009).
+#' multi-objective conservation planning problem (Jaimes *et al.* 2009).
+#' Broadly speaking, this approach involves combining each [problem()] in a
+#' [multi_problem()] object together based on weights, wherein
+#' those associated with a greater weight value exert a greater influence
+#' on the optimization process.
 #'
-#' @inheritParams add_rel_constraint_approach
+#' @inheritParams add_hier_approach
 #'
 #' @param weights `numeric` vector or matrix containing the weights for each
 #' [problem()] in `x`. A vector
@@ -81,7 +85,7 @@ NULL
 #' choice of weights, the optimization process can identify a solution
 #' that achieves multiple objectives.
 #'
-#' @inherit add_rel_constraint_approach return seealso
+#' @inherit add_hier_approach return seealso
 #'
 #' @seealso
 #' See [objective_weights_matrix()] to automatically create a matrix
@@ -220,8 +224,7 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
     all_positive(weights),
     all_finite(weights),
     assertthat::is.flag(verbose),
-    assertthat::noNA(verbose),
-    is_installed("fields")
+    assertthat::noNA(verbose)
   )
 
   # additional checks for weights
@@ -321,25 +324,16 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
               )
             }
 
-            ## identify starting solution for next run
-            if (identical(i, 1L) || identical(i, nrow(weights))) {
-              ## if first or last run, then just use the first solution for
-              ## next run - because the starting solution will always be
-              ## the first solution or have no effect
-              j <- 1L
-            } else {
-              ## otherwise, identify which previously generated solution
-              ## has the most similar set of weights to those for the next run
-              j <- which.min(
-                fields::rdist(
-                  weights[seq_len(i), , drop = FALSE],
-                  weights[i + 1, , drop = FALSE],
-                )
+            ## if needed, update starting solution
+            if (!identical(i, nrow(weights))) {
+              ### identify starting solution for next run
+              j <- which_least_different(
+                weights[seq_len(i), , drop = FALSE],
+                weights[i + 1, , drop = FALSE]
               )
+              ### update the starting solution for the solver
+              solver$set_start_solution(sols[[j]]$x, warn = FALSE)
             }
-
-            ## update the starting solution for the solver
-            solver$set_start_solution(sols[[j]]$x, warn = FALSE)
 
             ## if needed, update progress bar
             if (isTRUE(verbose)) {

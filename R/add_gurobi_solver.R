@@ -402,7 +402,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             is.numeric(priority),
             is.numeric(rel_tol),
             nrow(x$obj) == length(priority),
-            nrow(x$obj) == length(rel_tol),
+            nrow(x$obj) == length(rel_tol) + 1,
             nrow(x$obj) == length(x$modelsense),
             assertthat::noNA(priority),
             assertthat::noNA(rel_tol),
@@ -434,7 +434,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               objn = x$obj[i, ],
               priority = priority[[i]],
               weight = ifelse(x$modelsense[[i]] == "min", 1.0, -1.0),
-              reltol = rel_tol[[i]],
+              reltol = ifelse(is.na(rel_tol[i]), 0, rel_tol[i]),
               name = obj_names[[i]]
             )
           })

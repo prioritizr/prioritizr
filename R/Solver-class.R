@@ -136,6 +136,13 @@ Solver <- R6::R6Class(
     #' @description
     #' Solve a multi-objective optimization problem using a hierarchical
     #' multi-objective optimization approach.
+    #' Broadly speaking, this approach involves using multiple optimization
+    #' procedures to solve objectives following a hierarchical (lexicographic)
+    #' ordering, wherein those associated with a higher priority order are
+    #' solved before those with a lower priority order. When implementing this
+    #' approach, constraints are added after generating a given solution to
+    #' ensure that subsequent solutions for lower priority objectives
+    #' have adequate performance according to higher priority objectives.
     #' @param x `list` object with multi-objective optimization problem.
     #' Arguments must contain the following elements:
     #' (`"opt"`) [`OptimizationProblem-class`] object;
@@ -149,7 +156,7 @@ Solver <- R6::R6Class(
     #' and so objectives associated with greater values are optimized
     #' earlier in the multi-objective process.
     #' @param rel_tol `numeric` vector with relative tolerance values
-    #' for each objective. Greater values denote a greater degree of
+    #' for each constraint. Greater values denote a greater degree of
     #' sub-optimality.
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return A `list` object with the solution and additional information.
@@ -162,7 +169,7 @@ Solver <- R6::R6Class(
         is.numeric(priority),
         is.numeric(rel_tol),
         nrow(x$obj) == length(priority),
-        nrow(x$obj) == length(rel_tol),
+        nrow(x$obj) == length(rel_tol) + 1,
         nrow(x$obj) == length(x$modelsense),
         assertthat::noNA(priority),
         assertthat::noNA(rel_tol),
@@ -189,7 +196,6 @@ Solver <- R6::R6Class(
       solve_order <- order(priority, decreasing = TRUE)
       mobj <- x$obj[solve_order, , drop = FALSE]
       mmodelsense <- x$modelsense[solve_order]
-      rel_tol <- rel_tol[solve_order]
 
       # perform optimization
       for (i in seq_len(n_obj)) {

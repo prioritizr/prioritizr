@@ -97,7 +97,7 @@ NULL
 #'       add_relative_targets(0.4) %>%
 #'       add_binary_decisions()
 #'   ) %>%
-#'   add_rel_constraint_approach(rel_tol = c(0.1, 0), verbose = FALSE) %>%
+#'   add_hier_approach(rel_tol = 0.1, verbose = FALSE) %>%
 #'   add_gurobi_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem

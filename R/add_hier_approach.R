@@ -1,25 +1,38 @@
 #' @include internal.R MultiObjApproach-class.R
 NULL
 
-#' Add a relative constraint approach
+#' Add a hierarchical approach
 #'
-#' Add a relative constraint approach for multi-objective optimization
-#' to a conservation planning problem (Jaimes *et al.* 2009).
-#' Broadly speaking, this approach involves solving each [problem()] in a
+#' Add a hierarchical (lexicographic) approach for multi-objective optimization
+#' to a multi-objective conservation planning problem (Jaimes *et al.* 2009).
+#' Broadly speaking, this approach involves using multiple optimization
+#' procedures to solve each [problem()] in a
 #' [multi_problem()] object following a hierarchical (lexicographic) ordering,
 #' wherein those associated with a higher priority order are solved before
-#' those with a lower priority order.
+#' those with a lower priority order. When implementing this approach,
+#' constraints are added after generating a given solution to ensure that
+#' subsequent solutions for lower priority [problem()] objects have
+#' adequate performance according to higher priority [problem()] objects.
 #'
 #' @param x [multi_problem()] object.
 #'
 #' @param rel_tol `numeric` vector or matrix denoting a set of the relative
-#' tolerance values for each [problem()] in `x`. A vector
-#' can be used to specify a set of values for generating a single solution,
-#' wherein each value corresponds to a different [problem()] in `x`.
-#' Alternatively, a matrix can be used to specify multiple sets of values for
-#' generating multiple solutions, wherein each column corresponds to a different
-#' [problem()] in `x` and each row corresponds to a different solution.
-#' Here, `rel_tol` values specify how much each objective can be degraded
+#' tolerance values for each constraint added during the hierarchical
+#' approach.
+#' For example, if `x` has two problems, then the hierarchical approach
+#' will involve adding one constraint and, in turn, require one
+#' `rel_tol` value.
+#' Alternatively, if `x` has three problems, then the hierarchical approach
+#' will involve adding two constraints and, in turn, require two
+#' `rel_tol` values.
+#' Given this, a vector can be used to specify a set of values for
+#' generating a single solution, where each value corresponds to a different
+#' constraint.
+#' Alternatively, a matrix can be used to specify
+#' multiple sets of values for generating multiple solutions,
+#' where each column corresponds to a different constraint and each row
+#' corresponds to a different solution.
+#' These `rel_tol` values specify how much each objective can be degraded
 #' in subsequent optimization procedures (in other words, how much
 #' wiggle room is allowed when optimizing other [problem()] objects with a
 #' lower priority).
@@ -28,10 +41,12 @@ NULL
 #' [add_gurobi_solver()]). For example, a value of 0
 #' corresponds to zero reduction in quality,
 #' and a value of 0.05 allows for up to a 5% reduction in quality.
-#' Note that, because `rel_tol` values affect how a given [problem()] in
-#' `x` is degraded when considering others with a lower priority, the
-#' `rel_tol` parameter has no effect for the [problem()] in
-#' `x` with the lowest `priority` value.
+#' In other words, if a problem in `x` with the highest `priority` value had the
+#' minimum set objective (per [add_min_set_objective()]),
+#' then the solution resulting from this
+#' approach would cost no more than 105% of the total cost associated
+#' with a solution that just involved minimizing cost (assuming that all
+#' [problem()] objects in `x` had the same constraints).
 #' See Details section below for more information.
 #'
 #' @param priority `numeric` vector or matrix denoting the priority order for
@@ -62,16 +77,16 @@ NULL
 #' flexible and can better approximate the Pareto Frontier than alternative
 #' approaches.
 #' By specifying an explicit priority order for each objective
-#' (per `priority`) and an acceptable tolerance for degradation of
-#' each objective (per `rel_tol`), the parameters for this approach
-#' are highly transparent and easily accessible. Additionally, the approach
+#' (per `priority`) and acceptable tolerances for degradation
+#' (per `rel_tol`), the parameters for this approach
+#' are highly transparent. Additionally, the approach
 #' is not sensitive to differences in the range of values among
 #' different objectives (unlike the weighted sum approach,
 #' [add_wtd_sum_approach()]; see Das and Dennis 1997 for details), and so it
 #' can be readily applied to a wide range of objectives.
 #'
-#' The relative constraint approach involves solving the [problem()] objects
-#' in `x` in a hierarchical manner based on a pre-defined order of priority
+#' The hierarchical approach involves solving the [problem()] objects
+#' in `x` based on a pre-defined order of priority
 #' (per `priority`).
 #' In particular, it involves the following steps:
 #' (i) the problem with the highest priority is selected (per `priority`);
@@ -80,7 +95,7 @@ NULL
 #' based on its ability to achieve the objective for this problem
 #' (i.e., the objective value);
 #' (iii) the objective value and the relative tolerance parameter for this
-#' problem (per `rel_tol`) are used constrain
+#' problem (per `rel_tol`) are used to constrain
 #' subsequent optimization analyses (i.e., wherein a greater `rel_tol` value
 #' means that subsequent solutions do not have to achieve such a good
 #' level of performance according to the objective for this problem);
@@ -105,21 +120,21 @@ NULL
 #' The `priority` and `rel_tol` parameters specify how much influence each
 #' [problem()] in `x` has over the multi-objective optimization process.
 #' For example, let's consider an example where `x` has three problems,
-#' `priority = c(2, 4, 1)`, and `rel_tol = c(0.2, 0, 0)`.
+#' `priority = c(2, 4, 1)`, and `rel_tol = c(0, 0.2)`.
 #' In this example, the second [problem()] in `x` will be optimized first
 #' because it has the highest `priority` value (i.e., 4) .
 #' After generating a solution to the second problem, subsequent optimization
 #' analyses will be constrained to ensure that all subsequent solutions
 #' perform no worse than optimality according to the objective
-#' of the second problem (because it has a `rel_tol` value of 0).
+#' of the second problem (because the first `rel_tol` value is 0).
 #' The first [problem()] in `x` will then be optimized next, because it has the
 #' next highest `priority` value (i.e., 2).
 #' After generating a solution based on the first problem, subsequent
 #' optimization analyses will be constrained to ensure that all subsequent
 #' solutions perform  (i) no worse than optimality according to the objective
-#' of the second problem (because it has a `rel_tol` value of 0), and (ii) no
-#' worse than a 10% reduction in performance according to the objective of the
-#' first problem (because it has a `rel_tol` value of 0.1).
+#' of the second problem (because the first `rel_tol` value is 0),
+#' and (ii) no worse than a 20% reduction in performance according to the
+#' objective of the first problem (because the second `rel_tol` value is 0.2).
 #' Note that, because this new solution was generated with constraints
 #' to ensure optimal performance according to the second problem,
 #' this solution would likely have worse performance according to the objective
@@ -128,13 +143,10 @@ NULL
 #' The third [problem()] in `x` will be optimized next, because
 #' it has the next highest `priority` value (i.e., 1).
 #' Since the problems optimized previously had relatively low relative
-#' tolerance parameters (i.e., 0 and 0.1), the performance of this new solution
+#' tolerance parameters (i.e., 0 and 0.2), the performance of this new solution
 #' according to the objective of the third problem would probably have much
 #' worse than a solution that was generated by solving the third problem
 #' directly.
-#' Although this [problem()] has a `rel_tol` value of 0, this
-#' parameter will have no influence on the optimization process because there
-#' are no remaining [problem()] objects in `x` for subsequent optimization.
 #' Finally, the solution obtained by optimizing the third problem will be
 #' returned as the resulting solution from the multi-objective optimization
 #' approach.
@@ -193,7 +205,7 @@ NULL
 #' \mathit{Maximize} \space f_3(x) \\
 #' \mathit{subject \space to \space} x \in S \\
 #' f_1(x) \geq v_1 \times (1 - r_1) \\
-#' f_2(x) \geq v_2 \times (1 - r_1)
+#' f_2(x) \geq v_2 \times (1 - r_2)
 #' }{
 #' Maximize f2(x) subject to x in S & f1(x) &
 #' f1(x) >= v1 * (1 - r1) &
@@ -289,8 +301,8 @@ NULL
 #' # keystone species)
 #' mp1 <-
 #'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-#'   add_rel_constraint_approach(
-#'     rel_tol = c(0.01, 0),
+#'   add_hier_approach(
+#'     rel_tol = c(0.01),
 #'     priority = c(2, 1),
 #'     verbose = FALSE
 #'   ) %>%
@@ -307,8 +319,8 @@ NULL
 #'
 #' # create a matrix with 40 different combinations of relative tolerance values
 #' # that can be used to generate 40 solutions
-#' rel_tol_matrix <- matrix(c(seq(0, 1, length.out = 40), rep(0, 40)), ncol = 2)
-#' colnames(rel_tol_matrix) <- c("keystone_obj", "iconic_obj")
+#' rel_tol_matrix <- matrix(seq(0, 1, length.out = 40), ncol = 1)
+#' colnames(rel_tol_matrix) <- "keystone_obj"
 #'
 #' # preview matrix with relative tolerance values
 #' head(rel_tol_matrix)
@@ -326,7 +338,7 @@ NULL
 #' # values
 #' mp2 <-
 #'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-#'   add_rel_constraint_approach(
+#'   add_hier_approach(
 #'     rel_tol = rel_tol_matrix,
 #'     priority = priority_matrix,
 #'     verbose = FALSE
@@ -353,7 +365,7 @@ NULL
 #' )
 #' }
 #' @export
-add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
+add_hier_approach <- function(x, rel_tol, priority = NULL,
                                         verbose = TRUE) {
   # assert arguments are valid
   assert_required(x)
@@ -366,8 +378,7 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
     all_positive(rel_tol),
     all_finite(rel_tol),
     assertthat::is.flag(verbose),
-    assertthat::noNA(verbose),
-    is_installed("fields")
+    assertthat::noNA(verbose)
   )
 
   # additional checks for priority
@@ -404,10 +415,17 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
   if (is.matrix(rel_tol)) {
     ## if rel_tol and priority are matrices, then perform additional checks
     assert(
-      identical(number_of_problems(x), ncol(rel_tol)),
+      identical(number_of_problems(x) - 1L, ncol(rel_tol)),
       msg = c(
-        "{.arg rel_tol} must have a column for each problem in {.arg x}.",
+        paste(
+          "{.arg rel_tol} must have a column for each constraint added during",
+          "the approach."
+        ),
         "i" = "{.arg x} has {number_of_problems(x)} problem{?s}.",
+        "i" = paste(
+          "The approach will involve adding {number_of_problems(x) - 1}",
+          "constraint{?s}."
+        ),
         "x" = "{.arg rel_tol} has {ncol(rel_tol)} column{?s}."
       )
     )
@@ -431,10 +449,17 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
   } else {
     ## if rel_tol and priority are vectors, then perform additional checks
     assert(
-      identical(number_of_problems(x), length(rel_tol)),
+      identical(number_of_problems(x) - 1L, length(rel_tol)),
       msg = c(
-        "{.arg rel_tol} must have a value for each problem in {.arg x}.",
+        paste(
+          "{.arg rel_tol} must have a value for each constraint added during",
+          "the approach."
+        ),
         "i" = "{.arg x} has {number_of_problems(x)} problem{?s}.",
+        "i" = paste(
+          "The approach will involve adding {number_of_problems(x) - 1}",
+          "constraint{?s}."
+        ),
         "x" = "{.arg rel_tol} has {length(rel_tol)} value{?s}."
       )
     )
@@ -446,10 +471,6 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
         "x" = "{.arg priority} has {length(priority)} value{?s}."
       )
     )
-    assert(
-      length(rel_tol) > 0,
-      length(priority) == length(rel_tol)
-    )
 
     ## standardize rel_tol and priority to matrix format
     rel_tol <- matrix(rel_tol, nrow = 1)
@@ -459,10 +480,10 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
   # add approach
   x$add_approach(
     R6::R6Class(
-      "RelativeConstraintApproach",
+      "HierarchicalApproach",
       inherit = MultiObjApproach,
       public = list(
-        name = "relative constraint approach",
+        name = "hierarchical approach",
         data = list(rel_tol = rel_tol, priority = priority, verbose = verbose),
         run = function(x, solver) {
           ## extract parameters
@@ -483,33 +504,25 @@ add_rel_constraint_approach <- function(x, rel_tol, priority = NULL,
 
           ## iterate over each different parameter set
           for (i in seq_len(nrow(rel_tol))) {
-            ## generate solution
+            ## generate solution,
+            ### note that the solver$solve_multiobj() method will
+            ### automatically calculate objective values
             sols[[i]] <- solver$solve_multiobj(
               x, priority = priority[i, ], rel_tol = rel_tol[i, ]
             )
 
-            ### identify starting solution for next run
-            if (identical(i, 1L) || identical(i, nrow(rel_tol))) {
-              ### if first or last run, then just use the first solution for
-              ### next run - because the starting solution will always be
-              ### the first solution or have no effect
-              j <- 1L
-            } else {
-              ### otherwise, identify which previously generated solution
-              ### has the most similar set of parameters to those for the next
-              ### run
-              j <- which.min(
-                fields::rdist(
-                  params[seq_len(i), , drop = FALSE],
-                  params[i + 1, , drop = FALSE],
-                )
+            ## if needed, update starting solution
+            if (!identical(i, nrow(rel_tol))) {
+              ### identify starting solution for next run
+              j <- which_least_different(
+                params[seq_len(i), , drop = FALSE],
+                params[i + 1, , drop = FALSE]
               )
+              ### update the starting solution for the solver
+              solver$set_start_solution(sols[[j]]$x, warn = FALSE)
             }
 
-            ## update the starting solution for the solver
-            solver$set_start_solution(sols[[j]]$x, warn = FALSE)
-
-            ## if needed, update progress bar
+            ### if needed, update progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_update(id = pb)
             }

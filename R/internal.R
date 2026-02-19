@@ -104,3 +104,51 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
+
+#' Which least different?
+#'
+#' Identify the index of which set of parameters is most similar to a
+#' reference set of parameters?
+#'
+#' @param x `numeric` matrix with a collection of parameter sets.
+#' Here a parameter set refers to a set of different parameters
+#' (e.g., weight parameter values for different objectives).
+#' Each column corresponds to a different parameter in the set, and each row
+#' corresponds to a different parameter set.
+#'
+#' @param y `numeric` matrix with the reference parameter set.
+#'
+#' @details
+#' The most similar parameter set is determined based on Euclidean distances.
+#' Thus this approach assumes that each of parameters in `x` and `y` (in other
+#' words, the values in different columns of `x` and `y`) are all the same
+#' units.
+#'
+#' @return An `integer` value denoting the row number of `x` that has
+#' the most similar parameters to those in `y`.
+#'
+#' @noRd
+which_least_different <- function(x, y) {
+  # assert valid arguments
+  assert(
+    is.numeric(x),
+    is.numeric(y),
+    is.matrix(x),
+    is.matrix(y),
+    identical(ncol(x), ncol(y)),
+    nrow(x) >= 1,
+    identical(nrow(y), 1L),
+    .internal = TRUE
+  )
+  # if x has a single parameter set, then just return 1
+  if (identical(nrow(x), 1L)) return(1L)
+  # compute Euclidean distances between and parameter sets
+  ## note that we don't bother with sqrt() after computing the sum of squares,
+  ## because this is not needed to determine which is the smallest
+  ## Euclidean distance and skipping this is more computationally efficient
+  d <- rowSums(
+    (x - matrix(c(y), ncol = ncol(x), nrow = nrow(x), byrow = TRUE))^2
+  )
+  # return index of parameter set with smallest value
+  which.min(d)
+}
