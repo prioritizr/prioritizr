@@ -82,6 +82,7 @@ print(number_of_total_units(p2))
 b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
 
 # create multi-objective problem
+ mp <-
   multi_problem(
    obj1 =
      problem(sim_pu_raster, sim_features[[1:2]]) %>%
@@ -93,16 +94,10 @@ b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
      add_min_shortfall_objective(budget = b) %>%
      add_relative_targets(0.8) %>%
      add_binary_decisions()
-  ) %>%
-  add_rel_constraint_approach(c(0, 0))
-#> Error in add_rel_constraint_approach(., c(0, 0)): ℹ In argument to `x`.
-#> Caused by `x[[1]]$decisions$name()`:
-#> ! attempt to apply non-function
+  )
 
 # print number of total units
 print(number_of_total_units(mp))
-#> Error in number_of_total_units(mp): ℹ In argument to `x`.
-#> Caused by error:
-#> ! object 'mp' not found
+#> [1] 100
 # }
 ```

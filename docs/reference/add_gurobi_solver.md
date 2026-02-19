@@ -258,12 +258,10 @@ p1 <-
 
 # generate solution
 s1 <- solve(p1)
-#> Error: Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)
-#> Timing stopped at: 0.002 0 0.013
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's1' not found
+
 
 # create a similar problem with boundary length penalties and
 # specify the solution from the previous run as a starting solution
@@ -274,16 +272,12 @@ p2 <-
   add_boundary_penalties(10) %>%
   add_binary_decisions() %>%
   add_gurobi_solver(gap = 0, start_solution = s1, verbose = FALSE)
-#> Error in add_gurobi_solver(., gap = 0, start_solution = s1, verbose = FALSE): ℹ In argument to `start_solution`.
-#> Caused by error:
-#> ! object 's1' not found
 
 # generate solution
 s2 <- solve(p2)
-#> Error: object 'p2' not found
 
 # plot solution
 plot(s2, main = "solution with boundary penalties", axes = FALSE)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's2' not found
+
 # }
 ```

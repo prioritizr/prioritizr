@@ -316,7 +316,14 @@ functions.</p>
 </div><p></p><hr><a id="method-Solver-solve_multiobj"></a><div class="section">
 <h3 id="method-solve-multiobj-">Method <code>solve_multiobj()</code><a class="anchor" aria-label="anchor" href="#method-solve-multiobj-"></a></h3>
 <p>Solve a multi-objective optimization problem using a hierarchical
-multi-objective optimization approach.</p><div class="section">
+multi-objective optimization approach.
+Broadly speaking, this approach involves using multiple optimization
+procedures to solve objectives following a hierarchical (lexicographic)
+ordering, wherein those associated with a higher priority order are
+solved before those with a lower priority order. When implementing this
+approach, constraints are added after generating a given solution to
+ensure that subsequent solutions for lower priority objectives
+have adequate performance according to higher priority objectives.</p><div class="section">
 <h4 id="usage-8">Usage<a class="anchor" aria-label="anchor" href="#usage-8"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">Solver</span><span class="op">$</span><span class="fu">solve_multiobj</span><span class="op">(</span><span class="va">x</span>, <span class="va">priority</span>, <span class="va">rel_tol</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
@@ -343,7 +350,7 @@ earlier in the multi-objective process.</p></dd>
 
 <dt><code>rel_tol</code></dt>
 <dd><p><code>numeric</code> vector with relative tolerance values
-for each objective. Greater values denote a greater degree of
+for each constraint. Greater values denote a greater degree of
 sub-optimality.</p></dd>
 
 

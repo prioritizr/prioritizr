@@ -130,8 +130,6 @@ if (require("gurobi")) {
 }
 #> Loading required package: gurobi
 #> Loading required package: slam
-#> Error: Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)
-#> Timing stopped at: 0.002 0.001 0.013
 
 # if cplexAPI is installed: create problem with added CPLEX solver
 if (require("cplexAPI")) {
@@ -175,7 +173,6 @@ if (require("lpsymphony")) {
 
 # plot solutions
 names(s) <- n
-#> Error in names(s) <- n: 'names' attribute [6] must be the same length as the vector [5]
 plot(terra::rast(s), axes = FALSE)
 
 # }

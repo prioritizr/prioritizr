@@ -29,7 +29,11 @@ added to it.
 }
 \description{
 Add a weighted sum approach for multi-objective optimization to a
-conservation planning problem (Jaimes \emph{et al.} 2009).
+multi-objective conservation planning problem (Jaimes \emph{et al.} 2009).
+Broadly speaking, this approach involves combining each \code{\link[=problem]{problem()}} in a
+\code{\link[=multi_problem]{multi_problem()}} object together based on weights, wherein
+those associated with a greater weight value exert a greater influence
+on the optimization process.
 }
 \details{
 This multi-objective optimization approach is most useful when considering
@@ -220,6 +224,6 @@ See \code{\link[=objective_weights_matrix]{objective_weights_matrix()}} to autom
 for \code{weights}.
 
 Other functions for adding multi-objective optimization approaches:
-\code{\link{add_rel_constraint_approach}()}
+\code{\link{add_hier_approach}()}
 }
 \concept{approaches}

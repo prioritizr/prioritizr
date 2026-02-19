@@ -21,8 +21,8 @@ representing multiple different conservation features
 minimizing multiple different cost datasets (Schuster \emph{et al.} 2023).
 The following functions can be used to add an approach for multi-objective
 optimization to a multi-objective conservation planning \code{\link[=multi_problem]{multi_problem()}}.
-In general, we recommend using the relative constraint approach
-(\code{\link[=add_rel_constraint_approach]{add_rel_constraint_approach()}}) because it is better able to generate
+In general, we recommend using the hierarchical approach
+(\code{\link[=add_hier_approach]{add_hier_approach()}}) because it is better able to generate
 distinct solutions.
 Although the weighted sum approach (\code{\link[=add_wtd_sum_approach]{add_wtd_sum_approach()}}) is
 conceptually easier to understand, it can be challenging to use in practice
@@ -34,7 +34,7 @@ different solutions (Das and Dennis 1997).
 
 \describe{
 
-\item{\code{\link[=add_rel_constraint_approach]{add_rel_constraint_approach()}}}{
+\item{\code{\link[=add_hier_approach]{add_hier_approach()}}}{
 Add an approach that involves solving each \code{\link[=problem]{problem()}} in a
 \code{\link[=multi_problem]{multi_problem()}} object in a hierarchical (lexicographic) manner,
 wherein those associated with a higher priority order are solved before
@@ -102,10 +102,10 @@ mp <-
   ) \%>\%
   add_default_solver(gap = 0, verbose = FALSE)
 
-# create multi-problem with relative constraint approach
+# create multi-problem with hierarchical approach
 mp1 <-
  mp \%>\%
- add_rel_constraint_approach(rel_tol = c(0.1, 0), verbose = FALSE)
+ add_hier_approach(rel_tol = 0.1, verbose = FALSE)
 
 # create multi-problem with weighted sum approach,
 mp2 <-
@@ -114,7 +114,7 @@ mp2 <-
 
 # solve problems
 s <- c(solve(mp1), solve(mp2))
-names(s) <- c("relative constraint", "weighted sum")
+names(s) <- c("hierarchal", "weighted sum")
 
 # plot solutions
 plot(s, axes = FALSE)

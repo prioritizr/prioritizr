@@ -256,6 +256,13 @@ A \code{list} object with the solution and additional information.
 \subsection{Method \code{solve_multiobj()}}{
 Solve a multi-objective optimization problem using a hierarchical
 multi-objective optimization approach.
+Broadly speaking, this approach involves using multiple optimization
+procedures to solve objectives following a hierarchical (lexicographic)
+ordering, wherein those associated with a higher priority order are
+solved before those with a lower priority order. When implementing this
+approach, constraints are added after generating a given solution to
+ensure that subsequent solutions for lower priority objectives
+have adequate performance according to higher priority objectives.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Solver$solve_multiobj(x, priority, rel_tol, ...)}\if{html}{\out{</div>}}
 }
@@ -278,7 +285,7 @@ and so objectives associated with greater values are optimized
 earlier in the multi-objective process.}
 
 \item{\code{rel_tol}}{\code{numeric} vector with relative tolerance values
-for each objective. Greater values denote a greater degree of
+for each constraint. Greater values denote a greater degree of
 sub-optimality.}
 
 \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}

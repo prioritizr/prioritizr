@@ -278,11 +278,9 @@ p1 <-
 
 # solve problem
 s1 <- solve(p1)
-#> Error: Error 10009: HostID mismatch (licensed to 2890c3bc, hostid is d03f011a)
-#> Timing stopped at: 0.003 0 0.013
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's1' not found
+
 # }
 ```

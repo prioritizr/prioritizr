@@ -973,8 +973,8 @@ Functions for multi-objective optimization.
   : Multi-objective conservation planning problem
 - [`approaches`](https://prioritizr.net/reference/approaches.md) : Add
   an approach
-- [`add_rel_constraint_approach()`](https://prioritizr.net/reference/add_rel_constraint_approach.md)
-  : Add a relative constraint approach
+- [`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
+  : Add a hierarchical approach
 - [`add_wtd_sum_approach()`](https://prioritizr.net/reference/add_wtd_sum_approach.md)
   : Add a weighted sum approach
 - [`objective_weights_matrix()`](https://prioritizr.net/reference/objective_weights_matrix.md)

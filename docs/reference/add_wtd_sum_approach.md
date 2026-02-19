@@ -1,7 +1,13 @@
 # Add a weighted sum approach
 
 Add a weighted sum approach for multi-objective optimization to a
-conservation planning problem (Jaimes *et al.* 2009).
+multi-objective conservation planning problem (Jaimes *et al.* 2009).
+Broadly speaking, this approach involves combining each
+[`problem()`](https://prioritizr.net/reference/problem.md) in a
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+object together based on weights, wherein those associated with a
+greater weight value exert a greater influence on the optimization
+process.
 
 ## Usage
 
@@ -127,7 +133,7 @@ See
 to automatically create a matrix for `weights`.
 
 Other functions for adding multi-objective optimization approaches:
-[`add_rel_constraint_approach()`](https://prioritizr.net/reference/add_rel_constraint_approach.md)
+[`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
 
 ## Examples
 

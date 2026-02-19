@@ -50,6 +50,21 @@ p <-
 # print number of planning units
 print(number_of_planning_units(p))
 
-# TODO: multi_problem example
+# create multi-objective problem
+  multi_problem(
+   obj1 =
+     problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
+     add_max_utility_objective(budget = b) \%>\%
+     add_relative_targets(0.2) \%>\%
+     add_binary_decisions(),
+   obj2 =
+     problem(sim_pu_raster, sim_features[[3:5]]) \%>\%
+     add_min_shortfall_objective(budget = b) \%>\%
+     add_relative_targets(0.8) \%>\%
+     add_binary_decisions()
+  )
+
+# print number of planning units
+print(number_of_planning_units(mp))
 }
 }
