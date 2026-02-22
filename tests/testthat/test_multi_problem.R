@@ -14,10 +14,6 @@ test_that("warnings", {
 })
 
 test_that("invalid inputs", {
-  stop("TODO")
-})
-
-test_that("invalid inputs", {
   # load data
   sim_pu_raster <- get_pu_raster()
   sim_pu_polygons <- get_sim_pu_polygons()

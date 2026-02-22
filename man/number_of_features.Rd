@@ -59,6 +59,7 @@ print(number_of_features(p))
 b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
 
 # create multi-objective problem
+ mp <-
   multi_problem(
    obj1 =
      problem(sim_pu_raster, sim_features[[1:2]]) \%>\%

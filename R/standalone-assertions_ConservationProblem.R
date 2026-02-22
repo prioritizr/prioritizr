@@ -360,7 +360,11 @@ all_comparable_problem <- function(...) {
     all(vapply(
       lapply(x, number_of_planning_units), identical,
       logical(1), x[[1]]$number_of_planning_units()
-    ))
+    )) &&
+    all(vapply(
+        lapply(x, function(z) z$total_unit_ids()), identical,
+        logical(1), x[[1]]$total_unit_ids()
+      ))
   )
 }
 
@@ -392,6 +396,10 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
     pu_indices = isTRUE(all(vapply(
       lapply(x, function(z) z$planning_unit_indices()), identical,
       logical(1), x[[1]]$planning_unit_indices()
+    ))),
+    unit_ids = isTRUE(all(vapply(
+      lapply(x, function(z) z$total_unit_ids()), identical,
+      logical(1), x[[1]]$total_unit_ids()
     )))
   )
   
@@ -411,7 +419,9 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
     pu_class = c("{.arg x} has mismatched planning unit classes.",
                  "i" = "All problems must have identical planning unit classes."),
     pu_indices = c("{.arg x} has mismatched planning unit indices.",
-                   "i" = "All problems must have identical planning unit indices.")
+                   "i" = "All problems must have identical planning unit indices."),
+    unit_ids = c("{.arg x} has mismatched total unit indices.",
+                   "i" = "All problems must have identical total unit indices.")
   )
   
   # throw the error using cli_abort

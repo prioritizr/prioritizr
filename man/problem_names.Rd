@@ -23,24 +23,35 @@ Extract the names of the problems in an object.
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
 
-# create two example problems
-p1 <- problem(sim_pu_raster, sim_features[[1:3]]) \%>\%
+# create problem
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions()
-
-p2 <- problem(sim_pu_raster, sim_features[[4:5]]) \%>\%
-  add_min_shortfall_objective(
-    budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]) \%>\%
   add_relative_targets(0.2) \%>\%
   add_binary_decisions()
-  
-# create multi-objective problem
-mp <- multi_problem(p1, p2) \%>\%
-add_hier_approach(rel_tol = 0.1, verbose = FALSE) \%>\%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
 
-  # print feature names
+# print feature names
+print(feature_names(p))
+
+# define budget for multi-objective problem
+b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+
+# create multi-objective problem
+mp <-
+  multi_problem(
+   obj1 =
+     problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
+     add_max_utility_objective(budget = b) \%>\%
+     add_relative_targets(0.2) \%>\%
+     add_binary_decisions(),
+   obj2 =
+     problem(sim_pu_raster, sim_features[[3:5]]) \%>\%
+     add_min_shortfall_objective(budget = b) \%>\%
+     add_relative_targets(0.8) \%>\%
+     add_binary_decisions()
+  )
+
+# print number of features
 print(problem_names(mp))
 }
 }
