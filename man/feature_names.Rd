@@ -51,7 +51,24 @@ p <-
 # print feature names
 print(feature_names(p))
 
+# create two example problems
+p1 <- problem(sim_pu_raster, sim_features[[1:3]]) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions()
+
+p2 <- problem(sim_pu_raster, sim_features[[4:5]]) \%>\%
+  add_min_shortfall_objective(
+    budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]) \%>\%
+  add_relative_targets(0.2) \%>\%
+  add_binary_decisions()
+  
 # create multi-objective problem
-# TODO
+mp <- multi_problem(p1, p2) \%>\%
+add_hier_approach(rel_tol = 0.1, verbose = FALSE) \%>\%
+  add_gurobi_solver(gap = 0, verbose = FALSE)
+
+  # print feature names
+print(feature_names(mp))
 }
 }

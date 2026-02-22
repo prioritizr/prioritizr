@@ -365,5 +365,55 @@ all_comparable_problem <- function(...) {
 }
 
 assertthat::on_failure(all_comparable_problem) <- function(call, env) {
-  "TODO"
+  x <- as.list(eval(substitute(list(...)), env)) # get the list of problems passed to all_comparable_problem()
+  
+  # replicate the same checks as the main function, individually
+  checks <- list(
+    number_zones = isTRUE(all(vapply(
+      lapply(x, number_of_zones), identical,
+      logical(1), x[[1]]$number_of_zones()
+    ))),
+    zones_names = isTRUE(all(vapply(
+      lapply(x, zone_names), identical,
+      logical(1), x[[1]]$zone_names()
+    ))),
+    number_pu = isTRUE(all(vapply(
+      lapply(x, number_of_planning_units), identical,
+      logical(1), x[[1]]$number_of_planning_units()
+    ))),
+    number_total = isTRUE(all(vapply(
+      lapply(x, number_of_total_units), identical,
+      logical(1), x[[1]]$number_of_total_units()
+    ))),
+    pu_class = isTRUE(all(vapply(
+      lapply(x, function(z) z$planning_unit_class()), identical,
+      logical(1), x[[1]]$planning_unit_class()
+    ))),
+    pu_indices = isTRUE(all(vapply(
+      lapply(x, function(z) z$planning_unit_indices()), identical,
+      logical(1), x[[1]]$planning_unit_indices()
+    )))
+  )
+  
+  # find the first failed check
+  failed <- names(checks)[!unlist(checks)][1]
+  
+  # cli-style messages for each type of failure
+  messages <- list(
+    number_zones = c("{.arg x} has mismatched number of zones.",
+                        "i" = "All problems must have the same number of zones."),
+    zones_names = c("{.arg x} has mismatched zone names.",
+                    "i" = "All problems must have identical zone names."),
+    number_pu = c("{.arg x} has mismatched number of planning units.",
+                     "i" = "All problems must have the same number of planning units."),
+    number_total = c("{.arg x} has mismatched total units.",
+                        "i" = "All problems must have the same total units."),
+    pu_class = c("{.arg x} has mismatched planning unit classes.",
+                 "i" = "All problems must have identical planning unit classes."),
+    pu_indices = c("{.arg x} has mismatched planning unit indices.",
+                   "i" = "All problems must have identical planning unit indices.")
+  )
+  
+  # throw the error using cli_abort
+  cli::cli_abort(messages[[failed]], call = call)
 }

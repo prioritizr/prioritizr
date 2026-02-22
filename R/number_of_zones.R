@@ -30,10 +30,24 @@ NULL
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
 #'
-#' # define budget for multi-objective problem
-#' b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+#' # create two example problems
+#' p1 <- problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions()
 #'
-#' # TODO: example for multi-objective problem
+#' p2 <- problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+#'   add_binary_decisions()
+#'   
+#' # create multi-objective problem
+#' mp <- multi_problem(p1, p2) %>%
+#' add_hier_approach(rel_tol = 0.1, verbose = FALSE) %>%
+#'   add_gurobi_solver(gap = 0, verbose = FALSE)
+#'
+#'   # print feature names
+#' print(number_of_zones(mp))
 #' }
 #' @export
 number_of_zones <- function(x, ...) {

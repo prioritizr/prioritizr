@@ -182,6 +182,7 @@ Collate:
     'compile.R'
     'presolve_check.R'
     'assertions_pass_presolve_check.R'
+    'assertions_problem.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'calibrate_cohon_penalty.R'

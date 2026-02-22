@@ -50,7 +50,23 @@ p <-
 # print zone names in problem
 print(zone_names(p))
 
+# create two example problems
+p1 <- problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions()
+
+p2 <- problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+  add_binary_decisions()
+  
 # create multi-objective problem
-# TODO
+mp <- multi_problem(p1, p2) \%>\%
+add_hier_approach(rel_tol = 0.1, verbose = FALSE) \%>\%
+  add_gurobi_solver(gap = 0, verbose = FALSE)
+
+  # print feature names
+print(zone_names(mp))
 }
 }
