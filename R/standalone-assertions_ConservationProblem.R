@@ -315,6 +315,7 @@ all_comparable_problem <- function(...) {
     all_elements_inherit(x, "ConservationProblem"),
     .internal = TRUE
   )
+  
   isTRUE(
     ## all problems must have same number of zones
     all(vapply(
@@ -361,15 +362,15 @@ all_comparable_problem <- function(...) {
       lapply(x, number_of_planning_units), identical,
       logical(1), x[[1]]$number_of_planning_units()
     )) &&
-    all(vapply(
-        lapply(x, function(z) z$total_unit_ids()), identical,
-        logical(1), x[[1]]$total_unit_ids()
-      ))
+    ## all problems have same decision type
+   all(vapply(lapply(x, function(z) z$decisions$name), identical,
+                 logical(1), x[[1]]$decisions$name))
   )
 }
 
 assertthat::on_failure(all_comparable_problem) <- function(call, env) {
-  x <- as.list(eval(substitute(list(...)), env)) # get the list of problems passed to all_comparable_problem()
+  # get the list of problems passed to all_comparable_problem()
+  x <- as.list(eval(substitute(list(...)), env)) 
   
   # replicate the same checks as the main function, individually
   checks <- list(
@@ -397,14 +398,11 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
       lapply(x, function(z) z$planning_unit_indices()), identical,
       logical(1), x[[1]]$planning_unit_indices()
     ))),
-    unit_ids = isTRUE(all(vapply(
-      lapply(x, function(z) z$total_unit_ids()), identical,
-      logical(1), x[[1]]$total_unit_ids()
-    )))
+    decisions = isTRUE(all(vapply(lapply(x, function(z) z$decisions$name), 
+                                  identical,
+                                  logical(1), x[[1]]$decisions$name
+                                  )))
   )
-  
-  # find the first failed check
-  failed <- names(checks)[!unlist(checks)][1]
   
   # cli-style messages for each type of failure
   messages <- list(
@@ -420,10 +418,37 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
                  "i" = "All problems must have identical planning unit classes."),
     pu_indices = c("{.arg x} has mismatched planning unit indices.",
                    "i" = "All problems must have identical planning unit indices."),
-    unit_ids = c("{.arg x} has mismatched total unit indices.",
-                   "i" = "All problems must have identical total unit indices.")
+    decisions = c("{.arg x} has mismatched decision types.",
+                   "i" = "All problems must have identical decision types.")
   )
   
-  # throw the error using cli_abort
-  cli::cli_abort(messages[[failed]], call = call)
+  failed <- names(checks)[!unlist(checks)]
+  
+  if (length(failed) > 0) {
+    
+    detail_msgs <- unlist(
+      lapply(failed, function(f) {
+        msg <- messages[[f]]
+        
+        c(
+          "x" = msg[[1]],
+          "i" = msg[["i"]]
+        )
+      }),
+      recursive = FALSE
+    )
+    
+    if (length(failed) == 1) {
+      cli::cli_abort(detail_msgs, call = call)
+    }
+    
+    cli::cli_abort(
+      c(
+        "!" = "{.arg x} is not comparable.",
+        "i" = "The error is caused by one or more of the following:",
+        detail_msgs
+      ),
+      call = call
+    )
+  }
 }

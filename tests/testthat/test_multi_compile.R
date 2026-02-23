@@ -442,7 +442,39 @@ test_that("three problems (multiple zones)", {
 test_that("invalid inputs", {
   # run tests
   ## problem missing objective
-  stop("TODO")
+  p1 <-
+    problem(sim_zones_pu_raster[[1]], sim_features) %>%
+    add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+    add_binary_decisions()
+  
+  p2 <-
+    problem(sim_zones_pu_raster[[2]], sim_features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+    add_binary_decisions()
+  
+  mp <- multi_problem(obj1 = p1, obj2 = p2)
+  
+  expect_tidy_error(
+    multi_compile(mp),
+    "objective"
+  )
   ## min set problem missing targets
-  stop("TODO")
+  p1 <-
+    problem(sim_zones_pu_raster[[1]], sim_features) %>%
+    add_min_set_objective() %>%
+    add_binary_decisions()
+  
+  p2 <-
+    problem(sim_zones_pu_raster[[2]], sim_features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+    add_binary_decisions()
+  
+  mp <- multi_problem(obj1 = p1, obj2 = p2)
+  
+  expect_tidy_error(
+    multi_compile(mp),
+    "targets"
+  )
 })

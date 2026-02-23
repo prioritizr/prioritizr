@@ -1,14 +1,14 @@
 #' @include internal.R presolve_check.R
 NULL
 
-#' All conservation planning problems comparable?
-#'
-#' @param x set of [problem()] objects.
-#'
-#' @return A `logical` value.
-#'
-#' @noRd
-all_comparable_problem <- function(...) {
+# #' All conservation planning problems comparable?
+# #'
+# #' @param x set of [problem()] objects.
+# #'
+# #' @return A `logical` value.
+# #'
+# #' @noRd
+# all_comparable_problem <- function(...) {
   # x <- list(...)
   # assert(
   #   is.list(x),
@@ -46,7 +46,7 @@ all_comparable_problem <- function(...) {
   #       logical(1), x[[1]]$total_unit_ids()
   #     ))
   # )
-}
+# }
 
 # assertthat::on_failure(all_comparable_problem) <- function(call, env) {
 #   x <- eval(call[[2]], env)  # get the list of problems passed to all_comparable_problem()
