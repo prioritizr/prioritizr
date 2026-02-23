@@ -22,7 +22,8 @@ run_multi_presolve_check <- function(x) {
   )
 
   # run checks
-  res <- lapply(x, run_presolve_check)
+  res <- run_presolve_check(x$opt) # this works but doesnt produce a message
+  #res <- lapply(x, run_presolve_check) # x here is obj, modelsense and opt, I'm not sure why we would be looping over this?
 
   # extract problem names
   nms <- names(x)

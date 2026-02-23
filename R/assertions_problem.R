@@ -120,6 +120,7 @@ NULL
 #' @noRd
 assert_pass_presolve_check <- function(a, show_bypass_message = FALSE,
                                        call = fn_caller_env()) {
+  
   # assert arguments are valid
   assert(
     inherits(a, c("list", "OptimizationProblem")),
