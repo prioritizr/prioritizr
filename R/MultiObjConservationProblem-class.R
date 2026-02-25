@@ -293,15 +293,6 @@ MultiObjConservationProblem <- R6::R6Class(
     #' @description
     #' Obtain the names of the problems.
     #' @return A `character` vector.
-    # problem_names = function() { 
-    #   stats::setNames(
-    #     lapply(
-    #       self$problems,
-    #       function(x) x$feature_names()
-    #     ),
-    #     self$problem_names() #THIS IS RECURSIVE, so not working and breaks all other functions related to this
-    #   )
-    # },
     problem_names = function() {
       names(self$problems)
     },
@@ -391,10 +382,4 @@ new_multi_obj_conservation_problem <- function(problems) {
 
   # return result
   p
-}
-
-
-#' @export
-summary.MultiObjConservationProblem <- function(object, ...) {
-  object$summary(...)
 }

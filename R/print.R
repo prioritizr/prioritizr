@@ -42,3 +42,10 @@ print.Zones <- function(x, ...) {
     cli::cli_end(div_id)
   })
 }
+
+#' @method summarize MultiObjConservationProblem
+#'
+#' @export
+summary.MultiObjConservationProblem <- function(object, ...) {
+  object$summary(...)
+}

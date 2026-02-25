@@ -445,7 +445,7 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
     cli::cli_abort(
       c(
         "!" = "{.arg x} is not comparable.",
-        "i" = "The error is caused by one or more of the following:",
+        "i" = "The error is caused by the following:",
         detail_msgs
       ),
       call = call
