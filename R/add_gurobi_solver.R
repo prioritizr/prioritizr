@@ -409,7 +409,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             all(rel_tol >= 0),
             .internal = TRUE
           )
-
+          
+          # check type of decision variables and use default method if no 
+          # binary variables
+          if (!(any(x$opt$vtype() == "B"))) {
+            return(self$default_solve_multiobj( x, priority, rel_tol, ...))
+          }
+          
           # set objective names
           obj_names <- rownames(x$obj)
           if (is.null(obj_names)) {

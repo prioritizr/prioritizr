@@ -39,6 +39,7 @@ Other classes:
 \item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
 \item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
 \item \href{#method-Solver-solve}{\code{Solver$solve()}}
+\item \href{#method-Solver-default_solve_multiobj}{\code{Solver$default_solve_multiobj()}}
 \item \href{#method-Solver-solve_multiobj}{\code{Solver$solve_multiobj()}}
 \item \href{#method-Solver-clone}{\code{Solver$clone()}}
 }
@@ -241,6 +242,52 @@ Solve an optimization problem.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+
+\item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \code{list} object with the solution and additional information.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-default_solve_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-default_solve_multiobj}{}}}
+\subsection{Method \code{default_solve_multiobj()}}{
+Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach.
+Broadly speaking, this approach involves using multiple optimization
+procedures to solve objectives following a hierarchical (lexicographic)
+ordering, wherein those associated with a higher priority order are
+solved before those with a lower priority order. When implementing this
+approach, constraints are added after generating a given solution to
+ensure that subsequent solutions for lower priority objectives
+have adequate performance according to higher priority objectives.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Solver$default_solve_multiobj(x, priority, rel_tol, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x}}{\code{list} object with multi-objective optimization problem.
+Arguments must contain the following elements:
+(\code{"opt"}) \code{\linkS4class{OptimizationProblem}} object;
+(\code{"modelsense"}) \code{character} vector containing the model sense values
+for each objective; and (\code{"obj"}) numeric` matrix containing the
+coefficients for each of the objectives, wherein rows correspond to
+different objectives, columns to different decision variables and
+row names can be optionally specify names for the objectives.}
+
+\item{\code{priority}}{\code{numeric} vector with values indicating the
+priority for each objective. Greater values denote greater priority,
+and so objectives associated with greater values are optimized
+earlier in the multi-objective process.}
+
+\item{\code{rel_tol}}{\code{numeric} vector with relative tolerance values
+for each constraint. Greater values denote a greater degree of
+sub-optimality.}
 
 \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
 }

@@ -160,7 +160,7 @@ Solver <- R6::R6Class(
     #' sub-optimality.
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return A `list` object with the solution and additional information.
-    solve_multiobj = function(x, priority, rel_tol, ...) {
+    default_solve_multiobj = function(x, priority, rel_tol, ...) {
       # assert arguments are valid
       assert(
         is.list(x),
@@ -258,6 +258,39 @@ Solver <- R6::R6Class(
         )
       }
 
+      # return solution
+      sol
+    },
+    #' @description
+    #' Solve a multi-objective optimization problem using a hierarchical
+    #' multi-objective optimization approach.
+    #' Broadly speaking, this approach involves using multiple optimization
+    #' procedures to solve objectives following a hierarchical (lexicographic)
+    #' ordering, wherein those associated with a higher priority order are
+    #' solved before those with a lower priority order. When implementing this
+    #' approach, constraints are added after generating a given solution to
+    #' ensure that subsequent solutions for lower priority objectives
+    #' have adequate performance according to higher priority objectives.
+    #' @param x `list` object with multi-objective optimization problem.
+    #' Arguments must contain the following elements:
+    #' (`"opt"`) [`OptimizationProblem-class`] object;
+    #' (`"modelsense"`) `character` vector containing the model sense values
+    #' for each objective; and (`"obj"`) numeric` matrix containing the
+    #' coefficients for each of the objectives, wherein rows correspond to
+    #' different objectives, columns to different decision variables and
+    #' row names can be optionally specify names for the objectives.
+    #' @param priority `numeric` vector with values indicating the
+    #' priority for each objective. Greater values denote greater priority,
+    #' and so objectives associated with greater values are optimized
+    #' earlier in the multi-objective process.
+    #' @param rel_tol `numeric` vector with relative tolerance values
+    #' for each constraint. Greater values denote a greater degree of
+    #' sub-optimality.
+    #' @param ... Additional arguments passed to the `calculate()` method.
+    #' @return A `list` object with the solution and additional information.
+    solve_multiobj = function(x, priority, rel_tol, ...) {
+      # solve multi-objective optimization problem
+      sol <- self$default_solve_multiobj(x, priority, rel_tol, ...)
       # return solution
       sol
     }
