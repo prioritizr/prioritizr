@@ -315,7 +315,7 @@ all_comparable_problem <- function(...) {
     all_elements_inherit(x, "ConservationProblem"),
     .internal = TRUE
   )
-  
+
   isTRUE(
     ## all problems must have same number of zones
     all(vapply(
@@ -363,17 +363,19 @@ all_comparable_problem <- function(...) {
       logical(1), x[[1]]$number_of_planning_units()
     )) &&
     ## all problems have same decision type
-   all(vapply(lapply(x, function(z) z$decisions$name), identical,
-                 logical(1), x[[1]]$decisions$name))
+    all(vapply(
+      lapply(x, function(z) z$decisions$name), identical,
+      logical(1), x[[1]]$decisions$name
+    ))
   )
 }
 
 assertthat::on_failure(all_comparable_problem) <- function(call, env) {
   # get the list of problems passed to all_comparable_problem()
-  x <- as.list(eval(substitute(list(...)), env)) 
-  
+  x <- as.list(eval(substitute(list(...)), env))
+
   # replicate the same checks as the main function, individually
-  checks <- list(
+  checks <- c(
     number_zones = isTRUE(all(vapply(
       lapply(x, number_of_zones), identical,
       logical(1), x[[1]]$number_of_zones()
@@ -398,57 +400,55 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
       lapply(x, function(z) z$planning_unit_indices()), identical,
       logical(1), x[[1]]$planning_unit_indices()
     ))),
-    decisions = isTRUE(all(vapply(lapply(x, function(z) z$decisions$name), 
-                                  identical,
-                                  logical(1), x[[1]]$decisions$name
-                                  )))
+    decisions = isTRUE(all(vapply(
+      lapply(x, function(z) z$decisions$name), identical,
+      logical(1), x[[1]]$decisions$name
+    )))
   )
-  
+
   # cli-style messages for each type of failure
   messages <- list(
-    number_zones = c("{.arg x} has mismatched number of zones.",
-                        "i" = "All problems must have the same number of zones."),
-    zones_names = c("{.arg x} has mismatched zone names.",
-                    "i" = "All problems must have identical zone names."),
-    number_pu = c("{.arg x} has mismatched number of planning units.",
-                     "i" = "All problems must have the same number of planning units."),
-    number_total = c("{.arg x} has mismatched total units.",
-                        "i" = "All problems must have the same total units."),
-    pu_class = c("{.arg x} has mismatched planning unit classes.",
-                 "i" = "All problems must have identical planning unit classes."),
-    pu_indices = c("{.arg x} has mismatched planning unit indices.",
-                   "i" = "All problems must have identical planning unit indices."),
-    decisions = c("{.arg x} has mismatched decision types.",
-                   "i" = "All problems must have identical decision types.")
-  )
-  
-  failed <- names(checks)[!unlist(checks)]
-  
-  if (length(failed) > 0) {
-    
-    detail_msgs <- unlist(
-      lapply(failed, function(f) {
-        msg <- messages[[f]]
-        
-        c(
-          "x" = msg[[1]],
-          "i" = msg[["i"]]
-        )
-      }),
-      recursive = FALSE
+    number_zones = c(
+      "x" = "All problems must have the same number of zones."
+    ),
+    zones_names = c(
+      "x" = "All problems must have identical zone names."
+    ),
+    number_pu = c(
+      "x" = "All problems must have the same number of planning units."
+    ),
+    number_total = c(
+      "x" = "All problems must have the same total units."
+    ),
+    pu_class = c(
+      "x" = "All problems must have identical planning unit classes."
+    ),
+    pu_indices = c(
+      "x" = "All problems must have identical planning unit indices."
+    ),
+    decisions = c(
+      "x" = "All problems must have identical decision types."
     )
-    
-    if (length(failed) == 1) {
-      cli::cli_abort(detail_msgs, call = call)
-    }
-    
-    cli::cli_abort(
-      c(
-        "!" = "{.arg x} is not comparable.",
-        "i" = "The error is caused by the following:",
-        detail_msgs
-      ),
-      call = call
+  )
+
+  # identify number of failed checks
+  n <- sum(!checks)
+
+  # if couldn't determine failed checks, then throw internal error
+  # nocov start
+  if (identical(n, 0L)) {
+    rlang::abort(
+      "An issue was detected, but could not identify precise details.",
+      .internal = TRUE
     )
   }
+  # nocov end
+
+  # return message
+  c(
+    "!" = "{.arg ...} must have comparable problems.",
+    "i" =
+      "{cli::qty(n)} These problems have the following issue{?s}:",
+    unlist(messages[names(checks)[!checks]], recursive = FALSE)
+  )
 }
