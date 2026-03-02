@@ -1,4 +1,5 @@
 test_that("is_matrix_ish", {
+  # run tests
   expect_true(is_matrix_ish(matrix(c(1, 2, 3))))
   expect_true(is_matrix_ish(Matrix::Matrix(c(1, 2, 3))))
   expect_false(is_matrix_ish(new_waiver()))
@@ -68,23 +69,24 @@ test_that("all_elements_inherit", {
 })
 
 test_that("is_multi_conservation_problem", {
+  # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-  
+  # prepare data
   b1 <- 0.8 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
-  # use exactly one feature per objective
   f1 <- sim_features[[1]]
   f2 <- sim_features[[2]]
-  
-  # tests
-  expect_true(is_multi_conservation_problem(multi_problem(
+  # build problem
+  p <- multi_problem(
     obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
       add_max_utility_objective(budget = b1) %>%
       add_binary_decisions(),
     obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
       add_max_utility_objective(budget = b1) %>%
       add_binary_decisions()
-  )))
+  )
+  # run tests
+  expect_true(is_multi_conservation_problem(p))
   expect_false(is_multi_conservation_problem(new_waiver()))
   expect_false(
     is_multi_conservation_problem(
@@ -98,5 +100,5 @@ test_that("is_multi_conservation_problem", {
 })
 
 test_that("is_generic_conservation_problem", {
-
+  stop("TODO")
 })
