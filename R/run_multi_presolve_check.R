@@ -22,22 +22,30 @@ run_multi_presolve_check <- function(x) {
   )
 
   # run checks
-  res <- run_presolve_check(x$opt) # this works but doesnt produce a message
-  #res <- lapply(x, run_presolve_check) # x here is obj, modelsense and opt, I'm not sure why we would be looping over this?
+  res <- lapply(x, run_presolve_check, header_level = 3)
 
   # extract problem names
   nms <- names(x)
 
   # if needed, set default names
   if (is.null(nms)) {
-    nms <- paste0("Problem ", seq_along(x)) # nocov
+    nms <- as.character(seq_along(x)) # nocov
   }
 
   # prepare message
   msg <- unlist(
     lapply(seq_along(res), function(i) {
       if (isTRUE(res[[i]]$pass)) return(NULL)
-      c(cli::cli_fmt(cli::cli_h2(nms[[i]])), res[[i]]$msg)
+      out <- c(
+        cli::cli_fmt(cli::cli_h2(paste0("Problem: ", nms[[i]]))),
+        ## note we exclude first element because it is an empty character
+        ## designed to provide extra spacing, and extra space is not needed here
+        res[[i]]$msg[-1]
+      )
+      if (!identical(i, length(res))) {
+        out <- c(out, "")
+      }
+      out
     }),
     recursive = FALSE, use.names = TRUE
   )

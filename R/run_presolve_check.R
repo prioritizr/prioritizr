@@ -7,16 +7,33 @@ NULL
 #'
 #' @param x [`OptimizationProblem-class`] object.
 #'
+#' @param header_level `integer` value denoting the header level for
+#' different types of issues. Defaults to 2. Available options include
+#' 2 or 3.
+#
 #' @return
 #' A `list` with containing a (`$msg`) `character` vector with information on
 #' the presolve checks and (`$pass`) `logical` value indicating if the
 #' checks were passed.
 #'
 #' @noRd
-run_presolve_check <- function(x) {
+run_presolve_check <- function(x, header_level = 2) {
   # assert argument is valid
   assert_required(x)
-  assert(inherits(x, "OptimizationProblem"), .internal = TRUE)
+  assert_required(header_level)
+  assert(
+    inherits(x, "OptimizationProblem"),
+    assertthat::is.count(header_level),
+    assertthat::noNA(header_level),
+    header_level <= 3,
+    .internal = TRUE
+  )
+
+  # define header function
+  cli_h <- cli::cli_h2
+  if (isTRUE(header_level == 3)) {
+    cli_h <- cli::cli_h3
+  }
 
   # set thresholds
   upper_value <- 1e+6
@@ -123,7 +140,6 @@ run_presolve_check <- function(x) {
       }
     }
   }
-
   ## check objective function
   #### check upper threshold
   r1 <- which(x$obj() > upper_value)
@@ -134,7 +150,7 @@ run_presolve_check <- function(x) {
     n1 <- x$col_ids()[r1]
     n2 <- x$col_ids()[r2]
     ### throw warnings
-    if (("pu" %in% n1) && (!any("ac", "b", "b1", "c") %in% n2)) {
+    if (("pu" %in% n1) && (!any(c("ac", "b", "b1", "c") %in% n2))) {
       msg1 <- c(
         msg1,
         c(
@@ -150,7 +166,6 @@ run_presolve_check <- function(x) {
         )
       )
     }
-    
     if ("spp_met" %in% n1){
       msg1 <- c(
         msg1,
@@ -175,7 +190,7 @@ run_presolve_check <- function(x) {
           ">" = "Try using lower values in {.fn add_feature_weights}."
         )
       )
-  }
+    }
     if ("branch_met" %in% n1) {
       msg1 <- c(
         msg1,
@@ -191,8 +206,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-}
-    if (any("b", "b1") %in% n2) {
+    }
+    if (any(c("b", "b1") %in% n2)) {
       msg1 <- c(
         msg1,
         c(
@@ -208,7 +223,7 @@ run_presolve_check <- function(x) {
           ""
         )
       )
-}
+    }
     if ("c" %in% n2) {
       msg1 <- c(
         msg1,
@@ -242,8 +257,8 @@ run_presolve_check <- function(x) {
           ""
         )
       )
+    }
   }
-}
 
   ## check rhs
   ### check upper threshold
@@ -448,7 +463,7 @@ run_presolve_check <- function(x) {
     if (length(msg2) > 0) {
       msg <- c(
         msg,
-        cli::cli_fmt(cli::cli_h2("Data limitation issues")),
+        cli::cli_fmt(cli_h("Data limitation issues")),
         "i" = paste(
           "These following issues indicate that solutions",
           "might not identify meaningful priority areas:"
@@ -461,7 +476,7 @@ run_presolve_check <- function(x) {
     if (length(msg3) > 0) {
       msg <- c(
         msg,
-        cli::cli_fmt(cli::cli_h2("Infeasibility issues")),
+        cli::cli_fmt(cli_h("Infeasibility issues")),
         "i" = paste(
           "These failures indicate that infeasibility",
           "issues could prevent the optimizer from finding a solution:"
@@ -473,7 +488,7 @@ run_presolve_check <- function(x) {
     if (length(msg1) > 0) {
       msg <- c(
         msg,
-        cli::cli_fmt(cli::cli_h2("Numerical issues")),
+        cli::cli_fmt(cli_h("Numerical issues")),
         "i" = paste(
           "The following issues could stall",
           "optimization or produce incorrect solutions:"

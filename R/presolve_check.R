@@ -210,32 +210,15 @@ presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
 }
 
 #' @rdname presolve_check
-#' @method presolve_check OptimizationProblem
-#' @export
-presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
-  assert(inherits(x, "OptimizationProblem"))
-  res <- run_presolve_check(x)
-  if (!isTRUE(res$pass) && isTRUE(warn)) {
-    cli_warning(
-      c(
-        presolve_check_header(),
-        res$msg,
-        presolve_check_results(res$pass),
-        presolve_check_footer()
-      ),
-      call = NULL
-    )
-  }
-  res$pass
-}
-
-#' @rdname presolve_check
 #' @method presolve_check MultiObjConservationProblem
 #' @export
 presolve_check.MultiObjConservationProblem <- function(x, warn = TRUE) {
   assert(is_multi_conservation_problem(x))
   res <- run_multi_presolve_check(
-    lapply(x$problems, compile.ConservationProblem)
+    stats::setNames(
+      lapply(x$problems, compile.ConservationProblem),
+      names(x$problems)
+    )
   )
   if (!isTRUE(res$pass) && isTRUE(warn)) {
     cli_warning(
