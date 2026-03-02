@@ -43,7 +43,7 @@ print.Zones <- function(x, ...) {
   })
 }
 
-#' @method summarize MultiObjConservationProblem
+#' @method summary MultiObjConservationProblem
 #'
 #' @export
 summary.MultiObjConservationProblem <- function(object, ...) {
