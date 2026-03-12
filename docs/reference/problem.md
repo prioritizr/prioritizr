@@ -502,7 +502,7 @@ str(s6)
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "status")= Named chr "OPTIMAL"
 #>   ..- attr(*, "names")= chr "solution_1"
-#>  - attr(*, "runtime")= Named num 0.002
+#>  - attr(*, "runtime")= Named num 0.003
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "gap")= Named num 0.0334
 #>   ..- attr(*, "names")= chr "solution_1"

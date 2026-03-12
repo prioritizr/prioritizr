@@ -228,14 +228,15 @@ s3 <-
 #> 
 #> ℹ For more information, see `presolve_check()`.
 #> Set parameter Username
-#> Set parameter LicenseID to value 2738655
+#> Set parameter LicenseID to value 2774703
 #> Set parameter TimeLimit to value 2147483647
 #> Set parameter MIPGap to value 0.1
 #> Set parameter NumericFocus to value 2
 #> Set parameter Presolve to value 2
 #> Set parameter Threads to value 1
-#> Academic license - for non-commercial use only - expires 2026-11-14
-#> Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+#> Academic license - for non-commercial use only - expires 2027-02-03
+#> Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+#> Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
 #> 
 #> CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 #> Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -257,6 +258,7 @@ s3 <-
 #>   Bounds range     [1e+00, 1e+00]
 #>   RHS range        [3e+00, 8e+00]
 #> Warning: Model contains large objective coefficients
+#> 
 #> Found heuristic solution: objective -1.44000e+17
 #> 
 #> Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)

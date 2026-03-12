@@ -1,3 +1,7 @@
+# prioritizr 8.1.0.3
+
+- Update publication record.
+
 # prioritizr 8.1.0.2
 
 - Update publication record.

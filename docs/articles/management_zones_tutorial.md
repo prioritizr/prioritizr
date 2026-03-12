@@ -121,13 +121,14 @@ s1 <- solve(p1)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -147,6 +148,7 @@ s1 <- solve(p1)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [3e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 2337.9617767
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
@@ -305,13 +307,14 @@ s2 <- solve(p2)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -331,6 +334,7 @@ s2 <- solve(p2)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 3568.4931335
     ## Presolve time: 0.00s
     ## Presolved: 100 rows, 180 columns, 1080 nonzeros
@@ -462,13 +466,14 @@ s3 <- solve(p3)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -488,6 +493,7 @@ s3 <- solve(p3)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [8e-01, 8e+00]
+    ## 
     ## Found heuristic solution: objective 3667.7708740
     ## Presolve time: 0.00s
     ## Presolved: 100 rows, 180 columns, 1080 nonzeros
@@ -658,13 +664,14 @@ s4 <- solve(p4)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -684,6 +691,7 @@ s4 <- solve(p4)
     ##   Objective range  [1e+02, 3e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 9400.0000000
     ## Presolve removed 14 rows and 120 columns
     ## Presolve time: 0.00s
@@ -824,13 +832,14 @@ s5 <- solve(p5)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -850,6 +859,7 @@ s5 <- solve(p5)
     ##   Objective range  [1e+02, 3e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 13600.000000
     ## Presolve removed 14 rows and 120 columns
     ## Presolve time: 0.00s
@@ -996,13 +1006,14 @@ s6 <- solve(p6)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -1022,15 +1033,16 @@ s6 <- solve(p6)
     ##   Objective range  [1e+02, 6e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 20096.000000
     ## Presolve removed 1028 rows and 232 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.03s
     ## Presolved: 877 rows, 968 columns, 2712 nonzeros
     ## Variable types: 0 continuous, 968 integer (968 binary)
     ## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 1.005410e+04, 543 iterations, 0.00 seconds (0.01 work units)
+    ## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1040,7 +1052,7 @@ s6 <- solve(p6)
     ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
     ## H    0     0                    11112.000000 10054.0986  9.52%     -    0s
     ## 
-    ## Explored 1 nodes (685 simplex iterations) in 0.03 seconds (0.04 work units)
+    ## Explored 1 nodes (685 simplex iterations) in 0.04 seconds (0.04 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 4: 11112 11300 11408 20096 
@@ -1154,13 +1166,14 @@ s7 <- solve(p7)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -1180,9 +1193,10 @@ s7 <- solve(p7)
     ##   Objective range  [1e+02, 6e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 19600.000000
     ## Presolve removed 1120 rows and 324 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.02s
     ## Presolved: 785 rows, 876 columns, 2448 nonzeros
     ## Variable types: 0 continuous, 876 integer (876 binary)
     ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros
@@ -1196,7 +1210,7 @@ s7 <- solve(p7)
     ##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
     ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
     ## 
-    ## Explored 1 nodes (388 simplex iterations) in 0.02 seconds (0.03 work units)
+    ## Explored 1 nodes (388 simplex iterations) in 0.03 seconds (0.03 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 2: 13260 19600 
