@@ -15,35 +15,45 @@ we can add your work to this list.
   restoration outcomes in the Brazilian Cerrado: A spatial planning
   framework integrating endemic lizard biodiversity, connectivity, and
   costs. *Biological Conservation*, **314**: 111673.
-- Durand M, Bennun L, Berger J, Eyres A, Kuipers KJJ, Mair L, Schipper
-  AM, and Martinet V (2025) Comparison of three biodiversity metrics to
-  evaluate corporate no net loss achievement under spatial constraints.
-  *Journal of Environmental Management*, **396**: 128158.
+- Brock C, Roehrdanz PR, Beringer T, Chaplin-Kramer R, Enquist BJ,
+  Frazier AE, Johnson JA, Kennedy CM, Kiesecker J, Larsen AE, Loyola R,
+  Marquet PA, Neugarten RA, Oakleaf JR, Roopsind A, Schuster R, Williams
+  DR, Wu GC, Zvoleff A, and Hannah L (2026) Balancing land use for
+  conservation, agriculture, and renewable energy. *Nature
+  Communications*, **In press**: 10.1038/s41467-026-69952-6.
+- Dabalà A, Brown CJ, Van der Stocken T, Buelow CA, Schoeman DS, Dunn
+  DC, Lovelock CE, Dahdouh-Guebas F, Flower J, Neubert S, Buenafe KCV,
+  Everett JD, Esturas KJT, and Richardson AJ (2026) Safeguarding
+  climate-resilient mangroves requires only a moderate increase in the
+  global protected area. *Nature Communications*, **17**: 2063.
 - Geary WL, Tulloch AIT, Doherty TS, Nimmo DG, Ritchie EG, Hanson JO,
   Maxwell MA, and Wayne AF (2026) Optimising fire and predator
   management for conservation. *Journal of Applied Ecology*, **63**:
   e70256.
-- Giménez J, Cañadas A, and de Stephanis R (2025) Mediterranean Gate
-  Sanctuary for the Protection of Cetaceans. *Aquatic Conservation:
-  Marine and Freshwater Ecosystems*, **35**: e70255.
 - Hanson JO, McCune JL, Alamenciak T, and Bennett JR (2026) Increasing
   the credibility of conservation plans through citizen science.
   *Biological Conservation*, **313**: 111552.
+- Huang J, Gergel SE, and McHale MR (2026) Adapting a systematic
+  conservation planning tool for supporting accessible and diverse urban
+  greenspace recreation. *Landscape Ecology*, **41**: 53.
 - Liu Y, Wang J, Wu Z, Xu Z, and Abulike K (2026) Integrating
   multidimensional biodiversity into spatial conservation planning to
   bridge conservation gaps in China. *Biological Conservation*, **314**:
   111664.
+- Probst WN, Rehren J, Kraan C, Haslob H, Neumann H, Lemmen C, Krishna
+  S, Kruse M, Wirtz K, and Stelzenmüller V (2026) Conservation potential
+  of offshore windfarms for epibenthic invertebrates and fish
+  communities in a heavily used regional sea. *Biological Conservation*,
+  **316**: 111771.
 - Reine Sheirita TF, Rodrigue I, Benjamin L, Jean Eudes Crédo GF, and
   Amadé O (2026) Climate change risks and conservation needs of *Lophira
   lanceolata* in West Africa. *Journal for Nature Conservation*, **90**:
   127182.
-- Trethowan LA, Jennings L, Arifin H, Borosova R, Bramley GLC, Briggs M,
-  Chu O, Clark RP, Dawson S, Dhanjal‐Adams KL, de Freitas Y, Hartup J,
-  Heatubun EGE, Lee‐Grant C, Mapandin LV, Marwa J, Moore A, Murdjoko A,
-  Puglisi C, Schuiteman A, Seaman DJI, Sinaga N, Struebig MJ, Trias
-  Blasi A, Utteridge T, Voigt M, Wanma JF, and Heatubun CD (2025)
-  Informing spatial conservation prioritization with species’ traits.
-  *Conservation Biology*, **In press**: e70199.
+- Wang K, Wu W, Liu H, Zhang X, Ren X, Liu M, Cheng J, Geng J, and Yang
+  B (2026) Balancing land planning priorities for ecological
+  conservation and renewable energy development through multi-objective
+  land planning in China. *Resources, Environment and Sustainability*,
+  **24**: 100303.
 
 ### 2025
 
@@ -68,9 +78,16 @@ we can add your work to this list.
 - Currie J, Liang C, and Snider J (2025) Protected area targets:
   Spatially evaluating progress and prioritizing areas to reach 30 × 30
   in Canada. *Conservation Science and Practice*, **7**: e70087.
+- Durand M, Bennun L, Berger J, Eyres A, Kuipers KJJ, Mair L, Schipper
+  AM, and Martinet V (2025) Comparison of three biodiversity metrics to
+  evaluate corporate no net loss achievement under spatial constraints.
+  *Journal of Environmental Management*, **396**: 128158.
 - Frisk CA and Hanslin HM (2025) Optimizing plant species composition of
   green roofs for ecological functionality and biodiversity
   conservation. *Urban Ecosystems*, **28**: 12.
+- Giménez J, Cañadas A, and de Stephanis R (2025) Mediterranean Gate
+  Sanctuary for the Protection of Cetaceans. *Aquatic Conservation:
+  Marine and Freshwater Ecosystems*, **35**: e70255.
 - Karimi S, Schuster R, Hanson JO, Riva F, Liczner A, and Bennett
   JR (2025) Priority areas to conserve biodiversity in Canada. *FACETS*.
   10: 1–10.
@@ -89,8 +106,7 @@ we can add your work to this list.
   **33**: 632.
 - Norris E, Scheele B, and Cardillo M (2025) Land tenure contributions
   to protected area growth under alternative conservation targets in the
-  Australian monsoon tropics. *Conservation Biology*, **In press**:
-  e70143.
+  Australian monsoon tropics. *Conservation Biology*, **40**: e70143.
 - Parsch C, Denelle P, Bless E, and Kreft H (2025) Diverging
   conservation priorities across New Guinea: Conflicts and
   opportunities. *Global Ecology and Conservation*, **60**: e03549.
@@ -107,14 +123,21 @@ we can add your work to this list.
   metropolitan France. *Marine Policy*, **180**: 106779
 - Sacre E, Bergström U, and Berkström C (2025) Identifying priority
   areas for conservation to promote connectivity and mitigate the
-  impacts of anthropogenic disturbance. *Conservation Biology*, **In
-  press**: e70083.
+  impacts of anthropogenic disturbance. *Conservation Biology*, **39**:
+  e70083.
 - Shyvers JE, Tarbox BC, Monroe AP, Van Lanen NJ, Robb BS, Buchholtz EK,
   Duchardt CJ, Edmunds DR, O’Donnell MS, Van Schmidt ND, Heinrichs JA,
   and Aldridge CL (2025) Different data for different goals: Exploring
   trade‐Offs and synergies in the use of spatial data inputs to optimize
   conservation action in sagebrush ecosystems. *Ecology and Evolution*,
   **15**: e72214.
+- Trethowan LA, Jennings L, Arifin H, Borosova R, Bramley GLC, Briggs M,
+  Chu O, Clark RP, Dawson S, Dhanjal‐Adams KL, de Freitas Y, Hartup J,
+  Heatubun EGE, Lee‐Grant C, Mapandin LV, Marwa J, Moore A, Murdjoko A,
+  Puglisi C, Schuiteman A, Seaman DJI, Sinaga N, Struebig MJ, Trias
+  Blasi A, Utteridge T, Voigt M, Wanma JF, and Heatubun CD (2025)
+  Informing spatial conservation prioritization with species’ traits.
+  *Conservation Biology*, **In press**: e70199.
 - Unnithan Kumar S, Baker DJ, Maclean IMD, and Gaston KJ (2025) Spatial
   prioritisation for nature recovery with multiple options for habitat
   creation. *Journal of Applied Ecology*, **62**: 2688–2700.
@@ -553,8 +576,8 @@ we can add your work to this list.
 - Neubert S, McGowan J, Metcalfe K, Hanson JO, Buenafe KCV, Dabalà A,
   Dunn DC, Everett JD, Possingham HP, Stelzenmüller V, Estep A, Ervin J,
   and Richardson AJ (2025) Multiple-use spatial planning for sustainable
-  development and conservation. *Trends in Ecology and Evolution*, **In
-  press**: 10.1016/j.tree.2025.09.007.
+  development and conservation. *Trends in Ecology and Evolution*,
+  **40**: 1126–1142.
 
 ### 2024
 

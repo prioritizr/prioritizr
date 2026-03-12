@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -2655,13 +2655,14 @@ progress when searching for a suitable solution.</p>
 <code class="sourceCode R"><span><span class="co"># solve the problem (using the default solver)</span></span>
 <span><span class="va">s46</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p46</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -2681,6 +2682,7 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">##   Objective range  [1e+02, 4e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 20287.197006</span></span>
 <span><span class="co">## Found heuristic solution: objective 3087.9617767</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
@@ -2713,7 +2715,7 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.09 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 34 nodes (1117 simplex iterations) in 0.14 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 10: 2648.26 2738.08 2876.94 ... 3087.96</span></span>
@@ -2747,7 +2749,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s46</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.096</span></span></code></pre>
+<span><span class="co">##      0.146</span></span></code></pre>
 <div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -2912,13 +2914,14 @@ importance methods.</p>
 <span><span class="co"># solve the problem</span></span>
 <span><span class="va">s47</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p47</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -2938,6 +2941,7 @@ importance methods.</p>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 2337.9617767</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
@@ -2954,7 +2958,7 @@ importance methods.</p>
 <span><span class="co">## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.04 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1987.4 2207.85 2337.96 </span></span>
@@ -3128,13 +3132,14 @@ function can be used to read <em>Marxan</em> input files and the
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
 <span><span class="va">ms</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -3154,15 +3159,16 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">##   Objective range  [8e+03, 4e+05]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [5e+03, 3e+05]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 1.255825e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.05s</span></span>
+<span><span class="co">## Presolve time: 0.08s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.02 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.975843e+07, 652 iterations, 0.02 seconds (0.02 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -3172,7 +3178,7 @@ function can be used to read <em>Marxan</em> input files and the
 <span><span class="co">## </span></span>
 <span><span class="co">## Cleanup yields a better solution</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.07 seconds (0.12 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (652 simplex iterations) in 0.11 seconds (0.12 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 </span></span>

@@ -197,9 +197,10 @@ result <- gurobi(model, list())
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Set parameter LicenseID to value 2774703
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
@@ -213,6 +214,7 @@ result <- gurobi(model, list())
     ##   Objective range  [1e+00, 2e+00]
     ##   Bounds range     [0e+00, 0e+00]
     ##   RHS range        [1e+00, 4e+00]
+    ## 
     ## Found heuristic solution: objective 2.0000000
     ## Presolve removed 2 rows and 3 columns
     ## Presolve time: 0.00s
@@ -286,13 +288,14 @@ s <- solve(p)
 ```
 
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2738655
+    ## Set parameter LicenseID to value 2774703
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2026-11-14
-    ## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Academic license - for non-commercial use only - expires 2027-02-03
+    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -312,6 +315,7 @@ s <- solve(p)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [3e+00, 8e+00]
+    ## 
     ## Found heuristic solution: objective 2337.9617767
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros

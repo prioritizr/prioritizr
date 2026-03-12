@@ -285,7 +285,7 @@ print(attr(s1, "runtime"))
 
 ``` R
 ## solution_1 
-##      3.951
+##      5.971
 ```
 
 ``` r

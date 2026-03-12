@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -200,13 +200,14 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -226,6 +227,7 @@ are selected or not selected for protection.</p>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [3e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 2337.9617767</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 5 rows, 90 columns, 450 nonzeros</span></span>
@@ -364,13 +366,14 @@ using the following code.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -390,6 +393,7 @@ using the following code.</p>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 3568.4931335</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
@@ -507,13 +511,14 @@ example.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -533,6 +538,7 @@ example.</p>
 <span><span class="co">##   Objective range  [2e+02, 2e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [8e-01, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 3667.7708740</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
 <span><span class="co">## Presolved: 100 rows, 180 columns, 1080 nonzeros</span></span>
@@ -686,13 +692,14 @@ We can formulate and solve this problem using the following code.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -712,6 +719,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 9400.0000000</span></span>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
@@ -838,13 +846,14 @@ third zone (baiting) to obtain a more useful solution.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -864,6 +873,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">##   Objective range  [1e+02, 3e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 13600.000000</span></span>
 <span><span class="co">## Presolve removed 14 rows and 120 columns</span></span>
 <span><span class="co">## Presolve time: 0.00s</span></span>
@@ -996,13 +1006,14 @@ fragmented solutions.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -1022,15 +1033,16 @@ fragmented solutions.</p>
 <span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 20096.000000</span></span>
 <span><span class="co">## Presolve removed 1028 rows and 232 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.03s</span></span>
 <span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.00 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -1040,7 +1052,7 @@ fragmented solutions.</p>
 <span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
 <span><span class="co">## H    0     0                    11112.000000 10054.0986  9.52%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (685 simplex iterations) in 0.03 seconds (0.04 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (685 simplex iterations) in 0.04 seconds (0.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 4: 11112 11300 11408 20096 </span></span>
@@ -1143,13 +1155,14 @@ unit.</p>
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2738655</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2026-11-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.0 build v13.0.0rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -1169,9 +1182,10 @@ unit.</p>
 <span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
+<span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.01s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
@@ -1185,7 +1199,7 @@ unit.</p>
 <span><span class="co">##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s</span></span>
 <span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (388 simplex iterations) in 0.02 seconds (0.03 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (388 simplex iterations) in 0.03 seconds (0.03 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 2: 13260 19600 </span></span>

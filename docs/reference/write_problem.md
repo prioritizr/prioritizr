@@ -65,20 +65,21 @@ p <-
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
 print(path)
-#> [1] "/tmp/Rtmp7pjDzL/model.lp"
+#> [1] "/tmp/RtmpsCQbvK/model.lp"
 
 # save problem to file
 ## note that either the gurobi or Rsymphony package needs to be installed
 write_problem(p, path)
 #> Set parameter Username
-#> Set parameter LicenseID to value 2738655
-#> Academic license - for non-commercial use only - expires 2026-11-14
+#> Set parameter LicenseID to value 2774703
+#> Academic license - for non-commercial use only - expires 2027-02-03
+#> Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
 
 # print model file
 cat(readLines(path), sep = "\n")
 #> \ Model R
 #> \ LP format - for model browsing. Use MPS format to capture full model detail.
-#> \ Signature: 0x54d8652510f5d59a
+#> \ Signature: 0x54d8652510f6626a
 #> Minimize
 #>   215.8638399028077 C0 + 212.7823480801063 C1 + 207.4962437102063 C2
 #>    + 208.9321699486367 C3
