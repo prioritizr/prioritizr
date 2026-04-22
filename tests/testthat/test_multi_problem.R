@@ -48,7 +48,6 @@ test_that("single zone", {
 })
 
 test_that("multiple zone", {
-
   # load data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
@@ -87,7 +86,6 @@ test_that("multiple zone", {
   # build problems
   mp <- multi_problem(obj1 = p1, obj2 = p2)
 
-
   # verify that object can be printed
   suppressMessages(print(mp))
   suppressMessages(summary(mp))
@@ -99,7 +97,7 @@ test_that("multiple zone", {
   # test for problem-specific info
   expect_true(length(mp$problems) == 2)
   expect_equal(mp$problem_names(), c("obj1", "obj2"))
-  expect_true(length(mp$number_of_zones()) == 2)
+  expect_true(mp$number_of_zones() == 2)
   expect_equal(mp$zone_names(), c("z1", "z2"))
 
   # test for logical fields

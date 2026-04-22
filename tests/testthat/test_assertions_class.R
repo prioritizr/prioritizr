@@ -100,5 +100,32 @@ test_that("is_multi_conservation_problem", {
 })
 
 test_that("is_generic_conservation_problem", {
-  stop("TODO")
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # prepare data
+  b1 <- 0.8 * terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]]
+  f1 <- sim_features[[1]]
+  f2 <- sim_features[[2]]
+  # build problem
+  p <- multi_problem(
+    obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
+      add_max_utility_objective(budget = b1) %>%
+      add_binary_decisions(),
+    obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
+      add_max_utility_objective(budget = b1) %>%
+      add_binary_decisions()
+  )
+  # run tests
+  expect_true(is_generic_conservation_problem(p))
+  expect_false(is_generic_conservation_problem(new_waiver()))
+  expect_false(
+    is_generic_conservation_problem(
+      structure(1, class = c("ConservationProblem", "pproto"))
+    )
+  )
+  expect_error(
+    assert(is_generic_conservation_problem(new_waiver())),
+    "problem"
+  )
 })
