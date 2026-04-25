@@ -445,10 +445,14 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
   # nocov end
 
   # return message
-  c(
+  msg <- c(
     "!" = "{.arg ...} must have comparable problems.",
-    "i" =
-      "{cli::qty(n)} These problems have the following issue{?s}:",
+    "i" = paste(
+      "{cli::qty(", n, ")}",
+      "{?A/Multiple} problem{?s} {?has/have}",
+      "the following issue{?s}:"
+    ),
     unlist(messages[names(checks)[!checks]], recursive = FALSE)
   )
+
 }
