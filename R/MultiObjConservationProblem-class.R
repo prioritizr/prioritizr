@@ -58,117 +58,121 @@ MultiObjConservationProblem <- R6::R6Class(
     #' Print extended information about the object.
     #' @return Invisible `TRUE`.
     summary = function() {
+      # TODO
+
       # define characters
       ch <- cli_box_chars()
-      
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
       ## missing text
       missing_text <- "{.gray none specified}"
-      
+
       # create header
       cli::cli_text(
         "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
       )
-      
+
       cli::cli_text("{ch$j}{ch$b}{.h approach}")
       cli::cli_text("{ch$v}{ch$j}{ch$b}", print(self$approach))
-      
-      
+
+
       cli::cli_text("{ch$j}{ch$b}{.h problems}")
-      
+
       problem_names <- self$problem_names()
       if (length(problem_names) > 0) {
         for (i in seq_along(problem_names)) {
           pname <- problem_names[i]
           cli::cli_text("{ch$v}{ch$j}{ch$b}", pname, ":")
-          
+
           # get problem object
           prob_obj <- self$problems[[pname]]
-          
+
           # call its summary method, nested
           prob_obj$summary()
         }
       } else {
         cli::cli_text("{ch$v}{ch$j}{ch$b}none")
       }
-      
+
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
         solver_text <- self$solver$repr()
       }
-      
+
       cli::cli_text("{ch$l}{ch$b}{.h optimization (multi-objective)}")
       cli_vtext(" {ch$l}{ch$b}solver:      ", solver_text)
-      
+
       # footer
       cli::cli_text(
         cli::col_grey("# {cli::symbol$info} Use {.code summary(...)} to see complete formulation.")
       )
-      
+
       # end container
       cli::cli_end(div_id)
-      
+
       invisible(TRUE)
     },
-    
+
     #' @description
     #' Print concise information about the object.
     #' @return Invisible `TRUE`.
     print = function() {
+      # TODO
+
       # define characters
       ch <- cli_box_chars()
-      
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
       ## missing text
       missing_text <- "{.gray none specified}"
-      
+
       # create header
       cli::cli_text(
         "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
       )
-      
+
       cli::cli_text("{ch$j}{ch$b}{.h approach}")
       cli::cli_text("{ch$v}{ch$j}{ch$b}", print(self$approach))
 
-      
+
       cli::cli_text("{ch$j}{ch$b}{.h problems}")
-      
+
       problem_names <- self$problem_names()
       if (length(problem_names) > 0) {
         for (i in seq_along(problem_names)) {
           pname <- problem_names[i]
           cli::cli_text("{ch$v}{ch$j}{ch$b}", pname, ":")
-          
+
           # get problem object
           prob_obj <- self$problems[[pname]]
-          
+
           # call its print method, nested
           print(prob_obj)
         }
       } else {
         cli::cli_text("{ch$v}{ch$j}{ch$b}none")
       }
-      
+
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
         solver_text <- self$solver$repr()
       }
-      
+
       cli::cli_text("{ch$l}{ch$b}{.h optimization (multi-objective)}")
       cli_vtext(" {ch$l}{ch$b}solver:      ", solver_text)
-      
+
       # footer
       cli::cli_text(
         cli::col_grey("# {cli::symbol$info} Use {.code summary(...)} to see complete formulation.")
       )
-      
+
       # end container
       cli::cli_end(div_id)
-      
+
       invisible(TRUE)
     },
 

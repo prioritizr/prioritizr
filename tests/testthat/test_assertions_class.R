@@ -93,8 +93,21 @@ test_that("is_multi_conservation_problem", {
       structure(1, class = c("ConservationProblem", "pproto"))
     )
   )
+  expect_false(
+    is_multi_conservation_problem(
+      problem(sim_zones_pu_raster[[1]], f1)
+    )
+  )
   expect_error(
     assert(is_multi_conservation_problem(new_waiver())),
+    "problem"
+  )
+  expect_error(
+    assert(
+      is_multi_conservation_problem(
+        problem(sim_zones_pu_raster[[1]], f1)
+      )
+    ),
     "problem"
   )
 })
@@ -108,22 +121,19 @@ test_that("is_generic_conservation_problem", {
   f1 <- sim_features[[1]]
   f2 <- sim_features[[2]]
   # build problem
-  p <- multi_problem(
-    obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
-      add_max_utility_objective(budget = b1) %>%
-      add_binary_decisions(),
-    obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
-      add_max_utility_objective(budget = b1) %>%
-      add_binary_decisions()
-  )
+  p1 <-
+    problem(sim_zones_pu_raster[[1]], f1) %>%
+    add_max_utility_objective(budget = b1) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_zones_pu_raster[[1]], f2) %>%
+    add_max_utility_objective(budget = b1) %>%
+    add_binary_decisions()
+  mp <- multi_problem(obj1 = p1, obj2 = p2)
   # run tests
-  expect_true(is_generic_conservation_problem(p))
+  expect_true(is_generic_conservation_problem(p1))
+  expect_true(is_generic_conservation_problem(mp))
   expect_false(is_generic_conservation_problem(new_waiver()))
-  expect_false(
-    is_generic_conservation_problem(
-      structure(1, class = c("ConservationProblem", "pproto"))
-    )
-  )
   expect_error(
     assert(is_generic_conservation_problem(new_waiver())),
     "problem"

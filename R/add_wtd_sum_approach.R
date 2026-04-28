@@ -124,7 +124,7 @@ NULL
 #' # import data
 #' con_cost <- get_sim_pu_raster()
 #' keystone_spp <- get_sim_features()[[1:3]]
-#' iconic_spp <- get_sim_features()[[1:3]]
+#' iconic_spp <- get_sim_features()[[4:5]]
 #'
 #' # define a total conservation budget (30% of total cost)
 #' budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3

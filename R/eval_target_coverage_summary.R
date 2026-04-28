@@ -53,6 +53,11 @@ NULL
 #'     This column is only included if the argument to `include_sense` is
 #'     `TRUE`.}
 #'
+#'   \item{met}{`logical` indicating if each target is met by the solution. This
+#'     column is calculated by checking if the total shortfall associated
+#'     with each target (i.e., `"absolute_shortfall`" column) is equal to
+#'    zero.}
+#'
 #'   \item{total_amount}{`numeric` total amount of the feature available across
 #'     the entire conservation planning problem for meeting each target
 #'     (not just planning units selected within the solution).
@@ -110,10 +115,7 @@ NULL
 #'     total threshold amount associated with each target (i.e.,
 #'     `"absolute_target"` column).}
 #'
-#'   \item{met}{`logical` indicating if each target is met by the solution. This
-#'     column is calculated by checking if the total shortfall associated
-#'     with each target (i.e., `"absolute_shortfall`" column) is equal to
-#'    zero.}
+#'   \item{relative_met}{TODO}
 #'
 #' }
 #'
@@ -314,18 +316,22 @@ eval_target_coverage_summary <- function(x,
   # add relative columns
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
-  d$relative_shortfall <- d$absolute_shortfall / d$absolute_target
+  ## TODO: add tests for relative_met column
+  d$relative_met <-
+    pmin(d$absolute_target, x$absolute_held) / x$absolute_target)
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0
   d$relative_shortfall[!is.finite(d$relative_shortfall)] <- 0
+  d$relative_met[!is.finite(d$relative_met)] <- 0
   # add met column
   d$met <- d$absolute_shortfall < 1e-10
   # specify column names for result
   cn <- c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall",
+    "relative_met"
   )
   if (!isTRUE(include_zone)) cn <- setdiff(cn, "zone")
   if (!isTRUE(include_sense)) cn <- setdiff(cn, "sense")
