@@ -67,6 +67,11 @@ to a threshold amount (i.e., a sense value of \code{"<="}).
 This column is only included if the argument to \code{include_sense} is
 \code{TRUE}.}
 
+\item{met}{\code{logical} indicating if each target is met by the solution. This
+column is calculated by checking if the total shortfall associated
+with each target (i.e., \verb{"absolute_shortfall}" column) is equal to
+zero.}
+
 \item{total_amount}{\code{numeric} total amount of the feature available across
 the entire conservation planning problem for meeting each target
 (not just planning units selected within the solution).
@@ -124,10 +129,7 @@ each target (i.e., \code{"absolute_shortfall"} column) by the
 total threshold amount associated with each target (i.e.,
 \code{"absolute_target"} column).}
 
-\item{met}{\code{logical} indicating if each target is met by the solution. This
-column is calculated by checking if the total shortfall associated
-with each target (i.e., \verb{"absolute_shortfall}" column) is equal to
-zero.}
+\item{relative_met}{TODO}
 
 }
 }

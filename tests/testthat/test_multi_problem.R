@@ -42,18 +42,15 @@ test_that("single zone", {
   expect_error(mp$total_unit_ids())
 })
 
-
 test_that("multiple zone", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
-
   # set budgets
   budgets <- 0.2 * c(
     terra::global(sim_zones_pu_raster[[1]], sum, na.rm = TRUE)[[1]],
     terra::global(sim_zones_pu_raster[[2]], sum, na.rm = TRUE)[[1]]
   )
-
   # build problem 1
   p1 <-
     problem(
@@ -69,7 +66,6 @@ test_that("multiple zone", {
       )
     ) %>%
     add_binary_decisions()
-
   # build problem 2
   p2 <-
     problem(
@@ -85,10 +81,8 @@ test_that("multiple zone", {
       )
     ) %>%
     add_binary_decisions()
-
   # create multi-object problem
   mp <- multi_problem(obj1 = p1, obj2 = p2)
-
   # verify that object can be printed
   suppressMessages(print(mp))
   suppressMessages(summary(mp))
@@ -96,19 +90,15 @@ test_that("multiple zone", {
   suppressMessages(mp$print())
   suppressMessages(mp$show())
   suppressMessages(mp$repr())
-
   # test for problem-specific info
   expect_true(length(mp$problems) == 2)
   expect_equal(mp$problem_names(), c("obj1", "obj2"))
   expect_true(mp$number_of_zones() == 2)
   expect_equal(mp$zone_names(), c("z1", "z2"))
-
   # test for logical fields
   expect_true(mp$is_ids_equivalent_to_indices())
-
   # test for character fields
   expect_equal(mp$planning_unit_class(), "SpatRaster")
-
   # test for integer fields
   expect_equal(
     mp$number_of_planning_units(),
@@ -119,16 +109,13 @@ test_that("multiple zone", {
     mp$planning_unit_indices(),
     terra::cells(is.na(sim_zones_pu_raster), 0)[[1]]
   )
-
   expect_error(mp$total_unit_ids())
 })
-
 
 test_that("warnings", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-
   # problem with portfolio (should warn)
   p1 <-
     problem(sim_pu_raster, sim_features[[1:3]]) %>%
@@ -136,7 +123,6 @@ test_that("warnings", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_cuts_portfolio()
-
   # problem without portfolio
   p2 <-
     problem(sim_pu_raster, sim_features[[4:5]]) %>%
@@ -145,9 +131,7 @@ test_that("warnings", {
     ) %>%
     add_relative_targets(0.2) %>%
     add_binary_decisions()
-
   expect_warning(multi_problem(p1, p2), regexp = "portfolios")
-
   # problem with non-default solver (should warn)
   p1 <-
     problem(sim_pu_raster, sim_features[[1:3]]) %>%
@@ -155,7 +139,6 @@ test_that("warnings", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_rsymphony_solver()
-
   p2 <-
     problem(sim_pu_raster, sim_features[[4:5]]) %>%
     add_min_shortfall_objective(
@@ -163,10 +146,8 @@ test_that("warnings", {
     ) %>%
     add_relative_targets(0.2) %>%
     add_binary_decisions()
-
   expect_warning(multi_problem(p1, p2), regexp = "solver")
 })
-
 
 test_that("invalid inputs", {
   # import data
@@ -175,7 +156,6 @@ test_that("invalid inputs", {
   sim_features <- get_sim_features()
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-
   # single problem (invalid: only one problem provided)
   expect_tidy_error(
     multi_problem(
@@ -186,14 +166,12 @@ test_that("invalid inputs", {
     ),
     "at least two"
   )
-
   # mismatched planning units (raster mismatch)
   expect_tidy_error(
     {
       c1 <- sim_pu_raster
       c2 <- sim_pu_raster
       c2[1:10] <- NA
-
       multi_problem(
         obj1 =
           problem(c1, sim_features) %>%
@@ -209,7 +187,6 @@ test_that("invalid inputs", {
     },
     "planning units"
   )
-
   # mismatched planning unit types (raster vs polygons)
   expect_tidy_error(
     {
@@ -228,7 +205,6 @@ test_that("invalid inputs", {
     },
     "planning unit"
   )
-
   # mismatched number of zones
   expect_tidy_error(
     multi_problem(
@@ -251,43 +227,35 @@ test_that("invalid inputs", {
     ),
     "same number of zones"
   )
-
   # mismatched zone names
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
-
   p1 <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
     add_binary_decisions()
-
   attr(sim_zones_features, "zone_names") <- c("zone1", "zone2", "zone3")
-
   p2 <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_binary_decisions()
-
   expect_error(
     multi_problem(p1, p2),
     regexp = "zone names"
   )
-
   # mismatched decision types
   p1 <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
     add_binary_decisions()
-
   p2 <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_proportion_decisions()
-
   expect_error(
     multi_problem(p1, p2),
     regexp = "decision types"
