@@ -317,8 +317,8 @@ eval_target_coverage_summary <- function(x,
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
   ## TODO: add tests for relative_met column
-  # d$relative_met <-
-  #   pmin(d$absolute_target, x$absolute_held) / x$absolute_target)
+  d$relative_met <-
+    pmin(d$absolute_target, x$absolute_held) / x$absolute_target
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0
