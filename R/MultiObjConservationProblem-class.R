@@ -64,6 +64,11 @@ MultiObjConservationProblem <- R6::R6Class(
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
       
+      # helper for alignment 
+      pad <- function(x, width = 13) {
+        paste0(x, strrep(" ", max(0, width - nchar(x))))
+      }
+      
       # problem names
       problem_names <- self$problem_names()
       
@@ -130,7 +135,10 @@ MultiObjConservationProblem <- R6::R6Class(
       
       # print problems section
       ## header
-      cli::cli_text("{ch$j}{ch$b}{.h problems}")
+      cli::cli_text("{ch$j}{ch$b}{.h formulation}")
+      ## objectives header 
+      cli_vtext("{ch$v}{ch$j}{ch$b}", "objectives:")
+      
       ## problems
       if (length(problem_names) > 0) {
         for (i in seq_along(problem_names)) {
@@ -141,23 +149,34 @@ MultiObjConservationProblem <- R6::R6Class(
           # first-level branch
           branch1 <- if (is_last) ch$l else ch$j
           
-          # print objective name
+          # print name 
           cli_vtext(
             "{ch$v}{branch1}{ch$b}",
-            "objective name:   ",
+            pad("name:"),
             pname
           )
           
           # second-level prefix
           prefix_lvl2 <- paste0(ch$v, if (is_last) " " else ch$v)
           
-          # print 
+          ## cost
+          prefix_lvl3 <- paste0(prefix_lvl2, ch$v)
+          
+          cost_range <- range(prob$planning_unit_costs(), na.rm = TRUE)
+          cost_text <- repr_cost(prob$planning_unit_costs())
+          
+          cli_vtext(
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("cost:"),
+            cost_text
+          )
+          
           ## objective
           obj_text <- prob$objective$repr()
           
           cli_vtext(
             "{prefix_lvl2}{ch$j}{ch$b}",
-            "objective:   ",
+            pad("objective:"),
             obj_text
           )
           
@@ -172,37 +191,39 @@ MultiObjConservationProblem <- R6::R6Class(
           }
           
           if (length(prob$penalties) > 0) {
-            cli_vtext("{prefix_lvl2}{ch$j}{ch$b}penalties: ")
-            for (i in seq_along(penalties_text)) {
-              if (i < length(penalties_text)) {
-                cli_vtext(
-                  "{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
-                  paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                  penalties_text[[i]]
-                )
-              } else {
-                cli_vtext(
-                  "{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
-                  paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                  penalties_text[[i]]
-                )
-              }
+            cli_vtext("{prefix_lvl2}{ch$j}{ch$b}", pad("penalties:"))
+            for (j in seq_along(penalties_text)) {
+              branch <- if (j < length(penalties_text)) ch$j else ch$l
+              cli_vtext(
+                paste0(prefix_lvl2, ch$v, branch, ch$b),
+                j, ":",
+                paste(rep(" ", max(0, 11 - nchar(j))), collapse = ""),
+                penalties_text[[j]]
+              )
             }
           } else {
             cli_vtext(
-              "{prefix_lvl2}{ch$j}{ch$b}penalties:   ",
+              "{prefix_lvl2}{ch$j}{ch$b}",
+              pad("penalties:"),
               penalties_text
             )
           }
           
-          ## features header
+          ## features 
+          feature_names <- prob$feature_names()
+          feature_text <- if (length(feature_names) == 0) {
+            missing_text
+          } else if (length(feature_names) == 1) {
+            paste0("\"", feature_names, "\"")
+          } else {
+            paste0("\"", feature_names[1], "\", … (", length(feature_names), " total)")
+          }
+          
           cli_vtext(
             "{prefix_lvl2}{ch$j}{ch$b}",
-            "features:"
+            pad("features:"),
+            feature_text
           )
-          
-          # third-level prefix
-          prefix_lvl3 <- paste0(prefix_lvl2, ch$v)
           
           ## targets
           tgt_text <- "{.gray none specified}"
@@ -211,8 +232,8 @@ MultiObjConservationProblem <- R6::R6Class(
           }
           
           cli_vtext(
-            "{prefix_lvl3}{ch$j}{ch$b}",
-            "targets:    ",
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("targets:"),
             tgt_text
           )
           
@@ -223,12 +244,12 @@ MultiObjConservationProblem <- R6::R6Class(
           }
           
           cli_vtext(
-            "{prefix_lvl3}{ch$l}{ch$b}",
-            "weights:    ",
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("weights:"),
             wgt_text
           )
           
-          ## constraints
+          ## constraints 
           constraints_text <- missing_text
           if (length(prob$constraints) > 0) {
             constraints_text <- vapply(
@@ -239,25 +260,20 @@ MultiObjConservationProblem <- R6::R6Class(
           }
           
           if (length(prob$constraints) > 0) {
-            cli_vtext("{prefix_lvl2}{ch$j}{ch$b}constraints: ")
-            for (i in seq_along(constraints_text)) {
-              if (i < length(constraints_text)) {
-                cli_vtext(
-                  "{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
-                  paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                  constraints_text[[i]]
-                )
-              } else {
-                cli_vtext(
-                  "{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
-                  paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                  constraints_text[[i]]
-                )
-              }
+            cli_vtext("{prefix_lvl2}{ch$j}{ch$b}", pad("constraints:"))
+            for (j in seq_along(constraints_text)) {
+              branch <- if (j < length(constraints_text)) ch$j else ch$l
+              cli_vtext(
+                paste0(prefix_lvl2, ch$v, branch, ch$b),
+                j, ":",
+                paste(rep(" ", max(0, 11 - nchar(j))), collapse = ""),
+                constraints_text[[j]]
+              )
             }
           } else {
             cli_vtext(
-              "{prefix_lvl2}{ch$j}{ch$b}constraints: ",
+              "{prefix_lvl2}{ch$j}{ch$b}",
+              pad("constraints:"),
               constraints_text
             )
           }
@@ -271,30 +287,29 @@ MultiObjConservationProblem <- R6::R6Class(
         )
       }
       
-      # print approach section
-      ## header
-      cli::cli_text("{ch$j}{ch$b}{.h multi-objective optimization approach}")
-      ## approach
+      ## decisions
       cli_vtext(
         "{ch$v}{ch$l}{ch$b}",
-        "approach:    ",
-        approach_text
+        pad("decisions:"),
+        decisions_text
       )
       
       # print optimization section
-      ## header
-      cli::cli_text("{ch$l}{ch$b}{.h optimization (multi-objective)}")
+      ## header 
+      cli::cli_text("{ch$l}{ch$b}{.h optimization}")
+      
+      ## approach 
+      cli_vtext(
+        "{ch$v}{ch$j}{ch$b}",
+        pad("approach:"),
+        approach_text
+      )
+      
       ## solver
       cli_vtext(
         "{ch$v}{ch$l}{ch$b}",
-        "solver:    ",
+        pad("solver:"),
         solver_text
-      )
-      ## decision
-      cli_vtext(
-        "{ch$v}{ch$l}{ch$b}",
-        "decision:    ",
-        decisions_text
       )
       
       invisible(TRUE)
@@ -310,13 +325,18 @@ MultiObjConservationProblem <- R6::R6Class(
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
       
+      # helper for alignment 
+      pad <- function(x, width = 13) {
+        paste0(x, strrep(" ", max(0, width - nchar(x))))
+      }
+      
       # problem names
       problem_names <- self$problem_names()
       
       # create header
       cli::cli_text(
         "A multi-objective conservation problem 
-        ({.cls MultiObjConservationProblem})"
+  ({.cls MultiObjConservationProblem})"
       )
       
       # pre-compute values for data section
@@ -373,174 +393,174 @@ MultiObjConservationProblem <- R6::R6Class(
       if (!is.Waiver(self$problems[[problem_names[1]]]$decisions)) {
         decisions_text <- self$problems[[problem_names[1]]]$decisions$repr()
       }
-
+      
       # print problems section
       ## header
-      cli::cli_text("{ch$j}{ch$b}{.h problems}")
+      cli::cli_text("{ch$j}{ch$b}{.h formulation}")
+      ## objectives header 
+      cli_vtext("{ch$v}{ch$j}{ch$b}", "objectives:")
+      
       ## problems
-          if (length(problem_names) > 0) {
-            for (i in seq_along(problem_names)) {
-              pname   <- problem_names[i]
-              prob    <- self$problems[[pname]]
-              is_last <- (i == length(problem_names))
-              
-              # first-level branch
-              branch1 <- if (is_last) ch$l else ch$j
-              
-              # print objective name
-              cli_vtext(
-                "{ch$v}{branch1}{ch$b}",
-                "objective name:   ",
-                pname
-              )
-              
-              # second-level prefix
-              prefix_lvl2 <- paste0(ch$v, if (is_last) " " else ch$v)
-              
-              # print 
-              ## objective
-              obj_text <- prob$objective$repr()
-              
-              cli_vtext(
-                "{prefix_lvl2}{ch$j}{ch$b}",
-                "objective:   ",
-                obj_text
-              )
-              
-              ## penalties
-              penalties_text <- missing_text
-              if (length(prob$penalties) > 0) {
-                penalties_text <- vapply(
-                  prob$penalties,
-                  function(w) w$repr(),
-                  character(1)
-                )
-              }
-              
-              if (length(prob$penalties) > 0) {
-                cli_vtext("{prefix_lvl2}{ch$j}{ch$b}penalties: ")
-                for (i in seq_along(penalties_text)) {
-                  if (i < length(penalties_text)) {
-                    cli_vtext(
-                      "{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
-                      paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                      penalties_text[[i]]
-                    )
-                  } else {
-                    cli_vtext(
-                      "{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
-                      paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                      penalties_text[[i]]
-                    )
-                  }
-                }
-              } else {
-                cli_vtext(
-                  "{prefix_lvl2}{ch$j}{ch$b}penalties:   ",
-                  penalties_text
-                )
-              }
-              
-              ## features header
-              cli_vtext(
-                "{prefix_lvl2}{ch$j}{ch$b}",
-                "features:"
-              )
-              
-              # third-level prefix
-              prefix_lvl3 <- paste0(prefix_lvl2, ch$v)
-              
-              ## targets
-              tgt_text <- "{.gray none specified}"
-              if (!is.null(prob$targets) && !is.Waiver(prob$targets)) {
-                tgt_text <- prob$targets$repr()
-              }
-              
-              cli_vtext(
-                "{prefix_lvl3}{ch$j}{ch$b}",
-                "targets:    ",
-                tgt_text
-              )
-              
-              ## weights
-              wgt_text <- "{.gray none specified}"
-              if (!is.null(prob$weights) && !is.Waiver(prob$weights)) {
-                wgt_text <- prob$weights$repr()
-              }
-              
-              cli_vtext(
-                "{prefix_lvl3}{ch$l}{ch$b}",
-                "weights:    ",
-                wgt_text
-              )
-              
-              ## constraints
-              constraints_text <- missing_text
-              if (length(prob$constraints) > 0) {
-                constraints_text <- vapply(
-                  prob$constraints,
-                  function(w) w$repr(),
-                  character(1)
-                )
-              }
-              
-              if (length(prob$constraints) > 0) {
-                cli_vtext("{prefix_lvl2}{ch$j}{ch$b}constraints: ")
-                for (i in seq_along(constraints_text)) {
-                  if (i < length(constraints_text)) {
-                    cli_vtext(
-                      "{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
-                      paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                      constraints_text[[i]]
-                    )
-                  } else {
-                    cli_vtext(
-                      "{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
-                      paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
-                      constraints_text[[i]]
-                    )
-                  }
-                }
-              } else {
-                cli_vtext(
-                  "{prefix_lvl2}{ch$j}{ch$b}constraints: ",
-                  constraints_text
-                )
-              }
-            }
-            
-          } else {
-            cli_vtext(
-              "{ch$v}{ch$l}{ch$b}",
-              "objectives:  ",
-              missing_text
+      if (length(problem_names) > 0) {
+        for (i in seq_along(problem_names)) {
+          pname   <- problem_names[i]
+          prob    <- self$problems[[pname]]
+          is_last <- (i == length(problem_names))
+          
+          # first-level branch
+          branch1 <- if (is_last) ch$l else ch$j
+          
+          # print name 
+          cli_vtext(
+            "{ch$v}{branch1}{ch$b}",
+            pad("name:"),
+            pname
+          )
+          
+          # second-level prefix
+          prefix_lvl2 <- paste0(ch$v, if (is_last) " " else ch$v)
+          
+          ## objective
+          obj_text <- prob$objective$repr()
+          
+          cli_vtext(
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("objective:"),
+            obj_text
+          )
+          
+          ## penalties
+          penalties_text <- missing_text
+          if (length(prob$penalties) > 0) {
+            penalties_text <- vapply(
+              prob$penalties,
+              function(w) w$repr(),
+              character(1)
             )
           }
+          
+          if (length(prob$penalties) > 0) {
+            cli_vtext("{prefix_lvl2}{ch$j}{ch$b}", pad("penalties:"))
+            for (j in seq_along(penalties_text)) {
+              branch <- if (j < length(penalties_text)) ch$j else ch$l
+              cli_vtext(
+                paste0(prefix_lvl2, ch$v, branch, ch$b),
+                j, ":",
+                paste(rep(" ", max(0, 11 - nchar(j))), collapse = ""),
+                penalties_text[[j]]
+              )
+            }
+          } else {
+            cli_vtext(
+              "{prefix_lvl2}{ch$j}{ch$b}",
+              pad("penalties:"),
+              penalties_text
+            )
+          }
+          
+          ## features 
+          feature_names <- prob$feature_names()
+          feature_text <- if (length(feature_names) == 0) {
+            missing_text
+          } else if (length(feature_names) == 1) {
+            paste0("\"", feature_names, "\"")
+          } else {
+            paste0("\"", feature_names[1], "\", … (", length(feature_names), " total)")
+          }
+          
+          cli_vtext(
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("features:"),
+            feature_text
+          )
+          
+          ## targets
+          tgt_text <- "{.gray none specified}"
+          if (!is.null(prob$targets) && !is.Waiver(prob$targets)) {
+            tgt_text <- prob$targets$repr()
+          }
+          
+          cli_vtext(
+            "{prefix_lvl2}{ch$j}{ch$b}",
+            pad("targets:"),
+            tgt_text
+          )
+          
+          ## weights
+          wgt_text <- "{.gray none specified}"
+          if (!is.null(prob$weights) && !is.Waiver(prob$weights)) {
+            wgt_text <- prob$weights$repr()
+          }
+          
+          cli_vtext(
+            "{prefix_lvl2}{ch$l}{ch$b}",
+            pad("weights:"),
+            wgt_text
+          )
+        }
+        
+      } else {
+        cli_vtext(
+          "{ch$v}{ch$l}{ch$b}",
+          "objectives:  ",
+          missing_text
+        )
+      }
       
-      # print approach section
-      ## header
-      cli::cli_text("{ch$j}{ch$b}{.h multi-objective optimization approach}")
-      ## approach
+      ## constraints section 
+      all_constraints <- unlist(
+        lapply(self$problems, function(p) p$constraints),
+        recursive = FALSE
+      )
+      
+      constraints_text <- if (length(all_constraints) > 0) {
+        vapply(all_constraints, function(x) x$repr(), character(1))
+      } else {
+        character(0)
+      }
+      
+      cli_vtext("{ch$v}{ch$j}{ch$b}", "constraints:")
+      
+      if (length(constraints_text) > 0) {
+        for (i in seq_along(constraints_text)) {
+          branch <- if (i < length(constraints_text)) ch$j else ch$l
+          cli_vtext(
+            "{ch$v}{ch$v}{branch}{ch$b}",
+            i, ":",
+            paste(rep(" ", max(0, 11 - nchar(i))), collapse = ""),
+            constraints_text[[i]]
+          )
+        }
+      } else {
+        cli_vtext(
+          "{ch$v}{ch$v}{ch$l}{ch$b}",
+          missing_text
+        )
+      }
+      
+      ## decisions
       cli_vtext(
         "{ch$v}{ch$l}{ch$b}",
-        "approach:    ",
-        approach_text
+        pad("decisions:"),
+        decisions_text
       )
       
       # print optimization section
-      ## header
-      cli::cli_text("{ch$l}{ch$b}{.h optimization (multi-objective)}")
+      ## header 
+      cli::cli_text("{ch$l}{ch$b}{.h optimization}")
+      
+      ## approach 
+      cli_vtext(
+        "{ch$v}{ch$j}{ch$b}",
+        pad("approach:"),
+        approach_text
+      )
+      
       ## solver
       cli_vtext(
         "{ch$v}{ch$l}{ch$b}",
-        "solver:    ",
+        pad("solver:"),
         solver_text
-      )
-      ## decision
-      cli_vtext(
-        "{ch$v}{ch$l}{ch$b}",
-        "decision:    ",
-        decisions_text
       )
       
       invisible(TRUE)
