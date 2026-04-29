@@ -365,8 +365,7 @@ NULL
 #' )
 #' }
 #' @export
-add_hier_approach <- function(x, rel_tol, priority = NULL,
-                                        verbose = TRUE) {
+add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
   # assert arguments are valid
   assert_required(x)
   assert_required(rel_tol)
@@ -385,12 +384,12 @@ add_hier_approach <- function(x, rel_tol, priority = NULL,
   if (is.null(priority) && is.matrix(rel_tol)) {
     ## if priority not specified and rel_tol is matrix, then create matrix
     priority <- matrix(
-      seq(number_of_problems(x), 1), byrow = TRUE,
+      seq(number_of_problems(x), 1L), byrow = TRUE,
       ncol = number_of_problems(x), nrow = nrow(rel_tol)
     )
   } else if (is.null(priority) && is.vector(rel_tol)) {
     ## if priority not specified and rel_tol is vector, then create vector
-    priority <- seq(number_of_problems(x), 1)
+    priority <- seq(number_of_problems(x), 1L)
   } else {
     ## otherwise, check that priority has valid values
     assert(
