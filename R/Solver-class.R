@@ -192,19 +192,16 @@ Solver <- R6::R6Class(
       n_dv <- ncol(x$obj)
       n_extra_constraints <- 0
 
-      # reorder according to priority
+      # find order according to priority
       solve_order <- order(priority, decreasing = TRUE)
-      mobj <- x$obj[solve_order, , drop = FALSE]
-      mmodelsense <- x$modelsense[solve_order]
 
       # perform optimization
-      for (i in seq_len(n_obj)) {
+      for (i in seq_along(solve_order)) {
         ## set current objective
-        x$opt$set_obj(mobj[i, ])
-        x$opt$set_modelsense(mmodelsense[[i]])
+        x$opt$set_obj(x$obj[solve_order[[i]], ])
+        x$opt$set_modelsense(x$modelsense[[solve_order[[i]]]])
         ## solve problem
         sol <- self$solve(x$opt, ...)
-
         ## if feasible solution found and there are remaining objectives,
         ## then add linear constraint for next iteration
         if (!is.null(sol) && !is.null(sol$x) && !identical(i, n_obj)) {
@@ -212,20 +209,24 @@ Solver <- R6::R6Class(
           n_extra_constraints <- n_extra_constraints + 1
           ## calculate values for rhs constraint for next objective
           rhs <-
-            sum(x$obj[i, ] * sol$x) *
+            sum(x$obj[solve_order[[i]], ] * sol$x) *
             ifelse(
-              x$modelsense[[i]] == "min",
+              x$modelsense[[solve_order[[i]]]] == "min",
               1 + rel_tol[[i]],
               1 - rel_tol[[i]]
             )
           ## add constraint
           x$opt$append_linear_constraints(
             rhs = rhs,
-            sense = ifelse(x$modelsense[[i]] == "min", "<=", ">="),
+            sense = ifelse(
+              x$modelsense[[solve_order[[i]]]] == "min",
+              "<=",
+              ">="
+            ),
             A = Matrix::drop0(Matrix::sparseMatrix(
               i = rep(1, n_dv),
               j = seq_len(n_dv),
-              x = x$obj[i, ],
+              x = x$obj[solve_order[[i]], ],
               dims = c(1, n_dv)
             )),
             row_ids = "h"
