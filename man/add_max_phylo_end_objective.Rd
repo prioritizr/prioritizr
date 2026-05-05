@@ -11,9 +11,9 @@ add_max_phylo_end_objective(x, budget, tree)
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
-for the entire solution or (ii) a \code{numeric} vector to specify
-a separate budget for each management zone.}
+to \code{budget} can be a single \code{numeric} value to specify a budget
+for the entire solution or a \code{numeric} vector to specify
+a budget for each each management zone.}
 
 \item{tree}{\code{\link[ape:read.tree]{ape::phylo()}} object specifying a phylogenetic tree
 for the conservation features.}
@@ -34,12 +34,12 @@ Rodrigues \emph{et al.} (2002), and Rosauer \emph{et al.} (2009).
 \details{
 The maximum phylogenetic endemism objective finds the set of
 planning units that meets representation targets for a phylogenetic tree
-while staying within a fixed budget. If multiple solutions can meet all
-targets while staying within budget, the cheapest solution is chosen.
-Note that this objective is similar to the maximum
-features objective (\code{\link[=add_max_features_objective]{add_max_features_objective()}}) in that it
+while staying within a fixed budget.
+Note that this objective is similar to the maximum number of targets met
+objective (\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}}) in that it
 allows for both a budget and targets to be set for each feature. However,
-unlike the maximum feature objective, the aim of this objective is to
+unlike the maximum number of targets met
+objective, the aim of this objective is to
 maximize the total phylogenetic endemism of the targets met in the
 solution, so if multiple targets are provided for a single feature, the
 problem will only need to meet a single target for that feature
@@ -64,13 +64,12 @@ This objective can be expressed mathematically for a set of planning units
 (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
 indexed by \eqn{j}{j}) as:
 
-\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-\sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
+\deqn{\mathit{Maximize} \space \sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
 \mathit{subject \space to} \\
 \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
 m_b \leq y_j \forall j \in T(b) \\
 \sum_{i = 1}^{I} x_i c_i \leq B}{
-Maximize sum_i^I (-s * ci * xi) + sum_j^J (mb * lb * (1 / ab))
+Maximize sum_j^J (mb * lb * (1 / ab))
 subject to sum_i^I (xi * rij) >= (yj * tj) for all j in J &
 mb <= yj for all j in T(b) & sum_i^I (xi * ci) <= B}
 
@@ -91,10 +90,20 @@ at least one feature associated with the branch \eqn{b}{b} has met its
 representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
 the features \eqn{j}{j} associated with branch \eqn{b}{b} using
 \eqn{T(b)}{T(b)}. Finally, \eqn{B}{B} is the budget allocated for the
-solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
-\eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
-will return a cheapest solution when there are multiple solutions that
-represent the same amount of all features within the budget.
+solution, and \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}.
+}
+
+\section{Notes}{
+
+In previous versions (< 9.0.0), this function had extra
+terms to help minimize the solution cost. Although these terms
+have since been removed to reduce solve time,
+this behavior can still be achieved by
+building a multi-objective optimization problem and specifying the
+first problem based on this objective function and the second
+problem based on minimizing penalties (via \code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}})
+with penalties set according to cost values
+(via \code{\link[=add_linear_penalties]{add_linear_penalties()}}).
 }
 
 \examples{
@@ -233,9 +242,9 @@ Also, see \link{targets} for an overview of all functions for adding targets, an
 
 Other functions for adding objectives:
 \code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
+\code{\link{add_max_n_targets_met_objective}()},
 \code{\link{add_max_phylo_div_objective}()},
-\code{\link{add_max_utility_objective}()},
+\code{\link{add_max_wtd_sum_objective}()},
 \code{\link{add_min_largest_shortfall_objective}()},
 \code{\link{add_min_penalties_objective}()},
 \code{\link{add_min_set_objective}()},

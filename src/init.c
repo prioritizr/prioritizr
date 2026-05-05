@@ -24,9 +24,9 @@ extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_n_targets_met_objective(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_wtd_sum_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_penalties_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
@@ -85,9 +85,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_linear_penalties",                             (DL_FUNC) &_prioritizr_rcpp_apply_linear_penalties,                             3},
     {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           6},
     {"_prioritizr_rcpp_apply_max_cover_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                          4},
-    {"_prioritizr_rcpp_apply_max_features_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_features_objective,                       5},
+    {"_prioritizr_rcpp_apply_max_n_targets_met_objective",                  (DL_FUNC) &_prioritizr_rcpp_apply_max_n_targets_met_objective,                  5},
     {"_prioritizr_rcpp_apply_max_phylo_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_phylo_objective,                          7},
-    {"_prioritizr_rcpp_apply_max_utility_objective",                        (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                        6},
+    {"_prioritizr_rcpp_apply_max_wtd_sum_objective",                        (DL_FUNC) &_prioritizr_rcpp_apply_max_wtd_sum_objective,                        6},
     {"_prioritizr_rcpp_apply_min_largest_shortfall_objective",              (DL_FUNC) &_prioritizr_rcpp_apply_min_largest_shortfall_objective,              4},
     {"_prioritizr_rcpp_apply_min_penalties_objective",                      (DL_FUNC) &_prioritizr_rcpp_apply_min_penalties_objective,                      4},
     {"_prioritizr_rcpp_apply_min_set_objective",                            (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                            3},

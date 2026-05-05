@@ -206,11 +206,11 @@ test_that("expected trade-off behavior (gurobi solver)", {
     multi_problem(
       obj1 =
         problem(sim_zones_pu_raster[[1]], f1) %>%
-        add_max_utility_objective(budget = b) %>%
+        add_max_wtd_sum_objective(budget = b) %>%
         add_binary_decisions(),
       obj2 =
         problem(sim_zones_pu_raster[[1]], f2) %>%
-        add_max_utility_objective(budget = b) %>%
+        add_max_wtd_sum_objective(budget = b) %>%
         add_binary_decisions()
     ) %>%
     add_hier_approach(
@@ -255,11 +255,11 @@ test_that("expected trade-off behavior (generic solver, verbose = TRUE)", {
     multi_problem(
       obj1 =
         problem(sim_zones_pu_raster[[1]], f1) %>%
-        add_max_utility_objective(budget = b) %>%
+        add_max_wtd_sum_objective(budget = b) %>%
         add_binary_decisions(),
       obj2 =
         problem(sim_zones_pu_raster[[1]], f2) %>%
-        add_max_utility_objective(budget = b) %>%
+        add_max_wtd_sum_objective(budget = b) %>%
         add_binary_decisions()
     ) %>%
     add_hier_approach(

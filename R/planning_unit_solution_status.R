@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract planning unit solution status values.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param solution object with solution data.
 #'
@@ -25,7 +25,7 @@ methods::setGeneric(
     assert_required(x)
     assert_required(solution)
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_inherits(
         solution,
         c(
@@ -460,6 +460,62 @@ methods::setMethod(
     # return status
     solution
 })
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "numeric"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "matrix"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "data.frame"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "Spatial"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "sf"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "Raster"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "SpatRaster"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
 
 #' Internal helper function
 #'

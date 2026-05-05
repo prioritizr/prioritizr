@@ -284,7 +284,7 @@ solve.ConservationProblem <- function(a, b, ...,
     cli::cli_abort("{.arg b} must not be specified.") # nocov
   }
   # compile optimization problem
-  opt <- compile.ConservationProblem(a, ...)
+  opt <- internal_compile(a, ...)
   # run presolve check
   if (isTRUE(run_checks)) {
     if (isTRUE(force)) {
@@ -346,7 +346,7 @@ solve.MultiObjConservationProblem <- function(a, b, ...,
   }
   # compile problems
   opt <- stats::setNames(
-    lapply(a$problems, compile.ConservationProblem, ...),
+    lapply(a$problems, internal_compile, call = fn_current_env()),
     names(a$problems)
   )
   # run presolve check

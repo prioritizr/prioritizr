@@ -6,8 +6,8 @@ NULL
 #' Add features weights to a conservation planning problem. Specifically,
 #' some objective functions aim to maximize (or minimize) a metric that
 #' measures how well a set of features are represented by a solution
-#' (e.g., maximize the number of features that are adequately represented,
-#' [add_max_features_objective()]). In such cases,
+#' (e.g., maximize the number of feature targets that are met,
+#' [add_max_n_targets_met_objective()]). In such cases,
 #' it may be desirable to prefer the representation of some features
 #' over other features (e.g., features that have higher extinction risk
 #' might be considered more important than those with lower extinction risk).
@@ -82,7 +82,7 @@ NULL
 #' # needs 20% of its habitat for it to be considered adequately conserved
 #' p1 <-
 #'   problem(sim_pu_raster, sim_features) %>%
-#'   add_max_features_objective(budget = 3800) %>%
+#'   add_max_n_targets_met_objective(budget = 3800) %>%
 #'   add_relative_targets(0.2) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -178,13 +178,13 @@ NULL
 #'   )
 #' )
 #'
-#' # create multi-zone problem with maximum features objective,
+#' # create multi-zone problem with maximum number of targets met objective,
 #' # with 10% representation targets for each feature, and set
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
 #' p6 <-
 #'   problem(sim_zones_pu_raster, sim_zones_features) %>%
-#'   add_max_features_objective(3000) %>%
+#'   add_max_n_targets_met_objective(3000) %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -215,7 +215,7 @@ NULL
 #' # weights for problems with manual targets
 #' p8 <-
 #'   problem(sim_pu_raster, sim_features) %>%
-#'   add_max_features_objective(budget = 3000) %>%
+#'   add_max_n_targets_met_objective(budget = 3000) %>%
 #'   add_manual_targets(
 #'     data.frame(
 #'     feature = c("feature_1", "feature_4"),

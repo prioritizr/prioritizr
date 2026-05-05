@@ -553,6 +553,10 @@ test_that("Raster (multiple zones)", {
   expect_equal(r1, r2)
 })
 
+test_that("multi_problem()", {
+
+})
+
 test_that("invalid inputs", {
   # create data
   pu <- data.frame(

@@ -98,6 +98,10 @@ test_that("proportion values (multiple zones)", {
   expect_equal(r1, r2)
 })
 
+test_that("multi_problem()", {
+
+})
+
 test_that("invalid input", {
   expect_tidy_error(eval_n_summary(NULL, 1), "problem()")
 })

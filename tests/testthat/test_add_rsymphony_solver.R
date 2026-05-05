@@ -107,7 +107,7 @@ test_that("mix of binary and continuous variables", {
   # create and solve problem
   s <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(b) %>%
+    add_max_wtd_sum_objective(b) %>%
     add_binary_decisions() %>%
     add_rsymphony_solver(verbose = FALSE) %>%
     solve()

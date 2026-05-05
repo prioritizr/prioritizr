@@ -9,6 +9,8 @@
 \alias{eval_target_coverage_summary,ConservationProblem,sf-method}
 \alias{eval_target_coverage_summary,ConservationProblem,Raster-method}
 \alias{eval_target_coverage_summary,ConservationProblem,SpatRaster-method}
+\alias{eval_target_coverage_summary.ConservationProblem}
+\alias{eval_target_coverage_summary.MultiObjConservationProblem}
 \title{Evaluate target coverage by solution}
 \usage{
 eval_target_coverage_summary(
@@ -17,9 +19,23 @@ eval_target_coverage_summary(
   include_zone = number_of_zones(x) > 1,
   include_sense = number_of_zones(x) > 1
 )
+
+\method{eval_target_coverage_summary}{ConservationProblem}(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+)
+
+\method{eval_target_coverage_summary}{MultiObjConservationProblem}(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
@@ -39,6 +55,9 @@ Here, each row describes information for a different target.
 It contains the following columns:
 
 \describe{
+
+\item{problem}{\code{character} name of problem. Note that this column
+is only present if \code{x} is a \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{feature}{\code{character} name of the feature associated with each
 target.}
@@ -120,7 +139,10 @@ feature and (if relevant) zones associated with each target (per the
 This column is calculated by dividing the total amount held
 for each target (i.e., \code{"absolute_held"} column) by the
 total amount for with each target
-(i.e., \code{"total_amount"} column).}
+(i.e., \code{"total_amount"} column). Since this metric
+is only appropriate for describing how well a solution meets targets
+that have a \code{">="} sense, targets with a \code{"<="} or \code{"="} sense are
+assigned missing (\code{NA}) values in this column.}
 
 \item{relative_shortfall}{\code{numeric} proportion by which the solution fails
 to meet each target.
@@ -129,7 +151,16 @@ each target (i.e., \code{"absolute_shortfall"} column) by the
 total threshold amount associated with each target (i.e.,
 \code{"absolute_target"} column).}
 
-\item{relative_met}{TODO}
+\item{relative_met}{\code{numeric} proportion of the target that is
+fulfilled by the solution. This column is calculated by
+dividing the amount held by the solution
+(i.e., \code{"absolute_held"} column) by the target threshold
+(i.e., \code{"absolute_target"} column) and then clamping the
+resulting values to ensure that all values are less than
+or equal to one. Since this metric
+is only appropriate for describing how well a solution meets targets
+that have a \code{">="} sense, targets with a \code{"<="} or \code{"="} sense are
+assigned missing (\code{NA}) values in this column.}
 
 }
 }
@@ -321,6 +352,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_feature_representation_summary}()},
-\code{\link{eval_n_summary}()}
+\code{\link{eval_n_summary}()},
+\code{\link{eval_objective_summary}()}
 }
 \concept{summaries}

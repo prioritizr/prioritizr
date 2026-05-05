@@ -79,10 +79,10 @@ test_that("is_multi_conservation_problem", {
   # build problem
   p <- multi_problem(
     obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
-      add_max_utility_objective(budget = b1) %>%
+      add_max_wtd_sum_objective(budget = b1) %>%
       add_binary_decisions(),
     obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
-      add_max_utility_objective(budget = b1) %>%
+      add_max_wtd_sum_objective(budget = b1) %>%
       add_binary_decisions()
   )
   # run tests
@@ -123,11 +123,11 @@ test_that("is_generic_conservation_problem", {
   # build problem
   p1 <-
     problem(sim_zones_pu_raster[[1]], f1) %>%
-    add_max_utility_objective(budget = b1) %>%
+    add_max_wtd_sum_objective(budget = b1) %>%
     add_binary_decisions()
   p2 <-
     problem(sim_zones_pu_raster[[1]], f2) %>%
-    add_max_utility_objective(budget = b1) %>%
+    add_max_wtd_sum_objective(budget = b1) %>%
     add_binary_decisions()
   mp <- multi_problem(obj1 = p1, obj2 = p2)
   # run tests

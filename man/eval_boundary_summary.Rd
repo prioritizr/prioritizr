@@ -59,6 +59,9 @@ It contains the following columns:
 
 \describe{
 
+\item{problem}{\code{character} name of problem. Note that this column
+is only present if \code{x} is a \code{\link[=multi_problem]{multi_problem()}} object.}
+
 \item{summary}{\code{character} description of the summary statistic.
 The statistic associated with the \code{"overall"} value
 in this column is calculated using the entire solution
@@ -317,6 +320,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_feature_representation_summary}()},
 \code{\link{eval_n_summary}()},
+\code{\link{eval_objective_summary}()},
 \code{\link{eval_target_coverage_summary}()}
 }
 \concept{summaries}

@@ -242,7 +242,7 @@ test_that("warning (objective does not use targets)", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(20) %>%
+    add_max_wtd_sum_objective(20) %>%
     add_absolute_targets(1)
   # tests
   expect_warning(compile(p), "does not support targets")

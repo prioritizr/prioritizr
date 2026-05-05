@@ -48,18 +48,13 @@ bool rcpp_apply_max_phylo_objective(SEXP x,
     ptr->_sense.push_back("<=");
   for (std::size_t i = 0; i < n_branches; ++i)
     ptr->_sense.push_back(">=");
-  // add in small negative number to objective for planning unit variables to
-  // break ties in solution and select solution with cheapest cost
-  double cost_scale = (-0.01 * Rcpp::min(branch_lengths)) /
-                      Rcpp::sum(na_omit(costs));
+  // model obj
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
+      ptr->_obj.push_back(0.0);
       if (Rcpp::NumericMatrix::is_na(costs(j, z))) {
-        ptr->_obj.push_back(0.0);
         ptr->_lb[(z * ptr->_number_of_planning_units) + j] = 0.0;
         ptr->_ub[(z * ptr->_number_of_planning_units) + j] = 0.0;
-      } else {
-        ptr->_obj.push_back(costs(j, z) * cost_scale);
       }
     }
   }

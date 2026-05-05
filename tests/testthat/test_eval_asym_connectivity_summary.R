@@ -273,6 +273,10 @@ test_that("multiple zones (variable zone matrix)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
+test_that("multi_problem()", {
+
+})
+
 test_that("expected warnings", {
   set.seed(500)
   # create zones data

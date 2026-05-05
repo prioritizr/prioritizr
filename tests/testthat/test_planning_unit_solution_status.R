@@ -1,4 +1,4 @@
-test_that("numeric", {
+test_that("problem (numeric)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
@@ -21,7 +21,7 @@ test_that("numeric", {
   expect_equal(x, y)
 })
 
-test_that("matrix (single zone)", {
+test_that("problem (matrix, single zone)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
@@ -44,7 +44,7 @@ test_that("matrix (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("matrix (multiple zones)", {
+test_that("problem (matrix, multiple zones)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10),
@@ -69,7 +69,7 @@ test_that("matrix (multiple zones)", {
   expect_equal(x, y)
 })
 
-test_that("data.frame (single zone)", {
+test_that("problem (data.frame, single zone)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10), cost = c(0.2, NA, runif(8)),
@@ -89,7 +89,7 @@ test_that("data.frame (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("data.frame (multiple zone)", {
+test_that("problem (data.frame, multiple zone)", {
   # simulate data
   pu <- data.frame(
     id = seq_len(10),
@@ -118,7 +118,7 @@ test_that("data.frame (multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("sf (single zone)", {
+test_that("problem (sf, single zone)", {
   # import data
   pu <- get_sim_pu_polygons()[seq_len(10), , drop = FALSE]
   pu$cost[1:5] <- NA
@@ -139,7 +139,7 @@ test_that("sf (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("sf (multiple zone)", {
+test_that("problem (sf, multiple zone)", {
   # import data
   pu <- get_sim_zones_pu_polygons()
   pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
@@ -172,7 +172,7 @@ test_that("sf (multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("Spatial (single zone)", {
+test_that("problem (Spatial, single zone)", {
   # import data
   pu <- get_sim_pu_polygons()[seq_len(10), , drop = FALSE]
   pu$cost[1:5] <- NA
@@ -196,7 +196,7 @@ test_that("Spatial (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("Spatial (multiple zone)", {
+test_that("problem (Spatial, multiple zone)", {
   # import data
   pu <- get_sim_zones_pu_polygons()
   pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
@@ -237,7 +237,7 @@ test_that("Spatial (multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("SpatRaster (single zone)", {
+test_that("problem (SpatRaster, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -257,7 +257,7 @@ test_that("SpatRaster (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("SpatRaster (multiple zone)", {
+test_that("problem (SpatRaster, multiple zone)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -290,7 +290,7 @@ test_that("SpatRaster (multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("Raster (single zone)", {
+test_that("problem (Raster, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -317,7 +317,7 @@ test_that("Raster (single zone)", {
   expect_equal(x, y)
 })
 
-test_that("Raster (multiple zone)", {
+test_that("problem (Raster, multiple zone)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -357,6 +357,34 @@ test_that("Raster (multiple zone)", {
   colnames(y) <- names(s)
   # run tests
   expect_equal(x, y)
+})
+
+test_that("problem (numeric)", {
+
+})
+
+test_that("multi_problem  (matrix)", {
+
+})
+
+test_that("multi_problem (data.frame)", {
+
+})
+
+test_that("multi_problem (Spatial)", {
+
+})
+
+test_that("multi_problem (sf)", {
+
+})
+
+test_that("multi_problem (Raster)", {
+
+})
+
+test_that("multi_problem (SpatRaster)", {
+
 })
 
 test_that("invalid inputs", {

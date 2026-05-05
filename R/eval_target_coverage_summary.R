@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate target coverage by solution
@@ -25,6 +25,9 @@ NULL
 #'   It contains the following columns:
 #'
 #'   \describe{
+#'
+#'   \item{problem}{`character` name of problem. Note that this column
+#'   is only present if `x` is a [multi_problem()] object.}
 #'
 #'   \item{feature}{`character` name of the feature associated with each
 #'     target.}
@@ -106,7 +109,10 @@ NULL
 #'     This column is calculated by dividing the total amount held
 #'     for each target (i.e., `"absolute_held"` column) by the
 #'     total amount for with each target
-#'     (i.e., `"total_amount"` column).}
+#'     (i.e., `"total_amount"` column). Since this metric
+#'     is only appropriate for describing how well a solution meets targets
+#'     that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#'     assigned missing (`NA`) values in this column.}
 #'
 #'   \item{relative_shortfall}{`numeric` proportion by which the solution fails
 #'     to meet each target.
@@ -115,7 +121,16 @@ NULL
 #'     total threshold amount associated with each target (i.e.,
 #'     `"absolute_target"` column).}
 #'
-#'   \item{relative_met}{TODO}
+#'   \item{relative_met}{`numeric` proportion of the target that is
+#'     fulfilled by the solution. This column is calculated by
+#'     dividing the amount held by the solution
+#'     (i.e., `"absolute_held"` column) by the target threshold
+#'     (i.e., `"absolute_target"` column) and then clamping the
+#'     resulting values to ensure that all values are less than
+#'     or equal to one. Since this metric
+#'     is only appropriate for describing how well a solution meets targets
+#'     that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#'     assigned missing (`NA`) values in this column.}
 #'
 #' }
 #'
@@ -233,12 +248,28 @@ NULL
 #' print(r3, width = Inf)
 #' }
 #' @export
-eval_target_coverage_summary <- function(x,
-                                         solution,
-                                         include_zone =
-                                          number_of_zones(x) > 1,
-                                         include_sense =
-                                          number_of_zones(x) > 1) {
+eval_target_coverage_summary <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
+  UseMethod("eval_target_coverage_summary")
+}
+
+#' @rdname eval_target_coverage_summary
+#' @method eval_target_coverage_summary ConservationProblem
+#' @export
+eval_target_coverage_summary.ConservationProblem <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
@@ -256,16 +287,85 @@ eval_target_coverage_summary <- function(x,
     !is.Waiver(x$targets),
     msg = c(
       "{.arg x} does not have targets.",
-      "i" = "Use {.fn eval_feature_representation} for",
-      "problems without targets"
+      "i" =
+        "Use {.fn eval_feature_representation} for problems without targets."
     )
   )
-  targets <- x$feature_targets()
-  # extract feature abundances
-  abundances <- x$feature_abundances_in_total_units()
   # convert solution to status matrix format
-  solution <- planning_unit_solution_status(x, solution)
+  solution <- planning_unit_solution_status(x, solution, call = call)
   solution[is.na(solution)] <- 0
+  # run calculations
+  internal_eval_target_coverage_summary(
+    x = x,
+    solution = solution,
+    include_zone = include_zone,
+    include_sense = include_sense
+  )
+}
+
+#' @rdname eval_target_coverage_summary
+#' @method eval_target_coverage_summary MultiObjConservationProblem
+#' @export
+eval_target_coverage_summary.MultiObjConservationProblem <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
+  assert(
+    is_multi_conservation_problem(x),
+    assertthat::is.flag(include_zone),
+    assertthat::noNA(include_zone),
+    assertthat::is.flag(include_sense),
+    assertthat::noNA(include_sense)
+  )
+  # identify problems with targets
+  idx <- which(
+    vapply(x$problems, function(x) !is.Waiver(x$targets), logical(1))
+  )
+  assert(
+    length(idx) > 0,
+    msg = c(
+      "{.arg x} does not have any {.fn problem} objects with targets.",
+      "i" =
+        "Use {.fn eval_feature_representation} for problems without targets."
+    )
+  )
+  # convert solution to status matrix format
+  solution <- planning_unit_solution_status(x, solution, call = call)
+  solution[is.na(solution)] <- 0
+  # run calculations for problems with targets
+  out <- do.call(
+    rbind,
+    lapply(idx, function(i) {
+      out <- internal_eval_target_coverage_summary(
+        x$problems[[i]],
+        solution = solution,
+        include_zone = include_zone,
+        include_sense = include_sense
+      )
+      out$problem <- x$problem_names()[[i]]
+      out
+    })
+  )
+  out <- tibble::as_tibble(out)
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
+}
+
+internal_eval_target_coverage_summary <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  # extract data from problem
+  targets <- x$feature_targets()
+  abundances <- x$feature_abundances_in_total_units()
   # initialize table
   d <- targets[, c("feature", "zone", "sense"), drop = FALSE]
   attr(d, "out.attrs") <- NULL
@@ -316,9 +416,8 @@ eval_target_coverage_summary <- function(x,
   # add relative columns
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
-  ## TODO: add tests for relative_met column
-  d$relative_met <-
-    pmin(d$absolute_target, x$absolute_held) / x$absolute_target
+  d$relative_shortfall <- d$absolute_shortfall / d$absolute_target
+  d$relative_met <- pmin(d$absolute_held / d$absolute_target, 1)
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0
@@ -326,6 +425,9 @@ eval_target_coverage_summary <- function(x,
   d$relative_met[!is.finite(d$relative_met)] <- 0
   # add met column
   d$met <- d$absolute_shortfall < 1e-10
+  # set columns to NA for <= targets
+  d$relative_held[targets$sense != ">="] <- NA_real_
+  d$relative_met[targets$sense != ">="] <- NA_real_
   # specify column names for result
   cn <- c(
     "feature", "zone", "sense", "met", "total_amount",

@@ -5,7 +5,7 @@ test_that("maximum utility objective (numeric, compile, single zone)", {
   # create problems
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 5) %>%
+    add_max_wtd_sum_objective(budget = 5) %>%
     add_binary_decisions()
   p2 <-
     p1 %>%

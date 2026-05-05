@@ -4,6 +4,9 @@ NULL
 #' @export
 if (!methods::isClass("MultiObjConservationProblem")) {
   methods::setOldClass("MultiObjConservationProblem")
+  methods::setClassUnion(
+    "GenericConservationProblem",
+    c("ConservationProblem", "MultiObjConservationProblem"))
 }
 NULL
 
@@ -60,18 +63,18 @@ MultiObjConservationProblem <- R6::R6Class(
     summary = function() {
       # define characters
       ch <- cli_box_chars()
-      
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
-      
+
       # create header
       cli::cli_text(
         "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
       )
-      
+
       # problem names
       problem_names <- self$problem_names()
-      
+
       # pre-compute values for data section
       if (is_spatially_explicit(self$problems[[problem_names[1]]]$data$cost)) {
         crs_text <- repr.crs(
@@ -82,7 +85,7 @@ MultiObjConservationProblem <- R6::R6Class(
         crs_text <- "{.gray NA}"
         extent_text <- "{.gray NA}"
       }
-      
+
       # print data section
       cli::cli_text("{ch$j}{ch$b}{.h data}")
       if (self$number_of_zones() > 1) {
@@ -107,7 +110,7 @@ MultiObjConservationProblem <- R6::R6Class(
         "{ch$v} {ch$l}{ch$b}CRS:        ",
         crs_text
       )
-      
+
       # pre-compute values for formulation section
       ## missing text
       missing_text <- "{.gray none specified}"
@@ -184,7 +187,7 @@ MultiObjConservationProblem <- R6::R6Class(
         )
       })
       names(problem_data) <- problem_names
-      
+
       # print formulation section
       cli::cli_text("{ch$j}{ch$b}{.h formulation}")
       ## one block per problem
@@ -269,7 +272,7 @@ MultiObjConservationProblem <- R6::R6Class(
         "{ch$v}{ch$l}{ch$b}decisions:   ",
         decisions_text
       )
-      
+
       # print optimization section
       cli::cli_text("{ch$l}{ch$b}{.h optimization}")
       cli_vtext(
@@ -280,7 +283,7 @@ MultiObjConservationProblem <- R6::R6Class(
         " {ch$l}{ch$b}solver:      ",
         solver_text
       )
-      
+
       # add footer
       cli::cli_text(
         cli::col_grey(
@@ -288,10 +291,10 @@ MultiObjConservationProblem <- R6::R6Class(
           " to see complete formulation."
         )
       )
-      
+
       # end container
       cli::cli_end(div_id)
-      
+
       # return success
       invisible(TRUE)
     },
@@ -302,18 +305,18 @@ MultiObjConservationProblem <- R6::R6Class(
     print = function() {
       # define characters
       ch <- cli_box_chars()
-      
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
-      
+
       # create header
       cli::cli_text(
         "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
       )
-      
+
       # problem names
       problem_names <- self$problem_names()
-      
+
       # pre-compute values for data section
       if (is_spatially_explicit(self$problems[[problem_names[1]]]$data$cost)) {
         crs_text <- repr.crs(
@@ -324,7 +327,7 @@ MultiObjConservationProblem <- R6::R6Class(
         crs_text <- "{.gray NA}"
         extent_text <- "{.gray NA}"
       }
-      
+
       # print data section
       cli::cli_text("{ch$j}{ch$b}{.h data}")
       if (self$number_of_zones() > 1) {
@@ -349,7 +352,7 @@ MultiObjConservationProblem <- R6::R6Class(
         "{ch$v} {ch$l}{ch$b}CRS:        ",
         crs_text
       )
-      
+
       # pre-compute values for formulation section
       ## missing text
       missing_text <- "{.gray none specified}"
@@ -426,7 +429,7 @@ MultiObjConservationProblem <- R6::R6Class(
           character(1)
         )
       }
-      
+
       # print formulation section
       cli::cli_text("{ch$j}{ch$b}{.h formulation}")
       ## one block per problem
@@ -504,7 +507,7 @@ MultiObjConservationProblem <- R6::R6Class(
         "{ch$v}{ch$l}{ch$b}decisions:   ",
         decisions_text
       )
-      
+
       # print optimization section
       cli::cli_text("{ch$l}{ch$b}{.h optimization}")
       cli_vtext(
@@ -515,7 +518,7 @@ MultiObjConservationProblem <- R6::R6Class(
         " {ch$l}{ch$b}solver:      ",
         solver_text
       )
-      
+
       # add footer
       cli::cli_text(
         cli::col_grey(
@@ -523,10 +526,10 @@ MultiObjConservationProblem <- R6::R6Class(
           " to see complete formulation."
         )
       )
-      
+
       # end container
       cli::cli_end(div_id)
-      
+
       # return success
       invisible(TRUE)
     },

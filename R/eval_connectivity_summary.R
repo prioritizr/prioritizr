@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate connectivity of solution
@@ -147,7 +147,7 @@ NULL
 #'
 #' @exportMethod eval_connectivity_summary
 #'
-#' @aliases eval_connectivity_summary,ConservationProblem,ANY,ANY,Matrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,matrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,dgCMatrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,data.frame-method eval_connectivity_summary,ConservationProblem,ANY,ANY,array-method
+#' @aliases eval_connectivity_summary,GenericConservationProblem,ANY,ANY,Matrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,matrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,dgCMatrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,data.frame-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,array-method
 NULL
 
 #' @export
@@ -159,7 +159,7 @@ methods::setGeneric("eval_connectivity_summary",
     assert_required(zones)
     assert_required(data)
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_inherits(
         data,
         c("matrix", "Matrix", "dgCMatrix", "data.frame", "array")
@@ -170,30 +170,30 @@ methods::setGeneric("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
   }
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
   }
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(
       x, solution, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
@@ -202,14 +202,14 @@ methods::setMethod("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, solution, zones, data) {
     # assert valid arguments
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_matrix_ish(zones),
       nrow(zones) == ncol(zones),
       is_numeric_values(zones),
@@ -251,14 +251,14 @@ methods::setMethod("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "array"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "array"),
   function(x, solution, zones, data) {
     # assert valid arguments
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is.null(zones),
       is.array(data),
       all_finite(data),
@@ -292,7 +292,7 @@ internal_eval_connectivity_summary <- function(x, solution, zone_scaled_data,
                                                data) {
   # assert valid arguments
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     is.matrix(solution),
     is.list(zone_scaled_data),
     is_inherits(data, c("dgCMatrix", "NULL"))

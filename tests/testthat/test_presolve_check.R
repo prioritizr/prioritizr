@@ -123,7 +123,7 @@ test_that("budget higher than total costs (multiple zones)", {
   # create problem
   p <-
     problem(get_sim_zones_pu_raster, get_sim_zones_features) %>%
-    add_max_utility_objective(budget = c(1000, 1000, 1000)) %>%
+    add_max_wtd_sum_objective(budget = c(1000, 1000, 1000)) %>%
     add_binary_decisions()
   # tests
   expect_warning(expect_false(presolve_check(p)), "budget")
@@ -182,7 +182,7 @@ test_that("instability due to feature weights", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(600) %>%
+    add_max_wtd_sum_objective(600) %>%
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()
   # tests
@@ -228,7 +228,7 @@ test_that("instability due to high target weights", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(600) %>%
+    add_max_n_targets_met_objective(600) %>%
     add_absolute_targets(1) %>%
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()

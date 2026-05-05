@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate cost of solution
@@ -9,7 +9,7 @@ NULL
 #' (USD), then the total cost would be net cost (USD) needed to acquire
 #' all planning units selected within the solution.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'  [terra::rast()], or [sf::sf()] object.
@@ -37,6 +37,9 @@ NULL
 #'   It contains the following columns:
 #'
 #'   \describe{
+#'
+#'   \item{problem}{`character` name of problem. Note that this column
+#'     is only present if `x` is a [multi_problem()] object.}
 #'
 #'   \item{summary}{`character` description of the summary statistic.
 #'     The statistic associated with the `"overall"` value
@@ -162,12 +165,49 @@ NULL
 #' }
 #' @export
 eval_cost_summary <- function(x, solution) {
+  assert_required(x)
+  assert_required(solution)
+  assert(is_generic_conservation_problem(x))
+  UseMethod("eval_cost_summary")
+}
+
+#' @rdname eval_cost_summary
+#' @method eval_cost_summary ConservationProblem
+#' @export
+eval_cost_summary.ConservationProblem <- function(x, solution) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
   assert(is_conservation_problem(x))
   # calculate costs
   internal_eval_cost_summary(x, planning_unit_solution_status(x, solution))
+}
+
+#' @rdname eval_cost_summary
+#' @method eval_cost_summary MultiObjConservationProblem
+#' @export
+eval_cost_summary.MultiObjConservationProblem <- function(x, solution) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert(is_multi_conservation_problem(x))
+  # extract solution
+  solution <- planning_unit_solution_status(x, solution)
+  # calculate costs
+  out <- do.call(
+    rbind,
+    lapply(
+      seq_along(x$problems),
+      function(i) {
+        out <- internal_eval_cost_summary(x$problems[[i]], solution)
+        out$problem <- x$problem_names()[[i]]
+        out
+      }
+    )
+  )
+  out <- tibble::as_tibble(out)
+  # return result
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
 }
 
 internal_eval_cost_summary <- function(x, status) {

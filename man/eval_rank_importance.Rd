@@ -334,17 +334,17 @@ plot(
   main = "Relationship between objective values and budget increment"
 )
 
-# calculate importance scores using the maximum utility objective and
+# calculate importance scores using the maximum weighted sum objective and
 # based on 10 different budgets
 rs2 <- eval_rank_importance(
-  p1, s1, n = 10, objective = "add_max_utility_objective"
+  p1, s1, n = 10, objective = "add_max_wtd_sum_objective"
 )
 
 # print importance scores
 print(rs2)
 
 # plot importance scores
-plot(rs2, main = "rank importance (10, max utility obj)", axes = FALSE)
+plot(rs2, main = "rank importance (10, max wtd sum obj)", axes = FALSE)
 
 # calculate importance scores based on 5 manually specified budgets
 

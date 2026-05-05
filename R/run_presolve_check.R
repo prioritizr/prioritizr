@@ -378,42 +378,44 @@ run_presolve_check <- function(x, header_level = 2) {
     which(rownames(y) %in% rij_rn_ids),
     which(colnames(y) %in% rij_cn_ids),
     drop = FALSE]
-  ### check upper threshold
-  if (any(rij@x > upper_value)) {
-    pass <- FALSE
-    msg1 <- c(
-      msg1,
-      c(
-        "x" = paste(
-          "Feature data in {.arg x} (specified via",
-          "({.arg feature}, {.arg rij}, or {.arg rij_matrix}) must not",
-          "be too high (> 1e6)."
-        ),
-        ">" = paste(
-          "Try re-scaling them",
-          "(e.g., convert units from m{cli::symbol$sup_2} to",
-          "km{cli::symbol$sup_2})."
-        ),
-        ""
+  if (length(rij@x) > 0L) {
+    ### check upper threshold
+    if (any(rij@x > upper_value)) {
+      pass <- FALSE
+      msg1 <- c(
+        msg1,
+        c(
+          "x" = paste(
+            "Feature data in {.arg x} (specified via",
+            "({.arg feature}, {.arg rij}, or {.arg rij_matrix}) must not",
+            "be too high (> 1e6)."
+          ),
+          ">" = paste(
+            "Try re-scaling them",
+            "(e.g., convert units from m{cli::symbol$sup_2} to",
+            "km{cli::symbol$sup_2})."
+          ),
+          ""
+        )
       )
-    )
-  }
-  ### check lower threshold
-  if (mean(Matrix::colSums(abs(rij)) <= lower_value) >= 0.5) {
-    pass <- FALSE
-    msg2 <- c(
-      msg2,
-      c(
-        "x" = paste(
-          "Most of the planning units do not have a single",
-          "feature inside them."
-        ),
-        ">" = paste(
-          "This indicates that more features are needed."
-        ),
-        ""
+    }
+    ### check lower threshold
+    if (mean(Matrix::colSums(abs(rij)) <= lower_value) >= 0.5) {
+      pass <- FALSE
+      msg2 <- c(
+        msg2,
+        c(
+          "x" = paste(
+            "Most of the planning units do not have a single",
+            "feature inside them."
+          ),
+          ">" = paste(
+            "This indicates that more features are needed."
+          ),
+          ""
+        )
       )
-    )
+    }
   }
 
   ## check decision variable bounds

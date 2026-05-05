@@ -11,9 +11,9 @@ add_min_largest_shortfall_objective(x, budget)
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
-for the entire solution or (ii) a \code{numeric} vector to specify
-a separate budget for each management zone.}
+to \code{budget} can be a single \code{numeric} value to specify a budget
+for the entire solution or a \code{numeric} vector to specify
+a budget for each each management zone.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the objective added to it.
@@ -129,10 +129,10 @@ Also, see \link{targets} for an overview of all functions for adding targets, an
 
 Other functions for adding objectives:
 \code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
+\code{\link{add_max_n_targets_met_objective}()},
 \code{\link{add_max_phylo_div_objective}()},
 \code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
+\code{\link{add_max_wtd_sum_objective}()},
 \code{\link{add_min_penalties_objective}()},
 \code{\link{add_min_set_objective}()},
 \code{\link{add_min_shortfall_objective}()}

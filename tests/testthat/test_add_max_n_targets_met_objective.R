@@ -9,18 +9,16 @@ test_that("compile (compressed formulation, single zone)", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(budget = b) %>%
+    add_max_n_targets_met_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
   o <- compile(p)
   # calculations for tests
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_features <- terra::nlyr(sim_features)
-  scaled_costs <- p$planning_unit_costs()[, 1]
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(1, n_features)))
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(1, n_features)))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(rep(0, n_features), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
@@ -60,7 +58,7 @@ test_that("solution (compressed formulation, single zone)", {
   # create problem
   p <-
     problem(cost, features) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out) %>%
     add_absolute_targets(c(2, 10)) %>%
@@ -84,7 +82,7 @@ test_that("compile (expanded formulation, single zone)", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(budget = b) %>%
+    add_max_n_targets_met_objective(budget = b) %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
@@ -92,11 +90,9 @@ test_that("compile (expanded formulation, single zone)", {
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f), rep(1, n_f)))
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_pu * n_f), rep(1, n_f)))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), rep(0, n_f), b))
   expect_equal(
@@ -148,7 +144,7 @@ test_that("solution (expanded formulation, single zone)", {
   # create problem
   p <-
     problem(cost, features) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out) %>%
     add_absolute_targets(c(2, 10)) %>%
@@ -166,20 +162,20 @@ test_that("invalid inputs (single zone)", {
   # tests
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_max_features_objective(budget = -5)
+      add_max_n_targets_met_objective(budget = -5)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_max_features_objective(budget = NA)
+      add_max_n_targets_met_objective(budget = NA)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_features) %>%
-      add_max_features_objective(budget = Inf) %>%
+      add_max_n_targets_met_objective(budget = Inf) %>%
       add_absolute_targets(targ)
   )
   expect_tidy_error(
     problem(sim_pu_raster, sim_pu_raster) %>%
-    add_max_features_objective(budget = 5) %>%
+    add_max_n_targets_met_objective(budget = 5) %>%
     compile()
   )
 })
@@ -203,7 +199,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   # create problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = b) %>%
+    add_max_n_targets_met_objective(budget = b) %>%
     add_manual_targets(targs) %>%
     add_binary_decisions()
   o <- compile(p)
@@ -211,11 +207,9 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(1, 3)))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), rep(1, 3)))
   expect_equal(
     o$sense(),
     c(targs$sense, rep("<=", length(b)), rep("<=", n_pu))
@@ -294,7 +288,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
         zone_names = c("zone_1", "zone_2"), feature_names = c("f1", "f2")
       )
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -323,7 +317,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   )
   # create problem
   p <- problem(sim_zones_pu_raster, sim_zones_features) %>%
-       add_max_features_objective(budget = b) %>%
+       add_max_n_targets_met_objective(budget = b) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
@@ -331,11 +325,12 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z), rep(1, 3)))
+  expect_equal(
+    o$obj(),
+    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), rep(1, 3))
+  )
   expect_equal(
     o$sense(),
     c(
@@ -440,7 +435,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
         feature_names = c("f1", "f2")
       )
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -470,7 +465,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   # create problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = b) %>%
+    add_max_n_targets_met_objective(budget = b) %>%
     add_manual_targets(targs) %>%
     add_binary_decisions()
   o <- compile(p)
@@ -478,11 +473,9 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(1, 3)))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), rep(1, 3)))
   expect_equal(
     o$sense(),
     c(targs$sense, rep("<=", length(b)), rep("<=", n_pu))
@@ -565,7 +558,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
         feature_names = c("f1", "f2")
       )
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -595,7 +588,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   # create problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = b) %>%
+    add_max_n_targets_met_objective(budget = b) %>%
     add_manual_targets(targs) %>%
     add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
@@ -603,11 +596,12 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z), rep(1, 3)))
+  expect_equal(
+    o$obj(),
+    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), rep(1, 3))
+  )
   expect_equal(
     o$sense(),
     c(
@@ -711,7 +705,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
         feature_names = c("f1", "f2")
       )
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -729,27 +723,27 @@ test_that("invalid inputs (multiple zones)", {
   # tests
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(1, -5, 1))
+    add_max_n_targets_met_objective(budget = c(1, -5, 1))
   )
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(1, NA, 1))
+    add_max_n_targets_met_objective(budget = c(1, NA, 1))
   )
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(NA, NA, NA))
+    add_max_n_targets_met_objective(budget = c(NA, NA, NA))
   )
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(1, Inf, 9))
+    add_max_n_targets_met_objective(budget = c(1, Inf, 9))
   )
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(1, Inf, 9))
+    add_max_n_targets_met_objective(budget = c(1, Inf, 9))
   )
   expect_tidy_error(
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_max_features_objective(budget = c(5, 5, 5)) %>%
+    add_max_n_targets_met_objective(budget = c(5, 5, 5)) %>%
     compile()
   )
 })

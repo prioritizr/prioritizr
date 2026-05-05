@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate feature representation by solution
@@ -241,14 +241,62 @@ NULL
 #' }
 #' @export
 eval_feature_representation_summary <- function(x, solution) {
+  assert_required(x)
+  assert_required(solution)
+  assert(is_generic_conservation_problem(x))
+  UseMethod("eval_feature_representation_summary")
+}
+
+#' @rdname eval_feature_representation_summary
+#' @method eval_feature_representation_summary ConservationProblem
+#' @export
+eval_feature_representation_summary.ConservationProblem <- function(
+  x, solution
+) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
   assert(is_conservation_problem(x))
   # extract solution
   solution <- planning_unit_solution_status(x, solution)
-  # convert NAs in solution to zeros
   solution[is.na(solution)] <- 0
+  # run calculations
+  internal_eval_feature_representation_summary(x, solution)
+}
+
+#' @rdname eval_feature_representation_summary
+#' @method eval_feature_representation_summary MultiObjConservationProblem
+#' @export
+eval_feature_representation_summary.MultiObjConservationProblem <- function(
+  x, solution
+) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert(is_multi_conservation_problem(x))
+  # extract solution
+  solution <- planning_unit_solution_status(x, solution)
+  solution[is.na(solution)] <- 0
+  # calculate representation
+  out <- do.call(
+    rbind,
+    lapply(
+      seq_along(x$problems),
+      function(i) {
+        out <- internal_eval_feature_representation_summary(
+          x$problems[[i]], solution
+        )
+        out$problem <- x$problem_names()[[i]]
+        out
+      }
+    )
+  )
+  out <- tibble::as_tibble(out)
+  # return result
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
+}
+
+internal_eval_feature_representation_summary <- function(x, solution) {
   # calculate amount of each feature in each planning unit
   total <- x$feature_abundances_in_total_units()
   held <- vapply(

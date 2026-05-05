@@ -21,7 +21,9 @@ An updated \code{\link[=problem]{problem()}} object with the objective added to 
 \description{
 Set the objective of a conservation planning problem to
 represent at least one instance of as many features as possible within a
-given budget. This objective does not use targets, and feature
+given budget. In other words, this objective aims to ensure that
+no feature is completely missing from the prioritization.
+This objective does not use targets, and feature
 weights should be used instead to increase the representation of certain
 features by a solution.
 }
@@ -35,8 +37,8 @@ used in conservation planning problems dealing with binary biodiversity
 data that indicate the presence/absence of suitable habitat
 (e.g., Church & Velle 1974). Additionally, weights can be used to favor the
 representation of certain features over other features (see
-\code{\link[=add_feature_weights]{add_feature_weights()}}). Check out the
-\code{\link[=add_max_features_objective]{add_max_features_objective()}} for a more
+\code{\link[=add_feature_weights]{add_feature_weights()}}). Check out the maximum number of targets met
+objective (i.e., \code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}}) for a more
 generalized formulation which can accommodate user-specified representation
 targets.
 }
@@ -48,12 +50,11 @@ The maximum coverage objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
-\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-\sum_{j = 1}^{J} y_j w_j \\
+\deqn{\mathit{Maximize} \space \sum_{j = 1}^{J} y_j w_j \\
 \mathit{subject \space to} \\
 \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
 \sum_{i = 1}^{I} x_i c_i \leq B}{
-Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
+Maximize sum_j^J (yj * wj) subject to
 sum_i^I (xi * rij) >= (yj * 1) for all j in J &
 sum_i^I (xi * ci) <= B}
 
@@ -64,11 +65,8 @@ unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
 the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 weight for feature \eqn{j}{j} (defaults to 1 for all features; see
 \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights). Additionally,
-\eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
-to shrink the costs so that the problem will return a cheapest solution
-when there are multiple solutions that represent the same amount of all
-features within the budget.
+\eqn{B}{B} is the budget allocated for the solution, and \eqn{c_i}{ci} is the
+cost of planning unit \eqn{i}{i}.
 }
 
 \section{Notes}{
@@ -77,7 +75,16 @@ In early versions (< 3.0.0.0), the mathematical formulation
 underpinning this function was very different. Specifically,
 as described above, the function now follows the formulations outlined in
 Church \emph{et al.} (1996). The old formulation is now provided by the
-\code{\link[=add_max_utility_objective]{add_max_utility_objective()}} function.
+\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}} function.
+Additionally, in previous versions (< 9.0.0), this function had extra
+terms to help minimize the solution cost. Although these terms
+have since been removed to reduce solve time,
+this behavior can still be achieved by
+building a multi-objective optimization problem and specifying the
+first problem based on this objective function and the second
+problem based on minimizing penalties (via \code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}})
+with penalties set according to cost values
+(via \code{\link[=add_linear_penalties]{add_linear_penalties()}}).
 }
 
 \examples{
@@ -166,10 +173,10 @@ See \link{objectives} for an overview of all functions for adding objectives.
 Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
 
 Other functions for adding objectives:
-\code{\link{add_max_features_objective}()},
+\code{\link{add_max_n_targets_met_objective}()},
 \code{\link{add_max_phylo_div_objective}()},
 \code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
+\code{\link{add_max_wtd_sum_objective}()},
 \code{\link{add_min_largest_shortfall_objective}()},
 \code{\link{add_min_penalties_objective}()},
 \code{\link{add_min_set_objective}()},

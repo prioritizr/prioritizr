@@ -2,12 +2,18 @@
 % Please edit documentation in R/eval_cost_summary.R
 \name{eval_cost_summary}
 \alias{eval_cost_summary}
+\alias{eval_cost_summary.ConservationProblem}
+\alias{eval_cost_summary.MultiObjConservationProblem}
 \title{Evaluate cost of solution}
 \usage{
 eval_cost_summary(x, solution)
+
+\method{eval_cost_summary}{ConservationProblem}(x, solution)
+
+\method{eval_cost_summary}{MultiObjConservationProblem}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
@@ -20,6 +26,9 @@ A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the solution c
 It contains the following columns:
 
 \describe{
+
+\item{problem}{\code{character} name of problem. Note that this column
+is only present if \code{x} is a \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{summary}{\code{character} description of the summary statistic.
 The statistic associated with the \code{"overall"} value
@@ -225,6 +234,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_feature_representation_summary}()},
 \code{\link{eval_n_summary}()},
+\code{\link{eval_objective_summary}()},
 \code{\link{eval_target_coverage_summary}()}
 }
 \concept{summaries}

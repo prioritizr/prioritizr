@@ -48,6 +48,8 @@ new_optimization_problem(...)
 predefined_optimization_problem(...)
 
 add_loglinear_targets(...)
+
+add_loglinear_targets(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -78,6 +80,9 @@ as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} f
 
 \item{\code{add_loglinear_targets()}}{replaced by the
 \code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}} function.}
+
+\item{\code{add_max_features_objective()}}{renamed as the
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}} function.}
 
 \item{\code{set_number_of_threads()}}{
 no longer needed due to improved data extraction methods.}

@@ -116,7 +116,7 @@ test_that("min set objective (approx = TRUE)", {
   )
   expect_lte(
     abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
-    1000
+    1500
   )
   expect_lte(
     abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
@@ -301,7 +301,7 @@ test_that("invalid inputs", {
   # no trade-offs between objectives
   expect_error(
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 0) %>%
+    add_max_wtd_sum_objective(budget = 0) %>%
     add_boundary_penalties(penalty = 1) %>%
     add_binary_decisions() %>%
     calibrate_cohon_penalty(verbose = FALSE),

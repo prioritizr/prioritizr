@@ -2,12 +2,18 @@
 % Please edit documentation in R/eval_feature_representation_summary.R
 \name{eval_feature_representation_summary}
 \alias{eval_feature_representation_summary}
+\alias{eval_feature_representation_summary.ConservationProblem}
+\alias{eval_feature_representation_summary.MultiObjConservationProblem}
 \title{Evaluate feature representation by solution}
 \usage{
 eval_feature_representation_summary(x, solution)
+
+\method{eval_feature_representation_summary}{ConservationProblem}(x, solution)
+
+\method{eval_feature_representation_summary}{MultiObjConservationProblem}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
@@ -316,6 +322,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_n_summary}()},
+\code{\link{eval_objective_summary}()},
 \code{\link{eval_target_coverage_summary}()}
 }
 \concept{summaries}

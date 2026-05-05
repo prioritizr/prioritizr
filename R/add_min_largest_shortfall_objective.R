@@ -11,7 +11,7 @@ NULL
 #' are too costly or are locked out), then solutions may only use a small
 #' proportion of the specified budget.
 #'
-#' @inheritParams add_max_features_objective
+#' @inheritParams add_max_cover_objective
 #'
 #' @details
 #' The minimum largest shortfall objective aims to

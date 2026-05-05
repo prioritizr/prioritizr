@@ -31,6 +31,9 @@ NULL
 #' \item{`add_loglinear_targets()`}{replaced by the
 #'   [spec_interp_absolute_targets()] function.}
 #'
+#' \item{`add_max_features_objective()`}{renamed as the
+#'   [add_max_n_targets_met_objective()] function.}
+#'
 #' \item{`set_number_of_threads()`}{
 #'   no longer needed due to improved data extraction methods.}
 #'
@@ -207,6 +210,15 @@ add_loglinear_targets <- function(...) {
   cli_defunct(
     old = "add_loglinear_targets",
     new = "spec_interp_absolute_targets"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+add_loglinear_targets <- function(...) {
+  cli_defunct(
+    old = "add_max_features_objective",
+    new = "add_max_n_targets_met_objective"
   )
 }
 

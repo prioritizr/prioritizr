@@ -125,3 +125,7 @@ test_that("proportion values (multiple zones)", {
   # run tests
   expect_equal(r1, r2)
 })
+
+test_that("multi_problem()", {
+
+})

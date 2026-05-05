@@ -59,9 +59,10 @@ Maximize the phylogenetic endemism of the features represented in the
 solution subject to a budget.
 }
 
-\item{\code{\link[=add_max_features_objective]{add_max_features_objective()}}}{
-Fulfill as many targets as possible while ensuring that the cost of the
-solution does not exceed a budget.
+\item{\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}}}{
+Maximize the number of feature targets that are fully met, while ensuring
+that the cost of the solution does not exceed a budget. Note that this
+objective does not value the partial fulfillment of targets.
 }
 
 \item{\code{\link[=add_max_cover_objective]{add_max_cover_objective()}}}{
@@ -69,9 +70,11 @@ Represent at least one instance of as many features as possible within a
 given budget. Note that this objective is not compatible with targets.
 }
 
-\item{\code{\link[=add_max_utility_objective]{add_max_utility_objective()}}}{
+\item{\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}}}{
 Maximize the weighted sum of the features represented by the solution
 subject to a budget. Note that this objective is not compatible with targets.
+Although there are a few cases where this objective may be suitable,
+we strongly advise against using this objective in general.
 }
 }
 }
@@ -96,8 +99,8 @@ p1 <- p \%>\% add_min_set_objective()
 # note that this objective does not use targets
 p2 <- p \%>\% add_max_cover_objective(500)
 
-# create problem with added maximum feature representation objective
-p3 <- p \%>\% add_max_features_objective(1900)
+# create problem with added maximum number of targets met objective
+p3 <- p \%>\% add_max_n_targets_met_objective(1900)
 
 # create problem with added minimum shortfall objective
 p4 <- p \%>\% add_min_shortfall_objective(1900)
@@ -111,9 +114,9 @@ p6 <- p \%>\% add_max_phylo_div_objective(1900, sim_phylogeny)
 # create problem with added maximum phylogenetic diversity objective
 p7 <- p \%>\% add_max_phylo_end_objective(1900, sim_phylogeny)
 
-# create problem with added maximum utility objective
+# create problem with added maximum weighted sum objective
 # note that this objective does not use targets
-p8 <- p \%>\% add_max_utility_objective(1900)
+p8 <- p \%>\% add_max_wtd_sum_objective(1900)
 
 # solve problems
 s <- c(
@@ -121,9 +124,9 @@ s <- c(
   solve(p7), solve(p8)
 )
 names(s) <- c(
-  "min set", "max coverage", "max features", "min shortfall",
+  "min set", "max coverage", "max n targets met", "min shortfall",
   "min largest shortfall", "max phylogenetic diversity",
-  "max phylogenetic endemism", "max utility"
+  "max phylogenetic endemism", "max wtd sum"
 )
 # plot solutions
 plot(s, axes = FALSE)

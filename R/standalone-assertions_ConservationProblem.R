@@ -309,13 +309,18 @@ assertthat::on_failure(has_single_zone) <- function(call, env) {
 #'
 #' @noRd
 all_comparable_problem <- function(...) {
+  # store arguments as list
   x <- list(...)
+
+  # assert that all arguments are valid
   assert(
     is.list(x),
+    length(x) >= 1,
     all_elements_inherit(x, "ConservationProblem"),
     .internal = TRUE
   )
 
+  # run checks on arguments
   isTRUE(
     ## all problems must have same number of zones
     all(vapply(
@@ -372,7 +377,13 @@ all_comparable_problem <- function(...) {
 
 assertthat::on_failure(all_comparable_problem) <- function(call, env) {
   # get the list of problems passed to all_comparable_problem()
-  x <- as.list(eval(substitute(list(...)), env))
+  if (identical(as.list(call)[[2]], as.name("..1"))) {
+    # if the function is called by passing arguments as ..., then:
+    x <- as.list(eval(substitute(list(...)), env))
+  } else {
+    # otherwise, if the function is called by passing arguments directly, then:
+    x <- lapply(as.list(call)[-1], function(x) eval(x, envir = env))
+  }
 
   # replicate the same checks as the main function, individually
   checks <- c(
@@ -406,31 +417,6 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
     )))
   )
 
-  # cli-style messages for each type of failure
-  messages <- list(
-    number_zones = c(
-      "x" = "All problems must have the same number of zones."
-    ),
-    zones_names = c(
-      "x" = "All problems must have identical zone names."
-    ),
-    number_pu = c(
-      "x" = "All problems must have the same number of planning units."
-    ),
-    number_total = c(
-      "x" = "All problems must have the same total units."
-    ),
-    pu_class = c(
-      "x" = "All problems must have identical planning unit classes."
-    ),
-    pu_indices = c(
-      "x" = "All problems must have identical planning unit indices."
-    ),
-    decisions = c(
-      "x" = "All problems must have identical decision types."
-    )
-  )
-
   # identify number of failed checks
   n <- sum(!checks)
 
@@ -438,21 +424,43 @@ assertthat::on_failure(all_comparable_problem) <- function(call, env) {
   # nocov start
   if (identical(n, 0L)) {
     rlang::abort(
-      "An issue was detected, but could not identify precise details.",
+      paste(
+        "An issue was detected with the problems,",
+        "but could not identify precise details."
+      ),
       .internal = TRUE
     )
   }
   # nocov end
 
+  # define messages for each type of failure
+  messages <- c(
+    number_zones =
+      "All problems must have the same number of zones.",
+    zones_names =
+      "All problems must have identical zone names.",
+    number_pu =
+      "All problems must have the same number of planning units.",
+    number_total =
+      "All problems must have the same total units.",
+    pu_class =
+      "All problems must have identical planning unit classes.",
+    pu_indices =
+      "All problems must have identical planning unit indices.",
+    decisions =
+      "All problems must have identical decision types."
+  )
+
   # return message
   msg <- c(
     "!" = "{.arg ...} must have comparable problems.",
-    "i" = paste(
-      "{cli::qty(", n, ")}",
-      "{?A/Multiple} problem{?s} {?has/have}",
-      "the following issue{?s}:"
+    "i" = paste0(
+      "{cli::qty(", n, ")}The following issue{?s} {?was/were} detected:"
     ),
-    unlist(messages[names(checks)[!checks]], recursive = FALSE)
+    stats::setNames(
+      messages[names(checks)[!checks]],
+      rep(">", n)
+    )
   )
 
 }

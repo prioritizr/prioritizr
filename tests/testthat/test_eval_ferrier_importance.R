@@ -326,12 +326,12 @@ test_that("invalid input", {
   expect_tidy_error(eval_ferrier_importance(p, s))
   expect_tidy_error(
     p %>%
-    add_max_utility_objective() %>%
+    add_max_wtd_sum_objective() %>%
     eval_ferrier_importance(s)
   )
   expect_tidy_error(
     p %>%
-    add_max_utility_objective() %>%
+    add_max_wtd_sum_objective() %>%
     add_absolute_targets(1) %>%
     eval_ferrier_importance(s)
   )

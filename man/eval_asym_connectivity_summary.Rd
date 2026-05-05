@@ -2,22 +2,22 @@
 % Please edit documentation in R/eval_asym_connectivity_summary.R
 \name{eval_asym_connectivity_summary}
 \alias{eval_asym_connectivity_summary}
-\alias{eval_asym_connectivity_summary,ConservationProblem,ANY,ANY,Matrix-method}
-\alias{eval_asym_connectivity_summary,ConservationProblem,ANY,ANY,matrix-method}
-\alias{eval_asym_connectivity_summary,ConservationProblem,ANY,ANY,dgCMatrix-method}
-\alias{eval_asym_connectivity_summary,ConservationProblem,ANY,ANY,data.frame-method}
-\alias{eval_asym_connectivity_summary,ConservationProblem,ANY,ANY,array-method}
+\alias{eval_asym_connectivity_summary,GenericConservationProblem,ANY,ANY,Matrix-method}
+\alias{eval_asym_connectivity_summary,GenericConservationProblem,ANY,ANY,matrix-method}
+\alias{eval_asym_connectivity_summary,GenericConservationProblem,ANY,ANY,dgCMatrix-method}
+\alias{eval_asym_connectivity_summary,GenericConservationProblem,ANY,ANY,data.frame-method}
+\alias{eval_asym_connectivity_summary,GenericConservationProblem,ANY,ANY,array-method}
 \title{Evaluate asymmetric connectivity of solution}
 \usage{
-\S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
+\S4method{eval_asym_connectivity_summary}{GenericConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
 
-\S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
+\S4method{eval_asym_connectivity_summary}{GenericConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
 
-\S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
+\S4method{eval_asym_connectivity_summary}{GenericConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
 
-\S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
+\S4method{eval_asym_connectivity_summary}{GenericConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
 
-\S4method{eval_asym_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
+\S4method{eval_asym_connectivity_summary}{GenericConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -302,6 +302,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_feature_representation_summary}()},
 \code{\link{eval_n_summary}()},
+\code{\link{eval_objective_summary}()},
 \code{\link{eval_target_coverage_summary}()}
 }
 \concept{summaries}

@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate boundary length of solution
@@ -29,6 +29,9 @@ NULL
 #'   It contains the following columns:
 #'
 #'   \describe{
+#'
+#'   \item{problem}{`character` name of problem. Note that this column
+#'     is only present if `x` is a [multi_problem()] object.}
 #'
 #'   \item{summary}{`character` description of the summary statistic.
 #'     The statistic associated with the `"overall"` value
@@ -182,7 +185,7 @@ eval_boundary_summary <- function(x, solution,
   assert_required(zones)
   assert_required(data)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     is.numeric(edge_factor),
     all_finite(edge_factor),
     all_proportion(edge_factor),

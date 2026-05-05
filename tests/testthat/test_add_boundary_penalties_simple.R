@@ -80,14 +80,14 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(b_A, Matrix::drop0(correct_b_A))
 })
 
-test_that("maximum utility (compile, single zone)", {
+test_that("maximum wtd sum (compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 5) %>%
+    add_max_wtd_sum_objective(budget = 5) %>%
     add_binary_decisions() %>%
     add_boundary_penalties(3, 0.5)
   o <- compile(p)
@@ -108,9 +108,6 @@ test_that("maximum utility (compile, single zone)", {
   b_total <- Matrix::diag(b_data)
   ## calculate scaled costs with total boundaries
   b_sc_costs <- 3 * ((b_total - b_exposed) + (b_exposed * 0.5))
-  ## calculate scaled costs
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   ## prepare scaled shared lengths
   Matrix::diag(b_data) <- 0
   b_data <- Matrix::tril(Matrix::drop0(b_data))
@@ -124,7 +121,7 @@ test_that("maximum utility (compile, single zone)", {
   ## vtype bound for boundary decision variables
   b_vtype <- o$vtype()[n_pu + n_f + seq_len(length(b_data@i))]
   ## pu costs including total boundary
-  pu_costs <- o$obj()[seq_len(n_pu)]
+  obj_pu <- o$obj()[seq_len(n_pu)]
   ## matrix labels
   b_col_labels <- o$col_ids()[n_pu + n_f + seq_len(length(b_data@i))]
   b_row_labels <- o$row_ids()[n_f + 1 + seq_len(length(b_data@i) * 2)]
@@ -134,7 +131,7 @@ test_that("maximum utility (compile, single zone)", {
   b_rhs <- o$rhs()[n_f + 1 + seq_len(length(b_data@i) * 2)]
   # tests
   expect_true(all(b_col_labels == "b"))
-  expect_equal(pu_costs, scaled_costs - b_sc_costs)
+  expect_equal(obj_pu, -b_sc_costs)
   expect_equal(b_obj, 2 * b_data@x)
   expect_true(all(b_lb == 0))
   expect_true(all(b_ub == 1))

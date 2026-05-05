@@ -7,7 +7,7 @@
 eval_n_summary(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
@@ -210,6 +210,7 @@ Other functions for summarizing solutions:
 \code{\link{eval_connectivity_summary}()},
 \code{\link{eval_cost_summary}()},
 \code{\link{eval_feature_representation_summary}()},
+\code{\link{eval_objective_summary}()},
 \code{\link{eval_target_coverage_summary}()}
 }
 \concept{summaries}

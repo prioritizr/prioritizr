@@ -97,7 +97,7 @@ The general workflow when using the _prioritizr R_ package starts with creating 
 
 All conservation planning problems require an objective. An objective specifies the property which is used to compare different feasible solutions. Simply put, the objective is the property of the solution which should be maximized or minimized during the optimization process. For instance, with the minimum set objective (specified using `add_min_set_objective()`), we are seeking to minimize the cost of the solution (similar to _Marxan_). On the other hand, with the minimum shortfall objective (specified using `add_min_shortfall_objective()`), we are seeking to minimize the average target shortfall for all features represented in the solution, subject to a budget.
 
-Many objectives require representation targets (e.g., the minimum set objective). These targets are a specialized set of constraints that relate to the total quantity of each feature secured in the solution (e.g., amount of suitable habitat or number of individuals). In the case of the minimum set objective ( `add_min_set_objective()`), they are used to ensure that solutions secure a sufficient quantity of each feature, and in other objectives, such as the maximum features objective ( `add_max_features_objective()`) they are used to assess whether a feature has been adequately conserved by a candidate solution. Targets can be expressed numerically as the total amount required for a given feature (using `add_absolute_targets()`), or as a proportion of the total amount found in the planning units (using `add_relative_targets()`). Note that not all objectives require targets, and a warning will be thrown if an attempt is made to add targets to a problem with an objective that does not use them.
+Many objectives require representation targets (e.g., the minimum set objective). These targets are a specialized set of constraints that relate to the total quantity of each feature secured in the solution (e.g., amount of suitable habitat or number of individuals). In the case of the minimum set objective (`add_min_set_objective()`), targets are used to ensure that solutions must secure a sufficient quantity of each and every feature. In budget-limited objectives (e.g., the minimum shortfall objective; `add_min_shortfall_objective()`), candidate solutions do not have to all meet targets and targets are instead used to specify trade-offs for representing different features. Targets can be expressed numerically as the total amount required for a given feature (using `add_absolute_targets()`), or as a proportion of the total amount found in the planning units (using `add_relative_targets()`). Note that not all objectives require targets, and a warning will be thrown if an attempt is made to add targets to a problem with an objective that does not use them.
 
 Constraints and penalties can be added to a conservation planning problem to ensure that solutions exhibit a specific property or penalize solutions which don't exhibit a specific property (respectively). The difference between constraints and penalties, strictly speaking, is constraints are used to rule out potential solutions that don't exhibit a specific property. For instance, constraints can be used to ensure that specific planning units are selected in the solution for prioritization (using `add_locked_in_constraints()`) or not selected in the solution for prioritization (using `add_locked_out_constraints()`). On the other hand, penalties are combined with the objective of a problem, with a penalty factor, and the overall objective of the problem then becomes to minimize (or maximize) the primary objective function and the penalty function. For example, penalties can be added to a problem to penalize solutions that are excessively fragmented (using `add_boundary_penalties()`). These penalties have a `penalty` argument that specifies the relative importance of having spatially clustered solutions. When the argument to `penalty` is high, then solutions which are less fragmented are valued more highly -- even if they cost more -- and when the argument to `penalty` is low, then the solutions which are more fragmented are valued less highly.
 
@@ -265,18 +265,18 @@ p4 <-
 # print problem
 print(p4)
 ```
-* __Maximum features objective__: Fulfill as many targets as possible while ensuring that the cost of the solution does not exceed a budget [inspired by @r10]. This object is similar to the maximum cover objective except that we have the option of later specifying targets for each feature. In practice, this objective is more useful than the maximum cover objective because features often require a certain amount of area for them to persist and simply capturing a single instance of habitat for each feature is generally unlikely to enhance their long-term persistence.
+* __Maximum number of targets met objective__: Fulfill as many targets as possible while ensuring that the cost of the solution does not exceed a budget [inspired by @r10]. Note that this objective does not value the partial fulfillment of targets. This objective is similar to the maximum cover objective except that we have the option of later specifying targets for each feature. In practice, this objective is more useful than the maximum cover objective because features often require a certain amount of area for them to persist and simply capturing a single instance of habitat for each feature is generally unlikely to enhance their long-term persistence.
 ```{r}
-# create a new problem that has the maximum features objective and a budget
-# of 5000
+# create a new problem that has the maximum number of targets met objective and
+# a budget of 5000
 p5 <-
   problem(sim_pu_raster, sim_features) %>%
-  add_max_features_objective(budget = 5000)
+  add_max_n_targets_met_objective(budget = 5000)
 
 # print problem
 print(p5)
 ```
-* __Minimum shortfall objective__: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In practice, this objective is useful when there is a large amount of left-over budget when using the maximum feature representation objective and the remaining funds need to be allocated to places that will enhance the representation of features with unmet targets.
+* __Minimum shortfall objective__: Minimize the overall (weighted sum) shortfall for as many targets as possible while ensuring that the cost of the solution does not exceed a budget. In general, we recommend using this objective for budget-limited planning exercises. Although the maximum number of targets met objective (`add_max_n_targets_met_objective()`) will often produce solutions that have unspent (or left-over) funding, this objective does not have this limitation because it values the partial fulfillment of targets.
 ```{r}
 # create a new problem that has the minimum shortfall objective and a budget
 # of 5000
@@ -298,7 +298,7 @@ p7 <-
 # print problem
 print(p7)
 ```
-* __Maximum phylogenetic diversity objective__: Maximize the phylogenetic diversity of the features represented in the solution subject to a budget [inspired by @r13; @r14]. This objective is similar to the maximum features objective except that emphasis is placed on protecting features which are associated with a diverse range of evolutionary histories. The package contains a simulated phylogeny that can be used with the simulated feature data (`sim_phylogny`).
+* __Maximum phylogenetic diversity objective__: Maximize the phylogenetic diversity of the features represented in the solution subject to a budget [inspired by @r13; @r14]. This objective is similar to the maximum number of targets met objective (`add_max_n_targets_met()`) except that emphasis is placed on protecting features which are associated with a diverse range of evolutionary histories. The package contains a simulated phylogeny that can be used with the simulated feature data (`sim_phylogny`).
 ```{r}
 # load simulated phylogeny data
 sim_phylogeny <- get_sim_phylogeny()
@@ -326,13 +326,13 @@ p9 <-
 # print problem
 print(p9)
 ```
-* __Maximum utility objective__: Maximize the weighted sum of the features represented by the solution as much as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g., weighted species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions -- solutions which adequately conserve a range of different features -- except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
+* __Maximum weighted sum objective__: Maximize the weighted sum of the features represented by the solution as much as possible without exceeding a budget. This objective is functionally equivalent to selecting the planning units with the greatest amounts of each feature (e.g., weighted species richness). Generally, we don't encourage the use of this objective because it will only rarely identify complementary solutions -- solutions which adequately conserve a range of different features -- except perhaps to explore trade-offs or provide a baseline solution with which to compare other solutions.
 ```{r}
-# create a new problem that has the maximum utility objective and a budget
+# create a new problem that has the maximum weighted sum objective and a budget
 # of 5000
 p10 <-
   problem(sim_pu_raster, sim_features) %>%
-  add_max_utility_objective(budget = 5000)
+  add_max_wtd_sum_objective(budget = 5000)
 
 # print problem
 print(p10)

@@ -68,7 +68,12 @@ multi_compile.MultiObjConservationProblem <- function(x, ...) {
   # compile each problem individually, and compile into multi-objective problem
   multi_compile.list(
     stats::setNames(
-      lapply(x$problems, compile.ConservationProblem),
+      lapply(
+        x$problems,
+        function(x) {
+          internal_compile(x, ..., call = rlang::expr(multi_compile()))
+        }
+      ),
       names(x$problems)
     )
   )

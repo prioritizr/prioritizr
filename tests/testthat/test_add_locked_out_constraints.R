@@ -65,7 +65,7 @@ test_that("integer (solve, single zone)", {
   suppressWarnings({
     p <-
       problem(sim_pu_raster, sim_features) %>%
-      add_max_utility_objective(budget = 1e6) %>%
+      add_max_wtd_sum_objective(budget = 1e6) %>%
       add_binary_decisions() %>%
       add_locked_out_constraints(seq_len(terra::ncell(sim_pu_raster))) %>%
       add_default_solver(time_limit = 5, verbose = FALSE)

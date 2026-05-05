@@ -7,7 +7,7 @@ NULL
 #' minimize the overall shortfall for as many [targets] as possible while
 #' ensuring that the cost of the solution does not exceed a budget.
 #'
-#' @inheritParams add_max_features_objective
+#' @inheritParams add_max_cover_objective
 #'
 #' @details
 #' The minimum shortfall objective aims to

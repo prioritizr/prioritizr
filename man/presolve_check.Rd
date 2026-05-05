@@ -102,8 +102,9 @@ contains critical habitat for a feature, then find out which planning
 unit(s) is causing this infeasibility and set its cost to zero. After
 solving the problem, you will need to manually recalculate the cost
 of the solutions but at least now you can be confident that you have the
-optimal solution. Now let's pretend that you are using the maximum features
-objective (i.e., \code{\link[=add_max_features_objective]{add_max_features_objective()}}) and assigned some
+optimal solution. Now let's pretend that you are using the maximum
+number of targets met objective (i.e.,
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}}) and assigned some
 really high weights to the targets for some features to ensure that their
 targets were met in the optimal solution. If you set the weights for
 these features to one billion then you will probably run into numerical

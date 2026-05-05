@@ -360,6 +360,14 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             # get bound for objective value for optimal solution
             optimal_obj <- x$objbound
             for (i in seq_len(length(out$pool))) {
+              # if needed, rename element poolnx to xn
+              if (assertthat::has_name(out$pool[[i]], "poolnx")) {
+                names(out$pool[[i]]) <- replace(
+                  names(out$pool[[i]]),
+                  which(names(out$pool[[i]]) == "poolnx"),
+                  "xn"
+                )
+              }
               # fix binary variables for i'th solution in pool
               out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
               # calculate gap for i'th solution in pool
@@ -409,13 +417,13 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             all(rel_tol >= 0),
             .internal = TRUE
           )
-          
-          # check type of decision variables and use default method if no 
+
+          # check type of decision variables and use default method if no
           # binary variables
           if (!(any(x$opt$vtype() == "B"))) {
             return(self$default_solve_multiobj( x, priority, rel_tol, ...))
           }
-          
+
           # set objective names
           obj_names <- rownames(x$obj)
           if (is.null(obj_names)) {

@@ -30,7 +30,7 @@ sim_features <- get_sim_features()
   multi_problem(
    obj1 =
      problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
-     add_max_utility_objective(budget = b) \%>\%
+     add_max_wtd_sum_objective(budget = b) \%>\%
      add_relative_targets(0.2) \%>\%
      add_binary_decisions(),
    obj2 =

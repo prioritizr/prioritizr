@@ -6,7 +6,7 @@ NULL
 #' Calculate importance scores for planning units selected in a solution
 #' based on the replacement cost method (Cabeza and Moilanen 2006).
 #'
-#' @inheritParams eval_cost_summary
+#' @param x [problem()] object.
 #'
 #' @param rescale `logical` flag indicating if replacement cost
 #'  values -- excepting infinite (`Inf`) and zero values -- should be
@@ -25,6 +25,8 @@ NULL
 #'   optimization algorithm. Defaults to 1 such that only a single
 #'   thread is used.
 #'
+#' @inheritParams eval_cost_summary
+#'
 #' @details
 #' This function implements a modified version of the
 #' replacement cost method (Cabeza and Moilanen 2006).
@@ -40,10 +42,11 @@ NULL
 #' For example, when using the minimum set objective function
 #' ([add_min_set_objective()]), the replacement cost scores
 #' correspond to the additional costs needed to meet targets when each
-#' planning unit is locked out. When using the maximum utility
-#' objective function ([add_max_utility_objective()], the
-#' replacement cost scores correspond to the reduction in the utility when
-#' each planning unit is locked out. Infinite values mean that no feasible
+#' planning unit is locked out. When using the maximum weighted sum
+#' objective ([add_max_wtd_sum_objective()], the
+#' replacement cost scores correspond to the reduction in the weighted sum
+#' scores when each planning unit is locked out.
+#' Infinite values mean that no feasible
 #' solution exists when planning units are locked out---they are
 #' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).

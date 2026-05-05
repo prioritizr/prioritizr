@@ -117,7 +117,7 @@ test_that("mix of binary and continuous variables", {
   # create and solve problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(b) %>%
+    add_max_wtd_sum_objective(b) %>%
     add_binary_decisions() %>%
     add_cplex_solver(verbose = FALSE)
   s <- solve(p)

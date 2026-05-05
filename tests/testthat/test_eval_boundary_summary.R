@@ -345,6 +345,10 @@ test_that("multiple zones (variable edge_factor, zone matrix)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
+test_that("multi_problem()", {
+
+})
+
 test_that("tas_pu works", {
   skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")
   # import data

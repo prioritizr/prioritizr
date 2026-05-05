@@ -1,3 +1,35 @@
+# prioritizr 9.0.0
+
+## Notice
+
+## New features
+
+## Major changes
+
+- The `add_max_utility_objective()` has been renamed to
+  `add_max_wtd_sum_objective()` to improve clarity.
+- The `add_max_features_objective()` has been renamed to
+  `add_max_n_targets_met_objective()` to improve clarity.
+- The `add_max_wtd_sum_objective()`, `add_max_n_targets_met_objective()`,
+  `add_phylo_div_objective()`, and `add_phylo_end_objective()` have been
+  updated to ensure consistent optimization behavior with the other objectives.
+  Although these objectives previously had additional terms that would
+  help minimize costs in the case of multiple optimal solutions,
+  the terms have now been removed to help improve run time.
+  If you still want to minimize costs when using these objectives,
+  this can be done with the new multi-objective optimization functionality.
+- 
+
+## Minor improvements and bug fixes
+
+- Fix compatibility issues with `add_extra_portfolio()`, `add_gap_portfolio()`,
+  and `add_top_portfolio()` with Gurobi version 13.
+
+## Documentation
+
+- Update documentation for `add_max_wtd_sum_objective()` (formerly
+  named `add_max_utility_objective()`) to provide more information limitations.
+
 # prioritizr 8.1.0
 
 ## Notice
@@ -51,7 +83,7 @@
   and attempting to add multiple weights will over-write previously specified
   weights (similar to how targets are handled).
 
-#### Minor improvements and bug fixes
+## Minor improvements and bug fixes
 
 - Update `print()` method for `problem()` objects to display a more useful
   number of digits for floating point numbers.
@@ -86,7 +118,7 @@
   geometry collection data (#379). Thanks to Alan Jackson (\@alankjackson) for
   bug report.
 
-#### Documentation
+## Documentation
 
 - Update `?targets` to provide a comprehensive overview of the target functions.
 - Update `boundary_matrix()` function documentation with better example.
@@ -96,7 +128,7 @@
 
 # prioritizr 8.0.6.8
 
-#### Minor improvements and bug fixes
+## Minor improvements and bug fixes
 
 - Update `rij_matrix()` function to reduce run time.
 - Update `solve()` function and the importance functions to ensure consistency

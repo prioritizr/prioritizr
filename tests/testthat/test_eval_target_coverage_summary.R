@@ -36,12 +36,13 @@ test_that("binary values (single zone)", {
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
   expect_equal(r1, r2)
@@ -86,12 +87,13 @@ test_that("proportion values (single zone)", {
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
   expect_equal(r1, r2)
@@ -150,12 +152,13 @@ test_that("binary values (multiple zones)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
   expect_equal(r1, r2)
@@ -214,12 +217,13 @@ test_that("proportion values (multiple zones)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
   r2 <- r2[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
   expect_equal(r1, r2)
@@ -269,12 +273,15 @@ test_that("binary values (single zone, variable target sense, none met)", {
     relative_target = targets$target,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
+  r2$relative_held[c(2, 3)] <- NA_real_
+  r2$relative_met[c(2, 3)] <- NA_real_
   r2 <- r2[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
   expect_equal(r1, r2)
@@ -321,13 +328,57 @@ test_that("binary values (single zone, variable target sense, all met)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = TRUE
   )
+  r2$relative_held[c(2, 3)] <- NA_real_
+  r2$relative_met[c(2, 3)] <- NA_real_
   r2 <- r2[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
+  # run tests
+  expect_equal(r1, r2)
+})
+
+test_that("multi_problem()", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-object problem
+  mp <- suppressMessages(
+    multi_problem(
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        add_max_wtd_sum_objective(budget = 100) %>%
+        add_binary_decisions(),
+      obj3 =
+        problem(sim_zones_pu_raster[[3]], sim_features) %>%
+        add_min_shortfall_objective(budget = 200) %>%
+        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+        add_binary_decisions()
+    )
+  )
+  # create solution
+  solution <- terra::as.int(
+    sim_zones_pu_raster[[1]] >
+    terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
+  )
+  # calculate target coverage
+  r1 <- eval_target_coverage_summary(mp, solution)
+  # calculate correct result
+  r21 <- eval_target_coverage_summary(mp$problems[[1]], solution)
+  r21$problem <- "obj1"
+  r22 <- eval_target_coverage_summary(mp$problems[[3]], solution)
+  r22$problem <- "obj3"
+  r2 <- rbind(r21, r22)
+  r2 <- r2[, c("problem", setdiff(names(r2), "problem")), drop = FALSE]
   # run tests
   expect_equal(r1, r2)
 })

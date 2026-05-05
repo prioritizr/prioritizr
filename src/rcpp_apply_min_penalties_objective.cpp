@@ -22,11 +22,11 @@ bool rcpp_apply_min_penalties_objective(
   // add objective function
   for (std::size_t i = 0; i < (ptr->_number_of_planning_units *
                                ptr->_number_of_zones); ++i) {
+    ptr->_obj.push_back(0.0);
     if (Rcpp::NumericVector::is_na(costs[i])) {
       ptr->_lb[i] = 0.0;
       ptr->_ub[i] = 0.0;
     }
-    ptr->_obj.push_back(0.0);
   }
   if (!ptr->_compressed_formulation) {
     for (std::size_t i = 0; i < (ptr->_number_of_zones *
