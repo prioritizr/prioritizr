@@ -146,10 +146,7 @@ eval_ferrier_importance <- function(x, solution) {
     )
   )
   assert(
-    !inherits(
-      x$objective,
-      c("MaximumUtilityObjective", "MaximumCoverageObjective")
-    ),
+    isTRUE(x$objective$has_targets),
     msg = c(
       paste(
         "This function requires that {.arg x} must have an objective",

@@ -78,7 +78,7 @@ double calculate_feat_unit_irrep_value(
   if (approx_equal(rx_included + rx_excluded, 0.0)) {
     irrep_value = 0.0;
   } else {
-    if (approx_equal(rx_included, 0.0) & (feat_amount > 1.0e-15)) {
+    if (approx_equal(rx_included, 0.0) & (feat_amount > 1.0e-11)) {
       rx_included = 1.0;
     }
     if (approx_equal(rx_included + rx_excluded, 0.0)) {
@@ -187,7 +187,7 @@ double calculate_rx_excluded(
     n_pu - 1, portfolio_size);
   // main
   if ((sum_feat_amount - feat_amount) < feat_target) {
-    rx_excluded = 0;
+    rx_excluded = 0.0;
   } else {
     if (adj_sd < 1.0e-11) {
       if (mean_feat_amount_per_pu < mean_target_per_portfolio_size) {
