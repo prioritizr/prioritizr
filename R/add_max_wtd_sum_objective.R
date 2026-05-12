@@ -176,7 +176,7 @@ add_max_wtd_sum_objective <- function(x, budget) {
   # add objective to problem
   x$add_objective(
     R6::R6Class(
-      "MaximumUtilityObjective",
+      "MaximumWtdSumObjective",
       inherit = Objective,
       public = list(
         name = "maximum weighted sum objective",

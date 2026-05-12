@@ -152,7 +152,7 @@ add_max_n_targets_met_objective <- function(x, budget) {
   # add objective to problem
   x$add_objective(
     R6::R6Class(
-      "MaximumRepresentationObjective",
+      "MaximumNTargetsMetObjective",
       inherit = Objective,
       public = list(
         name = "maximum number targets met objective",
