@@ -32,10 +32,23 @@ Other classes:
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
 \item{\code{has_targets}}{\code{logical} value indicating if the objective
-supports targets.}
+supports targets. Values indicate that (\code{TRUE}) targets must
+be specified, (\code{NA}) targets are optional, and (\code{FALSE}) must
+are not used at all.}
 
 \item{\code{has_weights}}{\code{logical} value indicating if the objective
 supports feature weights.}
+
+\item{\code{has_rij_data}}{\code{logical} value indicating if the objective
+requires \code{\link[=rij_matrix]{rij_matrix()}} data for optimization.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{has_rij_data}}{\code{logical} value indicating if the objective
+requires \code{\link[=rij_matrix]{rij_matrix()}} data for optimization.}
 }
 \if{html}{\out{</div>}}
 }

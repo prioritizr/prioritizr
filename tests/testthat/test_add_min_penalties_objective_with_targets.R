@@ -188,26 +188,6 @@ test_that("solve (expanded formulation, single zone)", {
   expect_equal(c(terra::values(s)), c(0, 1, 1, NA))
 })
 
-test_that("invalid inputs (single zone)", {
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_zones_features <- get_sim_zones_features()
-  # tests
-  expect_tidy_error(
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_min_penalties_objective(1) %>%
-      compile(),
-    "must have targets"
-  )
-  expect_tidy_error(
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_min_penalties_objective() %>%
-      add_absolute_targets(1) %>%
-      compile(),
-    "budget"
-  )
-})
-
 test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -394,7 +374,8 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
 })
 
-test_that("compile (expanded formulation, multiple zones, scalar budget)", {
+test_that(
+  "compile (expanded formulation, multiple zones, scalar budget)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -674,29 +655,4 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   expect_inherits(s, "SpatRaster")
   expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
-})
-
-test_that("invalid inputs (multiple zones)", {
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_zones_features <- get_sim_zones_features()
-  # tests
-  expect_tidy_error(
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_min_penalties_objective() %>%
-      compile(),
-    "budget"
-  )
-  expect_tidy_error(
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_min_penalties_objective(c(1, 1)) %>%
-      compile(),
-    "budget"
-  )
-  expect_tidy_error(
-    problem(sim_zones_pu_raster, sim_zones_features) %>%
-      add_min_penalties_objective(1) %>%
-      compile(),
-    "targets"
-  )
 })

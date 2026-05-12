@@ -89,6 +89,7 @@ internal_compile <- function(
       call = call
     )
   }
+
   ## problem must have targets if required by objective
   if (
     is.Waiver(x$targets) &&
@@ -106,7 +107,7 @@ internal_compile <- function(
   }
   ## throw warning if targets are specified and will not be used
   if (
-    !isTRUE(x$objective$has_targets) &&
+    identical(x$objective$has_targets, FALSE) &&
     !is.Waiver(x$targets)
   ) {
     cli_warning(
@@ -229,17 +230,31 @@ internal_compile <- function(
   }
   # generate targets
   if (is.Waiver(x$targets)) {
-    # if objective doesn't actually use targets, create a "fake" targets tibble
-    # to initialize rij matrix
-    targets <- tibble::as_tibble(
-      expand.grid(
-        feature = seq_along(x$feature_names()),
-        zone = seq_along(x$zone_names()),
-        sense = "?",
-        value = 0
+    # if no targets specified,
+    # then create "fake" targets to initialize problem
+    if (identical(x$objective$has_targets, FALSE)) {
+      # if has_targets is FALSE,
+      # then the objective requires rij_matrix() data and so
+      # we create "fake" targets based on all features and zones
+      targets <- tibble::as_tibble(
+        expand.grid(
+          feature = seq_along(x$feature_names()),
+          zone = as.list(seq_along(x$zone_names())),
+          sense = "?",
+          value = 0
+        )
       )
-    )
-    targets$zone <- as.list(targets$zone)
+    } else {
+      # if not because it is NA,
+      # then the objective does not use rij_matrix() data and so
+      # we create "fake" targets based on an empty table
+      targets <- tibble::tibble(
+        feature = integer(0),
+        zone = list(),
+        sense = character(0),
+        value = numeric(0)
+      )
+    }
   } else {
     # generate "real" targets
     targets <- x$feature_targets()

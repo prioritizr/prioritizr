@@ -43,37 +43,51 @@ bool rcpp_apply_min_penalties_objective(
   // add target row ids
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_row_ids.push_back("spp_target");
-  // add in budget constraints
-  if (n_budgets == 1) {
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    // if budget constraints specified, then add them
+    if (n_budgets == 1) {
+      for (std::size_t i = 0;
+           i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets);
+    } else {
+      for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
+        for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
+    }
     for (std::size_t i = 0;
          i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets);
-  } else {
-    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
-      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
-  }
-  for (std::size_t i = 0;
-       i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-    ptr->_A_j.push_back(i);
-  for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
-    for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
-      ptr->_A_x.push_back(
-        Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
-      );
+      ptr->_A_j.push_back(i);
+    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
+      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
+        ptr->_A_x.push_back(
+          Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
+        );
+      }
+    }
+    // budget rhs
+    for (std::size_t z = 0; z < n_budgets; ++z)
+      ptr->_rhs.push_back(budget[z]);
+    // budget senses
+    for (std::size_t z = 0; z < n_budgets; ++z)
+      ptr->_sense.push_back("<=");
+    // add budget row ids
+    for (std::size_t z = 0; z < n_budgets; ++z)
+      ptr->_row_ids.push_back("budget");
+  } else if (ptr->_number_of_zones == 1) {
+    // if no budgets specified and only a single zone problem,
+    // then add a dummy constraint to ensure there is at least one
+    // constraint for the for solvers
+    if (ptr->ncell() == 0) {
+      ptr->_A_i.push_back(0);
+      ptr->_A_j.push_back(0);
+      ptr->_A_x.push_back(0.1);
+      ptr->_rhs.push_back(1.0);
+      ptr->_sense.push_back("<=");
+      ptr->_row_ids.push_back("dum");
     }
   }
-  // budget rhs
-  for (std::size_t z = 0; z < n_budgets; ++z)
-    ptr->_rhs.push_back(budget[z]);
-  // budget senses
-  for (std::size_t z = 0; z < n_budgets; ++z)
-    ptr->_sense.push_back("<=");
-  // add budget row ids
-  for (std::size_t z = 0; z < n_budgets; ++z)
-    ptr->_row_ids.push_back("budget");
   // assign model sense
-  ptr->_modelsense="min";
+  ptr->_modelsense = "min";
   // return succes
   return true;
 }
