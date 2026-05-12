@@ -31,10 +31,6 @@ Objective <- R6::R6Class(
     #' supports feature weights.
     has_weights = new_waiver(),
 
-    #' @field has_rij_data `logical` value indicating if the objective
-    #' requires [rij_matrix()] data for optimization.
-    has_rij = new_waiver(),
-
     #' @description
     #' Specify default value for the feature weights.
     #' @return A `numeric` value.

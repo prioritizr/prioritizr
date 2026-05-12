@@ -38,17 +38,6 @@ are not used at all.}
 
 \item{\code{has_weights}}{\code{logical} value indicating if the objective
 supports feature weights.}
-
-\item{\code{has_rij_data}}{\code{logical} value indicating if the objective
-requires \code{\link[=rij_matrix]{rij_matrix()}} data for optimization.}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{has_rij_data}}{\code{logical} value indicating if the objective
-requires \code{\link[=rij_matrix]{rij_matrix()}} data for optimization.}
 }
 \if{html}{\out{</div>}}
 }
