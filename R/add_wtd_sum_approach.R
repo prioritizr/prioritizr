@@ -88,7 +88,8 @@ NULL
 #' @inherit add_hier_approach return seealso
 #'
 #' @seealso
-#' See [objective_weights_matrix()] to automatically create a matrix
+#' See [approaches] for an overview of all functions for adding an approach.
+#' Also, see [objective_weights_matrix()] to automatically create a matrix
 #' for `weights`.
 #'
 #' @references

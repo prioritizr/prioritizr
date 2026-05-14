@@ -47,26 +47,24 @@ print <- function(x, ...) {
 ```
 
 ## Introduction
-3 paragraphs: 
-- point of tutorial
-- multi-objective general + concepts of pareto frontier
-- vignette content
 
-Use Washington data
-around 300 sp -> assign realistic categories 
+Decisions about how land, freshwater, and ocean areas are managed often involve multiple stakeholders [@rTODO]. Since different stakeholders often have their own objectives, conservation decision making often involves navigating trade-offs between competing objectives [@rTODO]. For example, stakeholders may have conservation objectives for safeguarding threatened species [@rTODO], preserving charismatic species [@rTODO], maximizing ecosystem service provisioning [@rTODO], or promoting connectivity [@rTODO]. Additionally, stakeholders may also have objectives that are not related to biodiversity conservation, such as meeting food demand through agricultural or fishing activities [@rTOD], or providing natural resources through mining activities [@rTODO]. Multi-objective optimization provides a way to explicitly evaluate multiple objectives and characterize trade-offs among them [@rTODO]. The aim of this tutorial is to show how multi-objective optimization techniques can be performed with the _prioritizr_ package. Here we will generate prioritizations based on multiple objectives and then show how these prioritizations can be used to characterize trade-offs between them and identify prioritizations that represent a desirable compromise.
 
-Explain some more stuff on Pareto front here but the jump straight to three objective examples
-Add graph for pareto front here to explain concepts here and talk about trade-offs
+## Concepts
 
-## Usage
+- Multi-objective general + concepts of pareto frontier
+- Explain some more stuff on Pareto front here but the jump straight to three objective examples
+- Add graph for pareto front here to explain concepts here and talk about trade-offs
 
-### Single-objective problem
+## Data
 
 ```{r, results = "hide"}
 # load packages
 library(prioritizr)
+library(prioritizrdata)
 library(terra)
 library(tibble)
+library(dplyr)
 
 # set seed for reproducibility
 set.seed(500)
@@ -74,25 +72,112 @@ set.seed(500)
 
 ```{r}
 # import data
-con_cost <- get_sim_pu_raster()
-keystone_spp <- get_sim_features()[[1:3]]
-iconic_spp <- get_sim_features()[[4:5]]
-
-# set budget
-con_budget <- terra::global(con_cost, "sum", na.rm = TRUE)[[1]] * 0.3
-
+wa_pu <- get_wa_pu()
+wa_species <- get_wa_species()
+wa_carbon <- get_wa_carbon()
+wa_attr <- get_wa_attr()
 ```
 
+## Single-objective problem
 
-### Multi-objective problem
+```{r}
+# calculate budget as 1% of total costs
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.01
 
-### Weighted-sum approach
+# build problem to maximize representation of threatened species
+p1 <-
+  problem(wa_pu, wa_species) %>%
+  add_min_shortfall_objective(budget = budget) %>%
+  add_feature_weights(wa_attr$extinction_prob) %>%
+  add_relative_targets(0.3) %>%
+  add_binary_decisions()
 
-### Relative constraint (hierarchical) approach
+# build problem to maximize representation of pubic interest species
+p2 <-
+  problem(wa_pu, wa_species) %>%
+  add_min_shortfall_objective(budget = budget) %>%
+  add_feature_weights(wa_attr$extinction_prob) %>%
+  add_relative_targets(0.3) %>%
+  add_binary_decisions()
 
-### Three objective functions
+# build problem to maximize preservation of vulnerable carbon
+p3 <-
+  problem(wa_pu, wa_carbon) %>%
+  add_max_wtd_sum_objective(budget = budget) %>%
+  add_binary_decisions()
+```
 
-### Multiple objectives in multiple zones (EXTRA VIGNETTE FOR THIS)
+```{r}
+# define names for objectives
+obj_names <- c(
+  "threatened species",
+  "public interest species",
+  "vulnerable carbon"
+)
+
+# find solutions based on each objective (separately)
+single_sols <- rast(lapply(list(p1, p2, p3), solve, run_checks = FALSE))
+names(single_sols) <- obj_names
+
+# visualize solutions
+plot(single_sols)
+```
+
+## Multi-objective problem
+
+```{r}
+# build multi-objective problem
+mp <- multi_problem(p1, p2, p3, problem_names = obj_names)
+```
+
+```{r}
+# evaluate previously generated solutions according to each objective
+single_optim_perf <-
+  lapply(single_sols, eval_objective_summary, x = mp) %>%
+  bind_rows() %>%
+  mutate(solution = rep(obj_names, each = number_of_problems(mp)))
+```
+
+## Weighted-sum approach
+
+```{r}
+# create matrix with weights to generate variety of solutions
+wts_matrix <- objective_weights_matrix(
+  n_objectives = number_of_problems(mp),
+  n_per_objective = 4
+)
+
+# preview weights matrix
+head(wts_matrix)
+
+# generate prioritizations with weighted sum approach
+wtd_sum_sols <-
+  mp %>%
+  add_wtd_sum_approach(wts_matrix) %>%
+  add_default_solver(verbose = FALSE) %>%
+  solve(run_checks = FALSE)
+```
+
+## Hierarchical approach
+
+```{r}
+# create matrix with relative tolerance values to generate variety of solutions
+rel_tol_matrix <- objective_rel_tol_matrix(
+  n_objectives = number_of_problems(mp),
+  n_per_objective = 4,
+  max_rel_tol = 1
+)
+
+# preview relative tolerance matrix
+head(rel_tol_matrix)
+
+# generate prioritizations with hierachical appraoch
+hier_sols <-
+  mp %>%
+  add_hier_approach(rel_tol_matrix) %>%
+  add_default_solver(verbose = FALSE) %>%
+  solve(run_checks = FALSE)
+```
 
 ## Conclusion
 

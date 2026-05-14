@@ -2,7 +2,7 @@
 % Please edit documentation in R/objective_weights_matrix.R
 \name{objective_weights_matrix}
 \alias{objective_weights_matrix}
-\title{Create objective weights}
+\title{Create objective weight values}
 \usage{
 objective_weights_matrix(
   n_objectives,
@@ -34,7 +34,9 @@ Defaults to \code{TRUE}.}
 \value{
 A \code{numeric} matrix with weight values. Here, rows correspond to
 different sets of each weight values and columns correspond to different
-objectives.
+objectives. Note that the sets of weights values are filtered
+to remove sets of weights that - despite having different values -
+would result in the same prioritization.
 }
 \description{
 Create multiple sets of weight values to generate multiple solutions with

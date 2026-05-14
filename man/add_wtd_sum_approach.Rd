@@ -220,7 +220,8 @@ for ecological problems with an application to cackling goose management.
 \emph{Ecological Modelling}, \strong{343}: 54-67.
 }
 \seealso{
-See \code{\link[=objective_weights_matrix]{objective_weights_matrix()}} to automatically create a matrix
+See \link{approaches} for an overview of all functions for adding an approach.
+Also, see \code{\link[=objective_weights_matrix]{objective_weights_matrix()}} to automatically create a matrix
 for \code{weights}.
 
 Other functions for adding multi-objective optimization approaches:

@@ -1,7 +1,7 @@
 #' @include internal.R
 NULL
 
-#' Create objective weights
+#' Create objective weight values
 #'
 #' Create multiple sets of weight values to generate multiple solutions with
 #' the weighted sum approach for multi-objective optimization
@@ -29,16 +29,20 @@ NULL
 #' @return
 #' A `numeric` matrix with weight values. Here, rows correspond to
 #' different sets of each weight values and columns correspond to different
-#' objectives.
+#' objectives. Note that the sets of weights values are filtered
+#' to remove sets of weights that - despite having different values -
+#' would result in the same prioritization.
 #'
 #' @inherit add_wtd_sum_approach examples
 #'
 #' @export
 objective_weights_matrix <- function(n_objectives, n_per_objective,
-                                    include_zeros = TRUE,
-                                    include_extremes = TRUE) {
+                                     include_zeros = TRUE,
+                                     include_extremes = TRUE) {
   # assert arguments are valid
-  assertthat::assert_that(
+  assert_required(n_objectives)
+  assert_required(n_per_objective)
+  assert(
     assertthat::is.count(n_objectives),
     assertthat::noNA(n_objectives),
     assertthat::is.count(n_per_objective),
@@ -50,7 +54,7 @@ objective_weights_matrix <- function(n_objectives, n_per_objective,
   )
 
   # create initial weight values
-  out <- seq(0, 1, length.out = n_per_objective + as.double(include_zeros))
+  out <- seq(0, 1, length.out = n_per_objective + as.double(!include_zeros))
   if (!isTRUE(include_zeros)) {
     out <- out[-1]
   }
@@ -58,6 +62,7 @@ objective_weights_matrix <- function(n_objectives, n_per_objective,
 
   # generate matrix with all combinations of weight values
   out <- as.matrix(do.call(expand.grid, args = out))
+  colnames(out) <- NULL
 
   # remove rows where all weight values are the same
   keep <- apply(out, 1, function(z) length(unique(z)) >= 2)
@@ -67,7 +72,7 @@ objective_weights_matrix <- function(n_objectives, n_per_objective,
   keep <- rowSums(out > 1e-6) >= 2
   out <- out[keep, , drop = FALSE]
 
-  # manually add rows for extreme points
+  # if needed, manually add rows for extreme points
   if (isTRUE(include_extremes)) {
     out <- rbind(diag(n_objectives), out)
   }

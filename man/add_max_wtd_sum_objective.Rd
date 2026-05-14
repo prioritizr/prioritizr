@@ -121,7 +121,7 @@ plot(s1, main = "solution", axes = FALSE)
 # has a single budget for all zones
 p2 <-
   problem(sim_zones_pu_raster, sim_zones_features) \%>\%
-  add_wtd_sum_objective(5000) \%>\%
+  add_max_wtd_sum_objective(5000) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0, verbose = FALSE)
 

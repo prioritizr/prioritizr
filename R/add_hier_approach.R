@@ -223,6 +223,8 @@ NULL
 #'
 #' @seealso
 #' See [approaches] for an overview of all functions for adding an approach.
+#' Also, see [objective_rel_tol_matrix()] to automatically create a matrix
+#' for `rel_tol`.
 #'
 #' @references
 #' Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted
@@ -302,7 +304,7 @@ NULL
 #' mp1 <-
 #'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
 #'   add_hier_approach(
-#'     rel_tol = c(0.01),
+#'     rel_tol = 0.01,
 #'     priority = c(2, 1),
 #'     verbose = FALSE
 #'   ) %>%
@@ -319,28 +321,21 @@ NULL
 #'
 #' # create a matrix with 40 different combinations of relative tolerance values
 #' # that can be used to generate 40 solutions
-#' rel_tol_matrix <- matrix(seq(0, 1, length.out = 40), ncol = 1)
-#' colnames(rel_tol_matrix) <- "keystone_obj"
+#' rel_tol_matrix <- objective_rel_tol_matrix(
+#'   n_objectives = 2, n_per_objective = 40, max_rel_tol = 1.2
+#' )
 #'
 #' # preview matrix with relative tolerance values
 #' head(rel_tol_matrix)
 #'
-#' # create a matrix with priority values, and this will matrix will
-#' # simply assign priority value of 2 for the keystone objective
-#' # and a value of 1 for the iconic objective
-#' priority_matrix <- matrix(c(2, 1), ncol = 2, nrow = 40, byrow = TRUE)
-#' colnames(priority_matrix) <- c("keystone_obj", "iconic_obj")
-#'
-#' # preview matrix with priority values
-#' head(priority_matrix)
-#'
 #' # create a multi-objective problem with the matrix of relative tolerance
-#' # values
+#' # values and - because we do not specify values for priorty - the
+#' # optimization process will assume that the objectives are already
+#' # specified in order of priority
 #' mp2 <-
 #'   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
 #'   add_hier_approach(
 #'     rel_tol = rel_tol_matrix,
-#'     priority = priority_matrix,
 #'     verbose = FALSE
 #'   ) %>%
 #'   add_default_solver(verbose = FALSE)

@@ -224,6 +224,7 @@ Collate:
     'number_of_problems.R'
     'number_of_total_units.R'
     'number_of_zones.R'
+    'objective_rel_tol_matrix.R'
     'objective_weights_matrix.R'
     'objectives.R'
     'optimization_problem.R'
