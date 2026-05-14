@@ -101,7 +101,7 @@ Solver <- R6::R6Class(
       if ("start_solution" %in% names(self$data)) {
         self$data$start_solution <- value
       } else if (isTRUE(warn)) {
-        cli_warning("Solver does not support starting solutions.", call = FALSE)
+        cli_warning("Solver does not support starting solutions.", call = NULL)
       }
       invisible(TRUE)
     },

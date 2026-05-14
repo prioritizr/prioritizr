@@ -288,6 +288,9 @@ test_that("set_start_solution", {
     p$solver$set_start_solution(c(1, 2, 3)),
     "starting"
   )
+  expect_silent(
+    p$solver$set_start_solution(c(1, 2, 3), warn = FALSE)
+  )
 })
 
 test_that("set_constraint_rhs", {
