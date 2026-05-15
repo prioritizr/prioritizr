@@ -363,6 +363,7 @@ solve.MultiObjConservationProblem <- function(a, b, ...,
   if (isTRUE(a$solver$data$verbose)) {
     cli::cli_h1("Optimization")
   }
+  a$approach$calculate(opt, a)
   sol <- a$approach$run(opt, a$solver)
   # check that solution is valid
   assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))

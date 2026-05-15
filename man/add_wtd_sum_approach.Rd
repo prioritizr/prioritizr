@@ -225,6 +225,7 @@ Also, see \code{\link[=objective_weights_matrix]{objective_weights_matrix()}} to
 for \code{weights}.
 
 Other functions for adding multi-objective optimization approaches:
-\code{\link{add_hier_approach}()}
+\code{\link{add_hier_approach}()},
+\code{\link{add_ref_point_approach}()}
 }
 \concept{approaches}

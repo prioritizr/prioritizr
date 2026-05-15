@@ -17,8 +17,6 @@ NULL
 #' @details
 #' The following functions can be used to add an objective to a
 #' conservation planning [problem()].
-#' For the vast majority of conservation planning exercises,
-#' the minimum set and minimum shortfall objectives are most appropriate.
 #' Note that if multiple
 #' of these functions are added to a [problem()], then only the last
 #' function added will be used.
@@ -77,7 +75,34 @@ NULL
 #' }
 #' }
 #'
+#' @section Recommended practices:
+#' In general, we recommend using either the minimum set
+#' [add_min_set_objective()] or the minimum shortfall
+#' [add_min_shortfall_objective()] objectives for conservation planning
+#' This is because both of these objectives account for complementarity---a
+#' foundational concept in systematic conservation planning (Kirkpatrick 1983).
+#' If solutions need to conform to a type of budget (e.g.,
+#' maximum expenditure, or maximum amount of land that can be protected),
+#' then the minimum shortfall objective is typically most appropriate.
+#' Otherwise, if solutions do not need to conform to a particular budget,
+#' then the minimum set objective is typically most appropriate.
+#' We strongly caution against using the maximum weighted sum objective
+#' ([add_max_wtd_sum_objective()] because -- except under very
+#' specific conditions -- it has "repeatedly been shown to identify
+#' priorities that are biologically ineffective and economically inefficient"
+#' (Brown *et al.* 2015).
+#'
 #' @family overviews
+#'
+#' @references
+#' Brown CJ, Bode M, Venter O, Barnes MD, McGowan J, Runge CA, Watson JEM,
+#' and Possingham HP (2015) Effective conservation requires clear objectives and
+#' prioritizing actions, not places or species.
+#' *Proceedings of the National Academy of Sciences* 112: E4342.
+#'
+#' Kirkpatrick JB (1983) An iterative method for establishing priorities for
+#' the selection of nature reserves: An example from Tasmania.
+#' *Biological Conservation*, 25: 127--134.
 #'
 #' @examples
 #' \dontrun{

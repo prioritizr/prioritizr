@@ -722,6 +722,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_convert_ref_point_method
+Rcpp::List rcpp_convert_ref_point_method(SEXP x, Rcpp::CharacterVector mopt_modelsense, Rcpp::NumericMatrix mopt_obj, Rcpp::NumericVector weights, Rcpp::NumericVector ref_points, Rcpp::NumericVector sh_ub);
+RcppExport SEXP _prioritizr_rcpp_convert_ref_point_method(SEXP xSEXP, SEXP mopt_modelsenseSEXP, SEXP mopt_objSEXP, SEXP weightsSEXP, SEXP ref_pointsSEXP, SEXP sh_ubSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type mopt_modelsense(mopt_modelsenseSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type mopt_obj(mopt_objSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type ref_points(ref_pointsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sh_ub(sh_ubSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_convert_ref_point_method(x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_ferrier_score
 arma::sp_mat rcpp_ferrier_score(arma::sp_mat& rij, Rcpp::NumericVector& targets, double portfolio_size, arma::sp_mat& out);
 RcppExport SEXP _prioritizr_rcpp_ferrier_score(SEXP rijSEXP, SEXP targetsSEXP, SEXP portfolio_sizeSEXP, SEXP outSEXP) {

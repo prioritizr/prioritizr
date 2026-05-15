@@ -168,6 +168,7 @@ Collate:
     'add_neighbor_constraints.R'
     'add_neighbor_penalties.R'
     'add_proportion_decisions.R'
+    'add_ref_point_approach.R'
     'add_relative_targets.R'
     'add_rsymphony_solver.R'
     'add_semicontinuous_decisions.R'

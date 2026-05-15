@@ -366,6 +366,7 @@ Also, see \code{\link[=objective_rel_tol_matrix]{objective_rel_tol_matrix()}} to
 for \code{rel_tol}.
 
 Other functions for adding multi-objective optimization approaches:
+\code{\link{add_ref_point_approach}()},
 \code{\link{add_wtd_sum_approach}()}
 }
 \concept{approaches}

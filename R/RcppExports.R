@@ -225,6 +225,10 @@ rcpp_connectivity <- function(data, solution) {
     .Call(`_prioritizr_rcpp_connectivity`, data, solution)
 }
 
+rcpp_convert_ref_point_method <- function(x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub) {
+    .Call(`_prioritizr_rcpp_convert_ref_point_method`, x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub)
+}
+
 rcpp_ferrier_score <- function(rij, targets, portfolio_size, out) {
     .Call(`_prioritizr_rcpp_ferrier_score`, rij, targets, portfolio_size, out)
 }

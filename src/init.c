@@ -37,6 +37,7 @@ extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
 extern SEXP _prioritizr_rcpp_compile_multi_obj_problem(SEXP);
 extern SEXP _prioritizr_rcpp_connectivity(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_convert_ref_point_method(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_copy_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_ferrier_score(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_forbid_solution(SEXP, SEXP);
@@ -98,6 +99,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_branch_matrix",                                      (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                      1},
     {"_prioritizr_rcpp_compile_multi_obj_problem",                          (DL_FUNC) &_prioritizr_rcpp_compile_multi_obj_problem,                          1},
     {"_prioritizr_rcpp_connectivity",                                       (DL_FUNC) &_prioritizr_rcpp_connectivity,                                       2},
+    {"_prioritizr_rcpp_convert_ref_point_method",                           (DL_FUNC) &_prioritizr_rcpp_convert_ref_point_method,                           6},
     {"_prioritizr_rcpp_copy_optimization_problem",                          (DL_FUNC) &_prioritizr_rcpp_copy_optimization_problem,                          1},
     {"_prioritizr_rcpp_ferrier_score",                                      (DL_FUNC) &_prioritizr_rcpp_ferrier_score,                                      4},
     {"_prioritizr_rcpp_forbid_solution",                                    (DL_FUNC) &_prioritizr_rcpp_forbid_solution,                                    2},

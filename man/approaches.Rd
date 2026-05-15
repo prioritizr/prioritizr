@@ -21,16 +21,6 @@ representing multiple different conservation features
 minimizing multiple different cost datasets (Schuster \emph{et al.} 2023).
 The following functions can be used to add an approach for multi-objective
 optimization to a multi-objective conservation planning \code{\link[=multi_problem]{multi_problem()}}.
-In general, we recommend using the hierarchical approach
-(\code{\link[=add_hier_approach]{add_hier_approach()}}) because it is better able to generate
-distinct solutions.
-Although the weighted sum approach (\code{\link[=add_wtd_sum_approach]{add_wtd_sum_approach()}}) is
-conceptually easier to understand, it can be challenging to use in practice
-because it is sensitive to scaling issues---meaning that practitioners will
-often have to (i) consider a large number of combinations of weights to
-obtain a diverse set of solutions and (ii) perform multiple calibration
-procedures to manually identify weight parameter values that result in
-different solutions (Das and Dennis 1997).
 
 \describe{
 
@@ -42,11 +32,22 @@ those with a lower priority order. Relative tolerance
 parameters can also be used to allow the optimization process to degrade
 objectives (in other words, allow for more wiggle room) so that
 subsequent (lower priority) objectives can be better achieved.
+
+}
+
+\item{\code{\link[=add_ref_point_approach]{add_ref_point_approach()}}}{
+Add an approach that involves using the reference point approach
+for multi-objective optimization. Briefly, this approach
+involves combining the objectives functions associated with each
+each \code{\link[=problem]{problem()}} in a \code{\link[=multi_problem]{multi_problem()}} object into a single
+new objective, wherein reference point parameters are used to
+specify aspirational levels of achievement and weight parameters
+are used to specify the relative importance of each objective.
 }
 
 \item{\code{\link[=add_wtd_sum_approach]{add_wtd_sum_approach()}}}{
 Add an approach that involves combining the objective functions
-associated with \code{\link[=problem]{problem()}} in a \code{\link[=multi_problem]{multi_problem()}} object into a
+associated with each \code{\link[=problem]{problem()}} in a \code{\link[=multi_problem]{multi_problem()}} object into a
 single new objective, wherein weights are used to specify the relative
 importance of each objective.
 }
@@ -70,6 +71,23 @@ By specifying multiple sets of trade-off parameters, multi-objective
 approaches can be used to generate multiple solutions that represent
 different levels of compromise among the multiple objectives.
 }
+\section{Recommended practices}{
+
+In general, we recommend using the hierarchical approach
+(\code{\link[=add_hier_approach]{add_hier_approach()}}) for characterizing trade-offs between
+different objectives. Alternatively, we recommend using the
+reference point approach to generate solutions that represent
+a balanced compromise among multiple objectives.
+Although the weighted sum approach (\code{\link[=add_wtd_sum_approach]{add_wtd_sum_approach()}}) is
+conceptually much easier to understand than the other approaches, it can be
+challenging to use in practice because it is sensitive to scaling issues---
+'meaning that practitioners will
+often have to (i) consider a large number of combinations of weights to
+obtain a diverse set of solutions and (ii) perform multiple calibration
+procedures to manually identify weight parameter values that result in
+different solutions (Das and Dennis 1997).
+}
+
 \examples{
 \dontrun{
 # in this example, we aim to identify a set of planning units that will
@@ -107,14 +125,20 @@ mp1 <-
  mp \%>\%
  add_hier_approach(rel_tol = 0.1, verbose = FALSE)
 
-# create multi-problem with weighted sum approach,
+# create multi-problem with reference point approach,
+# with settings identify a balanced compromise among objectives
 mp2 <-
+ mp \%>\%
+ add_ref_point_approach(verbose = FALSE)
+
+# create multi-problem with weighted sum approach,
+mp3 <-
   mp \%>\%
   add_wtd_sum_approach(weights = c(0.9, 0.1), verbose = FALSE)
 
 # solve problems
-s <- c(solve(mp1), solve(mp2))
-names(s) <- c("hierarchal", "weighted sum")
+s <- c(solve(mp1), solve(mp2), solve (mp3))
+names(s) <- c("hierarchal", "reference point", "weighted sum")
 
 # plot solutions
 plot(s, axes = FALSE)
