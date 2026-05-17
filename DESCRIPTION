@@ -304,6 +304,8 @@ Config/Needs/website:
     scales,
     dplyr,
     ggplot2,
+    stringr,
+    ggrepel,
     piggyback,
     prioritizrdata,
     pkgdown
