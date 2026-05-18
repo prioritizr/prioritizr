@@ -417,7 +417,7 @@ internal_eval_target_coverage_summary <- function(
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
   d$relative_shortfall <- d$absolute_shortfall / d$absolute_target
-  d$relative_met <- pmin(d$absolute_held / d$absolute_target, 1)
+  d$relative_met <- pmin(d$absolute_held, d$absolute_target) / d$absolute_target
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0
