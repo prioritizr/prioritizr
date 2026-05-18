@@ -359,7 +359,7 @@ test_that("problem (Raster, multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("problem (numeric)", {
+test_that("multi_problem (numeric)", {
 
 })
 
