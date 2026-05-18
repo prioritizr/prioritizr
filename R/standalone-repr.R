@@ -62,7 +62,10 @@ repr.data.frame <- function(x) {
 #' @export
 repr.character <- function(x) {
   # get console width
-  w <- ceiling(cli::console_width() * 0.9)
+  w <- ceiling(cli::console_width() * 0.95)
+  if (!is.null(getOption("repr.width"))) {
+    w <- getOption("repr.width")
+  }
   if (!is.null(getOption("width"))) {
     w <- min(w, getOption("width"))
   }
@@ -131,7 +134,7 @@ repr.dgCMatrix <- function(x) {
     if (Matrix::isDiagonal(x) && all_binary(x)) {
       out <- "diagonal matrix ({.val {c(0, 1)}} values)"
     } else if (Matrix::isDiagonal(x)) {
-      out <- "diagonal matrix (non-zero values between {.val {v}})"
+      out <- "diagonal matrix (non-zeros between {.val {v}})"
     } else if (all_binary(x)) {
       out <- paste(
         ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
@@ -141,7 +144,7 @@ repr.dgCMatrix <- function(x) {
       out <-
       paste(
         ifelse(Matrix::isSymmetric(x), "symmetric", "asymmetric"),
-        "continuous values (non-zero values between {.val {v}})"
+        "continuous values (non-zeros between {.val {v}})"
       )
     }
   } else {
@@ -150,7 +153,7 @@ repr.dgCMatrix <- function(x) {
     if (all_binary(x)) {
       out <- "binary values ({.val {c(0, 1)}})"
     } else {
-      out <- "continuous values (non-zero values between {.val {v}})"
+      out <- "continuous values (non-zeros between {.val {v}})"
     }
   }
   # format output
@@ -238,37 +241,38 @@ repr.ConservationProblem <- function(x) {
 }
 
 repr_data_list <- function(name, data, compact = TRUE) {
-  # define names to suppress if compact  = TRUE
-  compact_suppress_names <- c(
-    ## constraints, penalties
-    "data", "zones",
-    ## solver
-    "presolve", "threads", "numeric_focus", "node_file_start",
-    "start_solution", "verbose", "control",
-    ## portfolio
-    "remove_duplicates", "threads"
-  )
-
-  # find which data to display
-  if (isTRUE(compact)) {
-    repr_names <- names(data)[!names(data) %in% compact_suppress_names]
-  } else {
-    repr_names <- names(data)
+  # get console width
+  w <- ceiling(cli::console_width() * 0.95)
+  if (!is.null(getOption("repr.width"))) {
+    w <- getOption("repr.width")
+  }
+  if (!is.null(getOption("width"))) {
+    w <- min(w, getOption("width"))
   }
 
-  # if no data to display, then just show name
-  if (length(repr_names) == 0) {
+  # if no data values, then return character with just name
+  if (identical(length(data), 0L)) {
     return(name)
   }
 
-  # parse data values
-  repr_values <- vapply(repr_names, FUN.VALUE = character(1), function(x) {
-    paste0("{.arg ", x, "} = ", repr(data[[x]]))
+  # parse character representation of data values
+  repr_values <- vapply(names(data), FUN.VALUE = character(1), function(x) {
+    paste0(cli::format_inline("{.arg ", x, "} = "), repr(data[[x]]))
   })
 
-  # add ellipses if some data values excluded
-  if (!identical(repr_names, names(data))) {
-    repr_values <- c(repr_values, "{cli::symbol$ellipsis}")
+  # if compact, then subset to retain only first N parameters that
+  # can fit in the console width
+  if (isTRUE(compact)) {
+    n_chars <- nchar(name) + cumsum(cli::ansi_nchar(repr_values)) + 4
+    idx <- which(n_chars <= w)
+    if (length(idx) > 0L) {
+      repr_values <- repr_values[seq_len(max(idx))]
+    } else {
+      repr_values <- c()
+    }
+    if (!identical(length(repr_values), length(data))) {
+      repr_values <- c(repr_values, "{cli::symbol$ellipsis}")
+    }
   }
 
   # if compact, then convert to one-liner

@@ -88,6 +88,11 @@ ConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
@@ -101,8 +106,8 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
+        extent_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
       }
       cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
@@ -142,7 +147,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -308,6 +313,11 @@ ConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
@@ -321,10 +331,10 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
+        extent_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
       }
-      cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
+      cost_range <- range(self$planning_unit_costs(), na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
 
       # print data section
@@ -362,7 +372,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -504,7 +514,7 @@ ConservationProblem <- R6::R6Class(
       cli::cli_text(
         cli::col_grey(
           "# {cli::symbol$info} Use {.code summary(...)}",
-          " to see complete formulation."
+          " to see further details."
         )
       )
 

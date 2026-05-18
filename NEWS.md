@@ -18,12 +18,14 @@
   the terms have now been removed to help improve run time.
   If you still want to minimize costs when using these objectives,
   this can be done with the new multi-objective optimization functionality.
-- 
+-
 
 ## Minor improvements and bug fixes
 
-- Fix compatibility issues with `add_extra_portfolio()`, `add_gap_portfolio()`,
-  and `add_top_portfolio()` with Gurobi version 13.
+- Fix `add_extra_portfolio()`, `add_gap_portfolio()`, and `add_top_portfolio()`
+  functions to ensure compatibility with Gurobi version 13.
+- Fix `print()` and `summary()` functions for `problem()` objects not showing
+  default settings in gray.
 
 ## Documentation
 

@@ -64,12 +64,20 @@ MultiObjConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
       # create header
       cli::cli_text(
-        "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
+        paste(
+          "A multi-objective conservation problem",
+          "({.cls MultiObjConservationProblem})"
+        )
       )
 
       # problem names
@@ -90,24 +98,24 @@ MultiObjConservationProblem <- R6::R6Class(
       cli::cli_text("{ch$j}{ch$b}{.h data}")
       if (self$number_of_zones() > 1) {
         cli_vtext(
-          "{ch$v}{ch$j}{ch$b}zones:       ",
+          "{ch$v}{ch$j}{ch$b}zones:        ",
           repr.character(self$zone_names())
         )
       }
       cli_vtext("{ch$v}{ch$l}{ch$b}planning units:")
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}data:       ",
+        "{ch$v} {ch$j}{ch$b}data:        ",
         "{.cls ",
         self$planning_unit_class(), "} (",
         self$number_of_planning_units(),
         " total)"
       )
       cli_vtext(
-        "{ch$v} {ch$j}{ch$b}extent:     ",
+        "{ch$v} {ch$j}{ch$b}extent:      ",
         extent_text
       )
       cli_vtext(
-        "{ch$v} {ch$l}{ch$b}CRS:        ",
+        "{ch$v} {ch$l}{ch$b}CRS:         ",
         crs_text
       )
 
@@ -117,17 +125,18 @@ MultiObjConservationProblem <- R6::R6Class(
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
-        solver_text <- self$solver$repr()
+        solver_text <- self$solver$repr(compact = FALSE)
       }
       ## approach
       approach_text <- missing_text
-      if (!is.null(self$approach) && !is.Waiver(self$approach)) {
-        approach_text <- self$approach$repr()
+      if (!is.Waiver(self$approach)) {
+        approach_text <- self$approach$repr(compact = FALSE)
       }
       ## decisions
       decisions_text <- missing_text
       if (!is.Waiver(self$problems[[problem_names[1]]]$decisions)) {
-        decisions_text <- self$problems[[problem_names[1]]]$decisions$repr()
+        decisions_text <-
+          self$problems[[problem_names[1]]]$decisions$repr(compact = FALSE)
       }
       ## per-problem values
       problem_data <- lapply(problem_names, function(pname) {
@@ -137,52 +146,43 @@ MultiObjConservationProblem <- R6::R6Class(
         ## objective
         obj_text <- missing_text
         if (!is.Waiver(prob$objective)) {
-          obj_text <- prob$objective$repr()
+          obj_text <- prob$objective$repr(compact = FALSE)
         }
         ## penalties
         penalties_text <- missing_text
         if (length(prob$penalties) > 0) {
-          penalties_text <- vapply(
+          penalties_text <- lapply(
             prob$penalties,
-            function(w) w$repr(),
-            character(1)
+            function(w) w$repr(compact = FALSE)
           )
         }
         ## features
-        feature_names <- prob$feature_names()
-        feature_text <- if (length(feature_names) == 0) {
-          missing_text
-        } else if (length(feature_names) == 1) {
-          paste0("\"", feature_names, "\"")
-        } else {
-          paste0("\"", feature_names[1], "\", \u2026 (", length(feature_names), " total)")
-        }
+        feature_text <- repr.character(prob$feature_names())
         ## targets
-        tgt_text <- missing_text
-        if (!is.null(prob$targets) && !is.Waiver(prob$targets)) {
-          tgt_text <- prob$targets$repr()
+        targets_text <- missing_text
+        if (!is.Waiver(prob$targets)) {
+          targets_text <- prob$targets$repr(compact = FALSE)
         }
         ## weights
-        wgt_text <- missing_text
-        if (!is.null(prob$weights) && !is.Waiver(prob$weights)) {
-          wgt_text <- prob$weights$repr()
+        weights_text <- missing_text
+        if (!is.Waiver(prob$weights)) {
+          weights_text <- prob$weights$repr(compact = FALSE)
         }
         ## constraints
         constraints_text <- missing_text
         if (length(prob$constraints) > 0) {
-          constraints_text <- vapply(
+          constraints_text <- lapply(
             prob$constraints,
-            function(w) w$repr(),
-            character(1)
+            function(w) w$repr(compact = FALSE)
           )
         }
         list(
-          cost_text        = cost_text,
-          obj_text         = obj_text,
-          penalties_text   = penalties_text,
-          feature_text     = feature_text,
-          tgt_text         = tgt_text,
-          wgt_text         = wgt_text,
+          cost_text = cost_text,
+          obj_text = obj_text,
+          penalties_text = penalties_text,
+          feature_text = feature_text,
+          targets_text = targets_text,
+          weights_text = weights_text,
           constraints_text = constraints_text
         )
       })
@@ -194,102 +194,113 @@ MultiObjConservationProblem <- R6::R6Class(
       for (pname in problem_names) {
         pd <- problem_data[[pname]]
         cli_vtext(
-          "{ch$v}{ch$j}{ch$b}name:        ",
+          "{ch$v}{ch$j}{ch$b}name:         ",
           pname
         )
         ## cost
         cli_vtext(
-          "{ch$v}{ch$v}{ch$j}{ch$b}cost:       ",
+          "{ch$v}{ch$v}{ch$j}{ch$b}cost:        ",
           pd$cost_text
         )
         ## objective
         cli_vtext(
-          "{ch$v}{ch$v}{ch$j}{ch$b}objective:  ",
+          "{ch$v}{ch$v}{ch$j}{ch$b}objective:   ",
           pd$obj_text
         )
         ## penalties
-        if (length(pd$penalties_text) > 1 || pd$penalties_text[1] != missing_text) {
+        if (
+          length(pd$penalties_text) > 1 ||
+          !identical(pd$penalties_text[1], missing_text)
+        ) {
           cli_vtext("{ch$v}{ch$v}{ch$j}{ch$b}penalties:")
           for (i in seq_along(pd$penalties_text)) {
             if (i < length(pd$penalties_text)) {
-              cli_vtext(
-                "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}", i, ":         ",
-                pd$penalties_text[[i]]
+              cli_tree_component(
+                pd$penalties_text[[i]],
+                header = "{ch$v}{ch$j}{ch$b}            ",
+                subheader = "{ch$v}{ch$v}",
+                padding = "{ch$v}{ch$v}",
+                width = 13
               )
             } else {
-              cli_vtext(
-                "{ch$v}{ch$v}{ch$v}{ch$l}{ch$b}", i, ":         ",
-                pd$penalties_text[[i]]
+              cli_tree_component(
+                pd$penalties_text[[i]],
+                header = "{ch$v}{ch$l}{ch$b}            ",
+                subheader = "{ch$v} ",
+                padding = "{ch$v}{ch$v}",
+                width = 13
               )
             }
           }
         } else {
           cli_vtext(
-            "{ch$v}{ch$v}{ch$j}{ch$b}penalties:  ",
+            "{ch$v}{ch$v}{ch$j}{ch$b}penalties:   ",
             pd$penalties_text
           )
         }
         ## features
-        cli_vtext("{ch$v}{ch$v}{ch$j}{ch$b}features:")
+        cli_vtext("{ch$v}{ch$v}{ch$j}{ch$b}features:    ", pd$feature_text)
         cli_vtext(
-          "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}names:     ",
-          pd$feature_text
+          "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}targets:    ",
+          pd$targets_text
         )
         cli_vtext(
-          "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}targets:   ",
-          pd$tgt_text
+          "{ch$v}{ch$v}{ch$v}{ch$l}{ch$b}weights:    ",
+          pd$weights_text
         )
-        cli_vtext(
-          "{ch$v}{ch$v}{ch$v}{ch$l}{ch$b}weights:   ",
-          pd$wgt_text
-        )
-        ## note: features uses ch$j (not ch$l) above because constraints follows
         ## constraints
-        if (length(pd$constraints_text) > 1 || pd$constraints_text[1] != missing_text) {
+        if (
+          length(pd$constraints_text) > 1 ||
+          !identical(pd$constraints_text[1], missing_text)
+        ) {
           cli_vtext("{ch$v}{ch$v}{ch$l}{ch$b}constraints:")
           for (i in seq_along(pd$constraints_text)) {
-            if (i < length(pd$constraints_text)) {
-              cli_vtext(
-                "{ch$v}{ch$v} {ch$j}{ch$b}", i, ":         ",
-                pd$constraints_text[[i]]
+            if (i < length(pd$constraints)) {
+              cli_tree_component(
+                pd$constraints_text[[i]],
+                header = "{ch$j}{ch$b}            ",
+                subheader = "",
+                padding = "{ch$v}{ch$v} ",
+                width = 13
               )
             } else {
-              cli_vtext(
-                "{ch$v}{ch$v} {ch$l}{ch$b}", i, ":         ",
-                pd$constraints_text[[i]]
+              cli_tree_component(
+                pd$constraints_text[[i]],
+                header = "{ch$l}{ch$b}            ",
+                subheader = "",
+                padding = "{ch$v}{ch$v} ",
+                width = 13
               )
             }
           }
         } else {
           cli_vtext(
-            "{ch$v}{ch$v}{ch$l}{ch$b}constraints:",
+            "{ch$v}{ch$v}{ch$l}{ch$b}constraints: ",
             pd$constraints_text
           )
         }
       }
       ## decisions
-      cli_vtext(
-        "{ch$v}{ch$l}{ch$b}decisions:   ",
-        decisions_text
+      cli_tree_component(
+        decisions_text,
+        header = "{ch$v}{ch$l}{ch$b}decisions:    ",
+        subheader = "{ch$v} ",
+        width = 15
       )
 
       # print optimization section
       cli::cli_text("{ch$l}{ch$b}{.h optimization}")
-      cli_vtext(
-        " {ch$j}{ch$b}approach:    ",
-        approach_text
+      cli_tree_component(
+        approach_text,
+        header = " {ch$j}{ch$b}approach:     ",
+        subheader = " {ch$v}",
+        width = 15
       )
-      cli_vtext(
-        " {ch$l}{ch$b}solver:      ",
-        solver_text
-      )
-
-      # add footer
-      cli::cli_text(
-        cli::col_grey(
-          "# {cli::symbol$info} Use {.code summary(...)}",
-          " to see complete formulation."
-        )
+      cli_tree_component(
+        solver_text,
+        header = " {ch$l}{ch$b}solver:       ",
+        subheader = "  ",
+        width = 15
       )
 
       # end container
@@ -306,12 +317,20 @@ MultiObjConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
       # create header
       cli::cli_text(
-        "A multi-objective conservation problem ({.cls MultiObjConservationProblem})"
+        paste(
+          "A multi-objective conservation problem",
+          "({.cls MultiObjConservationProblem})"
+        )
       )
 
       # problem names
@@ -355,7 +374,7 @@ MultiObjConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
@@ -363,7 +382,7 @@ MultiObjConservationProblem <- R6::R6Class(
       }
       ## approach
       approach_text <- missing_text
-      if (!is.null(self$approach) && !is.Waiver(self$approach)) {
+      if (!is.Waiver(self$approach)) {
         approach_text <- self$approach$repr()
       }
       ## decisions
@@ -389,30 +408,23 @@ MultiObjConservationProblem <- R6::R6Class(
           )
         }
         ## features
-        feature_names <- prob$feature_names()
-        feature_text <- if (length(feature_names) == 0) {
-          missing_text
-        } else if (length(feature_names) == 1) {
-          paste0("\"", feature_names, "\"")
-        } else {
-          paste0("\"", feature_names[1], "\", \u2026 (", length(feature_names), " total)")
-        }
+        feature_text <- repr.character(prob$feature_names())
         ## targets
-        tgt_text <- missing_text
-        if (!is.null(prob$targets) && !is.Waiver(prob$targets)) {
-          tgt_text <- prob$targets$repr()
+        targets_text <- missing_text
+        if (!is.Waiver(prob$targets)) {
+          targets_text <- prob$targets$repr()
         }
         ## weights
-        wgt_text <- missing_text
-        if (!is.null(prob$weights) && !is.Waiver(prob$weights)) {
-          wgt_text <- prob$weights$repr()
+        weights_text <- missing_text
+        if (!is.Waiver(prob$weights)) {
+          weights_text <- prob$weights$repr()
         }
         list(
-          obj_text       = obj_text,
+          obj_text = obj_text,
           penalties_text = penalties_text,
-          feature_text   = feature_text,
-          tgt_text       = tgt_text,
-          wgt_text       = wgt_text
+          feature_text = feature_text,
+          targets_text = targets_text,
+          weights_text = weights_text
         )
       })
       names(problem_data) <- problem_names
@@ -444,17 +456,26 @@ MultiObjConservationProblem <- R6::R6Class(
           pd$obj_text
         )
         ## penalties
-        if (length(pd$penalties_text) > 1 || pd$penalties_text[1] != missing_text) {
+        if (
+          length(pd$penalties_text) > 1 ||
+          !identical(pd$penalties_text[1], missing_text)
+        ) {
           cli_vtext("{ch$v}{ch$v}{ch$j}{ch$b}penalties:")
           for (i in seq_along(pd$penalties_text)) {
             if (i < length(pd$penalties_text)) {
               cli_vtext(
-                "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}", i, ":         ",
+                paste0(
+                  "{ch$v}{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
+                  paste(rep(" ", max(0, 10 - nchar(i))), collapse = "")
+                ),
                 pd$penalties_text[[i]]
               )
             } else {
               cli_vtext(
-                "{ch$v}{ch$v}{ch$v}{ch$l}{ch$b}", i, ":         ",
+                paste0(
+                  "{ch$v}{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
+                  paste(rep(" ", max(0, 10 - nchar(i))), collapse = "")
+                ),
                 pd$penalties_text[[i]]
               )
             }
@@ -466,18 +487,14 @@ MultiObjConservationProblem <- R6::R6Class(
           )
         }
         ## features
-        cli_vtext("{ch$v}{ch$v}{ch$l}{ch$b}features:")
-        cli_vtext(
-          "{ch$v}{ch$v} {ch$j}{ch$b}names:     ",
-          pd$feature_text
-        )
+        cli_vtext("{ch$v}{ch$v}{ch$l}{ch$b}features:   ", pd$feature_text)
         cli_vtext(
           "{ch$v}{ch$v} {ch$j}{ch$b}targets:   ",
-          pd$tgt_text
+          pd$targets_text
         )
         cli_vtext(
           "{ch$v}{ch$v} {ch$l}{ch$b}weights:   ",
-          pd$wgt_text
+          pd$weights_text
         )
       }
       ## constraints
@@ -486,12 +503,18 @@ MultiObjConservationProblem <- R6::R6Class(
         for (i in seq_along(constraints_text)) {
           if (i < length(constraints_text)) {
             cli_vtext(
-              "{ch$v}{ch$v}{ch$j}{ch$b}", i, ": ",
+              paste0(
+                "{ch$v}{ch$v}{ch$j}{ch$b}", i, ":",
+                paste(rep(" ", max(0, 11 - nchar(i))), collapse = "")
+              ),
               constraints_text[[i]]
             )
           } else {
             cli_vtext(
-              "{ch$v}{ch$v}{ch$l}{ch$b}", i, ": ",
+              paste0(
+                "{ch$v}{ch$v}{ch$l}{ch$b}", i, ":",
+                paste(rep(" ", max(0, 11 - nchar(i))), collapse = "")
+              ),
               constraints_text[[i]]
             )
           }
@@ -523,7 +546,7 @@ MultiObjConservationProblem <- R6::R6Class(
       cli::cli_text(
         cli::col_grey(
           "# {cli::symbol$info} Use {.code summary(...)}",
-          " to see complete formulation."
+          " to see further details."
         )
       )
 
