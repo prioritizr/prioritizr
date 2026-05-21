@@ -29,15 +29,14 @@ fast_extract(x, y, ...)
 
 \item{...}{not used.}
 
-\item{fun}{\code{character} name of statistic to summarize data. Defaults
-to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
+\item{fun}{\code{character} name of statistic to summarize data.
+Available options include \code{"sum"} or \code{"mean"}.
 Defaults to \code{"mean"}.}
 }
 \value{
 A \code{matrix} containing the summary amount of each feature
 within each planning unit. Rows correspond to different spatial features
-in the argument to \code{y} and columns correspond to different raster
-layers in the argument to \code{x}.
+in \code{y} and columns correspond to different raster layers in \code{x}.
 }
 \description{
 Extract data from a \code{\link[terra:rast]{terra::rast()}} object.
@@ -68,5 +67,6 @@ print(head(result))
 
 }
 \seealso{
-\code{\link[terra:extract]{terra::extract()}}, \code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}}.
+The \code{\link[terra:extract]{terra::extract()}} and \code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} functions
+are alternatives for extracting raster data.
 }

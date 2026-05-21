@@ -5,7 +5,7 @@ NULL
 #'
 #' Add features weights to a conservation planning problem. Specifically,
 #' some objective functions aim to maximize (or minimize) a metric that
-#' measures how well a set of features are represented by a solution
+#' evaluates how well a set of features are represented by a solution
 #' (e.g., maximize the number of feature targets that are met,
 #' [add_max_n_targets_met_objective()]). In such cases,
 #' it may be desirable to prefer the representation of some features
@@ -17,46 +17,43 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @param weights `numeric` or `matrix` of weights.
-#'   See the Weights format section for more information.
+#' @param weights `numeric` vector or `matrix` of weights.
+#' See the Weights format section for more information.
 #'
 #' @details
-#' Weights can only be applied to problems that have an objective
-#' that is budget limited (e.g., [add_max_cover_objective()],
-#' [add_min_shortfall_objective()]).
-#' They can also be applied to problems that aim to maximize phylogenetic
-#' representation ([add_max_phylo_div_objective()]) to favor the
-#' representation of specific features over the representation of
-#' some phylogenetic branches. Weights cannot be negative values
-#' and must have values that are equal to or larger than zero.
-#' **Note that planning unit costs are scaled to 0.01 to identify
-#' the cheapest solution among multiple optimal solutions. This means
-#' that the optimization process will favor cheaper solutions over solutions
-#' that meet feature targets (or occurrences) when feature weights are
-#' lower than 0.01.**
+#' Weights are only considered during optimization if a budget-limited
+#' objective is specified
+#' (e.g., [add_max_cover_objective()],
+#' [add_min_shortfall_objective()]). Although weights can be added
+#' to problems that have the minimum set objective
+#' (i.e., [add_min_set_objective()]), they will have no effect during
+#' optimization and a warning will be thrown.
 #'
 #' @section Weights format:
-#'
-#' The argument to `weights` can be specified using the following formats.
+#' The following formats can be used to specify `weights`.
+#' Note that `weights` must have values that are greater than, or equal to, zero
+#' (in other words, non-negative values).
 #'
 #' \describe{
 #'
-#' \item{`weights` as a `numeric` vector}{containing weights for each feature.
-#'   Note that this format cannot be used to specify weights for problems with
-#'   multiple zones.}
+#' \item{`weights` as a `numeric` vector}{
+#' Here weight values are specified for each feature.
+#' Note that this format cannot be used if `x` has multiple zones.
+#' }
 #'
-#' \item{`weights` as a `matrix` object}{containing weights
-#'   for each feature in each zone.
-#'   Here, each row corresponds to a different feature in argument to
-#'   `x`, each column corresponds to a different zone in argument to
-#'   `x`, and each cell contains the weight value for a given feature
-#'   that the solution can to secure in a given zone. Note that
-#'   if the problem contains targets created using
-#'   [add_manual_targets()] then a `matrix` should be
-#'   supplied containing a single column that indicates that weight for
-#'   fulfilling each target.}
+#' \item{`weights` as a `matrix` object}{
+#' Here weight values are specified for each feature in each zone.
+#' In particular, each row corresponds to a different feature in
+#' `x`, each column corresponds to a different zone in `x`, and cell values
+#' specify the weight value for representing a particular feature in a
+#' particular zone.
+#' Note that if the problem contains targets created using
+#' [add_manual_targets()], then `weights` should be a `matrix`
+#' that has a single column containing the weight value for meeting each
+#' target.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @return An updated [problem()] with the weights added to it.
 #'

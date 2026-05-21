@@ -715,7 +715,7 @@ MultiObjConservationProblem <- R6::R6Class(
     #' @description
     #' Create a new object with a solver added to the problem formulation.
     #' @param x [Solver-class] object.
-    #' @return An updated `ConservationProblem` object.
+    #' @return An updated `MultiObjConservationProblem` object.
     add_solver = function(x) {
       assert(inherits(x, "Solver"))
       p <- self$clone(deep = TRUE)

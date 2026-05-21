@@ -9,21 +9,21 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param rescale `logical` flag indicating if replacement cost
-#'  values -- excepting infinite (`Inf`) and zero values -- should be
-#'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
+#' values -- excepting infinite (`Inf`) and zero values -- should be
+#' rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
 #' @param run_checks `logical` flag indicating whether presolve checks
-#'   should be run prior solving the problem. These checks are performed using
-#'   the [presolve_check()] function. Defaults to `TRUE`.
-#'   Skipping these checks may reduce run time for large problems.
+#' should be run prior solving the problem. These checks are performed using
+#' the [presolve_check()] function. Defaults to `TRUE`.
+#' Skipping these checks may reduce run time for large problems.
 #'
 #' @param force `logical` flag indicating if an attempt should be
-#'   made to solve the problem even if potential issues were detected during
-#'   the presolve checks. Defaults to `FALSE`.
+#' made to solve the problem even if potential issues were detected during
+#' the presolve checks. Defaults to `FALSE`.
 #'
 #' @param threads `integer` number of threads to use for the
-#'   optimization algorithm. Defaults to 1 such that only a single
-#'   thread is used.
+#' optimization algorithm. Defaults to 1 such that only a single
+#' thread is used.
 #'
 #' @inheritParams eval_cost_summary
 #'
@@ -67,11 +67,12 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `numeric`, `matrix`, `data.frame`,
-#'   [terra::rast()], or [sf::sf()] object
-#'   containing the importance scores for each planning
-#'   unit in the solution. Specifically, the returned object is in the
-#'   same format as the planning unit data in the argument to `x`.
+#' @return
+#' A `numeric`, `matrix`, `data.frame`,
+#' [terra::rast()], or [sf::sf()] object
+#' containing the importance scores for each planning
+#' unit in the solution. Specifically, the returned object is in the
+#' same format as the planning unit data in `x`.
 #'
 #' @seealso
 #' See [importance] for an overview of all functions for evaluating

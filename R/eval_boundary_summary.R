@@ -17,37 +17,37 @@ NULL
 #' (Ball *et al.* 2009).
 #' It is calculated using the same equations used to penalize solutions
 #' according to their total exposed boundary (i.e., [add_boundary_penalties()]).
-#' See the Examples section for examples on how differences `zone` arguments
+#' See the Examples section for examples on how different `zone` values
 #' can be used to calculate boundaries for different combinations of zones.
 #'
 #' @inheritSection add_boundary_penalties Data format
 #' @inheritSection eval_cost_summary Solution format
 #'
 #' @return
-#'   A [tibble::tibble()] object containing the boundary length of the
-#'   solution.
-#'   It contains the following columns:
+#' A [tibble::tibble()] object describing the boundary length of the
+#' solution. It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{problem}{`character` name of problem. Note that this column
-#'     is only present if `x` is a [multi_problem()] object.}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistic associated with the `"overall"` value
+#' in this column is calculated using the entire solution
+#' (including all management zones if `x` has multiple zones).
+#' If `x` has multiple management zones, then summary statistics
+#' are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{boundary}{
+#' `numeric` exposed boundary length value.
+#' Greater values correspond to solutions with greater
+#' boundary length and, in turn, greater spatial fragmentation.
+#' Thus conservation planning exercises typically prefer solutions
+#' with smaller values.
+#' }
 #'
-#'   \item{boundary}{`numeric` exposed boundary length value.
-#'     Greater values correspond to solutions with greater
-#'     boundary length and, in turn, greater spatial fragmentation.
-#'     Thus conservation planning exercises typically prefer solutions
-#'     with smaller values.}
-#'
-#'   }
+#' }
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

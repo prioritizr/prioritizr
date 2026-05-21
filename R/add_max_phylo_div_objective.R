@@ -15,7 +15,7 @@ NULL
 #' @inheritParams add_max_wtd_sum_objective
 #'
 #' @param tree [ape::phylo()] object specifying a phylogenetic tree
-#'   for the conservation features.
+#' for the features in `x`.
 #'
 #' @details
 #' The maximum phylogenetic diversity objective finds the set of
@@ -86,16 +86,9 @@ NULL
 #' with penalties set according to cost values
 #' (via [add_linear_penalties()]).
 #'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [targets] for an overview of all functions for adding targets, and
-#' [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
-#'
-#' @inherit add_min_set_objective return
-#'
-#' @aliases add_max_phylo_objective
 #'
 #' @references
 #' Faith DP (1992) Conservation evaluation and phylogenetic diversity.

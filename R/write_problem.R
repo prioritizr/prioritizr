@@ -10,8 +10,8 @@ NULL
 #' @inheritParams compile
 #'
 #' @param path `character` file path to save the problem formulation.
-#' The argument should contain a `".lp"` or `.mps"` file extension
-#' to specify whether the problem formulation will be saved in the
+#' In particular, `path` should have a `".lp"` or `.mps"` file extension
+#' to specify whether the problem formulation should be saved in the
 #' [LP](https://docs.gurobi.com/current/#refman/lp_format.html) or
 #' [MPS](https://docs.gurobi.com/current/#refman/mps_format.html)
 #' format (respectively). If using the Gurobi solver
@@ -20,7 +20,7 @@ NULL
 #' file size (see `?gurobi::gurobi_write()` for details).
 #'
 #' @param solver `character` name of optimization solver to write the problem
-#' to disk. Available options include: `"rsymphony" `, `"gurobi"`, or `NULL`.
+#' to disk. Available options are: `"rsymphony" `, `"gurobi"`, or `NULL`.
 #' Note that using the Gurobi solver is much faster, because the Rsymphony
 #' solver requires attempting to solve the problem before it can be written.
 #' Defaults to `NULL`, such that the best available solver is used.

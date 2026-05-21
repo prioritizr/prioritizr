@@ -11,14 +11,14 @@ NULL
 #'
 #' @param ... arguments passed to [compile()].
 #'
-#' @param run_checks `logical` flag indicating whether presolve checks
-#'   should be run prior solving the problem. These checks are performed using
-#'   the [presolve_check()] function. Defaults to `TRUE`.
-#'   Skipping these checks may reduce run time for large problems.
+#' @param run_checks `logical` value indicating whether presolve checks
+#' should be run prior solving the problem. These checks are performed using
+#' the [presolve_check()] function. Defaults to `TRUE`.
+#' Note that skipping these checks may reduce run time for large problems.
 #'
-#' @param force `logical` flag indicating if an attempt to should be
-#'   made to solve the problem even if potential issues were detected during
-#'   the presolve checks. Defaults to `FALSE`.
+#' @param force `logical` value indicating if an attempt to should be
+#' made to solve the problem even if potential issues were detected during
+#' the presolve checks. Defaults to `FALSE`.
 #'
 #' @details
 #' After formulating a conservation planning [problem()],
@@ -46,44 +46,51 @@ NULL
 #' returned as a `list` object. Specifically, each element of the list
 #' corresponds to a solution based on the following types of planning units.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{`a` has `numeric` planning units}{The solution will be
-#'    returned as a `numeric` vector. Here, each element in the vector
-#'     corresponds to a different planning unit.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of such `numeric` vectors will be returned.}
+#' \item{`a` has `numeric` planning units}{
+#' Here the solution will be
+#' returned as a `numeric` vector. In particular, each element in the vector
+#' corresponds to a different planning unit.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of such `numeric` vectors will be returned.
+#' }
 #'
-#'   \item{`a` has `matrix` planning units}{The solution will be
-#'     returned as a `matrix` object.
-#'     Here, rows correspond to different planning units,
-#'     and columns correspond to different  management zones.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of such `matrix` objects will be returned.}
+#' \item{`a` has `matrix` planning units}{
+#' Here the solution will be
+#' returned as a `matrix` object.
+#' In particular, rows correspond to different planning units,
+#' and columns correspond to different  management zones.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of such `matrix` objects will be returned.
+#' }
 #'
-#'   \item{`a` has [terra::rast()] planning units}{The solution
-#'     will be returned as a [terra::rast()] object.
-#'     If the argument to `x` contains multiple zones, then the object
-#'     will have a different layer for each management zone.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of [terra::rast()] objects will be returned.}
+#' \item{`a` has [terra::rast()] planning units}{
+#' Here the solution
+#' will be returned as a [terra::rast()] object.
+#' If `a` contains multiple zones, then the solution object
+#' will have a different layer for each management zone.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of [terra::rast()] objects will be returned.
+#' }
 #'
-#'   \item{`a` has [sf::sf()], or `data.frame` planning units}{
-#'     The solution will be returned in the same data format as the planning
-#'     units.
-#'     Here, each row corresponds to a different planning unit,
-#'     and columns contain solutions.
-#'     If the argument to `a` contains a single zone, then the solution object
-#'     will contain columns named by solution.
-#'     Specifically, the column names containing the solution values
-#'     be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
-#'     identifier (e.g., `"solution_1"`).
-#'     If the argument to `a` contains multiple zones, then the columns
-#'     containing solutions will be named as `"solution_XXX_YYY"` where
-#'     `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
-#'     of the management zone (e.g., `"solution_1_zone1"`).}
+#' \item{`a` has [sf::sf()], or `data.frame` planning units}{
+#' Here the solution will be returned in the same data format as the planning
+#' units.
+#' In particular, each row corresponds to a different planning unit,
+#' and columns contain solutions.
+#' If `a` contains a single zone, then the solution object
+#' will contain columns named by solution.
+#' Specifically, the column names containing the solution values
+#' be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
+#' identifier (e.g., `"solution_1"`).
+#' If `a` contains multiple zones, then the columns
+#' containing solutions will be named as `"solution_XXX_YYY"` where
+#' `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
+#' of the management zone (e.g., `"solution_1_zone1"`).
+#' }
 #'
-#'   }
+#' }
 #'
 #' The output solutions have attributes that describe
 #' optimization process or solution (see below for examples on accessing

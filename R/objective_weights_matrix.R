@@ -27,7 +27,7 @@ NULL
 #' Defaults to `TRUE`.
 #'
 #' @return
-#' A `numeric` matrix with weight values. Here, rows correspond to
+#' A `numeric` matrix. Here, rows correspond to
 #' different sets of each weight values and columns correspond to different
 #' objectives. Note that the sets of weights values are filtered
 #' to remove sets of weights that - despite having different values -

@@ -22,7 +22,7 @@ NULL
 #' objective finds the set of planning units that meets representation targets
 #' for as many features as possible while staying within a fixed budget
 #' (inspired by Cabeza and Moilanen 2001). Additionally, weights can be used
-#  to favor the representation of certain features over other features (see
+#' to favor the representation of certain features over other features (see
 #' [add_feature_weights()]). If multiple solutions can meet the same
 #' number of weighted targets while staying within budget, the cheapest
 #' solution is returned.
@@ -64,7 +64,7 @@ NULL
 #' with penalties set according to cost values
 #' (via [add_linear_penalties()]).
 #'
-#' @inherit add_min_set_objective return
+#' @inherit add_max_wtd_sum_objective return
 #'
 #' @seealso
 #' See [objectives] for an overview of all functions for adding objectives.

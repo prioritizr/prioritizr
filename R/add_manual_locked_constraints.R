@@ -14,42 +14,43 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param data `data.frame` or [tibble::tibble()] object.
-#'   See the Data format section for more information.
+#' See the Data format section for more information.
 #'
 #' @section Data format:
-#'
-#' The argument to `data` should be a `data.frame` with the following columns:
+#' Here `data` must be a `data.frame` with the following columns.
 #'
 #' \describe{
 #'
 #' \item{pu}{`integer` planning unit identifiers.
-#'   If `x` has `data.frame` planning units,
-#'   then these values must refer to values in the `id` column of the planning
-#'   unit data.
-#'   Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
-#'   then these values must refer to the row numbers of the planning unit data.
-#'   Additionally, if `x` has `numeric` vector planning units,
-#'   then these values must refer to the element indices of the planning unit
-#'   data.
-#'   Finally, if `x` has [terra::rast()] planning units,
-#'   then these values must refer to cell indices.}
+#' If `x` has `data.frame` planning units,
+#' then these values must refer to values in the `id` column of the planning
+#' unit data.
+#' Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
+#' then these values must refer to the row numbers of the planning unit data.
+#' Additionally, if `x` has `numeric` vector planning units,
+#' then these values must refer to the element indices of the planning unit
+#' data.
+#' Finally, if `x` has [terra::rast()] planning units,
+#' then these values must refer to cell indices.
+#' }
 #'
 #' \item{zone}{`character` names of zones. Note that this
-#'   argument is optional for arguments to `x` that contain a single
-#'   zone.}
+#' column is optional if `x` has a single zone.
+#' }
 #'
 #' \item{status}{`numeric` status values. These values indicate how much
-#'   of each planning unit should be allocated to each zone in the solution.
-#'   For example, the `numeric` values could be binary values (i.e., zero
-#'   or one) for problems containing binary-type decision variables
-#'   (using the [add_binary_decisions()] function). Alternatively,
-#'   the `numeric` values could be proportions (e.g., 0.5) for problems
-#'   containing proportion-type decision variables (using the
-#'   [add_proportion_decisions()]).}
+#' of each planning unit should be allocated to each zone in the solution.
+#' For example, the `numeric` values could be binary values (i.e., zero
+#' or one) for problems containing binary-type decision variables
+#' (using the [add_binary_decisions()] function). Alternatively,
+#' the `numeric` values could be proportions (e.g., 0.5) for problems
+#' containing proportion-type decision variables (using the
+#' [add_proportion_decisions()]).
+#' }
 #'
-#'  }
+#' }
 #'
-#' @inherit add_contiguity_constraints return
+#' @return An updated [problem()] object with the constraints added to it.
 #'
 #' @seealso
 #' See [constraints] for an overview of all functions for adding constraints.
@@ -242,40 +243,44 @@ methods::setMethod("add_manual_locked_constraints",
 #' @param x [problem()] object.
 #'
 #' @param data `data.frame` or [tibble::tibble()] object.
-#'   See the Data format section for more information.
+#' See the Data format section for more information.
 #'
 #' @param lb `logical` indicating if the status values should be used to
-#'   specify the lower bounds for the decision variables in the problem
-#'   formulation.
-#'   Defaults to `TRUE`.
+#' specify the lower bounds for the decision variables in the problem
+#' formulation.
+#' Defaults to `TRUE`.
 #'
 #' @param ub `logical` indicating if the status values should be used to
-#'   specify the upper bounds for the decision variables in the problem
-#'   formulation.
-#'   Defaults to `TRUE`.
+#' specify the upper bounds for the decision variables in the problem
+#' formulation.
+#' Defaults to `TRUE`.
 #'
 #' @section Data format:
-#' The argument to `data` should be a `data.frame` with the following columns:
+#' The argument to `data` must be a `data.frame` with the following columns.
 #'
 #' \describe{
 #'
 #' \item{idx}{`integer` total unit indices.
-#'  These values should refer to `x$total_unit_indices()`}.
+#' These values should refer to `x$total_unit_indices()`
+#' }.
 #'
-#' \item{zone}{`character` names of zones. Note that this
-#'   argument is optional for arguments to `x` that contain a single
-#'   zone.}
+#' \item{zone}{
+#' `character` names of zones. Note that this
+#' column is optional if `x` has a single zone.
+#' }
 #'
-#' \item{status}{`numeric` values indicating how much
-#'   of each planning unit should be allocated to each zone in the solution.
-#'   For example, the `numeric` values could be binary values (i.e., zero
-#'   or one) for problems containing binary-type decision variables
-#'   (using the [add_binary_decisions()] function). Alternatively,
-#'   the `numeric` values could be proportions (e.g., 0.5) for problems
-#'   containing proportion-type decision variables (using the
-#'   [add_proportion_decisions()]).}
+#' \item{status}{
+#'`numeric` values indicating how much
+#' of each planning unit should be allocated to each zone in the solution.
+#' For example, the `numeric` values could be binary values (i.e., zero
+#' or one) for problems containing binary-type decision variables
+#' (using the [add_binary_decisions()] function). Alternatively,
+#' the `numeric` values could be proportions (e.g., 0.5) for problems
+#' containing proportion-type decision variables (using the
+#' [add_proportion_decisions()]).
+#' }
 #'
-#'  }
+#' }
 #'
 #' @inherit add_contiguity_constraints return
 #'

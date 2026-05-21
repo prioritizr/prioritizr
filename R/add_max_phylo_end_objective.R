@@ -85,14 +85,9 @@ NULL
 #' with penalties set according to cost values
 #' (via [add_linear_penalties()]).
 #'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [targets] for an overview of all functions for adding targets, and
-#' [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
-#'
-#' @inherit add_min_set_objective return
 #'
 #' @references
 #' Faith DP (1992) Conservation evaluation and phylogenetic diversity.

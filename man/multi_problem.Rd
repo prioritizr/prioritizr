@@ -11,7 +11,8 @@ multi_problem(..., problem_names = NULL)
 single-objective conservation planning problem that will be combined into a
 multi-objective problem. All of these problems must share the same
 planning units, zones, and decision variable types. They may have different
-their objectives, targets, constraints, or penalties.}
+cost and feature data, as well as objectives, targets, constraints, and
+penalties.}
 
 \item{problem_names}{\code{character} vector with a name for each problem
 in \code{...}. Defaults to \code{NULL}, such that the problem names are defined
@@ -44,18 +45,24 @@ Although each of these objectives can be manually formulated
 (see \code{\link[=add_linear_constraints]{add_linear_constraints()}}), multi-objective optimization provides a
 framework for jointly optimizing all of them together
 (Williams and Kendall 2017).
-Here, each objective is formulated separately as a \code{\link[=problem]{problem()}} object,
+Here, each objective is formulated as a separate \code{\link[=problem]{problem()}} object,
 and then combined together with the \code{multi_problem()} function.
 Although each of these \code{\link[=problem]{problem()}} objects must have exactly the same
 planning units, zones, and decision types, they can have different
 objectives, features, targets, feature weights, and penalties.
+Additionally, they may also have different cost data and features.
 Note that any constraint specified in one of the \code{\link[=problem]{problem()}} objects
-will be met at all stages during the multi-objective optimization process.
-Since budgets under budget-limited objectives (e.g.,
-\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}} and targets under the
-minimum set objective (i.e., \code{\link[=add_min_set_objective]{add_min_set_objective()}}) are treated
-as constraints, they will also be met at all stages during the multi-
-objective optimization process.
+will be applied during all stages of multi-objective optimization.
+For example, this means that if one of the \code{\link[=problem]{problem()}} objects has
+locked in constraints (per \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}}), then
+these constraints will be applied during all stages of multi-objective
+optimization. As such, we recommended adding constraints to only one of the
+\code{\link[=problem]{problem()}} objects to reduce processing time.
+Additionally, since budgets specified in budget-limited objectives (e.g.,
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}) and targets under the
+minimum set objective (i.e., \code{\link[=add_min_set_objective]{add_min_set_objective()}}) are
+(effectively) treated as constraints, they will also be applied during
+all stages of multi-objective optimization.
 }
 \examples{
 \dontrun{

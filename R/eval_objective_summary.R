@@ -29,8 +29,8 @@ NULL
 #' in the [penalties] function).
 #'
 #' @return
-#' A [tibble::tibble()] object containing the solution cost.
-#' It contains the following columns:
+#' A [tibble::tibble()] object describing the performance of the solution.
+#' It contains the following columns.
 #'
 #' \describe{
 #'
@@ -48,8 +48,36 @@ NULL
 #' @family summaries
 #'
 #' @examples
-#' # TODO
+#' \dontrun{
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # build conservation problem with boundary penalties
+#' p1 <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(verbose = FALSE)
+#'
+#' # solve the problem
+#' s1 <- solve(p1)
+#'
+#' # print solution
+#' print(s1)
+#'
+#' # calculate objective value including penalties
+#' v1 <- eval_objective_summary(p1, s1, include_penalties = TRUE)
+#' print(v1)
+#'
+#' # calculate objective value excluding penalties
+#' v2 <- eval_objective_summary(p1, s1, include_penalties = FALSE)
+#' print(v2)
+#' }
 #' @export
 eval_objective_summary <- function(x, solution, include_penalties = TRUE) {
   assert_required(x)

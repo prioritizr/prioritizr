@@ -16,31 +16,35 @@ add_cplex_solver(
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is relative
-and expresses the acceptable deviance from the optimal objective.
+\item{gap}{\code{numeric} value denoting the optimality gap. This gap is relative
+and expresses the acceptable deviance from optimality.
 For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
 The default value is 0.1 (i.e., 10\% from optimality).}
 
-\item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
+\item{time_limit}{\code{numeric} value denoting the time limit (seconds) for
+generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
 (i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
-\item{presolve}{\code{logical} attempt to simplify the
-problem before solving it? Defaults to \code{TRUE}.}
+\item{presolve}{\code{logical} value indicating if the
+optimization problem should be simplified before solving it?
+Defaults to \code{TRUE}.}
 
-\item{threads}{\code{integer} number of threads to use for the
-optimization algorithm. The default value is 1.}
+\item{threads}{\code{integer} value denoting the number of threads to use during
+optimization.
+The default value is 1.}
 
-\item{verbose}{\code{logical} should information be displayed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the
@@ -61,7 +65,7 @@ analyses suggest that it performs slightly slower than the \emph{Gurobi}
 solver (i.e., \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}).
 We recommend using this solver if the \emph{Gurobi} solver is not available.
 Licenses are available for the \emph{IBM CPLEX} software to academics at no cost
-(see <  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
+(see \url{https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer}).
 }
 \section{Installation}{
 
@@ -76,7 +80,7 @@ this variable can be specified by adding the following text to the
 \if{html}{\out{<div class="sourceCode">}}\preformatted{  export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 }\if{html}{\out{</div>}}
 
-Please Note that you may need to change the version number in the file path
+Please note that you may need to change the version number in the file path
 (i.e., \code{"CPLEX_Studio128"}). After specifying the \code{CPLEX_BIN}
 environmental variable, the \pkg{cplexAPI} package can be installed.
 Since the \pkg{cplexAPI} package is not available on the

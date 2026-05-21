@@ -202,7 +202,7 @@ Get values stored in the \code{data} field.
 }
 \subsection{Returns}{
 An object. If the \code{data} field does not contain an object
-associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+associated with \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
 returned.
 }
 }

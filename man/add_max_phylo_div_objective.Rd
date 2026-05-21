@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_max_phylo_div_objective.R
 \name{add_max_phylo_div_objective}
 \alias{add_max_phylo_div_objective}
-\alias{add_max_phylo_objective}
 \title{Add maximum phylogenetic diversity objective}
 \usage{
 add_max_phylo_div_objective(x, budget, tree)
@@ -10,17 +9,14 @@ add_max_phylo_div_objective(x, budget, tree)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} vector to specify
-a budget for each each management zone.}
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
+for the entire solution or (ii) a \code{numeric} vector to specify
+a budget for each zone (separately) in the solution.}
 
 \item{tree}{\code{\link[ape:read.tree]{ape::phylo()}} object specifying a phylogenetic tree
-for the conservation features.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+for the features in \code{x}.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -229,10 +225,6 @@ selection of networks of conservation areas. \emph{Biological Conservation},
 105: 103--111.
 }
 \seealso{
-See \link{objectives} for an overview of all functions for adding objectives.
-Also, see \link{targets} for an overview of all functions for adding targets, and
-\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
-
 Other functions for adding objectives:
 \code{\link{add_max_cover_objective}()},
 \code{\link{add_max_n_targets_met_objective}()},

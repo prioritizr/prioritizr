@@ -11,10 +11,7 @@ NULL
 #' (including any locked out planning units, or planning units with `NA`
 #' cost values) using the [feature_abundances()] function.
 #'
-#' @param x [problem()] object.
-#'
-#' @param targets Object that specifies the targets for each feature.
-#'   See the Targets format section for more information.
+#' @inheritParams add_absolute_targets
 #'
 #' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_absolute_targets Targets format

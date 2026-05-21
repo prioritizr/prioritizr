@@ -533,7 +533,6 @@ ConservationProblem <- R6::R6Class(
       invisible(TRUE)
     },
 
-
     #' @description
     #' Generate a character representation of the object.
     #' @return A `character` value.
@@ -545,7 +544,7 @@ ConservationProblem <- R6::R6Class(
     #' Get values stored in the `data` field.
     #' @param x `character` name of data.
     #' @return An object. If the `data` field does not contain an object
-    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' associated with `x`, then a [new_waiver()] object is
     #' returned.
     get_data = function(x) {
       if (!x %in% names(self$data)) return(new_waiver())
@@ -737,7 +736,7 @@ ConservationProblem <- R6::R6Class(
       }
       colnames(x) <- self$zone_names()
       self$set_data("planning_unit_costs", x)
-      invisible()
+      invisible(TRUE)
     },
 
     #' @description

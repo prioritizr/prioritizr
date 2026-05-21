@@ -14,7 +14,7 @@ NULL
 #' @details
 #' This function is designed to validate `pu.dat` files.
 #'
-#' @return A `logical` indicating success.
+#' @return A `logical` value indicating success.
 #'
 #' @noRd
 validate_marxan_pu_data <- function(

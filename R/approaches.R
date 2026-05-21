@@ -42,6 +42,9 @@ NULL
 #' new objective, wherein reference point parameters are used to
 #' specify aspirational levels of achievement and weight parameters
 #' are used to specify the relative importance of each objective.
+#' To ensure that differences in scale among objective do not bias
+#' solutions, this approach also considers the best and worst
+#' possible objective values for each [problem()].
 #' }
 #'
 #' \item{[add_wtd_sum_approach()]}{
@@ -73,13 +76,13 @@ NULL
 #' @section Recommended practices:
 #' In general, we recommend using the hierarchical approach
 #' ([add_hier_approach()]) for characterizing trade-offs between
-#' different objectives. Alternatively, we recommend using the
+#' different objectives. Additionally, we recommend using the
 #' reference point approach to generate solutions that represent
 #' a balanced compromise among multiple objectives.
 #' Although the weighted sum approach ([add_wtd_sum_approach()]) is
 #' conceptually much easier to understand than the other approaches, it can be
 #' challenging to use in practice because it is sensitive to scaling issues---
-#''meaning that practitioners will
+#' meaning that practitioners will
 #' often have to (i) consider a large number of combinations of weights to
 #' obtain a diverse set of solutions and (ii) perform multiple calibration
 #' procedures to manually identify weight parameter values that result in

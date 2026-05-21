@@ -21,7 +21,7 @@ number_of_planning_units(x, ...)
 \item{...}{not used.}
 }
 \value{
-An \code{integer} number of planning units.
+An \code{integer} value.
 }
 \description{
 Extract the number of planning units in an object.
@@ -66,8 +66,7 @@ mp <-
       add_min_shortfall_objective(budget = b) \%>\%
       add_relative_targets(0.8) \%>\%
       add_binary_decisions()
-  ) \%>\%
-  add_hier_approach(rel_tol = 0)
+  )
 
 # print number of planning units
 print(number_of_planning_units(mp))

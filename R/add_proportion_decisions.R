@@ -7,16 +7,13 @@ NULL
 #' This is a relaxed decision where a part of a planning unit can be
 #' prioritized, as opposed to the entire planning unit. Typically, this decision
 #' has the assumed action of buying a fraction of a planning unit to include in
-#  a protected area system. In most cases, problems that use proportion-type
+#' a protected area system. In most cases, problems that use proportion-type
 #' decisions will solve much faster than problems that use binary-type
 #' decisions.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_binary_decisions
 #'
-#' @inherit add_binary_decisions details return
-#'
-#' @seealso
-#' See [decisions] for an overview of all functions for adding decisions.
+#' @inherit add_binary_decisions details return seealso
 #'
 #' @family decisions
 #'

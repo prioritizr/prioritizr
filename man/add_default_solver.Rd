@@ -12,7 +12,8 @@ add_default_solver(x, ...)
 \item{...}{arguments passed to the solver.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the best solver currently available should be

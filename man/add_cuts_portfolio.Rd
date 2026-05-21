@@ -9,8 +9,9 @@ add_cuts_portfolio(x, number_solutions = 10)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of attempts to generate
-different solutions. Defaults to 10.}
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
+Defaults to 10.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.

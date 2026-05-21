@@ -18,7 +18,7 @@ NULL
 #' target values as a proportion (ranging between 0 and 1). Depending on
 #' context of the prioritization exercise, a value of 0.3 (i.e., 30%)
 #' may be appropriate (Harris *et al.* 2023).
-#"
+#'
 #' @param rules_relative_target named `numeric` vector with name-value key pairs
 #' denoting the values that should be added together when calculating the
 #' relative target for a given feature. Note that values must range
@@ -125,11 +125,11 @@ NULL
 #' rule_data <- tibble::tibble(feature = names(sim_complex_features))
 #'
 #' # add a column indicating if each feature has a small distribution,
-#  # based on a threshold of 1000 km^2
+#' # based on a threshold of 1000 km^2
 #' rule_data$small_distribution <- feature_size <= 1000
 #'
 #' # add a column indicating if each feature has a large distribution,
-#  # based on a threshold of 5000 km^2
+#' # based on a threshold of 5000 km^2
 #' rule_data$large_distribution <- feature_size >= 5000
 #'
 #' # add a column indicating if each feature has low quality data

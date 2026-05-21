@@ -9,13 +9,15 @@ NULL
 #' as "one-hot encoding".
 #'
 #' @param x [terra::rast()] object with a single layer that contains integer
-#'   values.
+#' values.
 #'
 #' @param keep_all `logical` value indicating if all integers should be kept
-#'   in the output. If `TRUE`, the output will contain a layer for each
-#'   sequential integer between 1 and the maximum value in `x`. If `FALSE`,
-#'   the output will only contain layers for integer values present in `x`.
-#'   Defaults to `TRUE.`
+#' in the returned object.
+#' If `keep_all = TRUE`, then the returned object will contain a layer
+#' for each sequential integer between 1 and the maximum value in `x`.
+#' Otherwise, if `keep_all = FALSE`,
+#' then the returned object will only contain layers for integer values present
+#' in `x`. Defaults to `TRUE.`
 #'
 #' @details
 #' This function is provided to help manage data that encompass

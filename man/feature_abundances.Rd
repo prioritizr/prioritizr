@@ -12,36 +12,41 @@ feature_abundances(x, na.rm)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{na.rm}{\code{logical} should planning units with \code{NA} cost
-data be excluded from the abundance calculations? The default argument
-is \code{FALSE}.}
+\item{na.rm}{\code{logical} should planning units with missing (\code{NA}) cost
+data be excluded from the abundance calculations? Defaults to \code{FALSE}.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the total amount
 (\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
 of the distribution of each feature in the planning units. Here, each
-row contains data that pertain to a specific feature in a specific
+row contains data that pertain to a particular feature in a particular
 management zone (if multiple zones are present). This object
-contains the following columns:
+contains the following columns.
 
 \describe{
 
 \item{feature}{\code{character} name of the feature.}
 
-\item{zone}{\code{character} name of the zone (not included when the
-argument to \code{x} contains only one management zone).}
+\item{zone}{
+\code{character} name of the zone
+(not included if \code{x} has a single management zone).
+}
 
-\item{absolute_abundance}{\code{numeric} amount of each feature in the
-planning units. If the problem contains multiple zones, then this
+\item{absolute_abundance}{
+\code{numeric} amount of each feature in the
+planning units. If \code{x} has multiple zones, then this
 column shows how well each feature is represented in a each
-zone.}
+zone.
+}
 
-\item{relative_abundance}{\code{numeric} proportion of the feature's
-distribution in the planning units. If the argument to \code{na.rm} is
-\code{FALSE}, then this column will only contain values equal to one.
-Otherwise, if the argument to \code{na.rm} is \code{TRUE} and planning
+\item{relative_abundance}{
+\code{numeric} proportion of the feature's
+distribution in the planning units. If \code{na.rm = FALSE},
+then this column will only contain values equal to one.
+Otherwise, if \code{na.rm = TRUE} and planning
 units with \code{NA} cost data contain non-zero amounts of each feature,
-then this column will contain values between zero and one.}
+then this column will contain values between zero and one.
+}
 
 }
 }
@@ -51,17 +56,18 @@ of a conservation planning problem.
 }
 \details{
 Planning units can have cost data with finite values
-(e.g., 0.1, 3, 100) and \code{NA} values. This functionality is provided so
+(e.g., 0.1, 3, 100) and missing (\code{NA}) values.
+This functionality is provided so
 that locations which are not available for protected area acquisition can
 be included when calculating targets for conservation features
 (e.g., when targets are specified using \code{\link[=add_relative_targets]{add_relative_targets()}}).
 If the total amount of each feature in all the planning units is
-required---including the planning units with \code{NA} cost data---then the
-the \code{na.rm} argument should be set to \code{FALSE}. However, if
+required (including the planning units with \code{NA} cost data), then use
+\code{na.rm = FALSE}. However, if
 the planning units with \code{NA} cost data should be
-excluded---for instance, to calculate the highest feasible targets for
-each feature---then the \code{na.rm} argument should be set to
-\code{TRUE}.
+excluded, then use \code{na.rm = TRUE}.
+For example, \code{na.rm = TRUE} may be useful for calculating the maximum
+feasible target for each feature.
 }
 \examples{
 \dontrun{
@@ -162,5 +168,6 @@ plot(s5)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}}.
+The \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function can be used
+evaluate how well features are represented by a solution.
 }

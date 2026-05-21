@@ -70,6 +70,7 @@ OptimizationProblem <- R6::R6Class(
     #' @return Invisible `TRUE`.
     show = function() {
       self$print()
+      invisible(TRUE)
     },
 
     #' @description
@@ -214,7 +215,7 @@ OptimizationProblem <- R6::R6Class(
     #' Set objective coefficients for the decision variables in the
     #' optimization problem.
     #' @param obj `numeric` vector.
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     set_obj = function(obj) {
       # assert valid arguments
       assert(
@@ -232,7 +233,7 @@ OptimizationProblem <- R6::R6Class(
     #' Set the model sense for the optimization problem.
     #' @param modelsense `character` value indicating the model sense.
     #' (i.e., either `"min"` or `"max"`).
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     set_modelsense = function(modelsense) {
       # assert valid arguments
       assert(
@@ -250,7 +251,7 @@ OptimizationProblem <- R6::R6Class(
     #' @description
     #' Set lower bounds for the decision variables in the optimization problem.
     #' @param lb `numeric` vector.
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     set_lb = function(lb) {
       # assert valid arguments
       assert(
@@ -267,7 +268,7 @@ OptimizationProblem <- R6::R6Class(
     #' @description
     #' Set upper bounds for the decision variables in the optimization problem.
     #' @param ub `numeric` vector.
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     set_ub = function(ub) {
       # assert valid arguments
       assert(
@@ -283,7 +284,7 @@ OptimizationProblem <- R6::R6Class(
 
     #' @description
     #' Remove last linear constraint added to a problem.
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     remove_last_linear_constraint = function() {
       # set objective
       rcpp_remove_optimization_problem_last_linear_constraint(self$ptr)
@@ -298,7 +299,7 @@ OptimizationProblem <- R6::R6Class(
     #' (i.e., `"<="`, `">="`, or `"="`).
     #' @param A [Matrix::sparseMatrix()] with constraint coefficients.
     #' @param row_ids `character` vector with identifier for constraints.
-    #' @return An invisible `TRUE` indicating success.
+    #' @return An invisible `TRUE`.
     append_linear_constraints = function(rhs, sense, A, row_ids) {
       # assert valid arguments
       assert(

@@ -37,8 +37,7 @@ intersecting_units(x, y)
 \item{y}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-An \code{integer} vector of indices of the units in \code{x} that intersect
-with \code{y}.
+An \code{integer} vector with indices of the units in \code{x}.
 }
 \description{
 Find which of the units in a spatial data object intersect

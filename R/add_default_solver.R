@@ -6,7 +6,7 @@ NULL
 #' Specify that the best solver currently available should be
 #' used to solve a conservation planning problem.
 #'
-#' @param x [problem()] or [multi_problem()] object.
+#' @inheritParams add_gurobi_solver
 #'
 #' @param ... arguments passed to the solver.
 #'

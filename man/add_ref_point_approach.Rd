@@ -10,7 +10,7 @@ add_ref_point_approach(
   ref_points = NULL,
   best_obj = NULL,
   worst_obj = NULL,
-  normalize_weights = TRUE,
+  rescale = TRUE,
   verbose = TRUE
 )
 }
@@ -46,7 +46,7 @@ the worst possible performance for each objective.
 Note that  values must follow the same order as the problems in \code{x}.
 Defaults to \code{NULL} such that these values are computed automatically.}
 
-\item{normalize_weights}{\code{logical} indicating if \code{weights} should be
+\item{rescale}{\code{logical} indicating if \code{weights} should be
 normalized based on the best and worst objective values
 (per \code{best_obj} and \code{worst_obj}, respectively). This is important
 to ensure that the optimization process is not biased by differences
@@ -62,9 +62,9 @@ added to it.
 \description{
 Add a reference point approach for multi-objective optimization to a
 multi-objective conservation planning problem (Wierzbicki 1980, Jaimes 2009).
-Broadly speaking, this approach considers a set of reference point
+Broadly speaking, this approach considers a set of (i) reference point
 parameters that specify an aspirational level of achievement for each
-objective and weight parameters that specify the relative importance
+objective and (ii) weight parameters that specify the relative importance
 for reaching the reference point for each objective.
 To ensure that solutions are not biased
 by differences in scale among the objectives, this approach
@@ -115,7 +115,7 @@ Minimize max o^O wo * so * max(ro - vo, 0)
 Minimize sum o^O wo * so * max(ro - vo, 0)
 }
 
-If the weights should be normalized (per \code{normalize_weights = TRUE}), then
+If the weights should be normalized (per \code{rescale = TRUE}), then
 the scaling term for each objective is calculated
 with the following equation.
 
@@ -126,7 +126,7 @@ so = 1/(abs(bo - co))
 }
 
 Conversely, if the weights should not be normalized
-(per \code{normalize_weights = FALSE}), then \eqn{s_o}{so}
+(per \code{rescale = FALSE}), then \eqn{s_o}{so}
 is set to a value of 1 for each objective.
 }
 \examples{
@@ -215,12 +215,12 @@ obj_matrix <- attributes(ms2)$objective
 # preview the objective values
 head(obj_matrix)
 
-# plot the objectives values to visualize the approximated Pareto frontier
+# plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
 # minimize representation shortfalls)
 plot(
   obj_matrix,
-  main = "Pareto frontier",
+  main = "Trade-offs between objectives",
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )

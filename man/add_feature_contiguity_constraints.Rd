@@ -20,34 +20,34 @@
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
-and \code{Matrix} arguments, each row and column corresponds
-to a different zone in the argument to \code{x}, and cell values must
+and \code{Matrix} formats, each row and column corresponds
+to a different zone in \code{x}, and cell values must
 contain binary \code{numeric} values (i.e., one or zero) that indicate
-if connected planning units (as specified in the argument to
-\code{data}) should be still considered connected if they are allocated to
+if connected planning units (as specified by \code{data})
+should be still considered connected if they are allocated to
 different zones. The cell values along the diagonal
 of the matrix indicate if planning units should be subject to
 contiguity constraints when they are allocated to a given zone. Note
-arguments to \code{zones} must be symmetric, and that a row or column has
+that \code{zones} must be symmetric, and that if a row or column has
 a value of one then the diagonal element for that row or column must also
 have a value of one. If the connection scheme between different zones
-should differ among the features, then the argument to \code{zones} should
+should differ among the features, then \code{zones} should
 be a \code{list} of \code{matrix} or \code{Matrix} objects that shows the
 specific scheme for each feature using the conventions described above.
-The default argument to \code{zones} is an identity
+Defaults to an identity
 matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that planning units are only considered connected if they
 are both allocated to the same zone.}
 
 \item{data}{\code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}
 or \code{list} of \code{matrix}, \code{Matrix}, or \code{data.frame}
-objects. The argument to data shows which planning units should be treated
-as being connected when implementing constraints to ensure that features
-are represented in contiguous units. If different features have
+objects. In particular, \code{data} indicates which planning units should be
+treated as being connected when implementing constraints to ensure that
+features are represented in contiguous units. If different features have
 different dispersal capabilities, then it may be desirable to specify
 which sets of planning units should be treated as being connected
-for which features using a \code{list} of objects. The default argument
-is \code{NULL} which means that the connection data is calculated
+for which features using a \code{list} of objects.
+Defaults to \code{NULL} such that the connection data are calculated
 automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function and so
 all adjacent planning units are treated as being connected for all
 features. See the Data format section for more information.}
@@ -81,51 +81,56 @@ drastically increase the amount of time required to solve it.}
 \section{Data format}{
 
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as a \code{NULL} value}{connection
-data should be calculated automatically
+\item{\code{data} as a \code{NULL} value}{
+Here connection data are calculated automatically
 using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
-argument and means that all adjacent planning units are treated
+and means that all adjacent planning units are treated
 as potentially dispersible for all features.
 Note that the connection data must be manually defined
 using one of the other formats below when the planning unit data
-in the argument to \code{x} is not spatially referenced (e.g.,
-in \code{data.frame} or \code{numeric} format).}
+in \code{x} is not spatially referenced (e.g.,
+in \code{data.frame} or \code{numeric} format).
+}
 
-\item{\code{data} as a\code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell indicates if the
-two planning units are connected or not. Cell values should be binary
+\item{\code{data} as a\code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and
+cell values indicates if a pair of planning units should
+be treated as connected or not. In particular, cell values should be binary
 \code{numeric} values (i.e., one or zero). Cells that occur along the
-matrix diagonal have no effect on the solution at all because each
+matrix diagonal have no effect on the solution because each
 planning unit cannot be a connected with itself. Note that pairs
 of connected planning units are treated as being potentially dispersible
-for all features.}
+for all features.
+}
 
-\item{\code{data} as a \code{data.frame} object}{containing columns that are named
-\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-denotes the connectivity between two planning units following the
-\emph{Marxan} format. The \code{"boundary"} column should contain
-binary \code{numeric} values that indicate if the two planning units
-specified in the \code{"id1"} and \code{"id2"} columns are connected
-or not. This data can be used to describe symmetric or
-asymmetric relationships between planning units. By default,
-input data is assumed to be symmetric unless asymmetric data is
-also included (e.g., if data is present for planning units 2 and 3, then
-the same amount of connectivity is expected for planning units 3 and 2,
-unless connectivity data is also provided for planning units 3 and 2).
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"id1"} and \code{"id2"} columns contain
+identifiers (indices) for a pair of planning units, and the \code{"boundary"}
+column contains binary \code{numeric} values that indicate if the two planning
+units specified in the \code{"id1"} and \code{"id2"} columns should be treated
+as connected or not.
 Note that pairs of connected planning units are treated as being
-potentially dispersible for all features.}
+potentially dispersible for all features.
+}
 
-\item{\code{data} as a \code{list} object}{containing \code{matrix}, \code{Matrix}, or
-\code{data.frame} objects showing which planning units
-should be treated as connected for each feature. Each element in the
+\item{\code{data} as a \code{list} object}{
+Here a \code{matrix}, \code{Matrix}, or
+\code{data.frame} object is specified for each feature to indicate
+which planning units should be treated as connected for that feature.
+In particular, each element in the
 \code{list} should correspond to a different feature (specifically,
 a different target in the problem), and should contain a \code{matrix},
-\code{Matrix}, or \code{data.frame} object that follows the conventions
-detailed above.}
+\code{Matrix}, or \code{data.frame} object that follows the formats
+described previously.
+}
 
 }
 }
@@ -239,8 +244,6 @@ connectivity in conservation planning do not always maintain gene flow.
 \emph{Journal of Applied Ecology}, 56: 913--922.
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},

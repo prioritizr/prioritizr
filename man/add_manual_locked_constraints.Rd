@@ -30,8 +30,7 @@ than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} a
 }
 \section{Data format}{
 
-
-The argument to \code{data} should be a \code{data.frame} with the following columns:
+Here \code{data} must be a \code{data.frame} with the following columns.
 
 \describe{
 
@@ -45,11 +44,12 @@ Additionally, if \code{x} has \code{numeric} vector planning units,
 then these values must refer to the element indices of the planning unit
 data.
 Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
-then these values must refer to cell indices.}
+then these values must refer to cell indices.
+}
 
 \item{zone}{\code{character} names of zones. Note that this
-argument is optional for arguments to \code{x} that contain a single
-zone.}
+column is optional if \code{x} has a single zone.
+}
 
 \item{status}{\code{numeric} status values. These values indicate how much
 of each planning unit should be allocated to each zone in the solution.
@@ -58,7 +58,8 @@ or one) for problems containing binary-type decision variables
 (using the \code{\link[=add_binary_decisions]{add_binary_decisions()}} function). Alternatively,
 the \code{numeric} values could be proportions (e.g., 0.5) for problems
 containing proportion-type decision variables (using the
-\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}).}
+\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}).
+}
 
 }
 }

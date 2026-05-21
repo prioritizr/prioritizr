@@ -11,10 +11,11 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @details This function is used for the effect of modifying the input
-#'   [`ConservationProblem-class`] object. As such, it does not return
-#'   anything. To use this function with [pipe()] operators, use the
-#'   `%T>%` operator and not the `%>%` operator.
+#' @details
+#' This function is used for the effect of modifying the input
+#' [`ConservationProblem-class`] object. As such, it does not return
+#' anything. To use this function with [pipe()] operators, use the
+#' `%T>%` operator and not the `%>%` operator.
 #'
 #' @return An invisible `TRUE` indicating success.
 #'

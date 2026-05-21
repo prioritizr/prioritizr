@@ -27,7 +27,7 @@ NULL
 #' See Details section for information on obtaining these data.
 #'
 #' @param area_units `character` vector denoting the unit of measurement
-#' for the argument to `historical_area`.
+#' for `historical_area`.
 #' For example, to specify that `historical_area` contains historical
 #' distribution sizes
 #' expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, then

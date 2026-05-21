@@ -43,9 +43,9 @@ print.Zones <- function(x, ...) {
   })
 }
 
-#' @method summary MultiObjConservationProblem
+#' @method print MultiObjConservationProblem
 #'
 #' @export
-summary.MultiObjConservationProblem <- function(object, ...) {
-  object$summary(...)
+print.MultiObjConservationProblem <- function(x, ...) {
+  cli::cli({x$print()})
 }

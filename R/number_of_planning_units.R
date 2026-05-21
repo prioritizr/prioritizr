@@ -17,7 +17,7 @@ NULL
 #' and only two of these cells contain non-missing (`NA`) values.
 #' As such, this dataset would have two planning units.
 #'
-#' @return An `integer` number of planning units.
+#' @return An `integer` value.
 #'
 #' @examples
 #' \dontrun{
@@ -51,8 +51,7 @@ NULL
 #'       add_min_shortfall_objective(budget = b) %>%
 #'       add_relative_targets(0.8) %>%
 #'       add_binary_decisions()
-#'   ) %>%
-#'   add_hier_approach(rel_tol = 0)
+#'   )
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(mp))

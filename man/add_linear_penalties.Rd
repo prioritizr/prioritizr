@@ -28,17 +28,16 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{penalty}{\code{numeric} penalty value that is used to scale the
-importance of not selecting planning units with high \code{data} values.
+\item{penalty}{\code{numeric} value denoting the importance of not selecting
+planning units with high \code{data} values.
 Higher \code{penalty} values can be used to obtain solutions that
 are strongly averse to selecting places with high \code{data}
 values, and smaller \code{penalty} values can be used to obtain solutions
 that only avoid places with especially high \code{data} values.
 Note that negative
 \code{penalty} values can be used to obtain solutions that prefer places
-with high \code{data} values. Additionally, when adding these
-penalties to problems with multiple zones, the argument to \code{penalty}
-must have a value for each zone.}
+with high \code{data} values. Additionally, if has \code{x} has multiple zones,
+then \code{penalty} must have a value for each zone.}
 
 \item{data}{\code{character}, \code{numeric},
 \code{\link[terra:rast]{terra::rast()}}, \code{matrix}, or \code{Matrix} object
@@ -65,45 +64,51 @@ weighted by status of each planning unit in the solution.
 \section{Data format}{
 
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as \code{character} vector}{containing column name(s) that
-contain penalty values for planning units. This format is only
-compatible if the planning units in the argument to \code{x} are a
+\item{\code{data} as a \code{character} vector}{
+Here values are specified based on column name(s) for the
+planning unit data in \code{x}. This format is only
+compatible if the planning units in  \code{x} are a
 \code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The column(s) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
-For problems that contain a single zone, the argument to \code{data} must
-contain a single column name. Otherwise, for problems that
-contain multiple zones, the argument to \code{data} must
-contain a column name for each zone.}
+If \code{x} has a single zone, then \code{data} must
+contain a single column name. Otherwise, if \code{x} has multiple zones,
+then \code{data} must contain a column name for each zone.
+}
 
-\item{\code{data} as a \code{numeric} vector}{containing values for
-planning units. These values must not contain any missing
-(\code{NA}) values. Note that this format is only available
-for planning units that contain a single zone.}
+\item{\code{data} as a \code{numeric} vector}{
+Here values are specified for each planning unit.
+These values must not contain any missing
+(\code{NA}) values. Note that this format can only be used
+if \code{x} has a single zone.
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{containing \code{numeric} values
-that specify data for each planning unit.
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here values are specified for each planning unit and each zone.
+Note that \code{data} must have \code{numeric} values.
 Each row corresponds to a planning unit, each column corresponds to a
-zone, and each cell indicates the data for penalizing a planning unit
-when it is allocated to a given zone.}
+zone, and each cell indicates the value associated with a planning unit
+when it is allocated to a given zone.
+}
 
-\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{containing values for planning
-units. This format is only
-compatible if the planning units in the argument to \code{x} are
+\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{
+Here values are specified for each planning unit and each zone.
+This format is only compatible if the planning units in \code{x} are
 \code{\link[sf:sf]{sf::sf()}}, or \code{\link[terra:rast]{terra::rast()}} objects.
 If the planning unit data are a \code{\link[sf:sf]{sf::sf()}} object,
 then the values are calculated by overlaying the
-planning units with the argument to \code{data} and calculating the sum of the
+planning units with \code{data} and calculating the sum of the
 values associated with each planning unit.
 If the planning unit data are a \code{\link[terra:rast]{terra::rast()}} object, then the values
 are calculated by extracting the cell
-values (note that the planning unit data and the argument to \code{data} must
-have exactly the same dimensionality, extent, and missingness).
-For problems involving multiple zones, the argument to \code{data} must
-contain a layer for each zone.}
+values (note that \code{data} and the planning unit in \code{x} must
+have exactly the same dimensionality, extent, and missing values).
+Additionally, if \code{x} has multiple zones, then \code{data} must
+contain a layer for each zone.
+}
 
 }
 }
@@ -118,10 +123,10 @@ Let \eqn{I} denote the set of planning units
 planning unit \eqn{i} to zone \eqn{z} (e.g., with binary
 values indicating if each planning unit is allocated or not). Also, let
 \eqn{P_z} represent the penalty scaling value for zones
-\eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
-\eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
-\eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-\code{data}, if supplied as a \code{matrix} object).
+\eqn{z \in Z}{z in Z} (per \code{penalty}), and
+\eqn{D_{iz}}{Diz} represent the penalty data for allocating planning unit
+\eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z}
+(per \code{data} in matrix format).
 
 \deqn{
 \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}

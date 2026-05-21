@@ -9,14 +9,11 @@ add_max_cover_objective(x, budget)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} vector to specify
-a budget for each each management zone.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
+for the entire solution or (ii) a \code{numeric} vector to specify
+a budget for each zone (separately) in the solution.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -24,7 +21,7 @@ represent at least one instance of as many features as possible within a
 given budget. In other words, this objective aims to ensure that
 no feature is completely missing from the prioritization.
 This objective does not use targets, and feature
-weights should be used instead to increase the representation of certain
+weights should be used instead to increase the representation of particular
 features by a solution.
 }
 \details{
@@ -169,9 +166,6 @@ Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 covering location problem. \emph{Biological Conservation}, 76: 105--112.
 }
 \seealso{
-See \link{objectives} for an overview of all functions for adding objectives.
-Also, see \code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
-
 Other functions for adding objectives:
 \code{\link{add_max_n_targets_met_objective}()},
 \code{\link{add_max_phylo_div_objective}()},

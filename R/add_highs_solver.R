@@ -13,11 +13,11 @@ NULL
 #' @inheritParams add_gurobi_solver
 #'
 #' @param control `list` with additional parameters for tuning
-#'  the optimization process.
-#'  For example, `control = list(simplex_strategy = 1)` could be used to
-#'  set the `simplex_strategy` parameter.
-#'  See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
-#'  for information on the parameters.
+#' the optimization process.
+#' For example, `control = list(simplex_strategy = 1)` could be used to
+#' set the `simplex_strategy` parameter.
+#' See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
+#' for information on the parameters.
 #'
 #' @details
 #' [*HiGHS*](https://highs.dev/) is an open source optimization software.
@@ -172,7 +172,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (length(control) > 0) {
             p[names(control)] <- control
           }
-          
+
           # store internal data and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)
@@ -205,7 +205,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               append(model, list(control = do.call(highs::highs_control, p)))
             )
           })
-          
+
           # manually return NULL to indicate error if no solution
           # nocov start
           if (
@@ -234,7 +234,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           } else {
             x_gap <- NA_real_ # nocov
           }
-          
+
           # return solution
           list(
             x = sol,

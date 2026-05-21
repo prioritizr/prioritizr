@@ -24,7 +24,7 @@
 #'
 #' @return
 #' A [`matrix`], [`array`], or [`Matrix::Matrix-class`] object.
-#' The returned object is the is the same class as the argument to `x`.
+#' The returned object is the same class as `x`.
 #'
 #' @seealso
 #' See [boundary_matrix()] and [connectivity_matrix()] for details on

@@ -62,12 +62,12 @@ Solve a multi-objective optimization problem to generate a solution.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{x}}{\code{list} containing a compiled multi-objective optimization
-problem (e.g., generated with \code{\link[=multi_compile]{multi_compile()}}.}
+problem (e.g., generated with \code{\link[=multi_compile]{multi_compile()}}).}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list} of solutions.
+A \code{list} of solutions.
 }
 }
 \if{html}{\out{<hr>}}

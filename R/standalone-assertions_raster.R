@@ -13,11 +13,10 @@
 #'
 #' @param y [terra::rast()] or [raster::raster()] object.
 #'
-#' @param call Caller environment.
-#'
-#' @return A `logical` value indicating if the
-#'   objects have the same
-#'   resolution, extent, dimensionality, and coordinate system.
+#' @return
+#' A `logical` value indicating if the
+#' objects have the same
+#' resolution, extent, dimensionality, and coordinate system.
 #'
 #' @noRd
 is_comparable_raster <- function(x, y) {

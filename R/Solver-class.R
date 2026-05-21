@@ -290,10 +290,14 @@ Solver <- R6::R6Class(
     #' @param ... Additional arguments passed to the `calculate()` method.
     #' @return A `list` object with the solution and additional information.
     solve_multiobj = function(x, priority, rel_tol, ...) {
+      # assert valid arguments
+      assert(
+        is.numeric(priority),
+        is.numeric(rel_tol),
+        .internal = TRUE
+      )
       # solve multi-objective optimization problem
-      sol <- self$default_solve_multiobj(x, priority, rel_tol, ...)
-      # return solution
-      sol
+      self$default_solve_multiobj(x, priority, rel_tol, ...)
     }
   )
 )

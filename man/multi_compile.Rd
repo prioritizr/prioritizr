@@ -27,7 +27,7 @@ objective should be maximized or minimized
 (i.e., each element corresponds to a different objective),
 and a (\verb{$opt}) \code{\linkS4class{OptimizationProblem}} object with all
 of the constraints present in \code{x} (note that the objective coefficients
-for this object are all zero).
+in the returned object are all zero).
 }
 \description{
 Compile multiple \code{\linkS4class{OptimizationProblem}} objects for
@@ -55,8 +55,7 @@ mp <-
       add_min_shortfall_objective(budget) \%>\%
       add_relative_targets(0.45) \%>\%
       add_binary_decisions()
-  ) \%>\%
-  add_default_solver(gap = 0, verbose = FALSE)
+  )
 
 # compile into multi-objective optimization problem
 mo <- multi_compile(mp)

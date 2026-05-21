@@ -8,7 +8,7 @@
 #'
 #' Check if an object has any non-zero values?
 #'
-#' @param object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'

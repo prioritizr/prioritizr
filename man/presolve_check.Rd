@@ -18,8 +18,8 @@ presolve_check(x, warn = TRUE)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
 
-\item{warn}{\code{logical} should a warning be thrown if the check fails?
-Defaults to \code{TRUE}.}
+\item{warn}{\code{logical} value indicating if a warning should be thrown if the
+check fails? Defaults to \code{TRUE}.}
 }
 \value{
 A \code{logical} value indicating if all checks passed successfully.
@@ -36,7 +36,8 @@ verify if a problem has a feasible solution or not.
 }
 \details{
 This function checks for issues that are likely to result in
-"strange" solutions. Specifically, it checks if (i) all planning units are
+"strange" or "unrealistic" solutions.
+Specifically, it checks if (i) all planning units are
 locked in, (ii) all planning units are locked out, and (iii) all
 planning units have negative cost values (after applying penalties if any
 were specified). Although such conservation planning problems
@@ -47,10 +48,10 @@ Thus such issues, if they are indeed issues and not false positives, can
 be fixed by carefully checking the code, data, and parameters used to build
 the conservation planning problem.
 
-This function then checks for values that may lead to numerical instability
-issues when solving the problem. Specifically, it checks if the range of
+This function also checks for values that may lead to numerical instability
+issues during optimization. Specifically, it checks if the range of
 values in certain components of the optimization problem are over a
-certain threshold (i.e., \eqn{1 \times 10 ^9}{1e+9}) or if the values
+certain threshold (i.e., \eqn{1 \times 10^9}{1e+9}) or if the values
 themselves exceed a certain threshold
 (i.e., \eqn{1 \times 10^{10}}{1e+10}).
 In most cases, such issues will simply cause an exact
@@ -63,7 +64,7 @@ solution when a zero optimality gap is specified).
 
 What can you do if a conservation planning problem fails to pass these
 checks? Well, this function will have thrown some warning messages
-describing the source of these issues, so read them carefully. For
+describing the source of the issue(s), so read them carefully. For
 instance, a common issue is when a relatively large penalty value is
 specified for boundary (\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}) or
 connectivity penalties (\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}). This
@@ -86,7 +87,7 @@ could lead to very large numbers. You could fix this by converting
 the units from square meters to square kilometers or thousands of square
 kilometers. Alternatively, you could calculate the percentage of each
 planning unit that is occupied by suitable habitat, which will yield
-values between zero and one hundred.
+values between 0 and 100.
 
 But what can you do if you can't fix these issues by simply changing
 the penalty values or rescaling data? You will need to apply some creative
@@ -113,14 +114,16 @@ guarantee that these features will be represented in the optimal solution
 and use this value instead of one billion. This minimum weight value
 can be calculated as the sum of the weight values for the other features
 and adding a small number to it (e.g., 1). Finally, if you're running out
-of ideas for addressing numerical stability issues you have one remaining
-option: you can use the \code{numeric_focus} argument in the
+of ideas for addressing numerical stability issues, then you have one
+remaining option: you can use the \code{numeric_focus} parameter of the
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}} function to tell the solver to pay extra
-attention to numerical instability issues. This is not a free lunch,
-however, because telling the solver to pay extra attention to numerical
-issues can substantially increase run time. So, if you have problems that
-are already taking an unreasonable time to solve, then this will not help
-at all.
+attention to numerical instability issues. Although this option
+can help address numerical instability issues, it often results
+in longer run times because the solver will now dedicate
+additional computational processing to addressing these issues.
+So, if you have problems that
+already take a very long time time to solve, then might not be of much
+help.
 }
 \examples{
 \dontrun{
@@ -191,5 +194,6 @@ plot(s3, main = "solution", axes = FALSE)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=solve]{solve()}}, \url{http://www.gurobi.cn/download/GuNum.pdf}.
+See the Gurobi documentation for more information on numerical
+instability issues (\url{http://www.gurobi.cn/download/GuNum.pdf}).
 }

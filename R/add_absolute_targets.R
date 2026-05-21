@@ -10,10 +10,10 @@ NULL
 #' should ideally select a set of planning units that contain a total
 #' (summed) value of, at least, 10 for the feature.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_manual_targets
 #'
-#' @param targets object that specifies the targets for each feature.
-#'   See the Targets format section for more information.
+#' @param targets Object that specifies the targets for each feature.
+#' See the Targets format section for more information.
 #'
 #' @details
 #' This function is used to set targets for each feature (separately).
@@ -36,27 +36,32 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`targets` as a `numeric` vector}{containing target values for each
-#'   feature.
-#'   Additionally, for convenience, this format can be a single
-#'   value to assign the same target to each feature. Note that this format
-#'   cannot be used to specify targets for problems with multiple zones.}
+#' \item{`targets` as a `numeric` vector}{
+#' Here a target value is specified for each feature.
+#' Additionally, for convenience, this format can be a single
+#' `numeric` value to assign the same target to each feature.
+#' Note that this format
+#' cannot be used to specify targets if `x` has multiple zones.
+#' }
 #'
-#' \item{`targets` as a `matrix` object}{containing a target for each feature
-#'   in each zone.
-#'   Here, each row corresponds to a different feature in argument to
-#'   `x`, each column corresponds to a different zone in argument to
-#'   `x`, and each cell contains the target value for a given feature
-#'   that the solution needs to secure in a given zone.}
+#' \item{`targets` as a `matrix` object}{
+#' Here a target value is specified for each feature in each zone.
+#' Each row corresponds to a different feature in
+#' `x`, each column corresponds to a different zone in
+#' `x`, and each cell contains a target value for representing a given feature
+#' in a given zone.
+#' }
 #'
-#' \item{`targets` as a `character` vector}{containing the column name(s) in the
-#'   feature data associated with the argument to `x` that
-#'   contain targets. This format can only be used when the
-#'   feature data associated with `x` is a [sf::st_sf()] or `data.frame`.
-#'   For problems that contain a single zone, the argument to `targets` must
-#'   contain a single column name. Otherwise, for problems that
-#'   contain multiple zones, the argument to `targets` must
-#'   contain a column name for each zone.}
+#' \item{`targets` as a `character` vector}{
+#' Here target values are specified based on the name(s) of column(s)
+#' in the feature data in `x`.
+#' This format can only be used when the
+#' feature data in `x` is a [sf::st_sf()] or `data.frame` object.
+#' If `x` has a single zone, then `targets` must
+#' contain a single `character` value.
+#' Otherwise, if `x` has multiple zones, then `targets` must
+#' contain a `character` value for each zone in `x`.
+#' }
 #'
 #' }
 #'
@@ -266,14 +271,14 @@ methods::setMethod(
     assert(
       is.data.frame(x$data$features),
       msg = paste(
-        "{.arg targets} cannot be a character vector, because the feature data",
-        "for {.arg x} are not a data frame."
+        "{.arg targets} cannot be a {.cls character} vector,",
+        "because the feature data for {.arg x} are not a data frame."
       )
     )
     assert(
       all(assertthat::has_name(x$data$features, targets)),
       msg = paste0(
-        "{.arg targets} must contain character values that are",
+        "{.arg targets} must contain {.cls character} values that are",
         "column names of the feature data for {.arg x}."
       )
     )
@@ -283,7 +288,7 @@ methods::setMethod(
         "numeric"
       ),
       msg = paste(
-        "{.arg targets} must contain character values that",
+        "{.arg targets} must contain {.cls character} values that",
         "refer to numeric columns of the feature data for {.arg x}."
       )
     )

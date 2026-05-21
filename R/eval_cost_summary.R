@@ -13,8 +13,8 @@ NULL
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'  [terra::rast()], or [sf::sf()] object.
-#'  The argument should be in the same format as the planning unit cost
-#'  data in the argument to `x`.
+#'  Note that `solution` must have the same format as the planning unit
+#'  data in `x`.
 #'  See the Solution format section for more information.
 #'
 #' @details
@@ -22,42 +22,48 @@ NULL
 #' [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009).
 #' Specifically, the cost of a solution is defined as the sum of the cost
 #' values, supplied when creating a [problem()] object
-#' (e.g., using the `cost_column` argument),
+#' (e.g., per `cost_column`),
 #' weighted by the status of each planning unit in the solution.
 #'
 #' @section Solution format:
-#' Broadly speaking, the argument to `solution` must be in the same format as
-#' the planning unit data in the argument to `x`.
+#' Broadly speaking, `solution` must be in the same format as
+#' the planning unit data in `x`.
 #' Further details on the correct format are listed separately
-#' for each of the different planning unit data formats:
+#' for each of the different planning unit data formats.
+#'
 #' `r solution_format_documentation("solution")`
 #'
 #' @return
-#'   A [tibble::tibble()] object containing the solution cost.
-#'   It contains the following columns:
+#' A [tibble::tibble()] object describing the solution cost.
+#' It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{problem}{`character` name of problem. Note that this column
-#'     is only present if `x` is a [multi_problem()] object.}
+#' \item{problem}{
+#' `character` name of problem. Note that this column
+#' is only present if `x` is a [multi_problem()] object.
+#' }
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistic associated with the `"overall"` value
+#' in this column is calculated using the entire solution
+#' (including all management zones if `x` has multiple zones).
+#' If `x` has multiple management zones, then summary statistics
+#' are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   \item{cost}{`numeric` cost value.
-#'     Greater values correspond to solutions that are more costly
-#'     to implement.
-#'     Thus conservation planning exercises typically prefer solutions
-#'     with smaller values, because they are cheaper to implement
-#'     (assuming all other relevant factors, such as feature representation,
-#'     are equal).}
+#' \item{cost}{
+#' `numeric` cost value.
+#' Greater values correspond to solutions that are more costly
+#' to implement.
+#' Thus conservation planning exercises typically prefer solutions
+#' with smaller values, because they are cheaper to implement
+#' (assuming all else is equal).
+#' }
 #'
-#'   }
+#' }
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

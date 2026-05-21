@@ -11,8 +11,9 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @param number_solutions `integer` number of attempts to generate
-#'   different solutions. Defaults to 10.
+#' @param number_solutions `integer` value denoting the
+#' number of required solutions.
+#' Defaults to 10.
 #'
 #' @details
 #' This strategy for generating a portfolio of solutions involves

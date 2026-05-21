@@ -9,7 +9,7 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @return An `integer` number of problems.
+#' @return An `integer` value.
 #'
 #' @examples
 #' \dontrun{
@@ -33,8 +33,7 @@ NULL
 #'       add_min_shortfall_objective(budget = b) %>%
 #'       add_relative_targets(0.8) %>%
 #'       add_binary_decisions()
-#'   ) %>%
-#'   add_hier_approach(rel_tol = 0)
+#'   )
 #'
 #' # print number of problems
 #' print(number_of_problems(mp))

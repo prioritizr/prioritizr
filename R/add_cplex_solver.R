@@ -12,8 +12,9 @@ NULL
 #'
 #' @inheritParams add_gurobi_solver
 #'
-#' @param presolve `logical` attempt to simplify the
-#'   problem before solving it? Defaults to `TRUE`.
+#' @param presolve `logical` value indicating if the
+#' optimization problem should be simplified before solving it?
+#' Defaults to `TRUE`.
 #'
 #' @details
 #' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a
@@ -26,7 +27,7 @@ NULL
 #' solver (i.e., [add_gurobi_solver()]).
 #' We recommend using this solver if the *Gurobi* solver is not available.
 #' Licenses are available for the *IBM CPLEX* software to academics at no cost
-#' (see <  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
+#' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
 #'
 #' @section Installation:
 #' The \pkg{cplexAPI} package is used to interface with *IBM CPLEX* software.
@@ -39,7 +40,7 @@ NULL
 #' ```
 #'   export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 #' ```
-#' Please Note that you may need to change the version number in the file path
+#' Please note that you may need to change the version number in the file path
 #' (i.e., `"CPLEX_Studio128"`). After specifying the `CPLEX_BIN`
 #' environmental variable, the \pkg{cplexAPI} package can be installed.
 #' Since the \pkg{cplexAPI} package is not available on the

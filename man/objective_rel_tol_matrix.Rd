@@ -31,7 +31,7 @@ solutions based on these sets will ensure optimality for the
 objectives with zero values. Defaults to \code{TRUE}.}
 }
 \value{
-A \code{numeric} matrix with relative tolerance values. Here, rows correspond to
+A \code{numeric} matrix. Here, rows correspond to
 different sets of each relative tolerance values and columns correspond to
 different objectives.
 }
@@ -142,12 +142,12 @@ obj_matrix <- attributes(ms2)$objective
 # preview the objective values
 head(obj_matrix)
 
-# plot the objectives values to visualize the approximated Pareto frontier
+# plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
 # minimize representation shortfalls)
 plot(
   obj_matrix,
-  main = "Approximated Pareto frontier",
+  main = "Trade-offs between objectives",
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )

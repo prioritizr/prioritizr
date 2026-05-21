@@ -17,12 +17,12 @@
 
 \item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
-\item{run_checks}{\code{logical} flag indicating whether presolve checks
+\item{run_checks}{\code{logical} value indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
 the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
-Skipping these checks may reduce run time for large problems.}
+Note that skipping these checks may reduce run time for large problems.}
 
-\item{force}{\code{logical} flag indicating if an attempt to should be
+\item{force}{\code{logical} value indicating if an attempt to should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
 }
@@ -66,40 +66,47 @@ corresponds to a solution based on the following types of planning units.
 
 \describe{
 
-\item{\code{a} has \code{numeric} planning units}{The solution will be
-returned as a \code{numeric} vector. Here, each element in the vector
+\item{\code{a} has \code{numeric} planning units}{
+Here the solution will be
+returned as a \code{numeric} vector. In particular, each element in the vector
 corresponds to a different planning unit.
 Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of such \code{numeric} vectors will be returned.}
+then a \code{list} of such \code{numeric} vectors will be returned.
+}
 
-\item{\code{a} has \code{matrix} planning units}{The solution will be
+\item{\code{a} has \code{matrix} planning units}{
+Here the solution will be
 returned as a \code{matrix} object.
-Here, rows correspond to different planning units,
+In particular, rows correspond to different planning units,
 and columns correspond to different  management zones.
 Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of such \code{matrix} objects will be returned.}
+then a \code{list} of such \code{matrix} objects will be returned.
+}
 
-\item{\code{a} has \code{\link[terra:rast]{terra::rast()}} planning units}{The solution
+\item{\code{a} has \code{\link[terra:rast]{terra::rast()}} planning units}{
+Here the solution
 will be returned as a \code{\link[terra:rast]{terra::rast()}} object.
-If the argument to \code{x} contains multiple zones, then the object
+If \code{a} contains multiple zones, then the solution object
 will have a different layer for each management zone.
 Note that if a portfolio is used to generate multiple solutions,
-then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be returned.}
+then a \code{list} of \code{\link[terra:rast]{terra::rast()}} objects will be returned.
+}
 
 \item{\code{a} has \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} planning units}{
-The solution will be returned in the same data format as the planning
+Here the solution will be returned in the same data format as the planning
 units.
-Here, each row corresponds to a different planning unit,
+In particular, each row corresponds to a different planning unit,
 and columns contain solutions.
-If the argument to \code{a} contains a single zone, then the solution object
+If \code{a} contains a single zone, then the solution object
 will contain columns named by solution.
 Specifically, the column names containing the solution values
 be will named as \code{"solution_XXX"} where \code{"XXX"} corresponds to a solution
 identifier (e.g., \code{"solution_1"}).
-If the argument to \code{a} contains multiple zones, then the columns
+If \code{a} contains multiple zones, then the columns
 containing solutions will be named as \code{"solution_XXX_YYY"} where
 \code{"XXX"} corresponds to the solution identifier and \code{"YYY"} is the name
-of the management zone (e.g., \code{"solution_1_zone1"}).}
+of the management zone (e.g., \code{"solution_1_zone1"}).
+}
 
 }
 

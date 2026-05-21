@@ -21,7 +21,13 @@ NULL
 #' it has "repeatedly been shown to identify priorities that are biologically
 #' ineffective and economically inefficient" (Brown *et al.* 2015).
 #'
-#' @inheritParams add_max_cover_objective
+#' @param x [problem()] object.
+#'
+#' @param budget `numeric` value specifying the maximum expenditure permitted
+#' for the solution. If `x` has multiple zones, then `budget` can be
+#' (i) a single `numeric` value to specify an overall budget
+#' for the entire solution or (ii) a `numeric` vector to specify
+#' a budget for each zone (separately) in the solution.
 #'
 #' @details
 #' The maximum weighted sum objective seeks to maximize the overall level of
@@ -78,7 +84,9 @@ NULL
 #' with penalties set according to cost values
 #' (via [add_linear_penalties()]).
 #'
-#' @inherit add_max_cover_objective return
+#' @seealso
+#' See [objectives] for an overview of all functions for adding objectives.
+#' Also, see [add_feature_weights()] to specify weights for different features.
 #'
 #' @seealso
 #' See [objectives] for an overview of all functions for adding objectives.

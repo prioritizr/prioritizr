@@ -389,7 +389,7 @@ optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -410,7 +410,7 @@ Set the model sense for the optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -430,7 +430,7 @@ Set lower bounds for the decision variables in the optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -450,7 +450,7 @@ Set upper bounds for the decision variables in the optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -463,7 +463,7 @@ Remove last linear constraint added to a problem.
 }
 
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}
@@ -490,7 +490,7 @@ Append linear constraints to the optimization problem.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An invisible \code{TRUE} indicating success.
+An invisible \code{TRUE}.
 }
 }
 \if{html}{\out{<hr>}}

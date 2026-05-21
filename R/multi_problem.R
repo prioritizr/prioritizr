@@ -18,7 +18,8 @@ NULL
 #' single-objective conservation planning problem that will be combined into a
 #' multi-objective problem. All of these problems must share the same
 #' planning units, zones, and decision variable types. They may have different
-#' their objectives, targets, constraints, or penalties.
+#' cost and feature data, as well as objectives, targets, constraints, and
+#' penalties.
 #'
 #' @param problem_names `character` vector with a name for each problem
 #' in `...`. Defaults to `NULL`, such that the problem names are defined
@@ -39,18 +40,24 @@ NULL
 #' (see [add_linear_constraints()]), multi-objective optimization provides a
 #' framework for jointly optimizing all of them together
 #' (Williams and Kendall 2017).
-#' Here, each objective is formulated separately as a [problem()] object,
+#' Here, each objective is formulated as a separate [problem()] object,
 #' and then combined together with the `multi_problem()` function.
 #' Although each of these [problem()] objects must have exactly the same
 #' planning units, zones, and decision types, they can have different
 #' objectives, features, targets, feature weights, and penalties.
+#' Additionally, they may also have different cost data and features.
 #' Note that any constraint specified in one of the [problem()] objects
-#' will be met at all stages during the multi-objective optimization process.
-#' Since budgets under budget-limited objectives (e.g.,
-#' [add_min_shortfall_objective()] and targets under the
-#' minimum set objective (i.e., [add_min_set_objective()]) are treated
-#' as constraints, they will also be met at all stages during the multi-
-#' objective optimization process.
+#' will be applied during all stages of multi-objective optimization.
+#' For example, this means that if one of the [problem()] objects has
+#' locked in constraints (per [add_locked_in_constraints()]), then
+#' these constraints will be applied during all stages of multi-objective
+#' optimization. As such, we recommended adding constraints to only one of the
+#' [problem()] objects to reduce processing time.
+#' Additionally, since budgets specified in budget-limited objectives (e.g.,
+#' [add_min_shortfall_objective()]) and targets under the
+#' minimum set objective (i.e., [add_min_set_objective()]) are
+#' (effectively) treated as constraints, they will also be applied during
+#' all stages of multi-objective optimization.
 #'
 #' @seealso
 #' See [problem()] for constructing single-objective problems.
@@ -182,7 +189,7 @@ multi_problem <- function(..., problem_names = NULL) {
       ),
       "i" = paste(
         "To specify solver settings for multi-objective optimization,",
-        "the solver should be added to the resulting {.fn multi_problem}."
+        "the solver should be added to the {.fn multi_problem} object."
       )
     ),
     call = NULL

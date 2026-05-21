@@ -12,125 +12,147 @@ NULL
 #'
 #' @inheritParams eval_cost_summary
 #'
-#' @param include_zone `logical` include the `zone` column in the output?
-#'   Defaults to `TRUE` for problems that contain multiple zones.
+#' @param include_zone `logical` value indicating if the returned object
+#' should contain a `zone` column?
+#' Defaults to `TRUE` if `x` has multiple zones.
 #'
-#' @param include_sense `logical` include the `sense` column in the output?
-#'   Defaults to `TRUE` for problems that contain multiple zones.
+#' @param include_sense `logical` value indicating if the returned object
+#' should contain a `sense` column?
+#' Defaults to `TRUE` if `x` has multiple zones.
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A [tibble::tibble()] object.
-#'   Here, each row describes information for a different target.
-#'   It contains the following columns:
+#' @return
+#' A [tibble::tibble()] object.
+#' Here, each row provides information for a different target.
+#' It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{problem}{`character` name of problem. Note that this column
-#'   is only present if `x` is a [multi_problem()] object.}
+#' \item{problem}{
+#' `character` name of problem. Note that this column
+#' is only present if `x` is a [multi_problem()] object.
+#' }
 #'
-#'   \item{feature}{`character` name of the feature associated with each
-#'     target.}
+#' \item{feature}{
+#' `character` name of the feature associated with each target.
+#' }
 #'
-#'   \item{zone}{`list` of `character` zone names associated with each target.
-#'     This column is in a list-column format because a single target can
-#'     correspond to multiple zones (see [add_manual_targets()] for details
-#'     and examples).
-#'     For an example of converting the list-column format to a standard
-#'     `character` column format, please see the Examples section.
-#'     This column is only included if the argument to `include_zones`
-#'     is `TRUE`.}
+#' \item{zone}{
+#' `list` of `character` zone names associated with each target.
+#' This column is in a list-column format because a single target can
+#' correspond to multiple zones (see [add_manual_targets()] for details
+#' and examples).
+#' For an example of converting the list-column format to a standard
+#' `character` column format, please see the Examples section.
+#' This column is only included if `include_zones = TRUE`.
+#' }
 #'
-#'   \item{sense}{`character` sense associated with each target.
-#'     Sense values specify the nature of the target.
-#'     Typically (e.g., when using the [add_absolute_targets()] or
-#'     [add_relative_targets()] functions), targets are specified using sense
-#'     values indicating that the total amount of a feature held within a
-#'     solution (ideally) be greater than or equal to a threshold amount
-#'     (i.e., a  sense value of `">="`).
-#'     Additionally, targets (i.e., using the [add_manual_targets()] function)
-#'     can also be specified using sense values indicating that the total
-#'     amount of a feature held within a solution must be equal to a
-#'     threshold amount (i.e., a sense value of `"="`) or smaller than or equal
-#'     to a threshold amount (i.e., a sense value of `"<="`).
-#'     This column is only included if the argument to `include_sense` is
-#'     `TRUE`.}
+#' \item{sense}{
+#' `character` sense associated with each target.
+#' Sense values specify the nature of the target.
+#' Typically (e.g., when using the [add_absolute_targets()] or
+#' [add_relative_targets()] functions), targets are specified using sense
+#' values indicating that the total amount of a feature held within a
+#' solution (ideally) be greater than or equal to a threshold amount
+#' (i.e., a  sense value of `">="`).
+#' Additionally, targets (i.e., using the [add_manual_targets()] function)
+#' can also be specified using sense values indicating that the total
+#' amount of a feature held within a solution must be equal to a
+#' threshold amount (i.e., a sense value of `"="`) or smaller than or equal
+#' to a threshold amount (i.e., a sense value of `"<="`).
+#' This column is only included if `include_sense = TRUE`.}
 #'
-#'   \item{met}{`logical` indicating if each target is met by the solution. This
-#'     column is calculated by checking if the total shortfall associated
-#'     with each target (i.e., `"absolute_shortfall`" column) is equal to
-#'    zero.}
+#' \item{met}{
+#' `logical` indicating if each target is met by the solution. This
+#' column is calculated by checking if the total shortfall associated
+#' with each target (i.e., `"absolute_shortfall`" column) is equal to
+#' zero.
+#' }
 #'
-#'   \item{total_amount}{`numeric` total amount of the feature available across
-#'     the entire conservation planning problem for meeting each target
-#'     (not just planning units selected within the solution).
-#'     For problems involving a single zone, this column is calculated
-#'     as the sum of all of the values for a given feature
-#'     (similar to values in the `total_amount` column produced by the
-#'     [eval_feature_representation_summary()] function).
-#'     For problems involving multiple zones,
-#'     this column is calculated as the sum of the values for the
-#'     feature associated with target (per the `"feature"` column),
-#'     across the zones associated with the target (per the `"zone"` column).}
+#' \item{total_amount}{
+#' `numeric` total amount of the feature available across
+#' the entire conservation planning problem for meeting each target
+#' (not just planning units selected within the solution).
+#' If `x` has a single zone, then this column is calculated
+#' as the sum of all of the values for a given feature
+#' (similar to values in the `total_amount` column produced by the
+#' [eval_feature_representation_summary()] function).
+#' Otherwise, if `x` has multiple zones, then this column is calculated as the
+#' sum of the values for the
+#' feature associated with target (per the `"feature"` column),
+#' across the zones associated with the target (per the `"zone"` column).
+#' }
 #'
-#'   \item{absolute_target}{`numeric` total threshold amount associated with
-#'     each target.}
+#' \item{absolute_target}{
+#' `numeric` total threshold amount associated with each target.
+#' }
 #'
-#'   \item{absolute_held}{`numeric` total amount held within the solution for
-#'     the feature and (if relevant) zones associated with each target (per the
-#'     `"feature"` and `"zone"` columns, respectively).
-#'     This column is calculated as the sum of the feature data,
-#'     supplied when creating a [problem()] object
-#'     (e.g., presence/absence values), weighted by the status of each
-#'     planning unit in the solution (e.g., selected or not for
-#'     prioritization).}
+#' \item{absolute_held}{
+#' `numeric` total amount held within the solution for
+#' the feature and (if relevant) zones associated with each target (per the
+#' `"feature"` and `"zone"` columns, respectively).
+#' This column is calculated as the sum of the feature data,
+#' supplied when creating a [problem()] object
+#' (e.g., presence/absence values), weighted by the status of each
+#' planning unit in the solution (e.g., selected or not for
+#' prioritization).
+#' }
 #'
-#'   \item{absolute_shortfall}{ `numeric` total amount by which the solution
-#'     fails to meet each target.
-#'     This column is calculated as the difference between the total amount
-#'     held within the solution for the feature and (if relevant) zones
-#'     associated with the target (i.e., `"absolute_held"` column) and the
-#'     target total threshold amount (i.e., `"absolute_target"` column), with
-#'     values set to zero depending on the sense specified for the target
-#'     (e.g., if the target sense is `>=` then the difference is
-#'     set to zero if the value in the `"absolute_held"` is smaller than
-#'     that in the `"absolute_target"` column).}
+#' \item{absolute_shortfall}{
+#' `numeric` total amount by which the solution
+#' fails to meet each target.
+#' This column is calculated as the difference between the total amount
+#' held within the solution for the feature and (if relevant) zones
+#' associated with the target (i.e., `"absolute_held"` column) and the
+#' target total threshold amount (i.e., `"absolute_target"` column), with
+#' values set to zero depending on the sense specified for the target
+#' (e.g., if the target sense is `>=` then the difference is
+#' set to zero if the value in the `"absolute_held"` is smaller than
+#' that in the `"absolute_target"` column).
+#' }
 #'
-#'   \item{relative_target}{`numeric` proportion threshold amount associated
-#'     with each target.
-#'     This column is calculated by dividing the total threshold amount
-#'     associated with each target (i.e., `"absolute_target"` column) by
-#'     the total amount associated with each target
-#'     (i.e., `"total_amount"` column).}
+#' \item{relative_target}{
+#' `numeric` proportion threshold amount associated
+#' with each target.
+#' This column is calculated by dividing the total threshold amount
+#' associated with each target (i.e., `"absolute_target"` column) by
+#' the total amount associated with each target
+#' (i.e., `"total_amount"` column).
+#' }
 #'
-#'   \item{relative_held}{`numeric` proportion held within the solution for the
-#'     feature and (if relevant) zones associated with each target (per the
-#'     `"feature"` and `"zone"` columns, respectively).
-#'     This column is calculated by dividing the total amount held
-#'     for each target (i.e., `"absolute_held"` column) by the
-#'     total amount for with each target
-#'     (i.e., `"total_amount"` column). Since this metric
-#'     is only appropriate for describing how well a solution meets targets
-#'     that have a `">="` sense, targets with a `"<="` or `"="` sense are
-#'     assigned missing (`NA`) values in this column.}
+#' \item{relative_held}{
+#' `numeric` proportion held within the solution for the
+#' feature and (if relevant) zones associated with each target (per the
+#' `"feature"` and `"zone"` columns, respectively).
+#' This column is calculated by dividing the total amount held
+#' for each target (i.e., `"absolute_held"` column) by the
+#' total amount for with each target
+#' (i.e., `"total_amount"` column). Since this metric
+#'  is only appropriate for describing how well a solution meets targets
+#' that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#' assigned missing (`NA`) values in this column.
+#' }
 #'
-#'   \item{relative_shortfall}{`numeric` proportion by which the solution fails
-#'     to meet each target.
-#'     This column is calculated by dividing the total shortfall for
-#'     each target (i.e., `"absolute_shortfall"` column) by the
-#'     total threshold amount associated with each target (i.e.,
-#'     `"absolute_target"` column).}
+#' \item{relative_shortfall}{
+#' `numeric` proportion by which the solution fails
+#' to meet each target.
+#' This column is calculated by dividing the total shortfall for
+#' each target (i.e., `"absolute_shortfall"` column) by the
+#' total threshold amount associated with each target (i.e.,
+#' `"absolute_target"` column).
+#' }
 #'
-#'   \item{relative_met}{`numeric` proportion of the target that is
-#'     fulfilled by the solution. This column is calculated by
-#'     dividing the amount held by the solution
-#'     (i.e., `"absolute_held"` column) by the target threshold
-#'     (i.e., `"absolute_target"` column) and then clamping the
-#'     resulting values to ensure that all values are less than
-#'     or equal to one. Since this metric
-#'     is only appropriate for describing how well a solution meets targets
-#'     that have a `">="` sense, targets with a `"<="` or `"="` sense are
-#'     assigned missing (`NA`) values in this column.}
+#' \item{relative_met}{
+#' `numeric` proportion of the target that is
+#' fulfilled by the solution. This column is calculated by
+#' expressing the amount held by the solution
+#' (i.e., `"absolute_held"` column) as a fraction of the target threshold.
+#' Since this metric
+#' is only appropriate for describing how well a solution meets targets
+#' that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#' assigned missing (`NA`) values in this column.
+#' }
 #'
 #' }
 #'

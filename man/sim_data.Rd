@@ -102,48 +102,63 @@ prioritizations that only contain a single management zone.
 
 \describe{
 
-\item{\code{get_sim_pu_raster()}}{Import planning unit data that are stored
+\item{\code{get_sim_pu_raster()}}{
+Import planning unit data that are stored
 in raster format.
 Here, cell values indicate planning unit cost and missing (\code{NA})
-values indicate that a cell is not a planning unit.}
+values indicate that a cell is not a planning unit.
+}
 
-\item{\code{get_sim_locked_in_raster()}}{Import planning unit data
+\item{\code{get_sim_locked_in_raster()}}{
+Import planning unit data
 that are stored in raster format.
 Here, cell values are binary and indicate if planning units should be
-locked in to a solution.}
+locked in to a solution.
+}
 
-\item{\code{get_sim_locked_out_raster()}}{Import planning unit data
+\item{\code{get_sim_locked_out_raster()}}{
+Import planning unit data
 that are stored in raster format.
 Here, cell values are binary and indicate if planning units
-should be locked out from a solution.}
+should be locked out from a solution.
+}
 
-\item{\code{get_sim_pu_polygons()}}{Import planning unit data stored in vector
+\item{\code{get_sim_pu_polygons()}}{
+Import planning unit data stored in vector
 format. Here, planning units are represented using spatial polygons
 (e.g., each polygon corresponds to a different management areas).
 The data contains columns indicating the expenditure
 required for prioritizing each planning unit (\code{"cost"} column), if the
 planning units should be selected in the solution (\code{"locked_in"} column),
 and if the planning units should never be selected in the solution
-(\code{"locked_out"} column).}
+(\code{"locked_out"} column).
+}
 
-\item{\code{get_sim_pu_points()}}{Import planning unit data stored in vector
+\item{\code{get_sim_pu_points()}}{
+Import planning unit data stored in vector
 format. Here, planning units are represented using spatial lines
-(e.g., each line corresponds to a different section along a river) .
-The attribute table follows the same conventions as for
-\code{sim_pu_polygons}.}
+(e.g., each line corresponds to a different section along a river).
+The columns follow the same conventions as for
+\code{get_sim_pu_polygons()}.
+}
 
-\item{\code{get_sim_pu_lines()}}{Import planning unit data stored in vector
+\item{\code{get_sim_pu_lines()}}{
+Import planning unit data stored in vector
 format. Here, planning units are represented using spatial points
-(e.g., each point corresponds to a different site) .
-The attribute table follows the same conventions as for
-\code{sim_pu_polygons}.}
+(e.g., each point corresponds to a different site).
+The columns follow the same conventions as for
+\code{get_sim_pu_polygons()}.
+}
 
-\item{\code{get_sim_features()}}{Import feature data stored in raster format.
+\item{\code{get_sim_features()}}{
+Import feature data stored in raster format.
 Here, data describe the spatial distribution of five species.
 Each layer corresponds to a different species, and
-cell values indicate habitat suitability.}
+cell values indicate habitat suitability.
+}
 
-\item{\code{get_sim_phylogeny()}}{Import phylogenetic tree for the five species.}
+\item{\code{get_sim_phylogeny()}}{
+Import phylogenetic tree for the five features in \code{get_sim_features()}.}
 
 }
 }
@@ -160,19 +175,22 @@ zone.
 \item{\code{get_sim_complex_pu_raster()}}{
 Import planning unit data that are stored in raster format.
 Here, cell values indicate planning unit cost and missing (\code{NA})
-values indicate that a cell is not a planning unit.}
+values indicate that a cell is not a planning unit.
+}
 
 \item{\code{get_sim_complex_locked_in_raster()}}{
 Import planning unit data
 that are stored in raster format.
 Here, cell values are binary and indicate if planning units should be
-locked in to a solution.}
+locked in to a solution.
+}
 
 \item{\code{get_sim_complex_locked_out_raster()}}{
 Import planning unit data
 that are stored in raster format.
 Here, cell values are binary and indicate if planning units
-should be locked out from a solution.}
+should be locked out from a solution.
+}
 
 \item{\code{get_sim_complex_features()}}{
 Import feature data stored in raster
@@ -180,7 +198,8 @@ format.
 Here, data describe the spatial distribution of 100 species.
 Each layer corresponds to a different species, and
 cells contain binary values indicating if they currently contain
-habitat for a given species.}
+habitat for a given species.
+}
 
 \item{\code{get_sim_complex_historical_features()}}{
 Import potential feature data
@@ -188,7 +207,8 @@ stored in raster format.
 Here, data describe the spatial distribution of 100 species.
 Each layer corresponds to a different species, and
 cells contain binary values indicating if they historically contained
-habitat for a given species.}
+habitat for a given species.
+}
 
 }
 }
@@ -201,15 +221,18 @@ that contain multiple management zones.
 
 \describe{
 
-\item{\code{get_sim_zones_pu_raster()}}{Import planning unit data
+\item{\code{get_sim_zones_pu_raster()}}{
+Import planning unit data
 for multiple management zones that are stored in raster format.
 Here, each layer indicates the cost for a different management
-zone. Cells with \code{NA} values in a given zone indicate that a
+zone. Cells with missing (\code{NA}) values in a given zone indicate that a
 planning unit cannot be allocated to that zone in a solution.
-Additionally, cells with \code{NA} values in all layers are not a
-planning unit.}
+Additionally, cells with missing (\code{NA}) values in all layers are not a
+planning unit.
+}
 
-\item{\code{get_sim_zones_pu_polygons()}}{Import planning unit data for
+\item{\code{get_sim_zones_pu_polygons()}}{
+Import planning unit data for
 multiple management zones stored in vector format.
 Here, planning units are represented using spatial polygons.
 The data contains columns indicating the
@@ -220,12 +243,15 @@ of columns indicating the value that each planning unit that should be
 assigned in the solution (\code{"locked_1"}, \code{"locked_2"}, \code{"locked_3"}
 columns).
 In these locked columns, planning units that should not be locked to a
-specific value are assigned a missing (\code{NA}) value.}
+specific value are assigned a missing (\code{NA}) value.
+}
 
-\item{\code{get_sim_zones_features()}}{Import feature data for multiple
+\item{\code{get_sim_zones_features()}}{
+Import feature data for multiple
 management zones stored in raster format.
 Here, data describe the spatial distribution of ten species
-under three different management zones.}
+under three different management zones.
+}
 
 }
 }
@@ -288,7 +314,7 @@ plot_names <- paste0(
 )
 plot(
   terra::rast(as.list(sim_zones_features)),
-   main = plot_names, axes = FALSE
+  main = plot_names, axes = FALSE
 )
 }
 }

@@ -10,12 +10,11 @@ NULL
 #' symmetric spatial relationships between planning units.
 #'
 #' @param x [problem()] object that
-#'   contains planning unit and zone data to ensure that the argument to
-#'   `data` is converted correctly. This argument can be set to
-#'   `NULL` if checks are not required (not recommended).
+#' contains planning unit and zone data for running checks to help ensure
+#' correctness.
 #'
 #' @param data `data.frame` object with the columns `"id1"`,
-#'   `"id2"`, and `"boundary"`.
+#' `"id2"`, and `"boundary"`.
 #'
 #' @return
 #' A [`Matrix::dgCMatrix-class`] sparse matrix object.
@@ -76,6 +75,7 @@ marxan_boundary_data_to_matrix <- function(x, data) {
 
 internal_marxan_boundary_data_to_matrix <- function(x, data,
                                                     call = fn_caller_env()) {
+  # assert valid arguments
   assert(is.data.frame(data), call = call)
   assert(
     !assertthat::has_name(data, "zone1"),

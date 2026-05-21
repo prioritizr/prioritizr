@@ -32,7 +32,7 @@ contain zeros for all objectives except a single objective.
 Defaults to \code{TRUE}.}
 }
 \value{
-A \code{numeric} matrix with weight values. Here, rows correspond to
+A \code{numeric} matrix. Here, rows correspond to
 different sets of each weight values and columns correspond to different
 objectives. Note that the sets of weights values are filtered
 to remove sets of weights that - despite having different values -
@@ -127,12 +127,12 @@ obj_matrix <- attributes(ms2)$objective
 # preview the objective values
 head(obj_matrix)
 
-# plot the objectives values to visualize the approximated Pareto frontier
+# plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
 # minimize representation shortfalls)
 plot(
   obj_matrix,
-  main = "Approximated Pareto frontier",
+  main = "Trade-offs between objectives",
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )

@@ -25,7 +25,7 @@ Portfolio <- R6::R6Class(
     #' Run the portfolio to generate solutions.
     #' @param x [optimization_problem()] object.
     #' @param solver [`Solver-class`] object.
-    #' @return `list` of solutions.
+    #' @return A `list` of solutions.
     run = function(x, solver) {
       # nocov start
       cli::cli_abort("No defined $run method.", .internal = TRUE)

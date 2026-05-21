@@ -23,8 +23,8 @@ MultiObjApproach <- R6::R6Class(
     #' @description
     #' Solve a multi-objective optimization problem to generate a solution.
     #' @param x `list` containing a compiled multi-objective optimization
-    #' problem (e.g., generated with [multi_compile()]. 
-    #' @return `list` of solutions.
+    #' problem (e.g., generated with [multi_compile()]).
+    #' @return A `list` of solutions.
     run = function(x) {
       # nocov start
       cli::cli_abort("No defined $apply method.", .internal = TRUE)

@@ -16,7 +16,7 @@ NULL
 #' and only two of these cells contain non-missing (`NA`) values.
 #' As such, this dataset would have 90 total units and two planning units.
 #'
-#' @return An `integer` number of total units.
+#' @return An `integer` value.
 #'
 #' @name number_of_total_units
 #'
@@ -70,8 +70,7 @@ NULL
 #'       add_min_shortfall_objective(budget = b) %>%
 #'       add_relative_targets(0.8) %>%
 #'       add_binary_decisions()
-#'   ) %>%
-#'   add_hier_approach(rel_tol = 0)
+#'   )
 #'
 #' # print number of total units
 #' print(number_of_total_units(mp))

@@ -31,7 +31,7 @@ or semi-continuous decisions.
 }
 \section{Data format}{
 
-The argument to \code{data} should be a \code{data.frame} with the following columns:
+Here \code{data} must be a \code{data.frame} with the following columns.
 
 \describe{
 
@@ -45,19 +45,22 @@ Additionally, if \code{x} has \code{numeric} vector planning units,
 then these values must refer to the element indices of the planning unit
 data.
 Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
-then these values must refer to cell indices.}
+then these values must refer to cell indices.
+}
 
 \item{zone}{\code{character} names of zones. Note that this
-argument is optional for arguments to \code{x} that contain a single
-zone.}
+column is optional if \code{x} has a single zone.
+}
 
 \item{lower}{\code{numeric} lower values. These values indicate the minimum
 value that each planning unit can be allocated to in each zone
-in the solution.}
+in the solution.
+}
 
 \item{upper}{\code{numeric} upper values. These values indicate the maximum
 value that each planning unit can be allocated to in each zone
-in the solution.}
+in the solution.
+}
 
 }
 }
@@ -164,8 +167,6 @@ plot(s5[, c("solution", "solution_bounded")], axes = FALSE)
 
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 \code{\link{add_contiguity_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},

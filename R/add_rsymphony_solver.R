@@ -25,10 +25,7 @@ NULL
 #' run time and solution quality of different solvers when applied to
 #' different sized datasets.
 #'
-#' @inherit add_gurobi_solver return references
-#'
-#' @seealso
-#' See [solvers] for an overview of all functions for adding a solver.
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @family solvers
 #'

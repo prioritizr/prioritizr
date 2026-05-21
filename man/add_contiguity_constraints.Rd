@@ -19,25 +19,24 @@
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds
-to a different zone in the argument to \code{x}, and cell values must
+to a different zone in \code{x}, and cell values must
 contain binary \code{numeric} values (i.e., one or zero) that indicate
-if connected planning units (as specified in the argument to
-\code{data}) should be still considered connected if they are allocated to
+if connected planning units (as specified per \code{data}) should be considered
+connected if they are allocated to
 different zones. The cell values along the diagonal
 of the matrix indicate if planning units should be subject to
 contiguity constraints when they are allocated to a given zone. Note
-arguments to \code{zones} must be symmetric, and that a row or column has
+that \code{zones} must have symmetric values, and that if a row or column has
 a value of one then the diagonal element for that row or column must also
-have a value of one. The default argument to \code{zones} is an identity
+have a value of one. Defaults to an identity
 matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that planning units are only considered connected if they
 are both allocated to the same zone.}
 
-\item{data}{\code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}
+\item{data}{\code{NULL}, \code{matrix}, \code{Matrix}, or \code{data.frame}
 object showing which planning units are connected with each
-other. The argument defaults to \code{NULL} which means that the
-connection data is calculated automatically using the
-\code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+other. Defaults to \code{NULL} such that \code{data} is calculated
+automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
 See the Data format section for more information.}
 }
 \value{
@@ -56,37 +55,44 @@ mathematical formulations detailed in Önal and Briers (2006).
 \section{Data format}{
 
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as a \code{NULL} value}{indicating that connection data should be
-calculated automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
-This is the default argument.
-Note that the connection data must be manually defined
+\item{\code{data} as a \code{NULL} value}{
+Here connection data are calculated automatically using the
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+This is the default for \code{data}.
+Note that the connection data must be manually specified
 using one of the other formats below when the planning unit data
-in the argument to \code{x} is not spatially referenced (e.g.,
-in \code{data.frame} or \code{numeric} format).}
+in \code{x} are not spatially referenced (e.g.,
+in \code{data.frame} or \code{numeric} format).
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell indicates if the
-two planning units are connected or not. Cell values should be binary
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and
+cell values indicate if two planning units are connected or not.
+In particular, cell values should be binary
 \code{numeric} values (i.e., one or zero). Cells that occur along the
-matrix diagonal have no effect on the solution at all because each
-planning unit cannot be a connected with itself.}
+matrix diagonal have no effect on the solution because each
+planning unit cannot be a connected with itself.
+}
 
-\item{\code{data} as a \code{data.frame} object}{containing columns that are named
-\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-denotes the connectivity between two planning units following the
-\emph{Marxan} format. The \code{"boundary"} column should contain
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"boundary"} column should contain
 binary \code{numeric} values that indicate if the two planning units
 specified in the \code{"id1"} and \code{"id2"} columns are connected
 or not. This data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g., if data is present for planning units 2 and 3, then
+specified (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
-unless connectivity data is also provided for planning units 3 and 2).}
+unless connectivity data is also provided for planning units 3 and 2).
+}
 
 }
 }
@@ -224,8 +230,6 @@ plot(s7, main = "solution", axes = FALSE)
 reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},

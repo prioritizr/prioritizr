@@ -29,22 +29,22 @@ simulate_data(x, n, scale, intensity, sd, transform)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
-\item{n}{\code{integer} number of layers to simulate.
+\item{n}{\code{integer} value denoting the number of layers to simulate.
 Defaults to 1.}
 
-\item{scale}{\code{numeric} parameter to control level of spatial
+\item{scale}{\code{numeric} value denoting the level of spatial
 auto-correlation in the simulated data.
 Defaults to 0.5.}
 
-\item{intensity}{\code{numeric} average value of simulated data.
-Defaults to 0.}
+\item{intensity}{\code{numeric} value denoting the average value of simulated
+data. Defaults to 0.}
 
-\item{sd}{\code{numeric} standard deviation of simulated data.
+\item{sd}{\code{numeric} value denoting the standard deviation of simulated data.
 Defaults to 1.}
 
-\item{transform}{\code{function} transform values output from the simulation.
+\item{transform}{\code{function} to transform simulated data.
 Defaults to the \code{\link[=identity]{identity()}} function such that values remain the same
-following transformation.}
+after simulation.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.

@@ -14,18 +14,18 @@ NULL
 #' @inheritParams add_cplex_solver
 #' @inheritParams add_gurobi_solver
 #'
-#' @param presolve `integer` number indicating how intensively the
-#'   solver should try to simplify the problem before solving it. Available
-#'   options are: (0) disable pre-solving, (1) conservative
-#'   level of pre-solving, and (2) very aggressive level of pre-solving .
-#'   The default value is 2.
+#' @param presolve `integer` value indicating how intensively the
+#' solver should try to simplify the problem before solving it. Available
+#' options include (0) disable pre-solving, (1) conservative
+#' level of pre-solving, and (2) very aggressive level of pre-solving .
+#' Defaults to 2.
 #'
 #' @param control `list` with additional parameters for tuning
-#'  the optimization process.
-#'  For example, `control = list(strategy = 2)` could be used to
-#'  set the `strategy` parameter.
-#'  See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
-#'  for information on the parameters.
+#' the optimization process.
+#' For example, `control = list(strategy = 2)` could be used to
+#' set the `strategy` parameter.
+#' See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
+#' for information on the parameters.
 #'
 #' @details
 #' [*CBC*](https://github.com/coin-or/Cbc) is an

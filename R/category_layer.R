@@ -7,8 +7,7 @@ NULL
 #' [terra::rast()] object where pixel values indicate which input layer
 #' had the greatest value.
 #'
-#' @param x [terra::rast()] object containing multiple
-#'   layers.
+#' @param x [terra::rast()] object containing multiple layers.
 #'
 #' @details
 #' This function is provided to help manage data that encompass

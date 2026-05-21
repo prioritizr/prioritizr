@@ -13,8 +13,8 @@ calibrate_cohon_penalty(x, approx = TRUE, verbose = TRUE)
 used for the calculations. Defaults to \code{TRUE} to reduce computational burden.
 See Details section for more information.}
 
-\item{verbose}{\code{logical} should information be displayed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric} value corresponding to the calibrated penalty value.

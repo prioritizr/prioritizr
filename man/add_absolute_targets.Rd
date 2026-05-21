@@ -19,7 +19,7 @@ add_absolute_targets(x, targets)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{targets}{object that specifies the targets for each feature.
+\item{targets}{Object that specifies the targets for each feature.
 See the Targets format section for more information.}
 }
 \value{
@@ -55,27 +55,32 @@ The \code{targets} for a problem can be specified using the following formats.
 
 \describe{
 
-\item{\code{targets} as a \code{numeric} vector}{containing target values for each
-feature.
+\item{\code{targets} as a \code{numeric} vector}{
+Here a target value is specified for each feature.
 Additionally, for convenience, this format can be a single
-value to assign the same target to each feature. Note that this format
-cannot be used to specify targets for problems with multiple zones.}
+\code{numeric} value to assign the same target to each feature.
+Note that this format
+cannot be used to specify targets if \code{x} has multiple zones.
+}
 
-\item{\code{targets} as a \code{matrix} object}{containing a target for each feature
-in each zone.
-Here, each row corresponds to a different feature in argument to
-\code{x}, each column corresponds to a different zone in argument to
-\code{x}, and each cell contains the target value for a given feature
-that the solution needs to secure in a given zone.}
+\item{\code{targets} as a \code{matrix} object}{
+Here a target value is specified for each feature in each zone.
+Each row corresponds to a different feature in
+\code{x}, each column corresponds to a different zone in
+\code{x}, and each cell contains a target value for representing a given feature
+in a given zone.
+}
 
-\item{\code{targets} as a \code{character} vector}{containing the column name(s) in the
-feature data associated with the argument to \code{x} that
-contain targets. This format can only be used when the
-feature data associated with \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame}.
-For problems that contain a single zone, the argument to \code{targets} must
-contain a single column name. Otherwise, for problems that
-contain multiple zones, the argument to \code{targets} must
-contain a column name for each zone.}
+\item{\code{targets} as a \code{character} vector}{
+Here target values are specified based on the name(s) of column(s)
+in the feature data in \code{x}.
+This format can only be used when the
+feature data in \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} object.
+If \code{x} has a single zone, then \code{targets} must
+contain a single \code{character} value.
+Otherwise, if \code{x} has multiple zones, then \code{targets} must
+contain a \code{character} value for each zone in \code{x}.
+}
 
 }
 }

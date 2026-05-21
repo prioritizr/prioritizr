@@ -20,7 +20,7 @@ NULL
 #' (i.e., each element corresponds to a different objective),
 #' and a (`$opt`) [`OptimizationProblem-class`] object with all
 #' of the constraints present in `x` (note that the objective coefficients
-#' for this object are all zero).
+#' in the returned object are all zero).
 #'
 #' @seealso
 #' See [compile()] to create an [`OptimizationProblem-class`] object.
@@ -47,8 +47,7 @@ NULL
 #'       add_min_shortfall_objective(budget) %>%
 #'       add_relative_targets(0.45) %>%
 #'       add_binary_decisions()
-#'   ) %>%
-#'   add_default_solver(gap = 0, verbose = FALSE)
+#'   )
 #'
 #' # compile into multi-objective optimization problem
 #' mo <- multi_compile(mp)

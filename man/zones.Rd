@@ -13,17 +13,19 @@ zones(..., zone_names = NULL, feature_names = NULL)
 }
 \arguments{
 \item{...}{\code{\link[terra:rast]{terra::rast()}} or \code{character} objects that
-pertain to the biodiversity data. See Details for more information.}
+pertain to the feature data. See Details for more information.}
 
-\item{zone_names}{\code{character} names of the management zones. Defaults
-to \code{NULL} which results in sequential integers.}
+\item{zone_names}{\code{character} names of the management zones.
+Defaults to \code{NULL} such that zones are assigned names according
+in sequential integers.}
 
-\item{feature_names}{\code{character} names of the features zones. Defaults
-to \code{NULL} which results in sequential integers.}
+\item{feature_names}{\code{character} names of the features.
+Defaults to \code{NULL} such that features are assigned names according
+in sequential integers.}
 }
 \value{
-A \code{\linkS4class{Zones}} object containing data for each zone, and
-the feature and zone names.
+A \code{\linkS4class{Zones}} object containing data for each zone, as well as the
+names of the features and zones.
 }
 \description{
 Organize data for multiple features for multiple management zones.
@@ -38,45 +40,28 @@ is allocated to a different zone.
 This function is used to store and organize data for use in a
 conservation planning \code{\link[=problem]{problem()}} that has multiple management
 zones.
-In all cases, the data for each zone is input as a separate argument.
+In particular, the data for each zone should be specified as a separate
+argument.
 The correct arguments depends on the type of planning unit data
 used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
 
 \item{\code{\link[=problem]{problem()}} will have \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}{
-\code{\link[terra:rast]{terra::rast()}} object can be supplied to specify the expected amount of
-each feature within each planning unit under each management zone.
+Here \code{\link[terra:rast]{terra::rast()}} objects can be specified to specify the expected amount
+of each feature within each planning unit under each management zone.
 Data for each zone should be specified as separate
 arguments, and the data for each feature in a given zone are specified
 in separate layers in a \code{\link[terra:rast]{terra::rast()}} object.
 Note that all layers for a given zone must have missing (\code{NA}) values in
-exactly the same cells.}
-
-\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}{
-\code{character} vector containing column names can
-be supplied to specify the expected amount of each feature under each
-zone. Note that these columns must not contain any missing (\code{NA}) values.}
-
-\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}}, \code{data.frame}, or
-\code{matrix} planning units}{
-\code{data.frame} object can be supplied to specify the
-expected amount of each feature under each zone.
-Following conventions used in \emph{Marxan}, the
-\code{data.frame} object should contain the following columns.
-\describe{
-\item{pu}{\code{integer} planning unit identifier.}
-\item{species}{\code{integer} feature identifier.}
-\item{amount}{\code{numeric} amount of the feature in the
-planning unit for a given zone.}
+exactly the same cells.
 }
 
-Note that data for each zone are specified in a separate argument, and
-the data contained in a single \code{data.frame} object should correspond to
-a single zone. Also, note that data are not required for all
-combinations of planning units, features, and zones. The expected amount of
-features in planning units under management zones that are
-missing from the table are assumed to be zero.}
+\item{\code{\link[=problem]{problem()}} will have \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}{
+Here \code{character} vectors containing column names can
+be used to specify the expected amount of each feature under each
+zone. Note that these columns must not contain any missing (\code{NA}) values.
+}
 
 }
 }
@@ -85,6 +70,7 @@ missing from the table are assumed to be zero.}
 # load planning unit data
 sim_pu_raster <- get_sim_pu_raster()
 
+# simulate distributions for three species under two management zones
 zone_1 <- simulate_species(sim_pu_raster, 3)
 zone_2 <- simulate_species(sim_pu_raster, 3)
 

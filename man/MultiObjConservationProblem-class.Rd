@@ -384,7 +384,7 @@ Create a new object with a solver added to the problem formulation.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An updated \code{ConservationProblem} object.
+An updated \code{MultiObjConservationProblem} object.
 }
 }
 \if{html}{\out{<hr>}}

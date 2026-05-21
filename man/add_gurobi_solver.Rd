@@ -21,39 +21,41 @@ add_gurobi_solver(
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is relative
-and expresses the acceptable deviance from the optimal objective.
+\item{gap}{\code{numeric} value denoting the optimality gap. This gap is relative
+and expresses the acceptable deviance from optimality.
 For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
 The default value is 0.1 (i.e., 10\% from optimality).}
 
-\item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
+\item{time_limit}{\code{numeric} value denoting the time limit (seconds) for
+generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
 (i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
-\item{presolve}{\code{integer} number indicating how intensively the
+\item{presolve}{\code{integer} value indicating how intensively the
 solver should try to simplify the problem before solving it. Available
 options are: (-1) automatically determine the intensity of
 pre-solving, (0) disable pre-solving, (1) conservative
 level of pre-solving, and (2) very aggressive level of pre-solving .
-The default value is 2.}
+Defaults to 2.}
 
-\item{threads}{\code{integer} number of threads to use for the
-optimization algorithm. The default value is 1.}
+\item{threads}{\code{integer} value denoting the number of threads to use during
+optimization.
+The default value is 1.}
 
-\item{first_feasible}{\code{logical} should the first feasible solution be
-be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
+\item{first_feasible}{\code{logical} value indicating if the first feasible
+solution should be returned? If \code{first_feasible = TRUE}, then the solver
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.
+relaxed problem, and is therefore often reasonably close to optimality.
 Defaults to \code{FALSE}.}
 
-\item{numeric_focus}{\code{logical} should extra attention be paid
+\item{numeric_focus}{\code{logical} value indicating if extra attention be paid
 to verifying the accuracy of numerical calculations? This may be
 useful when dealing with problems that may suffer from numerical
 instability issues.
@@ -61,7 +63,8 @@ Beware that it will likely substantially increase run time
 (sets the \emph{Gurobi} \code{NumericFocus} parameter
 to 2). Defaults to \code{FALSE}.}
 
-\item{node_file_start}{\code{numeric} threshold amount of memory (in GB).
+\item{node_file_start}{\code{numeric} value denoting a threshold amount of
+memory (in GB).
 Once the amount of memory (RAM) used to store information for solving
 the optimization problem exceeds this parameter value, the solver
 will begin storing this information on disk
@@ -79,14 +82,14 @@ to store information on disk when solving a given problem.}
 \item{start_solution}{\code{NULL} or object containing the starting solution
 for the solver. This is can be useful because specifying a starting
 solution can speed up the optimization process.
-Defaults to \code{NULL} such that no starting solution is used.
-To specify a starting solution, the argument to \code{start_solution} should
-be in the same format as the planning units (i.e., a \code{NULL}, \code{numeric},
+To specify a starting solution, \code{start_solution} should
+be in the same format as the planning units (i.e., a \code{numeric},
 \code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).
-See the Start solution format section for more information.}
+See the Start solution format section for more information.
+Defaults to \code{NULL} such that no starting solution is used.}
 
-\item{verbose}{\code{logical} should information be displayed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 
 \item{control}{\code{list} with additional parameters for tuning
 the optimization process.
@@ -96,7 +99,8 @@ See the \href{https://docs.gurobi.com/projects/optimizer/en/current/reference/pa
 for information on the parameters.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the \href{https://www.gurobi.com/}{\emph{Gurobi}} software
@@ -133,64 +137,63 @@ or using the following code:
 
 \section{Start solution format}{
 
-Broadly speaking, the argument to \code{start_solution} must be in the same
-format as the planning unit data in the argument to \code{x}.
-Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+Broadly speaking, \code{start_solution} must be in the same
+format as the planning unit data in \code{x}.
+Further details on the correct format are described below.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{start_solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{start_solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{start_solution}.
+\code{start_solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{start_solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{start_solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{start_solution}.
+missing (\code{NA}) values in \code{start_solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{start_solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{start_solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{start_solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{start_solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{start_solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{start_solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{start_solution}.
+values in \code{start_solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{start_solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{start_solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{start_solution} must also have the same
+Additionally, \code{start_solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{start_solution}.
+values in \code{start_solution}.
 }
 }
 }

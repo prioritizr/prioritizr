@@ -18,7 +18,7 @@ number_of_total_units(x, ...)
 \item{...}{not used.}
 }
 \value{
-An \code{integer} number of total units.
+An \code{integer} value.
 }
 \description{
 Extract the number of total units in an object.
@@ -80,8 +80,7 @@ mp <-
       add_min_shortfall_objective(budget = b) \%>\%
       add_relative_targets(0.8) \%>\%
       add_binary_decisions()
-  ) \%>\%
-  add_hier_approach(rel_tol = 0)
+  )
 
 # print number of total units
 print(number_of_total_units(mp))

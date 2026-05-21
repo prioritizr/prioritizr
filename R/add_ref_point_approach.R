@@ -5,9 +5,9 @@ NULL
 #'
 #' Add a reference point approach for multi-objective optimization to a
 #' multi-objective conservation planning problem (Wierzbicki 1980, Jaimes 2009).
-#' Broadly speaking, this approach considers a set of reference point
+#' Broadly speaking, this approach considers a set of (i) reference point
 #' parameters that specify an aspirational level of achievement for each
-#' objective and weight parameters that specify the relative importance
+#' objective and (ii) weight parameters that specify the relative importance
 #' for reaching the reference point for each objective.
 #' To ensure that solutions are not biased
 #' by differences in scale among the objectives, this approach
@@ -45,7 +45,7 @@ NULL
 #' Note that  values must follow the same order as the problems in `x`.
 #' Defaults to `NULL` such that these values are computed automatically.
 #'
-#' @param normalize_weights `logical` indicating if `weights` should be
+#' @param rescale `logical` indicating if `weights` should be
 #' normalized based on the best and worst objective values
 #' (per `best_obj` and `worst_obj`, respectively). This is important
 #' to ensure that the optimization process is not biased by differences
@@ -95,7 +95,7 @@ NULL
 #' Minimize sum o^O wo * so * max(ro - vo, 0)
 #' }
 #'
-#' If the weights should be normalized (per `normalize_weights = TRUE`), then
+#' If the weights should be normalized (per `rescale = TRUE`), then
 #' the scaling term for each objective is calculated
 #' with the following equation.
 #'
@@ -106,7 +106,7 @@ NULL
 #' }
 #'
 #' Conversely, if the weights should not be normalized
-#' (per `normalize_weights = FALSE`), then \eqn{s_o}{so}
+#' (per `rescale = FALSE`), then \eqn{s_o}{so}
 #' is set to a value of 1 for each objective.
 #'
 #' @inherit add_wtd_sum_approach return seealso
@@ -210,12 +210,12 @@ NULL
 #' # preview the objective values
 #' head(obj_matrix)
 #'
-#' # plot the objectives values to visualize the approximated Pareto frontier
+#' # plot the objectives values to visualize trade-offs
 #' # (note that smaller values are better because these objectives seek to
 #' # minimize representation shortfalls)
 #' plot(
 #'   obj_matrix,
-#'   main = "Pareto frontier",
+#'   main = "Trade-offs between objectives",
 #'   xlab = "Keystone objective (shortfall)",
 #'   ylab = "Iconic objective (shortfall)"
 #' )
@@ -226,13 +226,13 @@ add_ref_point_approach <- function(x,
                                    ref_points = NULL,
                                    best_obj = NULL,
                                    worst_obj = NULL,
-                                   normalize_weights = TRUE,
+                                   rescale = TRUE,
                                    verbose = TRUE) {
   # assert arguments are valid
   assert(
     is_multi_conservation_problem(x),
-    assertthat::is.flag(normalize_weights),
-    assertthat::noNA(normalize_weights),
+    assertthat::is.flag(rescale),
+    assertthat::noNA(rescale),
     assertthat::is.flag(verbose),
     assertthat::noNA(verbose)
   )
@@ -258,13 +258,13 @@ add_ref_point_approach <- function(x,
       all_positive(weights)
     )
   }
-  if (!is.null(weights) && isTRUE(normalize_weights)) {
+  if (!is.null(weights) && isTRUE(rescale)) {
     assert(
       all_proportion(weights),
       msg = c(
         "!" =
           "{.arg weights} must have values between {.val {0}} and {.val {1}}.",
-        "x" = "This is because {.arg normalize_weights} is {.val {TRUE}}."
+        "x" = "This is because {.arg rescale} is {.val {TRUE}}."
       )
     )
   }
@@ -305,7 +305,7 @@ add_ref_point_approach <- function(x,
           ref_points = ref_points,
           best_obj = best_obj,
           worst_obj = worst_obj,
-          normalize_weights = normalize_weights,
+          rescale = rescale,
           verbose = verbose
         ),
         calculate = function(x, y) {
@@ -319,11 +319,11 @@ add_ref_point_approach <- function(x,
           ref_points <- self$get_data("ref_points")
           worst_obj <- self$get_data("worst_obj")
           best_obj <- self$get_data("best_obj")
-          normalize_weights <- self$get_data("normalize_weights")
+          rescale <- self$get_data("rescale")
 
           ## if needed, calculate best objective value
           if (
-            (is.null(best_obj) && isTRUE(normalize_weights)) ||
+            (is.null(best_obj) && isTRUE(rescale)) ||
             (is.null(best_obj) && is.null(ref_points))
           ) {
             best_obj <- vapply(
@@ -346,7 +346,7 @@ add_ref_point_approach <- function(x,
           }
 
           ## if needed, calculate worst objective value
-          if (is.null(worst_obj) && isTRUE(normalize_weights)) {
+          if (is.null(worst_obj) && isTRUE(rescale)) {
             worst_obj <- vapply(
               seq_len(n),
               FUN.VALUE = numeric(1),
@@ -376,7 +376,7 @@ add_ref_point_approach <- function(x,
           ## initialization
           weights <- self$get_data("weights")
           ref_points <- self$get_data("ref_points")
-          normalize_weights <- self$get_data("normalize_weights")
+          rescale <- self$get_data("rescale")
           best_obj <- self$get_internal("best")
           worst_obj <- self$get_internal("worst")
           verbose <- self$get_data("verbose")
@@ -395,7 +395,7 @@ add_ref_point_approach <- function(x,
           }
 
           ## if needed, calculate normalized weights
-          if (isTRUE(normalize_weights)) {
+          if (isTRUE(rescale)) {
             weights <-
               weights *
               matrix(

@@ -13,7 +13,7 @@ rescale_matrix(x, max = 1000)
 }
 \value{
 A \code{\link{matrix}}, \code{\link{array}}, or \code{\link[Matrix:Matrix-class]{Matrix::Matrix}} object.
-The returned object is the is the same class as the argument to \code{x}.
+The returned object is the same class as \code{x}.
 }
 \description{
 Linearly rescale a matrix. Specifically, the values in the matrix

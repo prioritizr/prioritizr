@@ -9,7 +9,7 @@
 #'
 #' Check if an object is `matrix` or `Matrix?
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -36,7 +36,7 @@ assertthat::on_failure(is_matrix_ish) <- function(call, env) {
 #' Check if an object is a `ConservationProblem` object or a
 #' `MultiObjConservationProblem` object.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -56,7 +56,7 @@ assertthat::on_failure(is_generic_conservation_problem) <- function(call, env) {
 #'
 #' Check if an object is a `MultiObjConservationProblem` object.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -76,7 +76,7 @@ assertthat::on_failure(is_multi_conservation_problem) <- function(call, env) {
 #'
 #' Check if an object is a `ConservationProblem` object.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -112,7 +112,7 @@ assertthat::on_failure(is_conservation_problem) <- function(call, env) {
 #'
 #' Check if an object is a `Method` object.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -132,7 +132,7 @@ assertthat::on_failure(is_method) <- function(call, env) {
 #'
 #' Check if an object inherits from a set of classes.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @param what `character` name of class.
 #'
@@ -166,7 +166,7 @@ assertthat::on_failure(is_inherits) <- function(call, env) {
 #'
 #' Check if an object is a spatially explicit format.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'
@@ -189,11 +189,9 @@ assertthat::on_failure(is_spatially_explicit) <- function(call, env) {
 #'
 #' Check if all elements in a list inherit from a particular class.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @param what `character` name of class.
-#'
-#' @param call Caller environment.
 #'
 #' @return A `logical` value.
 #'

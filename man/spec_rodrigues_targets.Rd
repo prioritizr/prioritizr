@@ -121,7 +121,7 @@ you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
 data are provided as a \code{data.frame} or \code{character} vector,
-then you will need to specify an argument to \code{feature_units} when
+then you will need to specify \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function.
 See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
 for a demonstration of specifying the spatial units for features.

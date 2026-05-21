@@ -15,10 +15,10 @@ simulate_species(x, n, scale)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
-\item{n}{\code{integer} number of layers to simulate.
+\item{n}{\code{integer} value denoting the number of layers to simulate.
 Defaults to 1.}
 
-\item{scale}{\code{numeric} parameter to control level of spatial
+\item{scale}{\code{numeric} value denoting the level of spatial
 auto-correlation in the simulated data.
 Defaults to 0.5.}
 }

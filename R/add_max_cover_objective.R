@@ -8,16 +8,10 @@ NULL
 #' given budget. In other words, this objective aims to ensure that
 #' no feature is completely missing from the prioritization.
 #' This objective does not use targets, and feature
-#' weights should be used instead to increase the representation of certain
+#' weights should be used instead to increase the representation of particular
 #' features by a solution.
 #'
-#' @param x [problem()] object.
-#'
-#' @param budget `numeric` value specifying the maximum expenditure of
-#'   the prioritization. For problems with multiple zones, the argument
-#'   to `budget` can be a single `numeric` value to specify a budget
-#'   for the entire solution or a `numeric` vector to specify
-#'   a budget for each each management zone.
+#' @inheritParams add_max_wtd_sum_objective
 #'
 #' @details
 #' The maximum coverage objective seeks to find the set of planning units that
@@ -82,11 +76,7 @@ NULL
 #' Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 #' covering location problem. *Biological Conservation*, 76: 105--112.
 #'
-#' @inherit add_max_n_targets_met_objective return
-#'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
 #'

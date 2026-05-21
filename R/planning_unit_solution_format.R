@@ -8,12 +8,13 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param status `matrix` or `list` of `matrix` objects with solution
-#'  status values.
+#' status values.
 #'
 #' @param data planning unit data. These data may be an a
 #' `numeric` vector, `matrix`, `data.frame`, `Spatial`, `sf`, `Raster`,
-#' or `SpatRaster` object. If `missing`, then these data are automatically
-#' extracted from `x`. In most cases, this argument should not be supplied
+#' or `SpatRaster` object. If `data` is missing, then planning unit data are
+#' automatically extracted from `x`.
+#' In most cases, `data` should not be supplied
 #' so that the planning unit data can be handled automatically.
 #'
 #' @param prefix `character` prefix for naming different columns or layers in

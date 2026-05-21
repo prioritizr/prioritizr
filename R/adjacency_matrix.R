@@ -8,11 +8,11 @@ NULL
 #'
 #' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
-#' @param directions `integer` If `x` is a
-#'   [terra::rast()] object, the number of directions
-#'   in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
-#'   case), 16 (knight and one-cell queen moves), or "bishop" to for cells
-#'   with one-cell diagonal moves.
+#' @param directions `integer` value. If `x` is a
+#' [terra::rast()] object, the number of directions
+#' in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
+#' case), or 16 (knight and one-cell queen moves).
+#' Note if `x` is a [sf::sf()] object, then `directions` has no effect.
 #'
 #' @param ... not used.
 #'
@@ -24,18 +24,19 @@ NULL
 #' adjacent.
 #'
 #' @section Notes:
-#'   In earlier versions (< 5.0.0), this function was named as the
-#'   `connected_matrix` function. It has been renamed to be consistent
-#'   with other spatial association matrix functions.
+#' In earlier versions (< 5.0.0), this function was named as the
+#' `connected_matrix` function. It has been renamed to be consistent
+#' with other spatial association matrix functions.
 #'
-#' @return A [`Matrix::dsCMatrix-class`] sparse symmetric matrix.
-#'   Each row and column represents a planning unit.
-#'   Cells values indicate if different planning units are
-#'   adjacent to each other or not (using ones and zeros).
-#'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to `x` is a
-#'   [terra::rast()] object, then cells with `NA` values are set to
-#'   zero too.
+#' @return
+#' A [`Matrix::dsCMatrix-class`] sparse symmetric matrix.
+#' Each row and column represents a planning unit.
+#' Cells values indicate if different planning units are
+#' adjacent to each other or not (using ones and zeros).
+#' To reduce computational burden, cells among the matrix diagonal are
+#' set to zero. Furthermore, if `x` is a
+#' [terra::rast()] object, then cells with `NA` values are set to
+#' zero too.
 #'
 #' @name adjacency_matrix
 #'

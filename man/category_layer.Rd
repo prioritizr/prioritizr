@@ -13,8 +13,7 @@ category_layer(x)
 \method{category_layer}{default}(x)
 }
 \arguments{
-\item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple
-layers.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple layers.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.

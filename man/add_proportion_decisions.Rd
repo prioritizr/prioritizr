@@ -17,6 +17,7 @@ Add a proportion decision to a conservation planning problem.
 This is a relaxed decision where a part of a planning unit can be
 prioritized, as opposed to the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to include in
+a protected area system. In most cases, problems that use proportion-type
 decisions will solve much faster than problems that use binary-type
 decisions.
 }
@@ -26,7 +27,9 @@ units. These decisions are then associated with actions (e.g., turning a
 planning unit into a protected area). Only a
 single decision should be added to a \code{\link[=problem]{problem()}} object.
 Note that if multiple decisions are added to an object, then the
-last one to be added will be used.
+last one to be added will be used during optimization.
+Also, if no decision is
+added to a \code{\link[=problem]{problem()}}, then this decision will be used by default.
 }
 \examples{
 \dontrun{
@@ -73,8 +76,6 @@ plot(s2, axes = FALSE)
 }
 }
 \seealso{
-See \link{decisions} for an overview of all functions for adding decisions.
-
 Other decisions: 
 \code{\link{add_binary_decisions}()},
 \code{\link{add_semicontinuous_decisions}()}

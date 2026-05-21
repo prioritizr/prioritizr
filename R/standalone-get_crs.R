@@ -9,7 +9,7 @@
 #' Extract the coordinate reference system from an object.
 #'
 #' @param x [sf::st_sf()], [terra::rast()], [sp::Spatial-class], or
-#'   [raster::raster()] object.
+#' [raster::raster()] object.
 #'
 #' @return A [sf::st_crs()] object.
 #'

@@ -86,7 +86,8 @@ eval_boundary_summary(p, s)
 # see ?connectivity_matrix for more information
 
 # for brevity, we will do this using the cost data
-# cost valuers have high connectivity between them
+# and assume that pairs of adjacent planning units with high
+# cost values have high connectivity between them
 cm <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 
 # evaluate connectivity of solution using symmetric data

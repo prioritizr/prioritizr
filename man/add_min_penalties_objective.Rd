@@ -9,15 +9,12 @@ add_min_penalties_objective(x, budget = NULL)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be a single \code{numeric} value to specify a budget
-for the entire solution or a \code{numeric} vector to specify
-a budget for each each management zone. Defaults to \code{NULL}
-such that no maximum expenditure is specified.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
+for the entire solution or (ii) a \code{numeric} vector to specify
+a budget for each zone (separately) in the solution.
+Defaults to \code{NULL} such expenditure is not limited.}
 }
 \description{
 Set the objective of a conservation planning problem to

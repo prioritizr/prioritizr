@@ -19,34 +19,37 @@ NULL
 #' It is calculated using the same equations used to penalize solutions
 #' with connectivity data (i.e., [add_connectivity_penalties()]).
 #' Specifically, it is calculated as the sum of the pair-wise connectivity
-#' values in the argument to `data`, weighted by the value of the planning
+#' values in `data`, multiplied by the value of the planning
 #' units in the solution.
 #'
 #' @inheritSection eval_cost_summary Solution format
 #' @inheritSection add_connectivity_penalties Data format
 #'
 #' @return
-#'  A [tibble::tibble()] object describing the connectivity of the
-#'  solution.
-#'  It contains the following columns:
+#' A [tibble::tibble()] object describing the connectivity of the
+#' solution. It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistic associated with the `"overall"` value
+#' in this column is calculated using the entire solution
+#' (including all management zones if `x` has multiple zones).
+#' If `x` has multiple management zones, then summary statistics
+#' are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   \item{connectivity}{`numeric` connectivity value.
-#'     Greater values correspond to solutions associated with greater
-#'     connectivity.
-#'     Thus conservation planning exercises typically prefer solutions
-#'     with greater values.}
+#' \item{connectivity}{
+#' `numeric` connectivity value.
+#' Greater values correspond to solutions associated with greater
+#' connectivity.
+#' Thus conservation planning exercises typically prefer solutions
+#' with greater values.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

@@ -14,14 +14,15 @@ add_shuffle_portfolio(
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of attempts to generate
-different solutions. Defaults to 10.}
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
+Defaults to 10.}
 
-\item{threads}{\code{integer} number of threads to use for the generating
-the solution portfolio. Defaults to 1.}
+\item{threads}{\code{integer} value denoting the number of threads to use for
+generating the solution portfolio. Defaults to 1.}
 
-\item{remove_duplicates}{\code{logical} should duplicate solutions
-be removed? Defaults to \code{TRUE}.}
+\item{remove_duplicates}{\code{logical} value indicating if duplicate solutions
+should be removed? Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
@@ -95,8 +96,6 @@ plot(s2, axes = FALSE)
 }
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
 \code{\link{add_cuts_portfolio}()},
 \code{\link{add_default_portfolio}()},

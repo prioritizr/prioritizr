@@ -10,8 +10,8 @@ write_problem(x, path, solver = NULL)
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{path}{\code{character} file path to save the problem formulation.
-The argument should contain a \code{".lp"} or \verb{.mps"} file extension
-to specify whether the problem formulation will be saved in the
+In particular, \code{path} should have a \code{".lp"} or \verb{.mps"} file extension
+to specify whether the problem formulation should be saved in the
 \href{https://docs.gurobi.com/current/#refman/lp_format.html}{LP} or
 \href{https://docs.gurobi.com/current/#refman/mps_format.html}{MPS}
 format (respectively). If using the Gurobi solver
@@ -20,7 +20,7 @@ be saved in a compressed file format (e.g., \code{".mps.gx"}) to reduce
 file size (see \code{?gurobi::gurobi_write()} for details).}
 
 \item{solver}{\code{character} name of optimization solver to write the problem
-to disk. Available options include: \code{"rsymphony" }, \code{"gurobi"}, or \code{NULL}.
+to disk. Available options are: \code{"rsymphony" }, \code{"gurobi"}, or \code{NULL}.
 Note that using the Gurobi solver is much faster, because the Rsymphony
 solver requires attempting to solve the problem before it can be written.
 Defaults to \code{NULL}, such that the best available solver is used.}

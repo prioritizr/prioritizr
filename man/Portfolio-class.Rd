@@ -68,7 +68,7 @@ Run the portfolio to generate solutions.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\code{list} of solutions.
+A \code{list} of solutions.
 }
 }
 \if{html}{\out{<hr>}}

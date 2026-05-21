@@ -15,7 +15,7 @@ simulate_cost(x, n, intensity, sd, scale)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
-\item{n}{\code{integer} number of layers to simulate.
+\item{n}{\code{integer} value denoting the number of layers to simulate.
 Defaults to 1.}
 
 \item{intensity}{\code{numeric} average value of simulated data.

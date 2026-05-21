@@ -143,7 +143,7 @@ test_that("manually specified parameters", {
     add_ref_point_approach(
       weights = wts, ref_points = best,
       best_obj = best, worst_obj = worst,
-      normalize_weights = FALSE,
+      rescale = FALSE,
       verbose = FALSE
     ) %>%
     prioritizr::add_default_solver(gap = 0, verbose = FALSE)
@@ -262,7 +262,7 @@ test_that("invalid inputs", {
     add_ref_point_approach(mp, wts, rp, b, replace(w, 2, NA), FALSE, TRUE),
     "missing"
   )
-  ## normalize_weights
+  ## rescale
   expect_error(
     add_ref_point_approach(mp, wts, rp, b, w, "a", TRUE),
     "flag"

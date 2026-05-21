@@ -7,7 +7,7 @@
 
 #' Representation
 #'
-#' Generate a brief `character` value that describes an object.
+#' Generate a short `character` value to describe an object.
 #'
 #' @param x Object.
 #'

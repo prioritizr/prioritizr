@@ -21,7 +21,7 @@ NULL
 #' [problem()] in `x` and each row corresponds to a different solution.
 #' With the `weights` values, greater values indicate greater importance.
 #' Also, a `weights` value of 0 means that a particular [problem()] in `x`
-#' should have no influence at all over the optimization process.
+#' has no influence over the optimization process.
 #'
 #' @details
 #' This multi-objective optimization approach is most useful when considering
@@ -33,11 +33,11 @@ NULL
 #' linear combination -- and then generating a solution based on this new
 #' objective.
 #' Although this approach has widespread usage (Williams and Kendall 2017),
-#' small changes in the weight values can result in unexpectedly large changes
-#' to the solutions (Das and Dennis 1997).
+#' small differences in the weight values can cause unexpectedly large
+#' differences to solutions (Das and Dennis 1997).
 #' This is because -- when using this approach -- the overall influence that an
 #' objective has on a solution depends on its weight value and also the
-#' range (in other words, scale) of the metric used to evaluate how well
+#' scale (in other words, range) of the metric used to evaluate how well
 #' a solution achieves the objective (termed objective value).
 #' For example, the minimum shortfall objective function
 #' ([add_min_shortfall_objective()]) often has relatively small
@@ -47,7 +47,7 @@ NULL
 #' on the cost data (e.g., values may range between zero and 10,000 depending
 #' on the cost data). Due to these differences in scale,
 #' a solution generated with these two objectives and equal weight values
-#' may fail to cost-effectively balance them. As such, when using the weighted
+#' will likely fail to balance them equally. As such, when using the weighted
 #' sum approach, practitioners may need to (i) consider a large number of
 #' sets of weights to obtain a diverse set of solutions and (ii) perform
 #' multiple calibration procedures to manually identify weight parameter values
@@ -198,12 +198,12 @@ NULL
 #' # preview the objective values
 #' head(obj_matrix)
 #'
-#' # plot the objectives values to visualize the approximated Pareto frontier
+#' # plot the objectives values to visualize trade-offs
 #' # (note that smaller values are better because these objectives seek to
 #' # minimize representation shortfalls)
 #' plot(
 #'   obj_matrix,
-#'   main = "Approximated Pareto frontier",
+#'   main = "Trade-offs between objectives",
 #'   xlab = "Keystone objective (shortfall)",
 #'   ylab = "Iconic objective (shortfall)"
 #' )

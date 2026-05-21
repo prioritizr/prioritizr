@@ -11,14 +11,14 @@ NULL
 #' does not exceed a budgetary threshold.
 #' This objective is designed to be used with multi-objective optimization.
 #'
-#' @inheritParams add_max_cover_objective
+#' @inheritParams add_max_wtd_sum_objective
 #'
-#' @param budget `numeric` value specifying the maximum expenditure of
-#'   the prioritization. For problems with multiple zones, the argument
-#'   to `budget` can be a single `numeric` value to specify a budget
-#'   for the entire solution or a `numeric` vector to specify
-#'   a budget for each each management zone. Defaults to `NULL`
-#'   such that no maximum expenditure is specified.
+#' @param budget `numeric` value specifying the maximum expenditure permitted
+#' for the solution. If `x` has multiple zones, then `budget` can be
+#' (i) a single `numeric` value to specify an overall budget
+#' for the entire solution or (ii) a `numeric` vector to specify
+#' a budget for each zone (separately) in the solution.
+#' Defaults to `NULL` such expenditure is not limited.
 #'
 #' @details
 #' The minimum penalty objective is designed to be used with problems

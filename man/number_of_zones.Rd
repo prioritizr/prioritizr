@@ -30,7 +30,7 @@ number_of_zones(x, ...)
 \item{...}{not used.}
 }
 \value{
-An \code{integer} number of zones.
+An \code{integer} value.
 }
 \description{
 Extract the number of zones in an object.
@@ -54,22 +54,21 @@ p <-
 print(number_of_zones(p))
 
 # create two example problems
-p1 <-
-  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-  add_binary_decisions()
+mp <-
+  multi_problem(
+    obj1 =
+      problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+      add_binary_decisions(),
+    obj2 =
+      problem(sim_zones_pu_raster, sim_zones_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+      add_binary_decisions()
+  )
 
-p2 <-
-  problem(sim_zones_pu_raster, sim_zones_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-  add_binary_decisions()
-
-# create multi-objective problem
-mp <- multi_problem(p1, p2)
-
-# print feature names
+# print number of zones
 print(number_of_zones(mp))
 }
 }

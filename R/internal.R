@@ -23,8 +23,8 @@ matrix_to_triplet_dataframe <- function(x) {
 #' Convert a triplet `data.frame` object to a sparse matrix.
 #'
 #' @param x `data.frame` object. The first column contains the row
-#'   numbers, the second column contains the column numbers, and the
-#'   third column contains the cell values.
+#' numbers, the second column contains the column numbers, and the
+#' third column contains the cell values.
 #
 #' @param forceSymmetric `logical` should matrix be coerced to symmetric?
 #'
@@ -89,14 +89,15 @@ triplet_sparse_matrix <- function(...) {
 #' @param x `numeric` vector.
 #'
 #' @param from `numeric` vector indicating the original range of the
-#'  the data.
+#' the data.
 #'
 #' @param to `numeric` new data range. Defaults to zero and one.
 #'
-#' @details This function is based on the `rescale` function in the
-#'   \pkg{scales} package.
+#' @details
+#' This function is based on the `rescale` function in the
+#' \pkg{scales} package.
 #'
-#' @return `numeric` vector.
+#' @return A `numeric` vector.
 #'
 #' @noRd
 rescale <- function(x, from = range(x), to = c(0, 1)) {
@@ -124,7 +125,8 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #' words, the values in different columns of `x` and `y`) are all the same
 #' units.
 #'
-#' @return An `integer` value denoting the row number of `x` that has
+#' @return
+#' An `integer` value denoting the row number of `x` that has
 #' the most similar parameters to those in `y`.
 #'
 #' @noRd

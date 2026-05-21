@@ -74,13 +74,13 @@ NULL
 #' is a well-defined order of importance among objectives in a planning
 #' exercise (Williams and Kendall 2017; Schuster *et al.* 2023).
 #' In general, we recommend using this approach because it is highly
-#' flexible and can better approximate the Pareto Frontier than alternative
+#' flexible and can better characterize trade-offs than alternative
 #' approaches.
 #' By specifying an explicit priority order for each objective
 #' (per `priority`) and acceptable tolerances for degradation
 #' (per `rel_tol`), the parameters for this approach
 #' are highly transparent. Additionally, the approach
-#' is not sensitive to differences in the range of values among
+#' is not sensitive to differences in scale among
 #' different objectives (unlike the weighted sum approach,
 #' [add_wtd_sum_approach()]; see Das and Dennis 1997 for details), and so it
 #' can be readily applied to a wide range of objectives.
@@ -349,12 +349,12 @@ NULL
 #' # preview the objective values
 #' head(obj_matrix)
 #'
-#' # plot the objectives values to visualize the approximated Pareto frontier
+#' # plot the objectives values to visualize trade-offs
 #' # (note that smaller values are better because these objectives seek to
 #' # minimize representation shortfalls)
 #' plot(
 #'   obj_matrix,
-#'   main = "Approximated Pareto frontier",
+#'   main = "Trade-offs between objectives",
 #'   xlab = "Keystone objective (shortfall)",
 #'   ylab = "Iconic objective (shortfall)"
 #' )

@@ -8,21 +8,22 @@ NULL
 #'
 #' @inheritParams eval_replacement_importance
 #'
-#' @details Rarity weighted richness scores are calculated using the following
-#'   terms. Let \eqn{I} denote the set of planning units (indexed by
-#'   \eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
-#'   \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
-#'   associated with planning unit \eqn{i}, and let \eqn{m_j} denote the
-#'   maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
-#'   \eqn{i \in I}. To calculate the rarity weighted richness (*RWR*) for
-#'   planning unit \eqn{k}:
+#' @details
+#' Rarity weighted richness scores are calculated using the following
+#' terms. Let \eqn{I} denote the set of planning units (indexed by
+#' \eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
+#' \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
+#' associated with planning unit \eqn{i}, and let \eqn{m_j} denote the
+#' maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
+#' \eqn{i \in I}. Given these terms, rarity weighted richness for
+#' planning unit \eqn{k} is calculated as follows:
 #'
-#'   \deqn{
-#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{ik}}{m_j} }{
-#'                                           \sum_{i}^{I}r_{ij}}
-#'   }{
-#'   RWRk = sum_j^J ( (rik / mj) / sum_i^I rij)
-#'   }
+#' \deqn{
+#' \mathit{RWR}_{k} = \sum_{j}^{J}
+#' \frac{ \frac{r_{ik}}{m_j} }{\sum_{i}^{I}r_{ij}}
+#' }{
+#' RWRk = sum_j^J ( (rik / mj) / sum_i^I rij)
+#' }
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'

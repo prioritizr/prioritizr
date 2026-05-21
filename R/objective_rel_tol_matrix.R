@@ -26,7 +26,7 @@ NULL
 #' optimality for particular objectives.
 #'
 #' @return
-#' A `numeric` matrix with relative tolerance values. Here, rows correspond to
+#' A `numeric` matrix. Here, rows correspond to
 #' different sets of each relative tolerance values and columns correspond to
 #' different objectives.
 #'

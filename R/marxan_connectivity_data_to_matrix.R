@@ -11,11 +11,11 @@ NULL
 #'
 #' @inheritParams marxan_boundary_data_to_matrix
 #'
-#' @param symmetric `logical` does the connectivity data
-#'  describe symmetric relationships between planning units?
-#'  If the data contain asymmetric connectivity data,
-#'  this parameter should be set to `FALSE`.
-#'  Defaults to `TRUE`.
+#' @param symmetric `logical` value indicating if the connectivity data
+#' describe symmetric relationships between planning units?
+#' If the data contain asymmetric connectivity data,
+#' then use `symmetric = FALSE`.
+#' Defaults to `TRUE`.
 #'
 #' @inherit marxan_boundary_data_to_matrix return
 #'

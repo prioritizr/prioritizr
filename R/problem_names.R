@@ -9,7 +9,7 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @return A `character` vector of names.
+#' @return A `character` vector.
 #'
 #' @name problem_names
 #'
@@ -35,19 +35,19 @@ NULL
 #' # create multi-objective problem
 #' mp <-
 #'   multi_problem(
-#'    obj1 =
-#'      problem(sim_pu_raster, sim_features[[1:2]]) %>%
-#'      add_max_wtd_sum_objective(budget = b) %>%
-#'      add_relative_targets(0.2) %>%
-#'      add_binary_decisions(),
-#'    obj2 =
-#'      problem(sim_pu_raster, sim_features[[3:5]]) %>%
-#'      add_min_shortfall_objective(budget = b) %>%
-#'      add_relative_targets(0.8) %>%
-#'      add_binary_decisions()
+#'     obj1 =
+#'       problem(sim_pu_raster, sim_features[[1:2]]) %>%
+#'       add_max_wtd_sum_objective(budget = b) %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions(),
+#'     obj2 =
+#'       problem(sim_pu_raster, sim_features[[3:5]]) %>%
+#'       add_min_shortfall_objective(budget = b) %>%
+#'       add_relative_targets(0.8) %>%
+#'       add_binary_decisions()
 #'   )
 #'
-#' # print number of features
+#' # print problem names
 #' print(problem_names(mp))
 #' }
 #' @export
