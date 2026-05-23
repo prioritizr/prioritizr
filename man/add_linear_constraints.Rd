@@ -290,6 +290,7 @@ plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
 \seealso{
 Other functions for adding constraints:
 \code{\link{add_contiguity_constraints}()},
+\code{\link{add_cost_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_locked_in_constraints}()},
 \code{\link{add_locked_out_constraints}()},

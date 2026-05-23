@@ -96,9 +96,8 @@ have since been removed to reduce solve time,
 this behavior can still be achieved by
 building a multi-objective optimization problem and specifying the
 first problem based on this objective function and the second
-problem based on minimizing penalties (via \code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}})
-with penalties set according to cost values
-(via \code{\link[=add_linear_penalties]{add_linear_penalties()}}).
+problem based on minimizing cost penalties (i.e., by using
+\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}} and \code{\link[=add_cost_penalties]{add_cost_penalties()}}).
 }
 
 \examples{

@@ -231,6 +231,7 @@ reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
 Other functions for adding constraints:
+\code{\link{add_cost_constraints}()},
 \code{\link{add_feature_contiguity_constraints}()},
 \code{\link{add_linear_constraints}()},
 \code{\link{add_locked_in_constraints}()},

@@ -309,6 +309,7 @@ an appropriate \code{penalty} value.
 Other functions for adding penalties:
 \code{\link{add_boundary_penalties}()},
 \code{\link{add_connectivity_penalties}()},
+\code{\link{add_cost_penalties}()},
 \code{\link{add_feature_weights}()},
 \code{\link{add_linear_penalties}()},
 \code{\link{add_neighbor_penalties}()}
