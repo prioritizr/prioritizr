@@ -4,21 +4,32 @@
 
 ## New features
 
+- New `multi_problem()` function for building multi-objective conservation
+  planning problems. Additionally, the new `add_hier_approach()`,
+  `add_ref_point_approach()`, and `add_wtd_sum_approach()` functions can be
+  used to specify approaches for solving multi-objective problems. For
+  more information on this functionality, see `?approaches` and the
+  Calibrating trade-offs vignette.
+- New `add_cost_penalties()` and `add_cost_constraints()` functions that
+  can be used to add penalties and constraints for costs. Although
+  existing objective functions account for cost,
+  these functions can be used with multi-objective conservation
+  planning problems to explore trade-offs with cost.
+
 ## Major changes
 
-- The `add_max_utility_objective()` has been renamed to
+- The `add_max_utility_objective()` function has been renamed to
   `add_max_wtd_sum_objective()` to improve clarity.
-- The `add_max_features_objective()` has been renamed to
+- The `add_max_features_objective()` function has been renamed to
   `add_max_n_targets_met_objective()` to improve clarity.
 - The `add_max_wtd_sum_objective()`, `add_max_n_targets_met_objective()`,
-  `add_phylo_div_objective()`, and `add_phylo_end_objective()` have been
-  updated to ensure consistent optimization behavior with the other objectives.
-  Although these objectives previously had additional terms that would
-  help minimize costs in the case of multiple optimal solutions,
+  `add_phylo_div_objective()`, and `add_phylo_end_objective()` functions have
+  been updated to ensure consistent optimization behavior with the other
+  objectives. Although these objectives previously had additional terms that
+  would help minimize costs in the case of multiple optimal solutions,
   the terms have now been removed to help improve run time.
   If you still want to minimize costs when using these objectives,
   this can be done with the new multi-objective optimization functionality.
--
 
 ## Minor improvements and bug fixes
 
@@ -29,6 +40,9 @@
 
 ## Documentation
 
+- Update documentation for various functions to improve readability.
+- Update Calibrating trade-offs vignette to include multi-objective
+  optimization approaches.
 - Update documentation for `add_max_wtd_sum_objective()` (formerly
   named `add_max_utility_objective()`) to provide more information limitations.
 
