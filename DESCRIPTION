@@ -134,6 +134,8 @@ Collate:
     'add_compile_solver.R'
     'add_connectivity_penalties.R'
     'add_contiguity_constraints.R'
+    'add_cost_constraints.R'
+    'add_cost_penalties.R'
     'add_cplex_solver.R'
     'add_cuts_portfolio.R'
     'add_default_portfolio.R'
