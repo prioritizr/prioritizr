@@ -72,7 +72,7 @@ bool rcpp_apply_min_penalties_objective(
       ptr->_sense.push_back("<=");
     // add budget row ids
     for (std::size_t z = 0; z < n_budgets; ++z)
-      ptr->_row_ids.push_back("budget");
+      ptr->_row_ids.push_back("budget_mp");
   } else if (ptr->_number_of_zones == 1) {
     // if no budgets specified and only a single zone problem,
     // then add a dummy constraint to ensure there is at least one
@@ -83,7 +83,7 @@ bool rcpp_apply_min_penalties_objective(
       ptr->_A_x.push_back(0.1);
       ptr->_rhs.push_back(1.0);
       ptr->_sense.push_back("<=");
-      ptr->_row_ids.push_back("dum");
+      ptr->_row_ids.push_back("dum_mp");
     }
   }
   // assign model sense
