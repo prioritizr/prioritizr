@@ -108,7 +108,7 @@ NULL
 #' benefit and not minimize some measure of cost, the term \eqn{P_z} is
 #' replaced with \eqn{-P_z}.
 #'
-#' @inherit add_boundary_penalties return seealso
+#' @inherit add_boundary_penalties return
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
