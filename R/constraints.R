@@ -62,8 +62,15 @@ NULL
 #' Add constraints to ensure that all selected planning units meet certain
 #' criteria. For example, they can be used to add
 #' multiple budgets, or limit the number of
-#'  planning units selected in different administrative areas within a study
+#' planning units selected in different administrative areas within a study
 #' region (e.g., different countries).
+#' }
+#'
+#' \item{[add_cost_constraints()]}{
+#' Add constraints to ensure that the cost of selected planning units meets
+#' certain criteria. For example, they can be used to ensure that the solution
+#' has a total cost that exceeds a particular threshold.
+#' These constraints would typically be used with multi-objective optimization.
 #' }
 #'
 #' \item{[add_mandatory_allocation_constraints()]}{
@@ -107,11 +114,22 @@ NULL
 #' # create problem with feature contiguity constraints
 #' p6 <- p1 %>% add_feature_contiguity_constraints()
 #'
+#' # create problem with linear constraints to ensure that,
+#' # at least, 5 planning units in the locked in raster are selected
+#' p6 <- p1 %>% add_linear_constraints(5, ">=", sim_locked_in_raster)
+#'
+#' # create problem with linear constraints to ensure that
+#' # the total cost of solution is greater than or equal to 10
+#' # (note that this example is fairly contrived, see the documentation for
+#' # this function for a more realistic example)
+#' p7 <- p1 %>% add_cost_constraints(10, ">=")
+#'
 #' # solve problems
-#' s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6), solve))
+#' s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p6, p7), solve))
 #' names(s) <- c(
 #'   "minimal problem", "locked in", "locked out",
-#'   "neighbor", "contiguity", "feature contiguity"
+#'   "neighbor", "contiguity", "feature contiguity",
+#'   "linear constraints", "cost constraints"
 #' )
 #'
 #' # plot solutions

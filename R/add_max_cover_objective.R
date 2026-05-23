@@ -65,9 +65,8 @@ NULL
 #' this behavior can still be achieved by
 #' building a multi-objective optimization problem and specifying the
 #' first problem based on this objective function and the second
-#' problem based on minimizing penalties (via [add_min_penalties_objective()])
-#' with penalties set according to cost values
-#' (via [add_linear_penalties()]).
+#' problem based on minimizing cost penalties (i.e., by using
+#' [add_min_penalties_objective()] and [add_cost_penalties()]).
 #'
 #' @references
 #' Church RL and Velle CR (1974) The maximum covering location problem.
