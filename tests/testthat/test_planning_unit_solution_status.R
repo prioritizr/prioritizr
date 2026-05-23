@@ -366,26 +366,27 @@ test_that("multi_problem (numeric)", {
     spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
   # create multi-objective problem
-  p <- multi_problem(
-    obj1 = problem(
-      pu$cost,
-      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      as.matrix(t(pu[, 3:4]))
-    ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    obj2 = problem(
-      pu$cost,
-      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      as.matrix(t(pu[, 3:4]))
-    ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions()
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <-
+    multi_problem(
+      obj1 =
+        problem(
+          pu$cost,
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          as.matrix(t(pu[, 3:4]))
+        ) %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(c(1, 1)) %>%
+          add_binary_decisions(),
+      obj2 =
+        problem(
+          pu$cost,
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          as.matrix(t(pu[, 3:4]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions()
+    )
   # create a solution
   s <- rep(c(0, 1), 5)
   s[is.na(pu$cost)] <- NA_real_
@@ -406,26 +407,27 @@ test_that("multi_problem (matrix)", {
     spp1_2 = runif(10), spp2_2 = runif(10)
   )
   # create multi-objective problem
-  p <- multi_problem(
-    obj1 = problem(
-      as.matrix(pu[, c("cost_1", "cost_2")]),
-      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
-    ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 1), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions(),
-    obj2 = problem(
-      as.matrix(pu[, c("cost_1", "cost_2")]),
-      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-      list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
-    ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 1), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions()
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <-
+    multi_problem(
+      obj1 =
+        problem(
+          as.matrix(pu[, c("cost_1", "cost_2")]),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 1), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(
+          as.matrix(pu[, c("cost_1", "cost_2")]),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 1), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions()
+    )
   # create a solution
   s <- matrix(c(rep(c(0, 0.5), 5), rep(c(0.5, 0), 5)), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
@@ -444,18 +446,19 @@ test_that("multi_problem (data.frame)", {
     spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
   # create multi-objective problem
-  p <- multi_problem(
-    obj1 = problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    obj2 = problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions()
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <-
+    multi_problem(
+      obj1 =
+        problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(c(1, 1)) %>%
+          add_binary_decisions(),
+      obj2 =
+        problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions()
+    )
   # create a solution
   s <- data.frame(solution = rep(c(0, 1), 5))
   s[[1]][is.na(pu$cost)] <- NA_real_
@@ -493,9 +496,7 @@ test_that("multi_problem (Spatial)", {
       add_binary_decisions(),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <- multi_problem(obj1 = obj1, obj2 = obj2)
   # create a solution
   s <- pu[, "solution"]
   # extract solution status
@@ -519,18 +520,19 @@ test_that("multi_problem (sf)", {
   pu$spp1 <- runif(10)
   pu$spp2 <- c(rpois(9, 1), NA)
   # create multi-objective problem
-  p <- multi_problem(
-    obj1 = problem(pu, c("spp1", "spp2"), "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    obj2 = problem(pu, c("spp1", "spp2"), "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions()
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <-
+    multi_problem(
+      obj1 =
+        problem(pu, c("spp1", "spp2"), "cost") %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(pu, c("spp1", "spp2"), "cost") %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions()
+    )
   # create a solution
   s <- pu[, "solution"]
   # extract solution status
@@ -547,18 +549,6 @@ test_that("multi_problem (Raster)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create problems
-  p1 <- multi_problem(
-    obj1 = problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions(),
-    obj2 = problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions() 
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
   expect_warning(
     obj1 <-
       problem(raster::raster(sim_pu_raster), raster::stack(sim_features)) %>%
@@ -575,21 +565,19 @@ test_that("multi_problem (Raster)", {
       add_binary_decisions(),
     "deprecated"
   )
-  p2 <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <- multi_problem(obj1 = obj1, obj2 = obj2)
   # create a solution
   s <- terra::setValues(
     sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2)
   )
   s[is.na(sim_pu_raster)] <- NA_real_
   # extract solution status
-  x <- planning_unit_solution_status(p1, s)
   expect_warning(
-    y <- planning_unit_solution_status(p2, raster::raster(s)),
+    x <- planning_unit_solution_status(p, raster::raster(s)),
     "deprecated"
   )
-  colnames(y) <- names(s)
+  # create correct result
+  y <- matrix(c(na.omit(terra::values(s))), ncol = 1)
   # run tests
   expect_equal(x, y)
 })
@@ -599,18 +587,19 @@ test_that("multi_problem (SpatRaster)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create multi-objective problem
-  p <- multi_problem(
-    obj1 = problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions(),
-    obj2 = problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions()
-  ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(1, 0), verbose = FALSE)
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions()
+    )
   # create a solution
   s <- terra::setValues(
     sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2)

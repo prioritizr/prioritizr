@@ -527,3 +527,32 @@ test_that("control", {
   expect_true(all_binary(s1))
   expect_true(is_comparable_raster(sim_pu_raster, s1))
 })
+
+test_that("multi_problem", {
+  skip_on_cran()
+  skip_if_not_installed("gurobi")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem
+  p <-
+    multi_problem(
+      obj1 = problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions(),
+      obj2 = problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions()
+    ) %>%
+    add_gurobi_solver(time_limit = 5, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE)
+  # solve problem
+  s <- solve(p)
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 1L)
+  expect_true(all_binary(s))
+  expect_true(is_comparable_raster(sim_pu_raster, s))
+})

@@ -22,7 +22,7 @@ test_that("x = SpatRaster, y = SpatRaster (single zone)", {
         add_binary_decisions()
     ) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE) 
+    add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # tests
@@ -269,7 +269,8 @@ test_that("x = sf, y = RasterStack (single zone)", {
       add_binary_decisions(),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
@@ -327,7 +328,8 @@ test_that("x = sf, y = ZonesRaster (multiple zones)", {
     ),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
@@ -629,7 +631,8 @@ test_that("x = RasterLayer, y = RasterStack (single zone)", {
       add_binary_decisions(),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
@@ -685,7 +688,8 @@ test_that("x = RasterStack, y = ZonesRaster (multiple zones)", {
     ),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
@@ -901,7 +905,8 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
     ),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem

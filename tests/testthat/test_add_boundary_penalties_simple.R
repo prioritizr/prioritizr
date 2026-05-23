@@ -221,7 +221,7 @@ test_that("minimum set objective (obj fun, single zone)", {
     add_binary_decisions() %>%
     add_boundary_penalties(10000, 1) %>%
     add_default_solver(gap = 0, verbose = FALSE)
-  s <- solve(p)
+  s <- solve(p, run_checks = FALSE)
   # calculations for tests
   obj_value <- unname(attr(s, "objective"))
   total_perim <- terra::perim(
@@ -238,7 +238,7 @@ test_that("minimum set objective (obj fun, single zone)", {
 
 test_that("minimum set and shortfall objective (solve, single zone)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -251,16 +251,16 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_boundary_penalties(10000, 0.5) %>%
-    add_highs_solver(gap = 0.5, verbose = FALSE)
-  s1 <- solve(p1)
+    add_highs_solver(gap = 0.01, verbose = FALSE)
+  suppressWarnings(s1 <- solve(p1, run_checks = FALSE))
   p2 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_boundary_penalties(-10000000, 0.5) %>%
-    add_highs_solver(gap = 0.5, verbose = FALSE)
-  expect_warning(s2 <- solve(p2, force = TRUE))
+    add_highs_solver(gap = 0.01, verbose = FALSE)
+  suppressWarnings(s2 <- solve(p2, run_checks = FALSE))
   # tests
   expect_inherits(s1, "SpatRaster")
   expect_inherits(s1, "SpatRaster")

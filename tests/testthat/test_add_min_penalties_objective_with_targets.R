@@ -24,7 +24,7 @@ test_that("compile (compressed formulation, single zone)", {
   expect_equal(o$rhs(), c(targ, budget))
   expect_equal(
     o$row_ids(),
-    c(rep("spp_target", terra::nlyr(sim_features)), "budget")
+    c(rep("spp_target", terra::nlyr(sim_features)), "budget_mp")
   )
   expect_equal(o$col_ids(), rep("pu", n_pu))
   m <- rbind(
@@ -132,7 +132,7 @@ test_that("compile (expanded formulation, single zone)", {
     c(
       rep("pu_ijz", n_pu * n_f),
       rep("spp_target", terra::nlyr(sim_features)),
-      "budget"
+      "budget_mp"
     )
   )
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f)))
@@ -227,7 +227,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   expect_equal(o$rhs(), c(4, 5, 6, budget, rep(1, n_pu)))
   expect_equal(
     o$row_ids(),
-    c(rep("spp_target", 3), "budget", rep("pu_zone", n_pu))
+    c(rep("spp_target", 3), "budget_mp", rep("pu_zone", n_pu))
   )
   expect_equal(o$col_ids(), rep("pu", n_pu * n_zone))
   expect_equal(o$lb(), rep(0, n_pu * n_zone))
@@ -318,7 +318,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   expect_equal(o$rhs(), c(4, 5, 6, budget, rep(1, n_pu)))
   expect_equal(
     o$row_ids(),
-    c(rep("spp_target", 3), rep("budget", n_zone), rep("pu_zone", n_pu))
+    c(rep("spp_target", 3), rep("budget_mp", n_zone), rep("pu_zone", n_pu))
   )
   expect_equal(o$col_ids(), rep("pu", n_pu * n_zone))
   expect_equal(o$lb(), rep(0, n_pu * n_zone))
@@ -434,7 +434,7 @@ test_that(
     c(
       rep("pu_ijz", n_pu * n_zone * n_feature),
       rep("spp_target", 3),
-      "budget",
+      "budget_mp",
       rep("pu_zone", n_pu)
     )
   )
@@ -573,7 +573,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
     c(
       rep("pu_ijz", n_pu * n_zone * n_feature),
       rep("spp_target", 3),
-      rep("budget", n_zone),
+      rep("budget_mp", n_zone),
       rep("pu_zone", n_pu)
     )
   )

@@ -24,7 +24,7 @@ test_that("compile (compressed formulation, single zone, scalar budget)", {
   expect_equal(o$rhs(), budget)
   expect_equal(o$sense(), "<=")
   expect_equal(o$col_ids(), rep("pu", n_pu))
-  expect_equal(o$row_ids(), "budget")
+  expect_equal(o$row_ids(), "budget_mp")
   expect_true(
     all(o$A() == c(sim_pu_raster[[1]][!is.na(sim_pu_raster)]))
   )
@@ -54,7 +54,7 @@ test_that("compile (compressed formulation, single zone, no budget)", {
   expect_equal(o$rhs(), 1)
   expect_equal(o$sense(), "<=")
   expect_equal(o$col_ids(), rep("pu", n_pu))
-  expect_equal(o$row_ids(), "dum")
+  expect_equal(o$row_ids(), "dum_mp")
   expect_true(
     all(o$A() == c(0.1, rep(0, n_pu - 1)))
   )
@@ -115,7 +115,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   expect_equal(o$rhs(), c(budget, rep(1, n_pu)))
   expect_equal(
     o$row_ids(),
-    c("budget", rep("pu_zone", n_pu))
+    c("budget_mp", rep("pu_zone", n_pu))
   )
   expect_equal(o$col_ids(), rep("pu", n_pu * n_z))
   expect_equal(o$lb(), rep(0, n_pu * n_z))
@@ -162,7 +162,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   expect_equal(o$rhs(), c(budget, rep(1, n_pu)))
   expect_equal(
     o$row_ids(),
-    c(rep("budget", n_z), rep("pu_zone", n_pu))
+    c(rep("budget_mp", n_z), rep("pu_zone", n_pu))
   )
   expect_equal(o$col_ids(), rep("pu", n_pu * n_z))
   expect_equal(o$lb(), rep(0, n_pu * n_z))
@@ -280,7 +280,7 @@ test_that("compile (expanded formulation, single zone, scalar budget)", {
   )
   expect_equal(
     o$row_ids(),
-    c(rep("pu_ijz", n_pu * n_f), "budget")
+    c(rep("pu_ijz", n_pu * n_f), "budget_mp")
   )
   # test model matrix
   m <- matrix(
@@ -412,7 +412,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
     o$row_ids(),
     c(
       rep("pu_ijz", n_pu * n_z * n_f),
-      "budget",
+      "budget_mp",
       rep("pu_zone", n_pu)
     )
   )
@@ -498,7 +498,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
     o$row_ids(),
     c(
       rep("pu_ijz", n_pu * n_z * n_f),
-      rep("budget", n_z),
+      rep("budget_mp", n_z),
       rep("pu_zone", n_pu)
     )
   )
@@ -643,4 +643,46 @@ test_that("solve (expanded formulation, multiple zones)", {
   # run tests
   expect_inherits(s, "SpatRaster")
   expect_equal(max(terra::global(s, "sum", na.rm = TRUE)[[1]]), 0)
+})
+
+
+test_that("invalid inputs (single zone)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # run tests
+  expect_tidy_error(
+    problem(sim_pu_raster, sim_features) %>%
+      add_min_penalties_objective(budget = "a") %>%
+      add_absolute_targets(1) %>%
+      compile(),
+    "budget"
+  )
+  expect_tidy_error(
+    problem(sim_pu_raster, sim_features) %>%
+      add_min_penalties_objective(budget = c(1, 2)) %>%
+      add_absolute_targets(1) %>%
+      compile(),
+    "budget"
+  )
+  expect_warning(
+    problem(sim_pu_raster, sim_features) %>%
+      add_min_penalties_objective() %>%
+      compile(),
+    "not have any penalties"
+  )
+})
+
+test_that("invalid inputs (multiple zones)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  # run tests
+  expect_tidy_error(
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_penalties_objective(budget = c(1, 2, 3, 4)) %>%
+    add_binary_decisions() %>%
+    compile(),
+    "budget"
+  )
 })

@@ -293,8 +293,12 @@ test_that("minimum set objective (matrix, compile, multiple zones)", {
   m <- as.matrix(m) * 600
   # create targets data
   targ <- matrix(
-    runif(number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)) * 10,
+    withr::with_seed(500,
+      runif(
+        number_of_features(sim_zones_features) *
+        number_of_zones(sim_zones_features)
+      ) * 10
+    ),
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -334,10 +338,12 @@ test_that("minimum set objective (SpatRaster, compile, multiple zones)", {
   )
   # create targets data
   targ <- matrix(
-    runif(
-      number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)
-    ) * 10,
+    withr::with_seed(500,
+      runif(
+        number_of_features(sim_zones_features) *
+        number_of_zones(sim_zones_features)
+      ) * 10
+    ),
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -373,10 +379,12 @@ test_that("minimum set objective (Raster, compile, multiple zones)", {
   cd <- raster::stack(sim_zones_pu_raster * c(2, 100, 500))
   # create targets data
   targ <- matrix(
-    runif(
-      number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)
-    ) * 10,
+    withr::with_seed(500,
+      runif(
+        number_of_features(sim_zones_features) *
+        number_of_zones(sim_zones_features)
+      ) * 10
+    ),
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -416,15 +424,20 @@ test_that(
   sim_zones_pu_polygons <- sf::as_Spatial(get_sim_zones_pu_polygons())
   sim_zones_features <- as.ZonesRaster(get_sim_zones_features())
   # create constraints data
-  sim_zones_pu_polygons$c1 <- runif(nrow(sim_zones_pu_polygons)) * 5
-  sim_zones_pu_polygons$c2 <- runif(nrow(sim_zones_pu_polygons)) * 6
-  sim_zones_pu_polygons$c3 <- runif(nrow(sim_zones_pu_polygons)) * 9
+  sim_zones_pu_polygons$c1 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 5)
+  sim_zones_pu_polygons$c2 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 6)
+  sim_zones_pu_polygons$c3 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 9)
   # create targets data
   targ <- matrix(
-    runif(
-      number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)
-    ) * 10,
+    withr::with_seed(500,
+      runif(
+        number_of_features(sim_zones_features) *
+        number_of_zones(sim_zones_features)
+      ) * 10
+    ),
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -473,15 +486,20 @@ test_that("minimum set objective (character/sf, compile, multiple zones)", {
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
   # create constraints data
-  sim_zones_pu_polygons$c1 <- runif(nrow(sim_zones_pu_polygons)) * 5
-  sim_zones_pu_polygons$c2 <- runif(nrow(sim_zones_pu_polygons)) * 6
-  sim_zones_pu_polygons$c3 <- runif(nrow(sim_zones_pu_polygons)) * 9
+  sim_zones_pu_polygons$c1 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 5)
+  sim_zones_pu_polygons$c2 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 6)
+  sim_zones_pu_polygons$c3 <-
+    withr::with_seed(500, runif(nrow(sim_zones_pu_polygons)) * 9)
   # create targets data
   targ <- matrix(
-    runif(
-      number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)
-    ) * 10,
+    withr::with_seed(500,
+      runif(
+        number_of_features(sim_zones_features) *
+        number_of_zones(sim_zones_features)
+      ) * 10
+    ),
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -527,14 +545,17 @@ test_that(
     "multiple zones)"
   ), {
   # make data
-  pu <- data.frame(
-    id = seq_len(10),
-    cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
-    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
-    spp1_2 = runif(10), spp2_2 = runif(10),
-    c1 = runif(10) * 2, c2 = runif(10) * 4
+  withr::with_seed(
+    500,
+    pu <- data.frame(
+      id = seq_len(10),
+      cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
+      spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+      spp1_2 = runif(10), spp2_2 = runif(10),
+      c1 = runif(10) * 2, c2 = runif(10) * 4
+    )
   )
-  targ <- matrix(runif(4) * 3, 2, 2)
+  targ <- matrix(withr::with_seed(500, runif(4) * 3), 2, 2)
   # create problems
   p1 <-
     problem(

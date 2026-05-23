@@ -23,7 +23,6 @@ test_that("binary decisions", {
 test_that("proportion decisions", {
   skip_on_cran()
   skip_if_not_installed("lpsymphony")
-  skip_if_not_installed("slam")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

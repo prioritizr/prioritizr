@@ -44,7 +44,7 @@ test_that("single zone", {
   expect_error(mp$total_unit_ids())
 })
 
-test_that("multiple zone", {
+test_that("multiple zones", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
