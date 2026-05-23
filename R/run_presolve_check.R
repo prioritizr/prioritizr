@@ -29,6 +29,13 @@ run_presolve_check <- function(x, header_level = 2) {
     .internal = TRUE
   )
 
+  # determine if objective is to minimize penalties
+  ## if this is the case, then we skip checks designed to catch
+  ## weird/invalid cost or feature data
+  is_not_min_penalties <-
+    (!"budget_mp" %in% x$row_ids()) &&
+    (!"dum_mp" %in% x$row_ids())
+
   # define header function
   cli_h <- cli::cli_h2
   if (isTRUE(header_level == 1)) {
@@ -86,7 +93,7 @@ run_presolve_check <- function(x, header_level = 2) {
     )
   }
   ### check if only a single feature
-  if (x$number_of_features() == 1) {
+  if (is_not_min_penalties && x$number_of_features() == 1) {
     pass <- FALSE
     msg2 <- c(
       msg2,
@@ -104,7 +111,7 @@ run_presolve_check <- function(x, header_level = 2) {
   ### check if budget exceeds total of planning unit costs
   r1 <- which(x$row_ids() == "budget")
   if (length(r1) > 0) {
-    result <- Matrix::rowSums(y[r1, , drop = FALSE]) <= x$rhs()[r1]
+    result <- x$rhs()[r1] > Matrix::rowSums(y[r1, , drop = FALSE])
     if (any(result)) {
       pass <- FALSE
       if (length(r1) == 1) {
@@ -270,7 +277,7 @@ run_presolve_check <- function(x, header_level = 2) {
     pass <- FALSE
     n <- x$row_ids()[r]
     #### throw warnings
-    if ("budget" %in% n)
+    if (("budget" %in% n) || ("budget_mp" %in% n))
       msg1 <- c(
         msg1,
         c(
@@ -306,7 +313,7 @@ run_presolve_check <- function(x, header_level = 2) {
     pass <- FALSE
     n <- x$row_ids()[r]
     ### throw warnings
-    if ("budget" %in% n)
+    if (("budget" %in% n) || ("budget_mp" %in% n))
       msg2 <- c(
         msg2,
         c(
@@ -342,7 +349,7 @@ run_presolve_check <- function(x, header_level = 2) {
     rn1 <- rownames(y)[y@i + 1][r1]
     rn2 <- rownames(y)[y@i + 1][r2]
     #### throw warnings
-    if ("budget" %in% rn1)
+    if (("budget" %in% rn1) || ("budget_mp" %in% rn1))
       msg1 <- c(
         msg1,
         c(
