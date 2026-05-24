@@ -1,16 +1,18 @@
 #' @include internal.R
 NULL
 
-#' Create objective weight values
+#' Create weight values for a multi-objective approach
 #'
 #' Create multiple sets of weight values to generate multiple solutions with
-#' the weighted sum approach for multi-objective optimization
-#' (i.e., the `weights` parameter of [add_wtd_sum_approach()]).
+#' multi-objective optimization
+#' (e.g., the `weights` parameter of [add_wtd_sum_approach()] or
+#' [add_ref_point_approach()]).
 #'
-#' @param n_objectives `integer` number of objectives.
+#' @param n_problems `integer` value denoting the number of [problem()] objects
+#' for which to generate values.
 #'
-#' @param n_per_objective `integer` number of weight values to
-#' to generate for each objective.
+#' @param n_values `integer` value denoting the number of weight values to
+#' to generate for each [problem()] (per `n_problems`).
 #'
 #' @param include_zeros `logical` value indicating if the weight values
 #' should include zeros? If `include_zeros = TRUE`, then some of the sets
@@ -36,17 +38,17 @@ NULL
 #' @inherit add_wtd_sum_approach examples
 #'
 #' @export
-objective_weights_matrix <- function(n_objectives, n_per_objective,
-                                     include_zeros = TRUE,
-                                     include_extremes = TRUE) {
+approach_weights_matrix <- function(n_problems, n_values,
+                                    include_zeros = TRUE,
+                                    include_extremes = TRUE) {
   # assert arguments are valid
-  assert_required(n_objectives)
-  assert_required(n_per_objective)
+  assert_required(n_problems)
+  assert_required(n_values)
   assert(
-    assertthat::is.count(n_objectives),
-    assertthat::noNA(n_objectives),
-    assertthat::is.count(n_per_objective),
-    assertthat::noNA(n_per_objective),
+    assertthat::is.count(n_problems),
+    assertthat::noNA(n_problems),
+    assertthat::is.count(n_values),
+    assertthat::noNA(n_values),
     assertthat::is.flag(include_zeros),
     assertthat::noNA(include_zeros),
     assertthat::is.flag(include_extremes),
@@ -54,11 +56,11 @@ objective_weights_matrix <- function(n_objectives, n_per_objective,
   )
 
   # create initial weight values
-  out <- seq(0, 1, length.out = n_per_objective + as.double(!include_zeros))
+  out <- seq(0, 1, length.out = n_values + as.double(!include_zeros))
   if (!isTRUE(include_zeros)) {
     out <- out[-1]
   }
-  out <- list(out)[rep(1, n_objectives)]
+  out <- list(out)[rep(1, n_problems)]
 
   # generate matrix with all combinations of weight values
   out <- as.matrix(do.call(expand.grid, args = out))
@@ -74,11 +76,11 @@ objective_weights_matrix <- function(n_objectives, n_per_objective,
 
   # if needed, manually add rows for extreme points
   if (isTRUE(include_extremes)) {
-    out <- rbind(diag(n_objectives), out)
+    out <- rbind(diag(n_problems), out)
   }
 
   # manually add in a row where each objective is assigned equal weighting
-  out <- rbind(matrix(1, nrow = 1, ncol = n_objectives), out)
+  out <- rbind(matrix(1, nrow = 1, ncol = n_problems), out)
 
   # return result
   out

@@ -80,7 +80,8 @@ NULL
 #'
 #' \item{`data` as a `NULL` value}{
 #' Here boundary length data are
-#' automatically calculated using the [boundary_matrix()] function.
+#' automatically calculated using the [boundary_matrix()] function and
+#' then rescaled with [rescale_matrix()].
 #' This is the default for `data`.
 #' Note that the boundary data must be supplied
 #' using one of the other formats below if `x` does not contain planning units
@@ -456,7 +457,10 @@ methods::setMethod("add_boundary_penalties",
               is.null(self$get_data("data")) &&
               is.Waiver(x$get_data("boundary"))
             ) {
-              x$set_data("boundary", boundary_matrix(x$get_data("cost")))
+              x$set_data(
+                "boundary",
+                rescale_matrix(boundary_matrix(x$get_data("cost")))
+              )
             }
             # return invisible success
             invisible()

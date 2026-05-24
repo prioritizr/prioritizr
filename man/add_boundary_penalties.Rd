@@ -97,7 +97,8 @@ between planning units.
 
 \item{\code{data} as a \code{NULL} value}{
 Here boundary length data are
-automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function.
+automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function and
+then rescaled with \code{\link[=rescale_matrix]{rescale_matrix()}}.
 This is the default for \code{data}.
 Note that the boundary data must be supplied
 using one of the other formats below if \code{x} does not contain planning units

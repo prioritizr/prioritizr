@@ -1,6 +1,6 @@
 test_that("default parameters", {
   # create object
-  x <- objective_weights_matrix(3, 5)
+  x <- approach_weights_matrix(3, 5)
   # run tests
   ## format
   expect_equal(ncol(x), 3)
@@ -17,7 +17,7 @@ test_that("default parameters", {
 
 test_that("include_zeros = FALSE", {
   # create object
-  x <- objective_weights_matrix(
+  x <- approach_weights_matrix(
     3, 5, include_zeros = FALSE, include_extremes = FALSE
   )
   # run tests
@@ -31,7 +31,7 @@ test_that("include_zeros = FALSE", {
 
 test_that("include_extremes = FALSE", {
   # create object
-  x <- objective_weights_matrix(3, 5, include_extremes = FALSE)
+  x <- approach_weights_matrix(3, 5, include_extremes = FALSE)
   # run tests
   ## format
   expect_equal(ncol(x), 3)
@@ -47,8 +47,8 @@ test_that("include_extremes = FALSE", {
 
 test_that("invalid inputs", {
   # run tests
-  expect_error(objective_weights_matrix(0, 5))
-  expect_error(objective_weights_matrix(3, 0))
-  expect_error(objective_weights_matrix(3, 5, include_zeros = "yes"))
-  expect_error(objective_weights_matrix(3, 5, include_extremes = NA))
+  expect_error(approach_weights_matrix(0, 5))
+  expect_error(approach_weights_matrix(3, 0))
+  expect_error(approach_weights_matrix(3, 5, include_zeros = "yes"))
+  expect_error(approach_weights_matrix(3, 5, include_extremes = NA))
 })

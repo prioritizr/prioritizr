@@ -190,7 +190,7 @@ plot(ms1, main = "Equally balanced", axes = FALSE)
 # that contains different combinations of weight values
 
 # create a matrix with weight values for objectives
-obj_weights_matrix <- objective_weights_matrix(
+obj_weights_matrix <- approach_weights_matrix(
  n_objectives = 2,
  n_per_objective = 5,
  include_zero = TRUE

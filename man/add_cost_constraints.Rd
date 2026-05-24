@@ -94,10 +94,7 @@ mp <-
       add_binary_decisions()
   ) \%>\%
   add_ref_point_approach(
-    weights = objective_weights_matrix(
-      n_objectives = 2,
-      n_per_objective = 10
-    )
+    weights = approach_weights_matrix(n_problems = 2, n_values = 10)
   ) \%>\%
   add_default_solver(gap = 0.01)
 

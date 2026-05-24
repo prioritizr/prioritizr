@@ -19,7 +19,7 @@ test_that("minimum set objective (compile, single zone)", {
   ## number of features
   n_f <- p$number_of_features()
   ## prepare boundary calculations
-  b_data <- boundary_matrix(p$data$cost)
+  b_data <- rescale_matrix(boundary_matrix(p$data$cost))
   b_data <- b_data[p$planning_unit_indices(), p$planning_unit_indices()]
   b_exterior <- c(
     Matrix::diag(b_data) - (Matrix::rowSums(b_data) - Matrix::diag(b_data))
@@ -91,7 +91,10 @@ test_that("minimum set objective (obj fun, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(10000, 1, "knapsack") %>%
+    add_boundary_penalties(
+      10000, 1, "knapsack",
+      data = boundary_matrix(sim_pu_raster)
+    ) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   s <- solve(p)
   # calculations for tests
@@ -120,7 +123,10 @@ test_that("maximum wtd sum (obj fun, single zone)", {
     problem(sim_pu_raster, sim_features) %>%
     add_max_wtd_sum_objective(budget = b) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(1, 1, "knapsack") %>%
+    add_boundary_penalties(
+      1, 1, "knapsack",
+      data = boundary_matrix(sim_pu_raster)
+    ) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   s <- solve(p)
   # calculations for tests
@@ -157,7 +163,10 @@ test_that("minimum set objective (compile, multiple zones)", {
     add_min_set_objective() %>%
     add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(penalty, p_edge_factor, "knapsack", p_zones)
+    add_boundary_penalties(
+      penalty, p_edge_factor, "knapsack", p_zones,
+      data = boundary_matrix(sim_zones_pu_polygons)
+    )
   o <- compile(p)
   # create variables for tests
   ## number of planning units
@@ -323,7 +332,10 @@ test_that("minimum set objective (solve, multiple zones)", {
   # create and solve problems
   s <-
     p %>%
-    add_boundary_penalties(300, rep(1, 3), "knapsack", m) %>%
+    add_boundary_penalties(
+      300, rep(1, 3), "knapsack", m,
+      data = boundary_matrix(sim_zones_pu_raster)
+    ) %>%
     solve()
   # calculations for tests
   obj_value <- unname(attr(s, "objective"))

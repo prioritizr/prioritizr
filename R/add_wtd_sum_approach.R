@@ -89,7 +89,7 @@ NULL
 #'
 #' @seealso
 #' See [approaches] for an overview of all functions for adding an approach.
-#' Also, see [objective_weights_matrix()] to automatically create a matrix
+#' Also, see [approach_weights_matrix()] to automatically create a matrix
 #' for `weights`.
 #'
 #' @references
@@ -174,7 +174,7 @@ NULL
 #' # that contains different combinations of weight values
 #'
 #' # create a matrix with weight values for objectives
-#' obj_weights_matrix <- objective_weights_matrix(
+#' obj_weights_matrix <- approach_weights_matrix(
 #'  n_objectives = 2,
 #'  n_per_objective = 5,
 #'  include_zero = TRUE

@@ -5,6 +5,7 @@ test_that("min set objective (approx = FALSE)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
@@ -15,7 +16,7 @@ test_that("min set objective (approx = FALSE)", {
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
   x <- calibrate_cohon_penalty(p2, verbose = FALSE, approx = FALSE)
   # calculate correct result
@@ -28,11 +29,11 @@ test_that("min set objective (approx = FALSE)", {
   )
   s1_metrics <- data.frame(
     total_cost = eval_cost_summary(p2, s1)$cost,
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_cost = eval_cost_summary(p2, s2)$cost,
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_cost - s2_metrics$total_cost) /
@@ -74,11 +75,12 @@ test_that("min set objective (approx = TRUE)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
-    add_boundary_penalties(penalty = 1) %>%
+    add_boundary_penalties(penalty = 1, data = bd) %>%
     add_relative_targets(0.2) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = gap, verbose = FALSE)
@@ -137,6 +139,7 @@ test_that("min shortfall objective (approx = FALSE)", {
   gap <- 0.0
   budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.8
   wts <- runif(terra::nlyr(sim_features)) * 100
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
@@ -148,7 +151,7 @@ test_that("min shortfall objective (approx = FALSE)", {
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
   x <- suppressMessages(
     calibrate_cohon_penalty(p2, verbose = TRUE, approx = FALSE)
@@ -159,12 +162,12 @@ test_that("min shortfall objective (approx = FALSE)", {
   s1_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s1)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s2)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_shortfall - s2_metrics$total_shortfall) /
@@ -212,6 +215,7 @@ test_that("min shortfall objective (approx = TRUE)", {
   gap <- 0.0
   budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.8
   wts <- runif(terra::nlyr(sim_features)) * 100
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
@@ -223,7 +227,7 @@ test_that("min shortfall objective (approx = TRUE)", {
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
   x <- suppressMessages(
     calibrate_cohon_penalty(p2, verbose = FALSE, approx = TRUE)
@@ -234,12 +238,12 @@ test_that("min shortfall objective (approx = TRUE)", {
   s1_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s1)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s2)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_shortfall - s2_metrics$total_shortfall) /

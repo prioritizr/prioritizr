@@ -159,7 +159,7 @@ plot(ms1, main = "Equal weights", axes = FALSE)
 # that contains different combinations of weight values
 
 # create a matrix with weight values for objectives
-obj_weights_matrix <- objective_weights_matrix(
+obj_weights_matrix <- approach_weights_matrix(
  n_objectives = 2,
  n_per_objective = 5,
  include_zero = TRUE
@@ -221,7 +221,7 @@ for ecological problems with an application to cackling goose management.
 }
 \seealso{
 See \link{approaches} for an overview of all functions for adding an approach.
-Also, see \code{\link[=objective_weights_matrix]{objective_weights_matrix()}} to automatically create a matrix
+Also, see \code{\link[=approach_weights_matrix]{approach_weights_matrix()}} to automatically create a matrix
 for \code{weights}.
 
 Other functions for adding multi-objective optimization approaches:
