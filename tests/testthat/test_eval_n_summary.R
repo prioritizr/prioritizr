@@ -99,7 +99,39 @@ test_that("proportion values (multiple zones)", {
 })
 
 test_that("multi_problem()", {
-
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem
+  mp <- suppressMessages(
+    multi_problem(
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        add_max_wtd_sum_objective(budget = 100) %>%
+        add_binary_decisions(),
+      obj3 =
+        problem(sim_zones_pu_raster[[3]], sim_features) %>%
+        add_min_shortfall_objective(budget = 200) %>%
+        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+        add_binary_decisions()
+    )
+  )
+  # create solution
+  solution <- terra::as.int(
+    sim_zones_pu_raster[[1]] >
+      terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
+  )
+  # calculations
+  r1 <- eval_n_summary(mp, solution)
+  # create correct result using first sub-problem (same planning units)
+  r2 <- eval_n_summary(mp$problems[[1]], solution)
+  # run tests
+  expect_equal(r1, r2)
 })
 
 test_that("invalid input", {

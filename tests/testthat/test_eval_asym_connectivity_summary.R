@@ -274,7 +274,56 @@ test_that("multiple zones (variable zone matrix)", {
 })
 
 test_that("multi_problem()", {
-
+  set.seed(500)
+  # create zones matrix
+  zm <- diag(1)
+  # create problem data
+  pu <- sf::st_as_sf(
+    tibble::tibble(
+      id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
+      spp1 = runif(10), spp2 = c(rpois(9, 4), NA),
+      solution = c(0, NA, 1, 1, 1, 0, 0, 0, 1, 0)
+    ),
+    geometry =
+      terra::rast(
+        matrix(seq_len(10), ncol = 2, byrow = TRUE),
+        extent = terra::ext(0, 2, 0, 5)
+      ) %>%
+      terra::as.polygons() %>%
+      sf::st_as_sf() %>%
+      {.[order(.[[1]]), ]} %>%
+      sf::st_geometry()
+  )
+  # simulate connectivity matrix
+  cm <- matrix(runif(nrow(pu)^2), nrow = nrow(pu), ncol = nrow(pu))
+  # create multi-objective problem
+  mp <- suppressMessages(
+    multi_problem(
+      obj1 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions(),
+      obj2 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
+        add_max_wtd_sum_objective(budget = 100) %>%
+        add_binary_decisions()
+    )
+  )
+  # calculate connectivity (dgCMatrix)
+  r1 <- eval_asym_connectivity_summary(mp, pu[, "solution"], zm, cm)
+  # calculate connectivity (matrix)
+  r2 <- eval_asym_connectivity_summary(mp, pu[, "solution"], zm, as.matrix(cm))
+  # calculate connectivity (array)
+  r3 <- eval_asym_connectivity_summary(
+    mp, pu[, "solution"], NULL, as_connectivity_array(zm, cm)
+  )
+  # create correct result
+  r4 <- eval_asym_connectivity_summary(
+    mp$problems[[1]], pu[, "solution"], zm, cm
+  )
+  # run tests
+  expect_equal(r1, r2)
+  expect_equal(r1, r3)
+  expect_equal(r1, r4)
 })
 
 test_that("expected warnings", {
