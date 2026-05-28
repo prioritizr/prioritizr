@@ -345,7 +345,7 @@ test_that("multiple zones (variable edge_factor, zone matrix)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
-test_that("multi_problem()", {
+test_that("multi_problem (single zone)", {
   set.seed(500)
   # create zones data
   zm <- matrix(1, ncol = 1, nrow = 1)
@@ -369,27 +369,63 @@ test_that("multi_problem()", {
   )
   # create boundary matrix
   bm <- boundary_matrix(pu)
-  # create multi-objective problem
-  mp <- suppressMessages(
-    multi_problem(
-      obj1 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(c(1, 1)) %>%
-        add_binary_decisions(),
-      obj2 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
-        add_max_wtd_sum_objective(budget = 100) %>%
-        add_binary_decisions()
-    )
-  )
-  # calculate boundary using manually specified boundary matrix
-  r1 <- eval_boundary_summary(mp, pu[, "solution"], ef, zm, bm)
-  # create correct result
-  r2 <- eval_boundary_summary(
-    mp$problems[[1]], pu[, "solution"], ef, zm, bm
-  )
+  # create problem
+  p <-
+    problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # calculate boundary
+  x <- eval_boundary_summary(mp, pu[, "solution"], ef, zm, bm)
+  y <- eval_boundary_summary(p, pu[, "solution"], ef, zm, bm)
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(nrow(na.omit(r1)), nrow(r1))
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  set.seed(500)
+  # create zones data
+  zm <- matrix(c(0.9, 0.2, 0.2, 0.4), ncol = 2, nrow = 2)
+  ef <- c(0.5, 0.2)
+  # create problem data
+  pu <- sf::st_as_sf(
+    tibble::tibble(
+      id = seq_len(10),
+      con = runif(10),
+      cost_1 = c(NA, NA, runif(8)),
+      cost_2 = c(0.3, NA, runif(8)),
+      spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+      spp1_2 = runif(10), spp2_2 = runif(10),
+      sol_1 = c(NA, NA, rep(c(0, 1), 4)),
+      sol_2 = c(1, NA, rep(c(1, 0), 4))
+    ),
+    geometry =
+      terra::rast(
+        matrix(seq_len(10), ncol = 2, byrow = TRUE),
+        extent = terra::ext(0, 2, 0, 5)
+      ) %>%
+      terra::as.polygons() %>%
+      sf::st_as_sf() %>%
+      {.[order(.[[1]]), ]} %>%
+      sf::st_geometry()
+  )
+  # create boundary matrix
+  bm <- boundary_matrix(pu)
+  # create problem
+  p <-
+    problem(
+      pu,
+      features = zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # calculate boundary
+  x <- eval_boundary_summary(mp, pu[, c("sol_1", "sol_2")], ef, zm, bm)
+  y <- eval_boundary_summary(p, pu[, c("sol_1", "sol_2")], ef, zm, bm)
+  # run tests
+  expect_equal(x, y)
 })
 
 test_that("tas_pu works", {

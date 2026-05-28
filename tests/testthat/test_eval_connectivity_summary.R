@@ -274,45 +274,86 @@ test_that("multiple zones (variable zone matrix)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
-test_that("multi_problem()", {
+test_that("multi_problem (single zone)", {
+  set.seed(500)
+  # create zones data
+  zm <- diag(1)
+  # create problem data
+  pu <- sf::st_as_sf(
+    tibble::tibble(
+      id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
+      spp1 = runif(10), spp2 = c(rpois(9, 4), NA),
+      con = runif(10),
+      solution = c(0, NA, 1, 1, 1, 0, 0, 0, 1, 0)
+    ),
+    geometry =
+      terra::rast(
+        matrix(seq_len(10), ncol = 2, byrow = TRUE),
+        extent = terra::ext(0, 2, 0, 5)
+      ) %>%
+      terra::as.polygons() %>%
+      sf::st_as_sf() %>%
+      {.[order(.[[1]]), ]} %>%
+      sf::st_geometry()
+  )
+  # create connectivity matrix
+  cm <- connectivity_matrix(pu, "con")
+  # create problem
+  p <-
+    problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # calculate connectivity
+  x <- eval_connectivity_summary(mp, pu[, "solution"], zm, cm)
+  y <- eval_connectivity_summary(p, pu[, "solution"], zm, cm)
+  # run tests
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (single zone)", {
   set.seed(500)
   # create zones matrix
-  zm <- diag(1)
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_features <- get_sim_features()
-  # create connectivity matrix matching raster planning units
-  cm <- adjacency_matrix(sim_zones_pu_raster[[1]])
-  # create multi-objective problem
-  mp <- suppressMessages(
-    multi_problem(
-      obj1 =
-        problem(sim_zones_pu_raster[[1]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-        add_binary_decisions(),
-      obj2 =
-        problem(sim_zones_pu_raster[[2]], sim_features) %>%
-        add_max_wtd_sum_objective(budget = 100) %>%
-        add_binary_decisions(),
-      obj3 =
-        problem(sim_zones_pu_raster[[3]], sim_features) %>%
-        add_min_shortfall_objective(budget = 200) %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-        add_binary_decisions()
-    )
+  zm <- matrix(1, ncol = 2, nrow = 2)
+  # create problem data
+  pu <- sf::st_as_sf(
+    tibble::tibble(
+      id = seq_len(10),
+      con = runif(10),
+      cost_1 = c(NA, NA, runif(8)),
+      cost_2 = c(0.3, NA, runif(8)),
+      spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+      spp1_2 = runif(10), spp2_2 = runif(10),
+      sol_1 = c(NA, NA, rep(c(0, 1), 4)),
+      sol_2 = c(1, NA, rep(c(1, 0), 4))
+    ),
+    geometry =
+      terra::rast(
+        matrix(seq_len(10), ncol = 2, byrow = TRUE),
+        extent = terra::ext(0, 2, 0, 5)
+      ) %>%
+      terra::as.polygons() %>%
+      sf::st_as_sf() %>%
+      {.[order(.[[1]]), ]} %>%
+      sf::st_geometry()
   )
-  # create solution
-  solution <- terra::as.int(
-    sim_zones_pu_raster[[1]] >
-      terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
-  )
+  # create problem
+  p <-
+    problem(
+      pu,
+      features = zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # create connectivity matrix
+  cm <- connectivity_matrix(pu, "con")
   # calculate connectivity
-  r1 <- eval_connectivity_summary(mp, solution, zm, cm)
-  # create correct result
-  r2 <- eval_connectivity_summary(mp$problems[[1]], solution, zm, cm)
+  x <- eval_connectivity_summary(mp, pu[, c("sol_1", "sol_2")], zm, cm)
+  y <- eval_connectivity_summary(p, pu[, c("sol_1", "sol_2")], zm, cm)
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("expected warnings", {

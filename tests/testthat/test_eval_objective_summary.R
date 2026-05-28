@@ -1,6 +1,7 @@
 test_that("problem() (single zone)", {
   skip_on_cran()
   # create data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost = c(0.2, NA_real_, runif(8)),
@@ -33,6 +34,7 @@ test_that("problem() (single zone)", {
 test_that("multi_problem() (single zone)", {
   skip_on_cran()
   # create data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost = c(0.2, NA_real_, runif(8)),
@@ -82,6 +84,7 @@ test_that("multi_problem() (single zone)", {
 test_that("problem() (multiple zones)", {
   skip_on_cran()
   # simulate data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)),
@@ -119,6 +122,7 @@ test_that("problem() (multiple zones)", {
 test_that("multi_problem() (multiple zones)", {
   skip_on_cran()
   # simulate data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)),
@@ -141,7 +145,7 @@ test_that("multi_problem() (multiple zones)", {
         data.frame(id = seq_len(2), name = c("spp1", "spp2")),
         list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
       ) %>%
-        add_max_wtd_sum_objective(budget = 100) 
+        add_max_wtd_sum_objective(budget = 100)
     ) %>%
     add_default_solver(verbose = FALSE)
   # create a solution
@@ -168,6 +172,7 @@ test_that("multi_problem() (multiple zones)", {
 test_that("include_penalties = FALSE", {
   skip_on_cran()
   # create data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost = c(0.2, NA_real_, runif(8)),
@@ -201,6 +206,7 @@ test_that("include_penalties = FALSE", {
 test_that("include_penalties = TRUE", {
   skip_on_cran()
   # create data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost = c(0.2, NA_real_, runif(8)),
@@ -235,6 +241,7 @@ test_that("include_penalties = TRUE", {
 
 test_that("invalid inputs", {
   # create data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost = c(0.2, NA_real_, runif(8)),
@@ -252,11 +259,21 @@ test_that("invalid inputs", {
     add_absolute_targets(1) %>%
     add_default_solver(verbose = FALSE)
   # create a solution
-  s <- matrix(rep(c(0, 1), 5), ncol = 1)
+  s <- matrix(rep(0, 10), ncol = 1)
   s[is.na(pu$cost)] <- NA_real_
   # run tests
   expect_error(eval_objective_summary(NULL, s))
   expect_tidy_error(eval_objective_summary(p, NULL), "solution")
-  expect_tidy_error(eval_objective_summary(p, s, include_penalties = NA), "include_penalties")
-  expect_tidy_error(eval_objective_summary(p, s, include_penalties = "yes"), "include_penalties")
+  expect_tidy_error(
+    eval_objective_summary(p, s, include_penalties = NA),
+    "include_penalties"
+  )
+  expect_tidy_error(
+    eval_objective_summary(p, s, include_penalties = "yes"),
+    "include_penalties"
+  )
+  expect_tidy_error(
+    eval_objective_summary(p, s),
+    "feasible"
+  )
 })

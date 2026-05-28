@@ -273,9 +273,9 @@ test_that("multiple zones (variable zone matrix)", {
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
-test_that("multi_problem()", {
+test_that("multi_problem (single zone)", {
   set.seed(500)
-  # create zones matrix
+  # create zones data
   zm <- diag(1)
   # create problem data
   pu <- sf::st_as_sf(
@@ -296,34 +296,62 @@ test_that("multi_problem()", {
   )
   # simulate connectivity matrix
   cm <- matrix(runif(nrow(pu)^2), nrow = nrow(pu), ncol = nrow(pu))
-  # create multi-objective problem
-  mp <- suppressMessages(
-    multi_problem(
-      obj1 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(c(1, 1)) %>%
-        add_binary_decisions(),
-      obj2 = problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
-        add_max_wtd_sum_objective(budget = 100) %>%
-        add_binary_decisions()
-    )
-  )
-  # calculate connectivity (dgCMatrix)
-  r1 <- eval_asym_connectivity_summary(mp, pu[, "solution"], zm, cm)
-  # calculate connectivity (matrix)
-  r2 <- eval_asym_connectivity_summary(mp, pu[, "solution"], zm, as.matrix(cm))
-  # calculate connectivity (array)
-  r3 <- eval_asym_connectivity_summary(
-    mp, pu[, "solution"], NULL, as_connectivity_array(zm, cm)
-  )
-  # create correct result
-  r4 <- eval_asym_connectivity_summary(
-    mp$problems[[1]], pu[, "solution"], zm, cm
-  )
+  # create problem
+  p <-
+    problem(pu, features = c("spp1", "spp2"), cost_column = "cost") %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # caluclate summary values
+  x <- eval_asym_connectivity_summary(mp, pu[, "solution"], zm, cm)
+  y <- eval_asym_connectivity_summary(p, pu[, "solution"], zm, cm)
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
-  expect_equal(r1, r4)
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  set.seed(500)
+  # create zones data
+  zm <- matrix(1, ncol = 2, nrow = 2)
+  # create planning unit
+  pu <- sf::st_as_sf(
+    tibble::tibble(
+      id = seq_len(10),
+      con = runif(10),
+      cost_1 = c(NA, NA, runif(8)),
+      cost_2 = c(0.3, NA, runif(8)),
+      spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+      spp1_2 = runif(10), spp2_2 = runif(10),
+      sol_1 = c(NA, NA, rep(c(0, 1), 4)),
+      sol_2 = c(1, NA, rep(c(1, 0), 4))
+    ),
+    geometry =
+      terra::rast(
+        matrix(seq_len(10), ncol = 2, byrow = TRUE),
+        extent = terra::ext(0, 2, 0, 5)
+      ) %>%
+      terra::as.polygons() %>%
+      sf::st_as_sf() %>%
+      {.[order(.[[1]]), ]} %>%
+      sf::st_geometry()
+  )
+  # simulate connectivity matrix
+  cm <- matrix(runif(nrow(pu)^2), nrow = nrow(pu), ncol = nrow(pu))
+  # create problem
+  p <-
+    problem(
+      pu,
+      features = zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # calculate summary values
+  x <- eval_asym_connectivity_summary(mp, pu[, c("sol_1", "sol_2")], zm, cm)
+  y <- eval_asym_connectivity_summary(p, pu[, c("sol_1", "sol_2")], zm, cm)
+  # run tests
+  expect_equal(x, y)
 })
 
 test_that("expected warnings", {

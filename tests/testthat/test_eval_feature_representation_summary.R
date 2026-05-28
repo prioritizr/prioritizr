@@ -553,47 +553,99 @@ test_that("Raster (multiple zones)", {
   expect_equal(r1, r2)
 })
 
-test_that("multi_problem()", {
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_features <- get_sim_features()
-  # create multi-objective problem
-  mp <- suppressMessages(
-    multi_problem(
-      obj1 =
-        problem(sim_zones_pu_raster[[1]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-        add_binary_decisions(),
-      obj2 =
-        problem(sim_zones_pu_raster[[2]], sim_features) %>%
-        add_max_wtd_sum_objective(budget = 100) %>%
-        add_binary_decisions(),
-      obj3 =
-        problem(sim_zones_pu_raster[[3]], sim_features) %>%
-        add_min_shortfall_objective(budget = 200) %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-        add_binary_decisions()
+test_that("multi_problem (single zone)", {
+  # simulate data
+  pu <- data.frame(
+    id = seq_len(10),
+    cost = c(0.2, NA, runif(8)),
+    spp1 = runif(10),
+    spp2 = c(rpois(9, 4), NA),
+    spp3 = c(rpois(9, 2), NA)
+  )
+  # create problem
+  p1 <-
+    problem(pu, c("spp1"), cost_column = "cost") %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(pu, c("spp1", "spp2", "spp3"), cost_column = "cost") %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(obj1 = p1, obj2 = p2)
+  # create a solution
+  s <- data.frame(solution = rep(c(0, 1), 5))
+  s[[1]][is.na(pu$cost)] <- NA_real_
+  # calculate representation
+  x <- eval_feature_representation_summary(mp, s)
+  # create correct result
+  y <- tibble::as_tibble(
+    rbind(
+      cbind(
+        data.frame(problem = "obj1"),
+        eval_feature_representation_summary(p1, s)
+      ),
+      cbind(
+        data.frame(problem = "obj2"),
+        eval_feature_representation_summary(p2, s)
+      )
     )
   )
-  # create solution
-  solution <- terra::as.int(
-    sim_zones_pu_raster[[1]] >
-      terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
-  )
-  # calculate feature representation
-  r1 <- eval_feature_representation_summary(mp, solution)
-  # create correct result
-  r21 <- eval_feature_representation_summary(mp$problems[[1]], solution)
-  r21$problem <- "obj1"
-  r22 <- eval_feature_representation_summary(mp$problems[[2]], solution)
-  r22$problem <- "obj2"
-  r23 <- eval_feature_representation_summary(mp$problems[[3]], solution)
-  r23$problem <- "obj3"
-  r2 <- rbind(r21, r22, r23)
-  r2 <- r2[, c("problem", setdiff(names(r2), "problem")), drop = FALSE]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  # simulate data
+  pu <- data.frame(
+    id = seq_len(10),
+    cost_1 = c(NA, NA, runif(8)),
+    cost_2 = c(0.3, NA, runif(8)),
+    spp1_1 = runif(10),
+    spp2_1 = c(rpois(9, 4), NA),
+    spp3_1 = c(rpois(9, 1), NA),
+    spp1_2 = runif(10),
+    spp2_2 = runif(10),
+    spp3_2 = runif(10)
+  )
+  # create problems
+  p1 <-
+    problem(
+      pu,
+      zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(
+      pu,
+      zones(c("spp1_1", "spp2_1", "spp3_1"), c("spp1_2", "spp2_2", "spp3_2")),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(obj1 = p1, obj2 = p2)
+  # create a solution
+  s <- data.frame("z1" = rep(c(0, 0.5), 5), "z2" = rep(c(0.5, 0), 5))
+  s[[1]][is.na(pu$cost_1)] <- NA_real_
+  s[[2]][is.na(pu$cost_2)] <- NA_real_
+  # calculate representation
+  x <- eval_feature_representation_summary(mp, s)
+  # create correct result
+  y <- tibble::as_tibble(
+    rbind(
+      cbind(
+        data.frame(problem = "obj1"),
+        eval_feature_representation_summary(p1, s)
+      ),
+      cbind(
+        data.frame(problem = "obj2"),
+        eval_feature_representation_summary(p2, s)
+      )
+    )
+  )
+  # run tests
+  expect_equal(x, y)
 })
 
 test_that("invalid inputs", {

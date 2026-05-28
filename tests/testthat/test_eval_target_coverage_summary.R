@@ -342,7 +342,7 @@ test_that("binary values (single zone, variable target sense, all met)", {
   expect_equal(r1, r2)
 })
 
-test_that("multi_problem()", {
+test_that("multi_problem (single zone)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_features <- get_sim_features()
@@ -371,14 +371,94 @@ test_that("multi_problem()", {
     terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
   )
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(mp, solution)
+  expect_warning(
+    x <- eval_target_coverage_summary(mp, solution),
+    "does not have targets"
+  )
   # calculate correct result
-  r21 <- eval_target_coverage_summary(mp$problems[[1]], solution)
-  r21$problem <- "obj1"
-  r22 <- eval_target_coverage_summary(mp$problems[[3]], solution)
-  r22$problem <- "obj3"
-  r2 <- rbind(r21, r22)
-  r2 <- r2[, c("problem", setdiff(names(r2), "problem")), drop = FALSE]
+  y <- tibble::as_tibble(
+    rbind(
+      cbind(
+        data.frame(problem = "obj1"),
+        eval_target_coverage_summary(mp$problems[[1]], solution)
+      ),
+      cbind(
+        data.frame(problem = "obj3"),
+        eval_target_coverage_summary(mp$problems[[3]], solution)
+      )
+    )
+  )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  # simulate data
+  pu <- data.frame(
+    id = seq_len(10),
+    cost_1 = c(NA, NA, runif(8)),
+    cost_2 = c(0.3, NA, runif(8)),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_2 = runif(10), spp2_2 = runif(10),
+    s1 = c(NA, NA, rep(c(0, 1), 4)),
+    s2 = c(1, NA, rep(c(1, 0), 4))
+  )
+  targets <- tibble::tibble(
+    feature = c("spp1", "spp2"),
+    zone = list(c("z1", "z2"), c("z2")),
+    sense = ">=", type = "absolute",
+    target = c(6, 10)
+  )
+  # create problem
+  mp <-
+    multi_problem(
+      obj1 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1"), z2 = c("spp1_2"),
+            feature_names = c("spp1")
+          )
+        ) %>%
+        add_max_wtd_sum_objective(1000) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
+            feature_names = c("spp1", "spp2")
+          )
+        ) %>%
+        add_min_set_objective() %>%
+        add_manual_targets(targets) %>%
+        add_binary_decisions(),
+      obj3 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1"), z2 = c("spp1_2"),
+            feature_names = c("spp1")
+          )
+        ) %>%
+        add_max_wtd_sum_objective(1000) %>%
+        add_binary_decisions()
+    )
+  # calculate target coverage
+  expect_warning(
+    x <- eval_target_coverage_summary(mp, pu[, c("s1", "s2")]),
+    "do not have targets"
+  )
+  # calculate correct result
+  y <- tibble::as_tibble(
+    cbind(
+      data.frame(problem = "obj2"),
+      eval_target_coverage_summary(mp$problems[[2]], pu[, c("s1", "s2")])
+    )
+  )
+  # run tests
+  expect_equal(x, y)
 })

@@ -98,40 +98,58 @@ test_that("proportion values (multiple zones)", {
   expect_equal(r1, r2)
 })
 
-test_that("multi_problem()", {
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_features <- get_sim_features()
-  # create multi-objective problem
-  mp <- suppressMessages(
-    multi_problem(
-      obj1 =
-        problem(sim_zones_pu_raster[[1]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-        add_binary_decisions(),
-      obj2 =
-        problem(sim_zones_pu_raster[[2]], sim_features) %>%
-        add_max_wtd_sum_objective(budget = 100) %>%
-        add_binary_decisions(),
-      obj3 =
-        problem(sim_zones_pu_raster[[3]], sim_features) %>%
-        add_min_shortfall_objective(budget = 200) %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-        add_binary_decisions()
-    )
+test_that("multi_problem (single zone)", {
+  # create data
+  pu <- data.frame(
+    id = seq_len(10), cost = c(0.2, NA_real_, runif(8)),
+    spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
   )
-  # create solution
-  solution <- terra::as.int(
-    sim_zones_pu_raster[[1]] >
-      terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
-  )
-  # calculations
-  r1 <- eval_n_summary(mp, solution)
-  # create correct result using first sub-problem (same planning units)
-  r2 <- eval_n_summary(mp$problems[[1]], solution)
+  # create problem
+  p <-
+    problem(
+      matrix(pu$cost, ncol = 1),
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # create a solution
+  s <- matrix(rep(c(0, 1), 5), ncol = 1)
+  s[is.na(pu$cost)] <- NA_real_
+  # caluclate n
+  x <- eval_n_summary(mp, s)
+  y <- eval_n_summary(p, s)
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  # simulate data
+  pu <- data.frame(
+    id = seq_len(10),
+    cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_2 = runif(10), spp2_2 = runif(10)
+  )
+  # create problem
+  p <-
+    problem(
+      as.matrix(pu[, 2:3]),
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+    ) %>%
+    add_max_wtd_sum_objective(1000) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p, p)
+  # create a solution
+  s <- matrix(c(rep(c(0, 1), 5), rep(c(1, 0), 5)), ncol = 2)
+  s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
+  # calculate n
+  x <- eval_n_summary(p, s)
+  y <- eval_n_summary(mp, s)
+  # calculations
+  expect_equal(x, y)
 })
 
 test_that("invalid input", {

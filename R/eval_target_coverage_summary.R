@@ -350,12 +350,36 @@ eval_target_coverage_summary.MultiObjConservationProblem <- function(
   idx <- which(
     vapply(x$problems, function(x) !is.Waiver(x$targets), logical(1))
   )
+  # if no problems with targets, then throw error
   assert(
     length(idx) > 0,
     msg = c(
       "{.arg x} does not have any {.fn problem} objects with targets.",
-      "i" =
-        "Use {.fn eval_feature_representation} for problems without targets."
+      "i" = paste(
+        "Use {.fn eval_feature_representation_summary} for problems",
+        "without targets."
+      )
+    )
+  )
+  # if some problems without targets, then throw warning
+  n_problems_no_targets <- length(x$problems) - length(idx)
+  verify(
+    identical(length(idx), length(x$problems)),
+    msg = c(
+      paste0(
+        "{.arg x} has ",
+        "{cli::qty(", n_problems_no_targets, ")} ",
+        "{?a/} {.fn problem} object{?s} that {?does/do} not have targets."
+      ),
+      "i" = paste(
+        "Target coverage will only be reported for ",
+        "{.fn problem} objects with targets."
+      ),
+      "i" = paste(
+        "Use {.fn eval_feature_representation_summary} to evaluate ",
+        "representation for all {.fn problem} objects, including ",
+        "those lacking targets."
+      )
     )
   )
   # convert solution to status matrix format
