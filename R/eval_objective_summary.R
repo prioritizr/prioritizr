@@ -167,6 +167,22 @@ internal_eval_objective_summary <- function(
   ## ensure that optimization problem is based on solution
   o$set_ub(replace(o$ub(), seq_along(solution), c(solution)))
   o$set_lb(replace(o$lb(), seq_along(solution), c(solution)))
+  # solve problem
+  sol <- x$solver$solve(o)
+  if (is.null(sol$x) || is.null(sol$objective)) {
+    # nocov start
+    cli::cli_abort(
+      message = c(
+        "{.arg solution} is not feasible for {.arg x}.",
+        "i" = paste(
+          "This is because it does not meet the",
+          "targets, budgets, or constraints."
+        )
+      ),
+      call = rlang::expr(eval_objective_summary())
+    )
+    # nocov end
+  }
   # calculate objective value
-  tibble::tibble(value = x$solver$solve(o)$objective)
+  tibble::tibble(value = sol$objective)
 }
