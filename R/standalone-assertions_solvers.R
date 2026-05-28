@@ -19,10 +19,12 @@
 #'
 #' Test if any solvers are installed.
 #'
-#' @details This function tests if any of the following packages are installed:
-#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
+#' @details
+#' This function tests if any of the following packages are installed:
+#' \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{rcbc}, \pkg{highs},
+#' \pkg{cplexAPI}, and \pkg{gurobi}.
 #'
-#' @return `logical` value indicating if any solvers are installed.
+#' @return A`logical` value.
 #'
 #' @noRd
 any_solvers_installed <- function() {

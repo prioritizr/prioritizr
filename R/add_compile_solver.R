@@ -42,7 +42,7 @@ NULL
 add_compile_solver <- function(x, ...) {
   # assert that arguments are valid
   assert_required(x)
-  assert(is_conservation_problem(x))
+  assert(is_generic_conservation_problem(x))
   # add solver
   x$add_solver(
     R6::R6Class(

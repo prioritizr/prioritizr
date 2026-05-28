@@ -29,14 +29,14 @@
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{threshold}{\code{numeric} value.
-This threshold value is also known as a "right-hand-side" value
+This threshold value is also known as a "right-hand-side value"
 per integer programming terminology.}
 
-\item{sense}{\code{character} sense for the constraint. Available
-options include \code{">="}, \code{"<="}, or \code{"="} values.}
+\item{sense}{\code{character} value denoting the sense for the constraint.
+Acceptable values are: \code{">="}, \code{"<="}, or \code{"="}.}
 
-\item{data}{\code{character}, \code{numeric},
-\code{\link[terra:rast]{terra::rast()}}, \code{matrix}, or \code{Matrix} object
+\item{data}{\code{character} value or vector, \code{numeric} vector or matrix,
+\code{\link[terra:rast]{terra::rast()}}, or \code{Matrix} object
 containing the constraint values.
 These constraint values are also known as constraint coefficients
 per integer programming terminology.
@@ -73,10 +73,10 @@ planning unit \eqn{i} to zone \eqn{z} (e.g., with binary
 values indicating if each planning unit is allocated or not). Also, let
 \eqn{D_{iz}}{Diz} denote the constraint data associated with
 planning units \eqn{i \in I}{i in I} for zones \eqn{z \in Z}{z in Z}
-(argument to \code{data}, if supplied as a \code{matrix} object),
+(per \code{data}, if supplied as a \code{matrix} object),
 \eqn{\theta} denote the constraint sense
-(argument to \code{sense}, e.g., \eqn{<=}), and \eqn{t} denote the constraint
-threshold (argument to \code{threshold}).
+(per \code{sense}), and \eqn{t} denote the constraint
+threshold (per \code{threshold}).
 
 \deqn{
 \sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
@@ -88,45 +88,51 @@ sum_i^I sum (Diz * Xiz) \theta t
 \section{Data format}{
 
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as \code{character} vector}{containing column name(s) that
-contain penalty values for planning units. This format is only
-compatible if the planning units in the argument to \code{x} are a
+\item{\code{data} as a \code{character} vector}{
+Here values are specified based on column name(s) for the
+planning unit data in \code{x}. This format is only
+compatible if the planning units in  \code{x} are a
 \code{\link[sf:sf]{sf::sf()}} or \code{data.frame} object. The column(s) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
-For problems that contain a single zone, the argument to \code{data} must
-contain a single column name. Otherwise, for problems that
-contain multiple zones, the argument to \code{data} must
-contain a column name for each zone.}
+If \code{x} has a single zone, then \code{data} must
+contain a single column name. Otherwise, if \code{x} has multiple zones,
+then \code{data} must contain a column name for each zone.
+}
 
-\item{\code{data} as a \code{numeric} vector}{containing values for
-planning units. These values must not contain any missing
-(\code{NA}) values. Note that this format is only available
-for planning units that contain a single zone.}
+\item{\code{data} as a \code{numeric} vector}{
+Here values are specified for each planning unit.
+These values must not contain any missing
+(\code{NA}) values. Note that this format can only be used
+if \code{x} has a single zone.
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{containing \code{numeric} values
-that specify data for each planning unit.
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here values are specified for each planning unit and each zone.
+Note that \code{data} must have \code{numeric} values.
 Each row corresponds to a planning unit, each column corresponds to a
-zone, and each cell indicates the data for penalizing a planning unit
-when it is allocated to a given zone.}
+zone, and each cell indicates the value associated with a planning unit
+when it is allocated to a given zone.
+}
 
-\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{containing values for planning
-units. This format is only
-compatible if the planning units in the argument to \code{x} are
+\item{\code{data} as a \code{\link[terra:rast]{terra::rast()}} object}{
+Here values are specified for each planning unit and each zone.
+This format is only compatible if the planning units in \code{x} are
 \code{\link[sf:sf]{sf::sf()}}, or \code{\link[terra:rast]{terra::rast()}} objects.
 If the planning unit data are a \code{\link[sf:sf]{sf::sf()}} object,
 then the values are calculated by overlaying the
-planning units with the argument to \code{data} and calculating the sum of the
+planning units with \code{data} and calculating the sum of the
 values associated with each planning unit.
 If the planning unit data are a \code{\link[terra:rast]{terra::rast()}} object, then the values
 are calculated by extracting the cell
-values (note that the planning unit data and the argument to \code{data} must
-have exactly the same dimensionality, extent, and missingness).
-For problems involving multiple zones, the argument to \code{data} must
-contain a layer for each zone.}
+values (note that \code{data} and the planning unit in \code{x} must
+have exactly the same dimensionality, extent, and missing values).
+Additionally, if \code{x} has multiple zones, then \code{data} must
+contain a layer for each zone.
+}
 
 }
 }
@@ -187,7 +193,7 @@ plot(c(s0, s1), main = c("s0", "s1"), axes = FALSE)
 # additional constraints to ensure that each feature definitely has
 # at least 8\% of its overall distribution represented by the solution
 # (in addition to the 20\% targets which specify how much we would
-# ideally want to conserve for each feature) 
+# ideally want to conserve for each feature)
 
 # to achieve this, we need to calculate the total amount of each feature
 # within the planning units so we can, in turn, set the constraint thresholds
@@ -282,16 +288,15 @@ plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
 
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
-\code{\link{add_contiguity_constraints}()},
-\code{\link{add_feature_contiguity_constraints}()},
-\code{\link{add_locked_in_constraints}()},
-\code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints}()},
-\code{\link{add_manual_bounded_constraints}()},
-\code{\link{add_manual_locked_constraints}()},
-\code{\link{add_neighbor_constraints}()}
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}},
+\code{\link[=add_cost_constraints]{add_cost_constraints()}},
+\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}},
+\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}},
+\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}},
+\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}},
+\code{\link[=add_manual_bounded_constraints]{add_manual_bounded_constraints()}},
+\code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}},
+\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}
 }
 \concept{constraints}

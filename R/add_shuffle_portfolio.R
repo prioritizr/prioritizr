@@ -10,27 +10,22 @@ NULL
 #' it is recommended to use [add_pool_portfolio] if the *Gurobi*
 #' software is available.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_cuts_portfolio
 #'
-#' @param number_solutions `integer` number of attempts to generate
-#'   different solutions. Defaults to 10.
+#' @param threads `integer` value denoting the number of threads to use for
+#' generating the solution portfolio. Defaults to 1.
 #'
-#' @param threads `integer` number of threads to use for the generating
-#'   the solution portfolio. Defaults to 1.
+#' @param remove_duplicates `logical` value indicating if duplicate solutions
+#' should be removed? Defaults to `TRUE`.
 #'
-#' @param remove_duplicates `logical` should duplicate solutions
-#'   be removed? Defaults to `TRUE`.
+#' @details
+#' This strategy for generating a portfolio of solutions often
+#' results in different solutions, depending on optimality gap, but may
+#' return duplicate solutions. In general, this strategy is most effective
+#' when problems are quick to solve and multiple threads are available for
+#' solving each problem separately.
 #'
-#' @details This strategy for generating a portfolio of solutions often
-#'   results in different solutions, depending on optimality gap, but may
-#'   return duplicate solutions. In general, this strategy is most effective
-#'   when problems are quick to solve and multiple threads are available for
-#'   solving each problem separately.
-#'
-#' @inherit add_cuts_portfolio return
-#'
-#' @seealso
-#' See [portfolios] for an overview of all functions for adding a portfolio.
+#' @inherit add_cuts_portfolio return seealso
 #'
 #' @family portfolios
 #'
@@ -215,7 +210,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
               generate_single_solution
             )
           } else {
-            ### if NOT using paralell processing, then...
+            ### if NOT using parallel processing, then...
             sol <- lapply(
               seq_len(self$get_data("number_solutions")),
               generate_single_solution

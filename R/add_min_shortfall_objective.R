@@ -7,15 +7,16 @@ NULL
 #' minimize the overall shortfall for as many [targets] as possible while
 #' ensuring that the cost of the solution does not exceed a budget.
 #'
-#' @inheritParams add_max_features_objective
+#' @inheritParams add_max_cover_objective
 #'
 #' @details
 #' The minimum shortfall objective aims to
 #' find the set of planning units that minimize the overall
-#' (weighted sum) shortfall for the
-#' representation targets---that is, the fraction of each target that
-#' remains unmet---for as many features as possible while staying within a
-#' fixed budget (inspired by Table 1, equation IV, Arponen *et al.*
+#' (weighted sum) relative shortfall for the
+#' representation targets (i.e., the fraction of each target that
+#' remains unmet) for as many features as possible, whilst ensuring
+#' that the total cost of the solution does not exceed a pre-specified
+#' budget (inspired by Table 1, equation IV, Arponen *et al.*
 #' 2005). Additionally, weights can be used
 #' to favor the representation of certain features over other features (see
 #' [add_feature_weights()].
@@ -46,14 +47,9 @@ NULL
 #' variable bounded between zero and one, and denotes the relative shortfall
 #' for target \eqn{j}{j}.
 #'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [targets] for an overview of all functions for adding targets, and
-#' [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
-#'
-#' @inherit add_min_set_objective return
 #'
 #' @references
 #' Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of

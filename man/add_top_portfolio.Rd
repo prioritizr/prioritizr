@@ -9,7 +9,8 @@ add_top_portfolio(x, number_solutions = 10)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of solutions required.
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
 Defaults to 10.}
 }
 \value{
@@ -22,12 +23,12 @@ are closest to optimality (i.e, the top solutions).
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e., using
+be solved using the \emph{Gurobi} software (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 8.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
-Note that the number of solutions returned may be less than the argument to
-\code{number_solutions}, if the total number of feasible solutions
-is less than the number of solutions requested.
+Note that the number of solutions returned may be less than
+\code{number_solutions}, because the total number of feasible solutions
+may be fewer than \code{number_solutions}.
 }
 \examples{
 \dontrun{
@@ -82,13 +83,11 @@ plot(s2, axes = FALSE)
 }
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
-\code{\link{add_cuts_portfolio}()},
-\code{\link{add_default_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_shuffle_portfolio}()}
+\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}},
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}}
 }
 \concept{portfolios}

@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate target coverage by solution
@@ -12,108 +12,147 @@ NULL
 #'
 #' @inheritParams eval_cost_summary
 #'
-#' @param include_zone `logical` include the `zone` column in the output?
-#'   Defaults to `TRUE` for problems that contain multiple zones.
+#' @param include_zone `logical` value indicating if the returned object
+#' should contain a `zone` column?
+#' Defaults to `TRUE` if `x` has multiple zones.
 #'
-#' @param include_sense `logical` include the `sense` column in the output?
-#'   Defaults to `TRUE` for problems that contain multiple zones.
+#' @param include_sense `logical` value indicating if the returned object
+#' should contain a `sense` column?
+#' Defaults to `TRUE` if `x` has multiple zones.
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A [tibble::tibble()] object.
-#'   Here, each row describes information for a different target.
-#'   It contains the following columns:
+#' @return
+#' A [tibble::tibble()] object.
+#' Here, each row provides information for a different target.
+#' It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{feature}{`character` name of the feature associated with each
-#'     target.}
+#' \item{problem}{
+#' `character` name of problem. Note that this column
+#' is only present if `x` is a [multi_problem()] object.
+#' }
 #'
-#'   \item{zone}{`list` of `character` zone names associated with each target.
-#'     This column is in a list-column format because a single target can
-#'     correspond to multiple zones (see [add_manual_targets()] for details
-#'     and examples).
-#'     For an example of converting the list-column format to a standard
-#'     `character` column format, please see the Examples section.
-#'     This column is only included if the argument to `include_zones`
-#'     is `TRUE`.}
+#' \item{feature}{
+#' `character` name of the feature associated with each target.
+#' }
 #'
-#'   \item{sense}{`character` sense associated with each target.
-#'     Sense values specify the nature of the target.
-#'     Typically (e.g., when using the [add_absolute_targets()] or
-#'     [add_relative_targets()] functions), targets are specified using sense
-#'     values indicating that the total amount of a feature held within a
-#'     solution (ideally) be greater than or equal to a threshold amount
-#'     (i.e., a  sense value of `">="`).
-#'     Additionally, targets (i.e., using the [add_manual_targets()] function)
-#'     can also be specified using sense values indicating that the total
-#'     amount of a feature held within a solution must be equal to a
-#'     threshold amount (i.e., a sense value of `"="`) or smaller than or equal
-#'     to a threshold amount (i.e., a sense value of `"<="`).
-#'     This column is only included if the argument to `include_sense` is
-#'     `TRUE`.}
+#' \item{zone}{
+#' `list` of `character` zone names associated with each target.
+#' This column is in a list-column format because a single target can
+#' correspond to multiple zones (see [add_manual_targets()] for details
+#' and examples).
+#' For an example of converting the list-column format to a standard
+#' `character` column format, please see the Examples section.
+#' This column is only included if `include_zones = TRUE`.
+#' }
 #'
-#'   \item{total_amount}{`numeric` total amount of the feature available across
-#'     the entire conservation planning problem for meeting each target
-#'     (not just planning units selected within the solution).
-#'     For problems involving a single zone, this column is calculated
-#'     as the sum of all of the values for a given feature
-#'     (similar to values in the `total_amount` column produced by the
-#'     [eval_feature_representation_summary()] function).
-#'     For problems involving multiple zones,
-#'     this column is calculated as the sum of the values for the
-#'     feature associated with target (per the `"feature"` column),
-#'     across the zones associated with the target (per the `"zone"` column).}
+#' \item{sense}{
+#' `character` sense associated with each target.
+#' Sense values specify the nature of the target.
+#' Typically (e.g., when using the [add_absolute_targets()] or
+#' [add_relative_targets()] functions), targets are specified using sense
+#' values indicating that the total amount of a feature held within a
+#' solution (ideally) be greater than or equal to a threshold amount
+#' (i.e., a  sense value of `">="`).
+#' Additionally, targets (i.e., using the [add_manual_targets()] function)
+#' can also be specified using sense values indicating that the total
+#' amount of a feature held within a solution must be equal to a
+#' threshold amount (i.e., a sense value of `"="`) or smaller than or equal
+#' to a threshold amount (i.e., a sense value of `"<="`).
+#' This column is only included if `include_sense = TRUE`.}
 #'
-#'   \item{absolute_target}{`numeric` total threshold amount associated with
-#'     each target.}
+#' \item{met}{
+#' `logical` indicating if each target is met by the solution. This
+#' column is calculated by checking if the total shortfall associated
+#' with each target (i.e., `"absolute_shortfall`" column) is equal to
+#' zero.
+#' }
 #'
-#'   \item{absolute_held}{`numeric` total amount held within the solution for
-#'     the feature and (if relevant) zones associated with each target (per the
-#'     `"feature"` and `"zone"` columns, respectively).
-#'     This column is calculated as the sum of the feature data,
-#'     supplied when creating a [problem()] object
-#'     (e.g., presence/absence values), weighted by the status of each
-#'     planning unit in the solution (e.g., selected or not for
-#'     prioritization).}
+#' \item{total_amount}{
+#' `numeric` total amount of the feature available across
+#' the entire conservation planning problem for meeting each target
+#' (not just planning units selected within the solution).
+#' If `x` has a single zone, then this column is calculated
+#' as the sum of all of the values for a given feature
+#' (similar to values in the `total_amount` column produced by the
+#' [eval_feature_representation_summary()] function).
+#' Otherwise, if `x` has multiple zones, then this column is calculated as the
+#' sum of the values for the
+#' feature associated with target (per the `"feature"` column),
+#' across the zones associated with the target (per the `"zone"` column).
+#' }
 #'
-#'   \item{absolute_shortfall}{ `numeric` total amount by which the solution
-#'     fails to meet each target.
-#'     This column is calculated as the difference between the total amount
-#'     held within the solution for the feature and (if relevant) zones
-#'     associated with the target (i.e., `"absolute_held"` column) and the
-#'     target total threshold amount (i.e., `"absolute_target"` column), with
-#'     values set to zero depending on the sense specified for the target
-#'     (e.g., if the target sense is `>=` then the difference is
-#'     set to zero if the value in the `"absolute_held"` is smaller than
-#'     that in the `"absolute_target"` column).}
+#' \item{absolute_target}{
+#' `numeric` total threshold amount associated with each target.
+#' }
 #'
-#'   \item{relative_target}{`numeric` proportion threshold amount associated
-#'     with each target.
-#'     This column is calculated by dividing the total threshold amount
-#'     associated with each target (i.e., `"absolute_target"` column) by
-#'     the total amount associated with each target
-#'     (i.e., `"total_amount"` column).}
+#' \item{absolute_held}{
+#' `numeric` total amount held within the solution for
+#' the feature and (if relevant) zones associated with each target (per the
+#' `"feature"` and `"zone"` columns, respectively).
+#' This column is calculated as the sum of the feature data,
+#' supplied when creating a [problem()] object
+#' (e.g., presence/absence values), weighted by the status of each
+#' planning unit in the solution (e.g., selected or not for
+#' prioritization).
+#' }
 #'
-#'   \item{relative_held}{`numeric` proportion held within the solution for the
-#'     feature and (if relevant) zones associated with each target (per the
-#'     `"feature"` and `"zone"` columns, respectively).
-#'     This column is calculated by dividing the total amount held
-#'     for each target (i.e., `"absolute_held"` column) by the
-#'     total amount for with each target
-#'     (i.e., `"total_amount"` column).}
+#' \item{absolute_shortfall}{
+#' `numeric` total amount by which the solution
+#' fails to meet each target.
+#' This column is calculated as the difference between the total amount
+#' held within the solution for the feature and (if relevant) zones
+#' associated with the target (i.e., `"absolute_held"` column) and the
+#' target total threshold amount (i.e., `"absolute_target"` column), with
+#' values set to zero depending on the sense specified for the target
+#' (e.g., if the target sense is `>=` then the difference is
+#' set to zero if the value in the `"absolute_held"` is smaller than
+#' that in the `"absolute_target"` column).
+#' }
 #'
-#'   \item{relative_shortfall}{`numeric` proportion by which the solution fails
-#'     to meet each target.
-#'     This column is calculated by dividing the total shortfall for
-#'     each target (i.e., `"absolute_shortfall"` column) by the
-#'     total threshold amount associated with each target (i.e.,
-#'     `"absolute_target"` column).}
+#' \item{relative_target}{
+#' `numeric` proportion threshold amount associated
+#' with each target.
+#' This column is calculated by dividing the total threshold amount
+#' associated with each target (i.e., `"absolute_target"` column) by
+#' the total amount associated with each target
+#' (i.e., `"total_amount"` column).
+#' }
 #'
-#'   \item{met}{`logical` indicating if each target is met by the solution. This
-#'     column is calculated by checking if the total shortfall associated
-#'     with each target (i.e., `"absolute_shortfall`" column) is equal to
-#'    zero.}
+#' \item{relative_held}{
+#' `numeric` proportion held within the solution for the
+#' feature and (if relevant) zones associated with each target (per the
+#' `"feature"` and `"zone"` columns, respectively).
+#' This column is calculated by dividing the total amount held
+#' for each target (i.e., `"absolute_held"` column) by the
+#' total amount for with each target
+#' (i.e., `"total_amount"` column). Since this metric
+#'  is only appropriate for describing how well a solution meets targets
+#' that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#' assigned missing (`NA`) values in this column.
+#' }
+#'
+#' \item{relative_shortfall}{
+#' `numeric` proportion by which the solution fails
+#' to meet each target.
+#' This column is calculated by dividing the total shortfall for
+#' each target (i.e., `"absolute_shortfall"` column) by the
+#' total threshold amount associated with each target (i.e.,
+#' `"absolute_target"` column).
+#' }
+#'
+#' \item{relative_met}{
+#' `numeric` proportion of the target that is
+#' fulfilled by the solution. This column is calculated by
+#' expressing the amount held by the solution
+#' (i.e., `"absolute_held"` column) as a fraction of the target threshold.
+#' Since this metric
+#' is only appropriate for describing how well a solution meets targets
+#' that have a `">="` sense, targets with a `"<="` or `"="` sense are
+#' assigned missing (`NA`) values in this column.
+#' }
 #'
 #' }
 #'
@@ -231,12 +270,28 @@ NULL
 #' print(r3, width = Inf)
 #' }
 #' @export
-eval_target_coverage_summary <- function(x,
-                                         solution,
-                                         include_zone =
-                                          number_of_zones(x) > 1,
-                                         include_sense =
-                                          number_of_zones(x) > 1) {
+eval_target_coverage_summary <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
+  UseMethod("eval_target_coverage_summary")
+}
+
+#' @rdname eval_target_coverage_summary
+#' @method eval_target_coverage_summary ConservationProblem
+#' @export
+eval_target_coverage_summary.ConservationProblem <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
@@ -254,16 +309,109 @@ eval_target_coverage_summary <- function(x,
     !is.Waiver(x$targets),
     msg = c(
       "{.arg x} does not have targets.",
-      "i" = "Use {.fn eval_feature_representation} for",
-      "problems without targets"
+      "i" =
+        "Use {.fn eval_feature_representation} for problems without targets."
     )
   )
-  targets <- x$feature_targets()
-  # extract feature abundances
-  abundances <- x$feature_abundances_in_total_units()
   # convert solution to status matrix format
-  solution <- planning_unit_solution_status(x, solution)
+  solution <- planning_unit_solution_status(x, solution, call = call)
   solution[is.na(solution)] <- 0
+  # run calculations
+  internal_eval_target_coverage_summary(
+    x = x,
+    solution = solution,
+    include_zone = include_zone,
+    include_sense = include_sense
+  )
+}
+
+#' @rdname eval_target_coverage_summary
+#' @method eval_target_coverage_summary MultiObjConservationProblem
+#' @export
+eval_target_coverage_summary.MultiObjConservationProblem <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert_required(include_zone)
+  assert_required(include_sense)
+  assert(
+    is_multi_conservation_problem(x),
+    assertthat::is.flag(include_zone),
+    assertthat::noNA(include_zone),
+    assertthat::is.flag(include_sense),
+    assertthat::noNA(include_sense)
+  )
+  # identify problems with targets
+  idx <- which(
+    vapply(x$problems, function(x) !is.Waiver(x$targets), logical(1))
+  )
+  # if no problems with targets, then throw error
+  assert(
+    length(idx) > 0,
+    msg = c(
+      "{.arg x} does not have any {.fn problem} objects with targets.",
+      "i" = paste(
+        "Use {.fn eval_feature_representation_summary} for problems",
+        "without targets."
+      )
+    )
+  )
+  # if some problems without targets, then throw warning
+  n_problems_no_targets <- length(x$problems) - length(idx)
+  verify(
+    identical(length(idx), length(x$problems)),
+    msg = c(
+      paste0(
+        "{.arg x} has ",
+        "{cli::qty(", n_problems_no_targets, ")} ",
+        "{?a/} {.fn problem} object{?s} that {?does/do} not have targets."
+      ),
+      "i" = paste(
+        "Target coverage will only be reported for ",
+        "{.fn problem} objects with targets."
+      ),
+      "i" = paste(
+        "Use {.fn eval_feature_representation_summary} to evaluate ",
+        "representation for all {.fn problem} objects, including ",
+        "those lacking targets."
+      )
+    )
+  )
+  # convert solution to status matrix format
+  solution <- planning_unit_solution_status(x, solution, call = call)
+  solution[is.na(solution)] <- 0
+  # run calculations for problems with targets
+  out <- do.call(
+    rbind,
+    lapply(idx, function(i) {
+      out <- internal_eval_target_coverage_summary(
+        x$problems[[i]],
+        solution = solution,
+        include_zone = include_zone,
+        include_sense = include_sense
+      )
+      out$problem <- x$problem_names()[[i]]
+      out
+    })
+  )
+  out <- tibble::as_tibble(out)
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
+}
+
+internal_eval_target_coverage_summary <- function(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+) {
+  # extract data from problem
+  targets <- x$feature_targets()
+  abundances <- x$feature_abundances_in_total_units()
   # initialize table
   d <- targets[, c("feature", "zone", "sense"), drop = FALSE]
   attr(d, "out.attrs") <- NULL
@@ -315,17 +463,23 @@ eval_target_coverage_summary <- function(x,
   d$relative_target <- d$absolute_target / d$total_amount
   d$relative_held <- d$absolute_held / d$total_amount
   d$relative_shortfall <- d$absolute_shortfall / d$absolute_target
+  d$relative_met <- pmin(d$absolute_held, d$absolute_target) / d$absolute_target
   # coerce non-finite values to zero (caused by divide by zero issues)
   d$relative_target[!is.finite(d$relative_target)] <- 0
   d$relative_held[!is.finite(d$relative_held)] <- 0
   d$relative_shortfall[!is.finite(d$relative_shortfall)] <- 0
+  d$relative_met[!is.finite(d$relative_met)] <- 0
   # add met column
   d$met <- d$absolute_shortfall < 1e-10
+  # set columns to NA for <= targets
+  d$relative_held[targets$sense != ">="] <- NA_real_
+  d$relative_met[targets$sense != ">="] <- NA_real_
   # specify column names for result
   cn <- c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall",
+    "relative_met"
   )
   if (!isTRUE(include_zone)) cn <- setdiff(cn, "zone")
   if (!isTRUE(include_sense)) cn <- setdiff(cn, "sense")

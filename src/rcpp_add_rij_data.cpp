@@ -13,7 +13,7 @@ bool rcpp_add_rij_data(
   // declare variables
   std::size_t row;
   Rcpp::IntegerVector curr_z;
-  Rcpp::IntegerVector targets_feature =  targets_list["feature"];
+  Rcpp::IntegerVector targets_feature = targets_list["feature"];
   targets_feature = targets_feature - 1;
   Rcpp::NumericVector targets_value = targets_list["value"];
   Rcpp::List targets_zone = targets_list["zone"];

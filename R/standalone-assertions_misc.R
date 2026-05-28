@@ -101,11 +101,9 @@ assertthat::on_failure(is_installed) <- function(call, env) {
 #' @param x object.
 #'
 #' @param time_limit `numeric` time limit for generating solution.
+#' Note that this information is used only to customize the error message if
+#' the object does not contain a valid raw solution.
 #' Defaults to `NULL`.
-#'
-#' @param call Caller environment.
-#'
-#' @return A `logical` value.
 #'
 #' @return A `logical` value.
 #'
@@ -179,7 +177,7 @@ assertthat::on_failure(is_area_units) <- function(call, env) {
 #'
 #' @param na.rm `logical` value. Defaults to `FALSE`.
 #'
-#' @return A `logical` value indicating if it is a valid unit of measurement.
+#' @return A `logical` value.
 #'
 #' @noRd
 all_area_units <- function(x, na.rm = FALSE) {

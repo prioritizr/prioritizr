@@ -9,13 +9,15 @@ add_gap_portfolio(x, number_solutions = 10, pool_gap = 0.1)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of solutions required.
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
 Defaults to 10.}
 
-\item{pool_gap}{\code{numeric} gap to optimality for solutions in the portfolio.
-This relative gap specifies a threshold worst-case performance for
-solutions in the portfolio. For example, value of 0.1 will result in the
-portfolio returning solutions that are within 10\% of an optimal solution.
+\item{pool_gap}{\code{numeric} value denoting the optimality gap for solutions in
+the portfolio. This relative gap specifies a threshold worst-case
+performance for solutions in the portfolio. For example, value of 0.1 will
+result in the portfolio returning solutions that are within 10\% of an
+optimal solution.
 Note that the gap specified in the solver (i.e.,
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}} must be less than or equal to the gap
 specified to generate the portfolio. Defaults to 0.1.}
@@ -28,17 +30,16 @@ Generate a portfolio of solutions for a conservation planning
 problem by finding a certain number of solutions that
 are all within a pre-specified optimality gap. This method is useful for
 generating multiple solutions that can be used to calculate selection
-frequencies for moderate and large-sized problems (similar to
-\emph{Marxan}).
+frequencies for small-sized problems (similar to \emph{Marxan}).
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e., using
+be solved using the \emph{Gurobi} software (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 9.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
-Note that the number of solutions returned may be less than the argument to
-\code{number_solutions}, if the total number of solutions that
-meet the optimality gap is less than the number of solutions requested.
+Note if the total number of solutions that
+meet the optimality gap is fewer than \code{number_solutions},
+then the number of solutions returned may be fewer than requested.
 Also, note that this portfolio function only works with problems
 that have binary decisions (i.e., specified using
 \code{\link[=add_binary_decisions]{add_binary_decisions()}}).
@@ -98,13 +99,11 @@ plot(s2, axes = FALSE)
 }
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
-\code{\link{add_cuts_portfolio}()},
-\code{\link{add_default_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_shuffle_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}},
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

@@ -22,33 +22,32 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{penalty}{\code{numeric} penalty that is used to scale the importance
+\item{penalty}{\code{numeric} value denoting the importance
 of selecting planning units with strong connectivity between them compared
-to the main problem objective (e.g., solution cost when the argument to
+to the main problem objective (e.g., solution cost if
 \code{x} has a minimum set objective set using
 \code{\link[=add_min_set_objective]{add_min_set_objective()}}). Higher \code{penalty} values
 can be used to obtain solutions with a high degree of connectivity,
 and smaller \code{penalty} values can be used to obtain solutions with a
 small degree of connectivity. Note that negative \code{penalty} values can
-be used to obtain solutions that have very little connectivity.}
+be used to obtain solutions that avoid connectivity.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 level of connectivity between different zones. Each row and column
-corresponds to a different zone in the argument to \code{x}, and cell
+corresponds to a different zone in \code{x}, and cell
 values indicate the level of connectivity between each combination
 of zones. Cell values along the diagonal of the matrix represent
 the level of connectivity between planning units allocated to the
-same zone. Cell values must lay between 1 and -1, where negative
-values favor solutions with weak connectivity. The default argument to
-\code{zones} is an identity matrix (i.e., a matrix with ones along the
+same zone. Cell values must range between 1 and -1, where negative
+values favor solutions with weak connectivity. Defaults to an identity
+matrix (i.e., a matrix with ones along the
 matrix diagonal and zeros elsewhere), so that planning units are
 only considered to be connected when they are allocated to the same zone.
-This argument is required when working with multiple zones and the
-argument to \code{data} is a \code{matrix} or \code{Matrix} object.
-If the argument to \code{data} is an \code{array} or \code{data.frame} with data for
+Note that \code{zones} is only required when working with multiple zones and
+\code{data} is a \code{matrix} or \code{Matrix} object.
+If \code{data} is an \code{array} or \code{data.frame} with data for
 multiple zones (e.g., using the \code{"zone1"} and \code{"zone2"} column names),
-this argument must explicitly be set to \code{NULL} otherwise an error will be
-thrown.}
+then \code{zones} must be \code{NULL}.}
 
 \item{data}{\code{matrix}, \code{Matrix}, \code{data.frame}, or
 \code{array} object containing connectivity data. The connectivity values
@@ -73,7 +72,7 @@ be higher than that from a downstream planning unit to an upstream planning
 unit.
 }
 \details{
-This function adds penalties to conservation planning problem to penalize
+This function adds penalties to a conservation planning problem to penalize
 solutions that have low connectivity.
 Specifically, it penalizes solutions that select planning units that
 share high connectivity values with other planning units that are
@@ -88,12 +87,11 @@ of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
 represent the decision variable for planning unit \eqn{i} for in zone
 \eqn{z} (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
-\eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
-argument to \code{data}, and \eqn{W} represent the argument
-to \code{zones}.
+\eqn{p} represent \code{penalty}, \eqn{D} represent
+\code{data}, and \eqn{W} represent \code{zones}.
 
-If the argument to \code{data} is supplied as a \code{matrix} or
-\code{Matrix} object, then the penalties are calculated as:
+If \code{data} is specified as a \code{matrix} or
+\code{Matrix} object, then the penalties are calculated as follows.
 
 \deqn{
 \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z}
@@ -106,9 +104,9 @@ sum_i^I sum_j^I sum_z^Z sum_y^Z
 (p * Xiz * Xjy * Dij * Wzy)
 }
 
-Otherwise, if the argument to \code{data} is supplied as an
+Otherwise, if \code{data} is specified as an
 \code{array} object, then the penalties are
-calculated as:
+calculated as follows.
 
 \deqn{
 \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z}
@@ -131,42 +129,49 @@ Beyer \emph{et al.} (2016).
 
 \section{Data format}{
 
-The argument to \code{data} can be specified using several different formats.
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell represents the
-strength of connectivity between two different planning units. Cells
-that occur along the matrix diagonal are treated as weights which
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and cell
+values denote the strength of connectivity between two planning units.
+Cells that occur along the matrix diagonal are treated as weights which
 indicate that planning units are more desirable in the solution.
-The argument to \code{zones} can be used to control
+With this format, \code{zones} can be used to control
 the strength of connectivity between planning units in different zones.
-The default argument for \code{zones} is to treat planning units
-allocated to different zones as having zero connectivity.}
+Note that the default for \code{zones} is to treat planning units
+allocated to different zones as having zero connectivity.
+}
 
-\item{\code{data} as a \code{data.frame} object}{containing columns that are named
-\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-denotes the connectivity between a pair of planning units
-(per values in the \code{"id1"} and \code{"id2"} columns) following the
-\emph{Marxan} format.
-If the argument to \code{x} contains multiple zones, then the
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"id1"} and \code{"id2"} columns contain
+identifiers (indices) for a pair of planning units, and the \code{"boundary"}
+column contains the strength of connectivity between them
+(following the \emph{Marxan} format).
+If \code{x} has multiple zones, then the
 \code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
 specify the connectivity values between planning units when they are
-allocated to specific zones. If the \code{"zone1"} and
-\code{"zone2"} columns are present, then the argument to \code{zones} must be
-\code{NULL}.}
+allocated to particular zones. Note that if the \code{"zone1"} and
+\code{"zone2"} columns are present, then \code{zones} must be
+\code{NULL}.
+}
 
 \item{\code{data} as an \code{array} object}{
-containing four-dimensions where cell values
-indicate the strength of connectivity between planning units
-when they are assigned to specific management zones. The first two
+Here a four-dimension array is used to specify connectivity data,
+where cell values indicate the strength of connectivity between planning
+units when they are assigned to specific management zones. The first two
 dimensions (i.e., rows and columns) indicate the strength of
 connectivity between different planning units and the second two
 dimensions indicate the different management zones. Thus
 the \code{data[1, 2, 3, 4]} indicates the strength of
 connectivity between planning unit 1 and planning unit 2 when planning
-unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.
+}
 
 }
 }
@@ -296,14 +301,17 @@ conservation planning problems with integer linear programming.
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
+Also see \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} to account for
+symmetric connectivity between planning units.
 Also see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty()}} for assistance with selecting
 an appropriate \code{penalty} value.
 
 Other functions for adding penalties:
-\code{\link{add_boundary_penalties}()},
-\code{\link{add_connectivity_penalties}()},
-\code{\link{add_feature_weights}()},
-\code{\link{add_linear_penalties}()},
-\code{\link{add_neighbor_penalties}()}
+\code{\link[=add_boundary_penalties]{add_boundary_penalties()}},
+\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}},
+\code{\link[=add_cost_penalties]{add_cost_penalties()}},
+\code{\link[=add_feature_weights]{add_feature_weights()}},
+\code{\link[=add_linear_penalties]{add_linear_penalties()}},
+\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}
 }
 \concept{penalties}

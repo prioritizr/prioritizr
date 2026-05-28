@@ -1,0 +1,87 @@
+#' @include internal.R
+NULL
+
+#' Create weight values for a multi-objective approach
+#'
+#' Create multiple sets of weight values to generate multiple solutions with
+#' multi-objective optimization
+#' (e.g., the `weights` parameter of [add_wtd_sum_approach()] or
+#' [add_ref_point_approach()]).
+#'
+#' @param n_problems `integer` value denoting the number of [problem()] objects
+#' for which to generate values.
+#'
+#' @param n_values `integer` value denoting the number of weight values to
+#' to generate for each [problem()] (per `n_problems`).
+#'
+#' @param include_zeros `logical` value indicating if the weight values
+#' should include zeros? If `include_zeros = TRUE`, then some of the sets
+#' will assign a weight of zero to some of the objectives, and so
+#' solutions based on these sets will be influenced by only some of the
+#' objectives (i.e., those with non-zero weight values).
+#' Defaults to `TRUE`.
+#'
+#' @param include_extremes `logical` value indicating if
+#' the sets of weight values should combinations of weight values
+#' that consider only a single objective?
+#' If `include_extremes = TRUE`, then some of the sets will
+#' contain zeros for all objectives except a single objective.
+#' Defaults to `TRUE`.
+#'
+#' @return
+#' A `numeric` matrix. Here, rows correspond to
+#' different sets of each weight values and columns correspond to different
+#' objectives. Note that the sets of weights values are filtered
+#' to remove sets of weights that - despite having different values -
+#' would result in the same prioritization.
+#'
+#' @inherit add_wtd_sum_approach examples
+#'
+#' @export
+approach_weights_matrix <- function(n_problems, n_values,
+                                    include_zeros = TRUE,
+                                    include_extremes = TRUE) {
+  # assert arguments are valid
+  assert_required(n_problems)
+  assert_required(n_values)
+  assert(
+    assertthat::is.count(n_problems),
+    assertthat::noNA(n_problems),
+    assertthat::is.count(n_values),
+    assertthat::noNA(n_values),
+    assertthat::is.flag(include_zeros),
+    assertthat::noNA(include_zeros),
+    assertthat::is.flag(include_extremes),
+    assertthat::noNA(include_extremes)
+  )
+
+  # create initial weight values
+  out <- seq(0, 1, length.out = n_values + as.double(!include_zeros))
+  if (!isTRUE(include_zeros)) {
+    out <- out[-1]
+  }
+  out <- list(out)[rep(1, n_problems)]
+
+  # generate matrix with all combinations of weight values
+  out <- as.matrix(do.call(expand.grid, args = out))
+  colnames(out) <- NULL
+
+  # remove rows where all weight values are the same
+  keep <- apply(out, 1, function(z) length(unique(z)) >= 2)
+  out <- out[keep, , drop = FALSE]
+
+  # remove rows where all weight values are zero except one
+  keep <- rowSums(out > 1e-6) >= 2
+  out <- out[keep, , drop = FALSE]
+
+  # if needed, manually add rows for extreme points
+  if (isTRUE(include_extremes)) {
+    out <- rbind(diag(n_problems), out)
+  }
+
+  # manually add in a row where each objective is assigned equal weighting
+  out <- rbind(matrix(1, nrow = 1, ncol = n_problems), out)
+
+  # return result
+  out
+}

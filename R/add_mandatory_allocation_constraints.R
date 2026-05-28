@@ -8,26 +8,25 @@ NULL
 #' management zone in the solution. Note that this function can only be used
 #' with problems that contain multiple zones.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_manual_locked_constraints
 #'
-#' @details For a conservation planning [problem()] with multiple
-#'   management zones, it may sometimes be desirable to obtain a solution that
-#'   assigns each and every planning unit to a zone. For example, when
-#'   developing land-use plans, some decision makers may require that
-#'   every parcel of land is allocated a specific land-use type.
-#'   In other words are no "left over" areas. Although it might seem tempting
-#'   to simply solve the problem and manually assign "left over" planning units
-#'   to a default zone afterwards (e.g., an "other", "urban", or "grazing"
-#'   land-use), this could result in highly sub-optimal solutions if there are
-#'   penalties for siting the default land-use adjacent to other zones.
-#'   Instead, this function can be used to specify that all planning units in a
-#'   problem with multiple zones must be allocated to a management zone (i.e.,
-#'   zone allocation is mandatory).
+#' @details
+#' For a conservation planning [problem()] with multiple
+#' management zones, it may sometimes be desirable to obtain a solution that
+#' assigns each and every planning unit to a zone. For example, when
+#' developing land-use plans, some decision makers may require that
+#' every parcel of land is allocated a specific land-use type.
+#' In other words, there are no "left over" areas.
+#' Although it might seem tempting
+#' to simply solve the problem and manually assign "left over" planning units
+#' to a default zone afterwards (e.g., an "other", "urban", or "grazing"
+#' land-use), this could result in highly sub-optimal solutions if there are
+#' penalties for particular zones next to each other.
+#' Instead, this function can be used to specify that, all planning units in a
+#' problem with multiple zones must be allocated to a management zone (i.e.,
+#' zone allocation is mandatory).
 #'
-#' @inherit add_contiguity_constraints return
-#'
-#' @seealso
-#' See [constraints] for an overview of all functions for adding constraints.
+#' @inherit add_manual_locked_constraints return seealso
 #'
 #' @family constraints
 #'

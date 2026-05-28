@@ -17,7 +17,7 @@
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
 \item{method}{\code{character} value, \code{character} vector, \code{list}, or object
-(\code{\linkS4class{TargetMethod}}) specifying the target setting method.
+(\code{\link[=TargetMethod-class]{TargetMethod}}) specifying the target setting method.
 See Target methods below for more information.}
 }
 \value{
@@ -171,7 +171,7 @@ you will need to specify the spatial units for the features
 when building a \code{\link[=problem]{problem()}} object if the feature data
 are provided in a different format. In particular, if the feature
 data are provided as a \code{data.frame} or \code{character} vector,
-then you will need to specify an argument to \code{feature_units} when
+then you will need to specify \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
 demonstration of using the \code{feature_units} parameter.
 }
@@ -367,9 +367,9 @@ protected-area system to represent threatened species.
 }
 \seealso{
 Other functions for adding targets:
-\code{\link{add_absolute_targets}()},
-\code{\link{add_group_targets}()},
-\code{\link{add_manual_targets}()},
-\code{\link{add_relative_targets}()}
+\code{\link[=add_absolute_targets]{add_absolute_targets()}},
+\code{\link[=add_group_targets]{add_group_targets()}},
+\code{\link[=add_manual_targets]{add_manual_targets()}},
+\code{\link[=add_relative_targets]{add_relative_targets()}}
 }
 \concept{targets}

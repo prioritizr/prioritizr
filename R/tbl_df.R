@@ -13,19 +13,16 @@ NULL
 #'
 #' @param x [tibble::tibble()] object.
 #'
-#' @details The following methods are provided from manipulating
-#'   [tibble::tibble()] objects.
+#' @details
+#' The following methods are provided from manipulating
+#' [tibble::tibble()] objects.
 #'
-#'   \describe{
-#'   \item{nrow}{`integer` number of rows.}
-#'
-#'   \item{ncol}{`integer` number of columns.}
-#'
-#'   \item{as.list}{convert to a `list`.}
-#'
-#'   \item{print}{print the object.}
-#'
-#'   }
+#' \describe{
+#' \item{\code{nrow()}}{Get `integer` number of rows.}
+#' \item{\code{ncol()}}{Get `integer` number of columns.}
+#' \item{\code{as.list()}}{Convert to a `list`.}
+#' \item{\code{print()}}{Print the object.}
+#' }
 #'
 #' @name tibble-methods
 #'

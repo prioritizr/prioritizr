@@ -21,32 +21,37 @@ NULL
 #' @rdname show
 #'
 #' @usage \S4method{show}{ConservationModifier}(x)
-#'
-methods::setMethod("show", "ConservationModifier",
-                   function(object) object$show())
+methods::setMethod(
+  "show", "ConservationModifier",
+  function(object) object$show()
+)
 
 #' @name show
 #'
 #' @rdname show
 #'
 #' @usage \S4method{show}{ConservationProblem}(x)
-#'
-methods::setMethod("show", "ConservationProblem",
-                   function(object) object$show())
+methods::setMethod(
+  "show", "ConservationProblem",
+  function(object) object$show()
+)
 
 #' @name show
 #'
 #' @rdname show
 #'
 #' @usage \S4method{show}{OptimizationProblem}(x)
-#'
-methods::setMethod("show", "OptimizationProblem",
-                   function(object) object$show())
+methods::setMethod(
+  "show", "OptimizationProblem",
+  function(object) object$show()
+)
 
 #' @name show
 #'
 #' @rdname show
 #'
 #' @usage \S4method{show}{Solver}(x)
-#'
-methods::setMethod("show", "Solver", function(object) object$show())
+methods::setMethod(
+  "show", "Solver",
+  function(object) object$show()
+)

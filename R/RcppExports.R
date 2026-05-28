@@ -89,6 +89,10 @@ rcpp_set_optimization_problem_obj <- function(x, obj) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_obj`, x, obj)
 }
 
+rcpp_set_optimization_problem_modelsense <- function(x, modelsense) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_modelsense`, x, modelsense)
+}
+
 rcpp_set_optimization_problem_lb <- function(x, lb) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_lb`, x, lb)
 }
@@ -169,16 +173,16 @@ rcpp_apply_max_cover_objective <- function(x, costs, budget, weights) {
     .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, costs, budget, weights)
 }
 
-rcpp_apply_max_features_objective <- function(x, targets_list, costs, budget, weights) {
-    .Call(`_prioritizr_rcpp_apply_max_features_objective`, x, targets_list, costs, budget, weights)
+rcpp_apply_max_n_targets_met_objective <- function(x, targets_list, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_n_targets_met_objective`, x, targets_list, costs, budget, weights)
 }
 
 rcpp_apply_max_phylo_objective <- function(x, targets_list, costs, budget, branch_matrix, branch_lengths, weights) {
     .Call(`_prioritizr_rcpp_apply_max_phylo_objective`, x, targets_list, costs, budget, branch_matrix, branch_lengths, weights)
 }
 
-rcpp_apply_max_utility_objective <- function(x, abundances, has_negative_feature_values, costs, budget, weights) {
-    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, has_negative_feature_values, costs, budget, weights)
+rcpp_apply_max_wtd_sum_objective <- function(x, abundances, has_negative_feature_values, costs, budget, weights) {
+    .Call(`_prioritizr_rcpp_apply_max_wtd_sum_objective`, x, abundances, has_negative_feature_values, costs, budget, weights)
 }
 
 rcpp_apply_min_largest_shortfall_objective <- function(x, targets_list, costs, budget) {
@@ -213,8 +217,16 @@ rcpp_branch_matrix <- function(x) {
     .Call(`_prioritizr_rcpp_branch_matrix`, x)
 }
 
+rcpp_compile_multi_obj_problem <- function(x) {
+    .Call(`_prioritizr_rcpp_compile_multi_obj_problem`, x)
+}
+
 rcpp_connectivity <- function(data, solution) {
     .Call(`_prioritizr_rcpp_connectivity`, data, solution)
+}
+
+rcpp_convert_ref_point_method <- function(x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub) {
+    .Call(`_prioritizr_rcpp_convert_ref_point_method`, x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub)
 }
 
 rcpp_ferrier_score <- function(rij, targets, portfolio_size, out) {

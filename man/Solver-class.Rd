@@ -9,11 +9,13 @@ This class is used to represent solvers for optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{
-Other classes: 
+Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiObjApproach-class}},
+\code{\link{MultiObjConservationProblem-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
@@ -24,244 +26,341 @@ Other classes:
 }
 \concept{classes}
 \section{Super class}{
-\code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Solver}
+\code{\link[prioritizr:ConservationModifier]{ConservationModifier}} -> \code{Solver}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Solver-run}{\code{Solver$run()}}
-\item \href{#method-Solver-calculate}{\code{Solver$calculate()}}
-\item \href{#method-Solver-set_variable_ub}{\code{Solver$set_variable_ub()}}
-\item \href{#method-Solver-set_variable_lb}{\code{Solver$set_variable_lb()}}
-\item \href{#method-Solver-set_constraint_rhs}{\code{Solver$set_constraint_rhs()}}
-\item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
-\item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
-\item \href{#method-Solver-solve}{\code{Solver$solve()}}
-\item \href{#method-Solver-clone}{\code{Solver$clone()}}
+  \itemize{
+    \item \href{#method-Solver-run}{\code{Solver$run()}}
+    \item \href{#method-Solver-calculate}{\code{Solver$calculate()}}
+    \item \href{#method-Solver-set_variable_ub}{\code{Solver$set_variable_ub()}}
+    \item \href{#method-Solver-set_variable_lb}{\code{Solver$set_variable_lb()}}
+    \item \href{#method-Solver-set_constraint_rhs}{\code{Solver$set_constraint_rhs()}}
+    \item \href{#method-Solver-set_start_solution}{\code{Solver$set_start_solution()}}
+    \item \href{#method-Solver-remove_start_solution}{\code{Solver$remove_start_solution()}}
+    \item \href{#method-Solver-solve}{\code{Solver$solve()}}
+    \item \href{#method-Solver-default_solve_multiobj}{\code{Solver$default_solve_multiobj()}}
+    \item \href{#method-Solver-solve_multiobj}{\code{Solver$solve_multiobj()}}
+    \item \href{#method-Solver-clone}{\code{Solver$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_data'><code>prioritizr::ConservationModifier$get_data()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_internal'><code>prioritizr::ConservationModifier$get_internal()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="print"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-print'><code>prioritizr::ConservationModifier$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="repr"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-repr'><code>prioritizr::ConservationModifier$repr()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_data'><code>prioritizr::ConservationModifier$set_data()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_internal'><code>prioritizr::ConservationModifier$set_internal()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="show"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-show'><code>prioritizr::ConservationModifier$show()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_data'><code>ConservationModifier$get_data()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_internal'><code>ConservationModifier$get_internal()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="print"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-print'><code>ConservationModifier$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="repr"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-repr'><code>ConservationModifier$repr()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_data'><code>ConservationModifier$set_data()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_internal'><code>ConservationModifier$set_internal()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="show"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-show'><code>ConservationModifier$show()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-run"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-run}{}}}
-\subsection{Method \code{run()}}{
-Run the solver to generate a solution.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$run()}\if{html}{\out{</div>}}
+\subsection{\code{Solver$run()}}{
+  Run the solver to generate a solution.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$run()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    \code{list} of solutions.
+  }
 }
 
-\subsection{Returns}{
-\code{list} of solutions.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-calculate"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-calculate}{}}}
-\subsection{Method \code{calculate()}}{
-Perform computations that need to be completed before applying
+\subsection{\code{Solver$calculate()}}{
+  Perform computations that need to be completed before applying
 the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$calculate(...)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$calculate(...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{...}}{Additional arguments.}
+      \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Additional arguments.}
-
-\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-set_variable_ub"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-set_variable_ub}{}}}
-\subsection{Method \code{set_variable_ub()}}{
-Set the upper bound for a decision variable.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$set_variable_ub(index, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{index}}{\code{integer} value indicating the index of the decision
+\subsection{\code{Solver$set_variable_ub()}}{
+  Set the upper bound for a decision variable.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$set_variable_ub(index, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{index}}{\code{integer} value indicating the index of the decision
 variable.}
-
-\item{\code{value}}{\code{numeric} new bound value.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Note that this method should only be run after \verb{$calculate()}.
+      \item{\code{value}}{\code{numeric} new bound value.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    Note that this method should only be run after \verb{$calculate()}.
 It can be used to overwrite values after ingesting an
 \code{\link[=optimization_problem]{optimization_problem()}} object.
 It is designed to be used in \link{portfolios} and \link{importance} functions.
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-set_variable_lb"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-set_variable_lb}{}}}
-\subsection{Method \code{set_variable_lb()}}{
-Set the lower bound for a decision variable.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$set_variable_lb(index, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{index}}{\code{integer} value indicating the index of the decision
+\subsection{\code{Solver$set_variable_lb()}}{
+  Set the lower bound for a decision variable.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$set_variable_lb(index, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{index}}{\code{integer} value indicating the index of the decision
 variable.}
-
-\item{\code{value}}{\code{numeric} new bound value.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Note that this method should only be run after \verb{$calculate()}.
+      \item{\code{value}}{\code{numeric} new bound value.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    Note that this method should only be run after \verb{$calculate()}.
 It can be used to overwrite values after ingesting an
 \code{\link[=optimization_problem]{optimization_problem()}} object.
 It is designed to be used in \link{portfolios} and \link{importance} functions.
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-set_constraint_rhs"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-set_constraint_rhs}{}}}
-\subsection{Method \code{set_constraint_rhs()}}{
-Set the right-hand-side coefficient bound for a constraint.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$set_constraint_rhs(index, value)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{index}}{\code{integer} value indicating the index of the decision
+\subsection{\code{Solver$set_constraint_rhs()}}{
+  Set the right-hand-side coefficient bound for a constraint.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$set_constraint_rhs(index, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{index}}{\code{integer} value indicating the index of the decision
 variable.}
-
-\item{\code{value}}{\code{numeric} new value.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Note that this method should only be run after \verb{$calculate()}.
+      \item{\code{value}}{\code{numeric} new value.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    Note that this method should only be run after \verb{$calculate()}.
 It can be used to overwrite values after ingesting an
 \code{\link[=optimization_problem]{optimization_problem()}} object.
 It is designed to be used in \link{portfolios} and \link{importance} functions.
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-set_start_solution"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-set_start_solution}{}}}
-\subsection{Method \code{set_start_solution()}}{
-Set the starting solution.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$set_start_solution(value, warn = TRUE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{value}}{\code{numeric} vector.}
-
-\item{\code{warn}}{\code{logical} indicating if a warning should be displayed
+\subsection{\code{Solver$set_start_solution()}}{
+  Set the starting solution.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$set_start_solution(value, warn = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{value}}{\code{numeric} vector.}
+      \item{\code{warn}}{\code{logical} indicating if a warning should be displayed
 if the solver does not support starting solutions.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-This method is designed used in \link{portfolios} and \link{importance}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    This method is designed used in \link{portfolios} and \link{importance}
 functions.
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-remove_start_solution"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-remove_start_solution}{}}}
-\subsection{Method \code{remove_start_solution()}}{
-Remove the starting solution.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$remove_start_solution()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-This method is designed used in \link{portfolios} and \link{importance}
+\subsection{\code{Solver$remove_start_solution()}}{
+  Remove the starting solution.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$remove_start_solution()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    This method is designed used in \link{portfolios} and \link{importance}
 functions.
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-solve"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-solve}{}}}
-\subsection{Method \code{solve()}}{
-Solve an optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$solve(x, ...)}\if{html}{\out{</div>}}
+\subsection{\code{Solver$solve()}}{
+  Solve an optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$solve(x, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+      \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{list} object with the solution and additional information.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-default_solve_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-default_solve_multiobj}{}}}
+\subsection{\code{Solver$default_solve_multiobj()}}{
+  Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach.
+Broadly speaking, this approach involves using multiple optimization
+procedures to solve objectives following a hierarchical (lexicographic)
+ordering, wherein those associated with a higher priority order are
+solved before those with a lower priority order. When implementing this
+approach, constraints are added after generating a given solution to
+ensure that subsequent solutions for lower priority objectives
+have adequate performance according to higher priority objectives.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$default_solve_multiobj(x, priority, rel_tol, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{list} object with multi-objective optimization problem.
+Arguments must contain the following elements:
+(\code{"opt"}) \code{\link[=OptimizationProblem-class]{OptimizationProblem}} object;
+(\code{"modelsense"}) \code{character} vector containing the model sense values
+for each objective; and (\code{"obj"}) numeric` matrix containing the
+coefficients for each of the objectives, wherein rows correspond to
+different objectives, columns to different decision variables and
+row names can be optionally specify names for the objectives.}
+      \item{\code{priority}}{\code{numeric} vector with values indicating the
+priority for each objective. Greater values denote greater priority,
+and so objectives associated with greater values are optimized
+earlier in the multi-objective process.}
+      \item{\code{rel_tol}}{\code{numeric} vector with relative tolerance values
+for each constraint. Greater values denote a greater degree of
+sub-optimality.}
+      \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{list} object with the solution and additional information.
+  }
+}
 
-\item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Solver-solve_multiobj"></a>}}
+\if{latex}{\out{\hypertarget{method-Solver-solve_multiobj}{}}}
+\subsection{\code{Solver$solve_multiobj()}}{
+  Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach.
+Broadly speaking, this approach involves using multiple optimization
+procedures to solve objectives following a hierarchical (lexicographic)
+ordering, wherein those associated with a higher priority order are
+solved before those with a lower priority order. When implementing this
+approach, constraints are added after generating a given solution to
+ensure that subsequent solutions for lower priority objectives
+have adequate performance according to higher priority objectives.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$solve_multiobj(x, priority, rel_tol, ...)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{list} object with multi-objective optimization problem.
+Arguments must contain the following elements:
+(\code{"opt"}) \code{\link[=OptimizationProblem-class]{OptimizationProblem}} object;
+(\code{"modelsense"}) \code{character} vector containing the model sense values
+for each objective; and (\code{"obj"}) numeric` matrix containing the
+coefficients for each of the objectives, wherein rows correspond to
+different objectives, columns to different decision variables and
+row names can be optionally specify names for the objectives.}
+      \item{\code{priority}}{\code{numeric} vector with values indicating the
+priority for each objective. Greater values denote greater priority,
+and so objectives associated with greater values are optimized
+earlier in the multi-objective process.}
+      \item{\code{rel_tol}}{\code{numeric} vector with relative tolerance values
+for each constraint. Greater values denote a greater degree of
+sub-optimality.}
+      \item{\code{...}}{Additional arguments passed to the \code{calculate()} method.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{list} object with the solution and additional information.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Solver-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Solver-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Solver$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Solver$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Solver$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

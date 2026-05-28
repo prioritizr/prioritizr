@@ -8,7 +8,7 @@ NULL
 #' @param x Planning unit data.
 #'
 #' @param cost_column `character` value indicating the column with the cost
-#'  values.
+#' values.
 #'
 #' @param ... not used.
 #'

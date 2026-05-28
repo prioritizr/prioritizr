@@ -8,11 +8,11 @@
 #'
 #' @param regexp `character` value. See [testthat::expect_error] documentation.
 #'
-#' @param name `character` name of the function that should appear in the
-#'  error message. If `NA`, then the error message should display a
-#'  function name, and any function name is acceptable.
-#'  If `NULL`, then the function name is not checked.
-#'  Defaults to `NA`.
+#' @param name `character` value denoting the name of the function that should
+#' appear in the error message. If `name = NA`, then the error message should
+#' display a function name, and any function name is acceptable.
+#' If `name = NULL`, then the function name is not checked.
+#' Defaults to `NA`.
 #'
 #' @return The `object` value.
 #'

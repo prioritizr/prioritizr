@@ -15,22 +15,18 @@ NULL
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_manual_locked_constraints
 #'
-#' @param locked_out Object that determines which planning units that should be
-#'   locked out. See the Data format section for more information.
-#'
-#' @inherit add_contiguity_constraints return
-#' @inherit add_locked_in_constraints details
+#' @param locked_out Object that determines which planning units should be
+#' locked out. See the Data format section for more information.
 #'
 #' @section Data format:
 #'
-#' The following formats can be used to lock in planning units.
+#' The following formats can be used to specify `locked_out`.
 #'
 #' `r locked_documentation("locked_out")`
 #'
-#' @seealso
-#' See [constraints] for an overview of all functions for adding constraints.
+#' @inherit add_manual_locked_constraints return seealso
 #'
 #' @family constraints
 #'

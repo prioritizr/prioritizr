@@ -6,24 +6,26 @@ NULL
 #' Calculate importance scores for planning units selected in a solution
 #' based on the replacement cost method (Cabeza and Moilanen 2006).
 #'
-#' @inheritParams eval_cost_summary
+#' @param x [problem()] object.
 #'
 #' @param rescale `logical` flag indicating if replacement cost
-#'  values -- excepting infinite (`Inf`) and zero values -- should be
-#'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
+#' values -- excepting infinite (`Inf`) and zero values -- should be
+#' rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
 #' @param run_checks `logical` flag indicating whether presolve checks
-#'   should be run prior solving the problem. These checks are performed using
-#'   the [presolve_check()] function. Defaults to `TRUE`.
-#'   Skipping these checks may reduce run time for large problems.
+#' should be run prior solving the problem. These checks are performed using
+#' the [presolve_check()] function. Defaults to `TRUE`.
+#' Skipping these checks may reduce run time for large problems.
 #'
 #' @param force `logical` flag indicating if an attempt should be
-#'   made to solve the problem even if potential issues were detected during
-#'   the presolve checks. Defaults to `FALSE`.
+#' made to solve the problem even if potential issues were detected during
+#' the presolve checks. Defaults to `FALSE`.
 #'
 #' @param threads `integer` number of threads to use for the
-#'   optimization algorithm. Defaults to 1 such that only a single
-#'   thread is used.
+#' optimization algorithm. Defaults to 1 such that only a single
+#' thread is used.
+#'
+#' @inheritParams eval_cost_summary
 #'
 #' @details
 #' This function implements a modified version of the
@@ -40,10 +42,11 @@ NULL
 #' For example, when using the minimum set objective function
 #' ([add_min_set_objective()]), the replacement cost scores
 #' correspond to the additional costs needed to meet targets when each
-#' planning unit is locked out. When using the maximum utility
-#' objective function ([add_max_utility_objective()], the
-#' replacement cost scores correspond to the reduction in the utility when
-#' each planning unit is locked out. Infinite values mean that no feasible
+#' planning unit is locked out. When using the maximum weighted sum
+#' objective ([add_max_wtd_sum_objective()], the
+#' replacement cost scores correspond to the reduction in the weighted sum
+#' scores when each planning unit is locked out.
+#' Infinite values mean that no feasible
 #' solution exists when planning units are locked out---they are
 #' absolutely essential for obtaining a solution (e.g., they contain rare
 #' species that are not found in any other planning units or were locked in).
@@ -64,11 +67,12 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `numeric`, `matrix`, `data.frame`,
-#'   [terra::rast()], or [sf::sf()] object
-#'   containing the importance scores for each planning
-#'   unit in the solution. Specifically, the returned object is in the
-#'   same format as the planning unit data in the argument to `x`.
+#' @return
+#' A `numeric`, `matrix`, `data.frame`,
+#' [terra::rast()], or [sf::sf()] object
+#' containing the importance scores for each planning
+#' unit in the solution. Specifically, the returned object is in the
+#' same format as the planning unit data in `x`.
 #'
 #' @seealso
 #' See [importance] for an overview of all functions for evaluating
@@ -251,29 +255,13 @@ internal_eval_replacement_importance <- function(x, status, rescale,
   x <- add_shuffle_portfolio(x, 1)
   # compile problem
   opt <- compile.ConservationProblem(x)
-  # run presolve check to try to identify potential problems
-  if (run_checks) {
-    ## run checks
-    presolve_res <- internal_presolve_check(opt)
-    ## prepare message
-    msg <- presolve_res$msg
-    if (!isTRUE(force)) {
-      msg <- c(
-        msg,
-        "i" = paste(
-          "To ignore checks and attempt optimization anyway,",
-          "use {.code solve(force = TRUE)}."
-        )
-      )
-    }
-    ## determine if error or warning should be thrown
-    if (!isTRUE(force)) {
-      f <- assert
+  # run presolve check
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
     } else {
-      f <- verify
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
-    ## throw error or warning if checks failed
-    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
   # solve problem
   x$solver$calculate(opt)

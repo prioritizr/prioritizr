@@ -38,12 +38,10 @@ bool rcpp_apply_min_shortfall_objective(
   // break ties in solution and select solution with cheapest cost
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
+      ptr->_obj.push_back(0.0);
       if (Rcpp::NumericMatrix::is_na(costs(j, z))) {
-        ptr->_obj.push_back(0.0);
         ptr->_lb[(z * ptr->_number_of_planning_units) + j] = 0.0;
         ptr->_ub[(z * ptr->_number_of_planning_units) + j] = 0.0;
-      } else {
-        ptr->_obj.push_back(0);
       }
     }
   }

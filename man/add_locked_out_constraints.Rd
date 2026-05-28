@@ -33,7 +33,7 @@ add_locked_out_constraints(x, locked_out)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{locked_out}{Object that determines which planning units that should be
+\item{locked_out}{Object that determines which planning units should be
 locked out. See the Data format section for more information.}
 }
 \value{
@@ -53,73 +53,69 @@ planning unit allocations to a specific value.
 \section{Data format}{
 
 
-The following formats can be used to lock in planning units.
+The following formats can be used to specify \code{locked_out}.
 
 \describe{
 
 \item{\code{locked_out} as a \code{numeric} vector}{
-containing \code{numeric} values that indicate which
+Here \code{numeric} values are used to specify which
 planning units should be locked for the solution.
 If \code{x} has \code{data.frame} planning units,
 then these values must refer to values in the \code{id} column of the planning
 unit data.
-Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+Alternatively, if \code{x} has \code{\link[sf:st_sf]{sf::st_sf()}} or \code{matrix} planning units,
 then these values must refer to the row numbers of the planning unit data.
 Additionally, if \code{x} has \code{numeric} vector planning units,
 then these values must refer to the element indices of the planning unit
 data.
 Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
 then these values must refer to cell indices.
-Note that this format is available for problems that contain a single
-zone.}
+Note that this format is only compatible if \code{x} has a single zone.
+}
 
-\item{\code{locked_out} as a \code{logical} vector}{containing \code{TRUE} and/or
-\code{FALSE} values that indicate each if planning units should be locked
-in the solution. Note that the vector should have a \code{TRUE} or \code{FALSE}
-value for each and every planning unit in the argument to \code{x}.
-This argument is only compatible with problems that
-contain a single zone.}
+\item{\code{locked_out} as a \code{logical} vector}{
+Here \code{TRUE}/\code{FALSE} values are used to specify each if planning unit should be
+locked for the solution. Note that \code{x} should have a \code{TRUE} or \code{FALSE}
+value for planning unit in \code{x}.
+Note that this format is only compatible if \code{x} has a single zone.
+}
 
-\item{\code{locked_out} as a \code{matrix} object}{containing \code{logical} (i.e.,
-\code{TRUE} or \code{FALSE}) values that indicate if certain planning units
-should be locked to a specific zone in the solution. Each row
-corresponds to a planning unit, each column corresponds to a zone, and
-each cell indicates if the planning unit should be locked to a given
-zone.}
+\item{\code{locked_out} as a \code{matrix} object}{
+Here \code{TRUE}/\code{FALSE} values are used to specify each if each planning unit should be locked to a particular zone for the solution.
+Each row corresponds to a planning unit, each column corresponds to a zone, and each cell indicates if the planning unit should be locked to a given zone.
+}
 
-\item{\code{locked_out} as a \code{character} vector}{containing column name(s)
-for the planning unit data in \code{x} that indicate if planning units should
-be locked for the solution.
-This format is only
-compatible if the argument to \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame}
-planning units.
-The columns must have \code{logical} (i.e., \code{TRUE} or \code{FALSE})
+\item{\code{locked_out} as a \code{character} vector}{
+Here column name(s) for the planning unit data in \code{x} are used
+to specify if planning units should be locked for the solution.
+This format is only compatible if \code{x} has planning units in \code{\link[sf:st_sf]{sf::st_sf()}} or
+\code{data.frame} format. These columns must have \code{logical} (i.e., \code{TRUE}/\code{FALSE})
 values indicating if planning units should be locked for the solution.
-For problems that contain a single zone, the argument to \code{data} must
-contain a single column name. Otherwise, for problems that
-contain multiple zones, the argument to \code{data} must
-contain a column name for each zone.}
+If \code{x} has a single zone, \code{locked_out} must contain a single column
+name. Otherwise, if \code{x} has multiple zones, \code{locked_out} must
+contain a column name for each zone.
+}
 
 \item{\code{locked_out} as a \code{\link[sf:sf]{sf::sf()}} object}{
-containing geometries that will be used to lock planning units for
-the solution. Specifically, planning units in \code{x} that spatially
-intersect with \code{y} will be locked (per \code{\link[=intersecting_units]{intersecting_units()}}).
-Note that this option is only available
-for problems that contain a single management zone.}
+Here geometries of \code{locked_out} are used to specify which planning units should be
+locked for the solution.
+Specifically, planning units in \code{x} that spatially intersect
+with \code{locked_out} will be locked (per \code{\link[=intersecting_units]{intersecting_units()}}).
+Note that this option is only compatible if \code{x} has a single zone.
+}
 
 \item{\code{locked_out} as a \code{\link[terra:rast]{terra::rast()}} object}{
-containing cells used to lock planning units for the solution.
-Specifically, planning units in \code{x}
-that intersect with cells that have non-zero and non-\code{NA} values are
-locked.
-For problems that contain multiple zones, the
-\code{data} object must contain a layer
-for each zone. Note that for multi-band arguments, each cell must
-only contain a non-zero value in a single band. Additionally, if the
-cost data in \code{x} is a \code{\link[terra:rast]{terra::rast()}} object, we
-recommend standardizing \code{NA} values in this dataset with the cost
-data. In other words, the cells in \code{x} that have \code{NA} values
-should also have \code{NA} values in the locked data.}
+Here the cells in \code{locked_out} are used to lock planning units for the solution.
+Specifically, planning units in \code{x} that intersect with cells in \code{locked_out} that
+have non-zero and non-missing (\code{NA}) values will be locked.
+If \code{x} has a single zone, then \code{locked_out} must have a single layer.
+Otherwise, if \code{x} has multiple zones, then \code{locked_out} must have a layer
+for each zone. Note that if \code{locked_out} has multiple layers, each cell must
+only contain a non-zero value in a single layer. Additionally, if the
+planning unit data in \code{x} is a \code{\link[terra:rast]{terra::rast()}} object, we
+recommend standardizing missing (\code{NA}) values in \code{locked_out} with them to ensure that missing (\code{NA}) are consistent across both objects.
+}
+
 }
 }
 
@@ -270,16 +266,15 @@ plot(category_layer(s10), main = "solution", axes = FALSE)
 }
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
-\code{\link{add_contiguity_constraints}()},
-\code{\link{add_feature_contiguity_constraints}()},
-\code{\link{add_linear_constraints}()},
-\code{\link{add_locked_in_constraints}()},
-\code{\link{add_mandatory_allocation_constraints}()},
-\code{\link{add_manual_bounded_constraints}()},
-\code{\link{add_manual_locked_constraints}()},
-\code{\link{add_neighbor_constraints}()}
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}},
+\code{\link[=add_cost_constraints]{add_cost_constraints()}},
+\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}},
+\code{\link[=add_linear_constraints]{add_linear_constraints()}},
+\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}},
+\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}},
+\code{\link[=add_manual_bounded_constraints]{add_manual_bounded_constraints()}},
+\code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}},
+\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}
 }
 \concept{constraints}

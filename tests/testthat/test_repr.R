@@ -48,7 +48,7 @@ test_that("x = matrix (nrow == ncol", {
   )
   expect_match(
     repr(diag(3) * runif(3)),
-    "diagonal matrix \\(non-zero values"
+    "diagonal matrix \\(non-zeros"
   )
 })
 

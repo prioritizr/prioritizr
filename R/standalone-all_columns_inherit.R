@@ -8,7 +8,7 @@
 #'
 #' Check if all columns inherit from a particular class.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @param what `character` name of class.
 #'

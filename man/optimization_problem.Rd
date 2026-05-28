@@ -7,20 +7,21 @@
 optimization_problem(x = NULL)
 }
 \arguments{
-\item{x}{A \code{NULL} or \code{list} object. See Details for more information.
+\item{x}{A \code{NULL} or \code{list} object.
+If \code{x} is a \code{NULL}, then an empty optimization problem is created.
+Alternately, if a \code{x} is a \code{list} then a fully formulated optimization
+problem is created. See Details for more information on the \code{list} format.
 Defaults to \code{NULL}.}
 }
 \value{
-An \linkS4class{OptimizationProblem} object.
+An \link[=OptimizationProblem-class]{OptimizationProblem} object.
 }
 \description{
 Create a new optimization problem.
 }
 \details{
-The argument to \code{x} can be a \code{NULL} or a \code{list}. If \code{x} is a \code{NULL},
-then an empty optimization problem is created. Alternately, if a \code{x} is
-a \code{list} then a fully formulated optimization problem is created.
-Specifically, the \code{list} should contain the following elements.
+The argument to \code{x} can be a \code{NULL} or a \code{list} object.
+If \code{x} is a \code{list}, then it must have the following elements.
 
 \describe{
 
@@ -30,11 +31,11 @@ Specifically, the \code{list} should contain the following elements.
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
 
-\item{A_i}{\code{integer} row indices for problem matrix.}
+\item{A_i}{\code{integer} row indices for constraint matrix.}
 
-\item{A_j}{\code{integer} column indices for problem matrix.}
+\item{A_j}{\code{integer} column indices for constraint matrix.}
 
-\item{A_x}{\code{numeric} values for problem matrix.}
+\item{A_x}{\code{numeric} values for constraint matrix.}
 
 \item{obj}{\code{numeric} objective function values.}
 
@@ -46,15 +47,19 @@ Specifically, the \code{list} should contain the following elements.
 
 \item{sense}{\code{numeric} constraint senses.}
 
-\item{vtype}{\code{character} variable types. These are used to specify
-that the decision variables are binary (\code{"B"}) or continuous
-(\code{"C"}).}
+\item{vtype}{
+\code{character} variable types. These are used to specify
+that the decision variables are binary (\code{"B"}), continuous
+(\code{"C"}), or semi-continuous (\code{"S"}).
+}
 
-\item{row_ids}{\code{character} identifiers for the rows in the problem
-matrix.}
+\item{row_ids}{
+\code{character} identifiers for the rows in the constraint matrix.
+}
 
-\item{col_ids}{\code{character} identifiers for the columns in the problem
-matrix.}
+\item{col_ids}{
+\code{character} identifiers for the columns in the constraint matrix.
+}
 
 }
 }
@@ -90,7 +95,4 @@ x2 <- optimization_problem(l)
 
 # print fully formulated object
 print(x2)
-}
-\seealso{
-\link{OptimizationProblem-methods}.
 }

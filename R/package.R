@@ -29,42 +29,56 @@ NULL
 #' [online code repository](https://github.com/prioritizr/prioritizr)
 #' for more information.
 #'
-#' @details This package contains several vignettes that are designed to
-#'   showcase its functionality. To view them, please use the code
-#'   `vignette("name", package = "prioritizr")` where `"name"` is the
-#'   name of the desired vignette (e.g., `"gurobi_installation"`).
+#' @details
+#' This package contains several vignettes that are designed to
+#' showcase its functionality. To view them, please use the code
+#' `vignette("name", package = "prioritizr")` where `"name"` is the
+#' name of the desired vignette (e.g., `"gurobi_installation"`).
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{prioritizr}{Brief introduction to systematic conservation
-#'     planning and demonstration of the main package features.
-#'   }
+#' \item{prioritizr}{
+#' Brief introduction to systematic conservation
+#' planning and demonstration of the main package features.
+#' }
 #'
-#'   \item{package_overview}{Comprehensive introduction to
-#'    systematic conservation planning and detailed overview of
-#'     the package features.
-#'   }
+#' \item{package_overview}{
+#' Comprehensive introduction to
+#' systematic conservation planning and detailed overview of
+#' the package functionality.
+#' }
 #'
-#'   \item{calibrating_trade-offs_tutorial}{Examples of balancing different
-#'     criteria to identify candidate prioritizations.}
+#' \item{calibrating_trade-offs_tutorial}{
+#' Examples of balancing different
+#' objectives to identify candidate prioritizations.
+#' }
 #'
-#'   \item{connectivity_tutorial}{Examples of incorporating and evaluating
-#'     connectivity in prioritizations using a range of approaches.}
+#' \item{connectivity_tutorial}{
+#' Examples of incorporating and evaluating
+#' connectivity in prioritizations using a range of approaches.
+#' }
 #'
-#'   \item{management_zones_tutorial}{Tutorial on using multiple management
-#'   actions or zones to create detailed prioritizations.}
+#' \item{management_zones_tutorial}{
+#' Tutorial on using multiple management
+#' actions or zones to create detailed prioritizations.
+#' }
 #'
-#'   \item{gurobi_installation}{Instructions for installing and setting up
-#'     the *Gurobi* optimization software for use with the package.}
+#' \item{gurobi_installation}{
+#' Instructions for installing and setting up
+#' the *Gurobi* optimization software for use with the package.
+#' }
 #'
-#'   \item{solver_benchmark}{Reports run times for solving
-#'     conservation planning problems of varying size and complexity
-#'     using different solvers.}
+#' \item{solver_benchmark}{
+#' Reports run times for solving
+#' conservation planning problems of varying size and complexity
+#' using different solvers.
+#' }
 #'
-#'   \item{publication_record}{List of publications that have cited the
-#'     package.}
+#' \item{publication_record}{
+#' List of publications that have cited the package.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @section Citation:
 #' Please cite the _prioritizr R_ package when using it in publications. To
@@ -86,6 +100,7 @@ NULL
 #' * Richard Schuster \email{richard.schuster@glel.carleton.ca} ([ORCID](https://orcid.org/0000-0003-3191-7869), maintainer)
 #' * Nina Morrell \email{nina.morrell@ubc.ca}
 #' * Matthew Strimas-Mackey \email{mstrimas@gmail.com} ([ORCID](https://orcid.org/0000-0001-8929-7776))
+#' * Sandra Neubert \email{s.neubert@uq.edu.au} ([ORCID](https://orcid.org/0000-0002-3112-4116))
 #' * Brandon P M Edwards \email{brandonedwards3@cmail.carleton.ca} ([ORCID](https://orcid.org/0000-0003-0865-3076))
 #' * Matthew E Watts \email{m.watts@uq.edu.au}
 #' * Peter Arcese \email{peter.arcese@ubc.ca} ([ORCID](https://orcid.org/0000-0002-8097-482X))

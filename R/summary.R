@@ -7,3 +7,10 @@ NULL
 summary.ConservationProblem <- function(object, ...) {
   cli::cli({object$summary()})
 }
+
+#' @method summary MultiObjConservationProblem
+#'
+#' @export
+summary.MultiObjConservationProblem <- function(object, ...) {
+  object$summary(...)
+}

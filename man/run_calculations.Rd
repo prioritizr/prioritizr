@@ -21,7 +21,7 @@ means that the same calculations will not be run multiple times.
 }
 \details{
 This function is used for the effect of modifying the input
-\code{\linkS4class{ConservationProblem}} object. As such, it does not return
+\code{\link[=ConservationProblem-class]{ConservationProblem}} object. As such, it does not return
 anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use the
 \verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }

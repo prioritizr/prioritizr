@@ -4,24 +4,29 @@ NULL
 #' Add minimum penalties objective
 #'
 #' Set the objective of a conservation planning problem to
-#' only minimize the penalties added to the problem, whilst ensuring that all
-#' [targets] are met and the cost of the solution does not exceed a budget.
-#' This objective is useful when using a hierarchical approach for
-#' multi-objective optimization.
+#' minimize the penalties added to the problem.
+#' Targets can optionally be specified to ensure that the solution
+#' must meet all the [targets].
+#' Budgets can also optionally be specified to ensure that the solution
+#' does not exceed a budgetary threshold.
+#' This objective is designed to be used with multi-objective optimization.
 #'
-#' @inheritParams add_min_shortfall_objective
+#' @inheritParams add_max_wtd_sum_objective
+#'
+#' @param budget `numeric` value specifying the maximum expenditure permitted
+#' for the solution. If `x` has multiple zones, then `budget` can be
+#' (i) a single `numeric` value to specify an overall budget
+#' for the entire solution or (ii) a `numeric` vector to specify
+#' a budget for each zone (separately) in the solution.
+#' Defaults to `NULL` such expenditure is not limited.
 #'
 #' @details
 #' The minimum penalty objective is designed to be used with problems
 #' that have penalties (see [penalties] for details). It can be used
 #' to generate solutions that focus entirely on minimizing the penalties,
-#' whilst ensuring that certain constraints are met.
-#' This is is useful when performing multi-objective optimization using a
-#' hierarchical approach (see examples below). Although previous versions of the
-#' package recommended using the minimum set objective (i.e.,
-#' [add_min_set_objective()]) with zero costs and linear constraints for this
-#' purpose, the minimum penalty objective provides a dedicated objective
-#' for performing hierarchical multi-objective optimization.
+#' whilst (optionally) ensuring that certain constraints are met.
+#' This is is useful when performing multi-objective optimization
+#' (see examples below).
 #'
 #' @section Mathematical formulation:
 #' This objective can be expressed
@@ -68,68 +73,74 @@ NULL
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_zones_features <- get_sim_zones_features()
 #'
-#' # create initial problem with minimum set objective
+#' # here we will show how the min penalties objective can be used
+#' # to generate a solution that accounts for spatial fragmentation
+#' # (via boundary penalties) using multi-objective optimization techniques
+#'
+#' # create initial problem
+#' # note that this does not consider boundary penalties
 #' p1 <-
 #'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
+#'   add_relative_targets(0.3) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
 #'
-#' # solve initial problem
+#' # solve problem
 #' s1 <- solve(p1)
 #'
-#' # plot initial solution
+#' # plot solution
 #' plot(s1, main = "initial solution", axes = FALSE)
 #'
-#' # calculate total cost of initial solution
-#' c1 <- eval_cost_summary(p1, s1)
-#'
-#' # since the solution is spatially fragmented, we will now use
-#' # a hierarchical multi-objective optimization approach to reduce
-#' # spatial fragmentation
-#'
-#' # calculate budget for new prioritization based on cost of initial solution,
-#' # this budget will specify that we are willing to accept a 10%
-#' # increase in the total cost of the solution to minimize fragmentation
-#' b <- c1$cost[[1]] * 1.1
-#'
-#' # create problem with minimum penalty objective using the budget and
-#' # boundary penalties to reduce spatial fragmentation
-#' #
-#' # note that although we use a penalty value of 0.01 as a placeholder,
-#' # any penalty value would give the same result since the optimization
-#' # process is focused entirely on the boundary penalties
-#' p2 <-
-#'   problem(sim_pu_raster, sim_features) %>%
-#'   add_min_penalties_objective(budget = b) %>%
-#'   add_boundary_penalties(penalty = 0.001) %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions() %>%
+#' # create a multi-objective problem that contains the
+#' # initial problem as well as an additional problem that is
+#' # focused entirely on minimizing spatial fragmentation.
+#' # additionally, this multi-objective problem will use the
+#' # hierarchical approach for optimization and we will
+#' # consider three rel_tol values to generate multiple solutions
+#' # that represent different levels of trade-off between total cost
+#' # and spatial fragmentation. note that we use a small penalty value
+#' # in add_boundary_penalties() to avoid scaling issues and this
+#' # has no influence on the trade-offs between cost and spatial fragmentation.
+#' rel_tol <- c(0, 0.05, 0.1, 0.2)
+#' mp <-
+#'   multi_problem(
+#'     obj1 = p1,
+#'     obj2 =
+#'       problem(sim_pu_raster, sim_features) %>%
+#'      add_min_penalties_objective() %>%
+#'      add_boundary_penalties(penalty = 0.1) %>%
+#'      add_binary_decisions()
+#'   ) %>%
+#'   add_hier_approach(rel_tol = matrix(rel_tol, ncol = 1)) %>%
 #'   add_default_solver(verbose = FALSE)
 #'
-#' # solve problem with minimum penalty objective
-#' s2 <- solve(p2)
+#' # generate multi-objective solutions
+#' s2 <- solve(mp)
 #'
-#' # plot solution with minimum penalty objective
-#' plot(s2, main = "solution", axes = FALSE)
+#' # plot multi-objective solutions
+#' plot(terra::rast(s2), main = paste("rel_tol =", rel_tol), axes = FALSE)
 #' }
 #' @name add_min_penalties_objective
 NULL
 
 #' @rdname add_min_penalties_objective
 #' @export
-add_min_penalties_objective <- function(x, budget) {
+add_min_penalties_objective <- function(x, budget = NULL) {
   # assert argument is valid
   assert_required(x)
   assert_required(budget)
-  assert(
-    is_conservation_problem(x),
-    is.numeric(budget),
-    all_finite(budget),
-    all_positive(budget),
-    is_budget_length(x, budget)
-  )
+  assert(is_conservation_problem(x))
+  if (!is.null(budget)) {
+    assert(
+      is.numeric(budget),
+      all_finite(budget),
+      all_positive(budget),
+      is_budget_length(x, budget)
+    )
+  } else {
+    budget <- NA_real_
+  }
   # add objective to problem
   x$add_objective(
     R6::R6Class(
@@ -138,7 +149,7 @@ add_min_penalties_objective <- function(x, budget) {
       public = list(
         name = "minimum penalties objective",
         has_weights = FALSE,
-        has_targets = TRUE,
+        has_targets = NA,
         data = list(budget = budget),
         apply = function(x, y, weights) {
           # note that weights are not used
@@ -147,10 +158,21 @@ add_min_penalties_objective <- function(x, budget) {
             inherits(y, "ConservationProblem"),
             .internal = TRUE
           )
+          # prepare targets
+          if (is.Waiver(y$targets)) {
+            targ <- tibble::tibble(
+              feature = integer(0),
+              zone = list(),
+              sense = character(0),
+              value = numeric(0)
+            )
+          } else {
+            targ <- y$feature_targets()
+          }
           invisible(
             rcpp_apply_min_penalties_objective(
               x$ptr,
-              y$feature_targets(),
+              targ,
               y$planning_unit_costs(),
               self$get_data("budget")
             )

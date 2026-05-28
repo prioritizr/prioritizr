@@ -2,40 +2,54 @@
 % Please edit documentation in R/eval_cost_summary.R
 \name{eval_cost_summary}
 \alias{eval_cost_summary}
+\alias{eval_cost_summary.ConservationProblem}
+\alias{eval_cost_summary.MultiObjConservationProblem}
 \title{Evaluate cost of solution}
 \usage{
 eval_cost_summary(x, solution)
+
+\method{eval_cost_summary}{ConservationProblem}(x, solution)
+
+\method{eval_cost_summary}{MultiObjConservationProblem}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
-The argument should be in the same format as the planning unit cost
-data in the argument to \code{x}.
+Note that \code{solution} must have the same format as the planning unit
+data in \code{x}.
 See the Solution format section for more information.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the solution cost.
-It contains the following columns:
+A \code{\link[tibble:tibble]{tibble::tibble()}} object describing the solution cost.
+It contains the following columns.
 
 \describe{
 
-\item{summary}{\code{character} description of the summary statistic.
+\item{problem}{
+\code{character} name of problem. Note that this column
+is only present if \code{x} is a \code{\link[=multi_problem]{multi_problem()}} object.
+}
+
+\item{summary}{
+\code{character} description of the summary statistic.
 The statistic associated with the \code{"overall"} value
 in this column is calculated using the entire solution
-(including all management zones if there are multiple zones).
-If multiple management zones are present, then summary statistics
+(including all management zones if \code{x} has multiple zones).
+If \code{x} has multiple management zones, then summary statistics
 are also provided for each zone separately
-(indicated using zone names).}
+(indicated using zone names).
+}
 
-\item{cost}{\code{numeric} cost value.
+\item{cost}{
+\code{numeric} cost value.
 Greater values correspond to solutions that are more costly
 to implement.
 Thus conservation planning exercises typically prefer solutions
 with smaller values, because they are cheaper to implement
-(assuming all other relevant factors, such as feature representation,
-are equal).}
+(assuming all else is equal).
+}
 
 }
 }
@@ -51,69 +65,69 @@ This metric is equivalent to the \code{Cost} metric reported by the
 \href{https://marxansolutions.org}{\emph{Marxan} software} (Ball \emph{et al.} 2009).
 Specifically, the cost of a solution is defined as the sum of the cost
 values, supplied when creating a \code{\link[=problem]{problem()}} object
-(e.g., using the \code{cost_column} argument),
+(e.g., per \code{cost_column}),
 weighted by the status of each planning unit in the solution.
 }
 \section{Solution format}{
 
-Broadly speaking, the argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}.
+Broadly speaking, \code{solution} must be in the same format as
+the planning unit data in \code{x}.
 Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+for each of the different planning unit data formats.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{solution}.
+\code{solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{solution}.
+missing (\code{NA}) values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{solution} must also have the same
+Additionally, \code{solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 }
 }
@@ -220,11 +234,12 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 See \link{summaries} for an overview of all functions for summarizing solutions.
 
 Other functions for summarizing solutions:
-\code{\link{eval_asym_connectivity_summary}()},
-\code{\link{eval_boundary_summary}()},
-\code{\link{eval_connectivity_summary}()},
-\code{\link{eval_feature_representation_summary}()},
-\code{\link{eval_n_summary}()},
-\code{\link{eval_target_coverage_summary}()}
+\code{\link[=eval_asym_connectivity_summary]{eval_asym_connectivity_summary()}},
+\code{\link[=eval_boundary_summary]{eval_boundary_summary()}},
+\code{\link[=eval_connectivity_summary]{eval_connectivity_summary()}},
+\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}},
+\code{\link[=eval_n_summary]{eval_n_summary()}},
+\code{\link[=eval_objective_summary]{eval_objective_summary()}},
+\code{\link[=eval_target_coverage_summary]{eval_target_coverage_summary()}}
 }
 \concept{summaries}

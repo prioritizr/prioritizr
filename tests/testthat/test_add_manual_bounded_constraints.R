@@ -118,7 +118,7 @@ test_that("data.frame (solve, single zone)", {
   # create problem
   s <-
     problem(sim_pu_data, c("spp_1", "spp_2", "spp_3"), cost_column = "cost") %>%
-    add_max_utility_objective(budget = 1e5) %>%
+    add_max_wtd_sum_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(
@@ -143,7 +143,7 @@ test_that("sf (compile, multiple zones)", {
       sim_zones_pu_polygons, sim_zones_features,
       c("cost_1", "cost_2", "cost_3")
     ) %>%
-    add_max_utility_objective(budget = 1e5) %>%
+    add_max_wtd_sum_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(
@@ -179,7 +179,7 @@ test_that("sf (solve, multiple zones)", {
       sim_zones_pu_polygons, sim_zones_features,
       c("cost_1", "cost_2", "cost_3")
     ) %>%
-    add_max_utility_objective(budget = 1e5) %>%
+    add_max_wtd_sum_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(
@@ -281,7 +281,7 @@ test_that("data.frame (solve, multiple zones)", {
         zone_3 = "spp_1_zone_3"
       )
     ) %>%
-    add_max_utility_objective(budget = 1e5) %>%
+    add_max_wtd_sum_objective(budget = 1e5) %>%
     add_proportion_decisions() %>%
     add_manual_bounded_constraints(
       data.frame(

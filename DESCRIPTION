@@ -34,6 +34,9 @@ Authors@R:
       person(c('Matthew'), 'Strimas-Mackey',
         email='mstrimas@gmail.com', role = c('aut'),
         comment = c(ORCID = '0000-0001-8929-7776')),
+      person(c('Sandra'), 'Neubert',
+        email='s.neubert@uq.edu.au', role = c('aut'),
+        comment = c(ORCID = '0000-0002-3112-4116')),
       person(c('Brandon', 'P', 'M'), 'Edwards',
         email='brandonedwards3@cmail.carleton.ca', role = c('aut'),
         comment = c(ORCID = '0000-0003-0865-3076')),
@@ -94,7 +97,6 @@ URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.3.3
 Collate:
     'external-classes.R'
     'internal.R'
@@ -106,10 +108,10 @@ Collate:
     'ConservationProblem-class.R'
     'Constraint-class.R'
     'Decision-class.R'
+    'MultiObjApproach-class.R'
+    'MultiObjConservationProblem-class.R'
     'Objective-class.R'
     'OptimizationProblem-class.R'
-    'reexports.R'
-    'OptimizationProblem-methods.R'
     'Penalty-class.R'
     'Portfolio-class.R'
     'RcppExports.R'
@@ -131,6 +133,8 @@ Collate:
     'add_compile_solver.R'
     'add_connectivity_penalties.R'
     'add_contiguity_constraints.R'
+    'add_cost_constraints.R'
+    'add_cost_penalties.R'
     'add_cplex_solver.R'
     'add_cuts_portfolio.R'
     'add_default_portfolio.R'
@@ -142,6 +146,7 @@ Collate:
     'add_gap_portfolio.R'
     'add_group_targets.R'
     'add_gurobi_solver.R'
+    'add_hier_approach.R'
     'add_highs_solver.R'
     'add_linear_constraints.R'
     'add_linear_penalties.R'
@@ -150,15 +155,16 @@ Collate:
     'add_locked_out_constraints.R'
     'add_lpsymphony_solver.R'
     'add_mandatory_allocation_constraints.R'
+    'reexports.R'
     'tbl_df.R'
     'add_manual_targets.R'
     'add_manual_bounded_constraints.R'
     'add_manual_locked_constraints.R'
     'add_max_cover_objective.R'
-    'add_max_features_objective.R'
+    'add_max_n_targets_met.R'
     'add_max_phylo_div_objective.R'
     'add_max_phylo_end_objective.R'
-    'add_max_utility_objective.R'
+    'add_max_wtd_sum_objective.R'
     'add_min_largest_shortfall_objective.R'
     'add_min_penalties_objective.R'
     'add_min_set_objective.R'
@@ -166,18 +172,27 @@ Collate:
     'add_neighbor_constraints.R'
     'add_neighbor_penalties.R'
     'add_proportion_decisions.R'
+    'add_ref_point_approach.R'
     'add_relative_targets.R'
     'add_rsymphony_solver.R'
     'add_semicontinuous_decisions.R'
     'add_shuffle_portfolio.R'
     'add_top_portfolio.R'
+    'add_wtd_sum_approach.R'
     'adjacency_matrix.R'
+    'approach_rel_tol_matrix.R'
+    'approach_weights_matrix.R'
+    'approaches.R'
     'as.R'
     'as_units.R'
+    'run_presolve_check.R'
+    'compile.R'
+    'presolve_check.R'
+    'assertions_pass_presolve_check.R'
+    'assertions_problem.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'calibrate_cohon_penalty.R'
-    'compile.R'
     'connectivity_matrix.R'
     'constraints.R'
     'data.R'
@@ -190,7 +205,7 @@ Collate:
     'eval_feature_representation_summary.R'
     'eval_ferrier_importance.R'
     'eval_n_summary.R'
-    'presolve_check.R'
+    'eval_objective_summary.R'
     'solve.R'
     'problem.R'
     'eval_rank_importance.R'
@@ -209,8 +224,11 @@ Collate:
     'read_marxan_parameters.R'
     'marxan_problem.R'
     'memory.R'
+    'multi_compile.R'
+    'multi_problem.R'
     'number_of_features.R'
     'number_of_planning_units.R'
+    'number_of_problems.R'
     'number_of_total_units.R'
     'number_of_zones.R'
     'objectives.R'
@@ -222,10 +240,12 @@ Collate:
     'portfolios.R'
     'print.R'
     'problem-deprecated.R'
+    'problem_names.R'
     'proximity_matrix.R'
     'rescale_matrix.R'
     'rij_matrix.R'
     'run_calculations.R'
+    'run_multi_presolve_check.R'
     'show.R'
     'simulate.R'
     'solvers.R'
@@ -288,6 +308,8 @@ Config/Needs/website:
     scales,
     dplyr,
     ggplot2,
+    stringr,
+    ggrepel,
     piggyback,
     prioritizrdata,
     pkgdown
@@ -295,3 +317,4 @@ Remotes:
   dirkschumacher/rcbc,
   cran/cplexAPI,
   bioc::lpsymphony
+Config/roxygen2/version: 8.0.0

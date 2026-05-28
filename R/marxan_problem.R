@@ -11,95 +11,107 @@ NULL
 #' files.
 #'
 #' @param x `character` file path for a *Marxan* input file (typically
-#'   called `"input.dat"`), or `data.frame` containing planning unit
-#'   data (typically called `"pu.dat"`). If the argument to `x` is a
-#'   `data.frame`, then each row corresponds to a different planning unit,
-#'   and it must have the following columns:
+#' called `"input.dat"`), or `data.frame` containing planning unit
+#' data (typically called `"pu.dat"`). If `x` is a
+#' `data.frame`, then each row corresponds to a different planning unit,
+#' and it must have the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{id}{`integer` unique identifier for each planning unit.
-#'     These identifiers are used in the argument to `puvspr`.}
+#' \item{id}{
+#' `integer` unique identifier for each planning unit.
+#' These identifiers are used by `puvspr`.
+#' }
 #'
-#'   \item{cost}{`numeric` cost of each planning unit.}
+#' \item{cost}{`numeric` cost of each planning unit.}
 #'
-#'   \item{status}{`integer` indicating if each planning unit
-#'     should not be locked in the solution (0) or if it should be locked in
-#'     (2) or locked out (3) of the solution. Although *Marxan* allows
-#'     planning units to be selected in the initial solution (using values of
-#'     1), these values have no effect here. This column is optional.}
+#' \item{status}{
+#' `integer` indicating if each planning unit
+#' should not be locked in the solution (0) or if it should be locked in
+#' (2) or locked out (3) of the solution. Although *Marxan* allows
+#' planning units to be selected in the initial solution (using values of
+#' 1), these values have no effect here. This column is optional.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @param spec `data.frame` containing information on the features.
-#'   The argument to `spec` must follow the conventions used by
-#'   *Marxan* for the species data file (conventionally called
-#'   `"spec.dat"`). Each row corresponds to a different feature and
-#'   each column corresponds to different information about the features. It
-#'   must contain the columns listed below. Note that the argument to
-#'   `spec` must contain at least one column named `"prop"` or
-#'   `"amount"`---**but not both columns with both of these
-#'   names**---to specify the target for each feature.
+#' In particular, `spec` must follow the conventions used by
+#' *Marxan* for the species data file (conventionally called
+#' `"spec.dat"`). Each row corresponds to a different feature and
+#' each column corresponds to different information about the features. It
+#' must contain the columns listed below. Note that
+#' `spec` must contain at least one column named `"prop"` or
+#' `"amount"` -- **but not columns with both of these
+#' names** -- to specify the target for each feature.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{id}{`integer` unique identifier for each feature
-#'     These identifiers are used in the argument to `puvspr`.}
+#' \item{id}{
+#' `integer` unique identifier for each feature
+#' These identifiers are used by `puvspr`.
+#' }
 #'
-#'   \item{name}{`character` name for each feature.}
+#' \item{name}{
+#' `character` name for each feature.
+#' }
 #'
-#'   \item{prop}{`numeric` relative target for each feature
-#'     (optional).}'
+#' \item{prop}{
+#' `numeric` relative target for each feature (optional).
+#' }
 #'
-#'   \item{amount}{`numeric` absolute target for each
-#'     feature (optional).}
+#' \item{amount}{
+#' `numeric` absolute target for each feature (optional).
+#' }
 #'
-#'   }
+#' }
 #'
 #' @param puvspr `data.frame` containing information on the amount of
-#'   each feature in each planning unit. The argument to
-#'   `puvspr` must follow the conventions used in the *Marxan* input
-#'   data file (conventionally called `"puvspr.dat"`). It must contain the
-#'   following columns:
+#' each feature in each planning unit. In particular,
+#' `puvspr` must follow the conventions used in the *Marxan* input
+#' data file (conventionally called `"puvspr.dat"`). It must contain the
+#' following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{pu}{`integer` planning unit identifier.}
+#' \item{pu}{`integer` planning unit identifier.}
 #'
-#'   \item{species}{`integer` feature identifier.}
+#' \item{species}{`integer` feature identifier.}
 #'
-#'   \item{amount}{`numeric` amount of the feature in the
-#'        planning unit.}
+#' \item{amount}{
+#' `numeric` amount of the feature in the planning unit.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @param bound `NULL` object indicating that no boundary data
-#'   is required for the conservation planning problem, or a `data.frame`
-#'   containing information on the planning units' boundaries. The argument to
-#'   `bound` must follow the conventions used in the *Marxan* input
-#'   data file (conventionally called `"bound.dat"`). It must contain the
-#'   following columns:
+#' is required for the conservation planning problem, or a `data.frame`
+#' containing information on the planning units' boundaries.
+#' If `bound` is a `data.frame` object, then it must follow the conventions
+#' used in the *Marxan* input data file (conventionally called `"bound.dat"`).
+#' In particular, it must contain the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{id1}{`integer` planning unit identifier.}
+#' \item{id1}{`integer` planning unit identifier.}
 #'
-#'   \item{id2}{`integer` planning unit identifier.}
+#' \item{id2}{`integer` planning unit identifier.}
 #'
-#'   \item{boundary}{`numeric` length of shared boundary
-#'     between the planning units identified in the previous two columns.}
+#' \item{boundary}{
+#' `numeric` length of shared boundary between the planning units identified in
+#' the previous two columns.
+#' }
 #'
-#'   }
+#' }
 #'
-#' @param blm `numeric` boundary length modifier. This argument only
-#'   has an effect when argument to `x` is a `data.frame`. The
-#'   default argument is zero.
+#' @param blm `numeric` boundary length modifier value. Note that `blm` will
+#' only have an affect if `bound` is a `data.frame` object. Defaults to 0.
 #'
-#' @param symmetric `logical` does the boundary data (i.e., argument to
-#'   `bound`) describe symmetric relationships between planning units?
-#'    If the boundary data contain asymmetric connectivity data,
-#'    this parameter should be set to `FALSE`.
-#'    Defaults to `TRUE`.
+#' @param symmetric `logical` value indicating if `bound` describes
+#' symmetric relationships between planning units?
+#' If `bound` has asymmetric connectivity data,
+#' then use `symmetric = FALSE`.
+#' Defaults to `TRUE`.
 #'
 #' @param ... not used.
 #'
@@ -110,7 +122,7 @@ NULL
 #' *Marxan* software. In particular, only the following parameters
 #' supported: `"INPUTDIR"`, `"SPECNAME`", `"PUNAME"`, `"PUVSPRNAME",
 #' `"BOUNDNAME"`, `"BLM"`, and `"ASYMMETRICCONNECTIVITY"`.
-#' Additionally, for the species data (i.e., argument to `spec`),
+#' Additionally, for the species data (per `spec`),
 #' only the `"id"`, `"name"`, `"prop"`, and `"amount"` columns are considered.
 #'
 #' @section Notes:
@@ -118,10 +130,11 @@ NULL
 #' connectivity data. It has now been updated to handle asymmetric connectivity
 #' data.
 #'
-#' @seealso For more information on the correct format for
-#'   for *Marxan* input data, see the
-#'   [official *Marxan* website](https://marxansolutions.org), Ball
-#'   *et al.* (2009), Serra *et al.* (2020).
+#' @seealso
+#' For more information on the correct format for
+#' for *Marxan* input data, see the
+#' [official *Marxan* website](https://marxansolutions.org), Ball
+#' *et al.* (2009), and Serra *et al.* (2020).
 #'
 #' @return A [problem()] object.
 #'

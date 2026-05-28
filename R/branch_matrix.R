@@ -13,9 +13,10 @@ NULL
 #'
 #' @param x [ape::phylo()] tree object.
 #'
-#' @return A [`Matrix::dgCMatrix-class`] sparse matrix object. Each row
-#'   corresponds to a different species. Each column corresponds to a different
-#'   branch. Species that inherit from a given branch are denoted with a one.
+#' @return
+#' A [`Matrix::dgCMatrix-class`] sparse matrix object. Each row
+#' corresponds to a different species. Each column corresponds to a different
+#' branch. Species that inherit from a given branch are denoted with a one.
 #'
 #' @name branch_matrix
 #'

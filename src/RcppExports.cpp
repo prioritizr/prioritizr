@@ -256,6 +256,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_optimization_problem_modelsense
+bool rcpp_set_optimization_problem_modelsense(SEXP x, std::string modelsense);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP xSEXP, SEXP modelsenseSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::string >::type modelsense(modelsenseSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_modelsense(x, modelsense));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_set_optimization_problem_lb
 bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb);
 RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP xSEXP, SEXP lbSEXP) {
@@ -529,9 +541,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_max_features_objective
-bool rcpp_apply_max_features_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
-RcppExport SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
+// rcpp_apply_max_n_targets_met_objective
+bool rcpp_apply_max_n_targets_met_objective(SEXP x, const Rcpp::List targets_list, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_n_targets_met_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -540,7 +552,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_features_objective(x, targets_list, costs, budget, weights));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_n_targets_met_objective(x, targets_list, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -561,9 +573,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_max_utility_objective
-bool rcpp_apply_max_utility_objective(SEXP x, const Rcpp::NumericMatrix abundances, bool has_negative_feature_values, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
-RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP has_negative_feature_valuesSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
+// rcpp_apply_max_wtd_sum_objective
+bool rcpp_apply_max_wtd_sum_objective(SEXP x, const Rcpp::NumericMatrix abundances, bool has_negative_feature_values, const Rcpp::NumericMatrix costs, const Rcpp::NumericVector budget, const Rcpp::NumericVector weights);
+RcppExport SEXP _prioritizr_rcpp_apply_max_wtd_sum_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP has_negative_feature_valuesSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -573,7 +585,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, has_negative_feature_values, costs, budget, weights));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_wtd_sum_objective(x, abundances, has_negative_feature_values, costs, budget, weights));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -687,6 +699,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_compile_multi_obj_problem
+Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x);
+RcppExport SEXP _prioritizr_rcpp_compile_multi_obj_problem(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::List >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_compile_multi_obj_problem(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_connectivity
 double rcpp_connectivity(const Rcpp::List data, Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {
@@ -696,6 +719,22 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::List >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_connectivity(data, solution));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_convert_ref_point_method
+Rcpp::List rcpp_convert_ref_point_method(SEXP x, Rcpp::CharacterVector mopt_modelsense, Rcpp::NumericMatrix mopt_obj, Rcpp::NumericVector weights, Rcpp::NumericVector ref_points, Rcpp::NumericVector sh_ub);
+RcppExport SEXP _prioritizr_rcpp_convert_ref_point_method(SEXP xSEXP, SEXP mopt_modelsenseSEXP, SEXP mopt_objSEXP, SEXP weightsSEXP, SEXP ref_pointsSEXP, SEXP sh_ubSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::CharacterVector >::type mopt_modelsense(mopt_modelsenseSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type mopt_obj(mopt_objSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type weights(weightsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type ref_points(ref_pointsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type sh_ub(sh_ubSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_convert_ref_point_method(x, mopt_modelsense, mopt_obj, weights, ref_points, sh_ub));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -13,7 +13,7 @@ branch_matrix(x)
 \method{branch_matrix}{phylo}(x)
 }
 \arguments{
-\item{x}{\code{\link[ape:read.tree]{ape::phylo()}} tree object.}
+\item{x}{\code{\link[ape:phylo]{ape::phylo()}} tree object.}
 }
 \value{
 A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} sparse matrix object. Each row

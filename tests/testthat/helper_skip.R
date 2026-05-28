@@ -56,3 +56,21 @@ skip_if_no_solvers_installed <- function() {
   }
   testthat::skip("No solvers installed")
 }
+
+#' Skip if can't use package for parallel processing
+#'
+#' @param package `character` value with name of package.
+#'
+#' @return A `logical` value indicating success.
+skip_if_not_installed_for_parallel <- function(package) {
+  # check if prioritizr installed
+  installed_pkgs <- unlist(lapply(.libPaths(), dir), use.names = FALSE)
+  result <- all(package %in% installed_pkgs)
+  # skip if not all installed
+  if (result) {
+    return(invisible(TRUE))
+  }
+  testthat::skip(
+    paste0("'", package[[1]], "' not installed for parallel processing")
+  )
+}

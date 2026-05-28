@@ -6,7 +6,7 @@
 #'
 #' @param n `integer` number of copies. Defaults to 1.
 #'
-#' @return A `logical` indicating if the object can be processed in memory.
+#' @return A `logical` value.
 #'
 #' @noRd
 terra_can_process_in_memory <- function(x, n = 1) {
@@ -29,8 +29,7 @@ terra_can_process_in_memory <- function(x, n = 1) {
 #'
 #' @param x [terra::rast()] object.
 #'
-#' @return An `integer` value indicating if the number of copies that
-#' can be processed in memory.
+#' @return An `integer` value.
 #'
 #' @noRd
 terra_n_process_in_memory <- function(x) {

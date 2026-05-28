@@ -10,143 +10,143 @@ NULL
 #' constructing this object, it can be
 #' customized to meet specific goals using [objectives],
 #' [targets], [constraints], and
-#' [penalties]. After building the problem, the
+#' [penalties]. Additionally, [solvers] can be added to customize the
+#' optimization software and settings. After building the problem, the
 #' [solve()] function can be used to identify solutions.
 #'
 #' @param x [terra::rast()], [sf::st_sf()], `data.frame`, `matrix`, or
-#'   `numeric` vector specifying the planning units to use in the reserve
-#'   design exercise and their corresponding cost. It may be desirable to
-#'   exclude some planning units from the analysis, for example those outside
-#'   the study area. To exclude planning units, set the cost for those raster
-#'   cells to `NA`, or use the [add_locked_out_constraints()] function.
+#' `numeric` vector specifying the planning units and their corresponding cost.
+#' It may be desirable to exclude some planning units from the analysis, for
+#' example those outside the study area. To exclude planning units, set the
+#' cost for those raster cells to missing (`NA`) values,
+#' or use the [add_locked_out_constraints()] function.
 #'
 #' @param features The feature data can be specified in a variety of ways.
-#'   The specific formats that can be used depend on the cost data format (i.e.,
-#'   argument to `x`) and whether the problem should have a single zone or
-#'   multiple zones. If the problem should have a single zone, then the feature
-#'   data can be specified following:
+#' The specific formats that can be used depend on the cost data format
+#' (per `x`) and whether the problem should have a single zone or
+#' multiple zones.
 #'
-#'   \describe{
+#' If the problem should have a single zone, then the following formats
+#' can be used to specify `features`.
 #'
-#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
-#'     The argument to `features` can be a [terra::rast()]
-#'     object showing the distribution of conservation features. Missing
-#'     values (i.e., `NA` values) can be used to indicate the absence of
-#'     a feature in a particular cell instead of explicitly setting these
-#'     cells to zero. Note that this argument type for `features` can
-#'     only be used to specify data for problems involving a single zone.}
+#' \describe{
 #'
-#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
-#'     The argument to `features` can be a `character` vector
-#'     with column names (from `x`) that correspond to the abundance or
-#'     occurrence of different features in each planning unit. Note that
-#'     this argument type can only be used to create problems involving a
-#'     single zone.}
+#' \item{`x` has [terra::rast()] or [sf::st_sf()] planning units}{
+#' Here `features` can be a [terra::rast()]
+#' object showing the distribution of conservation features. Missing
+#' values (i.e., `NA` values) can be used to indicate the absence of
+#' a feature in a particular cell instead of explicitly setting these
+#' cells to zero.}
 #'
-#'   \item{**`x` has `data.frame`, `matrix`, or `numeric` vector planning
-#'      units**}{
-#'     The argument to `features` can be a `data.frame` object
-#'     containing the names of the features. Note that if this
-#'     type of argument is supplied to `features` then the argument
-#'     `rij` or `rij_matrix` must also be supplied. This type of
-#'     argument should follow the conventions used by *Marxan*, wherein
-#'     each row corresponds to a different feature. It must also contain the
-#'     following columns:
-#'     \describe{
-#'     \item{id}{`integer` unique identifier for each feature
-#'       These identifiers are used in the argument to `rij`.}
-#'     \item{name}{`character` name for each feature.}
-#'     \item{prop}{`numeric` relative target for each feature
-#'       (optional).}
-#'     \item{amount}{`numeric` absolute target for each
-#'       feature (optional).}
-#'     }
-#'   }
+#' \item{`x` has [sf::st_sf()] or `data.frame` planning units}{
+#' Here `features` can be a `character` vector
+#' with column names (from `x`) that correspond to the abundance or
+#' occurrence of different features in each planning unit.}
+#'
+#' \item{`x` has `data.frame`, `matrix`, or `numeric` vector planning
+#' units}{
+#' Here `features` can be a `data.frame` object
+#' containing the names of the features. Note that if this format
+#' is specified, then `rij` or `rij_matrix` must also be specified.
+#' In particular, `features` must follow the conventions used by *Marxan*,
+#' wherein each row corresponds to a different feature. It must also contain the
+#' following columns.
+#' \describe{
+#' \item{id}{
+#' `integer` unique identifier for each feature.
+#' Note that these identifiers are used by `rij`.}
+#' \item{name}{`character` name for each feature.}
+#' \item{prop}{`numeric` relative target for each feature (optional).}
+#' \item{amount}{`numeric` absolute target for each feature (optional).}
+#' }
+#' }
 #'
 #' }
 #'
-#'   If the problem should have multiple zones, then the feature
-#'   data can be specified following:
+#' Alternatively, if the problem should have multiple zones, then the
+#' following formats can be used to specify `features`.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{**`x` has [terra::rast()] or [sf::st_sf()] planning units**}{
-#'   The argument to `features` can be a [`ZonesRaster`][zones()]
-#'   object showing the distribution of conservation features in multiple
-#'   zones. As above, missing values (i.e., `NA` values) can be used to
-#'   indicate the absence of a feature in a particular cell instead of
-#'    explicitly setting these cells to zero.}
+#' \item{`x` has [terra::rast()] or [sf::st_sf()] planning units}{
+#' Here `features` can be a [`ZonesRaster`][zones()]
+#' object showing the distribution of conservation features in multiple
+#' zones. As above, missing (`NA`) values can be used to
+#' indicate the absence of a feature in a particular cell instead of
+#' explicitly setting these cells to zero.
+#' }
 #'
-#'   \item{**`x` has [sf::st_sf()] or `data.frame` planning units**}{
-#'    The argument to `features` can be a [`ZonesCharacter`][zones()]
-#'    object with column names (from `x`) that correspond to the abundance or
-#'    occurrence of different features in each planning unit in different
-#'    zones.}
+#' \item{`x` has [sf::st_sf()] or `data.frame` planning units}{
+#' Here `features` can be a [`ZonesCharacter`][zones()]
+#' object with column names (from `x`) that correspond to the abundance or
+#' occurrence of different features in each planning unit in different
+#' zones.
+#' }
 #'
 #' }
 #'
-#' @param cost_column `character` name or `integer` indicating the
-#'   column(s) with the cost data. This argument must be supplied when the
-#'   argument to `x` is a [sf::st_sf()] or
-#'   `data.frame` object. This argument should contain the name of each
-#'   column containing cost data for each management zone when creating
-#'   problems with multiple zones. To create a problem with a single zone, then
-#'   set the argument to `cost_column` as a single column name.
+#' @param cost_column `character` value or vector with
+#' name(s) of the column(s) of `x` with cost data.
+#' In particular, `cost_column` must be specified
+#' if `x` is a [sf::st_sf()] or `data.frame` object.
+#' To create a problem with a single zone, then
+#' `cost_column` must contain a single column name.
+#' Alternatively, to create a problem with multiple zones, then
+#' `cost_column` must contain a column name for each zone.
 #'
 #' @param feature_units `character` vector containing the unit of
-#'   measurement for the data associated with each feature.
-#'   Although the data associated with a feature can any unit,
-#'   the `feature_units` must refer to area-based units
-#'   (e.g., `"km^2", "ha", "acre").
-#'   If a feature does not have an area-based unit,
-#'   then a missing (`NA`) value should be specified for it.
-#'   Note that `feature_units` must not be specified if `features`
-#'   has [terra::rast()] data.
-#'   Defaults to `NULL`, such that a missing (`NA`) value is used for each
-#'   feature.
+#' measurement for the data associated with each feature.
+#' Although the data associated with a feature can any unit,
+#' the `feature_units` must refer to area-based units
+#' (e.g., `"km^2", "ha", "acre").
+#' If a feature does not have an area-based unit,
+#' then a missing (`NA`) value should be specified for it.
+#' Note that `feature_units` must not be specified if `features`
+#' has [terra::rast()] data.
+#' Defaults to `NULL`, such that a missing (`NA`) value is used for each
+#' feature.
 #'
 #' @param rij `data.frame` containing information on the amount of
-#'    each feature in each planning unit assuming each management zone. Similar
-#'    to `data.frame` arguments for `features`, the `data.frame`
-#'    objects must follow the conventions used by *Marxan*. Note that the
-#'    `"zone"` column is not needed for problems involving a single
-#'    management zone. Specifically, the argument should contain the following
-#'    columns:
-#'    \describe{
-#'    \item{pu}{`integer` planning unit identifier.}
-#'    \item{species}{`integer` feature identifier.}
-#'    \item{zone}{`integer` zone identifier (optional for
-#'      problems involving a single zone).}
-#'    \item{amount}{`numeric` amount of the feature in the
-#'      planning unit.}
-#'    }
+#' each feature in each planning unit that would be expected if the
+#' planning unit was selected (in other words, allocated to each zone).
+#' Following conventions used by *Marxan*, `rij` must contain the following
+#' columns. Note that the `"zone"` column is not needed for problems involving
+#' a single zone.
+#' \describe{
+#' \item{pu}{`integer` planning unit identifier.}
+#' \item{species}{`integer` feature identifier.}
+#' \item{zone}{
+#'  `integer` zone identifier (optional for problems involving a single zone).
+#' }
+#' \item{amount}{
+#' `numeric` amount of the feature in the planning unit.
+#' }
+#' }
 #'
 #' @param rij_matrix `list` of `matrix` or [`Matrix::dgCMatrix-class`]
-#'    objects specifying the amount of each feature (rows) within each planning
-#'    unit (columns) for each zone. The `list` elements denote
-#'    different zones, matrix rows denote features, and matrix columns denote
-#'    planning units. For convenience, the argument to
-#'    `rij_matrix` can be a single `matrix` or
-#'    [`Matrix::dgCMatrix-class`] when specifying a problem with a
-#'    single management zone. This argument is only used when the argument
-#'    to `x` is a `numeric` or `matrix` object.
+#' objects specifying the amount of each feature (rows) within each planning
+#' unit (columns) for each zone. The `list` elements denote
+#' different zones, matrix rows denote features, and matrix columns denote
+#' planning units. For convenience, the `rij_matrix` can be a single `matrix` or
+#' [`Matrix::dgCMatrix-class`] when specifying a problem with a
+#' single zone. Note that `rij_matrix` is only used
+#' if `x` is a `numeric` or `matrix` object.
 #'
-#' @param zones `data.frame` containing information on the zones. This
-#'   argument is only used when argument to `x` and `features` are
-#'   both `data.frame` objects and the problem being built contains
-#'   multiple zones. Following conventions used in `MarZone`, this
-#'   argument should contain the following columns:
-#'   columns:
-#'   \describe{
-#'   \item{id}{`integer` zone identifier.}
-#'   \item{name}{`character` zone name.}
-#'   }
+#' @param zones `data.frame` containing information on the zones.
+#' Note that `zones` is only used if `x` and `features` are
+#' both `data.frame` objects and the problem being built contains
+#' multiple zones. Following conventions used by *MarZone*, this
+#' argument must contain the following columns.
+#' \describe{
+#' \item{id}{`integer` zone identifier.}
+#' \item{name}{`character` zone name.}
+#' }
 #'
 #' @param run_checks `logical` flag indicating whether checks should be
-#'   run to ensure the integrity of the input data. These checks are run by
-#'   default; however, for large datasets they may increase run time. If it is
-#'   taking a prohibitively long time to create the prioritization problem,
-#'   try setting `run_checks` to `FALSE`.
+#' run to ensure the integrity of the input data. These checks are run by
+#' default; however, for large datasets they may increase run time. If it is
+#' taking a prohibitively long time to create the prioritization problem,
+#' try setting `run_checks` to `FALSE`.
 #'
 #' @param ... not used.
 #'
@@ -478,7 +478,7 @@ NULL
 #'     zones(
 #'       c("spp1_z1", "spp2_z1", "spp3_z1"),
 #'       c("spp1_z2", "spp2_z2", "spp3_z2"),
-#        feature_names = c("spp1", "spp2", "spp3"),
+#'       feature_names = c("spp1", "spp2", "spp3"),
 #'       zone_names = c("z1", "z2")
 #'     ),
 #'     cost_column = c("cost_1", "cost_2")

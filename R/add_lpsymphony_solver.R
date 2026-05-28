@@ -81,7 +81,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
   assert_required(first_feasible)
   assert_required(verbose)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

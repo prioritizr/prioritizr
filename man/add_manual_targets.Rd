@@ -53,30 +53,33 @@ multiple zones), see the \code{\link[=add_manual_targets]{add_manual_targets()}}
 }
 \section{Targets format}{
 
-
-The \code{targets} argument should be a \code{data.frame} with the following
-columns:
+Here \code{targets} must be a \code{data.frame} with the following columns.
 
 \describe{
 
-\item{feature}{\code{character} name of features in argument
-to \code{x}.}
+\item{feature}{
+\code{character} name of features in \code{x}.
+}
 
-\item{zone}{\code{character} name of zones in the argument
-\code{x}. It can also be a \code{list} of \code{character} vectors if
+\item{zone}{
+\code{character} name of zones in \code{x}.
+It can also be a \code{list} of \code{character} vectors if
 targets should correspond to multiple zones (see Examples section below).
-This column is optional for arguments to \code{x}
-that do not contain multiple zones.}
+Note that this column is optional if \code{x} has a single zone.
+}
 
-\item{type}{\code{character} describing the type of target.
-Acceptable values include \code{"absolute"} and \code{"relative"}.
+\item{type}{
+\code{character} describing the type of target.
+Acceptable values are: \code{"absolute"} and \code{"relative"}.
 These values correspond to \code{\link[=add_absolute_targets]{add_absolute_targets()}},
-and \code{\link[=add_relative_targets]{add_relative_targets()}} respectively.}
+and \code{\link[=add_relative_targets]{add_relative_targets()}} respectively.
+}
 
-\item{sense}{\code{character} sense of the target. Acceptable
-values include: \code{">="}, \code{"<="}, and \code{"="}. This
-column is optional and if it is missing then target senses will
-default to \code{">="} values.}
+\item{sense}{\code{character} sense of the target.
+Acceptable values are: \code{">="}, \code{"<="}, and \code{"="}.
+This column is optional, and if it is not specified then senses will
+default to \code{">="} for all targets.
+}
 
 \item{target}{\code{numeric} target threshold.}
 
@@ -291,9 +294,9 @@ context. \emph{Conservation Letters}, 2: 4--11.
 See \link{targets} for an overview of all functions for adding targets.
 
 Other functions for adding targets:
-\code{\link{add_absolute_targets}()},
-\code{\link{add_auto_targets}()},
-\code{\link{add_group_targets}()},
-\code{\link{add_relative_targets}()}
+\code{\link[=add_absolute_targets]{add_absolute_targets()}},
+\code{\link[=add_auto_targets]{add_auto_targets()}},
+\code{\link[=add_group_targets]{add_group_targets()}},
+\code{\link[=add_relative_targets]{add_relative_targets()}}
 }
 \concept{targets}

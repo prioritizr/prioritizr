@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
 NULL
 
 #' Evaluate feature representation by solution
@@ -12,50 +12,64 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A [tibble::tibble()] object describing feature representation.
-#'   Here, each row describes a specific summary statistic
-#'   (e.g., different management zone) for a specific feature.
-#'   It contains the following columns:
+#' @return
+#' A [tibble::tibble()] object describing feature representation by the
+#' solution.
+#' Here, each row describes a specific summary statistic
+#' (e.g., different management zone) for a specific feature.
+#' It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistics associated with the `"overall"` value
-#'     in this column are calculated using all planning unit values.
-#'     For problems with multiple management zones, this means
-#'     that all calculations are completed by summing together
-#'     all planning unit values across all zones. For example, if there are
-#'     two zones, a single planning unit, and a feature has a value of one
-#'     in the single planning unit for both zones, then `total_amount` will
-#'     contain a value of two (even though it would not be possible to
-#'     to achieve a value of two because the planning unit could not
-#'     simultaneously be allocated to both zones).
-#'     Additionally, if multiple management zones are present,
-#'     then summary statistics are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{problem}{
+#' `character` name of problem. Note that this column
+#' is only present if `x` is a [multi_problem()] object.
+#' }
 #'
-#'   \item{feature}{`character` name of the feature.}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistics associated with the `"overall"` value
+#' in this column are calculated using all planning unit values.
+#' If `x` has multiple management zones, this means
+#' that all calculations are completed by summing together
+#' all planning unit values across all zones. For example, if there are
+#' two zones, a single planning unit, and a feature has a value of one
+#' in the single planning unit for both zones, then `total_amount` will
+#' contain a value of two (even though it would not be possible to
+#' to achieve a value of two because the planning unit could not
+#' simultaneously be allocated to both zones).
+#' Additionally, if `x` has multiple management zones,
+#' then summary statistics are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   \item{total_amount}{`numeric` total amount of each feature available
-#'     in the entire conservation planning problem
-#'     (not just planning units selected within the solution).
-#'     It is calculated as the sum of the feature data,
-#'     supplied when creating a [problem()] object
-#'     (e.g., presence/absence values).}
+#' \item{feature}{`character` name of the feature.}
 #'
-#'   \item{absolute_held}{`numeric` total amount of each feature secured within
-#'     the solution. It is calculated as the sum of the feature data,
-#'     supplied when creating a [problem()] object
-#'     (e.g., presence/absence values), weighted by the status of each
-#'     planning unit in the solution (e.g., selected or not for
-#'     prioritization).}
+#' \item{total_amount}{
+#' `numeric` total amount of each feature available
+#' in the entire conservation planning problem
+#' (not just planning units selected within the solution).
+#' It is calculated as the sum of the feature data,
+#' supplied when creating a [problem()] object
+#' (e.g., presence/absence values).
+#' }
 #'
-#'   \item{relative_held}{`numeric` proportion of
-#'     each feature secured within the solution. It is calculated
-#'     by dividing values in the `"absolute_held"` column by those in the
-#'     `"total_amount"` column.}
+#' \item{absolute_held}{
+#' `numeric` total amount of each feature secured within
+#' the solution. It is calculated as the sum of the feature data,
+#' supplied when creating a [problem()] object
+#' (e.g., presence/absence values), weighted by the status of each
+#' planning unit in the solution (e.g., selected or not for
+#' prioritization).
+#' }
 #'
-#'   }
+#' \item{relative_held}{
+#' `numeric` proportion of each feature secured within the solution. It is
+#' calculated by dividing values in the `"absolute_held"` column by those in the
+#' `"total_amount"` column.
+#' }
+#'
+#' }
 #'
 #' @name eval_feature_representation_summary
 #'
@@ -241,14 +255,62 @@ NULL
 #' }
 #' @export
 eval_feature_representation_summary <- function(x, solution) {
+  assert_required(x)
+  assert_required(solution)
+  assert(is_generic_conservation_problem(x))
+  UseMethod("eval_feature_representation_summary")
+}
+
+#' @rdname eval_feature_representation_summary
+#' @method eval_feature_representation_summary ConservationProblem
+#' @export
+eval_feature_representation_summary.ConservationProblem <- function(
+  x, solution
+) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
   assert(is_conservation_problem(x))
   # extract solution
   solution <- planning_unit_solution_status(x, solution)
-  # convert NAs in solution to zeros
   solution[is.na(solution)] <- 0
+  # run calculations
+  internal_eval_feature_representation_summary(x, solution)
+}
+
+#' @rdname eval_feature_representation_summary
+#' @method eval_feature_representation_summary MultiObjConservationProblem
+#' @export
+eval_feature_representation_summary.MultiObjConservationProblem <- function(
+  x, solution
+) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert(is_multi_conservation_problem(x))
+  # extract solution
+  solution <- planning_unit_solution_status(x, solution)
+  solution[is.na(solution)] <- 0
+  # calculate representation
+  out <- do.call(
+    rbind,
+    lapply(
+      seq_along(x$problems),
+      function(i) {
+        out <- internal_eval_feature_representation_summary(
+          x$problems[[i]], solution
+        )
+        out$problem <- x$problem_names()[[i]]
+        out
+      }
+    )
+  )
+  out <- tibble::as_tibble(out)
+  # return result
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
+}
+
+internal_eval_feature_representation_summary <- function(x, solution) {
   # calculate amount of each feature in each planning unit
   total <- x$feature_abundances_in_total_units()
   held <- vapply(

@@ -6,23 +6,21 @@ NULL
 #' Add constraints to a conservation planning problem to ensure
 #' that all selected planning units meet certain criteria.
 #'
-#' @inheritParams add_contiguity_constraints
+#' @inheritParams add_manual_locked_constraints
 #'
-#' @param sense `character` sense for the constraint. Available
-#'  options include `">="`, `"<="`, or `"="` values.
+#' @param sense `character` value denoting the sense for the constraint.
+#' Acceptable values are: `">="`, `"<="`, or `"="`.
 #'
 #' @param threshold `numeric` value.
-#'   This threshold value is also known as a "right-hand-side" value
-#'   per integer programming terminology.
+#' This threshold value is also known as a "right-hand-side value"
+#' per integer programming terminology.
 #'
-#' @param data `character`, `numeric`,
-#'   [terra::rast()], `matrix`, or `Matrix` object
-#'   containing the constraint values.
-#'   These constraint values are also known as constraint coefficients
-#'   per integer programming terminology.
-#'   See the Data format section for more information.
-#'
-#' @inherit add_contiguity_constraints return
+#' @param data `character` value or vector, `numeric` vector or matrix,
+#' [terra::rast()], or `Matrix` object
+#' containing the constraint values.
+#' These constraint values are also known as constraint coefficients
+#' per integer programming terminology.
+#' See the Data format section for more information.
 #'
 #' @inheritSection add_linear_penalties Data format
 #'
@@ -49,10 +47,10 @@ NULL
 #' values indicating if each planning unit is allocated or not). Also, let
 #' \eqn{D_{iz}}{Diz} denote the constraint data associated with
 #' planning units \eqn{i \in I}{i in I} for zones \eqn{z \in Z}{z in Z}
-#' (argument to `data`, if supplied as a `matrix` object),
+#' (per `data`, if supplied as a `matrix` object),
 #' \eqn{\theta} denote the constraint sense
-#' (argument to `sense`, e.g., \eqn{<=}), and \eqn{t} denote the constraint
-#' threshold (argument to `threshold`).
+#' (per `sense`), and \eqn{t} denote the constraint
+#' threshold (per `threshold`).
 #'
 #' \deqn{
 #' \sum_{i}^{I} \sum_{z}^{Z} (D_{iz} \times X_{iz}) \space \theta \space t
@@ -60,8 +58,7 @@ NULL
 #' sum_i^I sum (Diz * Xiz) \theta t
 #' }
 #'
-#' @seealso
-#' See [constraints] for an overview of all functions for adding constraints.
+#' @inherit add_manual_locked_constraints return seealso
 #'
 #' @family constraints
 #'
@@ -121,7 +118,7 @@ NULL
 #' # additional constraints to ensure that each feature definitely has
 #' # at least 8% of its overall distribution represented by the solution
 #' # (in addition to the 20% targets which specify how much we would
-#' # ideally want to conserve for each feature) 
+#' # ideally want to conserve for each feature)
 #'
 #' # to achieve this, we need to calculate the total amount of each feature
 #' # within the planning units so we can, in turn, set the constraint thresholds

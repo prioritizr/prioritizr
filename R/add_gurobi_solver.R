@@ -10,82 +10,85 @@ NULL
 #' It requires the \pkg{gurobi} package to be installed
 #' (see below for installation instructions).
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
-#' @param gap `numeric` gap to optimality. This gap is relative
-#'   and expresses the acceptable deviance from the optimal objective.
-#'   For example, a value of 0.01 will result in the solver stopping when
-#'   it has found a solution within 1% of optimality.
-#'   Additionally, a value of 0 will result in the solver stopping
-#'   when it has found an optimal solution.
-#'   The default value is 0.1 (i.e., 10% from optimality).
+#' @param gap `numeric` value denoting the optimality gap. This gap is relative
+#' and expresses the acceptable deviance from optimality.
+#' For example, a value of 0.01 will result in the solver stopping when
+#' it has found a solution within 1% of optimality.
+#' Additionally, a value of 0 will result in the solver stopping
+#' when it has found an optimal solution.
+#' The default value is 0.1 (i.e., 10% from optimality).
 #'
-#' @param time_limit `numeric` time limit (seconds) for generating solutions.
-#'   The solver will return the current best solution when this time limit is
-#'   exceeded. The default value is the largest integer value
-#'   (i.e., `.Machine$integer.max`), effectively meaning that solver
-#'   will keep running until a solution within the optimality gap is found.
+#' @param time_limit `numeric` value denoting the time limit (seconds) for
+#' generating solutions.
+#' The solver will return the current best solution when this time limit is
+#' exceeded. The default value is the largest integer value
+#' (i.e., `.Machine$integer.max`), effectively meaning that solver
+#' will keep running until a solution within the optimality gap is found.
 #'
-#' @param presolve `integer` number indicating how intensively the
-#'   solver should try to simplify the problem before solving it. Available
-#'   options are: (-1) automatically determine the intensity of
-#'   pre-solving, (0) disable pre-solving, (1) conservative
-#'   level of pre-solving, and (2) very aggressive level of pre-solving .
-#'   The default value is 2.
+#' @param presolve `integer` value indicating how intensively the
+#' solver should try to simplify the problem before solving it. Available
+#' options are: (-1) automatically determine the intensity of
+#' pre-solving, (0) disable pre-solving, (1) conservative
+#' level of pre-solving, and (2) very aggressive level of pre-solving .
+#' Defaults to 2.
 #'
-#' @param threads `integer` number of threads to use for the
-#'   optimization algorithm. The default value is 1.
+#' @param threads `integer` value denoting the number of threads to use during
+#' optimization.
+#' The default value is 1.
 #'
-#' @param first_feasible `logical` should the first feasible solution be
-#'   be returned? If `first_feasible` is set to `TRUE`, the solver
-#'   will return the first solution it encounters that meets all the
-#'   constraints, regardless of solution quality. Note that the first feasible
-#'   solution is not an arbitrary solution, rather it is derived from the
-#'   relaxed solution, and is therefore often reasonably close to optimality.
-#'   Defaults to `FALSE`.
+#' @param first_feasible `logical` value indicating if the first feasible
+#' solution should be returned? If `first_feasible = TRUE`, then the solver
+#' will return the first solution it encounters that meets all the
+#' constraints, regardless of solution quality. Note that the first feasible
+#' solution is not an arbitrary solution, rather it is derived from the
+#' relaxed problem, and is therefore often reasonably close to optimality.
+#' Defaults to `FALSE`.
 #'
-#' @param numeric_focus `logical` should extra attention be paid
-#'   to verifying the accuracy of numerical calculations? This may be
-#'   useful when dealing with problems that may suffer from numerical
-#'   instability issues.
-#'   Beware that it will likely substantially increase run time
-#'   (sets the *Gurobi* `NumericFocus` parameter
-#'   to 2). Defaults to `FALSE`.
+#' @param numeric_focus `logical` value indicating if extra attention be paid
+#' to verifying the accuracy of numerical calculations? This may be
+#' useful when dealing with problems that may suffer from numerical
+#' instability issues.
+#' Beware that it will likely substantially increase run time
+#' (sets the *Gurobi* `NumericFocus` parameter
+#' to 2). Defaults to `FALSE`.
 #'
-#' @param node_file_start `numeric` threshold amount of memory (in GB).
-#'   Once the amount of memory (RAM) used to store information for solving
-#'   the optimization problem exceeds this parameter value, the solver
-#'   will begin storing this information on disk
-#'   (using the *Gurobi* `NodeFileStart` parameter).
-#'   This functionality is useful if the system has insufficient memory to
-#'   solve a given problem (e.g., solving the problem with default settings
-#'   yields the `OUT OF MEMORY` error message) and a system with more memory is
-#'   not readily available.
-#'   For example, a value of 4 indicates that the solver will start using
-#'   the disk after it uses more than 4 GB of memory to store information
-#'   on solving the problem.
-#'   Defaults to `Inf` such that the solver will not attempt
-#'   to store information on disk when solving a given problem.
+#' @param node_file_start `numeric` value denoting a threshold amount of
+#' memory (in GB).
+#' Once the amount of memory (RAM) used to store information for solving
+#' the optimization problem exceeds this parameter value, the solver
+#' will begin storing this information on disk
+#' (using the *Gurobi* `NodeFileStart` parameter).
+#' This functionality is useful if the system has insufficient memory to
+#' solve a given problem (e.g., solving the problem with default settings
+#' yields the `OUT OF MEMORY` error message) and a system with more memory is
+#' not readily available.
+#' For example, a value of 4 indicates that the solver will start using
+#' the disk after it uses more than 4 GB of memory to store information
+#' on solving the problem.
+#' Defaults to `Inf` such that the solver will not attempt
+#' to store information on disk when solving a given problem.
 #'
 #' @param start_solution `NULL` or object containing the starting solution
-#'   for the solver. This is can be useful because specifying a starting
-#'   solution can speed up the optimization process.
-#'   Defaults to `NULL` such that no starting solution is used.
-#'   To specify a starting solution, the argument to `start_solution` should
-#'   be in the same format as the planning units (i.e., a `NULL`, `numeric`,
-#'   `matrix`, `data.frame`, [terra::rast()], or [sf::sf()] object).
-#'   See the Start solution format section for more information.
+#' for the solver. This is can be useful because specifying a starting
+#' solution can speed up the optimization process.
+#' To specify a starting solution, `start_solution` should
+#' be in the same format as the planning units (i.e., a `numeric`,
+#' `matrix`, `data.frame`, [terra::rast()], or [sf::sf()] object).
+#' See the Start solution format section for more information.
+#' Defaults to `NULL` such that no starting solution is used.
 #'
-#' @param verbose `logical` should information be printed while solving
-#'  optimization problems? Defaults to `TRUE`.
+#' @param verbose `logical` value indicating if information should be displayed
+#' during the optimization process. Defaults to `TRUE`.
 #'
 #' @param control `list` with additional parameters for tuning
-#'  the optimization process.
-#'  For example, `control = list(Method = 2)` could be used to
-#'  set the `Method` parameter.
-#'  See the [online documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
-#'  for information on the parameters.
-#"
+#' the optimization process.
+#' For example, `control = list(Method = 2)` could be used to
+#' set the `Method` parameter.
+#' See the [online documentation](https://docs.gurobi.com/projects/optimizer/en/current/reference/parameters.html)
+#' for information on the parameters.
+#'
 #' @details
 #' [*Gurobi*](https://www.gurobi.com/) is a
 #' state-of-the-art commercial optimization software with an R package
@@ -110,13 +113,15 @@ NULL
 #' ```
 #'
 #' @section Start solution format:
-#' Broadly speaking, the argument to `start_solution` must be in the same
-#' format as the planning unit data in the argument to `x`.
-#' Further details on the correct format are listed separately
-#' for each of the different planning unit data formats:
+#' Broadly speaking, `start_solution` must be in the same
+#' format as the planning unit data in `x`.
+#' Further details on the correct format are described below.
+#'
 #' `r solution_format_documentation("start_solution")`
 #'
-#' @return An updated [problem()] object with the solver added to it.
+#' @return
+#' An updated [problem()] or [multi_problem()] object with the solver added to
+#' it.
 #'
 #' @seealso
 #' See [solvers] for an overview of all functions for adding a solver.
@@ -190,7 +195,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -259,6 +264,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             lb = x$lb(),
             ub = x$ub()
           )
+
           # create parameters
           p <- list(
             LogToConsole = as.numeric(self$get_data("verbose")),
@@ -271,8 +277,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             NodeFileStart = self$get_data("node_file_start"),
             SolutionLimit = as.numeric(self$get_data("first_feasible"))
           )
-          if (p$SolutionLimit == 0)
+          if (p$SolutionLimit == 0) {
             p$SolutionLimit <- NULL
+          }
           if (p$NodeFileStart < 0) {
             p$NodeFileStart <- NULL
           }
@@ -283,8 +290,9 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
           # add extra parameters from portfolio if needed
           p2 <- list(...)
-          for (i in seq_along(p2))
+          for (i in seq_along(p2)) {
             p[[names(p2)[i]]] <- p2[[i]]
+          }
           # store internal model and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)
@@ -393,6 +401,132 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               out$pool[[i]]$objbound <- x$objbound
             }
           }
+          out
+        },
+        solve_multiobj = function(x, priority, rel_tol, ...) {
+          # assert arguments are valid
+          assert(
+            is.list(x),
+            is.matrix(x$obj),
+            is.character(x$modelsense),
+            is.numeric(priority),
+            is.numeric(rel_tol),
+            nrow(x$obj) == length(priority),
+            nrow(x$obj) == length(rel_tol) + 1,
+            nrow(x$obj) == length(x$modelsense),
+            assertthat::noNA(priority),
+            assertthat::noNA(rel_tol),
+            all(rel_tol >= 0),
+            .internal = TRUE
+          )
+          # check type of decision variables and use default method if no
+          # binary variables
+          if (!(any(x$opt$vtype() == "B"))) {
+            return(self$default_solve_multiobj( x, priority, rel_tol, ...))
+          }
+          # set objective names
+          obj_names <- rownames(x$obj)
+          if (is.null(obj_names)) {
+            obj_names <- paste0("objective_", seq_len(nrow(x$obj)))
+          }
+          # initialize model
+          model <- list(
+            modelsense = "min",
+            vtype = x$opt$vtype(),
+            A = x$opt$A(),
+            rhs = x$opt$rhs(),
+            sense = x$opt$sense(),
+            lb = x$opt$lb(),
+            ub = x$opt$ub()
+          )
+          # add multi-obj component
+          model$multiobj <- lapply(seq_len(nrow(x$obj)), function(i) {
+            list(
+              modelsense = x$modelsense[[i]],
+              objn = x$obj[i, ],
+              priority = priority[[i]],
+              weight = ifelse(x$modelsense[[i]] == "min", 1.0, -1.0),
+              reltol = ifelse(is.na(rel_tol[i]), 0, rel_tol[i]),
+              name = obj_names[[i]]
+            )
+          })
+          # create parameters
+          p <- list(
+            LogToConsole = as.numeric(self$get_data("verbose")),
+            LogFile = "",
+            Presolve = self$get_data("presolve"),
+            MultiObjPre = self$get_data("presolve"),
+            MIPGap = self$get_data("gap"),
+            TimeLimit = self$get_data("time_limit"),
+            Threads = self$get_data("threads"),
+            NumericFocus = as.numeric(self$get_data("numeric_focus")) * 2,
+            NodeFileStart = self$get_data("node_file_start"),
+            SolutionLimit = as.numeric(self$get_data("first_feasible"))
+          )
+          if (p$SolutionLimit == 0) {
+            p$SolutionLimit <- NULL
+          }
+          if (p$NodeFileStart < 0) {
+            p$NodeFileStart <- NULL
+          }
+          # specify custom parameters
+          control <- self$get_data("control")
+          if (length(control) > 0) {
+            p[names(control)] <- control
+          }
+          # add extra parameters from portfolio if needed
+          p2 <- list(...)
+          for (i in seq_along(p2)) {
+            p[[names(p2)[i]]] <- p2[[i]]
+          }
+          # access internal model and parameters
+          start <- self$get_data("start_solution")
+          # add starting solution if specified
+          if (!is.null(start) && !is.Waiver(start)) {
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
+          }
+          # solve problem
+          rt <- system.time({
+            sol <- withr::with_locale(
+              c(LC_CTYPE = "C"),
+              gurobi::gurobi(model = model, params = p)
+            )
+          })
+          # sanitize solver output
+          is_integer <- model$vtype %in% c("I", "B")
+          if (is.numeric(x$x)) {
+            x$x <- sanitize_solver_output(
+              x$x, lb = model$lb, ub = model$ub,
+              is_integer = is_integer
+            )
+          }
+          # set defaults to NA if missing
+          ## this is because earlier versions of Gurobi didn't return this info
+          if (is.null(sol$mipgap)) {
+            sol$mipgap <- NA_real_
+          }
+          if (is.null(x$objbound)) {
+            sol$objbound <- NA_real_
+          }
+          # extract solutions
+          out <- list(
+            x = sol$x,
+            objective = stats::setNames(
+              rowSums(
+                x$obj *
+                matrix(
+                  sol$x, ncol = ncol(x$obj), nrow = nrow(x$obj), byrow = TRUE
+                )
+              ),
+              obj_names
+            ),
+            status = sol$status,
+            runtime = rt[[3]],
+            gap = sol$mipgap,
+            objbound = sol$objbound
+          )
+          # return solution
           out
         }
       )

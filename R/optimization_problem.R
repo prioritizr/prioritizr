@@ -5,54 +5,57 @@ NULL
 #'
 #' Create a new optimization problem.
 #'
-#' @param x A `NULL` or `list` object. See Details for more information.
-#'  Defaults to `NULL`.
+#' @param x A `NULL` or `list` object.
+#' If `x` is a `NULL`, then an empty optimization problem is created.
+#' Alternately, if a `x` is a `list` then a fully formulated optimization
+#' problem is created. See Details for more information on the `list` format.
+#' Defaults to `NULL`.
 #'
 #' @details
-#' The argument to `x` can be a `NULL` or a `list`. If `x` is a `NULL`,
-#' then an empty optimization problem is created. Alternately, if a `x` is
-#' a `list` then a fully formulated optimization problem is created.
-#' Specifically, the `list` should contain the following elements.
+#' The argument to `x` can be a `NULL` or a `list` object.
+#' If `x` is a `list`, then it must have the following elements.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{modelsense}{`character` model sense.}
+#' \item{modelsense}{`character` model sense.}
 #'
-#'   \item{number_of_features}{`integer` number of features in problem.}
+#' \item{number_of_features}{`integer` number of features in problem.}
 #'
-#'   \item{number_of_planning_units}{`integer` number of planning units.}
+#' \item{number_of_planning_units}{`integer` number of planning units.}
 #'
-#'   \item{A_i}{`integer` row indices for problem matrix.}
+#' \item{A_i}{`integer` row indices for constraint matrix.}
 #'
-#'   \item{A_j}{`integer` column indices for problem matrix.}
+#' \item{A_j}{`integer` column indices for constraint matrix.}
 #'
-#'   \item{A_x}{`numeric` values for problem matrix.}
+#' \item{A_x}{`numeric` values for constraint matrix.}
 #'
-#'   \item{obj}{`numeric` objective function values.}
+#' \item{obj}{`numeric` objective function values.}
 #'
-#'   \item{lb}{`numeric` lower bound for decision values.}
+#' \item{lb}{`numeric` lower bound for decision values.}
 #'
-#'   \item{ub}{`numeric` upper bound for decision values.}
+#' \item{ub}{`numeric` upper bound for decision values.}
 #'
-#'   \item{rhs}{`numeric` right-hand side values.}
+#' \item{rhs}{`numeric` right-hand side values.}
 #'
-#'   \item{sense}{`numeric` constraint senses.}
+#' \item{sense}{`numeric` constraint senses.}
 #'
-#'   \item{vtype}{`character` variable types. These are used to specify
-#'     that the decision variables are binary (`"B"`) or continuous
-#'     (`"C"`).}
+#' \item{vtype}{
+#' `character` variable types. These are used to specify
+#' that the decision variables are binary (`"B"`), continuous
+#' (`"C"`), or semi-continuous (`"S"`).
+#' }
 #'
-#'   \item{row_ids}{`character` identifiers for the rows in the problem
-#'     matrix.}
+#' \item{row_ids}{
+#' `character` identifiers for the rows in the constraint matrix.
+#' }
 #'
-#'   \item{col_ids}{`character` identifiers for the columns in the problem
-#'     matrix.}
+#' \item{col_ids}{
+#' `character` identifiers for the columns in the constraint matrix.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @return An [OptimizationProblem-class] object.
-#'
-#' @seealso [OptimizationProblem-methods].
 #'
 #' @examples
 #' # create new empty object

@@ -32,13 +32,12 @@ intersecting_units(x, y)
 \S4method{intersecting_units}{sf,SpatRaster}(x, y)
 }
 \arguments{
-\item{x}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
+\item{x}{\code{\link[sf:st_sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
+\item{y}{\code{\link[sf:st_sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-An \code{integer} vector of indices of the units in \code{x} that intersect
-with \code{y}.
+An \code{integer} vector with indices of the units in \code{x}.
 }
 \description{
 Find which of the units in a spatial data object intersect

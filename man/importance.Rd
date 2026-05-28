@@ -148,7 +148,8 @@ areas for conserving diversity using British birds.
 \emph{Conservation Biology}, 10: 155--174.
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{objectives}},

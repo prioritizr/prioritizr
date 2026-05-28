@@ -7,23 +7,17 @@ NULL
 #' problem by finding a pre-specified number of solutions that
 #' are closest to optimality (i.e, the top solutions).
 #'
-#' @param x [problem()] object.
-#'
-#' @param number_solutions `integer` number of solutions required.
-#'   Defaults to 10.
+#' @inheritParams add_cuts_portfolio
 #'
 #' @details This strategy for generating a portfolio requires problems to
-#'   be solved using the *Gurobi* software suite (i.e., using
-#'   [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
-#'   of the \pkg{gurobi} package must be installed.
-#'   Note that the number of solutions returned may be less than the argument to
-#'   `number_solutions`, if the total number of feasible solutions
-#'   is less than the number of solutions requested.
+#' be solved using the *Gurobi* software (i.e., using
+#' [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
+#' of the \pkg{gurobi} package must be installed.
+#' Note that the number of solutions returned may be less than
+#' `number_solutions`, because the total number of feasible solutions
+#' may be fewer than `number_solutions`.
 #'
-#' @inherit add_cuts_portfolio return
-#'
-#' @seealso
-#' See [portfolios] for an overview of all functions for adding a portfolio.
+#' @inherit add_cuts_portfolio return seealso
 #'
 #' @family portfolios
 #'

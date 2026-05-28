@@ -10,8 +10,8 @@ NULL
 #'
 #' @param y [sf::st_sf()] or [terra::rast()] object.
 #'
-#' @return An `integer` vector of indices of the units in `x` that intersect
-#'   with `y`.
+#' @return
+#' An `integer` vector with indices of the units in `x`.
 #'
 #' @name intersecting_units
 #'

@@ -9,8 +9,9 @@ add_cuts_portfolio(x, number_solutions = 10)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of attempts to generate
-different solutions. Defaults to 10.}
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
+Defaults to 10.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
@@ -96,10 +97,10 @@ more complex conservation problems. \emph{Ecography}, 23: 565--574.
 See \link{portfolios} for an overview of all functions for adding a portfolio.
 
 Other functions for adding portfolios:
-\code{\link{add_default_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_shuffle_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

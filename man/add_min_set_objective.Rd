@@ -102,13 +102,13 @@ See \link{objectives} for an overview of all functions for adding objectives.
 Also see \link{targets} for an overview of all functions for adding targets.
 
 Other functions for adding objectives:
-\code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
-\code{\link{add_max_phylo_div_objective}()},
-\code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
-\code{\link{add_min_largest_shortfall_objective}()},
-\code{\link{add_min_penalties_objective}()},
-\code{\link{add_min_shortfall_objective}()}
+\code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}},
+\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}},
+\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}},
+\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}},
+\code{\link[=add_min_largest_shortfall_objective]{add_min_largest_shortfall_objective()}},
+\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}},
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}
 }
 \concept{objectives}

@@ -32,11 +32,11 @@ adjacency_matrix(x, ...)
 
 \item{...}{not used.}
 
-\item{directions}{\code{integer} If \code{x} is a
+\item{directions}{\code{integer} value. If \code{x} is a
 \code{\link[terra:rast]{terra::rast()}} object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
-case), 16 (knight and one-cell queen moves), or "bishop" to for cells
-with one-cell diagonal moves.}
+case), or 16 (knight and one-cell queen moves).
+Note if \code{x} is a \code{\link[sf:sf]{sf::sf()}} object, then \code{directions} has no effect.}
 }
 \value{
 A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} sparse symmetric matrix.
@@ -44,7 +44,7 @@ Each row and column represents a planning unit.
 Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
-set to zero. Furthermore, if the argument to \code{x} is a
+set to zero. Furthermore, if \code{x} is a
 \code{\link[terra:rast]{terra::rast()}} object, then cells with \code{NA} values are set to
 zero too.
 }
@@ -54,7 +54,7 @@ each other.
 }
 \details{
 Spatial processing is completed using
-\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\link[sf:sf]{sf::sf()}} objects,
+\code{\link[sf:st_intersects]{sf::st_intersects()}} for \code{\link[sf:sf]{sf::sf()}} objects,
 and \code{\link[terra:adjacent]{terra::adjacent()}} for \code{\link[terra:rast]{terra::rast()}} objects.
 Note that spatially overlapping planning units are considered
 adjacent.

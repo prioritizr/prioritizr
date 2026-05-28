@@ -8,7 +8,7 @@ NULL
 #' This objective is similar to that used in
 #' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_max_wtd_sum_objective
 #'
 #' @details
 #' The minimum set objective -- in the the context of systematic reserve

@@ -24,14 +24,10 @@ The following methods are provided from manipulating
 \code{\link[tibble:tibble]{tibble::tibble()}} objects.
 
 \describe{
-\item{nrow}{\code{integer} number of rows.}
-
-\item{ncol}{\code{integer} number of columns.}
-
-\item{as.list}{convert to a \code{list}.}
-
-\item{print}{print the object.}
-
+\item{\code{nrow()}}{Get \code{integer} number of rows.}
+\item{\code{ncol()}}{Get \code{integer} number of columns.}
+\item{\code{as.list()}}{Convert to a \code{list}.}
+\item{\code{print()}}{Print the object.}
 }
 }
 \examples{

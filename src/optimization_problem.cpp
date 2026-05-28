@@ -201,6 +201,17 @@ bool rcpp_set_optimization_problem_obj(SEXP x, const Rcpp::NumericVector obj) {
 }
 
 // [[Rcpp::export]]
+bool rcpp_set_optimization_problem_modelsense(SEXP x, std::string modelsense) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // update
+  ptr->_modelsense = modelsense;
+  // return success
+  return true;
+}
+
+// [[Rcpp::export]]
 bool rcpp_set_optimization_problem_lb(SEXP x, const Rcpp::NumericVector lb) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =

@@ -8,9 +8,9 @@
 #'
 #' Theme for the package.
 #'
-#" @details This function is designed to be used with [cli::cli_div].
+#" @details This function is designed to be used with [cli::cli_div()].
 #'
-#' @return `list` object.
+#' @return A `list` object.
 #'
 #' @noRd
 cli_pkg_theme <- function() {
@@ -23,11 +23,11 @@ cli_pkg_theme <- function() {
 
 #' Box characters
 #'
-#' Determine characters for creating boxes.
+#' Determine characters for creating command line interfaces with boxes.
 #'
-#' @details This function is designed to be used with [cli::cli_text].
+#' @details This function is designed to be used with [cli::cli_text()].
 #'
-#' @return `list` object.
+#' @return A `list` object.
 #'
 #' @noRd
 cli_box_chars <- function() {
@@ -61,7 +61,7 @@ cli_box_chars <- function() {
 #' @param .envir `environment` for evaluating expressions.
 #'
 #' @details
-#' This function is a wrapper for [cli::cli_verbatim] that supports
+#' This function is a wrapper for [cli::cli_verbatim()] that supports
 #' \pkg{glue} expressions.
 #'
 #' @return None.
@@ -82,7 +82,7 @@ cli_vtext <- function(..., .envir = parent.frame()) {
 #' @param header `character` value displayed before first element in `x`.
 #'
 #' @param subheader `character` value displayed before subsequent elements in
-#'   `x`.
+#' `x`.
 #'
 #' @param width `integer` extra spaces to insert between `subheader` and `x`.
 #'
@@ -159,7 +159,7 @@ cli_warning <- function(message,
 #' @param old `character` value with name of defunct function.
 #'
 #' @param new `character` value with name of replacement function.
-#'   Defaults to `NULL` such that no replacement function is detailed.
+#' Defaults to `NULL` such that no replacement function is detailed.
 #'
 #' @return None.
 #'

@@ -15,30 +15,43 @@ NULL
 #' @details
 #' The argument to `data` should be `data.frame` with the following
 #' information. Each row corresponds to a different parameter, and
-#' each column contains information about the parameter.
+#' each column contains information about the parameter. It must
+#' have the following columns.
 #'
 #' \describe{
 #'
-#' \item{name}{`character` name of the parameter. This value will be
-#'  used to refer to the parameter value in the output.}
+#' \item{name}{
+#' `character` name of the parameter. This value will be
+#' used to refer to the parameter value in the output.
+#' }
 #'
-#' \item{field}{`character` field of the value. This value will be
-#'  used to identify the parameter value in the parameter file.}
+#' \item{field}{
+#' `character` field of the value. This value will be
+#' used to identify the parameter value in the parameter file.
+#' }
 #'
-#' \item{class}{`character` data type of the value. This value
-#'  will be used to convert the parameter value to the correct data type.
-#'  Available options include `"numeric"` or `"character"`.}
+#' \item{class}{
+#' `character` data type of the value. This value
+#' will be used to convert the parameter value to the correct data type.
+#' Available options include `"numeric"` or `"character"`.
+#' }
 #'
-#' \item{default}{`character` default value. This value will be assigned
-#'  to the parameter if it is missing from the parameter file.}
+#' \item{default}{
+#' `character` default value. This value will be assigned
+#' to the parameter if it is missing from the parameter file.
+#' }
 #'
-#' \item{type}{`character` parameter type. This value will be used to
-#'   check the validity of the parameter value. Available options include
-#'   `"file"`, `"directory"`, or `"number"`.}
+#' \item{type}{
+#' `character` parameter type. This value will be used to
+#' check the validity of the parameter value. Available options include
+#' `"file"`, `"directory"`, or `"number"`.
+#' }
 #'
-#' \item{mandatory}{`logical` value indicating if the parameter is
-#'   mandatory or not. If a mandatory parameter is missing from the parameter
-#'  file, then an error will be thrown.}
+#' \item{mandatory}{
+#' `logical` value indicating if the parameter is
+#' mandatory or not. If a mandatory parameter is missing from the parameter
+#' file, then an error will be thrown.
+#' }
 #'
 #' }
 #'

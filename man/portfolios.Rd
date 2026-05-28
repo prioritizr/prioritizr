@@ -130,7 +130,8 @@ plot(terra::rast(s[[6]]), axes = FALSE)
 
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

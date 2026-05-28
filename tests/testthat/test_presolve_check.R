@@ -80,7 +80,7 @@ test_that("instability due to rij data", {
   sim_features[[1]][1] <- 1e+15
   # create problem
   p <-
-  problem(sim_pu_raster, sim_features) %>%
+    problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(1) %>%
     add_binary_decisions()
@@ -123,7 +123,7 @@ test_that("budget higher than total costs (multiple zones)", {
   # create problem
   p <-
     problem(get_sim_zones_pu_raster, get_sim_zones_features) %>%
-    add_max_utility_objective(budget = c(1000, 1000, 1000)) %>%
+    add_max_wtd_sum_objective(budget = c(1000, 1000, 1000)) %>%
     add_binary_decisions()
   # tests
   expect_warning(expect_false(presolve_check(p)), "budget")
@@ -182,7 +182,7 @@ test_that("instability due to feature weights", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(600) %>%
+    add_max_wtd_sum_objective(600) %>%
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()
   # tests
@@ -228,7 +228,7 @@ test_that("instability due to high target weights", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(600) %>%
+    add_max_n_targets_met_objective(600) %>%
     add_absolute_targets(1) %>%
     add_feature_weights(c(1e+15, rep(1, terra::nlyr(sim_features) - 1))) %>%
     add_binary_decisions()
@@ -385,5 +385,70 @@ test_that("decision variable bounds", {
   expect_warning(
     expect_false(presolve_check(o)),
     "lower bounds"
+  )
+})
+
+test_that("multi_problem() (single problem fail)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
+  sim_features <- get_sim_features()
+  weights <- c(0.1, 0.5)
+  # set cost value for second layer to be really high
+  sim_zones_pu_raster[[2]][1] <- 1e+8
+  # create multi-object problem
+  p <-
+    multi_problem(
+      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+        add_binary_decisions(),
+      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+        add_binary_decisions()
+    ) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # run tests
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "re-scaling cost values"
+  )
+})
+
+test_that("multi_problem() (multiple problems fail)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  names(sim_zones_pu_raster) <- rep("zone_1", 3)
+  sim_features <- get_sim_features()
+  weights <- c(0.1, 0.5)
+  # set cost value for second layer to be really high
+  sim_zones_pu_raster[[2]][1] <- 1e+8
+  # create multi-object problem
+  expect_warning(
+    p <-
+      multi_problem(
+        obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(rep(1e+10, terra::nlyr(sim_features))) %>%
+          add_binary_decisions(),
+        obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+          add_binary_decisions()
+      ) %>%
+      add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
+      add_default_solver(gap = 0, verbose = FALSE),
+    "targets"
+  )
+  # run tests
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "target values"
+  )
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "re-scaling cost values"
   )
 })

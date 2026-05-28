@@ -11,8 +11,6 @@
 #'
 #' @param x [sf::st_sf()] object.
 #'
-#' @param call Caller environment.
-#'
 #' @details
 #' Specifically, `GEOMETRYCOLLECTION` geometries are not considered valid.
 #'

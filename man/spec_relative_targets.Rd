@@ -15,7 +15,7 @@ range between 0 and 1 (corresponding to 0\% and 100\% respectively).}
 \item{...}{not used.}
 }
 \value{
-An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
+An object (\code{\link[=TargetMethod-class]{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
 to add targets to a \code{\link[=problem]{problem()}}.
 }
@@ -90,22 +90,22 @@ To add relative targets directly to a \code{\link[=problem]{problem()}}, see
 \code{\link[=add_relative_targets]{add_relative_targets()}}.
 
 Other target setting methods:
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_absolute_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_jung_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_min_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_rule_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
+\code{\link[=spec_absolute_targets]{spec_absolute_targets()}},
+\code{\link[=spec_area_targets]{spec_area_targets()}},
+\code{\link[=spec_duran_targets]{spec_duran_targets()}},
+\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}},
+\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+\code{\link[=spec_jung_targets]{spec_jung_targets()}},
+\code{\link[=spec_max_targets]{spec_max_targets()}},
+\code{\link[=spec_min_targets]{spec_min_targets()}},
+\code{\link[=spec_polak_targets]{spec_polak_targets()}},
+\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
+\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}},
+\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
+\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
+\code{\link[=spec_rule_targets]{spec_rule_targets()}},
+\code{\link[=spec_ward_targets]{spec_ward_targets()}},
+\code{\link[=spec_watson_targets]{spec_watson_targets()}},
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}
 }
 \concept{methods}

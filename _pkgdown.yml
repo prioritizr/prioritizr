@@ -129,6 +129,14 @@ reference:
       - importance
       - has_concept("importances")
 
+  - title: Multi-objective optimization
+    desc: Functions for multi-objective optimization.
+    contents:
+      - multi_problem
+      - approaches
+      - has_concept("approaches")
+      - objective_weights_matrix
+
   - title: Data simulation
     desc: Functions for simulating new datasets.
     contents:
@@ -173,11 +181,14 @@ reference:
       - compile
       - feature_abundances
       - feature_names
+      - multi_compile
       - number_of_features
       - number_of_planning_units
+      - number_of_problems
       - number_of_total_units
       - number_of_zones
       - presolve_check
+      - problem_names
       - run_calculations
       - write_problem
       - zone_names

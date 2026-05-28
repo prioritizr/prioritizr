@@ -1,24 +1,24 @@
-#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R presolve_check.R
+#' @include internal.R ConservationProblem-class.R OptimizationProblem-class.R compile.R presolve_check.R assertions_pass_presolve_check.R
 NULL
 
 #' Solve
 #'
 #' Solve a conservation planning problem.
 #'
-#' @param a [problem()] object.
+#' @param a [problem()] or [multi_problem()] object.
 #'
 #' @param b missing.
 #'
 #' @param ... arguments passed to [compile()].
 #'
-#' @param run_checks `logical` flag indicating whether presolve checks
-#'   should be run prior solving the problem. These checks are performed using
-#'   the [presolve_check()] function. Defaults to `TRUE`.
-#'   Skipping these checks may reduce run time for large problems.
+#' @param run_checks `logical` value indicating whether presolve checks
+#' should be run prior solving the problem. These checks are performed using
+#' the [presolve_check()] function. Defaults to `TRUE`.
+#' Note that skipping these checks may reduce run time for large problems.
 #'
-#' @param force `logical` flag indicating if an attempt to should be
-#'   made to solve the problem even if potential issues were detected during
-#'   the presolve checks. Defaults to `FALSE`.
+#' @param force `logical` value indicating if an attempt to should be
+#' made to solve the problem even if potential issues were detected during
+#' the presolve checks. Defaults to `FALSE`.
 #'
 #' @details
 #' After formulating a conservation planning [problem()],
@@ -41,53 +41,59 @@ NULL
 #'
 #' @section Output format:
 #' This function will output solutions in a similar format to the
-#' planning units associated with `a`. Specifically, it will return
-#' solutions based on the following types of planning units.
+#' planning units associated with `a`. Note that if multiple solutions are
+#' generated (e.g., using a multi-objective approach), the solutions will be
+#' returned as a `list` object. Specifically, each element of the list
+#' corresponds to a solution based on the following types of planning units.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{`a` has `numeric` planning units}{The solution will be
-#'    returned as a `numeric` vector. Here, each element in the vector
-#'     corresponds to a different planning unit.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of such `numeric` vectors will be returned.}
+#' \item{`a` has `numeric` planning units}{
+#' Here the solution will be
+#' returned as a `numeric` vector. In particular, each element in the vector
+#' corresponds to a different planning unit.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of such `numeric` vectors will be returned.
+#' }
 #'
-#'   \item{`a` has `matrix` planning units}{The solution will be
-#'     returned as a `matrix` object.
-#'     Here, rows correspond to different planning units,
-#'     and columns correspond to different  management zones.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of such `matrix` objects will be returned.}
+#' \item{`a` has `matrix` planning units}{
+#' Here the solution will be
+#' returned as a `matrix` object.
+#' In particular, rows correspond to different planning units,
+#' and columns correspond to different  management zones.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of such `matrix` objects will be returned.
+#' }
 #'
-#'   \item{`a` has [terra::rast()] planning units}{The solution
-#'     will be returned as a [terra::rast()] object.
-#'     If the argument to `x` contains multiple zones, then the object
-#'     will have a different layer for each management zone.
-#'     Note that if a portfolio is used to generate multiple solutions,
-#'     then a `list` of [terra::rast()] objects will be returned.}
+#' \item{`a` has [terra::rast()] planning units}{
+#' Here the solution
+#' will be returned as a [terra::rast()] object.
+#' If `a` contains multiple zones, then the solution object
+#' will have a different layer for each management zone.
+#' Note that if a portfolio is used to generate multiple solutions,
+#' then a `list` of [terra::rast()] objects will be returned.
+#' }
 #'
-#'   \item{`a` has [sf::sf()], or `data.frame` planning units}{
-#'     The solution will be returned in the same data format as the planning
-#'     units.
-#'     Here, each row corresponds to a different planning unit,
-#'     and columns contain solutions.
-#'     If the argument to `a` contains a single zone, then the solution object
-#'     will contain columns named by solution.
-#'     Specifically, the column names containing the solution values
-#'     be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
-#'     identifier (e.g., `"solution_1"`).
-#'     If the argument to `a` contains multiple zones, then the columns
-#'     containing solutions will be named as `"solution_XXX_YYY"` where
-#'     `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
-#'     of the management zone (e.g., `"solution_1_zone1"`).}
+#' \item{`a` has [sf::sf()], or `data.frame` planning units}{
+#' Here the solution will be returned in the same data format as the planning
+#' units.
+#' In particular, each row corresponds to a different planning unit,
+#' and columns contain solutions.
+#' If `a` contains a single zone, then the solution object
+#' will contain columns named by solution.
+#' Specifically, the column names containing the solution values
+#' be will named as `"solution_XXX"` where `"XXX"` corresponds to a solution
+#' identifier (e.g., `"solution_1"`).
+#' If `a` contains multiple zones, then the columns
+#' containing solutions will be named as `"solution_XXX_YYY"` where
+#' `"XXX"` corresponds to the solution identifier and `"YYY"` is the name
+#' of the management zone (e.g., `"solution_1_zone1"`).
+#' }
 #'
-#'   }
+#' }
 #'
-#' @return
-#' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
-#' [terra::rast()] object containing the solution to the problem.
-#' Additionally, the returned object has attributes that describe
-#' optimization process or solution (see below  for examples on accessing
+#' The output solutions have attributes that describe
+#' optimization process or solution (see below for examples on accessing
 #' these attributes). These attributes provide the following information.
 #' \describe{
 #' \item{\code{objective}}{
@@ -135,11 +141,19 @@ NULL
 #' }
 #' }
 #'
+#' @return
+#' A `numeric`, `matrix`, `data.frame`, [sf::st_sf()], or
+#' [terra::rast()], or `list` object containing the solution(s) to the problem.
+#' Although solutions will generally be returned in the same format
+#' as the planning units in `a`, these solutions may be returned in a `list`
+#' object if multiple solutions are produced during the optimization process
+#' (see Output format section for further details).
+#'
 #' @seealso
-#' See [problem()] to create conservation planning problems, and
-#' [presolve_check()] to check problems for potential issues.
-#' Also, see the [category_layer()] and [category_vector()] function to
-#' reformat solutions that contain multiple zones.
+#' See [problem()] and [multi_problem()] to create conservation planning
+#' problems. Also, see [presolve_check()] to check problems for potential
+#' issues prior to solving a problem, and [category_layer()] and
+#' [category_vector()] to reformat solutions that contain multiple zones.
 #'
 #' @examples
 #' \dontrun{
@@ -277,32 +291,19 @@ solve.ConservationProblem <- function(a, b, ...,
     cli::cli_abort("{.arg b} must not be specified.") # nocov
   }
   # compile optimization problem
-  opt <- compile.ConservationProblem(a, ...)
-  # run presolve check to try to identify potential problems
-  if (run_checks) {
-    ## run checks
-    presolve_res <- internal_presolve_check(opt)
-    ## prepare message
-    msg <- presolve_res$msg
-    if (!isTRUE(force)) {
-      msg <- c(
-        msg,
-        "i" = paste(
-          "To ignore checks and attempt optimization anyway,",
-          "use {.code solve(force = TRUE)}."
-        )
-      )
-    }
-    ## determine if error or warning should be thrown
-    if (!isTRUE(force)) {
-      f <- assert
+  opt <- internal_compile(a, ...)
+  # run presolve check
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
     } else {
-      f <- verify
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
-    ## throw error or warning if checks failed
-    f(isTRUE(presolve_res$pass), msg = msg)
   }
   # solve problem
+  if (isTRUE(a$solver$data$verbose)) {
+    cli::cli_h1("Optimization")
+  }
   sol <- a$portfolio$run(opt, a$solver)
   # check that solution is valid
   assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))
@@ -320,44 +321,154 @@ solve.ConservationProblem <- function(a, b, ...,
       )
     }
   }
-  # format solutions
-  ret <- planning_unit_solution_format(
-    x = a,
-    status = lapply(sol, convert_raw_solution_to_solution_status, x = a),
-    prefix = paste0("solution_", seq_along(sol)),
-    append = TRUE
+  # return formatted solution(s)
+  solve_solution_format(
+     x = planning_unit_solution_format(
+      x = a,
+      status = lapply(sol, convert_raw_solution_to_solution_status, x = a),
+      prefix = paste0("solution_", seq_along(sol)),
+      append = TRUE
+    ),
+    raw_solution = sol
   )
-  # additional formatting
-  if (is.list(ret) && !inherits(ret, "data.frame")) {
-    ## if ret is a list of matrices with a single column,
-    ## then convert to numeric
-    if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1) {
-      ret <- lapply(ret, as.numeric)
-    }
-    ## if ret is a list with a single element,
-    ## then extract the element
-    if (length(ret) == 1) {
-      ret <- ret[[1]]
+}
+
+#' @rdname solve
+#' @method solve MultiObjConservationProblem
+#' @export solve.MultiObjConservationProblem
+#' @export
+solve.MultiObjConservationProblem <- function(a, b, ...,
+                                              run_checks = TRUE,
+                                              force = FALSE) {
+  # assert arguments are valid
+  assert_required(a)
+  assert(
+    assertthat::is.flag(run_checks),
+    assertthat::noNA(run_checks),
+    assertthat::is.flag(force),
+    assertthat::noNA(force)
+  )
+  if (!rlang::is_missing(b)) {
+    cli::cli_abort("{.arg b} must not be specified.") # nocov
+  }
+  # compile problems
+  opt <- stats::setNames(
+    lapply(a$problems, internal_compile, call = fn_current_env()),
+    names(a$problems)
+  )
+  # run presolve check
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
+    } else {
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
   }
-  # add attributes
-  attr(ret, "objective") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 2), paste0("solution_", seq_along(sol))
+  # compile multi-objective optimization problem
+  opt <- multi_compile(opt)
+  # solve problem
+  if (isTRUE(a$solver$data$verbose)) {
+    cli::cli_h1("Optimization")
+  }
+  a$approach$calculate(opt, a)
+  sol <- a$approach$run(opt, a$solver)
+  # check that solution is valid
+  assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))
+  # return formatted solution(s)
+  solve_solution_format(
+     x = planning_unit_solution_format(
+      x = a$problems[[1]],
+      status = lapply(
+        sol, convert_raw_solution_to_solution_status, x = a$problems[[1]]
+      ),
+      prefix = paste0("solution_", seq_along(sol)),
+      append = TRUE
+    ),
+    raw_solution = sol
   )
-  attr(ret, "status") <- stats::setNames(
-    vapply(sol, `[[`, character(1), 3), paste0("solution_", seq_along(sol))
+}
+
+#' Solve solution format
+#'
+#' Format a solution status so that it is consistent with the planning unit data
+#' used to generate the solution. Additionally, this function will
+#' add solver information to the solution too,
+#'
+#' @param x `list` of objects.
+#'
+#' @param raw_solution `list` of raw solution objects.
+#'
+#' @inherit solve return
+#'
+#' @noRd
+solve_solution_format <- function(x, raw_solution) {
+  # assert valid arguments
+  assert(
+    is.list(raw_solution),
+    .internal = TRUE
   )
-  attr(ret, "runtime") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 4), paste0("solution_", seq_along(sol))
+
+  # if needed, format x
+  if (is.list(x) && !inherits(x, "data.frame")) {
+    ## if x is a list of matrices with a single column,
+    ## then convert to numeric
+    if (is.matrix(x[[1]]) && ncol(x[[1]]) == 1) {
+      x <- lapply(x, as.numeric)
+    }
+    ## if x is a list with a single element,
+    ## then extract the element
+    if (length(x) == 1) {
+      x <- x[[1]]
+    }
+  }
+
+  # add attributes with information on the solution and solver
+  attr(x, "objective") <- solve_solution_attribute_format(
+    raw_solution, "objective", "numeric"
   )
-  attr(ret, "gap") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 5), paste0("solution_", seq_along(sol))
+  attr(x, "status") <- solve_solution_attribute_format(
+    raw_solution, "status", "character"
   )
-  attr(ret, "objbound") <- stats::setNames(
-    vapply(sol, `[[`, numeric(1), 6), paste0("solution_", seq_along(sol))
+  attr(x, "runtime") <- solve_solution_attribute_format(
+    raw_solution, "runtime", "numeric"
   )
-  # return object
-  ret
+  attr(x, "gap") <- solve_solution_attribute_format(
+    raw_solution, "gap", "numeric"
+  )
+  attr(x, "objbound") <-  solve_solution_attribute_format(
+    raw_solution, "gap", "numeric"
+  )
+  # return result
+  x
+}
+
+solve_solution_attribute_format <- function(raw_solution, name, mode) {
+  # assert arguments are valid
+  assert(
+    is.list(raw_solution),
+    assertthat::has_name(raw_solution[[1]], name),
+    is.atomic(raw_solution[[1]][[name]]),
+    .internal = TRUE
+  )
+
+  # format data
+  if (length(raw_solution[[1]][[name]]) > 1L) {
+    out <- t(vapply(
+      raw_solution,
+      `[[`, vector(mode, length(raw_solution[[1]][[name]])),
+       name
+    ))
+    colnames(out) <- names(raw_solution[[1]][[name]])
+    rownames(out) <- paste0("solution_", seq_along(raw_solution))
+  } else {
+    out <- stats::setNames(
+      c(vapply(raw_solution, `[[`, vector(mode, 1), name)),
+      paste0("solution_", seq_along(raw_solution))
+    )
+  }
+
+  # return result
+  out
 }
 
 #' Convert raw solution to status
@@ -372,7 +483,7 @@ solve.ConservationProblem <- function(a, b, ...,
 #' @param indices `numeric` with planning unit indices for assigning status
 #' values.
 #'
-#' @return `matrix` object.
+#' @return A `matrix` object.
 #'
 #' @noRd
 convert_raw_solution_to_solution_status <- function(x, status, indices = NULL) {

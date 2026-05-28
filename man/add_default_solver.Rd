@@ -7,12 +7,13 @@
 add_default_solver(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{...}{arguments passed to the solver.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the best solver currently available should be
@@ -35,11 +36,11 @@ solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 See \link{solvers} for an overview of all functions for adding a solver.
 
 Other functions for adding solvers:
-\code{\link{add_cbc_solver}()},
-\code{\link{add_cplex_solver}()},
-\code{\link{add_gurobi_solver}()},
-\code{\link{add_highs_solver}()},
+\code{\link[=add_cbc_solver]{add_cbc_solver()}},
+\code{\link[=add_cplex_solver]{add_cplex_solver()}},
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
+\code{\link[=add_highs_solver]{add_highs_solver()}},
 \code{\link{add_lsymphony_solver}},
-\code{\link{add_rsymphony_solver}()}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
 }
 \concept{solvers}

@@ -21,33 +21,33 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{penalty}{\code{numeric} penalty that is used to scale the importance
+\item{penalty}{\code{numeric} value denoting the importance
 of selecting planning units with strong connectivity between them compared
-to the main problem objective (e.g., solution cost when the argument to
+to the main problem objective (e.g., solution cost if
 \code{x} has a minimum set objective set using
 \code{\link[=add_min_set_objective]{add_min_set_objective()}}). Higher \code{penalty} values
 can be used to obtain solutions with a high degree of connectivity,
 and smaller \code{penalty} values can be used to obtain solutions with a
 small degree of connectivity. Note that negative \code{penalty} values can
-be used to obtain solutions that have very little connectivity.}
+be used to obtain solutions that avoid connectivity.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 neighborhood scheme for different zones. Each row and column corresponds
-to a different zone in the argument to \code{x}, and cell values must
+to a different zone in \code{x}, and cell values must
 contain binary \code{numeric} values (i.e., one or zero) that indicate
-if neighboring planning units (as specified in the argument to
-\code{data}) should be considered neighbors if they are allocated to
+if neighboring planning units (per \code{data})
+should be treated as neighbors if they are allocated to
 different zones. The cell values along the diagonal
 of the matrix indicate if planning units that are allocated to the same
-zone should be considered neighbors or not. The default argument to
-\code{zones} is an identity matrix (i.e., a matrix with ones along the
-matrix diagonal and zeros elsewhere), so that planning units are
-only considered neighbors if they are both allocated to the same zone.}
+zone should be considered neighbors or not. Defaults to an identity matrix
+(i.e., a matrix with ones along the matrix diagonal and zeros elsewhere), so
+that planning units are only considered neighbors if they are both allocated
+to the same zone.}
 
 \item{data}{\code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}, or
 \code{array} object showing which planning units are neighbors with each
-other. The argument defaults to \code{NULL} which means that the
-neighborhood data is calculated automatically using the
+other. Defaults to \code{NULL} such that the
+neighborhood data are calculated automatically using the
 \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
 See the Data format section for more information.}
 }
@@ -76,11 +76,10 @@ of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
 represent the decision variable for planning unit \eqn{i} for in zone
 \eqn{z} (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
-\eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
-argument to \code{data} , and \eqn{W} represent the argument
-to \code{zones}.
+\eqn{p} represent \code{penalty}, \eqn{D} represent \code{data},
+and \eqn{W} represent \code{zones}.
 
-If the argument to \code{data} is supplied as a \code{matrix} or
+If \code{data} is specified as a \code{matrix} or
 \code{Matrix} object, then the penalties are calculated as:
 
 \deqn{
@@ -89,7 +88,7 @@ If the argument to \code{data} is supplied as a \code{matrix} or
 sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
 }
 
-Otherwise, if the argument to \code{data} is supplied as a
+Otherwise, if \code{data} is specified as a
 \code{data.frame} or \code{array} object, then the penalties are
 calculated as:
 
@@ -106,54 +105,58 @@ replaced with \eqn{p}.
 
 \section{Data format}{
 
-The argument to \code{data} can be specified using the following formats:
+The following formats can be used to specify \code{data}.
 
 \describe{
 
-\item{\code{data} as a \code{NULL} value}{neighborhood data should be calculated
-automatically
+\item{\code{data} as a \code{NULL} value}{
+Here the neighborhood data are calculated automatically
 using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
-argument. Note that the neighborhood data must be manually defined
-using one of the other formats below when the planning unit data
-in the argument to \code{x} is not spatially referenced (e.g.,
-in \code{data.frame} or \code{numeric} format).}
+for \code{data}. Note that the neighborhood data must be manually defined
+using one of the other formats below if the planning unit data
+in \code{x} is not spatially referenced (e.g., \code{data.frame} or \code{numeric} format).
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell indicates if the
-two planning units are neighbors or not. Cell values should be binary
-\code{numeric} values (i.e., one or zero). Cells that occur along the
-matrix diagonal have no effect on the solution at all because each
-planning unit cannot be a neighbor with itself.}
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and cell values
+indicate if two planning units are neighbors or not.
+Cells must have binary \code{numeric} values (i.e., one or zero).
+Note that cells along the
+matrix diagonal have no effect on the solution because each
+planning unit cannot be a neighbor with itself.
+}
 
-\item{\code{data} as a \code{data.frame} object}{containing columns that are named
-\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-denotes the connectivity between two planning units following the
-\emph{Marxan} format. The \code{"boundary"} column should contain
-binary \code{numeric} values that indicate if the two planning units
-specified in the \code{"id1"} and \code{"id2"} columns are neighbors
-or not. This data can be used to describe symmetric or
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"id1"} and \code{"id2"} columns contain
+identifiers (indices) for a pair of planning units, and the \code{"boundary"}
+column contains binary \code{numeric} values that indicate if the two planning
+units specified in the \code{"id1"} and \code{"id2"} columns should be treated as
+neighbors or not. These data can be used to describe symmetric or
 asymmetric relationships between planning units. By default,
 input data is assumed to be symmetric unless asymmetric data is
-also included (e.g., if data is present for planning units 2 and 3, then
+specified (e.g., if data is present for planning units 2 and 3, then
 the same amount of connectivity is expected for planning units 3 and 2,
 unless connectivity data is also provided for planning units 3 and 2).
-If the argument to \code{x} contains multiple zones, then the
-\code{"zone1"} and \code{"zone2"} columns can optionally be provided to manually
-specify if the neighborhood data pertain to specific zones. The
-\code{"zone1"} and \code{"zone2"} columns should contain the \code{character}
-names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
-are present, then the argument to \code{zones} must be \code{NULL}.}
+If \code{x} has multiple zones, then the
+"zone1"\code{and}"zone2"\verb{columns can optionally be provided to manually specify that the neighborhood data pertain to specific zones. The}"zone1"\code{and}"zone2"\verb{columns should contain the}character\verb{names of the zones. Note that if the columns}"zone1"\code{and}"zone2"\verb{are present, then}zones\verb{must be}NULL`.
+}
 
-\item{\code{data} as an \code{array} object}{containing four-dimensions where binary
-\code{numeric} values indicate if planning unit should be treated
-as being neighbors with every other planning unit when they
+\item{\code{data} as an \code{array} object}{
+Here a four-dimension array containing binary
+\code{numeric} values is used to specify if planning unit should be treated
+as neighbors with every other planning unit when they
 are allocated to every combination of management zone. The first two
 dimensions (i.e., rows and columns) correspond to the planning units,
 and second two dimensions correspond to the management zones. For
-example, if the argument to \code{data} had a value of 1 at the index
-\code{data[1, 2, 3, 4]} this would indicate that planning unit 1 and
+example, if \code{data} had a value of 1 at the index
+\code{data[1, 2, 3, 4]}, this would indicate that planning unit 1 and
 planning unit 2 should be treated as neighbors when they are
-allocated to zones 3 and 4 respectively.}
+allocated to zones 3 and 4 (respectively).
+}
 
 }
 }
@@ -246,10 +249,11 @@ design models: A review. \emph{Environmental Modeling and Assessment}, 10:
 }
 \seealso{
 Other functions for adding penalties:
-\code{\link{add_asym_connectivity_penalties}()},
-\code{\link{add_boundary_penalties}()},
-\code{\link{add_connectivity_penalties}()},
-\code{\link{add_feature_weights}()},
-\code{\link{add_linear_penalties}()}
+\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}},
+\code{\link[=add_boundary_penalties]{add_boundary_penalties()}},
+\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}},
+\code{\link[=add_cost_penalties]{add_cost_penalties()}},
+\code{\link[=add_feature_weights]{add_feature_weights()}},
+\code{\link[=add_linear_penalties]{add_linear_penalties()}}
 }
 \concept{penalties}

@@ -17,8 +17,6 @@ NULL
 #' @details
 #' The following functions can be used to add an objective to a
 #' conservation planning [problem()].
-#' For the vast majority of conservation planning exercises,
-#' the minimum set and minimum shortfall objectives are most appropriate.
 #' Note that if multiple
 #' of these functions are added to a [problem()], then only the last
 #' function added will be used.
@@ -58,9 +56,10 @@ NULL
 #' solution subject to a budget.
 #' }
 #'
-#' \item{[add_max_features_objective()]}{
-#' Fulfill as many targets as possible while ensuring that the cost of the
-#' solution does not exceed a budget.
+#' \item{[add_max_n_targets_met_objective()]}{
+#' Maximize the number of feature targets that are fully met, while ensuring
+#' that the cost of the solution does not exceed a budget. Note that this
+#' objective does not value the partial fulfillment of targets.
 #' }
 #'
 #' \item{[add_max_cover_objective()]}{
@@ -68,13 +67,42 @@ NULL
 #' given budget. Note that this objective is not compatible with targets.
 #' }
 #'
-#' \item{[add_max_utility_objective()]}{
+#' \item{[add_max_wtd_sum_objective()]}{
 #' Maximize the weighted sum of the features represented by the solution
 #' subject to a budget. Note that this objective is not compatible with targets.
+#' Although there are a few cases where this objective may be suitable,
+#' we strongly advise against using this objective in general.
 #' }
 #' }
 #'
+#' @section Recommended practices:
+#' In general, we recommend using either the minimum set
+#' [add_min_set_objective()] or the minimum shortfall
+#' [add_min_shortfall_objective()] objectives for conservation planning
+#' This is because both of these objectives account for complementarity---a
+#' foundational concept in systematic conservation planning (Kirkpatrick 1983).
+#' If solutions need to conform to a type of budget (e.g.,
+#' maximum expenditure, or maximum amount of land that can be protected),
+#' then the minimum shortfall objective is typically most appropriate.
+#' Otherwise, if solutions do not need to conform to a particular budget,
+#' then the minimum set objective is typically most appropriate.
+#' We strongly caution against using the maximum weighted sum objective
+#' ([add_max_wtd_sum_objective()] because -- except under very
+#' specific conditions -- it has "repeatedly been shown to identify
+#' priorities that are biologically ineffective and economically inefficient"
+#' (Brown *et al.* 2015).
+#'
 #' @family overviews
+#'
+#' @references
+#' Brown CJ, Bode M, Venter O, Barnes MD, McGowan J, Runge CA, Watson JEM,
+#' and Possingham HP (2015) Effective conservation requires clear objectives and
+#' prioritizing actions, not places or species.
+#' *Proceedings of the National Academy of Sciences* 112: E4342.
+#'
+#' Kirkpatrick JB (1983) An iterative method for establishing priorities for
+#' the selection of nature reserves: An example from Tasmania.
+#' *Biological Conservation*, 25: 127--134.
 #'
 #' @examples
 #' \dontrun{
@@ -97,8 +125,8 @@ NULL
 #' # note that this objective does not use targets
 #' p2 <- p %>% add_max_cover_objective(500)
 #'
-#' # create problem with added maximum feature representation objective
-#' p3 <- p %>% add_max_features_objective(1900)
+#' # create problem with added maximum number of targets met objective
+#' p3 <- p %>% add_max_n_targets_met_objective(1900)
 #'
 #' # create problem with added minimum shortfall objective
 #' p4 <- p %>% add_min_shortfall_objective(1900)
@@ -112,9 +140,9 @@ NULL
 #' # create problem with added maximum phylogenetic diversity objective
 #' p7 <- p %>% add_max_phylo_end_objective(1900, sim_phylogeny)
 #'
-#' # create problem with added maximum utility objective
+#' # create problem with added maximum weighted sum objective
 #' # note that this objective does not use targets
-#' p8 <- p %>% add_max_utility_objective(1900)
+#' p8 <- p %>% add_max_wtd_sum_objective(1900)
 #'
 #' # solve problems
 #' s <- c(
@@ -122,9 +150,9 @@ NULL
 #'   solve(p7), solve(p8)
 #' )
 #' names(s) <- c(
-#'   "min set", "max coverage", "max features", "min shortfall",
+#'   "min set", "max coverage", "max n targets met", "min shortfall",
 #'   "min largest shortfall", "max phylogenetic diversity",
-#'   "max phylogenetic endemism", "max utility"
+#'   "max phylogenetic endemism", "max wtd sum"
 #' )
 #"
 #' # plot solutions

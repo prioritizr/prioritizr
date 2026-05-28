@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract planning unit solution status values.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param solution object with solution data.
 #'
@@ -13,7 +13,7 @@ NULL
 #'
 #' @param call Caller environment.
 #'
-#' @return A `matrix` object containing solution values for planning units.
+#' @return A `numeric` matrix.
 #'
 #' @name planning_unit_solution_status
 #'
@@ -25,7 +25,7 @@ methods::setGeneric(
     assert_required(x)
     assert_required(solution)
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_inherits(
         solution,
         c(
@@ -55,7 +55,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} has {.cls {class(solution)}} planning units."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality
@@ -143,7 +143,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -201,7 +201,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -264,7 +264,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -333,7 +333,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality
@@ -408,7 +408,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality
@@ -461,6 +461,62 @@ methods::setMethod(
     solution
 })
 
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "numeric"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "matrix"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "data.frame"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "Spatial"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "sf"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "Raster"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
+methods::setMethod(
+  "planning_unit_solution_status",
+  methods::signature("MultiObjConservationProblem", "SpatRaster"),
+  function(x, solution, call = fn_caller_env()) {
+    planning_unit_solution_status(x$problems[[1]], solution, call = call)
+  }
+)
+
 #' Internal helper function
 #'
 #' This helper function is used to extract solution status values
@@ -512,7 +568,7 @@ internal_planning_unit_solution_status <- function(x, solution,
 
 #' Solution format documentation
 #'
-#' @param x `character` name of argument.
+#' @param x `character` name of parameter.
 #'
 #' @noRd
 solution_format_documentation <- function(x) {
@@ -520,57 +576,57 @@ solution_format_documentation <- function(x) {
   paste0("
 \\describe{
 
-\\item{`x` has `numeric` planning units}{The argument to `", x , "` must be a
+\\item{`x` has `numeric` planning units}{Here `", x , "` must be a
   `numeric` vector with each element corresponding to a different planning
   unit. It should have the same number of planning units as those
-  in the argument to `x`. Additionally, any planning units missing
+  in `x`. Additionally, any planning units with missing
   cost (`NA`) values should also have missing (`NA`) values in the
-  argument to `", x , "`.
+  `", x , "`.
 }
 
-\\item{`x` has `matrix` planning units}{The argument to `", x , "` must be a
+\\item{`x` has `matrix` planning units}{Here `", x , "` must be a
   `matrix` vector with each row corresponding to a different planning
   unit, and each column correspond to a different management zone.
   It should have the same number of planning units and zones
-  as those in the argument to `x`. Additionally, any planning units
+  as those in `x`. Additionally, any planning units with
   missing cost (`NA`) values for a particular zone should also have a
-  missing (`NA`) values in the argument to `", x , "`.
+  missing (`NA`) values in `", x , "`.
 }
 
-\\item{`x` has [terra::rast()] planning units}{The argument to `", x , "`
+\\item{`x` has [terra::rast()] planning units}{Here `", x , "`
   be a [terra::rast()] object where different cells correspond
   to different planning units and layers correspond to
   a different management zones. It should have the same dimensionality
   (rows, columns, layers), resolution, extent, and coordinate reference
-  system as the planning units in the argument to `x`. Additionally,
-  any planning units missing cost (`NA`) values for a particular zone
-  should also have missing (`NA`)  values in the argument to `", x , "`.
+  system as the planning units in `x`. Additionally,
+  any planning units with missing cost (`NA`) values for a particular zone
+  should also have missing (`NA`)  values in `", x , "`.
 }
 
-\\item{`x` has `data.frame` planning units}{The argument to `", x , "` must
+\\item{`x` has `data.frame` planning units}{Here `", x , "` must
   be a `data.frame` with each column corresponding to a different zone,
   each row corresponding to a different planning unit, and cell values
   corresponding to the solution value. This means that if a `data.frame`
   object containing the solution also contains additional columns, then
   these columns will need to be subsetted prior to using this function
   (see below for example with [sf::sf()] data).
-  Additionally, any planning units missing cost
+  Additionally, any planning units with missing cost
   (`NA`) values for a particular zone should also have missing (`NA`)
-  values in the argument to `", x , "`.
+  values in `", x , "`.
 }
 
-\\item{`x` has [sf::sf()] planning units}{The argument to `", x , "` must be
+\\item{`x` has [sf::sf()] planning units}{Here `", x , "` must be
   a [sf::sf()] object with each column corresponding to a different
   zone, each row corresponding to a different planning unit, and cell values
   corresponding to the solution value. This means that if the
   [sf::sf()] object containing the solution also contains additional
   columns, then these columns will need to be subsetted prior to using this
   function (see below for example).
-  Additionally, the argument to `", x , "` must also have the same
+  Additionally, `", x , "` must also have the same
   coordinate reference system as the planning unit data.
-  Furthermore, any planning units missing cost
+  Furthermore, any planning units with missing cost
   (`NA`) values for a particular zone should also have missing (`NA`)
-  values in the argument to `", x , "`.
+  values in `", x , "`.
 }
 }
 ")

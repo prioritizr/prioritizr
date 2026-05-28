@@ -13,48 +13,63 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`get_sim_pu_raster()`}{Import planning unit data that are stored
-#'   in raster format.
-#'   Here, cell values indicate planning unit cost and missing (`NA`)
-#'   values indicate that a cell is not a planning unit.}
+#' \item{`get_sim_pu_raster()`}{
+#' Import planning unit data that are stored
+#' in raster format.
+#' Here, cell values indicate planning unit cost and missing (`NA`)
+#' values indicate that a cell is not a planning unit.
+#' }
 #'
-#' \item{`get_sim_locked_in_raster()`}{Import planning unit data
-#'   that are stored in raster format.
-#'   Here, cell values are binary and indicate if planning units should be
-#'   locked in to a solution.}
+#' \item{`get_sim_locked_in_raster()`}{
+#' Import planning unit data
+#' that are stored in raster format.
+#' Here, cell values are binary and indicate if planning units should be
+#' locked in to a solution.
+#' }
 #'
-#' \item{`get_sim_locked_out_raster()`}{Import planning unit data
-#'   that are stored in raster format.
-#'   Here, cell values are binary and indicate if planning units
-#'   should be locked out from a solution.}
+#' \item{`get_sim_locked_out_raster()`}{
+#' Import planning unit data
+#' that are stored in raster format.
+#' Here, cell values are binary and indicate if planning units
+#' should be locked out from a solution.
+#' }
 #'
-#' \item{`get_sim_pu_polygons()`}{Import planning unit data stored in vector
-#'   format. Here, planning units are represented using spatial polygons
-#'   (e.g., each polygon corresponds to a different management areas).
-#'   The data contains columns indicating the expenditure
-#'   required for prioritizing each planning unit (`"cost"` column), if the
-#'   planning units should be selected in the solution (`"locked_in"` column),
-#'   and if the planning units should never be selected in the solution
-#'   (`"locked_out"` column).}
+#' \item{`get_sim_pu_polygons()`}{
+#' Import planning unit data stored in vector
+#' format. Here, planning units are represented using spatial polygons
+#' (e.g., each polygon corresponds to a different management areas).
+#' The data contains columns indicating the expenditure
+#' required for prioritizing each planning unit (`"cost"` column), if the
+#' planning units should be selected in the solution (`"locked_in"` column),
+#' and if the planning units should never be selected in the solution
+#' (`"locked_out"` column).
+#' }
 #'
-#' \item{`get_sim_pu_points()`}{Import planning unit data stored in vector
-#'   format. Here, planning units are represented using spatial lines
-#'   (e.g., each line corresponds to a different section along a river) .
-#'   The attribute table follows the same conventions as for
-#'   `sim_pu_polygons`.}
+#' \item{`get_sim_pu_points()`}{
+#' Import planning unit data stored in vector
+#' format. Here, planning units are represented using spatial lines
+#' (e.g., each line corresponds to a different section along a river).
+#' The columns follow the same conventions as for
+#' `get_sim_pu_polygons()`.
+#' }
 #'
-#' \item{`get_sim_pu_lines()`}{Import planning unit data stored in vector
-#'   format. Here, planning units are represented using spatial points
-#'   (e.g., each point corresponds to a different site) .
-#'   The attribute table follows the same conventions as for
-#'   `sim_pu_polygons`.}
+#' \item{`get_sim_pu_lines()`}{
+#' Import planning unit data stored in vector
+#' format. Here, planning units are represented using spatial points
+#' (e.g., each point corresponds to a different site).
+#' The columns follow the same conventions as for
+#' `get_sim_pu_polygons()`.
+#' }
 #'
-#' \item{`get_sim_features()`}{Import feature data stored in raster format.
-#'   Here, data describe the spatial distribution of five species.
-#'   Each layer corresponds to a different species, and
-#'   cell values indicate habitat suitability.}
+#' \item{`get_sim_features()`}{
+#' Import feature data stored in raster format.
+#' Here, data describe the spatial distribution of five species.
+#' Each layer corresponds to a different species, and
+#' cell values indicate habitat suitability.
+#' }
 #'
-#'  \item{`get_sim_phylogeny()`}{Import phylogenetic tree for the five species.}
+#' \item{`get_sim_phylogeny()`}{
+#' Import phylogenetic tree for the five features in `get_sim_features()`.}
 #'
 #' }
 #'
@@ -67,37 +82,42 @@ NULL
 #' \describe{
 #'
 #' \item{`get_sim_complex_pu_raster()`}{
-#'   Import planning unit data that are stored in raster format.
-#'   Here, cell values indicate planning unit cost and missing (`NA`)
-#'   values indicate that a cell is not a planning unit.}
+#' Import planning unit data that are stored in raster format.
+#' Here, cell values indicate planning unit cost and missing (`NA`)
+#' values indicate that a cell is not a planning unit.
+#' }
 #'
 #' \item{`get_sim_complex_locked_in_raster()`}{
-#'   Import planning unit data
-#'   that are stored in raster format.
-#'   Here, cell values are binary and indicate if planning units should be
-#'   locked in to a solution.}
+#' Import planning unit data
+#' that are stored in raster format.
+#' Here, cell values are binary and indicate if planning units should be
+#' locked in to a solution.
+#' }
 #'
 #' \item{`get_sim_complex_locked_out_raster()`}{
-#'   Import planning unit data
-#'   that are stored in raster format.
-#'   Here, cell values are binary and indicate if planning units
-#'   should be locked out from a solution.}
+#' Import planning unit data
+#' that are stored in raster format.
+#' Here, cell values are binary and indicate if planning units
+#' should be locked out from a solution.
+#' }
 #'
 #' \item{`get_sim_complex_features()`}{
-#'   Import feature data stored in raster
-#'   format.
-#'   Here, data describe the spatial distribution of 100 species.
-#'   Each layer corresponds to a different species, and
-#'   cells contain binary values indicating if they currently contain
-#'   habitat for a given species.}
+#' Import feature data stored in raster
+#' format.
+#' Here, data describe the spatial distribution of 100 species.
+#' Each layer corresponds to a different species, and
+#' cells contain binary values indicating if they currently contain
+#' habitat for a given species.
+#' }
 #'
 #' \item{`get_sim_complex_historical_features()`}{
-#'   Import potential feature data
-#'   stored in raster format.
-#'   Here, data describe the spatial distribution of 100 species.
-#'   Each layer corresponds to a different species, and
-#'   cells contain binary values indicating if they historically contained
-#'   habitat for a given species.}
+#' Import potential feature data
+#' stored in raster format.
+#' Here, data describe the spatial distribution of 100 species.
+#' Each layer corresponds to a different species, and
+#' cells contain binary values indicating if they historically contained
+#' habitat for a given species.
+#' }
 #'
 #' }
 #'
@@ -108,31 +128,37 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`get_sim_zones_pu_raster()`}{Import planning unit data
-#'   for multiple management zones that are stored in raster format.
-#'   Here, each layer indicates the cost for a different management
-#'   zone. Cells with `NA` values in a given zone indicate that a
-#'   planning unit cannot be allocated to that zone in a solution.
-#'   Additionally, cells with `NA` values in all layers are not a
-#'   planning unit.}
+#' \item{`get_sim_zones_pu_raster()`}{
+#' Import planning unit data
+#' for multiple management zones that are stored in raster format.
+#' Here, each layer indicates the cost for a different management
+#' zone. Cells with missing (`NA`) values in a given zone indicate that a
+#' planning unit cannot be allocated to that zone in a solution.
+#' Additionally, cells with missing (`NA`) values in all layers are not a
+#' planning unit.
+#' }
 #'
-#' \item{`get_sim_zones_pu_polygons()`}{Import planning unit data for
-#'   multiple management zones stored in vector format.
-#'   Here, planning units are represented using spatial polygons.
-#'   The data contains columns indicating the
-#'   expenditure required for prioritizing each planning unit under different
-#'   management zones (`"cost_1"`, `"cost_2"`, and `"cost_3"` columns), and a
-#'   series
-#'   of columns indicating the value that each planning unit that should be
-#'   assigned in the solution (`"locked_1"`, `"locked_2"`, `"locked_3"`
-#'   columns).
-#'   In these locked columns, planning units that should not be locked to a
-#'   specific value are assigned a missing (`NA`) value.}
+#' \item{`get_sim_zones_pu_polygons()`}{
+#' Import planning unit data for
+#' multiple management zones stored in vector format.
+#' Here, planning units are represented using spatial polygons.
+#' The data contains columns indicating the
+#' expenditure required for prioritizing each planning unit under different
+#' management zones (`"cost_1"`, `"cost_2"`, and `"cost_3"` columns), and a
+#' series
+#' of columns indicating the value that each planning unit that should be
+#' assigned in the solution (`"locked_1"`, `"locked_2"`, `"locked_3"`
+#' columns).
+#' In these locked columns, planning units that should not be locked to a
+#' specific value are assigned a missing (`NA`) value.
+#' }
 #'
-#' \item{`get_sim_zones_features()`}{Import feature data for multiple
-#'   management zones stored in raster format.
-#'   Here, data describe the spatial distribution of ten species
-#'   under three different management zones.}
+#' \item{`get_sim_zones_features()`}{
+#' Import feature data for multiple
+#' management zones stored in raster format.
+#' Here, data describe the spatial distribution of ten species
+#' under three different management zones.
+#' }
 #'
 #' }
 #'
@@ -225,7 +251,7 @@ NULL
 #' )
 #' plot(
 #'   terra::rast(as.list(sim_zones_features)),
-#'    main = plot_names, axes = FALSE
+#'   main = plot_names, axes = FALSE
 #' )
 #' }
 #' @name sim_data

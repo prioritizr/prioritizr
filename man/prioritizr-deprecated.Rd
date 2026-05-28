@@ -17,6 +17,8 @@
 \alias{new_optimization_problem}
 \alias{predefined_optimization_problem}
 \alias{add_loglinear_targets}
+\alias{add_max_phylo_objective}
+\alias{add_max_utility_objective}
 \title{Deprecation notice}
 \usage{
 add_connected_constraints(...)
@@ -48,6 +50,12 @@ new_optimization_problem(...)
 predefined_optimization_problem(...)
 
 add_loglinear_targets(...)
+
+add_loglinear_targets(...)
+
+add_max_phylo_objective(...)
+
+add_max_utility_objective(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -70,54 +78,82 @@ The following functions have been deprecated:
 
 \describe{
 
-\item{\code{add_connected_constraints()}}{renamed
-as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function.}
+\item{\code{add_connected_constraints()}}{
+Renamed as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function.
+}
 
-\item{\code{add_corridor_constraints()}}{replaced by the
-\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.}
+\item{\code{add_corridor_constraints()}}{
+Replaced by the \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.
+}
 
-\item{\code{add_loglinear_targets()}}{replaced by the
-\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}} function.}
+\item{\code{add_loglinear_targets()}}{
+Replaced by the \code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}} function.
+}
+
+\item{\code{add_max_features_objective()}}{
+Renamed as the \code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}} function.
+}
+
+\item{\code{add_max_phylo_objective()}}{
+Renamed as the \code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}} function.
+}
+
+\item{\code{add_max_utility_objective()}}{
+Renamed as the \code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}} function.
+}
 
 \item{\code{set_number_of_threads()}}{
-no longer needed due to improved data extraction methods.}
+No longer needed due to improved data extraction methods.
+}
 
 \item{\code{get_number_of_threads()}}{
-no longer needed due to improved data extraction methods.}
+No longer needed due to improved data extraction methods.
+}
 
 \item{\code{is.parallel()}}{
-no longer needed due to improved data extraction methods.}
+No longer needed due to improved data extraction methods.
+}
 
-\item{\code{add_pool_portfolio()}}{replaced by the
-\code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.}
+\item{\code{add_pool_portfolio()}}{
+Replaced by the \code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.
+}
 
-\item{\code{connected_matrix()}}{renamed as
-the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.}
+\item{\code{connected_matrix()}}{
+Renamed as the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+}
 
-\item{\code{feature_representation()}}{replaced by
-the \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function for consistency with
-other functions.}
+\item{\code{feature_representation()}}{
+Replaced by the \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function for
+consistency with other functions.
+}
 
-\item{\code{replacement_cost()}}{renamed as
-the \code{\link[=eval_replacement_importance]{eval_replacement_importance()}} function for consistency with
-other functions for evaluating solutions.}
+\item{\code{replacement_cost()}}{
+Renamed as the \code{\link[=eval_replacement_importance]{eval_replacement_importance()}} function for consistency with
+other functions for evaluating solutions.
+}
 
-\item{\code{rarity_weighted_richness()}}{renamed as
-the \code{\link[=eval_rare_richness_importance]{eval_rare_richness_importance()}} function for consistency with
-other functions for evaluating solutions.}
+\item{\code{rarity_weighted_richness()}}{
+Renamed as the \code{\link[=eval_rare_richness_importance]{eval_rare_richness_importance()}} function for consistency
+with other functions for evaluating solutions.
+}
 
-\item{\code{ferrier_score()}}{renamed as
-the \code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}} function for consistency with
-other functions for evaluating solutions.}
+\item{\code{ferrier_score()}}{
+Renamed as the \code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}} function for consistency with
+other functions for evaluating solutions.
+}
 
-\item{\code{distribute_load()}}{has been removed because it is no longer used.
-See \code{parallel::splitIndices()} for equivalent functionality.}
+\item{\code{distribute_load()}}{
+Removed because it is no longer used.
+See the \code{parallel::splitIndices()} function for equivalent functionality.
+}
 
 \item{\code{new_optimization_problem()}}{
-replaced by \code{\link[=optimization_problem]{optimization_problem()}}.}
+Replaced by the \code{\link[=optimization_problem]{optimization_problem()}} function.
+}
 
 \item{\code{predefined_optimization_problem()}}{
-replaced by \code{\link[=optimization_problem]{optimization_problem()}}.}
+Replaced by the \code{\link[=optimization_problem]{optimization_problem()}} function.
+}
 
 }
 }

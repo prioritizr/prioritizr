@@ -10,25 +10,24 @@ NULL
 #' objective of the conservation planning problem (e.g.,
 #' solution cost for minimum set problems; [add_min_set_objective()].
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_boundary_penalties
 #'
-#' @param penalty `numeric` penalty value that is used to scale the
-#'   importance of not selecting planning units with high `data` values.
-#'   Higher `penalty` values can be used to obtain solutions that
-#'   are strongly averse to selecting places with high `data`
-#'   values, and smaller `penalty` values can be used to obtain solutions
-#'   that only avoid places with especially high `data` values.
-#'   Note that negative
-#'   `penalty` values can be used to obtain solutions that prefer places
-#'   with high `data` values. Additionally, when adding these
-#'   penalties to problems with multiple zones, the argument to `penalty`
-#'   must have a value for each zone.
+#' @param penalty `numeric` value denoting the importance of not selecting
+#' planning units with high `data` values.
+#' Higher `penalty` values can be used to obtain solutions that
+#' are strongly averse to selecting places with high `data`
+#' values, and smaller `penalty` values can be used to obtain solutions
+#' that only avoid places with especially high `data` values.
+#' Note that negative
+#' `penalty` values can be used to obtain solutions that prefer places
+#' with high `data` values. Additionally, if has `x` has multiple zones,
+#' then `penalty` must have a value for each zone.
 #'
 #' @param data `character`, `numeric`,
-#'   [terra::rast()], `matrix`, or `Matrix` object
-#'   containing the values used to penalize solutions. Planning units that are
-#'   associated with higher data values are penalized more strongly
-#'   in the solution. See the Data format section for more information.
+#' [terra::rast()], `matrix`, or `Matrix` object
+#' containing the values used to penalize solutions. Planning units that are
+#' associated with higher data values are penalized more strongly
+#' in the solution. See the Data format section for more information.
 #'
 #' @details
 #' This function penalizes solutions that have higher values according
@@ -37,45 +36,51 @@ NULL
 #'
 #' @section Data format:
 #'
-#' The argument to `data` can be specified using the following formats.
+#' The following formats can be used to specify `data`.
 #'
 #' \describe{
 #'
-#' \item{`data` as `character` vector}{containing column name(s) that
-#'   contain penalty values for planning units. This format is only
-#'   compatible if the planning units in the argument to `x` are a
-#'   [sf::sf()] or `data.frame` object. The column(s) must have `numeric`
-#'   values, and must not contain any missing (`NA`) values.
-#'   For problems that contain a single zone, the argument to `data` must
-#'   contain a single column name. Otherwise, for problems that
-#'   contain multiple zones, the argument to `data` must
-#'   contain a column name for each zone.}
+#' \item{`data` as a `character` vector}{
+#' Here values are specified based on column name(s) for the
+#' planning unit data in `x`. This format is only
+#' compatible if the planning units in  `x` are a
+#' [sf::sf()] or `data.frame` object. The column(s) must have `numeric`
+#' values, and must not contain any missing (`NA`) values.
+#' If `x` has a single zone, then `data` must
+#' contain a single column name. Otherwise, if `x` has multiple zones,
+#' then `data` must contain a column name for each zone.
+#' }
 #'
-#' \item{`data` as a `numeric` vector}{containing values for
-#'   planning units. These values must not contain any missing
-#'   (`NA`) values. Note that this format is only available
-#'   for planning units that contain a single zone.}
+#' \item{`data` as a `numeric` vector}{
+#' Here values are specified for each planning unit.
+#' These values must not contain any missing
+#' (`NA`) values. Note that this format can only be used
+#' if `x` has a single zone.
+#' }
 #'
-#' \item{`data` as a `matrix`/`Matrix` object}{containing `numeric` values
-#'   that specify data for each planning unit.
-#'   Each row corresponds to a planning unit, each column corresponds to a
-#'   zone, and each cell indicates the data for penalizing a planning unit
-#'   when it is allocated to a given zone.}
+#' \item{`data` as a `matrix`/`Matrix` object}{
+#' Here values are specified for each planning unit and each zone.
+#' Note that `data` must have `numeric` values.
+#' Each row corresponds to a planning unit, each column corresponds to a
+#' zone, and each cell indicates the value associated with a planning unit
+#' when it is allocated to a given zone.
+#' }
 #'
-#' \item{`data` as a [terra::rast()] object}{containing values for planning
-#'   units. This format is only
-#'   compatible if the planning units in the argument to `x` are
-#'   [sf::sf()], or [terra::rast()] objects.
-#'   If the planning unit data are a [sf::sf()] object,
-#'   then the values are calculated by overlaying the
-#'   planning units with the argument to `data` and calculating the sum of the
-#'   values associated with each planning unit.
-#'   If the planning unit data are a [terra::rast()] object, then the values
-#'   are calculated by extracting the cell
-#'   values (note that the planning unit data and the argument to `data` must
-#'   have exactly the same dimensionality, extent, and missingness).
-#'   For problems involving multiple zones, the argument to `data` must
-#'   contain a layer for each zone.}
+#' \item{`data` as a [terra::rast()] object}{
+#' Here values are specified for each planning unit and each zone.
+#' This format is only compatible if the planning units in `x` are
+#' [sf::sf()], or [terra::rast()] objects.
+#' If the planning unit data are a [sf::sf()] object,
+#' then the values are calculated by overlaying the
+#' planning units with `data` and calculating the sum of the
+#' values associated with each planning unit.
+#' If the planning unit data are a [terra::rast()] object, then the values
+#' are calculated by extracting the cell
+#' values (note that `data` and the planning unit in `x` must
+#' have exactly the same dimensionality, extent, and missing values).
+#' Additionally, if `x` has multiple zones, then `data` must
+#' contain a layer for each zone.
+#' }
 #'
 #' }
 #'
@@ -88,10 +93,10 @@ NULL
 #' planning unit \eqn{i} to zone \eqn{z} (e.g., with binary
 #' values indicating if each planning unit is allocated or not). Also, let
 #' \eqn{P_z} represent the penalty scaling value for zones
-#' \eqn{z \in Z}{z in Z} (argument to `penalty`), and
-#' \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
-#' \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-#' `data`, if supplied as a `matrix` object).
+#' \eqn{z \in Z}{z in Z} (per `penalty`), and
+#' \eqn{D_{iz}}{Diz} represent the penalty data for allocating planning unit
+#' \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z}
+#' (per `data` in matrix format).
 #'
 #' \deqn{
 #' \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}

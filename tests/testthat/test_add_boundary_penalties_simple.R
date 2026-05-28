@@ -8,7 +8,7 @@ test_that("minimum set objective (compile, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(3, 0.5)
+    add_boundary_penalties(3, 0.5, data = boundary_matrix(sim_pu_raster))
   o <- compile(p)
   # print
   suppressMessages(print(p))
@@ -80,16 +80,16 @@ test_that("minimum set objective (compile, single zone)", {
   expect_equal(b_A, Matrix::drop0(correct_b_A))
 })
 
-test_that("maximum utility (compile, single zone)", {
+test_that("maximum wtd sum (compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 5) %>%
+    add_max_wtd_sum_objective(budget = 5) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(3, 0.5)
+    add_boundary_penalties(3, 0.5, data = boundary_matrix(sim_pu_raster))
   o <- compile(p)
   # print
   suppressMessages(print(p))
@@ -108,9 +108,6 @@ test_that("maximum utility (compile, single zone)", {
   b_total <- Matrix::diag(b_data)
   ## calculate scaled costs with total boundaries
   b_sc_costs <- 3 * ((b_total - b_exposed) + (b_exposed * 0.5))
-  ## calculate scaled costs
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   ## prepare scaled shared lengths
   Matrix::diag(b_data) <- 0
   b_data <- Matrix::tril(Matrix::drop0(b_data))
@@ -124,7 +121,7 @@ test_that("maximum utility (compile, single zone)", {
   ## vtype bound for boundary decision variables
   b_vtype <- o$vtype()[n_pu + n_f + seq_len(length(b_data@i))]
   ## pu costs including total boundary
-  pu_costs <- o$obj()[seq_len(n_pu)]
+  obj_pu <- o$obj()[seq_len(n_pu)]
   ## matrix labels
   b_col_labels <- o$col_ids()[n_pu + n_f + seq_len(length(b_data@i))]
   b_row_labels <- o$row_ids()[n_f + 1 + seq_len(length(b_data@i) * 2)]
@@ -134,7 +131,7 @@ test_that("maximum utility (compile, single zone)", {
   b_rhs <- o$rhs()[n_f + 1 + seq_len(length(b_data@i) * 2)]
   # tests
   expect_true(all(b_col_labels == "b"))
-  expect_equal(pu_costs, scaled_costs - b_sc_costs)
+  expect_equal(obj_pu, -b_sc_costs)
   expect_equal(b_obj, 2 * b_data@x)
   expect_true(all(b_lb == 0))
   expect_true(all(b_ub == 1))
@@ -170,9 +167,9 @@ test_that("alternative data formats (single zone)", {
   sim_features <- get_sim_features()
   # create boundary matrix data
   ## matrix format
-  bm <- boundary_matrix(sim_pu_raster)
+  bm <- rescale_matrix(boundary_matrix(sim_pu_raster))
   ## data frame format
-  bdf <- boundary_matrix(sim_pu_raster)
+  bdf <- rescale_matrix(boundary_matrix(sim_pu_raster))
   ### N.B. here we convert diagonals to show exposed length, not total length
   ### this is because data frame format follows marxan conventions
   Matrix::diag(bdf) <- c(
@@ -222,9 +219,9 @@ test_that("minimum set objective (obj fun, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(10000, 1) %>%
+    add_boundary_penalties(10000, 1, data = boundary_matrix(sim_pu_raster)) %>%
     add_default_solver(gap = 0, verbose = FALSE)
-  s <- solve(p)
+  s <- solve(p, run_checks = FALSE)
   # calculations for tests
   obj_value <- unname(attr(s, "objective"))
   total_perim <- terra::perim(
@@ -241,10 +238,11 @@ test_that("minimum set objective (obj fun, single zone)", {
 
 test_that("minimum set and shortfall objective (solve, single zone)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("highs")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  bd <- boundary_matrix(sim_pu_raster)
   # calculate budget
   b <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.3
   # create problems
@@ -253,17 +251,17 @@ test_that("minimum set and shortfall objective (solve, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(10000, 0.5) %>%
-    add_highs_solver(gap = 0.5, verbose = FALSE)
-  s1 <- solve(p1)
+    add_boundary_penalties(10000, 0.5, data = bd) %>%
+    add_highs_solver(gap = 0.01, verbose = FALSE)
+  suppressWarnings(s1 <- solve(p1, run_checks = FALSE))
   p2 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_shortfall_objective(budget = b) %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(-10000000, 0.5) %>%
-    add_highs_solver(gap = 0.5, verbose = FALSE)
-  expect_warning(s2 <- solve(p2, force = TRUE))
+    add_boundary_penalties(-10000000, 0.5, data = bd) %>%
+    add_highs_solver(gap = 0.01, verbose = FALSE)
+  suppressWarnings(s2 <- solve(p2, run_checks = FALSE))
   # tests
   expect_inherits(s1, "SpatRaster")
   expect_inherits(s1, "SpatRaster")
@@ -295,7 +293,10 @@ test_that("minimum set objective (compile, multiple zones)", {
     add_min_set_objective() %>%
     add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
     add_binary_decisions() %>%
-    add_boundary_penalties(penalty, p_edge_factor, zones = p_zones)
+    add_boundary_penalties(
+      penalty, p_edge_factor, zones = p_zones,
+      data = boundary_matrix(sim_zones_pu_polygons)
+    )
   o <- compile(p)
   # create variables for tests
   ## number of planning units
@@ -519,9 +520,9 @@ test_that("alternative data formats (multiple zones)", {
   p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
   # calculate boundary matrix data
   ## matrix format
-  bm <- boundary_matrix(sim_zones_pu_polygons)
+  bm <- rescale_matrix(boundary_matrix(sim_zones_pu_polygons))
   ## data frame format
-  bdf <- boundary_matrix(sim_zones_pu_polygons)
+  bdf <- rescale_matrix(boundary_matrix(sim_zones_pu_polygons))
   ### N.B. here we convert diagonals to show exposed length, not total length
   ### this is because data frame format follows marxan conventions
   Matrix::diag(bdf) <- c(
@@ -581,6 +582,7 @@ test_that("minimum set objective (solve, multiple zones)", {
     ),
     byrow = TRUE, ncol = 3
   )
+  bd <- boundary_matrix(sim_zones_pu_raster)
   # create baseline problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
@@ -591,11 +593,11 @@ test_that("minimum set objective (solve, multiple zones)", {
   # create and solve problems
   s1 <-
     p %>%
-    add_boundary_penalties(300, rep(0.5, 3), zones = m) %>%
+    add_boundary_penalties(300, rep(0.5, 3), zones = m, data = bd) %>%
     solve()
   s2 <-
     p %>%
-    add_boundary_penalties(-300, rep(0.5, 3), zones = m) %>%
+    add_boundary_penalties(-300, rep(0.5, 3), zones = m, data = bd) %>%
     solve()
   # tests
   expect_inherits(s1, "SpatRaster")
@@ -685,8 +687,12 @@ test_that("tas_pu works", {
     problem(tas_pu, tas_features, cost = "cost") %>%
     add_boundary_penalties(0.001, data = bm)
   })
-  expect_silent({
+  expect_true({
     problem(tas_pu, tas_features, cost = "cost") %>%
-    add_boundary_penalties(0.001)
+    add_min_set_objective() %>%
+    add_boundary_penalties(1) %>%
+    add_relative_targets(1) %>%
+    add_binary_decisions() %>%
+    presolve_check()
   })
 })

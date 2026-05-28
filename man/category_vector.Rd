@@ -30,7 +30,7 @@ Convert an object containing binary (\code{integer}) columns into a
 highest value.
 }
 \details{
-This function is conceptually similar to \code{\link[base:maxCol]{base::max.col()}}
+This function is conceptually similar to \code{\link[base:max.col]{base::max.col()}}
 except that rows with all values equal to zero value are assigned a
 value of zero.
 }
@@ -48,5 +48,5 @@ y <- category_vector(x)
 print(y)
 }
 \seealso{
-The \code{\link[base:maxCol]{base::max.col()}} provides similar functionality.
+The \code{\link[base:max.col]{base::max.col()}} provides similar functionality.
 }

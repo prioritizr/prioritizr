@@ -22,54 +22,82 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{`add_connected_constraints()`}{renamed
-#'   as the [add_contiguity_constraints()] function.}
+#' \item{`add_connected_constraints()`}{
+#' Renamed as the [add_contiguity_constraints()] function.
+#' }
 #'
-#' \item{`add_corridor_constraints()`}{replaced by the
-#'   [add_feature_contiguity_constraints()] function.}
+#' \item{`add_corridor_constraints()`}{
+#' Replaced by the [add_feature_contiguity_constraints()] function.
+#' }
 #'
-#' \item{`add_loglinear_targets()`}{replaced by the
-#'   [spec_interp_absolute_targets()] function.}
+#' \item{`add_loglinear_targets()`}{
+#' Replaced by the [spec_interp_absolute_targets()] function.
+#' }
+#'
+#' \item{`add_max_features_objective()`}{
+#' Renamed as the [add_max_n_targets_met_objective()] function.
+#' }
+#'
+#' \item{`add_max_phylo_objective()`}{
+#' Renamed as the [add_max_phylo_div_objective()] function.
+#' }
+#'
+#' \item{`add_max_utility_objective()`}{
+#' Renamed as the [add_max_wtd_sum_objective()] function.
+#' }
 #'
 #' \item{`set_number_of_threads()`}{
-#'   no longer needed due to improved data extraction methods.}
+#' No longer needed due to improved data extraction methods.
+#' }
 #'
 #' \item{`get_number_of_threads()`}{
-#'   no longer needed due to improved data extraction methods.}
+#' No longer needed due to improved data extraction methods.
+#' }
 #'
 #' \item{`is.parallel()`}{
-#'   no longer needed due to improved data extraction methods.}
+#' No longer needed due to improved data extraction methods.
+#' }
 #'
-#' \item{`add_pool_portfolio()`}{replaced by the
-#'   [add_extra_portfolio()] and [add_top_portfolio()].}
+#' \item{`add_pool_portfolio()`}{
+#' Replaced by the [add_extra_portfolio()] and [add_top_portfolio()].
+#' }
 #'
-#' \item{`connected_matrix()`}{renamed as
-#'   the [adjacency_matrix()] function.}
+#' \item{`connected_matrix()`}{
+#' Renamed as the [adjacency_matrix()] function.
+#' }
 #'
-#' \item{`feature_representation()`}{replaced by
-#'  the [eval_feature_representation_summary()] function for consistency with
-#'  other functions.}
+#' \item{`feature_representation()`}{
+#' Replaced by the [eval_feature_representation_summary()] function for
+#' consistency with other functions.
+#' }
 #'
-#' \item{`replacement_cost()`}{renamed as
-#'  the [eval_replacement_importance()] function for consistency with
-#'  other functions for evaluating solutions.}
+#' \item{`replacement_cost()`}{
+#' Renamed as the [eval_replacement_importance()] function for consistency with
+#' other functions for evaluating solutions.
+#' }
 #'
-#' \item{`rarity_weighted_richness()`}{renamed as
-#'  the [eval_rare_richness_importance()] function for consistency with
-#'  other functions for evaluating solutions.}
+#' \item{`rarity_weighted_richness()`}{
+#' Renamed as the [eval_rare_richness_importance()] function for consistency
+#' with other functions for evaluating solutions.
+#' }
 #'
-#' \item{`ferrier_score()`}{renamed as
-#'  the [eval_ferrier_importance()] function for consistency with
-#'  other functions for evaluating solutions.}
+#' \item{`ferrier_score()`}{
+#' Renamed as the [eval_ferrier_importance()] function for consistency with
+#' other functions for evaluating solutions.
+#' }
 #'
-#' \item{`distribute_load()`}{has been removed because it is no longer used.
-#'   See `parallel::splitIndices()` for equivalent functionality.}
+#' \item{`distribute_load()`}{
+#' Removed because it is no longer used.
+#' See the `parallel::splitIndices()` function for equivalent functionality.
+#' }
 #'
 #' \item{`new_optimization_problem()`}{
-#'   replaced by [optimization_problem()].}
+#' Replaced by the [optimization_problem()] function.
+#' }
 #'
 #' \item{`predefined_optimization_problem()`}{
-#'   replaced by [optimization_problem()].}
+#' Replaced by the [optimization_problem()] function.
+#' }
 #'
 #' }
 #'
@@ -207,6 +235,33 @@ add_loglinear_targets <- function(...) {
   cli_defunct(
     old = "add_loglinear_targets",
     new = "spec_interp_absolute_targets"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+add_loglinear_targets <- function(...) {
+  cli_defunct(
+    old = "add_max_features_objective",
+    new = "add_max_n_targets_met_objective"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+add_max_phylo_objective <- function(...) {
+  cli_defunct(
+    old = "add_max_phylo_objective",
+    new = "add_max_phylo_div_objective"
+  )
+}
+
+#' @rdname prioritizr-deprecated
+#' @export
+add_max_utility_objective <- function(...) {
+  cli_defunct(
+    old = "add_max_utility_objective",
+    new = "add_max_wtd_sum_objective"
   )
 }
 

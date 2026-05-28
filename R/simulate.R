@@ -7,22 +7,22 @@ NULL
 #'
 #' @param x [terra::rast()] object to use as a template.
 #'
-#' @param n `integer` number of layers to simulate.
-#'   Defaults to 1.
+#' @param n `integer` value denoting the number of layers to simulate.
+#' Defaults to 1.
 #'
-#' @param scale `numeric` parameter to control level of spatial
-#'   auto-correlation in the simulated data.
-#'   Defaults to 0.5.
+#' @param scale `numeric` value denoting the level of spatial
+#' auto-correlation in the simulated data.
+#' Defaults to 0.5.
 #'
-#' @param intensity `numeric` average value of simulated data.
-#'   Defaults to 0.
+#' @param intensity `numeric` value denoting the average value of simulated
+#' data. Defaults to 0.
 #'
-#' @param sd `numeric` standard deviation of simulated data.
-#'   Defaults to 1.
+#' @param sd `numeric` value denoting the standard deviation of simulated data.
+#' Defaults to 1.
 #'
-#' @param transform `function` transform values output from the simulation.
-#'   Defaults to the [identity()] function such that values remain the same
-#'   following transformation.
+#' @param transform `function` to transform simulated data.
+#' Defaults to the [identity()] function such that values remain the same
+#' after simulation.
 #'
 #' @family simulations
 #'

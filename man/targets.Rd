@@ -426,7 +426,8 @@ Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

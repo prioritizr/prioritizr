@@ -8,52 +8,62 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @param na.rm `logical` should planning units with `NA` cost
-#'   data be excluded from the abundance calculations? The default argument
-#'   is `FALSE`.
+#' @param na.rm `logical` should planning units with missing (`NA`) cost
+#' data be excluded from the abundance calculations? Defaults to `FALSE`.
 #'
-#' @details Planning units can have cost data with finite values
-#'   (e.g., 0.1, 3, 100) and `NA` values. This functionality is provided so
-#'   that locations which are not available for protected area acquisition can
-#'   be included when calculating targets for conservation features
-#'   (e.g., when targets are specified using [add_relative_targets()]).
-#'   If the total amount of each feature in all the planning units is
-#'   required---including the planning units with `NA` cost data---then the
-#'   the `na.rm` argument should be set to `FALSE`. However, if
-#'   the planning units with `NA` cost data should be
-#'   excluded---for instance, to calculate the highest feasible targets for
-#'   each feature---then the `na.rm` argument should be set to
-#'   `TRUE`.
+#' @details
+#' Planning units can have cost data with finite values
+#' (e.g., 0.1, 3, 100) and missing (`NA`) values.
+#' This functionality is provided so
+#' that locations which are not available for protected area acquisition can
+#' be included when calculating targets for conservation features
+#' (e.g., when targets are specified using [add_relative_targets()]).
+#' If the total amount of each feature in all the planning units is
+#' required (including the planning units with `NA` cost data), then use
+#' `na.rm = FALSE`. However, if
+#' the planning units with `NA` cost data should be
+#' excluded, then use `na.rm = TRUE`.
+#' For example, `na.rm = TRUE` may be useful for calculating the maximum
+#' feasible target for each feature.
 #'
-#' @return A [tibble::tibble()] object containing the total amount
-#'   (`"absolute_abundance"`) and proportion (`"relative_abundance"`)
-#'   of the distribution of each feature in the planning units. Here, each
-#'   row contains data that pertain to a specific feature in a specific
-#'   management zone (if multiple zones are present). This object
-#'   contains the following columns:
+#' @return
+#' A [tibble::tibble()] object containing the total amount
+#' (`"absolute_abundance"`) and proportion (`"relative_abundance"`)
+#' of the distribution of each feature in the planning units. Here, each
+#' row contains data that pertain to a particular feature in a particular
+#' management zone (if multiple zones are present). This object
+#' contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{feature}{`character` name of the feature.}
+#' \item{feature}{`character` name of the feature.}
 #'
-#'   \item{zone}{`character` name of the zone (not included when the
-#'     argument to `x` contains only one management zone).}
+#' \item{zone}{
+#' `character` name of the zone
+#' (not included if `x` has a single management zone).
+#' }
 #'
-#'   \item{absolute_abundance}{`numeric` amount of each feature in the
-#'     planning units. If the problem contains multiple zones, then this
-#'     column shows how well each feature is represented in a each
-#'     zone.}
+#' \item{absolute_abundance}{
+#' `numeric` amount of each feature in the
+#' planning units. If `x` has multiple zones, then this
+#' column shows how well each feature is represented in a each
+#' zone.
+#' }
 #'
-#'   \item{relative_abundance}{`numeric` proportion of the feature's
-#'     distribution in the planning units. If the argument to `na.rm` is
-#'     `FALSE`, then this column will only contain values equal to one.
-#'     Otherwise, if the argument to `na.rm` is `TRUE` and planning
-#'     units with `NA` cost data contain non-zero amounts of each feature,
-#'     then this column will contain values between zero and one.}
+#' \item{relative_abundance}{
+#' `numeric` proportion of the feature's
+#' distribution in the planning units. If `na.rm = FALSE`,
+#' then this column will only contain values equal to one.
+#' Otherwise, if `na.rm = TRUE` and planning
+#' units with `NA` cost data contain non-zero amounts of each feature,
+#' then this column will contain values between zero and one.
+#' }
 #'
-#'   }
+#' }
 #'
-#' @seealso [problem()], [eval_feature_representation_summary()].
+#' @seealso
+#' The [eval_feature_representation_summary()] function can be used
+#' evaluate how well features are represented by a solution.
 #'
 #' @examples
 #' \dontrun{

@@ -166,6 +166,7 @@ test_that("solve (no duplicates)", {
 test_that("solve (parallel processing)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed_for_parallel("prioritizr")
   # create data
   set.seed(500)
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
