@@ -55,7 +55,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} has {.cls {class(solution)}} planning units."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality
@@ -143,7 +143,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -201,7 +201,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -264,7 +264,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## number of columns
@@ -333,7 +333,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality
@@ -408,7 +408,7 @@ methods::setMethod(
           "the same type of planning unit data."
         ),
         "x" = "{.arg x} has {.cls {class(x$data$cost)}} planning units.",
-        "x" = "{.arg solution} is a {.cls {class(x)}}."
+        "x" = "{.arg solution} is a {.cls {class(solution)}}."
       )
     )
     ## dimensionality

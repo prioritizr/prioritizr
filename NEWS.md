@@ -42,7 +42,13 @@
 - Fix `add_extra_portfolio()`, `add_gap_portfolio()`, and `add_top_portfolio()`
   functions to ensure compatibility with Gurobi version 13.
 - Fix `print()` and `summary()` functions for `problem()` objects not showing
-  default settings in gray.
+  default settings in gray
+- Fix bug in internal `planning_unit_solution_status` function so that
+  user-facing functions for evaluating solutions (e.g.,
+  `eval_target_coverage_summary()`, `eval_replacement_importance()`) now
+  provide more informative error messages when the user has mistakenly
+  provided a solution that is not compatible with planning units of a
+  `problem()`.
 
 ## Documentation
 
