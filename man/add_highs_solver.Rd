@@ -10,6 +10,7 @@ add_highs_solver(
   time_limit = .Machine$integer.max,
   presolve = TRUE,
   threads = 1,
+  start_solution = NULL,
   verbose = TRUE,
   control = list()
 )
@@ -39,6 +40,15 @@ Defaults to \code{TRUE}.}
 \item{threads}{\code{integer} value denoting the number of threads to use during
 optimization.
 The default value is 1.}
+
+\item{start_solution}{\code{NULL} or object containing the starting solution
+for the solver. This is can be useful because specifying a starting
+solution can speed up the optimization process.
+To specify a starting solution, \code{start_solution} should
+be in the same format as the planning units (i.e., a \code{numeric},
+\code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).
+See the Start solution format section for more information.
+Defaults to \code{NULL} such that no starting solution is used.}
 
 \item{verbose}{\code{logical} value indicating if information should be displayed
 during the optimization process. Defaults to \code{TRUE}.}

@@ -1,0 +1,1228 @@
+# prioritizr
+
+## Systematic Conservation Prioritization in R
+
+The *prioritizr R* package uses mixed integer linear programming (MILP)
+techniques to provide a flexible interface for building and solving
+conservation planning problems. It supports a broad range of objectives,
+constraints, and penalties that can be used to custom-tailor
+conservation planning problems to the specific needs of a conservation
+planning exercise. Once built, conservation planning problems can be
+solved using a variety of commercial and open-source exact algorithm
+solvers. In contrast to the algorithms conventionally used to solve
+conservation problems, such as heuristics or simulated annealing, the
+exact algorithms used here are guaranteed to find optimal solutions.
+Furthermore, conservation problems can be constructed to optimize the
+spatial allocation of different management actions or zones, meaning
+that conservation practitioners can identify solutions that benefit
+multiple stakeholders. Finally, this package has the functionality to
+read input data formatted for the *Marxan* conservation planning
+program, and find much cheaper solutions in a much shorter period of
+time than *Marxan*.
+
+[![YouTube
+video](reference/figures/youtube-thumbnail.png)](https://www.youtube.com/watch?v=c7XgODGr9lE)
+
+## Installation
+
+#### Official version
+
+The latest official version of the *prioritizr R* package can be
+installed from the [Comprehensive R Archive Network
+(CRAN)](https://cran.r-project.org/) using the following *R* code.
+
+``` r
+install.packages("prioritizr", repos = "https://cran.rstudio.com/")
+```
+
+#### Developmental version
+
+The latest development version can be installed to gain access to new
+functionality that is not yet present in the latest official version.
+Please note that the developmental version is more likely to contain
+coding errors than the official version. To install the developmental
+version, you can install it directly from the [GitHub online code
+repository](https://github.com/prioritizr/prioritizr) or from the [R
+Universe](https://prioritizr.r-universe.dev/prioritizr). In general, we
+recommend installing the developmental version from the [R
+Universe](https://prioritizr.r-universe.dev/prioritizr). This is because
+installation via [R
+Universe](https://prioritizr.r-universe.dev/prioritizr) does not require
+any additional software (e.g.,
+[RTools](https://cran.r-project.org/bin/windows/Rtools/) for Windows
+systems, or [Xcode and gfortran](https://mac.r-project.org/tools/) for
+macOS systems).
+
+- To install the latest development version from [R
+  Universe](https://prioritizr.r-universe.dev/prioritizr), use the
+  following *R* code.
+
+  ``` r
+  install.packages(
+    "prioritizr",
+    repos = c(
+      "https://prioritizr.r-universe.dev",
+      "https://cloud.r-project.org"
+    )
+  )
+  ```
+
+- To install the latest development version from
+  [GitHub](https://github.com/prioritizr/prioritizr), use the following
+  *R* code.
+
+  ``` r
+  if (!require(remotes)) install.packages("remotes")
+  remotes::install_github("prioritizr/prioritizr")
+  ```
+
+## Citation
+
+Please cite the *prioritizr R* package when using it in publications. To
+cite the package, please use:
+
+> Hanson JO, Schuster R, Strimas‐Mackey M, Morrell N, Edwards BPM,
+> Arcese P, Bennett JR, and Possingham HP (2025) Systematic conservation
+> prioritization with the prioritizr R package. *Conservation Biology*,
+> **39**: e14376.
+
+Additionally, we keep a [record of
+publications](https://prioritizr.net/articles/publication_record.html)
+that use the *prioritizr R* package. If you use this package in any
+reports or publications, please [file an issue on
+GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can
+add it to the record.
+
+## Usage
+
+Here we provide a short example showing how the *prioritizr R* package
+can be used to build and solve conservation problems. Specifically, we
+will use an example dataset available through the *prioritizrdata R*
+package. Additionally, we will use the *terra R* package to perform
+raster calculations. To begin with, we will load the packages.
+
+``` r
+# load packages
+library(prioritizr)
+library(prioritizrdata)
+library(terra)
+```
+
+We will use the Washington dataset in this example. To import the
+planning unit data, we will use the
+[`get_wa_pu()`](http://prioritizr.github.io/prioritizrdata/reference/wa_data.md)
+function. Although the *prioritizr R* package can support many different
+types of planning unit data, here our planning units are represented as
+a single-layer raster (i.e.,
+[`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+object). Each cell represents a different planning unit, and cell values
+denote land acquisition costs. Specifically, there are 10757 planning
+units in total (i.e., cells with non-missing values).
+
+``` r
+# import planning unit data
+wa_pu <- get_wa_pu()
+
+# preview data
+print(wa_pu)
+```
+
+``` R
+## class       : SpatRaster
+## size        : 109, 147, 1  (nrow, ncol, nlyr)
+## resolution  : 4000, 4000  (x, y)
+## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+## source      : wa_pu.tif
+## name        :        cost
+## min value   :    0.298665
+## max value   : 1804.183838
+```
+
+``` r
+# plot data
+plot(wa_pu, main = "Costs", axes = FALSE)
+```
+
+![](reference/figures/README-planning_units-1.png)
+
+Next, we will use the
+[`get_wa_features()`](http://prioritizr.github.io/prioritizrdata/reference/wa_data.md)
+function to import the conservation feature data. Although the
+*prioritizr R* package can support many different types of feature data,
+here our feature data are represented as a multi-layer raster (i.e.,
+[`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+object). Each layer describes the spatial distribution of a feature.
+Here, our feature data correspond to different bird species. To account
+for migratory patterns, the breeding and non-breeding distributions of
+species are represented as different features. Specifically, the cell
+values denote the relative abundance of individuals, with higher values
+indicating greater abundance.
+
+``` r
+# import feature data
+wa_features <- get_wa_features()
+
+# preview data
+print(wa_features)
+```
+
+``` R
+## class       : SpatRaster
+## size        : 109, 147, 396  (nrow, ncol, nlyr)
+## resolution  : 4000, 4000  (x, y)
+## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+## source      : wa_features.tif
+## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ...
+## min values  :           0,           0,           0,           0,           0,           0, ...
+## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...
+```
+
+``` r
+# plot the first nine features
+plot(wa_features[[1:9]], nr = 3, axes = FALSE)
+```
+
+![](reference/figures/README-features-1.png)
+
+Let’s make sure that you have a solver installed on your computer. This
+is important so that you can use optimization algorithms to generate
+spatial prioritizations. If this is your first time using the
+*prioritizr R* package, please install the HiGHS solver using the
+following *R* code. Although the HiGHS solver is relatively fast and
+easy to install, please note that you’ll need to install the [Gurobi
+software suite and the *gurobi* *R* package](https://www.gurobi.com/)
+for best performance (see the [Gurobi Installation
+Guide](https://prioritizr.net/articles/gurobi_installation_guide.html)
+for details).
+
+``` r
+# if needed, install HiGHS solver
+install.packages("highs", repos = "https://cran.rstudio.com/")
+```
+
+Now, let’s generate a spatial prioritization. To ensure feasibility, we
+will set a budget. Specifically, the total cost of the prioritization
+will represent a 5% of the total land value in the study area. Given
+this budget, we want the prioritization to increase feature
+representation, as much as possible, so that each feature would,
+ideally, have 20% of its distribution covered by the prioritization. In
+this scenario, we can either purchase all of the land inside a given
+planning unit, or none of the land inside a given planning unit. Thus we
+will create a new
+[`problem()`](https://prioritizr.net/reference/problem.md) that will use
+a minimum shortfall objective (via
+[`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)),
+with relative targets of 20% (via
+[`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)),
+binary decisions (via
+[`add_binary_decisions()`](https://prioritizr.net/reference/add_binary_decisions.md)),
+and specify that we want near-optimal solutions (i.e., 10% from
+optimality) using the best solver installed on our computer (via
+[`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md)).
+
+``` r
+# calculate budget
+budget <- terra::global(wa_pu, "sum", na.rm = TRUE)[[1]] * 0.05
+
+# create problem
+p1 <-
+  problem(wa_pu, features = wa_features) %>%
+  add_min_shortfall_objective(budget) %>%
+  add_relative_targets(0.2) %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0.1, verbose = FALSE)
+
+# print problem
+print(p1)
+```
+
+``` R
+## A conservation problem (<ConservationProblem>)
+## ├•data
+## │├•features:    "Recurvirostra americana (breeding)", … (396 total)
+## │└•planning units:
+## │ ├•data:       <SpatRaster> (10757 total)
+## │ ├•costs:      continuous values (between 0.2986647 and 1804.184)
+## │ ├•extent:     -1816382, 247483.5, -1228382, 683483.5 (xmin, ymin, xmax, ymax)
+## │ └•CRS:        +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs (projected)
+## ├•formulation
+## │├•objective:   minimum shortfall objective (`budget` = 8748.491)
+## │├•penalties:   none specified
+## │├•features:
+## ││├•targets:    relative targets (all equal to 0.2)
+## ││└•weights:    none specified
+## │├•constraints: none specified
+## │└•decisions:   binary decision
+## └•optimization
+##  ├•portfolio:   default portfolio
+##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `presolve` = 2, `threads` = 1, …)
+## # ℹ Use `summary(...)` to see further details.
+```
+
+After we have built a
+[`problem()`](https://prioritizr.net/reference/problem.md), we can solve
+it to obtain a solution.
+
+``` r
+# solve the problem
+s1 <- solve(p1)
+
+# extract the objective
+print(attr(s1, "objective"))
+```
+
+``` R
+## solution_1 
+##    4.46285
+```
+
+``` r
+# extract time spent solving the problem
+print(attr(s1, "runtime"))
+```
+
+``` R
+## solution_1 
+##      3.386
+```
+
+``` r
+# extract state message from the solver
+print(attr(s1, "status"))
+```
+
+``` R
+## solution_1 
+##  "OPTIMAL"
+```
+
+``` r
+# plot the solution
+plot(s1, main = "Solution", axes = FALSE)
+```
+
+![](reference/figures/README-minimal_solution-1.png)
+
+After generating a solution, it is important to evaluate it. Here, we
+will calculate the number of planning units selected by the solution,
+and the total cost of the solution. We can also check how many
+representation targets are met by the solution.
+
+``` r
+# calculate number of selected planning units by solution
+eval_n_summary(p1, s1)
+```
+
+``` R
+## # A tibble: 1 × 2
+##   summary     n
+##   <chr>   <dbl>
+## 1 overall  2348
+```
+
+``` r
+# calculate total cost of solution
+eval_cost_summary(p1, s1)
+```
+
+``` R
+## # A tibble: 1 × 2
+##   summary  cost
+##   <chr>   <dbl>
+## 1 overall 8748.
+```
+
+``` r
+# calculate target coverage for the solution
+p1_target_coverage <- eval_target_coverage_summary(p1, s1)
+print(p1_target_coverage)
+```
+
+``` R
+## # A tibble: 396 × 10
+##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
+##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
+##  1 Recurvir… TRUE         100.             20.0          23.4               0   
+##  2 Botaurus… TRUE          99.9            20.0          29.2               0   
+##  3 Botaurus… TRUE         100.             20.0          34.0               0   
+##  4 Corvus b… TRUE          99.9            20.0          20.4               0   
+##  5 Corvus b… FALSE         99.9            20.0          18.5               1.46
+##  6 Cinclus … TRUE         100.             20.0          20.5               0   
+##  7 Spinus t… TRUE          99.9            20.0          22.6               0   
+##  8 Spinus t… TRUE          99.9            20.0          23.1               0   
+##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
+## 10 Falco sp… TRUE         100.0            20.0          24.5               0   
+## # ℹ 386 more rows
+## # ℹ 4 more variables: relative_target <dbl>, relative_held <dbl>,
+## #   relative_shortfall <dbl>, relative_met <dbl>
+```
+
+``` r
+# check percentage of the features that have their target met given the solution
+print(mean(p1_target_coverage$met) * 100)
+```
+
+``` R
+## [1] 96.21212
+```
+
+Although this solution helps meet the representation targets, it does
+not account for existing protected areas inside the study area. As such,
+it does not account for the possibility that some features could be
+partially – or even fully – represented by existing protected areas and,
+in turn, might fail to identify meaningful priorities for new protected
+areas. To address this issue, we will use the
+[`get_wa_locked_in()`](http://prioritizr.github.io/prioritizrdata/reference/wa_data.md)
+function to import spatial data for protected areas in the study area.
+We will then add constraints to the
+[`problem()`](https://prioritizr.net/reference/problem.md) to ensure
+they are selected by the solution (via
+[`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md)).
+
+``` r
+# import locked in data
+wa_locked_in <- get_wa_locked_in()
+
+# print data
+print(wa_locked_in)
+```
+
+``` R
+## class       : SpatRaster
+## size        : 109, 147, 1  (nrow, ncol, nlyr)
+## resolution  : 4000, 4000  (x, y)
+## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+## source      : wa_locked_in.tif
+## name        : protected areas
+## min value   :               0
+## max value   :               1
+```
+
+``` r
+# plot data
+plot(wa_locked_in, main = "Existing protected areas", axes = FALSE)
+```
+
+![](reference/figures/README-locked_in_constraints-1.png)
+
+``` r
+# create new problem with locked in constraints added to it
+p2 <-
+  p1 %>%
+  add_locked_in_constraints(wa_locked_in)
+
+# solve the problem
+s2 <- solve(p2)
+
+# plot the solution
+plot(s2, main = "Solution", axes = FALSE)
+```
+
+![](reference/figures/README-locked_in_constraints-2.png)
+
+This solution is an improvement over the previous solution. However,
+there are some places in the study area that are not available for
+protected area establishment (e.g., due to land tenure). As a
+consequence, the solution might not be practical for implementation,
+because it might select some places that are not available for
+protection. To address this issue, we will use the
+[`get_wa_locked_out()`](http://prioritizr.github.io/prioritizrdata/reference/wa_data.md)
+function to import spatial data describing which planning units are not
+available for protection. We will then add constraints to the
+[`problem()`](https://prioritizr.net/reference/problem.md) to ensure
+they are not selected by the solution (via
+[`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md)).
+
+``` r
+# import locked out data
+wa_locked_out <- get_wa_locked_out()
+
+# print data
+print(wa_locked_out)
+```
+
+``` R
+## class       : SpatRaster
+## size        : 109, 147, 1  (nrow, ncol, nlyr)
+## resolution  : 4000, 4000  (x, y)
+## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+## source      : wa_locked_out.tif
+## name        : urban areas
+## min value   :           0
+## max value   :           1
+```
+
+``` r
+# plot data
+plot(wa_locked_out, main = "Areas not available for protection", axes = FALSE)
+```
+
+![](reference/figures/README-locked_out_constraints-1.png)
+
+``` r
+# create new problem with locked out constraints added to it
+p3 <-
+  p2 %>%
+  add_locked_out_constraints(wa_locked_out)
+
+# solve the problem
+s3 <- solve(p3)
+
+# plot the solution
+plot(s3, main = "Solution", axes = FALSE)
+```
+
+![](reference/figures/README-locked_out_constraints-2.png)
+
+This solution is even better then the previous solution. However, we are
+not finished yet. The planning units selected by the solution are fairly
+fragmented. This can cause issues because fragmentation increases
+management costs and reduces conservation benefits through edge effects.
+To address this issue, we can further modify the problem by adding
+penalties that punish overly fragmented solutions (via
+[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)).
+Here we will use a penalty factor (i.e., boundary length modifier) of
+0.003, and an edge factor of 50% so that planning units that occur on
+the outer edge of the study area are not overly penalized.
+
+``` r
+# create new problem with boundary penalties added to it
+p4 <-
+  p3 %>%
+  add_boundary_penalties(penalty = 0.003, edge_factor = 0.5)
+
+# solve the problem
+s4 <- solve(p4)
+
+# plot the solution
+plot(s4, main = "Solution", axes = FALSE)
+```
+
+![](reference/figures/README-boundary_penalties-1.png)
+
+Now, let’s explore which planning units selected by the solution are
+most important for cost-effectively meeting the targets. To achieve
+this, we will calculate importance (irreplaceability) scores using an
+incremental rank approach. Briefly, the optimization problem is solved
+multiple times in an incremental process with increasing budgets, and
+planning units are assigned ranks based on which increment they are
+selected in. Planning units selected earlier on in the process are
+considered more important.
+
+``` r
+# calculate importance scores
+imp <-
+  p4 %>%
+  eval_rank_importance(s4, n = 5)
+
+# print scores
+print(imp)
+```
+
+``` R
+## class       : SpatRaster
+## size        : 109, 147, 1  (nrow, ncol, nlyr)
+## resolution  : 4000, 4000  (x, y)
+## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+## source(s)   : memory
+## varname     : wa_pu
+## name        : rs
+## min value   :  0
+## max value   :  1
+```
+
+``` r
+# set planning units that are locked in to -1 so we can easily
+# see importance scores for priority areas
+imp <- terra::mask(imp, s4, maskvalues = 0, updatevalue = -1)
+
+# plot the total importance scores
+## planning units shown in purple were not selected in solution s4
+## planning units shown in blue are less important
+## planning units shown in yellow are highly important
+## note that locked in planning units are also shown in yellow
+plot(imp, axes = FALSE,  main = "Importance scores")
+```
+
+![](reference/figures/README-importance-1.png)
+
+This short example demonstrates how the *prioritizr R* package can be
+used to build and customize conservation problems, and then solve them
+to generate solutions. Although we explored just a few different
+functions for modifying a conservation problem, the package provides
+many functions for specifying objectives, constraints, penalties, and
+decision variables, so that you can build and custom-tailor conservation
+planning problems to suit your planning scenario.
+
+## Learning resources
+
+The [package website](https://prioritizr.net/index.html) contains
+information on the *prioritizr R* package. Here you can find
+[documentation for every function and built-in
+dataset](https://prioritizr.net/reference/index.html), and [news
+describing the updates in each package
+version](https://prioritizr.net/news/index.html). It also contains the
+following articles and tutorials.
+
+- [**Getting
+  started**](https://prioritizr.net/articles/prioritizr.html): Short
+  tutorial on using the package.
+- [**Package
+  overview**](https://prioritizr.net/articles/package_overview.html):
+  Introduction to systematic conservation planning and a comprehensive
+  overview of the package.
+- [**Connectivity
+  tutorial**](https://prioritizr.net/articles/connectivity_tutorial.html):
+  Tutorial on incorporating connectivity into prioritizations.
+- [**Calibrating trade-offs
+  tutorial**](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.html):
+  Tutorial on running calibration analyses to satisfy multiple criteria.
+- [**Management zones
+  tutorial**](https://prioritizr.net/articles/management_zones_tutorial.html):
+  Tutorial on incorporating multiple management zones and actions into
+  prioritizations.
+- [**Gurobi installation
+  guide**](https://prioritizr.net/articles/gurobi_installation_guide.html):
+  Instructions for installing the *Gurobi* optimization suite for
+  generating prioritizations.
+- [**Solver
+  benchmarks**](https://prioritizr.net/articles/solver_benchmarks.html):
+  Performance comparison of optimization solvers for generating
+  prioritizations.
+- [**Publication
+  record**](https://prioritizr.net/articles/publication_record.html):
+  List of publications that have cited the package.
+
+Additional resources can also be found in [online repositories under the
+*prioritizr* organization](https://github.com/prioritizr). These
+resources include [slides for talks and seminars about the
+package](https://github.com/prioritizr/teaching). Additionally, workshop
+materials are available too (e.g., [Carleton 2023
+workshop](https://prioritizr.github.io/workshop/), [ECCB 2024
+workshop](https://iiasa.github.io/eccb2024/), and [Statistical Methods
+Webinar series 2025
+workshop](https://github.com/eco4cast/Statistical-Methods-Seminar-Series/tree/main/schuster_prioritizr)).
+
+## Getting help
+
+If you have any questions about the *prioritizr R* package or
+suggestions for improving it, please [post an issue on the code
+repository](https://github.com/prioritizr/prioritizr/issues/new).
+
+# Package index
+
+## Overview
+
+Overview of the package.
+
+- [`prioritizr`](https://prioritizr.net/reference/prioritizr.md)
+  [`prioritizr-package`](https://prioritizr.net/reference/prioritizr.md)
+  : prioritizr: Systematic Conservation Prioritization in R
+
+## Create and solve problems
+
+Functions for creating new problems and solving them.
+
+- [`problem()`](https://prioritizr.net/reference/problem.md) :
+  Conservation planning problem
+- [`solve(`*`<ConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
+  [`solve(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
+  : Solve
+- [`zones()`](https://prioritizr.net/reference/zones.md) : Management
+  zones
+
+## Data
+
+Simulated datasets distributed with the package.
+
+- [`get_sim_pu_polygons()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_zones_pu_polygons()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_pu_lines()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_pu_points()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_pu_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_locked_in_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_locked_out_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_zones_pu_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_features()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_zones_features()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_phylogeny()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_complex_pu_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_complex_locked_in_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_complex_locked_out_raster()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_complex_features()`](https://prioritizr.net/reference/sim_data.md)
+  [`get_sim_complex_historical_features()`](https://prioritizr.net/reference/sim_data.md)
+  : Get simulated conservation planning data
+
+## Objectives
+
+Functions for adding an objective to a problem.
+
+- [`objectives`](https://prioritizr.net/reference/objectives.md) : Add
+  an objective
+- [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md)
+  : Add maximum coverage objective
+- [`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md)
+  : Add maximum number of targets met objective
+- [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md)
+  : Add maximum phylogenetic diversity objective
+- [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md)
+  : Add maximum phylogenetic endemism objective
+- [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
+  : Add maximum weighted sum objective
+- [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md)
+  : Add minimum largest shortfall objective
+- [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)
+  : Add minimum penalties objective
+- [`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md)
+  : Add minimum set objective
+- [`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)
+  : Add minimum shortfall objective
+
+## Targets
+
+Functions for adding targets to a problem.
+
+- [`targets`](https://prioritizr.net/reference/targets.md) : Add
+  representation targets
+
+- [`add_absolute_targets()`](https://prioritizr.net/reference/add_absolute_targets.md)
+  : Add absolute targets
+
+- [`add_auto_targets(`*`<ConservationProblem>`*`,`*`<character>`*`)`](https://prioritizr.net/reference/add_auto_targets.md)
+  [`add_auto_targets(`*`<ConservationProblem>`*`,`*`<list>`*`)`](https://prioritizr.net/reference/add_auto_targets.md)
+  [`add_auto_targets(`*`<ConservationProblem>`*`,`*`<TargetMethod>`*`)`](https://prioritizr.net/reference/add_auto_targets.md)
+  : Add targets automatically
+
+- [`add_group_targets()`](https://prioritizr.net/reference/add_group_targets.md)
+  : Add targets based on feature groups
+
+- [`add_manual_targets()`](https://prioritizr.net/reference/add_manual_targets.md)
+  : Add manual targets
+
+- [`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)
+  : Add relative targets
+
+- [`spec_absolute_targets()`](https://prioritizr.net/reference/spec_absolute_targets.md)
+  : Specify absolute targets
+
+- [`spec_area_targets()`](https://prioritizr.net/reference/spec_area_targets.md)
+  : Specify targets based on area units
+
+- [`spec_duran_targets()`](https://prioritizr.net/reference/spec_duran_targets.md)
+  :
+
+  Specify targets following Durán *et al.* (2020)
+
+- [`spec_interp_absolute_targets()`](https://prioritizr.net/reference/spec_interp_absolute_targets.md)
+  : Specify targets based on interpolating absolute thresholds
+
+- [`spec_interp_area_targets()`](https://prioritizr.net/reference/spec_interp_area_targets.md)
+  : Specify targets based on interpolating area-based thresholds
+
+- [`spec_jung_targets()`](https://prioritizr.net/reference/spec_jung_targets.md)
+  :
+
+  Specify targets following Jung *et al.* (2021)
+
+- [`spec_max_targets()`](https://prioritizr.net/reference/spec_max_targets.md)
+  : Specify targets based on maxima
+
+- [`spec_min_targets()`](https://prioritizr.net/reference/spec_min_targets.md)
+  : Specify targets based on minima
+
+- [`spec_polak_targets()`](https://prioritizr.net/reference/spec_polak_targets.md)
+  :
+
+  Specify targets following Polak *et al.* (2015)
+
+- [`spec_pop_size_targets()`](https://prioritizr.net/reference/spec_pop_size_targets.md)
+  : Specify targets based on population size
+
+- [`spec_relative_targets()`](https://prioritizr.net/reference/spec_relative_targets.md)
+  : Specify relative targets
+
+- [`spec_rl_ecosystem_targets()`](https://prioritizr.net/reference/spec_rl_ecosystem_targets.md)
+  : Specify targets based on the IUCN Red List of Ecosystems
+
+- [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md)
+  : Specify targets based on the IUCN Red List of Threatened Species
+
+- [`spec_rodrigues_targets()`](https://prioritizr.net/reference/spec_rodrigues_targets.md)
+  :
+
+  Specify targets following Rodrigues *et al.* (2004)
+
+- [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md)
+  : Specify targets following a set of rules
+
+- [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md)
+  :
+
+  Specify targets following Ward *et al.* (2025)
+
+- [`spec_watson_targets()`](https://prioritizr.net/reference/spec_watson_targets.md)
+  :
+
+  Specify targets following Watson *et al.* (2010)
+
+- [`spec_wilson_targets()`](https://prioritizr.net/reference/spec_wilson_targets.md)
+  :
+
+  Specify targets following Wilson *et al.* (2010)
+
+## Constraints
+
+Functions for adding constraints to a problem.
+
+- [`constraints`](https://prioritizr.net/reference/constraints.md) :
+  Conservation problem constraints
+- [`add_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_contiguity_constraints.md)
+  [`add_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_contiguity_constraints.md)
+  [`add_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_contiguity_constraints.md)
+  : Add contiguity constraints
+- [`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md)
+  : Add cost constraints
+- [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
+  [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
+  [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
+  : Add feature contiguity constraints
+- [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<character>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Raster>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<SpatRaster>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
+  : Add linear constraints
+- [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md)
+  : Add locked in constraints
+- [`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md)
+  : Add locked out constraints
+- [`add_mandatory_allocation_constraints()`](https://prioritizr.net/reference/add_mandatory_allocation_constraints.md)
+  : Add mandatory allocation constraints
+- [`add_manual_bounded_constraints()`](https://prioritizr.net/reference/add_manual_bounded_constraints.md)
+  : Add manually specified bound constraints
+- [`add_manual_locked_constraints()`](https://prioritizr.net/reference/add_manual_locked_constraints.md)
+  : Add manually specified locked constraints
+- [`add_neighbor_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_neighbor_constraints.md)
+  [`add_neighbor_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_neighbor_constraints.md)
+  [`add_neighbor_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_neighbor_constraints.md)
+  [`add_neighbor_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/add_neighbor_constraints.md)
+  : Add neighbor constraints
+
+## Penalties
+
+Functions for adding penalties to a problem.
+
+- [`penalties`](https://prioritizr.net/reference/penalties.md) : Add a
+  penalty
+- [`add_asym_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md)
+  [`add_asym_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md)
+  [`add_asym_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md)
+  [`add_asym_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md)
+  [`add_asym_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md)
+  : Add asymmetric connectivity penalties
+- [`add_boundary_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_boundary_penalties.md)
+  [`add_boundary_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_boundary_penalties.md)
+  [`add_boundary_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_boundary_penalties.md)
+  : Add boundary penalties
+- [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
+  [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
+  [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
+  [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
+  [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
+  : Add connectivity penalties
+- [`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md)
+  : Add cost penalties
+- [`add_feature_weights(`*`<ConservationProblem>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_feature_weights.md)
+  [`add_feature_weights(`*`<ConservationProblem>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_feature_weights.md)
+  : Add feature weights
+- [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<character>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<Raster>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<SpatRaster>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
+  : Add linear penalties
+- [`add_neighbor_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_neighbor_penalties.md)
+  [`add_neighbor_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_neighbor_penalties.md)
+  [`add_neighbor_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_neighbor_penalties.md)
+  [`add_neighbor_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/add_neighbor_penalties.md)
+  : Add neighbor penalties
+- [`calibrate_cohon_penalty()`](https://prioritizr.net/reference/calibrate_cohon_penalty.md)
+  : Calibrate penalties with Cohon's method
+
+## Decisions
+
+Functions for specifying the type of decisions in a problem.
+
+- [`decisions`](https://prioritizr.net/reference/decisions.md) : Add
+  decision types
+- [`add_binary_decisions()`](https://prioritizr.net/reference/add_binary_decisions.md)
+  : Add binary decisions
+- [`add_proportion_decisions()`](https://prioritizr.net/reference/add_proportion_decisions.md)
+  : Add proportion decisions
+- [`add_semicontinuous_decisions()`](https://prioritizr.net/reference/add_semicontinuous_decisions.md)
+  : Add semi-continuous decisions
+
+## Solvers
+
+Functions for specifying how a problem should be solved.
+
+- [`solvers`](https://prioritizr.net/reference/solvers.md) : Add solvers
+
+- [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.md)
+  :
+
+  Add a *CBC* solver
+
+- [`add_cplex_solver()`](https://prioritizr.net/reference/add_cplex_solver.md)
+  :
+
+  Add a *CPLEX* solver
+
+- [`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md)
+  : Add default solver
+
+- [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md)
+  :
+
+  Add a *Gurobi* solver
+
+- [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md)
+  :
+
+  Add a *HiGHS* solver
+
+- [`add_lpsymphony_solver()`](https://prioritizr.net/reference/add_lsymphony_solver.md)
+  :
+
+  Add a *SYMPHONY* solver with *lpsymphony*
+
+- [`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+  :
+
+  Add a *SYMPHONY* solver with *Rsymphony*
+
+## Portfolios
+
+Functions for generating a portfolio of solutions.
+
+- [`portfolios`](https://prioritizr.net/reference/portfolios.md) : Add
+  portfolios
+- [`add_cuts_portfolio()`](https://prioritizr.net/reference/add_cuts_portfolio.md)
+  : Add Bender's cuts portfolio
+- [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md)
+  : Add a default portfolio
+- [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md)
+  : Add an extra portfolio
+- [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md)
+  : Add a gap portfolio
+- [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
+  : Add a shuffle portfolio
+- [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
+  : Add a top portfolio
+
+## Summary statistics
+
+Functions for summarizing the performance of solutions.
+
+- [`summaries`](https://prioritizr.net/reference/summaries.md) :
+  Evaluate solutions using summary statistics
+- [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  : Evaluate asymmetric connectivity of solution
+- [`eval_boundary_summary()`](https://prioritizr.net/reference/eval_boundary_summary.md)
+  : Evaluate boundary length of solution
+- [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  : Evaluate connectivity of solution
+- [`eval_cost_summary()`](https://prioritizr.net/reference/eval_cost_summary.md)
+  : Evaluate cost of solution
+- [`eval_feature_representation_summary()`](https://prioritizr.net/reference/eval_feature_representation_summary.md)
+  : Evaluate feature representation by solution
+- [`eval_n_summary()`](https://prioritizr.net/reference/eval_n_summary.md)
+  : Evaluate number of planning units selected by solution
+- [`eval_objective_summary()`](https://prioritizr.net/reference/eval_objective_summary.md)
+  : Evaluate objective value of solution
+- [`eval_target_coverage_summary()`](https://prioritizr.net/reference/eval_target_coverage_summary.md)
+  : Evaluate target coverage by solution
+
+## Importance
+
+Functions for calculating importance scores for a solution.
+
+- [`importance`](https://prioritizr.net/reference/importance.md)
+  [`irreplaceability`](https://prioritizr.net/reference/importance.md) :
+  Evaluate solution importance
+- [`eval_ferrier_importance()`](https://prioritizr.net/reference/eval_ferrier_importance.md)
+  : Evaluate solution importance using Ferrier scores
+- [`eval_rank_importance()`](https://prioritizr.net/reference/eval_rank_importance.md)
+  : Evaluate solution importance using incremental ranks
+- [`eval_rare_richness_importance()`](https://prioritizr.net/reference/eval_rare_richness_importance.md)
+  : Evaluate solution importance using rarity weighted richness scores
+- [`eval_replacement_importance()`](https://prioritizr.net/reference/eval_replacement_importance.md)
+  : Evaluate solution importance using replacement cost scores
+
+## Multi-objective optimization
+
+Functions for multi-objective optimization.
+
+- [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  : Multi-objective conservation planning problem
+- [`approaches`](https://prioritizr.net/reference/approaches.md) : Add
+  an approach
+- [`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
+  : Add a hierarchical approach
+- [`add_ref_point_approach()`](https://prioritizr.net/reference/add_ref_point_approach.md)
+  : Add a reference point approach
+- [`add_wtd_sum_approach()`](https://prioritizr.net/reference/add_wtd_sum_approach.md)
+  : Add a weighted sum approach
+- [`approach_weights_matrix()`](https://prioritizr.net/reference/approach_weights_matrix.md)
+  : Create weight values for a multi-objective approach
+- [`approach_rel_tol_matrix()`](https://prioritizr.net/reference/approach_rel_tol_matrix.md)
+  : Create relative tolerance values for a multi-objective approach
+
+## Data simulation
+
+Functions for simulating new datasets.
+
+- [`simulate_cost()`](https://prioritizr.net/reference/simulate_cost.md)
+  : Simulate cost data
+- [`simulate_data()`](https://prioritizr.net/reference/simulate_data.md)
+  : Simulate data
+- [`simulate_species()`](https://prioritizr.net/reference/simulate_species.md)
+  : Simulate species habitat suitability data
+
+## Geoprocessing
+
+Functions for manipulating spatial datasets.
+
+- [`fast_extract()`](https://prioritizr.net/reference/fast_extract.md) :
+  Fast extract
+- [`intersecting_units()`](https://prioritizr.net/reference/intersecting_units.md)
+  : Find intersecting units
+
+## Marxan functions
+
+Functions for importing and converting *Marxan* data.
+
+- [`marxan_problem()`](https://prioritizr.net/reference/marxan_problem.md)
+  :
+
+  *Marxan* conservation problem
+
+- [`marxan_boundary_data_to_matrix()`](https://prioritizr.net/reference/marxan_boundary_data_to_matrix.md)
+  :
+
+  Convert *Marxan* boundary data to matrix format
+
+- [`marxan_connectivity_data_to_matrix()`](https://prioritizr.net/reference/marxan_connectivity_data_to_matrix.md)
+  :
+
+  Convert *Marxan* connectivity data to matrix format
+
+## Matrix functions
+
+Functions for creating matrices that are used in conservation planning
+problems.
+
+- [`adjacency_matrix()`](https://prioritizr.net/reference/adjacency_matrix.md)
+  : Adjacency matrix
+- [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
+  : Boundary matrix
+- [`branch_matrix()`](https://prioritizr.net/reference/branch_matrix.md)
+  : Branch matrix
+- [`connectivity_matrix()`](https://prioritizr.net/reference/connectivity_matrix.md)
+  : Connectivity matrix
+- [`proximity_matrix()`](https://prioritizr.net/reference/proximity_matrix.md)
+  : Proximity matrix
+- [`rij_matrix()`](https://prioritizr.net/reference/rij_matrix.md) :
+  Feature by planning unit matrix
+- [`rescale_matrix()`](https://prioritizr.net/reference/rescale_matrix.md)
+  : Rescale a matrix
+
+## Processing multi-zone data
+
+Functions for manipulating data that pertain to multiple zones.
+
+- [`category_layer()`](https://prioritizr.net/reference/category_layer.md)
+  : Category layer
+- [`category_vector()`](https://prioritizr.net/reference/category_vector.md)
+  : Category vector
+- [`binary_stack()`](https://prioritizr.net/reference/binary_stack.md) :
+  Binary stack
+
+## Problem manipulation functions
+
+Functions for working with problems.
+
+- [`compile()`](https://prioritizr.net/reference/compile.md) : Compile a
+  problem
+- [`feature_abundances()`](https://prioritizr.net/reference/feature_abundances.md)
+  : Feature abundances
+- [`feature_names()`](https://prioritizr.net/reference/feature_names.md)
+  [`problem_names(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/feature_names.md)
+  : Feature names
+- [`multi_compile()`](https://prioritizr.net/reference/multi_compile.md)
+  : Compile a multi-objective optimization problem
+- [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md)
+  [`number_of_problems(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/number_of_features.md)
+  : Number of features
+- [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md)
+  : Number of planning units
+- [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
+  : Number of problems
+- [`number_of_total_units()`](https://prioritizr.net/reference/number_of_total_units.md)
+  : Number of total units
+- [`number_of_zones()`](https://prioritizr.net/reference/number_of_zones.md)
+  : Number of zones
+- [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
+  : Presolve check
+- [`problem_names()`](https://prioritizr.net/reference/problem_names.md)
+  : Problem names
+- [`run_calculations()`](https://prioritizr.net/reference/run_calculations.md)
+  : Run calculations
+- [`write_problem()`](https://prioritizr.net/reference/write_problem.md)
+  : Write problem
+- [`zone_names()`](https://prioritizr.net/reference/zone_names.md) :
+  Zone names
+
+## Class definitions and methods
+
+Documentation for internal classes and associated functions.
+
+- [`new_waiver()`](https://prioritizr.net/reference/new_waiver.md) :
+  Waiver
+- [`optimization_problem()`](https://prioritizr.net/reference/optimization_problem.md)
+  : Optimization problem
+- [`ConservationModifier-class`](https://prioritizr.net/reference/ConservationModifier-class.md)
+  [`ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
+  : Conservation problem modifier class
+- [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md)
+  [`ConservationProblem`](https://prioritizr.net/reference/ConservationProblem-class.md)
+  : Conservation problem class
+- [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md)
+  [`Constraint`](https://prioritizr.net/reference/Constraint-class.md) :
+  Constraint class
+- [`Decision-class`](https://prioritizr.net/reference/Decision-class.md)
+  [`Decision`](https://prioritizr.net/reference/Decision-class.md) :
+  Decision class
+- [`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md)
+  [`MultiObjApproach`](https://prioritizr.net/reference/MultiObjApproach-class.md)
+  : Multi-objective approach class
+- [`MultiObjConservationProblem-class`](https://prioritizr.net/reference/MultiObjConservationProblem-class.md)
+  [`MultiObjConservationProblem`](https://prioritizr.net/reference/MultiObjConservationProblem-class.md)
+  : Multi-objective conservation problem class
+- [`Objective-class`](https://prioritizr.net/reference/Objective-class.md)
+  [`Objective`](https://prioritizr.net/reference/Objective-class.md) :
+  Objective class
+- [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md)
+  [`OptimizationProblem`](https://prioritizr.net/reference/OptimizationProblem-class.md)
+  : Optimization problem class
+- [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md)
+  [`Penalty`](https://prioritizr.net/reference/Penalty-class.md) :
+  Penalty class
+- [`Portfolio-class`](https://prioritizr.net/reference/Portfolio-class.md)
+  [`Portfolio`](https://prioritizr.net/reference/Portfolio-class.md) :
+  Portfolio class
+- [`Solver-class`](https://prioritizr.net/reference/Solver-class.md)
+  [`Solver`](https://prioritizr.net/reference/Solver-class.md) : Solver
+  class
+- [`Target-class`](https://prioritizr.net/reference/Target-class.md)
+  [`Target`](https://prioritizr.net/reference/Target-class.md) : Target
+  class
+- [`TargetMethod-class`](https://prioritizr.net/reference/TargetMethod-class.md)
+  [`TargetMethod`](https://prioritizr.net/reference/TargetMethod-class.md)
+  : Target setting method class
+- [`Weight-class`](https://prioritizr.net/reference/Weight-class.md)
+  [`Weight`](https://prioritizr.net/reference/Weight-class.md) : Weight
+  class
+- [`nrow(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
+  [`ncol(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
+  [`as.list(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
+  : Manipulate tibbles
+
+## Miscellaneous functions
+
+Assorted functions distributed with the package.
+
+- [`show(`*`<ConservationModifier>`*`)`](https://prioritizr.net/reference/show.md)
+  [`show(`*`<ConservationProblem>`*`)`](https://prioritizr.net/reference/show.md)
+  [`show(`*`<OptimizationProblem>`*`)`](https://prioritizr.net/reference/show.md)
+  [`show(`*`<Solver>`*`)`](https://prioritizr.net/reference/show.md) :
+  Show
+
+- [`linear_interpolation()`](https://prioritizr.net/reference/linear_interpolation.md)
+  : Linear interpolation
+
+- [`loglinear_interpolation()`](https://prioritizr.net/reference/loglinear_interpolation.md)
+  : Log-linear interpolation
+
+- [`knit_print.ConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
+  [`knit_print.MultiObjConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
+  [`knit_print.OptimizationProblem()`](https://prioritizr.net/reference/knit_print.md)
+  : Print an object for knitr package.
+
+- [`as_km2()`](https://prioritizr.net/reference/as_km2.md) :
+
+  Standardize unit to km²
+
+- [`as_per_km2()`](https://prioritizr.net/reference/as_per_km2.md) :
+
+  Standardize unit to density per km²
+
+## Deprecated functions
+
+Documentation for functions that are no longer available.
+
+- [`add_connected_constraints()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_corridor_constraints()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`set_number_of_threads()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`get_number_of_threads()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`is.parallel()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_pool_portfolio()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`connected_matrix()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`feature_representation()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`replacement_cost()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`rarity_weighted_richness()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`ferrier_score()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`distribute_load()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`new_optimization_problem()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`predefined_optimization_problem()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_loglinear_targets()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_max_phylo_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  : Deprecation notice
+
+# Articles
+
+### All vignettes
+
+- [Calibrating trade-offs
+  tutorial](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.md):
+- [Connectivity
+  tutorial](https://prioritizr.net/articles/connectivity_tutorial.md):
+- [Gurobi installation
+  guide](https://prioritizr.net/articles/gurobi_installation_guide.md):
+- [Management zones
+  tutorial](https://prioritizr.net/articles/management_zones_tutorial.md):
+- [Package
+  overview](https://prioritizr.net/articles/package_overview.md):
+- [Getting started](https://prioritizr.net/articles/prioritizr.md):
+- [Publication
+  record](https://prioritizr.net/articles/publication_record.md):
+- [Solver
+  benchmarks](https://prioritizr.net/articles/solver_benchmarks.md):

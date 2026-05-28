@@ -141,15 +141,15 @@ wa_pu <- get_wa_pu()
 print(wa_pu)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_pu.tif 
-    ## name        :         cost 
-    ## min value   :    0.2986647 
-    ## max value   : 1804.1838379
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_pu.tif
+    ## name        :        cost
+    ## min value   :    0.298665
+    ## max value   : 1804.183838
 
 ``` r
 # plot data
@@ -177,14 +177,14 @@ wa_features <- get_wa_features()
 print(wa_features)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 109, 147, 396  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_features.tif 
-    ## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ... 
-    ## min values  :       0.000,       0.000,       0.000,       0.000,       0.000,        0.00, ... 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_features.tif
+    ## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ...
+    ## min values  :           0,           0,           0,           0,           0,           0, ...
     ## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...
 
 ``` r
@@ -259,8 +259,8 @@ print(p1)
     ## │└•decisions:   binary decision
     ## └•optimization
     ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `presolve` = 2, `threads` = 1, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 After we have built a `problem()`, we can solve it to obtain a solution.
 
@@ -281,7 +281,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      5.971
+    ##      3.386
 
 ``` r
 # extract state message from the solver
@@ -329,7 +329,7 @@ p1_target_coverage <- eval_target_coverage_summary(p1, s1)
 print(p1_target_coverage)
 ```
 
-    ## # A tibble: 396 × 9
+    ## # A tibble: 396 × 10
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
     ##  1 Recurvir… TRUE         100.             20.0          23.4               0   
@@ -343,8 +343,8 @@ print(p1_target_coverage)
     ##  9 Falco sp… TRUE          99.9            20.0          24.9               0   
     ## 10 Falco sp… TRUE         100.0            20.0          24.5               0   
     ## # ℹ 386 more rows
-    ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
-    ## #   relative_shortfall <dbl>
+    ## # ℹ 4 more variables: relative_target <dbl>, relative_held <dbl>,
+    ## #   relative_shortfall <dbl>, relative_met <dbl>
 
 ``` r
 # check percentage of the features that have their target met given the solution
@@ -371,14 +371,14 @@ wa_locked_in <- get_wa_locked_in()
 print(wa_locked_in)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_locked_in.tif 
-    ## name        : protected areas 
-    ## min value   :               0 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_locked_in.tif
+    ## name        : protected areas
+    ## min value   :               0
     ## max value   :               1
 
 ``` r
@@ -422,14 +422,14 @@ wa_locked_out <- get_wa_locked_out()
 print(wa_locked_out)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
-    ## source      : wa_locked_out.tif 
-    ## name        : urban areas 
-    ## min value   :           0 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
+    ## source      : wa_locked_out.tif
+    ## name        : urban areas
+    ## min value   :           0
     ## max value   :           1
 
 ``` r
@@ -499,15 +499,15 @@ imp <-
 print(imp)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 109, 147, 1  (nrow, ncol, nlyr)
     ## resolution  : 4000, 4000  (x, y)
     ## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs 
+    ## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs
     ## source(s)   : memory
-    ## varname     : wa_pu 
-    ## name        : rs 
-    ## min value   :  0 
+    ## varname     : wa_pu
+    ## name        : rs
+    ## min value   :  0
     ## max value   :  1
 
 ``` r

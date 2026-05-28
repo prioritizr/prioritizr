@@ -1,0 +1,16 @@
+pandoc: '3.3'
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  calibrating_trade-offs_tutorial: calibrating_trade-offs_tutorial.html
+  connectivity_tutorial: connectivity_tutorial.html
+  gurobi_installation_guide: gurobi_installation_guide.html
+  management_zones_tutorial: management_zones_tutorial.html
+  package_overview: package_overview.html
+  prioritizr: prioritizr.html
+  publication_record: publication_record.html
+  solver_benchmarks: solver_benchmarks.html
+last_built: 2026-05-28T19:53Z
+urls:
+  reference: https://prioritizr.net/reference
+  article: https://prioritizr.net/articles

@@ -45,7 +45,7 @@ check_vigns:
 
 quicksite:
 	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
-	rm docs/CNAME
+	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
 

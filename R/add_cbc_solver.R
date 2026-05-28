@@ -161,16 +161,11 @@ add_cbc_solver <- function(x,
       msg = "all elements in {.arg control} must have a name."
     )
   }
- # extract start solution
+  # extract start solution
   if (!is.null(start_solution)) {
     # verify that version of rcbc installed supports starting solution
     assert(
-      any(
-        grepl(
-          "initial_solution", deparse1(args(rcbc::cbc_solve)),
-          fixed = TRUE
-        )
-      ),
+      isTRUE("initial_solution" %in% names(formals(rcbc::cbc_solve))),
       msg = paste(
         "To use {.arg start_solution}, please install a newer",
         "version of the {.pkg rcbc} package."

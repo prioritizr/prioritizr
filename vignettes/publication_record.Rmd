@@ -19,12 +19,21 @@ This vignette contains a list of publications that have cited or used the _prior
 
 * Aragão ACC, de Lima Costa T, and Colli GR (2026) Optimizing restoration outcomes in the Brazilian Cerrado: A spatial planning framework integrating endemic lizard biodiversity, connectivity, and costs. _Biological Conservation_, **314**: 111673.
 * Brock C, Roehrdanz PR, Beringer T, Chaplin-Kramer R, Enquist BJ, Frazier AE, Johnson JA, Kennedy CM, Kiesecker J, Larsen AE, Loyola R, Marquet PA, Neugarten RA, Oakleaf JR, Roopsind A, Schuster R, Williams DR, Wu GC, Zvoleff A, and Hannah L (2026) Balancing land use for conservation, agriculture, and renewable energy. _Nature Communications_, **In press**: 10.1038/s41467-026-69952-6.
+* Castelli F, Hanson JO, Sabatini FM, Law E, Dutta T, and Lindner M (2026) Navigating trade-offs across ownership and ecological priorities in forest conservation planning. _Journal of Environmental Management_, **405**: 129517.
 * Dabalà A, Brown CJ, Van der Stocken T, Buelow CA, Schoeman DS, Dunn DC, Lovelock CE, Dahdouh-Guebas F, Flower J, Neubert S, Buenafe KCV, Everett JD, Esturas KJT, and Richardson AJ (2026) Safeguarding climate-resilient mangroves requires only a moderate increase in the global protected area. _Nature Communications_, **17**: 2063.
+* García‐Alvarado JJ, Bello‐Rodríguez V, Lembrechts JJ, and González‐Mancebo JM (2026) Designing a spatial framework to create refugia‐probability maps for conservation planning: Applications in the Canary Islands. _Diversity and Distributions_, **32**: e70146.
 * Geary WL, Tulloch AIT, Doherty TS, Nimmo DG, Ritchie EG, Hanson JO, Maxwell MA, and Wayne AF (2026) Optimising fire and predator management for conservation. _Journal of Applied Ecology_, **63**: e70256.
+* Gour R and Whitaker N (2026) Multiscale habitat modeling to improve spatial prioritization for mugger crocodile conservation in riverine landscapes. _Ecological Applications_, **36**: e70222.
+* Gronefeld SC, López H, Hawlitschek O, Schulte-Middelmann T, Hoffmann F, Tandukar P, and Hochkirch A (2026) Comparison of metrics for identifying Key Biodiversity Areas. _Biological Conservation_, **319**: 111863.
 * Hanson JO, McCune JL, Alamenciak T, and Bennett JR (2026) Increasing the credibility of conservation plans through citizen science. _Biological Conservation_, **313**: 111552.
+* Horn KH, Silvestro D, Wallis CIB, Leitão PJ, Daldaban E, Herkt KMB, Kleinschmit B, and Rudolph A (2026) A data-driven framework for forest conservation prioritisation: From citizen science data to protected area designation. _Ecological Informatics_, **96**: 103794.
 * Huang J, Gergel SE, and McHale MR (2026) Adapting a systematic conservation planning tool for supporting accessible and diverse urban greenspace recreation. _Landscape Ecology_, **41**: 53.
+* Kearns M, Skeels A, Yaxley K, and Cardillo M (2026) Conservation priority areas based on phylogenetic diversity are sensitive to methods of phylogenetic inference and divergence time estimation. _Diversity and Distributions_, **32**: e70166.
+* Koehn CR, Caughlin TT, Halperin S, Hopping K, Som Castellano R, and Brandt J (2026) Carbon stock protection and food production are key targets for conservation planning in a landscape of public and private lands. _Landscape Ecology_, **41**: 63.
 * Liu Y, Wang J, Wu Z, Xu Z, and Abulike K (2026) Integrating multidimensional biodiversity into spatial conservation planning to bridge conservation gaps in China. _Biological Conservation_, **314**: 111664.
 * Probst WN, Rehren J, Kraan C, Haslob H, Neumann H, Lemmen C, Krishna S, Kruse M, Wirtz K, and Stelzenmüller V (2026) Conservation potential of offshore windfarms for epibenthic invertebrates and fish communities in a heavily used regional sea. _Biological Conservation_, **316**: 111771.
+* Teschke K, Konijnenberg R, and Bellotto Trigo FC (2026) Conservation planning in the Weddell Sea (Antarctica): A comparative analysis of decision‐support tools. _Conservation Science and Practice_, **In press**: e70311.
+* Tomiczek T, García Márquez J, Arlinghaus R, and Domisch S (2026) The spatial discrepancy between Colombian freshwater fish suitable habitats and existing protected areas. _Diversity and Distributions_, **32**: e70168.
 * Reine Sheirita TF, Rodrigue I, Benjamin L, Jean Eudes Crédo GF, and Amadé O (2026) Climate change risks and conservation needs of _Lophira lanceolata_ in West Africa. _Journal for Nature Conservation_, **90**: 127182.
 * Wang K, Wu W, Liu H, Zhang X, Ren X, Liu M, Cheng J, Geng J, and Yang B (2026) Balancing land planning priorities for ecological conservation and renewable energy development through multi-objective land planning in China. _Resources, Environment and Sustainability_, **24**: 100303.
 
@@ -168,7 +177,9 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2026
 
 * Dalla D, Papazekou M, Konsta K, Katsanevakis S, Mazaris AD (2025) A review of alternative cost layers for spatial prioritization tools. _Landscape Ecology_, **41**: 7.
+* Sanz-Martín M, Olguín-Jacobson C, Bolin JA, Quiles-Pons C, Brito-Morales I, García Molinos J, Hidalgo M, Alabia ID, Gissi E, Provost MM, Micheli F, Arafeh-Dalmau N (2026) Identifying marine climate refugia to advance climate-smart conservation. _Trends in Ecology and Evolution_, **In press**: DOI:10.1016/j.tree.2026.04.007.
 * Stralberg D, Lewis DW, Stolar J, Kehm GJ, Cosgrove CF, Morgan DG, Nelson EA, Kuntzemann CE, Raymundo A, Sang Z, Viliani L, Jumean Z, Meier M, Enslow C, Estevo CA, Fraser‐Reid EC, Campbell EM, Grant JA, Howard S, Naujokaitis‐Lewis I, Nielsen SE, Carroll C (2025) Integrating climate‐change exposure and refugia into landscape planning: A practical guide. _Conservation Science and Practice_, **8**: e70171.
+
 
 ### 2025
 

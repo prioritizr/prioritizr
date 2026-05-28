@@ -533,32 +533,3 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     )$new()
   )
 }
-
-#' Sanitize solver output
-#'
-#' This function is used to process solver outputs to ensure consistency.
-#' In particular, integer values are rounded, and values are clamped
-#' according to the lower and upper bounds. This is needed to resolve
-#' discrepancies that arise due to floating point arithmetic.
-#'
-#' @param x `numeric` vector with solution values.
-#'
-#' @param lb `numeric` vector with lower bounds for values.
-#'
-#' @param ub `numeric` vector with upper bounds for values.
-#'
-#' @param is_integer `logical` vector with values indicating if each
-#' value should have an integer value or not.
-#'
-#' @return A `numeric` vector with updated values for `x`.
-#'
-#' @noRd
-sanitize_solver_output <- function(x, lb, ub, is_integer) {
-  # round integer variables because default precision is 1e-5
-  x[is_integer] <- round(x[is_integer])
-  # truncate variables to account for rounding issues
-  x <- pmax(x, lb)
-  x <- pmin(x, ub)
-  # return solution
-  x
-}

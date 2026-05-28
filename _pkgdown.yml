@@ -7,6 +7,8 @@ authors:
     href: http://www.richard-schuster.com
   Matthew Strimas-Mackey:
     href: http://strimas.com
+  Sandra Neubert:
+    href: https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert
   Peter Arcese:
     href: https://arcese.forestry.ubc.ca
   Joseph Bennett:
@@ -135,7 +137,8 @@ reference:
       - multi_problem
       - approaches
       - has_concept("approaches")
-      - objective_weights_matrix
+      - approach_weights_matrix
+      - approach_rel_tol_matrix
 
   - title: Data simulation
     desc: Functions for simulating new datasets.

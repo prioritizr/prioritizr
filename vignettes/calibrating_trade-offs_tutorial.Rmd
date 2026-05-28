@@ -196,8 +196,8 @@ We can find a suitable range of `weights` values for the boundary penalties by g
 ```{r "prelim-weights"}
 # define a range of different weight values for the boundary penalties
 ## note that we use a power scale to avoid focusing too much on high weights
-prelim_lower <- -5  # change this for your own data
-prelim_upper <- 1.1 # change this for your own data
+prelim_lower <- -1 # change this for your own data
+prelim_upper <- 5  # change this for your own data
 
 # create a matrix of weights
 ## the first column has weights fixed at 1 for the primary objective
@@ -282,7 +282,7 @@ plot(
 
 ```{r "best-prelim-guess", include = FALSE}
 # set best guess of upper bound for weight
-upper_weight_limit <- prelim_weights[8, 2]
+upper_weight_limit <- prelim_weights[7, 2]
 ```
 
 We can see that as the `weights` value used to generate the prioritizations increases, the spatial fragmentation of the prioritizations decreases. In particular, we can see that a `weights` value of `r upper_weight_limit` results in a single reserve -- meaning this is our best guess of the upper limit. Using this `weights` value as an upper limit, we will now generate a second series of prioritizations that will be the candidate prioritizations. Critically, these candidate prioritizations will not be generated using with time limit and be generated using a more suitable gap (i.e., default gap of 10%).
@@ -304,7 +304,7 @@ cat(
 weights <- matrix(
   c(
     rep(1, 9),
-    round(10^seq(prelim_lower, upper_weight_limit, length.out = 9), 5)
+    round(seq(10^prelim_lower, upper_weight_limit, length.out = 9), 5)
   ),
   ncol = 2
 )
@@ -572,7 +572,7 @@ result_plot <-
   ) +
   xlab("Total boundary length of prioritization") +
   ylab("Total cost of prioritization") +
-  scale_x_continuous(expand = expansion(mult = c(0.2, 0.9))) +
+  scale_x_continuous(expand = expansion(mult = c(0.2, 0.3))) +
   scale_y_continuous(expand = expansion(mult = c(0.3, 0.2))) +
   theme(
     legend.position = c(0.95, 0.95),
@@ -713,7 +713,7 @@ result_plot <-
   ) +
   xlab("Total boundary length of prioritization") +
   ylab("Total cost of prioritization") +
-  scale_x_continuous(expand = expansion(mult = c(0.2, 0.9))) +
+  scale_x_continuous(expand = expansion(mult = c(0.2, 0.3))) +
   scale_y_continuous(expand = expansion(mult = c(0.3, 0.2))) +
   theme(
     legend.position = c(0.95, 0.95),
@@ -726,7 +726,7 @@ print(result_plot)
 
 We can see that the different methods selected different prioritizations. To further compare the results from the different methods, let's create some maps showing the selected prioritizations.
 
-```{r "candidate-map", fig.width = 7.0, fig.height = 7.5}
+```{r "candidate-map", fig.width = 5.0, fig.height = 5.5}
 # extract column names for creating the prioritizations
 solutions$Visual <-
   solutions[[metric_data$name[metric_data$method == "visual"]]]

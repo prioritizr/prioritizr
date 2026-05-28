@@ -1,0 +1,22 @@
+.r-plt img {
+  background: #FFFFFF;
+}
+
+.page-header {
+  border-bottom: none !important;
+  padding-bottom: 0px !important;
+  min-height: 0px !important;
+}
+
+#systematic-conservation-prioritization-in-r {
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+#prioritizr {
+  margin-top: 10px;
+}
+
+#prioritizr- {
+  margin-top: 10px;
+}

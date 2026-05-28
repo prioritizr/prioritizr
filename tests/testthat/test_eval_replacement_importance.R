@@ -555,6 +555,7 @@ test_that("Raster (multiple zones)", {
 test_that("parallel processing", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed_for_parallel("prioritizr")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

@@ -1,0 +1,428 @@
+# Contributing
+
+First of all, thanks for thinking about contributing to the *prioritizr
+R* package! This is an open source project, and contributions are
+extremely welcome.
+
+## How you can contribute
+
+There are several ways you can contribute to this project. If you want
+to know more about why and how to contribute to open source projects
+like this one, see this [Open Source
+Guide](https://opensource.guide/how-to-contribute/).
+
+### Ask a question
+
+Using the package and got stuck? Browse the
+[documentation](https://prioritizr.net) to see if you can find a
+solution. Still stuck? Post your question as an [issue on
+GitHub](https://github.com/prioritizr/prioritizr/issues/new). While we
+cannot offer user support, we’ll try to do our best to address it, as
+questions often lead to better documentation or the discovery of bugs.
+
+Want to ask a question in private? Please feel free to email the package
+developers [Jeffrey Hanson](mailto:jeffrey.hanson@uqconnect.edu.au) or
+[Richard Schuster](mailto:richard.schuster@natureconservancy.ca).
+
+### Propose an idea
+
+Have an idea for a new feature? Take a look at the
+[documentation](https://prioritizr.net) and [issue
+tracker](https://github.com/prioritizr/prioritizr/issues) to see if it
+isn’t included or suggested yet. If not, suggest your idea as an [issue
+on GitHub](https://github.com/prioritizr/prioritizr/issues/new). While
+we can’t promise to implement your idea, it helps to:
+
+- Explain in detail how it would work.
+- Keep the scope as narrow as possible.
+
+See below if you want to contribute code for your idea as well.
+
+### Report a bug
+
+Using the package and discovered a bug? That’s annoying! Don’t let
+others have the same experience and report it as an [issue on
+GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can
+fix it. A good bug report makes it easier for us to do so, so please
+include:
+
+- Your operating system name and version (e.g., Mac OS 10.13.6).
+- Details about your local setup that might be helpful in
+  troubleshooting, such as your session information (via
+  [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html)).
+- Detailed steps to reproduce the bug.
+
+### Improve the documentation
+
+Noticed a typo on the website? Think a function could use a better
+example? Good documentation makes all the difference, so your help to
+improve it is very welcome!
+
+#### The website
+
+[This website](https://prioritizr.net) is generated using the [*pkgdown
+R* package](http://pkgdown.r-lib.org/) package. That means we don’t have
+to write any html: content is pulled together from documentation in the
+code, vignettes,
+[Markdown](https://guides.github.com/features/mastering-markdown/)
+files, the package `DESCRIPTION` and `_pkgdown.yml` settings. If you
+know your way around `pkgdown`, you can [propose a file
+change](https://help.github.com/articles/editing-files-in-another-user-s-repository/)
+to improve documentation. If not, [report an
+issue](https://github.com/prioritizr/prioritizr/issues/new) and we can
+point you in the right direction.
+
+## Learning resources
+
+If you’re new too R package development, we recommend reading the
+[*Advanced R*](http://adv-r.had.co.nz/) book. Since a large part of the
+code base is written in the C++ programming language using the [*Rcpp R*
+package](https://www.rcpp.org/), we also recommend reading the [*Rcpp
+for everyone*](https://teuder.github.io/rcpp4everyone_en/) book. Both of
+these are books are free, online, and absolutely fantastic resources.
+
+#### Function documentation
+
+Functions are described as comments near their code and translated to
+documentation using the [*roxygen2 R*
+package](https://github.com/r-lib/roxygen2) package. If you want to
+improve a function description:
+
+1.  Go to `R/` directory in the [code
+    repository](https://github.com/prioritizr/prioritizr).
+2.  Look for the file with the name of the function.
+3.  [Propose a file
+    change](https://help.github.com/articles/editing-files-in-another-user-s-repository/)
+    to update the function documentation in the roxygen comments
+    (starting with `#'`).
+
+### Contribute code
+
+Care to fix bugs or implement new functionality? That’s brilliant! Have
+a look at the [issue
+list](https://github.com/prioritizr/prioritizr/issues) and leave a
+comment on the things you want to work on. See also the development
+guidelines below. Please note that we use American spelling for the
+package, and follow the [tidyverse style
+guide](https://style.tidyverse.org/).
+
+## Development guidelines
+
+We try to follow the [GitHub
+flow](https://guides.github.com/introduction/flow/) for development.
+
+1.  Fork [this repo](https://github.com/prioritizr/prioritizr) and clone
+    it to your computer. To learn more about this process, see [this
+    guide](https://guides.github.com/activities/forking/).
+2.  If you have forked and cloned the project before and it has been a
+    while since you worked on it, [pull changes from the original
+    repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/)
+    to your clone by using `git pull upstream master`.
+3.  Open the RStudio project file (`.Rproj`).
+4.  Make your changes:
+    - Write your code.
+    - Test your code (bonus points for adding unit tests).
+    - Document your code (see function documentation above).
+    - Check your code with
+      [`devtools::check()`](https://devtools.r-lib.org/reference/check.html)
+      and aim for 0 errors and warnings.
+5.  Commit and push your changes.
+6.  Submit a [pull
+    request](https://guides.github.com/activities/forking/#making-a-pull-request).
+
+## Internal design
+
+Here we describe the internal design of the package. A
+`ConservationProblem` class (defined in `R/ConservationProblem-class.R`)
+is used to store the data and problem formulation of the conservation
+planning problem. Additionally, an `OptimizationProblem` class (defined
+in `R/OptimizationProblem-class.R`) is used to store the precise
+mathematical formulation of a conservation planning problem. When a
+`ConservationProblem` object is solved (using the
+[`solve()`](https://prioritizr.net/reference/solve.md) function), the
+`ConservationProblem` object is first compiled into an
+`OptimizationProblem` object (using the
+[`compile()`](https://prioritizr.net/reference/compile.md) function) and
+the `OptimizationProblem` object is then solved (using the
+[`solve()`](https://prioritizr.net/reference/solve.md) function). This
+distinction is important because if you want to add a new objective,
+constraint, penalty, or decision function, then you’ll need to write
+code that adds the mathematical formulation of the function to a
+`OptimizationProblem` object.
+
+All `OptimizationProblem` objects are simply a wrapper to an external
+pointer pointer (`XPtr`) that points to a C++ `OPTIMIZATIONPROBLEM`
+class object (defined in `src/optimization_problem.h`). The C++
+`OPTIMIZATIONPROBLEM` class contains the standard data needed to
+formulate a mixed integer linear programming problem (i.e., model sense,
+problem objective , constraint matrix, constraint senses,
+right-hand-side values, variable decision types, and variable bounds).
+This class also contains additional data that pertain to conservation
+problems (i.e., number of features, planning units, and zones). If
+you’re is unfamiliar with the standard representation of a mixed integer
+linear programming problem, we encourage them to read the documentation
+for the [*gurobi R*
+package](http://www.gurobi.com/documentation/8.0/refman/r_api_overview.html#r:problem).
+The fields `A_i`, `A_j`, and `A_x` correspond the row, column, and cells
+values for the constraint matrix of the optimization problem
+(respectively). The other fields follow standard conventions. Note that
+the constraint matrix is, ultimately, constructed as a
+[`Matrix::sparseMatrix()`](https://rdrr.io/pkg/Matrix/man/sparseMatrix.html)
+so row and column indices do not need to be sequential. Additionally,
+all C++ constraint and penalty functions should be independent. In other
+words, though it may be computationally efficient to reuse constraints
+and variables encoded in other functions, each C++ constraint and
+penalty function define its own constraints and variables. All
+conservation planning problems are defined following one of two standard
+mathematical formulations: the compressed and the expanded formulation.
+
+The compressed formulation defines a problem which assumes that all
+instances of a conserved feature are used to achieve the target or count
+towards the benefit of a solution. Although the expanded formulation can
+provide identical solutions to the compressed formulation, the
+compressed formulation is provided because it is simpler and can be used
+with much larger sized problems. Currently, all constraints use the
+compressed formulation except for the
+[`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
+function. Under this formulation, the first set of decision variables
+(the first number of planning units \times number of zones) always
+pertain to the state of the planning units. Thus in a problem containing
+3 planning units and 2 zones, the first six variables indicate the
+allocation of: planning unit 1 in zone 1, planning unit 2 in zone 1,
+planning unit 3 in zone 1, planning unit 1 in zone 2, planning unit 2 in
+zone 2, planning unit 3 in zone 2. The first set of constraints (rows)
+always correspond to each target (noting that some objectives use “fake”
+targets to initialize the feature by planning unit data, see
+`R/compile.R`). These rows, which each correspond to a single target,
+contain the amount of each feature in each zone for which the target
+pertains. Thus rows for targets which pertain to a single zone will only
+contain feature abundance data for planning units (columns) in a single
+zone, and rows for targets which pertain to a single feature in multiple
+zones will contain feature abundance data for planning units (columns)
+in multiple zones.
+
+To help illustrate the compressed formulation, consider the following
+problem:
+
+``` r
+# simulate data
+pu <- data.frame(id = 1:3, cost_1 = 4:6, cost_2 = 7:9)
+zone <- data.frame(id = 1:2, name = c("z1", "z2"))
+feature <- data.frame(id = 1:2, name = c("f1", "f2"))
+rij <- expand.grid(pu = 1:3, species = 1:2, zone = 1:2)
+rij$amount <- seq_len(nrow(rij)) + nrow(rij)
+targets <- matrix(1, nrow = 2, ncol = 2)
+
+# create problem
+p <-
+  problem(pu, feature, rij, c("cost_1", "cost_2"), zone) %>%
+  add_absolute_targets(targets)
+
+# print problem
+print(p)
+```
+
+``` R
+## A conservation problem (<ConservationProblem>)
+
+## ├•data
+
+## │├•zones:       "z1" and "z2" (2 total)
+
+## │├•features:    "f1" and "f2" (2 total)
+
+## │└•planning units:
+
+## │ ├•data:       <data.frame> (3 total)
+
+## │ ├•costs:      continuous values (between 4 and 9)
+
+## │ ├•extent:     NA
+
+## │ └•CRS:        NA
+
+## └•formulation
+
+##  ├•objective:   none specified
+
+##  ├•penalties:   none specified
+
+##  ├•targets:     absolute targets (between 1 and 1)
+
+##  ├•constraints: none specified
+
+##  ├•decisions:   binary decision
+
+##  ├•portfolio:   shuffle portfolio (`number_solutions` = 1, …)
+
+##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
+
+## # ℹ Use `summary(...)` to see complete formulation.
+```
+
+The compressed formulation expresses the planning unit and feature data
+using the following constraint matrix. Here, each variable (column)
+corresponds to a different planning unit and a different zone
+allocation, each constraint (row) corresponds to a different target, and
+each cell corresponds to the amount of a each feature in each planning
+unit given a different zone (based on the *rij* data and the targets).
+
+``` R
+## 4 x 6 sparse Matrix of class "dgCMatrix"
+##              pu1_z1 pu2_z1 pu3_z1 pu1_z2 pu2_z2 pu3_z2
+## target_f1_z1     13     14     15      .      .      .
+## target_f2_z1     16     17     18      .      .      .
+## target_f1_z2      .      .      .     19     20     21
+## target_f2_z2      .      .      .     22     23     24
+```
+
+The expanded formulation, on the other hand, defines a problem which can
+allow for some instances of conserved features to not be used for
+achieving the targets or maximizing the conservation benefit. This
+formulation is a generalized version of the compressed formulation. It
+contains additional variables (columns) and constraints (rows) for each
+combination of feature, planning unit, and zone that indicate if a given
+planning unit allocated to a specific zone is also allocated to conserve
+a given feature.
+
+Given the previous problem, the expanded formulation expresses the
+planning unit and feature data in the constraint matrix as:
+
+``` r
+# generate targets
+targets2 <- p$targets$output()
+
+# create matrix
+m <- matrix(
+  NA,
+  ncol =
+    (p$number_of_zones() * p$number_of_planning_units()) +
+    (p$number_of_zones() * p$number_of_planning_units() *
+      p$number_of_features()),
+  nrow =
+    (p$number_of_zones() * p$number_of_planning_units() *
+      p$number_of_features()) +
+    (p$number_of_features() * p$number_of_zones())
+)
+
+# add row names
+rownames(m) <- c(
+  paste0(
+    "pu",
+    rep(
+      seq_len(p$number_of_planning_units()),
+      p$number_of_zones() * p$number_of_features()
+    ),
+    "_",
+    rep(
+      rep(p$feature_names(), each = p$number_of_planning_units()),
+      p$number_of_zones()
+    ),
+    "_",
+    rep(
+      p$zone_names(),
+      each = p$number_of_planning_units() * p$number_of_features()
+    )
+  ),
+  paste0(
+    "target_",
+    rep(
+      p$feature_names(), p$number_of_zones()), "_", rep(p$zone_names(),
+      each = p$number_of_features()
+    )
+  )
+)
+
+# add column names
+colnames(m) <- c(
+  paste0(
+    "pu",
+    rep(seq_len(p$number_of_planning_units()), p$number_of_zones()),
+    "_",
+    rep(p$zone_names(), each = p$number_of_planning_units())
+  ),
+  paste0(
+    "pu",
+    rep(
+      seq_len(p$number_of_planning_units()),
+      p$number_of_zones() * p$number_of_features()
+    ),
+    "_",
+    rep(
+      rep(p$feature_names(), each = p$number_of_planning_units()),
+      p$number_of_zones()
+    ),
+    "_",
+    rep(
+      p$zone_names(),
+      each = p$number_of_planning_units() *
+      p$number_of_features()
+    )
+  )
+)
+
+# add in indicator variables and constraints
+curr_row <- 0
+for (z in seq_len(p$number_of_zones())) {
+  for (i in seq_len(p$number_of_features())) {
+    for (j in seq_len(p$number_of_planning_units())) {
+      curr_row <- curr_row + 1
+      curr_col1 <- ((z - 1) * p$number_of_planning_units()) + j
+      curr_col2 <-
+        (p$number_of_planning_units() * p$number_of_zones()) +
+        ((z - 1) * p$number_of_features() * p$number_of_planning_units()) +
+        ((i - 1) * p$number_of_planning_units()) + j
+      m[curr_row, curr_col1] <- -1
+      m[curr_row, curr_col2] <- 1
+    }
+  }
+}
+
+# add in targets
+for (i in seq_len(nrow(targets2))) {
+  # extract indices
+  curr_row <- curr_row + 1
+  curr_feature <- targets2$feature[i]
+  curr_zone <- targets2$zone[i][[1]]
+  curr_cols <-
+    (p$number_of_planning_units() * p$number_of_zones()) +
+    ((curr_zone - 1) * p$number_of_features() * p$number_of_planning_units()) +
+    ((curr_feature - 1) * p$number_of_planning_units()) +
+    seq_len(p$number_of_planning_units())
+  curr_amount <-
+    rij$amount[unlist(rij$zone) == curr_zone & rij$species == curr_feature]
+  # set matrix values
+  m[curr_row, curr_cols] <- curr_amount
+}
+
+# convert to sparse matrix
+m[is.na(m)] <- 0
+m <- as(m, "sparseMatrix")
+
+# print matrix
+print(m)
+```
+
+``` R
+## 16 x 18 sparse Matrix of class "dgCMatrix"
+
+##   [[ suppressing 18 column names 'pu1_z1', 'pu2_z1', 'pu3_z1' ... ]]
+
+##                                                                   
+## pu1_f1_z1    -1  .  .  .  .  .  1  .  .  .  .  .  .  .  .  .  .  .
+## pu2_f1_z1     . -1  .  .  .  .  .  1  .  .  .  .  .  .  .  .  .  .
+## pu3_f1_z1     .  . -1  .  .  .  .  .  1  .  .  .  .  .  .  .  .  .
+## pu1_f2_z1    -1  .  .  .  .  .  .  .  .  1  .  .  .  .  .  .  .  .
+## pu2_f2_z1     . -1  .  .  .  .  .  .  .  .  1  .  .  .  .  .  .  .
+## pu3_f2_z1     .  . -1  .  .  .  .  .  .  .  .  1  .  .  .  .  .  .
+## pu1_f1_z2     .  .  . -1  .  .  .  .  .  .  .  .  1  .  .  .  .  .
+## pu2_f1_z2     .  .  .  . -1  .  .  .  .  .  .  .  .  1  .  .  .  .
+## pu3_f1_z2     .  .  .  .  . -1  .  .  .  .  .  .  .  .  1  .  .  .
+## pu1_f2_z2     .  .  . -1  .  .  .  .  .  .  .  .  .  .  .  1  .  .
+## pu2_f2_z2     .  .  .  . -1  .  .  .  .  .  .  .  .  .  .  .  1  .
+## pu3_f2_z2     .  .  .  .  . -1  .  .  .  .  .  .  .  .  .  .  .  1
+## target_f1_z1  .  .  .  .  .  . 13 14 15  .  .  .  .  .  .  .  .  .
+## target_f2_z1  .  .  .  .  .  .  .  .  . 16 17 18  .  .  .  .  .  .
+## target_f1_z2  .  .  .  .  .  .  .  .  .  .  .  . 19 20 21  .  .  .
+## target_f2_z2  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 22 23 24
+```

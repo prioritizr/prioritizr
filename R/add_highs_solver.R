@@ -64,6 +64,7 @@ NULL
 #' @export
 add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
+                             start_solution = NULL,
                              verbose = TRUE,
                              control = list()) {
   # assert that arguments are valid
@@ -72,6 +73,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(time_limit)
   assert_required(presolve)
   assert_required(threads)
+  assert_required(start_solution)
   assert_required(verbose)
   assert_required(control)
   assert(
@@ -96,6 +98,21 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       msg = "all elements in {.arg control} must have a name."
     )
   }
+  # extract start solution
+  if (!is.null(start_solution)) {
+    # nocov start
+    # verify that version of highs installed supports starting solution
+    assert(
+      isTRUE("start" %in% names(formals(highs::highs_solve))),
+      msg = paste(
+        "To use {.arg start_solution}, please install a newer",
+        "version of the {.pkg highs} package."
+      )
+    )
+    # extract data
+    start_solution <- planning_unit_solution_status(x, start_solution)
+    # nocov end
+  }
   # add solver
   x$add_solver(
     R6::R6Class(
@@ -108,6 +125,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           time_limit = time_limit,
           presolve = presolve,
           threads = threads,
+          start_solution = start_solution,
           verbose = verbose,
           control = control
         ),
@@ -197,7 +215,15 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         run = function() {
           # access internal data and parameters
           model <- self$get_internal("model")
+          start <- self$get_internal("start")
           p <- self$get_internal("parameters")
+          # if needed, specify start solution
+          if (
+            is.null(start) &&
+            isTRUE("start" %in% names(formals(highs::highs_solve)))
+          ) {
+            model$start <- start # nocov
+          }
           # solve problem
           rt <- system.time({
             x <- do.call(
@@ -205,7 +231,6 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               append(model, list(control = do.call(highs::highs_control, p)))
             )
           })
-
           # manually return NULL to indicate error if no solution
           # nocov start
           if (

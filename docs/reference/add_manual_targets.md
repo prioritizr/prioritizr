@@ -1,0 +1,315 @@
+# Add manual targets
+
+Add targets to a conservation planning problem by manually specifying
+all the required information for each target. This function is useful
+because it can be used to customize all aspects of a target. For most
+cases, targets can be specified using the
+[`add_absolute_targets()`](https://prioritizr.net/reference/add_absolute_targets.md)
+and
+[`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)
+functions. However, this function can be used to (i) mix absolute and
+relative targets for different features and zones, (ii) set targets that
+pertain to the allocations of planning units in multiple zones, and
+(iii) set targets that require different senses (e.g., targets which
+specify the solution should not exceed a certain quantity using `"<="`
+values).
+
+## Usage
+
+``` r
+add_manual_targets(x, targets)
+
+# S4 method for class 'ConservationProblem,data.frame'
+add_manual_targets(x, targets)
+
+# S4 method for class 'ConservationProblem,tbl_df'
+add_manual_targets(x, targets)
+```
+
+## Arguments
+
+- x:
+
+  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+
+- targets:
+
+  `data.frame` or
+  [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
+  object. See the Targets format section for more information.
+
+## Value
+
+An updated [`problem()`](https://prioritizr.net/reference/problem.md)
+object with the targets added to it.
+
+## Details
+
+This function is used to set targets for each feature (separately). For
+problems associated with a single management zone, this function may be
+useful to specify individual targets for each feature. For problems
+associated with multiple management zones, this function can also be
+used to specify a target for each feature within each zone (separately).
+For example, this may be useful in planning exercises where it is
+important to ensure that some of the features are adequately represented
+by multiple zones. For example, in a marine spatial planning exercise,
+it may be important for some features (e.g., commercial important fish
+species) to be adequately represented by a conservation zone for
+ensuring their long-term persistence, and also by a fishing zone to for
+ensure food security. For greater flexibility in target setting (such as
+setting targets that can be met through the allocation of multiple
+zones), see the `add_manual_targets()` function.
+
+## Targets format
+
+Here `targets` must be a `data.frame` with the following columns.
+
+- feature:
+
+  `character` name of features in `x`.
+
+- zone:
+
+  `character` name of zones in `x`. It can also be a `list` of
+  `character` vectors if targets should correspond to multiple zones
+  (see Examples section below). Note that this column is optional if `x`
+  has a single zone.
+
+- type:
+
+  `character` describing the type of target. Acceptable values are:
+  `"absolute"` and `"relative"`. These values correspond to
+  [`add_absolute_targets()`](https://prioritizr.net/reference/add_absolute_targets.md),
+  and
+  [`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)
+  respectively.
+
+- sense:
+
+  `character` sense of the target. Acceptable values are: `">="`,
+  `"<="`, and `"="`. This column is optional, and if it is not specified
+  then senses will default to `">="` for all targets.
+
+- target:
+
+  `numeric` target threshold.
+
+## Target setting
+
+Many conservation planning problems require targets. Targets are used to
+specify the minimum amount, or proportion, of a feature's spatial
+distribution that should ideally be protected. This is important so that
+the optimization process can weigh the merits and trade-offs between
+improving the representation of one feature over another feature.
+Although it can be challenging to set meaningful targets, this is a
+critical step for ensuring that prioritizations meet the stakeholder
+objectives that underpin a prioritization exercise (Carwardine *et al.*
+2009). In other words, targets play an important role in ensuring that a
+priority setting process is properly tuned according to stakeholder
+requirements. For example, targets provide a mechanism for ensuring that
+a prioritization secures enough habitat to promote the long-term
+persistence of each threatened species, culturally important species, or
+economically important ecosystem services under consideration. Since
+there is often uncertainty regarding stakeholder objectives (e.g., how
+much habitat should be protected for a given species) or the influence
+of particular target on a prioritization (e.g., how would setting a 90%
+or 100% for a threatened species alter priorities), it is often useful
+to generate and compare a suite of prioritizations based on different
+target scenarios.
+
+## References
+
+Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009)
+Hitting the target and missing the point: target‐based conservation
+planning in context. *Conservation Letters*, 2: 4–11.
+
+## See also
+
+See [targets](https://prioritizr.net/reference/targets.md) for an
+overview of all functions for adding targets.
+
+Other functions for adding targets:
+[`add_absolute_targets()`](https://prioritizr.net/reference/add_absolute_targets.md),
+[`add_auto_targets()`](https://prioritizr.net/reference/add_auto_targets.md),
+[`add_group_targets()`](https://prioritizr.net/reference/add_group_targets.md),
+[`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)
+
+## Examples
+
+``` r
+# \dontrun{
+# set seed for reproducibility
+set.seed(500)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+sim_zones_pu_raster <- get_sim_zones_pu_raster()
+sim_zones_features <- get_sim_zones_features()
+
+# create problem with 10% relative targets
+p1 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.1) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, main = "solution", axes = FALSE)
+
+
+# create equivalent problem using add_manual_targets
+p2 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_manual_targets(
+    data.frame(
+      feature = names(sim_features),
+      type = "relative", sense = ">=",
+      target = 0.1
+    )
+  ) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+plot(s2, main = "solution", axes = FALSE)
+
+# create problem with targets set for only a few features
+p3 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_manual_targets(
+    data.frame(
+      feature = names(sim_features)[1:3],
+      type = "relative",
+      sense = ">=",
+      target = 0.1
+    )
+ ) %>%
+ add_binary_decisions() %>%
+ add_default_solver(verbose = FALSE)
+
+# solve problem
+s3 <- solve(p3)
+
+# plot solution
+plot(s3, main = "solution", axes = FALSE)
+
+
+# create problem that aims to secure at least 10% of the habitat for one
+# feature whilst ensuring that the solution does not capture more than
+# 20 units habitat for different feature
+# create problem with targets set for only a few features
+p4 <-
+  problem(sim_pu_raster, sim_features[[1:2]]) %>%
+  add_min_set_objective() %>%
+  add_manual_targets(
+    data.frame(
+      feature = names(sim_features)[1:2],
+      type = "relative",
+      sense = c(">=", "<="),
+      target = c(0.1, 0.2)
+    )
+  ) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s4 <- solve(p4)
+
+# plot solution
+plot(s4, main = "solution", axes = FALSE)
+
+
+# create a multi-zone problem that requires a specific amount of each
+# feature in each zone
+targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
+
+p5 <-
+  problem(sim_zones_pu_raster, sim_zones_features) %>%
+  add_min_set_objective() %>%
+  add_absolute_targets(targets_matrix) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s5 <- solve(p5)
+
+# plot solution
+plot(category_layer(s5), main = "solution", axes = FALSE)
+
+
+# create equivalent problem using add_manual_targets
+targets_dataframe <- expand.grid(
+  feature = feature_names(sim_zones_features),
+  zone = zone_names(sim_zones_features),
+  sense = ">=",
+  type = "absolute"
+)
+targets_dataframe$target <- c(targets_matrix)
+
+p6 <-
+  problem(sim_zones_pu_raster, sim_zones_features) %>%
+  add_min_set_objective() %>%
+  add_manual_targets(targets_dataframe) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s6 <- solve(p6)
+
+# plot solution
+plot(category_layer(s6), main = "solution", axes = FALSE)
+
+# create a problem that requires a total of 20 units of habitat to be
+# captured for two species. This can be achieved through representing
+# habitat in two zones. The first zone represents a full restoration of the
+# habitat and a second zone represents a partial restoration of the habitat
+# Thus only half of the benefit that would have been gained from the full
+# restoration is obtained when planning units are allocated a partial
+# restoration
+
+# create data
+spp_zone1 <- as.list(sim_zones_features)[[1]][[1:2]]
+spp_zone2 <- spp_zone1 * 0.5
+costs <- sim_zones_pu_raster[[1:2]]
+
+# create targets
+targets_dataframe2 <- tibble::tibble(
+  feature = names(spp_zone1),
+  zone = list(c("z1", "z2"), c("z1", "z2")),
+  sense = c(">=", ">="),
+  type = c("absolute", "absolute"),
+  target = c(20, 20)
+)
+
+# create problem
+p7 <-
+  problem(
+    costs,
+    zones(
+      spp_zone1, spp_zone2,
+      feature_names = names(spp_zone1), zone_names = c("z1", "z2")
+    )
+  ) %>%
+  add_min_set_objective() %>%
+  add_manual_targets(targets_dataframe2) %>%
+  add_binary_decisions() %>%
+  add_default_solver(verbose = FALSE)
+
+# solve problem
+s7 <- solve(p7)
+
+# plot solution
+plot(category_layer(s7), main = "solution", axes = FALSE)
+
+# }
+```

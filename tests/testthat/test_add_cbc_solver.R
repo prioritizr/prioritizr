@@ -211,8 +211,7 @@ test_that("start_solution", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   skip_if_not(
-    any(grepl(
-      "initial_solution", deparse1(args(rcbc::cbc_solve)), fixed = TRUE)),
+    isTRUE("initial_solution" %in% names(formals(rcbc::cbc_solve))),
     message = "newer version of rcbc R package required"
   )
   # create data
