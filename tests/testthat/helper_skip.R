@@ -64,13 +64,38 @@ skip_if_no_solvers_installed <- function() {
 #' @return A `logical` value indicating success.
 skip_if_not_installed_for_parallel <- function(package) {
   # check if prioritizr installed
-  installed_pkgs <- unlist(lapply(.libPaths(), dir), use.names = FALSE)
-  result <- all(package %in% installed_pkgs)
-  # skip if not all installed
-  if (result) {
-    return(invisible(TRUE))
-  }
-  testthat::skip(
-    paste0("'", package[[1]], "' not installed for parallel processing")
+  cl <- parallel::makeCluster(1, "PSOCK")
+  on.exit(
+    try(parallel::stopCluster(cl), silent = TRUE),
+    add = TRUE, after = TRUE
   )
+  versions <- suppressWarnings(
+    parallel::parLapply(
+      cl = cl, package,
+      function(x) try(utils::packageVersion(x), silent = TRUE)
+   )
+ )
+  # check if any packages not installed at all
+  result <- vapply(versions, inherits, logical(1), "try-error")
+  # check if any packages have lower version
+  if (!any(result)) {
+    result <- suppressWarnings(
+      vapply(
+        seq_along(package),
+        FUN.VALUE = logical(1),
+        function(i) versions[[i]] < utils::packageVersion(package[[i]])
+      )
+    )
+  }
+  # if needed, throw skip
+  if (any(result)) {
+    testthat::skip(
+      paste0(
+        "'", package[which(result)[[1]]],
+        "' not installed for parallel processing"
+      )
+    )
+  }
+  # return success
+  return(invisible(TRUE))
 }

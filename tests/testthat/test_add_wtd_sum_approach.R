@@ -153,20 +153,20 @@ test_that("correct solution (multiple solutions)", {
         prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
         prioritizr::add_binary_decisions()
     ) %>%
-    add_wtd_sum_approach(weights = c(1, 1), verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
     prioritizr::add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(mp, run_checks = FALSE)
   # run tests
-  expect_s4_class(s, "SpatRaster")
-  expect_equal(terra::nlyr(s), 4)
+  expect_type(s, "list")
+  expect_equal(length(s), 4)
   expect_equal(
     c(terra::values(s[[1]])),
     c(1, 1, 0, 0, 0, 0)
   )
   expect_equal(
     c(terra::values(s[[2]])),
-    c(1, 1, 0, 0, 0, 0)
+    c(0, 0, 0, 0, 1, 1)
   )
   expect_equal(
     c(terra::values(s[[3]])),
@@ -190,7 +190,7 @@ test_that("correct solution (multiple solutions)", {
   )
   expect_equal(
     attr(s, "objective")[4, ],
-    c(obj1 = 0, obj2 = 25)
+    c(obj1 = 0, obj2 = 5)
   )
 })
 
