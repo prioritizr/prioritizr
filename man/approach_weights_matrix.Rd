@@ -105,23 +105,24 @@ plot(ms1, main = "Equal weights", axes = FALSE)
 # that contains different combinations of weight values
 
 # create a matrix with weight values for objectives
-obj_weights_matrix <- approach_weights_matrix(
- n_objectives = 2,
- n_per_objective = 5,
- include_zero = TRUE
+weights_matrix <- approach_weights_matrix(
+  n_problems = 2, n_values = 5, include_zero = TRUE
 )
 
 # preview weight matrix
-head(obj_weights_matrix)
+head(weights_matrix)
 
 # create multi-objective problem using weight matrix
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
-  add_wtd_sum_approach(obj_weights_matrix, verbose = FALSE) \%>\%
+  add_wtd_sum_approach(weights_matrix, verbose = FALSE) \%>\%
   add_default_solver(verbose = FALSE)
 
 # solve multi-objective problem and generate multiple solutions
 ms2 <- solve(mp2)
+
+# plot multiple solutions
+plot(terra::rast(ms2), axes = FALSE)
 
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective

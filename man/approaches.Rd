@@ -141,7 +141,7 @@ mp3 <-
 
 # solve problems
 s <- c(solve(mp1), solve(mp2), solve (mp3))
-names(s) <- c("hierarchal", "reference point", "weighted sum")
+names(s) <- c("hierarchical", "reference point", "weighted sum")
 
 # plot solutions
 plot(s, axes = FALSE)

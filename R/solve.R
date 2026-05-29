@@ -42,9 +42,10 @@ NULL
 #' @section Output format:
 #' This function will output solutions in a similar format to the
 #' planning units associated with `a`. Note that if multiple solutions are
-#' generated (e.g., using a multi-objective approach), the solutions will be
-#' returned as a `list` object. Specifically, each element of the list
-#' corresponds to a solution based on the following types of planning units.
+#' generated (e.g., see [portfolios] and (see [approaches]),
+#' then each solution may be returned as an element of a `list` object.
+#' Specifically, the solutions will have the following format based on
+#' the types of planning units in `a`.
 #'
 #' \describe{
 #'

@@ -212,38 +212,50 @@ plot(ms1, main = "Equally balanced", axes = FALSE)
 # that contains different combinations of weight values
 
 # create a matrix with weight values for objectives
-obj_weights_matrix <- approach_weights_matrix(
- n_objectives = 2,
- n_per_objective = 5,
- include_zero = TRUE
+weights_matrix <- approach_weights_matrix(
+  n_problems = 2, n_values = 5, include_zero = TRUE
 )
-#> Error in approach_weights_matrix(n_objectives = 2, n_per_objective = 5,     include_zero = TRUE): unused arguments (n_objectives = 2, n_per_objective = 5)
 
 # preview weight matrix
-head(obj_weights_matrix)
-#> Error: object 'obj_weights_matrix' not found
+head(weights_matrix)
+#>      [,1] [,2]
+#> [1,] 1.00 1.00
+#> [2,] 1.00 0.00
+#> [3,] 0.00 1.00
+#> [4,] 0.50 0.25
+#> [5,] 0.75 0.25
+#> [6,] 1.00 0.25
 
 # now create multi-objective problem with reference point approach,
 # with weights to generate multiple solutions
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_ref_point_approach(weights = obj_weights_matrix, verbose = TRUE) %>%
+  add_ref_point_approach(weights = weights_matrix, verbose = TRUE) %>%
   add_default_solver(verbose = FALSE)
-#> Error in add_default_solver(., verbose = FALSE): ℹ In argument to `x`.
-#> Caused by error:
-#> ! object 'obj_weights_matrix' not found
 
 # solve problem
 ms2 <- solve(mp2)
-#> Error: object 'mp2' not found
+#> Generating solutions ■■■■■■■                           20% | ETA:  6s
+#> Generating solutions ■■■■■■■■■                         27% | ETA:  5s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■           73% | ETA:  2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+
+# plot multiple solutions
+plot(terra::rast(ms2), axes = FALSE)
+
 
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
-#> Error: object 'ms2' not found
 
 # preview the objective values
 head(obj_matrix)
-#> Error: object 'obj_matrix' not found
+#>            keystone_obj iconic_obj
+#> solution_1    1.0110347  0.6474533
+#> solution_2    0.8656717  2.0000000
+#> solution_3    3.0000000  0.6035939
+#> solution_4    0.8949350  0.7202442
+#> solution_5    0.8949350  0.7202442
+#> solution_6    0.8893569  0.7320958
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
@@ -254,6 +266,6 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'obj_matrix' not found
+
 # }
 ```

@@ -370,6 +370,10 @@ mp2 <-
 # solve multi-objective problem and generate 40 solutions
 ms2 <- solve(mp2)
 
+# plot multiple solutions
+plot(terra::rast(ms2), axes = FALSE)
+
+
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 

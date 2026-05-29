@@ -60,9 +60,10 @@ to see if these potential issues are actually causing issues
 
 This function will output solutions in a similar format to the
 planning units associated with \code{a}. Note that if multiple solutions are
-generated (e.g., using a multi-objective approach), the solutions will be
-returned as a \code{list} object. Specifically, each element of the list
-corresponds to a solution based on the following types of planning units.
+generated (e.g., see \link{portfolios} and (see \link{approaches}),
+then each solution may be returned as an element of a \code{list} object.
+Specifically, the solutions will have the following format based on
+the types of planning units in \code{a}.
 
 \describe{
 

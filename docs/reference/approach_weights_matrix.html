@@ -180,37 +180,45 @@ would result in the same prioritization.</p>
 <span class="r-in"><span><span class="co"># that contains different combinations of weight values</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a matrix with weight values for objectives</span></span></span>
-<span class="r-in"><span><span class="va">obj_weights_matrix</span> <span class="op">&lt;-</span> <span class="fu">approach_weights_matrix</span><span class="op">(</span></span></span>
-<span class="r-in"><span> n_objectives <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span> n_per_objective <span class="op">=</span> <span class="fl">5</span>,</span></span>
-<span class="r-in"><span> include_zero <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="va">weights_matrix</span> <span class="op">&lt;-</span> <span class="fu">approach_weights_matrix</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  n_problems <span class="op">=</span> <span class="fl">2</span>, n_values <span class="op">=</span> <span class="fl">5</span>, include_zero <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in approach_weights_matrix(n_objectives = 2, n_per_objective = 5,     include_zero = TRUE):</span> unused arguments (n_objectives = 2, n_per_objective = 5)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># preview weight matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj_weights_matrix</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'obj_weights_matrix' not found</span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">weights_matrix</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.00 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 1.00 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.00 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.50 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.75 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 1.00 0.25</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create multi-objective problem using weight matrix</span></span></span>
 <span class="r-in"><span><span class="va">mp2</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="multi_problem.html">multi_problem</a></span><span class="op">(</span>keystone_obj <span class="op">=</span> <span class="va">p1</span>, iconic_obj <span class="op">=</span> <span class="va">p2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="add_wtd_sum_approach.html">add_wtd_sum_approach</a></span><span class="op">(</span><span class="va">obj_weights_matrix</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_wtd_sum_approach.html">add_wtd_sum_approach</a></span><span class="op">(</span><span class="va">weights_matrix</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in add_wtd_sum_approach(., obj_weights_matrix, verbose = FALSE):</span> <span style="color: #00BBBB;">ℹ</span> In argument to `weights`.</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'obj_weights_matrix' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve multi-objective problem and generate multiple solutions</span></span></span>
 <span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'mp2' not found</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot multiple solutions</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="approach_weights_matrix-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># extract objective values for the solutions</span></span></span>
 <span class="r-in"><span><span class="va">obj_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span><span class="op">$</span><span class="va">objective</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ms2' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># preview the objective values</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj_matrix</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'obj_matrix' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            keystone_obj iconic_obj</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_1    0.9421096  0.7490599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_2    0.8656717  2.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_3    3.0000000  0.6072101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_4    0.9421096  0.7490599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_5    0.9421096  0.7490599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_6    0.9421096  0.7490599</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the objectives values to visualize trade-offs</span></span></span>
 <span class="r-in"><span><span class="co"># (note that smaller values are better because these objectives seek to</span></span></span>
@@ -221,7 +229,7 @@ would result in the same prioritization.</p>
 <span class="r-in"><span>  xlab <span class="op">=</span> <span class="st">"Keystone objective (shortfall)"</span>,</span></span>
 <span class="r-in"><span>  ylab <span class="op">=</span> <span class="st">"Iconic objective (shortfall)"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 'obj_matrix' not found</span>
+<span class="r-plt img"><img src="approach_weights_matrix-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># we can see that there are multiple solutions (points) that have</span></span></span>
 <span class="r-in"><span><span class="co"># exactly the same performance for the two objectives (these appear</span></span></span>

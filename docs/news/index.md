@@ -3368,10 +3368,9 @@ CRAN release: 2018-05-26
   [`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md)
   throw an exception when used with semi-continuous-type decisions
   ([\#59](https://github.com/prioritizr/prioritizr/issues/59)).
-- Error message in
-  [`compile()`](https://prioritizr.net/reference/compile.md) thrown when
-  the same planning unit is locked in and locked out now prints the
-  planning unit indices in a readable format.
+- Fix bug in [`compile()`](https://prioritizr.net/reference/compile.md)
+  that caused unreadable error message when the same planning unit is
+  locked in and locked out.
 
 ## prioritizr 3.0.3.4
 

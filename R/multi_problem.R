@@ -95,11 +95,13 @@ NULL
 #' # now create multi-objective problem
 #' mp <-
 #'   multi_problem(
-#'     keystone_obj = problem(con_cost, keystone_spp) %>%
+#'     keystone_obj =
+#'       problem(con_cost, keystone_spp) %>%
 #'       add_min_shortfall_objective(budget) %>%
 #'       add_relative_targets(0.6) %>%
 #'       add_binary_decisions(),
-#'     iconic_obj = problem(con_cost, iconic_spp) %>%
+#'     iconic_obj =
+#'       problem(con_cost, iconic_spp) %>%
 #'       add_min_shortfall_objective(budget) %>%
 #'       add_relative_targets(0.4) %>%
 #'       add_binary_decisions()
@@ -110,7 +112,8 @@ NULL
 #' # solve problem
 #' ms <- solve(mp)
 #'
-#' plot(ms, main = "Solution", axes = FALSE)
+#' # plot solution
+#' plot(ms, axes = FALSE)
 #' }
 #' @export
 multi_problem <- function(..., problem_names = NULL) {

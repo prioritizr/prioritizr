@@ -81,9 +81,11 @@ to see if these potential issues are actually causing issues (e.g.,
 
 This function will output solutions in a similar format to the planning
 units associated with `a`. Note that if multiple solutions are generated
-(e.g., using a multi-objective approach), the solutions will be returned
-as a `list` object. Specifically, each element of the list corresponds
-to a solution based on the following types of planning units.
+(e.g., see [portfolios](https://prioritizr.net/reference/portfolios.md)
+and (see [approaches](https://prioritizr.net/reference/approaches.md)),
+then each solution may be returned as an element of a `list` object.
+Specifically, the solutions will have the following format based on the
+types of planning units in `a`.
 
 - `a` has `numeric` planning units:
 
@@ -235,7 +237,7 @@ print(attr(s1, "objective"))
 #>   1987.399 
 print(attr(s1, "runtime"))
 #> solution_1 
-#>      0.005 
+#>      0.004 
 print(attr(s1, "status"))
 #> solution_1 
 #>  "OPTIMAL" 

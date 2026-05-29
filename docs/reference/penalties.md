@@ -131,21 +131,19 @@ plot(sim_penalty_raster, main = "penalty data", axes = FALSE)
 p6 <- p1 %>% add_linear_penalties(100, data = sim_penalty_raster)
 
 # create problem with cost penalties, with a penalty scaling factor of 5
-p7 <- p1 %>% add_linear_penalties(5)
-#> Error in add_linear_penalties(., 5): `data` is absent but must be supplied.
+p7 <- p1 %>% add_cost_penalties(5)
 
 # solve problems
 s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p6, p7), solve))
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'rast': object 'p7' not found
 names(s) <- c(
   "basic solution", "boundary penalties", "neighbor penalties",
   "connectivity penalties", "asymmetric penalties", "linear penalties",
   "cost penalties"
 )
-#> Error: object 's' not found
+#> Error: [names<-] incorrect number of names
 
 # plot solutions
 plot(s, axes = FALSE)
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 's' not found
+
 # }
 ```

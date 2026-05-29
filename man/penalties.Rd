@@ -116,7 +116,7 @@ plot(sim_penalty_raster, main = "penalty data", axes = FALSE)
 p6 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
 # create problem with cost penalties, with a penalty scaling factor of 5
-p7 <- p1 \%>\% add_linear_penalties(5)
+p7 <- p1 \%>\% add_cost_penalties(5)
 
 # solve problems
 s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p6, p7), solve))

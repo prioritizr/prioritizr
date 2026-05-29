@@ -195,5 +195,5 @@ plot(s3, main = "solution", axes = FALSE)
 }
 \seealso{
 See the Gurobi documentation for more information on numerical
-instability issues (\url{http://www.gurobi.cn/download/GuNum.pdf}).
+instability issues (\url{https://docs.gurobi.com/projects/optimizer/en/current/concepts/numericguide.html}).
 }

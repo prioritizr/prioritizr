@@ -129,9 +129,10 @@ to see if these potential issues are actually causing issues
 
 <p>This function will output solutions in a similar format to the
 planning units associated with <code>a</code>. Note that if multiple solutions are
-generated (e.g., using a multi-objective approach), the solutions will be
-returned as a <code>list</code> object. Specifically, each element of the list
-corresponds to a solution based on the following types of planning units.</p>
+generated (e.g., see <a href="portfolios.html">portfolios</a> and (see <a href="approaches.html">approaches</a>),
+then each solution may be returned as an element of a <code>list</code> object.
+Specifically, the solutions will have the following format based on
+the types of planning units in <code>a</code>.</p>
 <dl><dt><code>a</code> has <code>numeric</code> planning units</dt>
 <dd><p>Here the solution will be
 returned as a <code>numeric</code> vector. In particular, each element in the vector
@@ -274,7 +275,7 @@ issues prior to solving a problem, and <code><a href="category_layer.html">categ
 <span class="r-out co"><span class="r-pr">#&gt;</span>   1987.399 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      0.005 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      0.004 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  "OPTIMAL" </span>

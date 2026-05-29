@@ -119,37 +119,45 @@ plot(ms1, main = "Equal weights", axes = FALSE)
 # that contains different combinations of weight values
 
 # create a matrix with weight values for objectives
-obj_weights_matrix <- approach_weights_matrix(
- n_objectives = 2,
- n_per_objective = 5,
- include_zero = TRUE
+weights_matrix <- approach_weights_matrix(
+  n_problems = 2, n_values = 5, include_zero = TRUE
 )
-#> Error in approach_weights_matrix(n_objectives = 2, n_per_objective = 5,     include_zero = TRUE): unused arguments (n_objectives = 2, n_per_objective = 5)
 
 # preview weight matrix
-head(obj_weights_matrix)
-#> Error: object 'obj_weights_matrix' not found
+head(weights_matrix)
+#>      [,1] [,2]
+#> [1,] 1.00 1.00
+#> [2,] 1.00 0.00
+#> [3,] 0.00 1.00
+#> [4,] 0.50 0.25
+#> [5,] 0.75 0.25
+#> [6,] 1.00 0.25
 
 # create multi-objective problem using weight matrix
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_wtd_sum_approach(obj_weights_matrix, verbose = FALSE) %>%
+  add_wtd_sum_approach(weights_matrix, verbose = FALSE) %>%
   add_default_solver(verbose = FALSE)
-#> Error in add_wtd_sum_approach(., obj_weights_matrix, verbose = FALSE): ℹ In argument to `weights`.
-#> Caused by error:
-#> ! object 'obj_weights_matrix' not found
 
 # solve multi-objective problem and generate multiple solutions
 ms2 <- solve(mp2)
-#> Error: object 'mp2' not found
+
+# plot multiple solutions
+plot(terra::rast(ms2), axes = FALSE)
+
 
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
-#> Error: object 'ms2' not found
 
 # preview the objective values
 head(obj_matrix)
-#> Error: object 'obj_matrix' not found
+#>            keystone_obj iconic_obj
+#> solution_1    0.9421096  0.7490599
+#> solution_2    0.8656717  2.0000000
+#> solution_3    3.0000000  0.6072101
+#> solution_4    0.9421096  0.7490599
+#> solution_5    0.9421096  0.7490599
+#> solution_6    0.9421096  0.7490599
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
@@ -160,7 +168,7 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-#> Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'obj_matrix' not found
+
 
 # we can see that there are multiple solutions (points) that have
 # exactly the same performance for the two objectives (these appear

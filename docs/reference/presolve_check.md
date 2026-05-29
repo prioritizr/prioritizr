@@ -134,7 +134,8 @@ very long time time to solve, then might not be of much help.
 ## See also
 
 See the Gurobi documentation for more information on numerical
-instability issues (<http://www.gurobi.cn/download/GuNum.pdf>).
+instability issues
+(<https://docs.gurobi.com/projects/optimizer/en/current/concepts/numericguide.html>).
 
 ## Examples
 
