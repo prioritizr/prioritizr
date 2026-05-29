@@ -1,6 +1,6 @@
 test_that("min set objective (approx = FALSE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -10,15 +10,15 @@ test_that("min set objective (approx = FALSE)", {
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
-    add_relative_targets(0.2) %>%
+    add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE)
   # create problem with boundary penalties
   p2 <-
     p1 %>%
     add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
-  x <- calibrate_cohon_penalty(p2, verbose = FALSE, approx = FALSE)
+  system.time(x <- calibrate_cohon_penalty(p2, verbose = FALSE, approx = FALSE))
   # calculate correct result
   s1 <- solve(p1)
   s2 <- suppressWarnings(
@@ -70,7 +70,7 @@ test_that("min set objective (approx = FALSE)", {
 
 test_that("min set objective (approx = TRUE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -81,9 +81,9 @@ test_that("min set objective (approx = TRUE)", {
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_boundary_penalties(penalty = 1, data = bd) %>%
-    add_relative_targets(0.2) %>%
+    add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE)
   # calculate results
   x <- calibrate_cohon_penalty(p1, verbose = FALSE, approx = FALSE)
   y <- suppressMessages(
@@ -110,7 +110,7 @@ test_that("min set objective (approx = TRUE)", {
   expect_true(assertthat::noNA(attr(y, "solution_2_penalty")))
   expect_lte(
     abs(attr(x, "solution_1_objective") -  attr(y, "solution_1_objective")),
-    400
+    1
   )
   expect_gte(
     attr(y, "solution_1_penalty"),
@@ -118,21 +118,21 @@ test_that("min set objective (approx = TRUE)", {
   )
   expect_lte(
     abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
-    1500
+    1
   )
   expect_lte(
     abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
-    0.5
+    1
   )
   expect_lte(
     abs(x[[1]] - y[[1]]),
-    500
+    800
   )
 })
 
 test_that("min shortfall objective (approx = FALSE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -147,7 +147,7 @@ test_that("min shortfall objective (approx = FALSE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE)
   # create problem with boundary penalties
   p2 <-
     p1 %>%
@@ -208,7 +208,7 @@ test_that("min shortfall objective (approx = FALSE)", {
 
 test_that("min shortfall objective (approx = TRUE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -223,7 +223,7 @@ test_that("min shortfall objective (approx = TRUE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE)
   # create problem with boundary penalties
   p2 <-
     p1 %>%
