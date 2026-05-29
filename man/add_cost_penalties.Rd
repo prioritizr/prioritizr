@@ -69,42 +69,70 @@ replaced with \eqn{-P_z}.
 set.seed(600)
 
 # load data
-sim_pu_raster <- get_sim_pu_raster()
-sim_features <- get_sim_features()
+sim_complex_pu_raster <- get_sim_complex_pu_raster()
+sim_complex_features <- get_sim_complex_features()
 
 # create layer with 1s for all planning units
-sim_ones_raster <- (sim_pu_raster * 0) + 1
-
-# calculate budget based on 30\% of the number of planning units
-budget <- 0.3 * terra::global(sim_ones_raster, "sum", na.rm = TRUE)[[1]]
+sim_ones_complex_raster <- (sim_complex_pu_raster * 0) + 1
 
 # here we will formulate a multi-objective optimization problem
-# that (i) minimizes targets shortfalls for feature representation,
-# (ii) minimizes the cost of the solution, and (iii)
-# ensures that (approximately) 30\% of the study area is selected
-# (i.e., by specifying a budget for the upper threshold and a linear
-# constraint for the lower threshold on the number of selected planning
-# units). to explore trade-offs between the objectives,
-# we will use the reference point approach to generate 10 different solutions
+# that (i) minimizes the largest target shortfall for feature representation,
+# (ii) minimizes the overall target shortfalls for feature representation,
+# and (iii) minimizes the cost of the solution. since the
+# first objective is to minimize the largest shortfall and the second
+# objective is to minimize overall target shortfalls,
+# this helps balance shortfalls among all features and better
+# achieve complementarity. additionally, we will specify that
+# (approximately) 30\% of the study area should be selected (i.e., by
+# specifying a budget for the upper threshold and a linear constraint for
+# the lower threshold on the number of selected planning units).
+
+# calculate budget based on 30\% of the number of planning units
+budget <-
+  0.3 * terra::global(sim_ones_complex_raster, "sum", na.rm = TRUE)[[1]]
+
+# build multi-objective conservation planning problem
 mp <-
   multi_problem(
     obj1 =
-      problem(sim_ones_raster, sim_features) \%>\%
-      add_min_shortfall_objective(budget = budget) \%>\%
-      add_relative_targets(0.4) \%>\%
-      add_cost_constraints(sense = ">=", threshold = budget * 0.95) \%>\%
+      problem(sim_ones_complex_raster, sim_complex_features) \%>\%
+      add_min_largest_shortfall_objective(budget = budget) \%>\%
+      add_auto_targets("jung") \%>\%
+      # note that this constraint only needs to be specified once
+      add_cost_constraints(sense = ">=", budget = budget * 0.9) \%>\%
       add_binary_decisions(),
     obj2 =
-      problem(sim_pu_raster, sim_pu_raster) \%>\%
+      problem(sim_ones_complex_raster, sim_complex_features) \%>\%
+      add_min_shortfall_objective(budget = budget) \%>\%
+      # note that we use the same targets for both obj1 and obj2
+      add_auto_targets("jung") \%>\%
+      add_binary_decisions(),
+    obj3 =
+      problem(sim_complex_pu_raster, sim_complex_pu_raster) \%>\%
       add_min_penalties_objective() \%>\%
       # note a value of 1 is here because only the costs minimized
       add_cost_penalties(1) \%>\%
       add_binary_decisions()
   ) \%>\%
-  add_ref_point_approach(
-    weights = approach_weights_matrix(n_problems = 2, n_values = 10)
-  ) \%>\%
-  add_default_solver(gap = 0.01)
+  add_default_solver(gap = 0.01, verbose = FALSE)
+
+# to explore trade-offs between how well the feature targets
+# are met and cost, we will generate a matrix of relative tolerance values
+# for the hierarchical approach. note that the first column of this
+# matrix will have only zeros to help promote balanced
+# shortfalls across different features, and the second column
+# will have non-zeros because we are interested in trade-offs between
+# overall feature shortfalls and cost
+rel_tol_matrix <- matrix(0, ncol = 2, nrow = 10)
+rel_tol_matrix[, 2] <- seq(0, 0.5, length.out = nrow(rel_tol_matrix))
+
+# display matrix
+print(rel_tol_matrix)
+
+# add hierarchical approach to multi-objective problem
+mp <-
+  mp \%>\%
+  add_hier_approach(rel_tol = rel_tol_matrix)
 
 # generate solutions
 ms <- solve(mp)
@@ -121,9 +149,9 @@ head(obj_matrix)
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better for both objectives)
 plot(
-  obj_matrix,
+  obj_matrix[, 2:3],
   main = "Trade-offs between objectives",
-  xlab = "Species representation (shortfall)",
+  xlab = "Species representation (overall shortfall)",
   ylab = "Solution cost"
 )
 }
