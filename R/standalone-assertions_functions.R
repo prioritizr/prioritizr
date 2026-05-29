@@ -80,7 +80,7 @@ assert_required <- function(x,
       )
     } else {
       ## if not,
-      ## then this means that assert_required() is being called in later
+      ## then this means that assert_required() is being called later
       ## in the pipe chain after the error has happened, so we want to
       ## throw the error embedded in the try()
       cli::cli_abort(
