@@ -55,10 +55,10 @@ assert_required <- function(x,
   res <- try(identical(x, 1), silent = TRUE)
   # if it doesn't, then throw an error message
   if (inherits(res, "try-error")) {
-    ## if the error message is a simpleError,
+    ## if the error message is not an rlang_error,
     ## then this means that assert_required() is being called in pipe-chain
     ## where the error is happening
-    if (inherits(attr(res, "condition"), "simpleError")) {
+    if (!inherits(attr(res, "condition"), "rlang_error")) {
       cond_call <- deparse(attr(res, "condition")$call)[[1]]
       cond_msg <- trimws(attr(res, "condition")$message)[[1]]
       err_msg <- c(
