@@ -471,6 +471,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_cost_constraints
+bool rcpp_apply_cost_constraints(SEXP x, const Rcpp::NumericVector budget, const Rcpp::CharacterVector sense, const arma::sp_mat data);
+RcppExport SEXP _prioritizr_rcpp_apply_cost_constraints(SEXP xSEXP, SEXP budgetSEXP, SEXP senseSEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::CharacterVector >::type sense(senseSEXP);
+    Rcpp::traits::input_parameter< const arma::sp_mat >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_cost_constraints(x, budget, sense, data));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_decisions
 bool rcpp_apply_decisions(SEXP x, std::string vtype, double default_lower, double default_upper);
 RcppExport SEXP _prioritizr_rcpp_apply_decisions(SEXP xSEXP, SEXP vtypeSEXP, SEXP default_lowerSEXP, SEXP default_upperSEXP) {
