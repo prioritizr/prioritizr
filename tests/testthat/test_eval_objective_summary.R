@@ -44,20 +44,22 @@ test_that("multi_problem() (single zone)", {
   # create problem
   mp <-
     multi_problem(
-      obj1 = problem(
-        matrix(pu$cost, ncol = 1),
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        as.matrix(t(pu[, 3:4]))
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(1),
-      obj2 = problem(
-        matrix(pu$cost, ncol = 1),
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        as.matrix(t(pu[, 3:4]))
-      ) %>%
-      add_max_wtd_sum_objective(budget = 100) %>%
-      add_feature_weights(c(20, 40))
+      obj1 =
+        problem(
+          matrix(pu$cost, ncol = 1),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          as.matrix(t(pu[, 3:4]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(1),
+      obj2 =
+        problem(
+          matrix(pu$cost, ncol = 1),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          as.matrix(t(pu[, 3:4]))
+        ) %>%
+        add_max_wtd_sum_objective(budget = 100) %>%
+        add_feature_weights(c(20, 40))
     ) %>%
     add_default_solver(verbose = FALSE)
   # create a solution
@@ -133,18 +135,20 @@ test_that("multi_problem() (multiple zones)", {
   # create multi-objective problem
   mp <-
     multi_problem(
-      obj1 = problem(
-        as.matrix(pu[, c("cost_1", "cost_2")]),
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
-      ) %>%
+      obj1 =
+        problem(
+          as.matrix(pu[, c("cost_1", "cost_2")]),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 1), nrow = 2, ncol = 2)),
-      obj2 = problem(
-        as.matrix(pu[, c("cost_1", "cost_2")]),
-        data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-        list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
-      ) %>%
+      obj2 =
+        problem(
+          as.matrix(pu[, c("cost_1", "cost_2")]),
+          data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+          list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))
+        ) %>%
         add_max_wtd_sum_objective(budget = 100)
     ) %>%
     add_default_solver(verbose = FALSE)

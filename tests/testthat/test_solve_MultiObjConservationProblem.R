@@ -12,11 +12,13 @@ test_that("x = SpatRaster, y = SpatRaster (single zone)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(costs, spp) %>%
+      obj1 =
+        problem(costs, spp) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions(),
-      obj2 = problem(costs, spp) %>%
+      obj2 =
+        problem(costs, spp) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
@@ -51,11 +53,13 @@ test_that("x = SpatRaster, y = ZonesSpatRaster (multiple zones)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
+      obj1 =
+        problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions(),
-      obj2 = problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
+      obj2 =
+        problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions()
@@ -87,11 +91,13 @@ test_that("x = sf, y = SpatRaster (single zone)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(costs, spp, cost_column = "cost") %>%
+      obj1 =
+        problem(costs, spp, cost_column = "cost") %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions(),
-      obj2 = problem(costs, spp, cost_column = "cost") %>%
+      obj2 =
+        problem(costs, spp, cost_column = "cost") %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
@@ -125,17 +131,19 @@ test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(
-        costs, zones(spp[[1:2]], spp[[3:4]]),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj1 =
+        problem(
+          costs, zones(spp[[1:2]], spp[[3:4]]),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions(),
-      obj2 = problem(
-        costs, zones(spp[[1:2]], spp[[3:4]]),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj2 =
+        problem(
+          costs, zones(spp[[1:2]], spp[[3:4]]),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions()
@@ -167,11 +175,13 @@ test_that("x = sf, y = character (single zone)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
+      obj1 =
+        problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions(),
-      obj2 = problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
+      obj2 =
+        problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
@@ -205,19 +215,21 @@ test_that("x = sf, y = ZonesCharacter (multiple zones)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(
-        costs,
-        zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj1 =
+        problem(
+          costs,
+          zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions(),
-      obj2 = problem(
-        costs,
-        zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj2 =
+        problem(
+          costs,
+          zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions()
@@ -357,11 +369,13 @@ test_that("x = data.frame, y = data.frame (single zone)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(pu, species, "cost", rij = rij) %>%
+      obj1 =
+        problem(pu, species, "cost", rij = rij) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions(),
-      obj2 = problem(pu, species, "cost", rij = rij) %>%
+      obj2 =
+        problem(pu, species, "cost", rij = rij) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
@@ -405,19 +419,21 @@ test_that("x = data.frame, y = data.frame (multiple zones)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(
-        costs, spp,
-        rij = rij, zone,
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj1 =
+        problem(
+          costs, spp,
+          rij = rij, zone,
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions(),
-      obj2 = problem(
-        costs, spp,
-        rij = rij, zone,
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
+      obj2 =
+        problem(
+          costs, spp,
+          rij = rij, zone,
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions()
@@ -448,11 +464,13 @@ test_that("x = numeric, y = data.frame (single zone)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(pu$cost, species, rij = rij) %>%
+      obj1 =
+        problem(pu$cost, species, rij = rij) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions(),
-      obj2 = problem(pu$cost, species, rij = rij) %>%
+      obj2 =
+        problem(pu$cost, species, rij = rij) %>%
         add_min_set_objective() %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
@@ -488,15 +506,17 @@ test_that("x = matrix, y = data.frame (multiple zones)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(
-        as.matrix(costs[, c("cost_1", "cost_2")]), spp, rij_matrix
-      ) %>%
+      obj1 =
+        problem(
+          as.matrix(costs[, c("cost_1", "cost_2")]), spp, rij_matrix
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions(),
-      obj2 = problem(
-        as.matrix(costs[, c("cost_1", "cost_2")]), spp, rij_matrix
-      ) %>%
+      obj2 =
+        problem(
+          as.matrix(costs[, c("cost_1", "cost_2")]), spp, rij_matrix
+        ) %>%
         add_min_set_objective() %>%
         add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
         add_binary_decisions()
@@ -523,11 +543,13 @@ test_that("numerical instability (error when force = FALSE)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(sim_pu_polygons, sim_features, "cost") %>%
+      obj1 =
+        problem(sim_pu_polygons, sim_features, "cost") %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_pu_polygons, sim_features, "cost") %>%
+      obj2 =
+        problem(sim_pu_polygons, sim_features, "cost") %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions()
@@ -550,12 +572,14 @@ test_that("infeasibility (error when force = FALSE)", {
   # create multi-objective problem with infeasible constraints
   p <-
     multi_problem(
-      obj1 = problem(sim_pu_raster, sim_features) %>%
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.99) %>%
         add_linear_constraints(0, "<=", sim_pu_raster) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_pu_raster, sim_features) %>%
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.99) %>%
         add_linear_constraints(0, "<=", sim_pu_raster) %>%
@@ -578,18 +602,18 @@ test_that("numerical instability (solution when force = TRUE)", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = problem(sim_pu_polygons, sim_features, "cost") %>%
+      obj1 =
+        problem(sim_pu_polygons, sim_features, "cost") %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_pu_polygons, sim_features, "cost") %>%
+      obj2 =
+        problem(sim_pu_polygons, sim_features, "cost") %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_binary_decisions()
     ) %>%
-    add_wtd_sum_approach(
-      weights = c(0.5, 0.5), verbose = FALSE
-    ) %>%
+    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE) %>%
     add_default_solver(first_feasible = TRUE, verbose = FALSE)
   # solve problem
   expect_warning(
@@ -783,7 +807,8 @@ test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
       add_binary_decisions(),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem
@@ -841,7 +866,8 @@ test_that("x = Spatial, y = RasterStack (single zone)", {
     ),
     "deprecated"
   )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
+  p <-
+    multi_problem(obj1 = obj1, obj2 = obj2) %>%
     add_default_solver(gap = 0, verbose = FALSE) %>%
     add_wtd_sum_approach(weights = weights, verbose = FALSE)
   # solve problem

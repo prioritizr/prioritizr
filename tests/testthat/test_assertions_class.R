@@ -78,10 +78,12 @@ test_that("is_multi_conservation_problem", {
   f2 <- sim_features[[2]]
   # build problem
   p <- multi_problem(
-    obj1 = problem(sim_zones_pu_raster[[1]], f1) %>%
+    obj1 =
+      problem(sim_zones_pu_raster[[1]], f1) %>%
       add_max_wtd_sum_objective(budget = b1) %>%
       add_binary_decisions(),
-    obj2 = problem(sim_zones_pu_raster[[1]], f2) %>%
+    obj2 =
+      problem(sim_zones_pu_raster[[1]], f2) %>%
       add_max_wtd_sum_objective(budget = b1) %>%
       add_binary_decisions()
   )

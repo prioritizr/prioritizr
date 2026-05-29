@@ -399,11 +399,13 @@ test_that("multi_problem() (single problem fail)", {
   # create multi-object problem
   p <-
     multi_problem(
-      obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
         add_binary_decisions(),
-      obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
         add_min_set_objective() %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
@@ -429,11 +431,13 @@ test_that("multi_problem() (multiple problems fail)", {
   expect_warning(
     p <-
       multi_problem(
-        obj1 = problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        obj1 =
+          problem(sim_zones_pu_raster[[1]], sim_features) %>%
           add_min_set_objective() %>%
           add_absolute_targets(rep(1e+10, terra::nlyr(sim_features))) %>%
           add_binary_decisions(),
-        obj2 = problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        obj2 =
+          problem(sim_zones_pu_raster[[2]], sim_features) %>%
           add_min_set_objective() %>%
           add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
           add_binary_decisions()

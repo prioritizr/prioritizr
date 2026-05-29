@@ -26,11 +26,13 @@ test_that("multi_problem", {
   # create and solve problem
   p <-
     multi_problem(
-      obj1 = problem(sim_pu_raster, sim_features) %>%
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_proportion_decisions(),
-      obj2 = problem(sim_pu_raster, sim_features) %>%
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%
         add_proportion_decisions()
