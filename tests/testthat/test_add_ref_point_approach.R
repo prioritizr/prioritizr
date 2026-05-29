@@ -1,7 +1,7 @@
 test_that("two objectives", {
   # define skips
   skip_on_cran()
-  skip_if_no_fast_solvers_installed("highs")
+  skip_if_no_fast_solvers_installed()
   # import data
   pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
   ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
@@ -37,7 +37,7 @@ test_that("two objectives", {
 test_that("three objectives", {
   # define skips
   skip_on_cran()
-  skip_if_no_fast_solvers_installed("highs")
+  skip_if_no_fast_solvers_installed()
   # import data
   pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
   ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
@@ -78,7 +78,7 @@ test_that("three objectives", {
 test_that("mixed objectives", {
   # define skips
   skip_on_cran()
-  skip_if_no_fast_solvers_installed("highs")
+  skip_if_no_fast_solvers_installed()
   # import data
   pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
   ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
@@ -115,7 +115,7 @@ test_that("mixed objectives", {
 test_that("manually specified parameters", {
   # define skips
   skip_on_cran()
-  skip_if_no_fast_solvers_installed("highs")
+  skip_if_no_fast_solvers_installed()
   # import data
   pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
   ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
