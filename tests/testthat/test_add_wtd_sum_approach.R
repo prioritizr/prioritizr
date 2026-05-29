@@ -93,99 +93,101 @@ test_that("correct solution (single solution)", {
   skip_on_cran()
   skip_if_no_solvers_installed()
   # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  names(sim_zones_pu_raster) <- rep("zone_1", 3)
-  sim_features <- get_sim_features()
-  weights <- runif(2)
+  pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
+  ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
+  ft2 <- terra::rast(matrix(c(0, 0, 0, 0, 3, 2)))
   # create multi-object problem
-  p1 <-
-    multi_problem(
-      problem(sim_zones_pu_raster[[1]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-        add_binary_decisions(),
-      problem(sim_zones_pu_raster[[2]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-        add_binary_decisions()
+  mp <-
+    prioritizr::multi_problem(
+      obj1 =
+        prioritizr::problem(pu, ft1) %>%
+        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
+        prioritizr::add_binary_decisions(),
+      obj2 =
+        prioritizr::problem(pu, ft2) %>%
+        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
+        prioritizr::add_binary_decisions()
     ) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  # create equivalent single objective problem
-  p2 <-
-    problem(
-      stats::setNames(sum(c(
-        sim_zones_pu_raster[[1]] * weights[[1]],
-        sim_zones_pu_raster[[2]] * weights[[2]]
-      )), "zone_1"),
-      sim_features
-    ) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(
-      pmax(
-        seq_along(terra::nlyr(sim_features)),
-        rev(seq_along(terra::nlyr(sim_features)))
-      )
-    ) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  # generate solutions
-  s1 <- solve(p1)
-  s2 <- solve(p2)
+    add_wtd_sum_approach(weights = c(1, 1), verbose = FALSE) %>%
+    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+  # solve problem
+  s <- solve(mp, run_checks = FALSE)
   # run tests
-  expect_equal(terra::values(s1), terra::values(s2))
+  expect_s4_class(s, "SpatRaster")
+  expect_equal(
+    c(terra::values(s)),
+    c(1, 0, 0, 0, 1, 0)
+  )
+  expect_equal(
+    attr(s, "objective")[1, ],
+    c(obj1 = 5, obj2 = 3)
+  )
 })
 
 test_that("correct solution (multiple solutions)", {
   skip_on_cran()
   skip_if_no_solvers_installed()
   # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  names(sim_zones_pu_raster) <- rep("zone_1", 3)
-  sim_features <- get_sim_features()
-  weights <- matrix(runif(10), ncol = 2)
+  pu <- terra::rast(matrix(c(1, 1, 1, 1, 1, 1)))
+  ft1 <- terra::rast(matrix(c(5, 0.5, 0, 0, 0, 0)))
+  ft2 <- terra::rast(matrix(c(0, 0, 0, 0, 3, 2)))
+  # define weights
+  weights <- matrix(0, nrow = 4, ncol = 2)
+  weights[1, ] <- c(1, 0)
+  weights[2, ] <- c(0, 1)
+  weights[3, ] <- c(1, 1)
+  weights[4, ] <- c(1, 5)
   # create multi-object problem
-  p1 <-
-    multi_problem(
-      problem(sim_zones_pu_raster[[1]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
-        add_binary_decisions(),
-      problem(sim_zones_pu_raster[[2]], sim_features) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
-        add_binary_decisions()
+  mp <-
+    prioritizr::multi_problem(
+      obj1 =
+        prioritizr::problem(pu, ft1) %>%
+        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
+        prioritizr::add_binary_decisions(),
+      obj2 =
+        prioritizr::problem(pu, ft2) %>%
+        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
+        prioritizr::add_binary_decisions()
     ) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  # create equivalent single objective problem
-  p2 <- lapply(seq_len(5), function(i) {
-    problem(
-      stats::setNames(sum(c(
-        sim_zones_pu_raster[[1]] * weights[i, 1],
-        sim_zones_pu_raster[[2]] * weights[i, 2]
-      )), "zone_1"),
-      sim_features
-    ) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(
-      pmax(
-        seq_along(terra::nlyr(sim_features)),
-        rev(seq_along(terra::nlyr(sim_features)))
-      )
-    ) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  })
-  # generate solutions
-  s1 <- solve(p1)
-  s2 <- lapply(p2, solve)
+    add_wtd_sum_approach(weights = c(1, 1), verbose = FALSE) %>%
+    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+  # solve problem
+  s <- solve(mp, run_checks = FALSE)
   # run tests
-  expect_equal(terra::values(s1$solution_1), terra::values(s2[[1]]))
-  expect_equal(terra::values(s1$solution_2), terra::values(s2[[2]]))
-  expect_equal(terra::values(s1$solution_3), terra::values(s2[[3]]))
-  expect_equal(terra::values(s1$solution_4), terra::values(s2[[4]]))
-  expect_equal(terra::values(s1$solution_5), terra::values(s2[[5]]))
+  expect_s4_class(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 4)
+  expect_equal(
+    c(terra::values(s[[1]])),
+    c(1, 1, 0, 0, 0, 0)
+  )
+  expect_equal(
+    c(terra::values(s[[2]])),
+    c(1, 1, 0, 0, 0, 0)
+  )
+  expect_equal(
+    c(terra::values(s[[3]])),
+    c(1, 0, 0, 0, 1, 0)
+  )
+  expect_equal(
+    c(terra::values(s[[4]])),
+    c(0, 0, 0, 0, 1, 1)
+  )
+  expect_equal(
+    attr(s, "objective")[1, ],
+    c(obj1 = 5.5, obj2 = 0)
+  )
+  expect_equal(
+    attr(s, "objective")[2, ],
+    c(obj1 = 0, obj2 = 5)
+  )
+  expect_equal(
+    attr(s, "objective")[3, ],
+    c(obj1 = 5, obj2 = 3)
+  )
+  expect_equal(
+    attr(s, "objective")[4, ],
+    c(obj1 = 0, obj2 = 25)
+  )
 })
 
 test_that("invalid inputs", {
