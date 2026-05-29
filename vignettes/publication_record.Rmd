@@ -177,7 +177,7 @@ This vignette contains a list of publications that have cited or used the _prior
 ### 2026
 
 * Dalla D, Papazekou M, Konsta K, Katsanevakis S, Mazaris AD (2025) A review of alternative cost layers for spatial prioritization tools. _Landscape Ecology_, **41**: 7.
-* Sanz-Martín M, Olguín-Jacobson C, Bolin JA, Quiles-Pons C, Brito-Morales I, García Molinos J, Hidalgo M, Alabia ID, Gissi E, Provost MM, Micheli F, Arafeh-Dalmau N (2026) Identifying marine climate refugia to advance climate-smart conservation. _Trends in Ecology and Evolution_, **In press**: DOI:10.1016/j.tree.2026.04.007.
+* Sanz-Martín M, Olguín-Jacobson C, Bolin JA, Quiles-Pons C, Brito-Morales I, García Molinos J, Hidalgo M, Alabia ID, Gissi E, Provost MM, Micheli F, Arafeh-Dalmau N (2026) Identifying marine climate refugia to advance climate-smart conservation. _Trends in Ecology and Evolution_, **In press**: 10.1016/j.tree.2026.04.007.
 * Stralberg D, Lewis DW, Stolar J, Kehm GJ, Cosgrove CF, Morgan DG, Nelson EA, Kuntzemann CE, Raymundo A, Sang Z, Viliani L, Jumean Z, Meier M, Enslow C, Estevo CA, Fraser‐Reid EC, Campbell EM, Grant JA, Howard S, Naujokaitis‐Lewis I, Nielsen SE, Carroll C (2025) Integrating climate‐change exposure and refugia into landscape planning: A practical guide. _Conservation Science and Practice_, **8**: e70171.
 
 
