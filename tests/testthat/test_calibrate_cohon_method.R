@@ -2,6 +2,7 @@ test_that("min set objective (approx = FALSE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
@@ -12,7 +13,7 @@ test_that("min set objective (approx = FALSE)", {
     add_min_set_objective() %>%
     add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_cbc_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
@@ -72,6 +73,7 @@ test_that("min set objective (approx = TRUE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
@@ -83,7 +85,7 @@ test_that("min set objective (approx = TRUE)", {
     add_boundary_penalties(penalty = 1, data = bd) %>%
     add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_cbc_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # calculate results
   x <- calibrate_cohon_penalty(p1, verbose = FALSE, approx = FALSE)
   y <- suppressMessages(
@@ -134,6 +136,7 @@ test_that("min shortfall objective (approx = FALSE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.0
@@ -147,7 +150,7 @@ test_that("min shortfall objective (approx = FALSE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_cbc_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
@@ -210,6 +213,7 @@ test_that("min shortfall objective (approx = TRUE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.0
@@ -223,7 +227,7 @@ test_that("min shortfall objective (approx = TRUE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_cbc_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
