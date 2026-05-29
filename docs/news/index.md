@@ -93,8 +93,28 @@
   now provide more informative error messages when the user has
   mistakenly provided a solution that is not compatible with planning
   units of a [`problem()`](https://prioritizr.net/reference/problem.md).
-- Fix typo in error message for functions that require the *gurobi*
-  package.
+- Fix
+  [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
+  [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
+  [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
+  and
+  [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
+  functions so that they throw an error message that does not have a
+  typo when the *gurobi* package is not available.
+- Update
+  [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md),
+  [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md),
+  [`number_of_total_units()`](https://prioritizr.net/reference/number_of_total_units.md),
+  and
+  [`number_of_zones()`](https://prioritizr.net/reference/number_of_zones.md)
+  functions to be compatible with
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  objects.
+- New
+  [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
+  function for
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  objects.
 
 ### Documentation
 
