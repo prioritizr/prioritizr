@@ -326,7 +326,7 @@ test_that("solver information (multiple solutions)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(3) %>%
     add_cbc_solver(time_limit = 5, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -548,7 +548,7 @@ test_that("multi_problem", {
   # create multi-objective problem
   p <-
     multi_problem(
-      obj1 = 
+      obj1 =
         problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.1) %>%

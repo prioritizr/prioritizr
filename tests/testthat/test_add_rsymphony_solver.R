@@ -239,7 +239,7 @@ test_that("solver information (multiple solutions)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(3) %>%
     add_rsymphony_solver(time_limit = 5, verbose = FALSE)
   # solve problem
   s <- solve(p)
