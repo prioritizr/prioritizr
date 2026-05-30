@@ -309,6 +309,7 @@ add_ref_point_approach <- function(x,
           rescale = rescale,
           verbose = verbose
         ),
+        internal = list(number_solutions = nrow(weights)),
         calculate = function(x, y) {
           ## assert valid arguments
           assertthat::assert_that(

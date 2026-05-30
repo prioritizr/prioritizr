@@ -918,3 +918,42 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
   expect_equal(s$cost_1, costs$cost_1)
   expect_equal(s$cost_2, costs$cost_2)
 })
+
+test_that("remove_duplicates = TRUE", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), ncol = 4)),
+    terra::rast(matrix(c(NA, 0, 1, 1), ncol = 4))
+  )
+  names(spp) <- make.unique(names(spp))
+  weights <- matrix(c(0.3, 0.7), nrow = 5, ncol = 2, byrow = TRUE)
+  # create multi-objective problem
+  p <-
+    multi_problem(
+      obj1 =
+        problem(costs, spp) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(costs, spp) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions()
+    ) %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = FALSE)
+  # solve problem
+  expect_message(
+    s <- solve(p, remove_duplicates = TRUE),
+    "Approach could only"
+  )
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 1L)
+  expect_true(is_comparable_raster(s, costs))
+  expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
+})

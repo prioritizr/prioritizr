@@ -11,7 +11,7 @@ NULL
 #'
 #' @param ... arguments passed to [compile()].
 #'
-#' @param run_checks `logical` value indicating whether presolve checks
+#' @param run_checks `logical` value indicating if presolve checks
 #' should be run prior solving the problem. These checks are performed using
 #' the [presolve_check()] function. Defaults to `TRUE`.
 #' Note that skipping these checks may reduce run time for large problems.
@@ -19,6 +19,13 @@ NULL
 #' @param force `logical` value indicating if an attempt to should be
 #' made to solve the problem even if potential issues were detected during
 #' the presolve checks. Defaults to `FALSE`.
+#'
+#' @param remove_duplicates `logical` value indicating if duplicated
+#' solutions should be removed. Note that `remove_duplicates` only
+#' has an affect if `a` has a portfolio or multi-objective optimization
+#' approach that involves generating multiple solutions
+#' (see [portfolios] and [approaches] for details).
+#' Defaults to `FALSE`.
 #'
 #' @details
 #' After formulating a conservation planning [problem()],
@@ -279,14 +286,17 @@ NULL
 #' @export solve.ConservationProblem
 #' @export
 solve.ConservationProblem <- function(a, b, ...,
-                                      run_checks = TRUE, force = FALSE) {
+                                      run_checks = TRUE, force = FALSE,
+                                      remove_duplicates = FALSE) {
   # assert arguments are valid
   assert_required(a)
   assert(
     assertthat::is.flag(run_checks),
     assertthat::noNA(run_checks),
     assertthat::is.flag(force),
-    assertthat::noNA(force)
+    assertthat::noNA(force),
+    assertthat::is.flag(remove_duplicates),
+    assertthat::noNA(remove_duplicates)
   )
   if (!rlang::is_missing(b)) {
     cli::cli_abort("{.arg b} must not be specified.") # nocov
@@ -308,19 +318,25 @@ solve.ConservationProblem <- function(a, b, ...,
   sol <- a$portfolio$run(opt, a$solver)
   # check that solution is valid
   assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))
+  # if needed, remove duplicate solutions
+  if (isTRUE(remove_duplicates)) {
+    sol <- distinct_raw_solutions(a, sol)
+  }
   # check that desired number of solutions were found
   portfolio_number_solutions <- a$portfolio$get_data("number_solutions")
-  if (!is.Waiver(portfolio_number_solutions)) {
-    if (length(sol) != portfolio_number_solutions) {
-      cli_warning(
-        paste(
-          "Portfolio could only find",
-          "{.val {length(sol)}} out of",
-          "{.val {portfolio_number_solutions}}",
-          "solution{?s}."
-        )
+  if (
+    !is.Waiver(portfolio_number_solutions) &&
+    assertthat::is.number(portfolio_number_solutions) &&
+    isTRUE(length(sol) != portfolio_number_solutions)
+  ) {
+    cli::cli_inform(
+      paste(
+        "Portfolio could only find",
+        "{.val {length(sol)}} out of",
+        "{.val {portfolio_number_solutions}}",
+        "solution{?s}."
       )
-    }
+    )
   }
   # return formatted solution(s)
   solve_solution_format(
@@ -340,14 +356,17 @@ solve.ConservationProblem <- function(a, b, ...,
 #' @export
 solve.MultiObjConservationProblem <- function(a, b, ...,
                                               run_checks = TRUE,
-                                              force = FALSE) {
+                                              force = FALSE,
+                                              remove_duplicates = FALSE) {
   # assert arguments are valid
   assert_required(a)
   assert(
     assertthat::is.flag(run_checks),
     assertthat::noNA(run_checks),
     assertthat::is.flag(force),
-    assertthat::noNA(force)
+    assertthat::noNA(force),
+    assertthat::is.flag(remove_duplicates),
+    assertthat::noNA(remove_duplicates)
   )
   if (!rlang::is_missing(b)) {
     cli::cli_abort("{.arg b} must not be specified.") # nocov
@@ -375,6 +394,26 @@ solve.MultiObjConservationProblem <- function(a, b, ...,
   sol <- a$approach$run(opt, a$solver)
   # check that solution is valid
   assert(is_valid_raw_solution(sol, time_limit = a$solver$data$time_limit))
+  # if needed, remove duplicate solutions
+  if (isTRUE(remove_duplicates)) {
+    sol <- distinct_raw_solutions(a$problems[[1]], sol)
+  }
+  # check that desired number of solutions were found
+  approach_number_solutions <- a$approach$get_internal("number_solutions")
+  if (
+    !is.Waiver(approach_number_solutions) &&
+    assertthat::is.number(approach_number_solutions) &&
+    isTRUE(length(sol) != approach_number_solutions)
+  ) {
+    cli::cli_inform(
+      paste(
+        "Approach could only find",
+        "{.val {length(sol)}} out of",
+        "{.val {approach_number_solutions}}",
+        "solution{?s}."
+      )
+    )
+  }
   # return formatted solution(s)
   solve_solution_format(
      x = planning_unit_solution_format(
@@ -525,4 +564,37 @@ convert_raw_solution_to_solution_status <- function(x, status, indices = NULL) {
   out <- out + (x$planning_unit_costs() * 0)
   # return result
   out
+}
+
+#' Distinct raw solution
+#'
+#' Obtain a distinct set of raw solutions.
+#'
+#' @param x [problem()] object.
+#'
+#' @param solutions `list` object with solutions.
+#'
+#' @details
+#' Solutions are considered distinct if they have different planning unit
+#' solution statuses.
+#'
+#' @return A `list` object with a subset of solutions from `x`.
+#'
+#' @noRd
+distinct_raw_solutions <- function(x, solutions) {
+  # assert valid arguments
+  assert(
+    is_conservation_problem(x),
+    is.list(solutions),
+    .internal = TRUE
+  )
+  # calculate hashes for each solution
+  idx <- seq_len(x$number_of_zones() * x$number_of_planning_units())
+  hash <- vapply(
+    solutions,
+    function(s) cli::hash_obj_md5(s[idx]),
+    character(1)
+  )
+  # return subset of solutions that are unique
+  solutions[!duplicated(hash)]
 }

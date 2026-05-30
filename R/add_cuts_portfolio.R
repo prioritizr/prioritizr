@@ -117,7 +117,9 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
           ## solve problem to verify that it is feasible
           sol <- solver$solve(x)
           ## if solving the problem failed then return NULL
-          if (is.null(sol)) return(sol) # nocov
+          if (!is_valid_raw_solution(sol, multiple = FALSE)) {
+            return(sol) # nocov
+          }
           ## generate additional solutions
           sol <- list(sol)
           for (i in seq_len(n - 1) + 1) {

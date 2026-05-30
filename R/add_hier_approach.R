@@ -482,6 +482,7 @@ add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
       public = list(
         name = "hierarchical approach",
         data = list(rel_tol = rel_tol, priority = priority, verbose = verbose),
+        internal = list(number_solutions = nrow(rel_tol)),
         run = function(x, solver) {
           ## extract parameters
           rel_tol <- self$get_data("rel_tol")

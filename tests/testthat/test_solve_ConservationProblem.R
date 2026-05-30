@@ -634,3 +634,46 @@ test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
   expect_equal(s$cost_1, costs$cost_1)
   expect_equal(s$cost_2, costs$cost_2)
 })
+
+test_that("remove_duplicates = TRUE", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  set.seed(500)
+  cost <- terra::rast(matrix(c(1, 1, 0.5, NA), ncol = 4))
+  features <- c(
+    terra::rast(matrix(c(2, 2, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_shuffle_portfolio(5) %>%
+    add_default_solver(gap = 0.8, verbose = FALSE)
+  # solve problem
+  expect_message(
+    s <- solve_fixed_seed(p, remove_duplicates = TRUE),
+    "Portfolio could only"
+  )
+  # tests
+  expect_inherits(s, "list")
+  expect_length(s, 2)
+  expect_named(s, paste0("solution_", seq_len(2)))
+  expect_true(all_elements_inherit(s, "SpatRaster"))
+  expect_equal(
+    anyDuplicated(
+      apply(terra::as.data.frame(terra::rast(s)), 2, paste, collapse = " ")
+    ),
+    0
+  )
+  expect_equal(names(s), paste0("solution_", seq_len(2)))
+  for (i in seq_len(2))
+    expect_true(
+      all(
+        terra::global(s[[i]] * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10)
+      )
+    )
+})
