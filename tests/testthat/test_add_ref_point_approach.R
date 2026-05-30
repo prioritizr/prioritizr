@@ -142,7 +142,7 @@ test_that("manually specified parameters", {
     ) %>%
     add_ref_point_approach(
       weights = wts, ref_points = best,
-      best_obj = best, worst_obj = worst,
+      best = best, worst = worst,
       rescale = FALSE,
       verbose = FALSE
     ) %>%
@@ -178,6 +178,112 @@ test_that("manually specified parameters", {
   expect_equal(
     attr(s, "objective")[3, ],
     c(obj1 = (5.25 - 5) / 5.25, obj2 = 3)
+  )
+})
+
+test_that("infeasibility (highs)", {
+  skip_on_cran()
+  skip_if_not_installed("highs")
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem with infeasible constraints
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions()
+    ) %>%
+    add_highs_solver(verbose = FALSE)
+  # test
+  ## generating best
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), worst = c(1000, 1000), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
+  )
+  ## generating worst
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), best = c(0, 0), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
+  )
+  ## generating solution
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), best = c(0, 0), worst = c(1000, 1000), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
+  )
+})
+
+test_that("infeasibility (gurobi)", {
+  skip_on_cran()
+  skip_if_not_installed("gurobi")
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem with infeasible constraints
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions()
+    ) %>%
+    add_gurobi_solver(verbose = FALSE)
+  # test
+  ## generating best
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), worst = c(1000, 1000), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
+  )
+  ## generating worst
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), best = c(0, 0), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
+  )
+  ## generating runs
+  expect_tidy_error(
+    p %>%
+    add_ref_point_approach(
+      weights = c(1, 1), best = c(0, 0), worst = c(1000, 1000), verbose = FALSE
+    ) %>%
+    solve(),
+    "solution"
   )
 })
 
@@ -244,7 +350,7 @@ test_that("invalid inputs", {
     add_ref_point_approach(mp, wts, replace(rp, 2, NA), b, w, FALSE, TRUE),
     "missing"
   )
-  ## best_obj
+  ## best
   expect_error(
     add_ref_point_approach(mp, wts, rp, b[-1], w, FALSE, TRUE),
     "length"
@@ -253,7 +359,7 @@ test_that("invalid inputs", {
     add_ref_point_approach(mp, wts, rp, replace(b, 2, NA), w, FALSE, TRUE),
     "missing"
   )
-  ## worst_obj
+  ## worst
   expect_error(
     add_ref_point_approach(mp, wts, rp, b, w[-1], FALSE, TRUE),
     "length"

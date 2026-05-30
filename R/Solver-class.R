@@ -204,7 +204,10 @@ Solver <- R6::R6Class(
         sol <- self$solve(x$opt, ...)
         ## if feasible solution found and there are remaining objectives,
         ## then add linear constraint for next iteration
-        if (!is.null(sol) && !is.null(sol$x) && !identical(i, n_obj)) {
+        if (
+          is_valid_raw_solution(sol, multiple = FALSE) &&
+          !identical(i, n_obj)
+        ) {
           ## increment counter
           n_extra_constraints <- n_extra_constraints + 1
           ## calculate values for rhs constraint for next objective
@@ -250,7 +253,7 @@ Solver <- R6::R6Class(
       }
 
       # compute objective value for each objective
-      if (!is.null(sol$x)) {
+      if (is_valid_raw_solution(sol, multiple = FALSE)) {
         sol$objective <- stats::setNames(
           rowSums(
             x$obj * matrix(sol$x, ncol = n_dv, nrow = n_obj, byrow = TRUE)

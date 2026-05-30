@@ -563,34 +563,6 @@ test_that("numerical instability (error when force = FALSE)", {
   )
 })
 
-test_that("infeasibility (error when force = FALSE)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create multi-objective problem with infeasible constraints
-  p <-
-    multi_problem(
-      obj1 =
-        problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.99) %>%
-        add_linear_constraints(0, "<=", sim_pu_raster) %>%
-        add_binary_decisions(),
-      obj2 =
-        problem(sim_pu_raster, sim_features) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(0.99) %>%
-        add_linear_constraints(0, "<=", sim_pu_raster) %>%
-        add_binary_decisions()
-    ) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE)
-  # tests
-  expect_tidy_error(solve(p))
-})
-
 test_that("numerical instability (solution when force = TRUE)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()

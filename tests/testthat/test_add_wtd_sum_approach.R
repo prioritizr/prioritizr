@@ -194,6 +194,62 @@ test_that("correct solution (multiple solutions)", {
   )
 })
 
+test_that("infeasibility (highs)", {
+  skip_on_cran()
+  skip_if_not_installed("highs")
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem with infeasible constraints
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions()
+    ) %>%
+    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE) %>%
+    add_highs_solver(verbose = FALSE)
+  # test
+  expect_tidy_error(solve(p), "solution")
+})
+
+test_that("infeasibility (gurobi)", {
+  skip_on_cran()
+  skip_if_not_installed("gurobi")
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem with infeasible constraints
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.99) %>%
+        add_linear_constraints(0, "<=", sim_pu_raster) %>%
+        add_binary_decisions()
+    ) %>%
+    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE) %>%
+    add_gurobi_solver(verbose = FALSE)
+  # test
+  expect_tidy_error(solve(p), "solution")
+})
+
 test_that("invalid inputs", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()

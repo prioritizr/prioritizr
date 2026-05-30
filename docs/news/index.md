@@ -110,6 +110,15 @@
   functions to be compatible with
   [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
   objects.
+- Fix
+  [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md)
+  and
+  [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
+  functions so that they return the correct error message when added to
+  a [`problem()`](https://prioritizr.net/reference/problem.md) that does
+  not have the *Gurobi* solver.
+- Fix compatibility issues with internal error handling functions and
+  developmental changes to error conditions in *R*.
 - New
   [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
   function for

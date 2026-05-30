@@ -328,6 +328,10 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
               gurobi::gurobi(model = model, params = p)
             )
           })
+          # if infeasible, then return NULL
+          if (is.null(x) || is.null(x$x) || identical(x$status, "INFEASIBLE")) {
+            return(NULL)
+          }
           # sanitize solver output
           is_integer <- model$vtype %in% c("I", "B")
           if (is.numeric(x$x)) {
@@ -488,43 +492,47 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           }
           # solve problem
           rt <- system.time({
-            sol <- withr::with_locale(
+            s <- withr::with_locale(
               c(LC_CTYPE = "C"),
               gurobi::gurobi(model = model, params = p)
             )
           })
+          # if infeasible, then return NULL
+          if (is.null(s) || is.null(s$x) || identical(s$status, "INFEASIBLE")) {
+            return(NULL)
+          }
           # sanitize solver output
-          is_integer <- model$vtype %in% c("I", "B")
-          if (is.numeric(x$x)) {
-            x$x <- sanitize_solver_output(
-              x$x, lb = model$lb, ub = model$ub,
-              is_integer = is_integer
+          if (is.numeric(s$x)) {
+            s$x <- sanitize_solver_output(
+              s$x, lb = model$lb, ub = model$ub,
+              is_integer = model$vtype %in% c("I", "B")
             )
           }
           # set defaults to NA if missing
           ## this is because earlier versions of Gurobi didn't return this info
-          if (is.null(sol$mipgap)) {
-            sol$mipgap <- NA_real_
+          if (is.null(s$mipgap)) {
+            s$mipgap <- NA_real_
           }
-          if (is.null(x$objbound)) {
-            sol$objbound <- NA_real_
+          if (is.null(s$objbound)) {
+            s$objbound <- NA_real_
           }
           # extract solutions
           out <- list(
-            x = sol$x,
+            x = s$x,
             objective = stats::setNames(
               rowSums(
                 x$obj *
                 matrix(
-                  sol$x, ncol = ncol(x$obj), nrow = nrow(x$obj), byrow = TRUE
+                  s$x, byrow = TRUE,
+                  ncol = length(model$lb), nrow = length(obj_names)
                 )
               ),
               obj_names
             ),
-            status = sol$status,
+            status = s$status,
             runtime = rt[[3]],
-            gap = sol$mipgap,
-            objbound = sol$objbound
+            gap = s$mipgap,
+            objbound = s$objbound
           )
           # return solution
           out

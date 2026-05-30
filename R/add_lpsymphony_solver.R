@@ -164,9 +164,12 @@ add_lpsymphony_solver <- function(x, gap = 0.1,
           })
           # manually return NULL to indicate error if no solution
           # nocov start
-          if (is.null(x$solution) ||
-              names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+          if (
+            is.null(x$solution) ||
+            names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION")
+          ) {
             return(NULL)
+          }
           # nocov end
           # fix floating point issues with binary variables
           # nocov start

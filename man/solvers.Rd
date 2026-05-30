@@ -155,7 +155,6 @@ if (require("lpsymphony")) {
 names(s) <- n
 plot(terra::rast(s), axes = FALSE)
 }
-
 }
 \references{
 Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,

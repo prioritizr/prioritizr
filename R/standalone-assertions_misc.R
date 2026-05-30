@@ -100,16 +100,23 @@ assertthat::on_failure(is_installed) <- function(call, env) {
 #'
 #' @param x object.
 #'
-#' @param time_limit `numeric` time limit for generating solution.
-#' Note that this information is used only to customize the error message if
-#' the object does not contain a valid raw solution.
+#' @param time_limit `numeric` value denoting the time limit for generating
+#' solution. Note that this information is used only to customize the error
+#' message if the object does not contain a valid raw solution.
 #' Defaults to `NULL`.
+#'
+#' @param multiple `logical` value indicating if `x` should be a `list`
+#' of `list` objects that can potentially contain multiple solutions,
+#' or if `x` should be a `list` of a single solution. Defaults to `TRUE`.
 #'
 #' @return A `logical` value.
 #'
 #' @noRd
-is_valid_raw_solution <- function(x, time_limit = NULL) {
-  !is.null(x) && !is.null(x[[1]]$x)
+is_valid_raw_solution <- function(x, time_limit = NULL, multiple = TRUE) {
+  if (isTRUE(multiple)) {
+    return(!is.null(x) && !is.null(x[[1]]$x))
+  }
+  !is.null(x) && !is.null(x$x)
 }
 
 assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {

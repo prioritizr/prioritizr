@@ -17,8 +17,8 @@ add_ref_point_approach(
   x,
   weights = NULL,
   ref_points = NULL,
-  best_obj = NULL,
-  worst_obj = NULL,
+  best = NULL,
+  worst = NULL,
   rescale = TRUE,
   verbose = TRUE
 )
@@ -52,14 +52,14 @@ add_ref_point_approach(
   that reference points are automatically calculated based on the best
   possible objective value for each objective.
 
-- best_obj:
+- best:
 
   `numeric` vector containing objective values that denote the best
   possible performance for each objective. Note that values must follow
   the same order as the problems in `x`. Defaults to `NULL` such that
   these values are computed automatically.
 
-- worst_obj:
+- worst:
 
   `numeric` vector containing objective values that denote the worst
   possible performance for each objective. Note that values must follow
@@ -69,7 +69,7 @@ add_ref_point_approach(
 - rescale:
 
   `logical` indicating if `weights` should be normalized based on the
-  best and worst objective values (per `best_obj` and `worst_obj`,
+  best and worst objective values (per `best` and `worst`,
   respectively). This is important to ensure that the optimization
   process is not biased by differences in scale between different
   objectives. Defaults to `TRUE`.
@@ -107,12 +107,12 @@ maximized for brevity. Let \\O\\ denote the set of objectives (indexed
 by \\o\\). For each objective, let \\w_o\\ denote the weight for each
 objective \\o \in O\\ (per `weights`), \\r_o\\ denote the reference
 point for each objective \\o \in O\\ (per `ref_points`), \\b_o\\ denote
-the best objective value for each objective (per `best_obj`), \\c_o\\
-denote the worst objective value for each objective (per `worst_obj`),
-\\s_o\\ denote a scaling term for each objective (see below for
-details), and \\v_o\\ denote the objective value for a candidate
-solution as measured based on each objective \\o \in O\\. After defining
-these terms, the approach is formulated with the following equation.
+the best objective value for each objective (per `best`), \\c_o\\ denote
+the worst objective value for each objective (per `worst`), \\s_o\\
+denote a scaling term for each objective (see below for details), and
+\\v_o\\ denote the objective value for a candidate solution as measured
+based on each objective \\o \in O\\. After defining these terms, the
+approach is formulated with the following equation.
 
 \$\$ \mathrm{Minimize} \space \max\_{o \in O} w_o \times s_o \times
 \max(r_o - v_o, 0), \\ \mathrm{Minimize} \space \sum\_{o \in O} w_o
@@ -235,7 +235,7 @@ mp2 <-
 
 # solve problem
 ms2 <- solve(mp2)
-#> Generating solutions ■■■■■■■                           20% | ETA:  6s
+#> Generating solutions ■■■■■■■                           20% | ETA:  5s
 #> Generating solutions ■■■■■■■■■                         27% | ETA:  5s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■           73% | ETA:  2s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s

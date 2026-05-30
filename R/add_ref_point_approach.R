@@ -35,19 +35,19 @@ NULL
 #' Defaults to `NULL` such that reference points are automatically
 #' calculated based on the best possible objective value for each objective.
 #'
-#' @param worst_obj `numeric` vector containing objective values that denote
+#' @param worst `numeric` vector containing objective values that denote
 #' the worst possible performance for each objective.
 #' Note that  values must follow the same order as the problems in `x`.
 #' Defaults to `NULL` such that these values are computed automatically.
 #'
-#' @param best_obj `numeric` vector containing objective values that denote
+#' @param best `numeric` vector containing objective values that denote
 #' the best possible performance for each objective.
 #' Note that  values must follow the same order as the problems in `x`.
 #' Defaults to `NULL` such that these values are computed automatically.
 #'
 #' @param rescale `logical` indicating if `weights` should be
 #' normalized based on the best and worst objective values
-#' (per `best_obj` and `worst_obj`, respectively). This is important
+#' (per `best` and `worst`, respectively). This is important
 #' to ensure that the optimization process is not biased by differences
 #' in scale between different objectives. Defaults to `TRUE`.
 #'
@@ -76,9 +76,9 @@ NULL
 #' \eqn{r_o}{ro} denote the reference point for each objective
 #' \eqn{o \in O}{o in O} (per `ref_points`),
 #' \eqn{b_o}{bo} denote the best objective value for each objective
-#' (per `best_obj`),
+#' (per `best`),
 #' \eqn{c_o}{co} denote the worst objective value for each objective
-#' (per `worst_obj`),
+#' (per `worst`),
 #' \eqn{s_o}{so} denote a scaling term for each objective
 #' (see below for details),
 #' and \eqn{v_o}{vo} denote the objective value
@@ -225,8 +225,8 @@ NULL
 add_ref_point_approach <- function(x,
                                    weights = NULL,
                                    ref_points = NULL,
-                                   best_obj = NULL,
-                                   worst_obj = NULL,
+                                   best = NULL,
+                                   worst = NULL,
                                    rescale = TRUE,
                                    verbose = TRUE) {
   # assert arguments are valid
@@ -280,18 +280,18 @@ add_ref_point_approach <- function(x,
   if (!is.null(ref_points) && !is.null(weights)) {
     assert(is_match_of(nrow(ref_points), nrow(weights)))
   }
-  if (!is.null(best_obj)) {
+  if (!is.null(best)) {
     assert(
-      is.numeric(best_obj),
-      all_finite(best_obj),
-      is_match_of(length(best_obj), number_of_problems(x))
+      is.numeric(best),
+      all_finite(best),
+      is_match_of(length(best), number_of_problems(x))
     )
   }
-  if (!is.null(worst_obj)) {
+  if (!is.null(worst)) {
     assert(
-      is.numeric(worst_obj),
-      all_finite(worst_obj),
-      is_match_of(length(worst_obj), number_of_problems(x))
+      is.numeric(worst),
+      all_finite(worst),
+      is_match_of(length(worst), number_of_problems(x))
     )
   }
   # add approach
@@ -304,8 +304,8 @@ add_ref_point_approach <- function(x,
         data = list(
           weights = weights,
           ref_points = ref_points,
-          best_obj = best_obj,
-          worst_obj = worst_obj,
+          best = best,
+          worst = worst,
           rescale = rescale,
           verbose = verbose
         ),
@@ -318,16 +318,15 @@ add_ref_point_approach <- function(x,
           ## initialization
           n <- number_of_problems(y)
           ref_points <- self$get_data("ref_points")
-          worst_obj <- self$get_data("worst_obj")
-          best_obj <- self$get_data("best_obj")
+          worst <- self$get_data("worst")
+          best <- self$get_data("best")
           rescale <- self$get_data("rescale")
-
           ## if needed, calculate best objective value
           if (
-            (is.null(best_obj) && isTRUE(rescale)) ||
-            (is.null(best_obj) && is.null(ref_points))
+            (is.null(best) && isTRUE(rescale)) ||
+            (is.null(best) && is.null(ref_points))
           ) {
-            best_obj <- vapply(
+            best <- vapply(
               seq_len(n),
               FUN.VALUE = numeric(1),
               function(i) {
@@ -337,7 +336,7 @@ add_ref_point_approach <- function(x,
                 ### generate solution
                 s <- y$solver$solve(x$opt)
                 assert(
-                  is_valid_raw_solution(list(s)),
+                  is_valid_raw_solution(s, multiple = FALSE),
                   call = rlang::expr(solve())
                 )
                 ### calculate objective value
@@ -345,10 +344,9 @@ add_ref_point_approach <- function(x,
               }
             )
           }
-
           ## if needed, calculate worst objective value
-          if (is.null(worst_obj) && isTRUE(rescale)) {
-            worst_obj <- vapply(
+          if (is.null(worst) && isTRUE(rescale)) {
+            worst <- vapply(
               seq_len(n),
               FUN.VALUE = numeric(1),
               function(i) {
@@ -360,7 +358,7 @@ add_ref_point_approach <- function(x,
                 ### generate solution
                 s <- y$solver$solve(x$opt)
                 assert(
-                  is_valid_raw_solution(list(s)),
+                  is_valid_raw_solution(s, multiple = FALSE),
                   call = rlang::expr(solve())
                 )
                 ### calculate objective value
@@ -368,43 +366,38 @@ add_ref_point_approach <- function(x,
               }
             )
           }
-
           ## store values
-          self$set_internal("worst", worst_obj)
-          self$set_internal("best", best_obj)
+          self$set_internal("worst", worst)
+          self$set_internal("best", best)
         },
         run = function(x, solver) {
           ## initialization
           weights <- self$get_data("weights")
           ref_points <- self$get_data("ref_points")
           rescale <- self$get_data("rescale")
-          best_obj <- self$get_internal("best")
-          worst_obj <- self$get_internal("worst")
+          best <- self$get_internal("best")
+          worst <- self$get_internal("worst")
           verbose <- self$get_data("verbose")
-
           ## if weights is NULL, then set as equal weights
           if (is.null(weights)) {
             weights <- matrix(1, ncol = length(x$modelsense), nrow = 1)
           }
-
-          ## if ref_points is NULL, then set based on best_obj
+          ## if ref_points is NULL, then set based on best
           if (is.null(ref_points)) {
             ref_points <- matrix(
-              best_obj,
+              best,
               nrow = nrow(weights), ncol = ncol(weights), byrow = TRUE
             )
           }
-
           ## if needed, calculate normalized weights
           if (isTRUE(rescale)) {
             weights <-
               weights *
               matrix(
-                1 / abs(best_obj - worst_obj),
+                1 / abs(best - worst),
                 ncol = ncol(weights), nrow = nrow(weights), byrow = TRUE
               )
           }
-
           ## assert that arguments are valid
           assert(
             is.matrix(ref_points),
@@ -415,35 +408,31 @@ add_ref_point_approach <- function(x,
             nrow(ref_points) == nrow(weights),
             .internal = TRUE
           )
-
           ## ensure that reference points are between best and worst bounds
           {for (i in seq_len(ncol(weights))) {
             if (identical(x$modelsense[[i]], "max")) {
               ref_points[, i] <- pmax(
-                pmin(ref_points[, i], best_obj[[i]]),
-                worst_obj[[i]]
+                pmin(ref_points[, i], best[[i]]),
+                worst[[i]]
               )
             } else {
               ref_points[, i] <- pmin(
-                pmax(ref_points[, i], best_obj[[i]]),
-                worst_obj[[i]]
+                pmax(ref_points[, i], best[[i]]),
+                worst[[i]]
               )
             }
           }}
-
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             pb <- cli::cli_progress_bar(
               "Generating solutions", total = nrow(weights)
             )
           }
-
           ## calculate shortfall bounds
           sh_ub <- rep(Inf, ncol(weights))
-          if (is.numeric(best_obj) & is.numeric(worst_obj)) {
-            sh_ub <- abs(best_obj - worst_obj)
+          if (is.numeric(best) & is.numeric(worst)) {
+            sh_ub <- abs(best - worst)
           }
-
           ## main processing
           sols <- vector(mode = "list", length = nrow(weights))
           for (i in seq_len(nrow(weights))) {
@@ -458,22 +447,27 @@ add_ref_point_approach <- function(x,
             mo$opt <- OptimizationProblem$new(ptr = mo$opt)
             ### optimize reference point objectives with
             ### hierarchical optimization
-            sols[[i]] <- solver$solve_multiobj(
+            s <- solver$solve_multiobj(
               mo, priority = c(2, 1), rel_tol = 0
             )
+            ### validate solution
+            assert(
+              is_valid_raw_solution(s, multiple = FALSE),
+              call = rlang::expr(solve())
+            )
             ### compute and store objective values for each objective
-            if (!is.null(sols[[i]]$x)) {
-              sols[[i]]$objective <- stats::setNames(
-                rowSums(
-                  x$obj *
-                    matrix(
-                      sols[[i]]$x[seq_len(ncol(x$obj))], byrow = TRUE,
-                      ncol = ncol(x$obj), nrow = nrow(x$obj)
-                    )
-                ),
-                rownames(x$obj)
-              )
-            }
+            s$objective <- stats::setNames(
+              rowSums(
+                x$obj *
+                  matrix(
+                    s$x[seq_len(ncol(x$obj))], byrow = TRUE,
+                    ncol = ncol(x$obj), nrow = nrow(x$obj)
+                  )
+              ),
+              rownames(x$obj)
+            )
+            ### store solution
+            sols[[i]] <- s
             ### if needed, update starting solution
             if (!identical(i, nrow(weights))) {
               ### identify starting solution for next run
@@ -489,12 +483,10 @@ add_ref_point_approach <- function(x,
               cli::cli_progress_update(id = pb)
             }
           }
-
           ## if needed, clean up progress bar
           if (isTRUE(verbose)) {
             cli::cli_progress_done(id = pb)
           }
-
           ## return solutions
           sols
         }

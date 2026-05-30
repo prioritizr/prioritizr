@@ -595,8 +595,7 @@ we can add your work to this list.
   Brito-Morales I, García Molinos J, Hidalgo M, Alabia ID, Gissi E,
   Provost MM, Micheli F, Arafeh-Dalmau N (2026) Identifying marine
   climate refugia to advance climate-smart conservation. *Trends in
-  Ecology and Evolution*, **In press**:
-  <DOI:10.1016/j.tree.2026.04.007>.
+  Ecology and Evolution*, **In press**: 10.1016/j.tree.2026.04.007.
 - Stralberg D, Lewis DW, Stolar J, Kehm GJ, Cosgrove CF, Morgan DG,
   Nelson EA, Kuntzemann CE, Raymundo A, Sang Z, Viliani L, Jumean Z,
   Meier M, Enslow C, Estevo CA, Fraser‐Reid EC, Campbell EM, Grant JA,

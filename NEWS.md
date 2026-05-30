@@ -60,6 +60,11 @@
 - Update `number_of_features()`, `number_of_planning_units()`,
   `number_of_total_units()`, and `number_of_zones()` functions to be compatible
   with `multi_problem()` objects.
+- Fix `add_extra_portfolio()` and `add_top_portfolio()` functions so that
+  they return the correct error message when added to a `problem()` that
+  does not have the *Gurobi* solver.
+- Fix compatibility issues with internal error handling functions and
+  developmental changes to error conditions in _R_.
 - New `number_of_problems()` function for `multi_problem()` objects.
 
 ## Documentation

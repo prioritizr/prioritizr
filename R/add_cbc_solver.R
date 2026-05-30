@@ -302,10 +302,12 @@ add_cbc_solver <- function(x,
           rt <- system.time({
             x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
           })
-          # return NULL if infeasible
-          if (x$is_proven_dual_infeasible ||
-              x$is_proven_infeasible ||
-              x$is_abandoned) {
+          # if infeasible, then return NULL
+          if (
+            x$is_proven_dual_infeasible ||
+            x$is_proven_infeasible ||
+            x$is_abandoned
+          ) {
             return(NULL)
           }
           # sanitize solver output

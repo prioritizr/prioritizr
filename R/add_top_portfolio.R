@@ -105,7 +105,7 @@ add_top_portfolio <- function(x, number_solutions = 10) {
           ## check that problems has gurobi solver
           assert(
             inherits(solver, "GurobiSolver"),
-            call = rlang::expr(add_gap_portfolio()),
+            call = rlang::expr(add_top_portfolio()),
             msg = "The solver must be specified using {.fn add_gurobi_solver}."
           )
           ## solve problem, and with gap of zero

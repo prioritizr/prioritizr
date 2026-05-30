@@ -126,7 +126,7 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
             ### solve solution
             curr_sol <- solver$solve(x)
             ### if contains valid solution then
-            if (!is.null(curr_sol$x)) {
+            if (is_valid_raw_solution(curr_sol, multiple = FALSE)) {
               sol[[i]] <- curr_sol
             } else {
               break()

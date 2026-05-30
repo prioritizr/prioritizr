@@ -277,13 +277,11 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
           weights <- self$get_data("weights")
           verbose <- self$get_data("verbose")
           sols <- vector(mode = "list", length = nrow(weights))
-
           ## preliminary calculations
           obj_signs <- matrix(
             ifelse(x$modelsense == "min", -1, 1),
             ncol = ncol(x$obj), nrow = nrow(x$obj), byrow = FALSE
           )
-
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             pb <- cli::cli_progress_bar(
@@ -291,13 +289,11 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
               .envir = parent.frame()
             )
           }
-
           ## set modelsense to max
           x$opt$set_modelsense("max")
-
           ## iterate over each combination of weights
           for (i in seq_len(nrow(weights))) {
-            ## set model objective coefficients
+            ### set model objective coefficients
             x$opt$set_obj(
               colSums(
                 x$obj *
@@ -308,25 +304,27 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
                   )
               )
             )
-
-            ## solve problem
-            sols[[i]] <- solver$solve(x$opt)
-
-            ## compute and store objective values for each objective
-            if (!is.null(sols[[i]]$x)) {
-              sols[[i]]$objective <- stats::setNames(
-                rowSums(
-                  x$obj *
-                    matrix(
-                      sols[[i]]$x, byrow = TRUE,
-                      ncol = ncol(x$obj), nrow = nrow(x$obj)
-                    )
-                ),
-                rownames(x$obj)
-              )
-            }
-
-            ## if needed, update starting solution
+            ### solve problem
+            s <- solver$solve(x$opt)
+            ### validate solution
+            assert(
+              is_valid_raw_solution(s, multiple = FALSE),
+              call = rlang::expr(solve())
+            )
+            ### compute and store objective values for each objective
+            s$objective <- stats::setNames(
+              rowSums(
+                x$obj *
+                matrix(
+                  s$x, byrow = TRUE,
+                  ncol = ncol(x$obj), nrow = nrow(x$obj)
+                )
+              ),
+              rownames(x$obj)
+            )
+            ### store solution
+            sols[[i]] <- s
+            ### if needed, update starting solution
             if (!identical(i, nrow(weights))) {
               ### identify starting solution for next run
               j <- which_least_different(
@@ -336,18 +334,15 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
               ### update the starting solution for the solver
               solver$set_start_solution(sols[[j]]$x, warn = FALSE)
             }
-
             ## if needed, update progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_update(id = pb)
             }
           }
-
           ## if needed, clean up progress bar
           if (isTRUE(verbose)) {
             cli::cli_progress_done(id = pb)
           }
-
           ## return solutions
           sols
         }

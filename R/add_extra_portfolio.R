@@ -102,7 +102,7 @@ add_extra_portfolio <- function(x) {
           ## check that problem has gurobi solver
           assert(
             inherits(solver, "GurobiSolver"),
-            call = rlang::expr(add_gap_portfolio()),
+            call = rlang::expr(add_extra_portfolio()),
             msg = "The solver must be specified using {.fn add_gurobi_solver}."
           )
           ## solve problem

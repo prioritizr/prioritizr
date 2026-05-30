@@ -167,5 +167,4 @@ NULL
 #' names(s) <- n
 #' plot(terra::rast(s), axes = FALSE)
 #' }
-#'
 NULL

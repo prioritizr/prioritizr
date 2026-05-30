@@ -89,8 +89,8 @@ objective.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ref_points <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  best_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  worst_obj <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  best <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  worst <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rescale <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -127,14 +127,14 @@ Defaults to <code>NULL</code> such that reference points are automatically
 calculated based on the best possible objective value for each objective.</p></dd>
 
 
-<dt id="arg-best-obj">best_obj<a class="anchor" aria-label="anchor" href="#arg-best-obj"></a></dt>
+<dt id="arg-best">best<a class="anchor" aria-label="anchor" href="#arg-best"></a></dt>
 <dd><p><code>numeric</code> vector containing objective values that denote
 the best possible performance for each objective.
 Note that  values must follow the same order as the problems in <code>x</code>.
 Defaults to <code>NULL</code> such that these values are computed automatically.</p></dd>
 
 
-<dt id="arg-worst-obj">worst_obj<a class="anchor" aria-label="anchor" href="#arg-worst-obj"></a></dt>
+<dt id="arg-worst">worst<a class="anchor" aria-label="anchor" href="#arg-worst"></a></dt>
 <dd><p><code>numeric</code> vector containing objective values that denote
 the worst possible performance for each objective.
 Note that  values must follow the same order as the problems in <code>x</code>.
@@ -144,7 +144,7 @@ Defaults to <code>NULL</code> such that these values are computed automatically.
 <dt id="arg-rescale">rescale<a class="anchor" aria-label="anchor" href="#arg-rescale"></a></dt>
 <dd><p><code>logical</code> indicating if <code>weights</code> should be
 normalized based on the best and worst objective values
-(per <code>best_obj</code> and <code>worst_obj</code>, respectively). This is important
+(per <code>best</code> and <code>worst</code>, respectively). This is important
 to ensure that the optimization process is not biased by differences
 in scale between different objectives. Defaults to <code>TRUE</code>.</p></dd>
 
@@ -184,9 +184,9 @@ For each objective, let \(w_o\) denote the weight for each objective
 \(r_o\) denote the reference point for each objective
 \(o \in O\) (per <code>ref_points</code>),
 \(b_o\) denote the best objective value for each objective
-(per <code>best_obj</code>),
+(per <code>best</code>),
 \(c_o\) denote the worst objective value for each objective
-(per <code>worst_obj</code>),
+(per <code>worst</code>),
 \(s_o\) denote a scaling term for each objective
 (see below for details),
 and \(v_o\) denote the objective value
@@ -314,7 +314,7 @@ systems (pp. 468–486). Springer Berlin Heidelberg.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem</span></span></span>
 <span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■                         </span>  20% | ETA:  6s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■                         </span>  20% | ETA:  5s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■                       </span>  27% | ETA:  5s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■         </span>  73% | ETA:  2s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> 100% | ETA:  0s</span>

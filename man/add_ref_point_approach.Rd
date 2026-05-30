@@ -8,8 +8,8 @@ add_ref_point_approach(
   x,
   weights = NULL,
   ref_points = NULL,
-  best_obj = NULL,
-  worst_obj = NULL,
+  best = NULL,
+  worst = NULL,
   rescale = TRUE,
   verbose = TRUE
 )
@@ -36,19 +36,19 @@ Note that all values must be greater than zero.
 Defaults to \code{NULL} such that reference points are automatically
 calculated based on the best possible objective value for each objective.}
 
-\item{best_obj}{\code{numeric} vector containing objective values that denote
+\item{best}{\code{numeric} vector containing objective values that denote
 the best possible performance for each objective.
 Note that  values must follow the same order as the problems in \code{x}.
 Defaults to \code{NULL} such that these values are computed automatically.}
 
-\item{worst_obj}{\code{numeric} vector containing objective values that denote
+\item{worst}{\code{numeric} vector containing objective values that denote
 the worst possible performance for each objective.
 Note that  values must follow the same order as the problems in \code{x}.
 Defaults to \code{NULL} such that these values are computed automatically.}
 
 \item{rescale}{\code{logical} indicating if \code{weights} should be
 normalized based on the best and worst objective values
-(per \code{best_obj} and \code{worst_obj}, respectively). This is important
+(per \code{best} and \code{worst}, respectively). This is important
 to ensure that the optimization process is not biased by differences
 in scale between different objectives. Defaults to \code{TRUE}.}
 
@@ -96,9 +96,9 @@ For each objective, let \eqn{w_o}{wo} denote the weight for each objective
 \eqn{r_o}{ro} denote the reference point for each objective
 \eqn{o \in O}{o in O} (per \code{ref_points}),
 \eqn{b_o}{bo} denote the best objective value for each objective
-(per \code{best_obj}),
+(per \code{best}),
 \eqn{c_o}{co} denote the worst objective value for each objective
-(per \code{worst_obj}),
+(per \code{worst}),
 \eqn{s_o}{so} denote a scaling term for each objective
 (see below for details),
 and \eqn{v_o}{vo} denote the objective value

@@ -487,10 +487,8 @@ add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
           rel_tol <- self$get_data("rel_tol")
           priority <- self$get_data("priority")
           params <- cbind(rel_tol, priority)
-
           ## initialize output
           sols <- vector("list", length = nrow(rel_tol))
-
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             pb <- cli::cli_progress_bar(
@@ -498,17 +496,22 @@ add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
               .envir = parent.frame()
             )
           }
-
           ## iterate over each different parameter set
           for (i in seq_len(nrow(rel_tol))) {
-            ## generate solution,
+            ### generate solution,
             ### note that the solver$solve_multiobj() method will
             ### automatically calculate objective values
-            sols[[i]] <- solver$solve_multiobj(
+            s <- solver$solve_multiobj(
               x, priority = priority[i, ], rel_tol = rel_tol[i, ]
             )
-
-            ## if needed, update starting solution
+            ### validate solution
+            assert(
+              is_valid_raw_solution(s, multiple = FALSE),
+              call = rlang::expr(solve())
+            )
+            ### store solution
+            sols[[i]] <- s
+            ### if needed, update starting solution
             if (!identical(i, nrow(rel_tol))) {
               ### identify starting solution for next run
               j <- which_least_different(
@@ -518,18 +521,15 @@ add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
               ### update the starting solution for the solver
               solver$set_start_solution(sols[[j]]$x, warn = FALSE)
             }
-
             ### if needed, update progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_update(id = pb)
             }
           }
-
           ## if needed, clean up progress bar
           if (isTRUE(verbose)) {
             cli::cli_progress_done(id = pb)
           }
-
           ## return output
           sols
         }

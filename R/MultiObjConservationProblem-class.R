@@ -704,9 +704,9 @@ MultiObjConservationProblem <- R6::R6Class(
       assert(inherits(x, "MultiObjApproach"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$approach)) {
-        cli_warning("Overwriting previously defined approach.")
+        cli_warning("Overwriting previously defined approach.", call = NULL)
       } else {
-        p$defaults$portfolio <- FALSE
+        p$defaults$approach <- FALSE
       }
       p$approach <- x
       p
@@ -720,7 +720,7 @@ MultiObjConservationProblem <- R6::R6Class(
       assert(inherits(x, "Solver"))
       p <- self$clone(deep = TRUE)
       if (!isTRUE(p$defaults$solver)) {
-        cli_warning("Overwriting previously defined solver.")
+        cli_warning("Overwriting previously defined solver.", call = NULL)
       } else {
         p$defaults$solver <- FALSE
       }
