@@ -1,5 +1,6 @@
 test_that("problem() (single zone)", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
   pu <- data.frame(
@@ -33,6 +34,7 @@ test_that("problem() (single zone)", {
 
 test_that("multi_problem() (single zone)", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
   pu <- data.frame(
@@ -85,6 +87,7 @@ test_that("multi_problem() (single zone)", {
 
 test_that("problem() (multiple zones)", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # simulate data
   set.seed(500)
   pu <- data.frame(
@@ -123,6 +126,7 @@ test_that("problem() (multiple zones)", {
 
 test_that("multi_problem() (multiple zones)", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # simulate data
   set.seed(500)
   pu <- data.frame(
@@ -175,6 +179,7 @@ test_that("multi_problem() (multiple zones)", {
 
 test_that("include_penalties = FALSE", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
   pu <- data.frame(
@@ -209,6 +214,7 @@ test_that("include_penalties = FALSE", {
 
 test_that("include_penalties = TRUE", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # create data
   set.seed(500)
   pu <- data.frame(
