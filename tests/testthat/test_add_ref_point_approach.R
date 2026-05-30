@@ -8,18 +8,18 @@ test_that("two objectives", {
   ft2 <- terra::rast(matrix(c(0, 0, 0, 0, 3, 2)))
   # create multi-object problem
   mp <-
-    prioritizr::multi_problem(
+    multi_problem(
       obj1 =
-        prioritizr::problem(pu, ft1) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft1) %>%
+        add_max_wtd_sum_objective(budget = 2) %>%
+        add_binary_decisions(),
       obj2 =
-        prioritizr::problem(pu, ft2) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
-        prioritizr::add_binary_decisions()
+        problem(pu, ft2) %>%
+        add_max_wtd_sum_objective(budget = 2) %>%
+        add_binary_decisions()
     ) %>%
-    add_ref_point_approach(verbose = FALSE) %>%
-    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+    add_ref_point_approach(verbose = TRUE) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(mp, run_checks = FALSE)
   # run tests
@@ -45,22 +45,22 @@ test_that("three objectives", {
   ft3 <- terra::rast(matrix(c(0, 0, 10, 1, 0.5, 0)))
   # create multi-object problem
   mp <-
-    prioritizr::multi_problem(
+    multi_problem(
       obj1 =
-        prioritizr::problem(pu, ft1) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 3) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft1) %>%
+        add_max_wtd_sum_objective(budget = 3) %>%
+        add_binary_decisions(),
       obj2 =
-        prioritizr::problem(pu, ft2) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 3) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft2) %>%
+        add_max_wtd_sum_objective(budget = 3) %>%
+        add_binary_decisions(),
       obj3 =
-        prioritizr::problem(pu, ft3) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 3) %>%
-        prioritizr::add_binary_decisions()
+        problem(pu, ft3) %>%
+        add_max_wtd_sum_objective(budget = 3) %>%
+        add_binary_decisions()
     ) %>%
     add_ref_point_approach(verbose = FALSE) %>%
-    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(mp, run_checks = FALSE)
   # run tests
@@ -85,19 +85,19 @@ test_that("mixed objectives", {
   ft2 <- terra::rast(matrix(c(0, 0, 0, 0, 3, 2)))
   # create multi-object problem
   mp <-
-    prioritizr::multi_problem(
+    multi_problem(
       obj1 =
-        prioritizr::problem(pu, ft1) %>%
-        prioritizr::add_min_shortfall_objective(budget = 2) %>%
-        prioritizr::add_absolute_targets(5.25) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft1) %>%
+        add_min_shortfall_objective(budget = 2) %>%
+        add_absolute_targets(5.25) %>%
+        add_binary_decisions(),
       obj2 =
-        prioritizr::problem(pu, ft2) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
-        prioritizr::add_binary_decisions()
+        problem(pu, ft2) %>%
+        add_max_wtd_sum_objective(budget = 2) %>%
+        add_binary_decisions()
     ) %>%
     add_ref_point_approach(verbose = FALSE) %>%
-    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(mp, run_checks = FALSE)
   # run tests
@@ -129,16 +129,16 @@ test_that("manually specified parameters", {
   wts[3, ] <- 1 / c(abs(best - worst))
   # create multi-object problem
   mp <-
-    prioritizr::multi_problem(
+    multi_problem(
       obj1 =
-        prioritizr::problem(pu, ft1) %>%
-        prioritizr::add_min_shortfall_objective(budget = 2) %>%
-        prioritizr::add_absolute_targets(5.25) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft1) %>%
+        add_min_shortfall_objective(budget = 2) %>%
+        add_absolute_targets(5.25) %>%
+        add_binary_decisions(),
       obj2 =
-        prioritizr::problem(pu, ft2) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
-        prioritizr::add_binary_decisions()
+        problem(pu, ft2) %>%
+        add_max_wtd_sum_objective(budget = 2) %>%
+        add_binary_decisions()
     ) %>%
     add_ref_point_approach(
       weights = wts, ref_points = best,
@@ -146,7 +146,7 @@ test_that("manually specified parameters", {
       rescale = FALSE,
       verbose = FALSE
     ) %>%
-    prioritizr::add_default_solver(gap = 0, verbose = FALSE)
+    add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(mp, run_checks = FALSE)
   # run tests
@@ -294,16 +294,16 @@ test_that("invalid inputs", {
   ft2 <- terra::rast(matrix(c(0, 0, 0, 0, 3, 2)))
   # create multi-object problem
   mp <-
-    prioritizr::multi_problem(
+    multi_problem(
       obj1 =
-        prioritizr::problem(pu, ft1) %>%
-        prioritizr::add_min_shortfall_objective(budget = 2) %>%
-        prioritizr::add_absolute_targets(5.25) %>%
-        prioritizr::add_binary_decisions(),
+        problem(pu, ft1) %>%
+        add_min_shortfall_objective(budget = 2) %>%
+        add_absolute_targets(5.25) %>%
+        add_binary_decisions(),
       obj2 =
-        prioritizr::problem(pu, ft2) %>%
-        prioritizr::add_max_wtd_sum_objective(budget = 2) %>%
-        prioritizr::add_binary_decisions()
+        problem(pu, ft2) %>%
+        add_max_wtd_sum_objective(budget = 2) %>%
+        add_binary_decisions()
     )
   # define parameters
   wts <- matrix(seq_len(6), ncol = 2)

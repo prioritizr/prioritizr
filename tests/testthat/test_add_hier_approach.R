@@ -20,7 +20,7 @@ test_that("format (gurobi solver, single solution)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_hier_approach(rel_tol = rel_tol, verbose = FALSE) %>%
+    add_hier_approach(rel_tol = rel_tol, verbose = TRUE) %>%
     add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)

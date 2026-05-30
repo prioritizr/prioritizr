@@ -148,7 +148,7 @@ internal_eval_objective_summary <- function(
   # update problem for calculating objective value
   ## if solver is missing, then add default solver
   if (!inherits(x$solver, "Solver")) {
-    x <- add_default_solver(x)
+    x <- add_default_solver(x) # nocov
   }
   ## manually set gap to (approximately) 0
   old_gap <- x$solver$data$gap

@@ -20,7 +20,7 @@ test_that("format (single solution)", {
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
         add_binary_decisions()
     ) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = weights, verbose = TRUE) %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)

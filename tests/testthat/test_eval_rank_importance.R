@@ -21,7 +21,7 @@ test_that("numeric", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate scores
-  r1 <- eval_rank_importance(p, s, budgets = budgets)
+  r1 <- eval_rank_importance(p, s, budgets = budgets, force = TRUE)
   r2 <- eval_rank_importance(p, s, n = 2)
   # create correct total scores
   r3 <- c(0, 1, NA_real_, 0.5)
