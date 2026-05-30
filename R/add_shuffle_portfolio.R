@@ -15,15 +15,18 @@ NULL
 #' @param threads `integer` value denoting the number of threads to use for
 #' generating the solution portfolio. Defaults to 1.
 #'
-#' @param remove_duplicates `logical` value indicating if duplicate solutions
-#' should be removed? Defaults to `TRUE`.
-#'
 #' @details
 #' This strategy for generating a portfolio of solutions often
 #' results in different solutions, depending on optimality gap, but may
 #' return duplicate solutions. In general, this strategy is most effective
 #' when problems are quick to solve and multiple threads are available for
 #' solving each problem separately.
+#'
+#' @section Notes:
+#' In previous versions (< 9.0.0.0), this function had a `remove_duplicates`
+#' parameter. To streamline and provide this functionality for other
+#' functions, duplicate solutions can now be removed by using the
+#' the `remove_duplicates` parameter of [prioritizr::solve()].
 #'
 #' @inherit add_cuts_portfolio return seealso
 #'
@@ -45,7 +48,7 @@ NULL
 #'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2) %>%
-#'   add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+#'   add_shuffle_portfolio(10) %>%
 #'   add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve problem and generate 10 solutions within 20% of optimality
@@ -66,7 +69,7 @@ NULL
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
 #'   add_binary_decisions() %>%
-#'   add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+#'   add_shuffle_portfolio(10) %>%
 #'   add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve the problem
@@ -86,21 +89,17 @@ NULL
 
 #' @rdname add_shuffle_portfolio
 #' @export
-add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
-                                  remove_duplicates = TRUE) {
+add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
   # assert that arguments are valid
   assert_required(x)
   assert_required(number_solutions)
   assert_required(threads)
-  assert_required(remove_duplicates)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     all_finite(number_solutions),
     is_thread_count(threads),
-    all_finite(threads),
-    assertthat::is.flag(remove_duplicates),
-    assertthat::noNA(remove_duplicates)
+    all_finite(threads)
   )
   # add portfolio
   x$add_portfolio(
@@ -111,8 +110,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
         name = "shuffle portfolio",
         data = list(
           number_solutions = number_solutions,
-          threads = threads,
-          remove_duplicates = remove_duplicates
+          threads = threads
         ),
         run = function(x, solver) {
           # determine behavior based on number of solutions
@@ -215,18 +213,6 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
               seq_len(self$get_data("number_solutions")),
               generate_single_solution
             )
-          }
-          ## if needed, remove duplicated solutions
-          if (isTRUE(self$get_data("remove_duplicates"))) {
-            unique_pos <- !duplicated(
-              vapply(
-                lapply(sol, `[[`, 1),
-                paste,
-                character(1),
-                collapse = " "
-              )
-            )
-            sol <- sol[unique_pos]
           }
           ## return result
           sol
