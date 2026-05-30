@@ -16,6 +16,8 @@
   existing objective functions account for cost,
   these functions can be used with multi-objective conservation
   planning problems to explore trade-offs with cost.
+- Update `solve()` with new `remove_duplicates` parameter to automatically
+  remove duplicates when generating multiple solutions.
 
 ## Major changes
 
@@ -32,6 +34,9 @@
   If you still want to minimize costs when using these objectives,
   this can be done with the hierarchical multi-objective optimization approach
   and the `add_cost_penalties()` function.
+- The `add_shuffle_portfolio()` function has been updated to remove the
+  `remove_duplicates` parameter since this functionality is now available
+  through the `solve()` function.
 - The `add_max_utility_objective()` function has been renamed to
   `add_max_wtd_sum_objective()` to improve clarity.
 - The `add_max_features_objective()` function has been renamed to
@@ -44,6 +49,8 @@
   version of the _highs_ package.
 - Update `add_max_wtd_sum_objective()` function to display a message to help
   ensure that make users aware of its limitations.
+- Update `solve()` so that it will display a message (instead of a warning)
+  if a portfolio produces fewer solutions than requested.
 - Fix `add_extra_portfolio()`, `add_gap_portfolio()`, and `add_top_portfolio()`
   functions to ensure compatibility with Gurobi version 13.
 - Fix `print()` and `summary()` functions for `problem()` objects not showing
