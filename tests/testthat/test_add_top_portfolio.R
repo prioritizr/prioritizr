@@ -40,7 +40,7 @@ test_that("solve (single zone)", {
     add_top_portfolio(number_solutions = 5) %>%
     add_gurobi_solver(gap = 1, verbose = FALSE)
   # solve problem
-  expect_warning(
+  expect_message(
     s <- solve(p),
     "Portfolio could only"
   )  # tests

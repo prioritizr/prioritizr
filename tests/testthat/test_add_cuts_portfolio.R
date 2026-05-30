@@ -121,7 +121,7 @@ test_that("solve (number_solutions outside limit)", {
     add_cuts_portfolio(100) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  expect_warning(
+  expect_message(
     s <- solve(p),
     "Portfolio could only"
   )
