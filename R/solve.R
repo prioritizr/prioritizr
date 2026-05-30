@@ -330,11 +330,13 @@ solve.ConservationProblem <- function(a, b, ...,
     isTRUE(length(sol) != portfolio_number_solutions)
   ) {
     cli::cli_inform(
-      paste(
-        "Portfolio could only find",
-        "{.val {length(sol)}} out of",
-        "{.val {portfolio_number_solutions}}",
-        "solution{?s}."
+      message = c(
+        "i" = paste(
+          "Portfolio could only find",
+          "{.val {length(sol)}} out of",
+          "{.val {portfolio_number_solutions}}",
+          "solution{?s}."
+        )
       )
     )
   }
@@ -406,11 +408,13 @@ solve.MultiObjConservationProblem <- function(a, b, ...,
     isTRUE(length(sol) != approach_number_solutions)
   ) {
     cli::cli_inform(
-      paste(
-        "Approach could only find",
-        "{.val {length(sol)}} out of",
-        "{.val {approach_number_solutions}}",
-        "solution{?s}."
+      message = c(
+        "i" = paste(
+          "Approach could only find",
+          "{.val {length(sol)}} out of",
+          "{.val {approach_number_solutions}}",
+          "solution{?s}."
+        )
       )
     )
   }

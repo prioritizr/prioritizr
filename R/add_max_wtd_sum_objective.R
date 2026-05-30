@@ -176,7 +176,7 @@ add_max_wtd_sum_objective <- function(x, budget) {
     message = c(
       "i" = paste(
         "{.fn add_max_wtd_sum_objective} has severe limitations",
-        " - use with caution."
+        "- use with caution."
       )
     )
   )
