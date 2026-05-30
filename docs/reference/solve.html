@@ -59,10 +59,10 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for class 'ConservationProblem'</span></span>
-<span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span>, remove_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'MultiObjConservationProblem'</span></span>
-<span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">solve</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">...</span>, run_checks <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">FALSE</span>, remove_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -82,7 +82,7 @@
 
 
 <dt id="arg-run-checks">run_checks<a class="anchor" aria-label="anchor" href="#arg-run-checks"></a></dt>
-<dd><p><code>logical</code> value indicating whether presolve checks
+<dd><p><code>logical</code> value indicating if presolve checks
 should be run prior solving the problem. These checks are performed using
 the <code><a href="presolve_check.html">presolve_check()</a></code> function. Defaults to <code>TRUE</code>.
 Note that skipping these checks may reduce run time for large problems.</p></dd>
@@ -92,6 +92,15 @@ Note that skipping these checks may reduce run time for large problems.</p></dd>
 <dd><p><code>logical</code> value indicating if an attempt to should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to <code>FALSE</code>.</p></dd>
+
+
+<dt id="arg-remove-duplicates">remove_duplicates<a class="anchor" aria-label="anchor" href="#arg-remove-duplicates"></a></dt>
+<dd><p><code>logical</code> value indicating if duplicated
+solutions should be removed. Note that <code>remove_duplicates</code> only
+has an affect if <code>a</code> has a portfolio or multi-objective optimization
+approach that involves generating multiple solutions
+(see <a href="portfolios.html">portfolios</a> and <a href="approaches.html">approaches</a> for details).
+Defaults to <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

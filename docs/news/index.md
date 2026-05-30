@@ -32,6 +32,9 @@
   Although existing objective functions account for cost, these
   functions can be used with multi-objective conservation planning
   problems to explore trade-offs with cost.
+- Update [`solve()`](https://prioritizr.net/reference/solve.md) with new
+  `remove_duplicates` parameter to automatically remove duplicates when
+  generating multiple solutions.
 
 ### Major changes
 
@@ -56,6 +59,11 @@
   [`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md)
   function.
 - The
+  [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
+  function has been updated to remove the `remove_duplicates` parameter
+  since this functionality is now available through the
+  [`solve()`](https://prioritizr.net/reference/solve.md) function.
+- The
   [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   function has been renamed to
   [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
@@ -75,6 +83,9 @@
   [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
   function to display a message to help ensure that make users aware of
   its limitations.
+- Update [`solve()`](https://prioritizr.net/reference/solve.md) so that
+  it will display a message (instead of a warning) if a portfolio
+  produces fewer solutions than requested.
 - Fix
   [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
   [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),

@@ -10,12 +10,7 @@ if the *Gurobi* software is available.
 ## Usage
 
 ``` r
-add_shuffle_portfolio(
-  x,
-  number_solutions = 10,
-  threads = 1,
-  remove_duplicates = TRUE
-)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1)
 ```
 
 ## Arguments
@@ -34,11 +29,6 @@ add_shuffle_portfolio(
   `integer` value denoting the number of threads to use for generating
   the solution portfolio. Defaults to 1.
 
-- remove_duplicates:
-
-  `logical` value indicating if duplicate solutions should be removed?
-  Defaults to `TRUE`.
-
 ## Value
 
 An updated [`problem()`](https://prioritizr.net/reference/problem.md)
@@ -51,6 +41,14 @@ different solutions, depending on optimality gap, but may return
 duplicate solutions. In general, this strategy is most effective when
 problems are quick to solve and multiple threads are available for
 solving each problem separately.
+
+## Notes
+
+In previous versions (\< 9.0.0.0), this function had a
+`remove_duplicates` parameter. To streamline and provide this
+functionality for other functions, duplicate solutions can now be
+removed by using the the `remove_duplicates` parameter of
+[`solve()`](https://prioritizr.net/reference/solve.md).
 
 ## See also
 
@@ -79,7 +77,7 @@ p1 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.2) %>%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+  add_shuffle_portfolio(10) %>%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20% of optimality
@@ -102,7 +100,7 @@ p2 <-
   add_min_set_objective() %>%
   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
   add_binary_decisions() %>%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+  add_shuffle_portfolio(10) %>%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem

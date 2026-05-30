@@ -4,12 +4,7 @@
 \alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
-add_shuffle_portfolio(
-  x,
-  number_solutions = 10,
-  threads = 1,
-  remove_duplicates = TRUE
-)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -20,9 +15,6 @@ Defaults to 10.}
 
 \item{threads}{\code{integer} value denoting the number of threads to use for
 generating the solution portfolio. Defaults to 1.}
-
-\item{remove_duplicates}{\code{logical} value indicating if duplicate solutions
-should be removed? Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
@@ -42,6 +34,14 @@ return duplicate solutions. In general, this strategy is most effective
 when problems are quick to solve and multiple threads are available for
 solving each problem separately.
 }
+\section{Notes}{
+
+In previous versions (< 9.0.0.0), this function had a \code{remove_duplicates}
+parameter. To streamline and provide this functionality for other
+functions, duplicate solutions can now be removed by using the
+the \code{remove_duplicates} parameter of \code{\link[=solve]{solve()}}.
+}
+
 \examples{
 \dontrun{
 # set seed for reproducibility
@@ -58,7 +58,7 @@ p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.2) \%>\%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_shuffle_portfolio(10) \%>\%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20\% of optimality
@@ -79,7 +79,7 @@ p2 <-
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
   add_binary_decisions() \%>\%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_shuffle_portfolio(10) \%>\%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem

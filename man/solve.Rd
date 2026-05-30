@@ -6,9 +6,9 @@
 \alias{solve.MultiObjConservationProblem}
 \title{Solve}
 \usage{
-\method{solve}{ConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE)
+\method{solve}{ConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 
-\method{solve}{MultiObjConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE)
+\method{solve}{MultiObjConservationProblem}(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 }
 \arguments{
 \item{a}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
@@ -17,7 +17,7 @@
 
 \item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
-\item{run_checks}{\code{logical} value indicating whether presolve checks
+\item{run_checks}{\code{logical} value indicating if presolve checks
 should be run prior solving the problem. These checks are performed using
 the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
 Note that skipping these checks may reduce run time for large problems.}
@@ -25,6 +25,13 @@ Note that skipping these checks may reduce run time for large problems.}
 \item{force}{\code{logical} value indicating if an attempt to should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
+
+\item{remove_duplicates}{\code{logical} value indicating if duplicated
+solutions should be removed. Note that \code{remove_duplicates} only
+has an affect if \code{a} has a portfolio or multi-objective optimization
+approach that involves generating multiple solutions
+(see \link{portfolios} and \link{approaches} for details).
+Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame}, \code{\link[sf:st_sf]{sf::st_sf()}}, or

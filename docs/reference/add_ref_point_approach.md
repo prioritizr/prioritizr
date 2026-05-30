@@ -236,8 +236,7 @@ mp2 <-
 # solve problem
 ms2 <- solve(mp2)
 #> Generating solutions ■■■■■■■                           20% | ETA:  5s
-#> Generating solutions ■■■■■■■■■                         27% | ETA:  5s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■           73% | ETA:  2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■                 53% | ETA:  3s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
 # plot multiple solutions

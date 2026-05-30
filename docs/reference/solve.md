@@ -6,10 +6,10 @@ Solve a conservation planning problem.
 
 ``` r
 # S3 method for class 'ConservationProblem'
-solve(a, b, ..., run_checks = TRUE, force = FALSE)
+solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 
 # S3 method for class 'MultiObjConservationProblem'
-solve(a, b, ..., run_checks = TRUE, force = FALSE)
+solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 ```
 
 ## Arguments
@@ -31,7 +31,7 @@ solve(a, b, ..., run_checks = TRUE, force = FALSE)
 
 - run_checks:
 
-  `logical` value indicating whether presolve checks should be run prior
+  `logical` value indicating if presolve checks should be run prior
   solving the problem. These checks are performed using the
   [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
   function. Defaults to `TRUE`. Note that skipping these checks may
@@ -42,6 +42,16 @@ solve(a, b, ..., run_checks = TRUE, force = FALSE)
   `logical` value indicating if an attempt to should be made to solve
   the problem even if potential issues were detected during the presolve
   checks. Defaults to `FALSE`.
+
+- remove_duplicates:
+
+  `logical` value indicating if duplicated solutions should be removed.
+  Note that `remove_duplicates` only has an affect if `a` has a
+  portfolio or multi-objective optimization approach that involves
+  generating multiple solutions (see
+  [portfolios](https://prioritizr.net/reference/portfolios.md) and
+  [approaches](https://prioritizr.net/reference/approaches.md) for
+  details). Defaults to `FALSE`.
 
 ## Value
 

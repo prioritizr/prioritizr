@@ -118,7 +118,6 @@ p6 <- p %>% add_gap_portfolio(4, 0.5)
 
 # solve problems to obtain solution portfolios
 s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
-#> Warning: Portfolio could only find 3 out of 4 solutions.
 
 # plot solution from default portfolio
 plot(terra::rast(s[[1]]), axes = FALSE)
