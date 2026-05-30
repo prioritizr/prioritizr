@@ -256,14 +256,6 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
     weights <- matrix(weights, nrow = 1)
   }
 
-  # rescale weights
-  weights <-
-    weights /
-      matrix(
-        rowSums(weights),
-        nrow = nrow(weights), ncol = ncol(weights), byrow = FALSE
-      )
-
   # add approach
   x$add_approach(
     R6::R6Class(
@@ -272,6 +264,7 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
       public = list(
         name = "weighted sum approach",
         data = list(weights = weights, verbose = verbose),
+        internal = list(number_solutions = nrow(weights)),
         run = function(x, solver) {
           ## initialization
           weights <- self$get_data("weights")
@@ -282,6 +275,13 @@ add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
             ifelse(x$modelsense == "min", -1, 1),
             ncol = ncol(x$obj), nrow = nrow(x$obj), byrow = FALSE
           )
+          ## rescale weights
+          weights <-
+            weights /
+            matrix(
+              rowSums(weights), byrow = FALSE,
+              nrow = nrow(weights), ncol = ncol(weights)
+            )
           ## if needed, set up progress bar
           if (isTRUE(verbose)) {
             pb <- cli::cli_progress_bar(
