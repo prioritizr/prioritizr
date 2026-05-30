@@ -55,7 +55,7 @@ Rcpp::List rcpp_convert_ref_point_method(
   // Add linear constraints for calculating shortfall of reference points
   for (std::size_t j = 0; j < A_ncol; ++j) {
     for (std::size_t i = 0; i < n; ++i) {
-      if (std::abs(mopt_obj(i, j) >= 1.0e-15)) {
+      if (std::abs(mopt_obj(i, j)) >= 1.0e-15) {
         ptr->_A_i.push_back(A_nrow + i);
         ptr->_A_j.push_back(j);
         ptr->_A_x.push_back(mopt_obj(i, j));
