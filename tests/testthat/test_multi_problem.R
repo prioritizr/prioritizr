@@ -2,19 +2,26 @@ test_that("single zone", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   names(sim_zones_pu_raster) <- rep("zone_1", 3)
-  sim_features <- get_sim_features()
+  sim_features1 <- get_sim_features()
+  sim_features2 <- sim_features1 * 2
+  names(sim_features2) <- letters[seq_len(terra::nlyr(sim_features2))]
   # create multi-object problem
   mp <-
     multi_problem(
       obj1 =
-        problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        problem(sim_zones_pu_raster[[1]], sim_features1) %>%
         add_min_set_objective() %>%
-        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+        add_absolute_targets(seq_along(terra::nlyr(sim_features1))) %>%
+        add_neighbor_constraints(2) %>%
+        add_neighbor_constraints(2) %>%
         add_binary_decisions(),
       obj2 =
-        problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        problem(sim_zones_pu_raster[[2]], sim_features2) %>%
         add_min_set_objective() %>%
-        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+        add_boundary_penalties(1) %>%
+        add_boundary_penalties(2) %>%
+        add_boundary_penalties(3) %>%
+        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features2)))) %>%
         add_binary_decisions()
     )
   # verify that object can be printed
@@ -33,13 +40,21 @@ test_that("single zone", {
   expect_equal(mp$planning_unit_class(), "SpatRaster")
   # test for integer fields
   expect_equal(
-    mp$number_of_planning_units(),
+    number_of_planning_units(mp),
     length(terra::cells(is.na(sim_zones_pu_raster), 0)[[1]])
   )
   expect_equal(mp$number_of_total_units(), terra::ncell(sim_zones_pu_raster))
   expect_equal(
     mp$planning_unit_indices(),
     terra::cells(is.na(sim_zones_pu_raster), 0)[[1]]
+  )
+  expect_equal(
+    number_of_features(mp),
+    terra::nlyr(c(sim_features1, sim_features2))
+  )
+  expect_equal(
+    feature_names(mp),
+    list(obj1 = names(sim_features1), obj2 = names(sim_features2))
   )
   expect_error(mp$total_unit_ids())
 })
@@ -118,37 +133,36 @@ test_that("warnings", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
-  # problem with portfolio (should warn)
-  p1 <-
+  # define base problem
+  p <-
     problem(sim_pu_raster, sim_features[[1:3]]) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_cuts_portfolio()
-  # problem without portfolio
-  p2 <-
-    problem(sim_pu_raster, sim_features[[4:5]]) %>%
-    add_min_shortfall_objective(
-      budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
-    ) %>%
-    add_relative_targets(0.2) %>%
     add_binary_decisions()
-  expect_warning(multi_problem(p1, p2), regexp = "portfolios")
-  # problem with non-default solver (should warn)
-  p1 <-
-    problem(sim_pu_raster, sim_features[[1:3]]) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_rsymphony_solver()
-  p2 <-
-    problem(sim_pu_raster, sim_features[[4:5]]) %>%
-    add_min_shortfall_objective(
-      budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
-    ) %>%
-    add_relative_targets(0.2) %>%
-    add_binary_decisions()
-  expect_warning(multi_problem(p1, p2), regexp = "solver")
+  # problem with portfolio
+  expect_warning(
+    multi_problem(p %>% add_cuts_portfolio(5), p),
+    regexp = "portfolios"
+  )
+  # problem with non-default solver
+  expect_warning(
+    multi_problem(p %>% add_compile_solver(), p),
+    regexp = "solver"
+  )
+  # overwriting approach
+  expect_warning(
+    multi_problem(p, p) %>%
+      add_hier_approach(rel_tol = 0.5) %>%
+      add_hier_approach(rel_tol = 0.5),
+    regexp = "approach"
+  )
+  # overwriting solver
+  expect_warning(
+    multi_problem(p, p) %>%
+      add_compile_solver() %>%
+      add_compile_solver(),
+    regexp = "solver"
+  )
 })
 
 test_that("invalid inputs", {

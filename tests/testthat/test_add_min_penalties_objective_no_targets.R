@@ -62,6 +62,7 @@ test_that("compile (compressed formulation, single zone, no budget)", {
 
 test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -221,6 +222,8 @@ test_that("compile (compressed formulation, multiple zones, no budget)", {
 })
 
 test_that("solve (compressed formulation, multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -619,6 +622,8 @@ test_that("compile (expanded formulation, multiple zones, no budget)", {
 })
 
 test_that("solve (expanded formulation, multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()

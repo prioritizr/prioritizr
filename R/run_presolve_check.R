@@ -39,7 +39,7 @@ run_presolve_check <- function(x, header_level = 2) {
   # define header function
   cli_h <- cli::cli_h2
   if (isTRUE(header_level == 1)) {
-    cli_h <- cli::cli_h1
+    cli_h <- cli::cli_h1 # nocov
   } else if (isTRUE(header_level == 3)) {
     cli_h <- cli::cli_h3
   }

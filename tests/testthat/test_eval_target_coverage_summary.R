@@ -15,9 +15,9 @@ test_that("binary values (single zone)", {
   s <- rep(c(0, 1), 5)
   s[is.na(pu$cost)] <- NA_real_
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, s)
+  x <- eval_target_coverage_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -39,13 +39,13 @@ test_that("binary values (single zone)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (single zone)", {
@@ -66,9 +66,9 @@ test_that("proportion values (single zone)", {
   s <- runif(10)
   s[is.na(pu$cost)] <- NA_real_
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, s)
+  x <- eval_target_coverage_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -90,13 +90,13 @@ test_that("proportion values (single zone)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (multiple zones)", {
@@ -128,10 +128,10 @@ test_that("binary values (multiple zones)", {
     ) %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
+  x <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     zone = targets$zone,
     sense = targets$sense,
@@ -155,13 +155,13 @@ test_that("binary values (multiple zones)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (multiple zones)", {
@@ -193,10 +193,10 @@ test_that("proportion values (multiple zones)", {
     ) %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
+  x <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     zone = targets$zone,
     sense = targets$sense,
@@ -220,13 +220,13 @@ test_that("proportion values (multiple zones)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (single zone, variable target sense, none met)", {
@@ -250,9 +250,9 @@ test_that("binary values (single zone, variable target sense, none met)", {
     problem(pu, targets$feature, "cost") %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
+  x <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = targets$feature,
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -276,15 +276,15 @@ test_that("binary values (single zone, variable target sense, none met)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2$relative_held[c(2, 3)] <- NA_real_
-  r2$relative_met[c(2, 3)] <- NA_real_
-  r2 <- r2[, c(
+  y$relative_held[c(2, 3)] <- NA_real_
+  y$relative_met[c(2, 3)] <- NA_real_
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (single zone, variable target sense, all met)", {
@@ -309,9 +309,9 @@ test_that("binary values (single zone, variable target sense, all met)", {
     problem(pu, targets$feature, "cost") %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
+  x <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = targets$feature,
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -331,15 +331,15 @@ test_that("binary values (single zone, variable target sense, all met)", {
     relative_met = pmin(absolute_held / absolute_target, 1),
     met = TRUE
   )
-  r2$relative_held[c(2, 3)] <- NA_real_
-  r2$relative_met[c(2, 3)] <- NA_real_
-  r2 <- r2[, c(
+  y$relative_held[c(2, 3)] <- NA_real_
+  y$relative_met[c(2, 3)] <- NA_real_
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
     "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("multi_problem (single zone)", {

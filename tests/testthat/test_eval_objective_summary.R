@@ -249,6 +249,37 @@ test_that("include_penalties = TRUE", {
   expect_equal(x, y)
 })
 
+test_that("infeasibility", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  set.seed(500)
+  pu <- data.frame(
+    id = seq_len(10),
+    cost = c(0.2, NA_real_, runif(8)),
+    spp1 = runif(10),
+    spp2 = c(rpois(9, 4), NA)
+  )
+  # create problem
+  p <-
+    problem(
+      matrix(pu$cost, ncol = 1),
+      data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+      as.matrix(t(pu[, 3:4]))
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(1) %>%
+    add_default_solver(verbose = FALSE)
+  # create a solution
+  s <- matrix(rep(0, 10), ncol = 1)
+  s[is.na(pu$cost)] <- NA_real_
+  # run tests
+  expect_tidy_error(
+    eval_objective_summary(p, s),
+    "feasible"
+  )
+})
+
 test_that("invalid inputs", {
   # create data
   set.seed(500)
@@ -281,9 +312,5 @@ test_that("invalid inputs", {
   expect_tidy_error(
     eval_objective_summary(p, s, include_penalties = "yes"),
     "include_penalties"
-  )
-  expect_tidy_error(
-    eval_objective_summary(p, s),
-    "feasible"
   )
 })

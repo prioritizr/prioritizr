@@ -16,14 +16,14 @@ test_that("binary values (single zone)", {
   s <- matrix(rep(c(0, 1), 5), ncol = 1)
   s[is.na(pu$cost)] <- NA_real_
   # calculate cost
-  r1 <- eval_cost_summary(p, s)
+  x <- eval_cost_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = "overall",
     cost = sum(s[, 1] * pu$cost, na.rm = TRUE)
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (multiple zones)", {
@@ -47,19 +47,19 @@ test_that("binary values (multiple zones)", {
   s <- matrix(c(rep(c(0, 1), 5), rep(c(1, 0), 5)), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
   # calculate cost
-  r1 <- eval_cost_summary(p, s)
+  x <- eval_cost_summary(p, s)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   costs <- c(
     sum(pu$cost_1 * s[, 1], na.rm = TRUE),
     sum(pu$cost_2 * s[, 2], na.rm = TRUE)
   )
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = c("overall", "1", "2"),
     cost = c(sum(costs), costs)
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (single zone)", {
@@ -80,14 +80,14 @@ test_that("proportion values (single zone)", {
   s <- matrix(runif(10), ncol = 1)
   s[is.na(pu$cost)] <- NA_real_
   # calculate cost
-  r1 <- eval_cost_summary(p, s)
+  x <- eval_cost_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = "overall",
     cost = sum(s[, 1] * pu$cost, na.rm = TRUE)
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (multiple zones)", {
@@ -111,19 +111,19 @@ test_that("proportion values (multiple zones)", {
   s <- matrix(runif(20), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
   # calculate cost
-  r1 <- eval_cost_summary(p, s)
+  x <- eval_cost_summary(p, s)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   costs <- c(
     sum(pu$cost_1 * s[, 1], na.rm = TRUE),
     sum(pu$cost_2 * s[, 2], na.rm = TRUE)
   )
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = c("overall", "1", "2"),
     cost = c(sum(costs), costs)
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("multi_problem (single zone)", {

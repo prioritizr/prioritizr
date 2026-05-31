@@ -165,13 +165,13 @@ multi_problem <- function(..., problem_names = NULL) {
     identical(n_problems, 0L),
     msg = c(
       paste(
-        "{.arg ...} contains {cli::qty(", n_problems, ")}",
+        "{.code multi_problem(...)} contains {cli::qty(", n_problems, ")}",
         "{?a/multiple} {.fn problem} object{?s} that {?has a/have}",
         "{.topic portfolios} added to {?it/them}."
       ),
       "i" = paste(
-        "{.topic portfolios} will be ignored when generating",
-        "solutions for a {.fn multi_problem} object."
+        "{.topic portfolios} are ignored when solving a",
+        "{.fn multi_problem} object."
       )
     ),
     call = NULL
@@ -186,7 +186,7 @@ multi_problem <- function(..., problem_names = NULL) {
     identical(n_problems, 0L),
     msg = c(
       paste(
-        "{.arg ...} contains {cli::qty(", n_problems, ")}",
+        "{.code multi_problem(...)} contains {cli::qty(", n_problems, ")}",
         "{?a/multiple} {.fn problem} object{?s} that {?has a/have}",
         "{.topic solvers} added to {?it/them}."
       ),

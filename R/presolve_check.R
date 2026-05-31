@@ -248,7 +248,7 @@ presolve_check_header <- function() {
 presolve_check_results <- function(pass) {
   msg <- cli::cli_fmt(cli::cli_h2("Results"))
   if (isTRUE(pass)) {
-    msg <- c(msg, "v" = "Passed.")
+    msg <- c(msg, "v" = "Passed.") # nocov
   } else {
     msg <- c(msg, "x" = "Failed.")
   }

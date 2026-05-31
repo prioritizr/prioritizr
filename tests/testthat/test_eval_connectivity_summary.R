@@ -32,15 +32,20 @@ test_that("single zone (zone matrix = 1)", {
   r3 <- eval_connectivity_summary(
     p, pu[, "solution"], NULL, as_connectivity_array(zm, cm)
   )
+  # calculate connectivity (data.frame)
+  r4 <- eval_connectivity_summary(
+    p, pu[, "solution"], NULL, as_connectivity_dataframe(p, zm, cm)
+  )
   # correct connectivity result
-  r4 <- tibble::tibble(
+  r5 <- tibble::tibble(
     summary = "overall",
     connectivity = r_connectivity_given_matrix(pu$solution, zm, cm)
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
-  expect_equal(r1, r4)
+  expect_equal(r1, r5)
+  expect_equal(r2, r5)
+  expect_equal(r3, r5)
+  expect_equal(r4, r5)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -84,9 +89,9 @@ test_that("single zone (variable zone matrix)", {
     connectivity = r_connectivity_given_matrix(pu$solution, zm, cm)
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -144,9 +149,9 @@ test_that("multiple zones (zone matrix = 1)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -204,9 +209,9 @@ test_that("multiple zones (zone matrix = identity matrix)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -268,9 +273,9 @@ test_that("multiple zones (variable zone matrix)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 

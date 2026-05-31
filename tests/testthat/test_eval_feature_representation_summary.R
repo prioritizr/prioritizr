@@ -16,9 +16,9 @@ test_that("numeric", {
   s <- rep(c(0, 1), 5)
   s[is.na(pu$cost)] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = "overall",
     feature = c("spp1", "spp2"),
     total_amount = c(
@@ -32,7 +32,7 @@ test_that("numeric", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("matrix (single zone)", {
@@ -52,9 +52,9 @@ test_that("matrix (single zone)", {
   s <- matrix(rep(c(0, 1), 5), ncol = 1)
   s[is.na(pu$cost)] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = "overall",
     feature = c("spp1", "spp2"),
     total_amount = c(
@@ -68,7 +68,7 @@ test_that("matrix (single zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("matrix (multiple zones)", {
@@ -92,10 +92,10 @@ test_that("matrix (multiple zones)", {
   s <- matrix(c(rep(c(0, 0.5), 5), rep(c(0.5, 0), 5)), ncol = 2)
   s[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = c(rep(c("overall", "1", "2"), each = 2)),
     feature = rep(c("spp1", "spp2"), 3),
     total_amount = c(
@@ -117,7 +117,7 @@ test_that("matrix (multiple zones)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("data.frame (single zone)", {
@@ -134,9 +134,9 @@ test_that("data.frame (single zone)", {
   s <- data.frame(solution = rep(c(0, 1), 5))
   s[[1]][is.na(pu$cost)] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = "overall",
     feature = c("spp1", "spp2"),
     total_amount = c(
@@ -150,7 +150,7 @@ test_that("data.frame (single zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("data.frame (multiple zone)", {
@@ -174,10 +174,10 @@ test_that("data.frame (multiple zone)", {
   s[[1]][is.na(pu$cost_1)] <- NA_real_
   s[[2]][is.na(pu$cost_2)] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = rep(c("overall", "1", "2"), each = 2),
     feature = rep(c("1", "2"), 3),
     total_amount = c(
@@ -199,7 +199,7 @@ test_that("data.frame (multiple zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("sf (single zone)", {
@@ -216,9 +216,9 @@ test_that("sf (single zone)", {
   # create a solution
   s <- pu[, "solution"]
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = rep("overall", 2),
     feature = c("spp1", "spp2"),
     total_amount = c(
@@ -232,7 +232,7 @@ test_that("sf (single zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("sf (multiple zone)", {
@@ -258,10 +258,10 @@ test_that("sf (multiple zone)", {
   # create a solution
   s <- pu[, c("s1", "s2")]
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = rep(c("overall", "z1", "z2"), each = 2),
     feature = rep(c("spp1", "spp2"), 3),
     total_amount = c(
@@ -283,7 +283,7 @@ test_that("sf (multiple zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("Spatial (single zone)", {
@@ -303,13 +303,13 @@ test_that("Spatial (single zone)", {
   # create a solution
   s <- pu[, "solution"]
   # calculate representation
-  r1 <- eval_feature_representation_summary(p1, s)
+  x <- eval_feature_representation_summary(p1, s)
   expect_warning(
-    r2 <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
+    y <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
     "deprecated"
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("Spatial (multiple zones)", {
@@ -348,13 +348,13 @@ test_that("Spatial (multiple zones)", {
   # create a solution
   s <- pu[, c("s1", "s2")]
   # calculate representation
-  r1 <- eval_feature_representation_summary(p1, s)
+  x <- eval_feature_representation_summary(p1, s)
   expect_warning(
-    r2 <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
+    y <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
     "deprecated"
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("SpatRaster (single zone)", {
@@ -370,11 +370,11 @@ test_that("SpatRaster (single zone)", {
   )
   s[is.na(sim_pu_raster)] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
   rij <- as.matrix(rij_matrix(sim_pu_raster, sim_features))
   s <- c(s[!is.na(sim_pu_raster)])
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = rep("overall", terra::nlyr(sim_features)),
     feature = names(sim_features),
     total_amount = terra::global(sim_features, "sum", na.rm = TRUE)[[1]],
@@ -384,7 +384,7 @@ test_that("SpatRaster (single zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("SpatRaster (multiple zone)", {
@@ -412,7 +412,7 @@ test_that("SpatRaster (multiple zone)", {
   s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
   s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p, s)
+  x <- eval_feature_representation_summary(p, s)
   # create correct result
   rij <- list(
     as.matrix(rij_matrix(sim_zones_pu_raster, sim_zones_features[[1]])),
@@ -420,7 +420,7 @@ test_that("SpatRaster (multiple zone)", {
     as.matrix(rij_matrix(sim_zones_pu_raster, sim_zones_features[[3]]))
   )
   s <- s[min(is.na(sim_zones_pu_raster)) == 0]
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     summary = rep(
       c("overall", zone_names(sim_zones_features)),
       each = number_of_features(sim_zones_features)),
@@ -483,7 +483,7 @@ test_that("SpatRaster (multiple zone)", {
     relative_held = absolute_held / total_amount
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("Raster (single zone)", {
@@ -503,13 +503,13 @@ test_that("Raster (single zone)", {
   )
   s[is.na(sim_pu_raster)] <- NA_real_
   # calculate results
-  r1 <- eval_feature_representation_summary(p1, s)
+  x <- eval_feature_representation_summary(p1, s)
   expect_warning(
-    r2 <- eval_feature_representation_summary(p2, raster::raster(s)),
+    y <- eval_feature_representation_summary(p2, raster::raster(s)),
     "deprecated"
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("Raster (multiple zones)", {
@@ -544,13 +544,13 @@ test_that("Raster (multiple zones)", {
   s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
   s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
   # calculate representation
-  r1 <- eval_feature_representation_summary(p1, s)
+  x <- eval_feature_representation_summary(p1, s)
   expect_warning(
-    r2 <- eval_feature_representation_summary(p2, raster::stack(s)),
+    y <- eval_feature_representation_summary(p2, raster::stack(s)),
     "deprecated"
   )
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("multi_problem (single zone)", {

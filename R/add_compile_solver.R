@@ -49,7 +49,19 @@ add_compile_solver <- function(x, ...) {
       "CompileSolver",
       inherit = Solver,
       public = list(
-        name = "compile solver"
+        name = "compile solver",
+        calculate = function(x, ...) {
+          # return success
+          invisible(TRUE) # nocov
+        },
+        run = function() {
+          # nocov start
+          cli::cli_abort(
+            "Compile solver cannot solve problems.",
+            call = rlang::expr(add_compile_solver())
+          )
+          # nocov end
+        }
       )
     )$new()
   )

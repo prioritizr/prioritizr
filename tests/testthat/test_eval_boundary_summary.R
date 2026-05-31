@@ -39,9 +39,9 @@ test_that("single zone (edge_factor = 1, zone matrix = 1)", {
     boundary = r_boundary_given_geometry(pu$solution, pu) * zm[1]
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -157,8 +157,8 @@ test_that("single zone (variable edge_factor, zone matrix)", {
     boundary = r_boundary_given_matrix(pu$solution, ef, zm, bm)
   )
   # run tests
-  expect_equal(r1, r2)
   expect_equal(r1, r3)
+  expect_equal(r2, r3)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -220,9 +220,9 @@ test_that("multiple zones (edge_factor = 1, zone matrix = 1)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -285,9 +285,9 @@ test_that("multiple zones (edge_factor = 1, zone matrix = identity matrix)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
-  expect_equal(r1, r3)
   expect_equal(r1, r4)
+  expect_equal(r2, r4)
+  expect_equal(r3, r4)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 
@@ -340,8 +340,8 @@ test_that("multiple zones (variable edge_factor, zone matrix)", {
     )
   )
   # run tests
-  expect_equal(r1, r2)
   expect_equal(r1, r3)
+  expect_equal(r2, r3)
   expect_equal(nrow(na.omit(r1)), nrow(r1))
 })
 

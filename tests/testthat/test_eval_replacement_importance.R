@@ -20,7 +20,7 @@ test_that("numeric", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- eval_replacement_importance(p, s, rescale = FALSE)
+  r <- eval_replacement_importance(p, s, rescale = FALSE, force = TRUE)
   # create correct result
   r2 <- c(0, 8, NA, Inf)
   # run tests
