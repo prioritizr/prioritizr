@@ -18,7 +18,7 @@
 #' @export
 do_run_example <- function() {
   # if interactive, always return TRUE
-  if (interactive()) return(TRUE)
+  if (rlang::is_interactive()) return(TRUE)
   # if check environment, then initially set to TRUE
   is_check <-
     ("CheckExEnv" %in% search()) ||
