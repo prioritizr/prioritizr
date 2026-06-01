@@ -20,6 +20,7 @@ test_that("x = SpatRaster, y = SpatRaster (single zone)", {
       obj2 =
         problem(costs, spp) %>%
         add_min_set_objective() %>%
+        add_cost_penalties(1) %>%
         add_absolute_targets(c(1, 1)) %>%
         add_binary_decisions()
     ) %>%
