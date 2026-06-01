@@ -90,8 +90,8 @@ MultiObjConservationProblem <- R6::R6Class(
         extent_text <- repr.bbox(
           sf::st_bbox(self$problems[[problem_names[1]]]$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
 
       # print data section
@@ -121,7 +121,7 @@ MultiObjConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- col_light_gray("none specified")
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
@@ -343,8 +343,8 @@ MultiObjConservationProblem <- R6::R6Class(
         extent_text <- repr.bbox(
           sf::st_bbox(self$problems[[problem_names[1]]]$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
 
       # print data section
@@ -374,7 +374,7 @@ MultiObjConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
+      missing_text <- col_light_gray("none specified")
       ## solver
       solver_text <- missing_text
       if (!is.Waiver(self$solver)) {
@@ -657,14 +657,19 @@ MultiObjConservationProblem <- R6::R6Class(
 
     #' @description
     #' Obtain the names of the features.
-    #' @return A `list` of `character` vectors.
+    #' @return A `character` vector.
     feature_names = function() {
-      stats::setNames(
+      unlist(
         lapply(
-          self$problems,
-          function(x) x$feature_names()
+          seq_along(self$problems),
+          function(i) {
+            n1 <- self$problems[[i]]$feature_names()
+            n2 <- self$problem_names()[[i]]
+            stats::setNames(n1, rep(n2, length(n1)))
+          }
         ),
-        self$problem_names()
+        recursive = FALSE,
+        use.names = TRUE
       )
     },
 

@@ -1,11 +1,11 @@
-test_that("single zone", {
+test_that("single zone (SpatRaster planning units)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   names(sim_zones_pu_raster) <- rep("zone_1", 3)
   sim_features1 <- get_sim_features()
   sim_features2 <- sim_features1 * 2
   names(sim_features2) <- letters[seq_len(terra::nlyr(sim_features2))]
-  # create multi-object problem
+  # create multi problem
   mp <-
     multi_problem(
       obj1 =
@@ -23,7 +23,8 @@ test_that("single zone", {
         add_boundary_penalties(3) %>%
         add_absolute_targets(rev(seq_along(terra::nlyr(sim_features2)))) %>%
         add_binary_decisions()
-    )
+    ) %>%
+    add_wtd_sum_approach(weights = c(1, 1))
   # verify that object can be printed
   suppressMessages(print(mp))
   suppressMessages(summary(mp))
@@ -54,7 +55,95 @@ test_that("single zone", {
   )
   expect_equal(
     feature_names(mp),
-    list(obj1 = names(sim_features1), obj2 = names(sim_features2))
+    c(
+      setNames(names(sim_features1), rep("obj1", terra::nlyr(sim_features1))),
+      setNames(names(sim_features2), rep("obj2", terra::nlyr(sim_features2)))
+    )
+  )
+  # tests for methods
+  expect_equal(
+    mp$convert_total_unit_ids_to_indices(1:10),
+    mp$problems[[1]]$convert_total_unit_ids_to_indices(1:10)
+  )
+  expect_equal(
+    mp$planning_unit_indices_with_finite_costs(),
+    mp$problems[[1]]$planning_unit_indices_with_finite_costs()
+  )
+  expect_error(mp$total_unit_ids())
+})
+
+test_that("single zone (numeric planning units)", {
+  # create data
+  pu <- data.frame(
+    id = seq_len(10), cost = c(0.2, NA, runif(8)),
+    spp1 = runif(10), spp2 = c(rpois(9, 4), NA),
+    spp3 = runif(10), spp4 = c(rpois(9, 4), NA)
+  )
+  # create problem
+  mp <-
+    multi_problem(
+      obj1 =
+        problem(
+          pu$cost,
+          data.frame(id = seq_len(3), name = c("spp1", "spp2", "spp3")),
+          as.matrix(t(pu[, 3:5]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(
+          pu$cost,
+          data.frame(id = 1L, name = "spp4"),
+          as.matrix(t(pu[, 6, drop = FALSE]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.3) %>%
+        add_binary_decisions()
+    )
+  # verify that object can be printed
+  suppressMessages(print(mp))
+  suppressMessages(summary(mp))
+  suppressMessages(mp)
+  suppressMessages(mp$print())
+  suppressMessages(mp$show())
+  suppressMessages(mp$repr())
+  # test for problem-specific info
+  expect_true(length(mp$problems) == 2)
+  expect_equal(mp$problem_names(), c("obj1", "obj2"))
+  # test for logical fields
+  expect_true(mp$is_ids_equivalent_to_indices())
+  # test for character fields
+  expect_equal(mp$planning_unit_class(), "matrix")
+  # test for integer fields
+  expect_equal(
+    number_of_planning_units(mp),
+    sum(!is.na(pu$cost))
+  )
+  expect_equal(mp$number_of_total_units(), nrow(pu))
+  expect_equal(
+    mp$planning_unit_indices(),
+    which(!is.na(pu$cost))
+  )
+  expect_equal(
+    number_of_features(mp),
+    4L
+  )
+  expect_equal(
+    feature_names(mp),
+    c(
+      setNames(c("spp1", "spp2", "spp3"), rep("obj1", 3)),
+      setNames("spp4", "obj2")
+    )
+  )
+  # tests for methods
+  expect_equal(
+    mp$convert_total_unit_ids_to_indices(1:10),
+    mp$problems[[1]]$convert_total_unit_ids_to_indices(1:10)
+  )
+  expect_equal(
+    mp$planning_unit_indices_with_finite_costs(),
+    mp$problems[[1]]$planning_unit_indices_with_finite_costs()
   )
   expect_error(mp$total_unit_ids())
 })
@@ -98,7 +187,7 @@ test_that("multiple zones", {
       )
     ) %>%
     add_binary_decisions()
-  # create multi-object problem
+  # create multi problem
   mp <- multi_problem(obj1 = p1, obj2 = p2)
   # verify that object can be printed
   suppressMessages(print(mp))

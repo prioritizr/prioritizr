@@ -23,9 +23,14 @@ function added will be used.
 \describe{
 
 \item{\code{\link[=add_default_portfolio]{add_default_portfolio()}}}{
+Generate a portfolio containing a single solution
+(per \code{\link[=add_single_portfolio]{add_single_portfolio()}}).
+This portfolio method is added to \code{\link[=problem]{problem()}} objects by default.
+}
+
+\item{\code{\link[=add_single_portfolio]{add_single_portfolio()}}}{
 Generate a portfolio containing a single
-solution. This portfolio method is added to \code{\link[=problem]{problem()}} objects by
-default.
+solution.
 }
 
 \item{\code{\link[=add_extra_portfolio]{add_extra_portfolio()}}}{
@@ -88,8 +93,8 @@ p <-
   add_binary_decisions() \%>\%
   add_default_solver(gap = 0.02, verbose = FALSE)
 
-# create problem with default portfolio
-p1 <- p \%>\% add_default_portfolio()
+# create problem with single portfolio
+p1 <- p \%>\% add_single_portfolio()
 
 # create problem with cuts portfolio with 4 solutions
 p2 <- p \%>\% add_cuts_portfolio(4)

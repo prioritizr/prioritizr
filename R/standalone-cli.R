@@ -15,7 +15,6 @@
 #' @noRd
 cli_pkg_theme <- function() {
   list(
-    .gray = list(color = "gray"),
     .val = list(digits = 4),
     .h = list(color = "cyan")
   )
@@ -197,3 +196,14 @@ cli_deprecated <- function(old, new = NULL) {
   }
   cli_warning(msg, call = FALSE)
 }
+
+#' Light gray text
+#'
+#' Display text with a gray color.
+#'
+#' @param ... `character` values.
+#'
+#' @return A `character` value.
+#'
+#' @noRd
+col_light_gray <- cli::make_ansi_style("grey60")

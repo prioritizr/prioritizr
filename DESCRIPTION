@@ -177,6 +177,7 @@ Collate:
     'add_rsymphony_solver.R'
     'add_semicontinuous_decisions.R'
     'add_shuffle_portfolio.R'
+    'add_single_portfolio.R'
     'add_top_portfolio.R'
     'add_wtd_sum_approach.R'
     'adjacency_matrix.R'

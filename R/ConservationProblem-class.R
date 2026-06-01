@@ -106,8 +106,8 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
-        extent_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
       cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
@@ -147,7 +147,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
+      missing_text <- col_light_gray("none specified")
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -331,8 +331,8 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
-        extent_text <- cli::cli_fmt(cli::cli_text("{.gray NA}"))
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
       cost_range <- range(self$planning_unit_costs(), na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
@@ -372,7 +372,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- cli::cli_fmt(cli::cli_text("{.gray none specified}"))
+      missing_text <- col_light_gray("none specified")
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -1011,6 +1011,13 @@ ConservationProblem <- R6::R6Class(
         )
         # nocov end
       }
+    },
+
+    #' @description
+    #' Obtain the number of problems.
+    #' @return An `integer` value of 1.
+    number_of_problems = function() {
+      1L
     },
 
     #' @description

@@ -72,6 +72,12 @@
   does not have the *Gurobi* solver.
 - Fix compatibility issues with internal error handling functions and
   developmental changes to error conditions in _R_.
+- New `add_single_portfolio()` function to explicitly specify that a
+  portfolio with a single solution should be generated. This portfolio
+  is added by default when using `add_default_portfolio()`. Although
+  this new function does not change any of the default behavior from
+  previous versions, the idea for this function is to help make the
+  default behavior for a `problem()` object clearer to new users.
 - New `number_of_problems()` function for `multi_problem()` objects.
 
 ## Documentation

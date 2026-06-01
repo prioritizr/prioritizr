@@ -212,8 +212,8 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   x$penalties[[penalty_idx]]$data$penalty <- 1
 
   # overwrite portfolio
-  if (!inherits(x$portfolio, "DefaultPortfolio")) {
-    x <- add_default_portfolio(x)
+  if (!inherits(x$portfolio, "SinglePortfolio")) {
+    x <- add_single_portfolio(x)
   }
 
   # overwrite verbose parameter in solver

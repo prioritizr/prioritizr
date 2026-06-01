@@ -49,7 +49,7 @@ number_of_problems <- function(x, ...) {
 #'
 #' @export
 number_of_problems.ConservationProblem <- function(x, ...) {
-  1L
+  x$number_of_problems()
 }
 
 #' @rdname number_of_features

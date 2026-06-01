@@ -22,9 +22,14 @@ NULL
 #' \describe{
 #'
 #' \item{[add_default_portfolio()]}{
+#' Generate a portfolio containing a single solution
+#' (per [add_single_portfolio()]).
+#' This portfolio method is added to [problem()] objects by default.
+#' }
+#'
+#' \item{[add_single_portfolio()]}{
 #' Generate a portfolio containing a single
-#' solution. This portfolio method is added to [problem()] objects by
-#' default.
+#' solution.
 #' }
 #'
 #' \item{[add_extra_portfolio()]}{
@@ -90,8 +95,8 @@ NULL
 #'   add_binary_decisions() %>%
 #'   add_default_solver(gap = 0.02, verbose = FALSE)
 #'
-#' # create problem with default portfolio
-#' p1 <- p %>% add_default_portfolio()
+#' # create problem with single portfolio
+#' p1 <- p %>% add_single_portfolio()
 #'
 #' # create problem with cuts portfolio with 4 solutions
 #' p2 <- p %>% add_cuts_portfolio(4)

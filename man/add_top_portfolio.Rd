@@ -88,6 +88,7 @@ Other functions for adding portfolios:
 \code{\link[=add_default_portfolio]{add_default_portfolio()}},
 \code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
 \code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
-\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}}
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_single_portfolio]{add_single_portfolio()}}
 }
 \concept{portfolios}

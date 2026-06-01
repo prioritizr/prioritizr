@@ -100,6 +100,7 @@ generating solutions.}
     \item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
     \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
     \item \href{#method-ConservationProblem-zone_names}{\code{ConservationProblem$zone_names()}}
+    \item \href{#method-ConservationProblem-number_of_problems}{\code{ConservationProblem$number_of_problems()}}
     \item \href{#method-ConservationProblem-add_portfolio}{\code{ConservationProblem$add_portfolio()}}
     \item \href{#method-ConservationProblem-add_solver}{\code{ConservationProblem$add_solver()}}
     \item \href{#method-ConservationProblem-add_targets}{\code{ConservationProblem$add_targets()}}
@@ -663,6 +664,21 @@ area-based units of \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
   }
   \subsection{Returns}{
     A \code{character} vector.
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-number_of_problems"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_problems}{}}}
+\subsection{\code{ConservationProblem$number_of_problems()}}{
+  Obtain the number of problems.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_problems()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value of 1.
   }
 }
 

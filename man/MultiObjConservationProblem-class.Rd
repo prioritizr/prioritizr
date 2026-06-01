@@ -321,7 +321,7 @@ missing (\code{NA}) values.
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{
-    A \code{list} of \code{character} vectors.
+    A \code{character} vector.
   }
 }
 

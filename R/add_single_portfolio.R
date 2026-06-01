@@ -1,17 +1,11 @@
 #' @include Portfolio-class.R
 NULL
 
-#' Add a default portfolio
+#' Add a single portfolio
 #'
-#' Generate a portfolio based on defaults.
+#' Generate a portfolio containing a single solution.
 #'
-#' @inheritParams add_cuts_portfolio
-#'
-#' @details
-#' By default, this is portfolio is added to [problem()] objects if no
-#' other portfolios is manually specified. In particular, this
-#' function adds the [add_single_portfolio()] function to `x` so
-#' that only a single solution is generated.
+#' @inheritParams add_default_portfolio
 #'
 #' @inherit add_cuts_portfolio return seealso
 #'
@@ -31,7 +25,7 @@ NULL
 #'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.05) %>%
-#'   add_default_portfolio() %>%
+#'   add_single_portfolio() %>%
 #'   add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
@@ -41,10 +35,22 @@ NULL
 #' plot(s)
 #' }
 #' @export
-add_default_portfolio <- function(x) {
+add_single_portfolio <- function(x) {
   # assert that arguments are valid
   assert_required(x)
   assert(is_conservation_problem(x))
   # add portfolio
-  add_single_portfolio(x)
+  x$add_portfolio(
+    R6::R6Class(
+      "SinglePortfolio",
+      inherit = Portfolio,
+      public = list(
+        name = "single portfolio",
+        run = function(x, solver) {
+          # solve problem
+          list(solver$solve(x))
+        }
+      )
+    )$new()
+  )
 }
