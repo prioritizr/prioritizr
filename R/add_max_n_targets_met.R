@@ -78,8 +78,7 @@ NULL
 #' persistence of biodiversity. *Trends in Ecology & Evolution*,
 #' 16: 242--248.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -132,7 +131,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_max_n_targets_met_objective
 NULL
 

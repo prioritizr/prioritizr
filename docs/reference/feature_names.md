@@ -45,7 +45,6 @@ A `character` vector of feature names.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -82,11 +81,6 @@ mp <-
 
 # print number of features
 print(feature_names(mp))
-#> $obj1
-#> [1] "feature_1" "feature_2"
-#> 
-#> $obj2
-#> [1] "feature_3" "feature_4" "feature_5"
-#> 
-# }
+#>        obj1        obj1        obj2        obj2        obj2 
+#> "feature_1" "feature_2" "feature_3" "feature_4" "feature_5" 
 ```

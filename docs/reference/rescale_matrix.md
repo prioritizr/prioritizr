@@ -69,7 +69,6 @@ for information on numerical issues.
 ## Examples
 
 ``` r
-# \dontrun{
 # rescale_matrix() is especially useful for re-scaling boundary length data
 # prior to optimization, and so here we provide an example showing how
 # this can be accomplished
@@ -101,6 +100,4 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-
-# }
 ```

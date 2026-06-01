@@ -31,7 +31,7 @@ It ensures that the output matrix correctly specifies
 symmetric or asymmetric connectivity relationships between planning units.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -89,5 +89,5 @@ m3 <- marxan_connectivity_data_to_matrix(NULL, bldf3, symmetric = FALSE)
 
 # print array
 print(m3)
-}
+\dontshow{\}) # examplesIf}
 }

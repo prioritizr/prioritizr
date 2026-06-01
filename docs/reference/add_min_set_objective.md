@@ -80,7 +80,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -120,6 +119,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
-
-# }
 ```

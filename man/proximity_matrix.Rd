@@ -52,7 +52,7 @@ spatial proximity to each other.
 Proximity calculations are performed using \code{\link[sf:st_is_within_distance]{sf::st_is_within_distance()}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -102,7 +102,7 @@ Matrix::image(cm_lns, main = "proximity matrix")
 ## plot points and proximity matrix
 plot(pts[, 1], main = "points", axes = FALSE)
 Matrix::image(cm_pts, main = "proximity matrix")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Proximity matrix data might need rescaling to improve optimization

@@ -11,8 +11,7 @@ NULL
 #'
 #' @family portfolios
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -33,7 +32,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s)
-#' }
+#'
 #' @export
 add_single_portfolio <- function(x) {
   # assert that arguments are valid

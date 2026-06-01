@@ -66,7 +66,7 @@ boundary are associated with greater connectivity.
 Shared boundary calculations are performed using \code{\link[=boundary_matrix]{boundary_matrix()}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -178,8 +178,7 @@ cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
 Matrix::image(cm_zwsum, main = "connectivity matrix")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Connectivity matrix data might need rescaling to improve optimization

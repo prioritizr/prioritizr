@@ -288,7 +288,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -360,6 +359,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution based on varying targets", axes = FALSE)
-
-# }
 ```

@@ -40,7 +40,6 @@ sparse matrix object.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -211,5 +210,4 @@ print(m3)
 #> [2,] 0.8543447 0.0000000 0.2312509
 #> [3,] 0.5892456 0.2387031 0.0000000
 #> 
-# }
 ```

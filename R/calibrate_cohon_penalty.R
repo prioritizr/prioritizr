@@ -131,8 +131,8 @@ NULL
 #'
 #' Fischer DT and Church RL (2005) The SITES reserve selection system: A
 #' critical review. *Environmental Modeling and Assessment*, 10: 215--228.
-#' @examples
-#' \dontrun{
+#'
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -167,7 +167,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
   # assert valid argument
@@ -213,7 +213,7 @@ calibrate_cohon_penalty <- function(x, approx = TRUE, verbose = TRUE) {
 
   # overwrite portfolio
   if (!inherits(x$portfolio, "SinglePortfolio")) {
-    x <- add_single_portfolio(x)
+    x <- add_single_portfolio(x) # nocov
   }
 
   # overwrite verbose parameter in solver

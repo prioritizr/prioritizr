@@ -34,22 +34,19 @@ NULL
 #' The [category_layer()] function performs the reverse of this function.
 #' Also the [terra::segregate()] function provides similar functionality.
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # create raster with categorical values
 #' x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 #'
 #' # plot the raster
-#' \dontrun{
 #' plot(x, main = "x")
-#' }
 #'
 #' # convert to binary stack
 #' y <- binary_stack(x)
 #'
 #' # plot result
-#' \dontrun{
 #' plot(y)
-#' }
+#'
 #' @export
 binary_stack <- function(x, keep_all = TRUE) {
   assert_required(x)

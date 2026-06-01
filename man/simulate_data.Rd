@@ -53,7 +53,7 @@ A \code{\link[terra:rast]{terra::rast()}} object.
 Simulate spatially auto-correlated data using Gaussian random fields.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -64,7 +64,7 @@ x <- simulate_data(r, n = 1, scale = 0.2)
 
 # plot simulated data
 plot(x, main = "simulated data", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for simulating data:

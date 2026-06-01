@@ -37,8 +37,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -79,7 +78,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution based on varying targets", axes = FALSE)
-#' }
+#'
 #' @export
 spec_relative_targets <- function(targets, ...) {
   # assert arguments are valid

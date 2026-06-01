@@ -62,8 +62,7 @@ NULL
 #' IBM (2017) IBM ILOG CPLEX Optimization Studio CPLEX User's Manual.
 #' Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -81,7 +80,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_cplex_solver
 NULL
 

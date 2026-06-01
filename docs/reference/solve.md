@@ -205,7 +205,6 @@ to reformat solutions that contain multiple zones.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -453,6 +452,4 @@ s4$solution <- factor(s4$solution)
 
 # plot solution
 plot(s4[, "solution"])
-
-# }
 ```

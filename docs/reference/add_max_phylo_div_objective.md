@@ -124,7 +124,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # load ape package
 require(ape)
 
@@ -301,6 +300,4 @@ plot(
     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
   )
 )
-
-# }
 ```

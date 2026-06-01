@@ -390,7 +390,6 @@ information on evaluating solutions.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -500,7 +499,7 @@ str(s6)
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "status")= Named chr "OPTIMAL"
 #>   ..- attr(*, "names")= chr "solution_1"
-#>  - attr(*, "runtime")= Named num 0.004
+#>  - attr(*, "runtime")= Named num 0.003
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "gap")= Named num 0.0334
 #>   ..- attr(*, "names")= chr "solution_1"
@@ -621,6 +620,4 @@ s9 <- solve(p9)
 
 # plot solution
 plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
-
-# }
 ```

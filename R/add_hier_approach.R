@@ -247,8 +247,7 @@ NULL
 #'
 #' @family approaches
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # in this example, we aim to identify a set of planning units that will
 #' # not exceed a particular budget and meet objectives for
 #' # (i) representing species that are important for ecosystem
@@ -361,7 +360,7 @@ NULL
 #'   xlab = "Keystone objective (shortfall)",
 #'   ylab = "Iconic objective (shortfall)"
 #' )
-#' }
+#'
 #' @export
 add_hier_approach <- function(x, rel_tol, priority = NULL, verbose = TRUE) {
   # assert arguments are valid

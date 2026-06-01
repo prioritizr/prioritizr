@@ -243,7 +243,6 @@ sim_features <- get_sim_features()
 sim_zones_features <- get_sim_zones_features()
 
 # plot raster data
-# \dontrun{
 par(mfrow = c(2, 2))
 plot(sim_pu_raster, main = "planning units (raster)", axes = FALSE)
 plot(sim_locked_in_raster, main = "locked in units (raster)", axes = FALSE)
@@ -296,6 +295,4 @@ plot(
   terra::rast(as.list(sim_zones_features)),
   main = plot_names, axes = FALSE
 )
-
-# }
 ```

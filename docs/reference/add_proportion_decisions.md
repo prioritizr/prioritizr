@@ -46,7 +46,6 @@ Other decisions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -100,6 +99,4 @@ print(s2)
 # plot solution
 # panels show the proportion of each planning unit allocated to each zone
 plot(s2, axes = FALSE)
-
-# }
 ```

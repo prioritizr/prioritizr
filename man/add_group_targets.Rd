@@ -140,7 +140,7 @@ demonstration of using the \code{feature_units} parameter.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -223,7 +223,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2[, "solution_1"], axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting

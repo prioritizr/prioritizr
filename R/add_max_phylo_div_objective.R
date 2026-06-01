@@ -97,8 +97,7 @@ NULL
 #' selection of networks of conservation areas. *Biological Conservation*,
 #' 105: 103--111.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load ape package
 #' require(ape)
 #'
@@ -210,7 +209,7 @@ NULL
 #'     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
 #'   )
 #' )
-#' }
+#'
 #' @name add_max_phylo_div_objective
 NULL
 

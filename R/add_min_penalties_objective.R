@@ -62,8 +62,7 @@ NULL
 #' Additionally, see [penalties] for an overview of all functions for adding
 #' penalties.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -120,7 +119,7 @@ NULL
 #'
 #' # plot multi-objective solutions
 #' plot(terra::rast(s2), main = paste("rel_tol =", rel_tol), axes = FALSE)
-#' }
+#'
 #' @name add_min_penalties_objective
 NULL
 

@@ -108,6 +108,31 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">600</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># load data</span></span></span>
+<span class="r-in"><span><span class="va">sim_pu_raster</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_pu_raster</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">sim_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_data.html">get_sim_features</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># create minimal problem with default portfolio</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">add_default_solver</span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># solve problem</span></span></span>
+<span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># plot solution</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="add_default_solver-1.png" alt="" width="700" height="433"></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

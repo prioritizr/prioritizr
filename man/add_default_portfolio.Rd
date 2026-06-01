@@ -22,7 +22,7 @@ function adds the \code{\link[=add_single_portfolio]{add_single_portfolio()}} fu
 that only a single solution is generated.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -43,7 +43,7 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

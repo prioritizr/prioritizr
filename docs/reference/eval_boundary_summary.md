@@ -232,7 +232,6 @@ Other functions for summarizing solutions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -414,5 +413,4 @@ print(r3_combined)
 # sum of the individual zone boundaries, because it does not
 # consider the shared boundary between two planning units allocated to
 # different zones as "exposed" when performing the calculations
-# }
 ```

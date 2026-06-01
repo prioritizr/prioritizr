@@ -198,7 +198,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -317,6 +316,4 @@ names(s2) <- c(
 
 # plot solutions
 plot(s2, axes = FALSE)
-
-# }
 ```

@@ -29,7 +29,7 @@ Also, if no decision is
 added to a \code{\link[=problem]{problem()}}, then this decision will be used by default.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -72,7 +72,7 @@ print(s2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{decisions} for an overview of all functions for adding decisions.

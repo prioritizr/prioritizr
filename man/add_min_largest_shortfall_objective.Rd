@@ -64,7 +64,7 @@ continuous variable \eqn{l} is bounded between zero and one.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -117,7 +117,7 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding objectives:

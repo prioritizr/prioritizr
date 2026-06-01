@@ -38,7 +38,7 @@ Values that are smaller than or greater than \code{coordinate_one_x} and
 In other words, this function does not extrapolate values.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -93,5 +93,5 @@ axis(
   1, pretty(log10(spp_range_size_km2)),
   10^pretty(log10(spp_range_size_km2))
 )
-}
+\dontshow{\}) # examplesIf}
 }

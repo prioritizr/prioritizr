@@ -45,10 +45,7 @@ sim_phylogeny <- get_sim_phylogeny()
 m <- branch_matrix(sim_phylogeny)
 
 # plot data
-# \dontrun{
 plot(sim_phylogeny, main = "phylogeny")
 
 Matrix::image(m, main = "branch matrix")
-
-# }
 ```

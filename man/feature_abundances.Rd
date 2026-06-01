@@ -70,7 +70,7 @@ For example, \code{na.rm = TRUE} may be useful for calculating the maximum
 feasible target for each feature.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -165,7 +165,7 @@ s5 <- solve(p5)
 # this solution contains all the planning units with finite cost data
 # (i.e., cost data that do not have NA values)
 plot(s5)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function can be used

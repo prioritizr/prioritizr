@@ -42,8 +42,7 @@ NULL
 #'
 #' @rdname adjacency_matrix
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -72,7 +71,6 @@ NULL
 #' plot(ply[, 1], main = "polygons")
 #' Matrix::image(am_ply, main = "adjacency matrix")
 #'
-#' }
 #' @export
 adjacency_matrix <- function(x, ...) {
   assert_required(x)

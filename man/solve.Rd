@@ -169,7 +169,7 @@ and other solvers will have a missing (\code{NA}) value.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -282,7 +282,7 @@ s4$solution <- factor(s4$solution)
 
 # plot solution
 plot(s4[, "solution"])
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=problem]{problem()}} and \code{\link[=multi_problem]{multi_problem()}} to create conservation planning

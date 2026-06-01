@@ -103,7 +103,7 @@ problem based on minimizing cost penalties (i.e., by using
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load ape package
 require(ape)
 
@@ -216,7 +216,7 @@ plot(
     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
   )
 )
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Faith DP (1992) Conservation evaluation and phylogenetic diversity.

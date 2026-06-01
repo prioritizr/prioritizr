@@ -36,7 +36,7 @@ An \code{integer} value.
 Extract the number of zones in an object.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()
@@ -70,5 +70,5 @@ mp <-
 
 # print number of zones
 print(number_of_zones(mp))
-}
+\dontshow{\}) # examplesIf}
 }

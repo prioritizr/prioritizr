@@ -65,7 +65,7 @@ containing proportion-type decision variables (using the
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -160,8 +160,7 @@ s5$solution_locked <- factor(s5$solution_locked)
 
 # plot solutions
 plot(s5[, c("solution", "solution_locked")], axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{constraints} for an overview of all functions for adding constraints.

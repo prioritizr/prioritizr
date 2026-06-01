@@ -138,7 +138,7 @@ contain a layer for each zone.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -284,8 +284,7 @@ s3 <- solve(p3)
 
 # plot solutions s0 and s3 to compare them
 plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding constraints:

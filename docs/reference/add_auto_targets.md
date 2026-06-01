@@ -267,7 +267,6 @@ Other functions for adding targets:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -386,6 +385,4 @@ s5 <- solve(p5)
 
 # plot solution
 plot(s5[, "solution_1"], axes = FALSE)
-
-# }
 ```

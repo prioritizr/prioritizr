@@ -69,17 +69,12 @@ function provides similar functionality.
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
-# \dontrun{
 plot(x, main = "x")
 
-# }
 
 # convert to binary stack
 y <- binary_stack(x)
 
 # plot result
-# \dontrun{
 plot(y)
-
-# }
 ```

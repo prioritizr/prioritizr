@@ -74,7 +74,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -157,14 +156,14 @@ mp <-
 
 # generate solutions
 ms <- solve(mp)
-#> ■■■■                              10% | ETA: 30s
-#> ■■■■■■■                           20% | ETA: 28s
-#> ■■■■■■■■■■                        30% | ETA: 24s
-#> ■■■■■■■■■■■■■                     40% | ETA: 21s
-#> ■■■■■■■■■■■■■■■■                  50% | ETA: 18s
-#> ■■■■■■■■■■■■■■■■■■■               60% | ETA: 14s
-#> ■■■■■■■■■■■■■■■■■■■■■■            70% | ETA: 10s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  7s
+#> ■■■■                              10% | ETA: 27s
+#> ■■■■■■■                           20% | ETA: 24s
+#> ■■■■■■■■■■                        30% | ETA: 21s
+#> ■■■■■■■■■■■■■                     40% | ETA: 18s
+#> ■■■■■■■■■■■■■■■■                  50% | ETA: 15s
+#> ■■■■■■■■■■■■■■■■■■■               60% | ETA: 12s
+#> ■■■■■■■■■■■■■■■■■■■■■■            70% | ETA:  9s
+#> ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  6s
 #> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■      90% | ETA:  3s
 #> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
@@ -193,6 +192,4 @@ plot(
   xlab = "Species representation (overall shortfall)",
   ylab = "Solution cost"
 )
-
-# }
 ```

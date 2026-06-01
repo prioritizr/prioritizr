@@ -26,7 +26,6 @@ A `character` vector.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -64,5 +63,4 @@ mp <-
 # print problem names
 print(problem_names(mp))
 #> [1] "obj1" "obj2"
-# }
 ```

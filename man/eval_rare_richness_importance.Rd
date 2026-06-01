@@ -121,8 +121,8 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
-# seed seed for reproducibility
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -178,8 +178,7 @@ rwr2 <- eval_rare_richness_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
 plot(rwr2, main = "rarity weighted richness")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL

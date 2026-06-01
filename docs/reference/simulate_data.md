@@ -76,7 +76,6 @@ Other functions for simulating data:
 ## Examples
 
 ``` r
-# \dontrun{
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -87,6 +86,4 @@ x <- simulate_data(r, n = 1, scale = 0.2)
 
 # plot simulated data
 plot(x, main = "simulated data", axes = FALSE)
-
-# }
 ```

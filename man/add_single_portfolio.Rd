@@ -16,7 +16,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 Generate a portfolio containing a single solution.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -37,7 +37,7 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

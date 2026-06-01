@@ -173,7 +173,6 @@ Other functions for summarizing solutions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -503,6 +502,4 @@ s5$solution <- factor(s5$solution)
 
 # plot solution
 plot(s5[, "solution"])
-
-# }
 ```

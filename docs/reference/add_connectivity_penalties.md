@@ -203,7 +203,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -464,6 +463,4 @@ names(s5) <- c("basic problem", "connectivity array")
 
 # plot solutions
 plot(s5, axes = FALSE)
-
-# }
 ```

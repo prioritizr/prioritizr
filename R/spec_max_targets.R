@@ -16,8 +16,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -66,7 +65,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)
-#' }
+#'
 #' @export
 spec_max_targets <- function(x, ...) {
   # assert arguments are valid

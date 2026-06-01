@@ -66,8 +66,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -146,8 +145,6 @@ NULL
 #'   data = acm2
 #' )
 #' print(r2)
-#'
-#' }
 #'
 #' @name eval_asym_connectivity_summary
 #'

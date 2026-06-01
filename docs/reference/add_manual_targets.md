@@ -137,7 +137,6 @@ Other functions for adding targets:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -310,6 +309,4 @@ s7 <- solve(p7)
 
 # plot solution
 plot(category_layer(s7), main = "solution", axes = FALSE)
-
-# }
 ```

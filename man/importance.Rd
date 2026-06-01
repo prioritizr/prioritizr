@@ -81,7 +81,7 @@ We only recommend using the rarity weighted richness metric
 when neither of the other two methods can be used.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -118,7 +118,7 @@ names(ir) <- c(
 
 # plot importance scores
 plot(ir, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site

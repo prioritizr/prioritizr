@@ -41,7 +41,7 @@ an error, a mis-specified problem, or unnecessarily long
 solve times.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -57,5 +57,5 @@ o <- compile(p)
 
 # print the optimization problem
 print(o)
-}
+\dontshow{\}) # examplesIf}
 }

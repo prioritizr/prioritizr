@@ -191,7 +191,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -303,6 +302,4 @@ names(s4) <- c("basic problem", paste0("acm2 (", penalties,")"))
 
 # plot solutions
 plot(s4, axes = FALSE)
-
-# }
 ```

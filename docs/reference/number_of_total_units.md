@@ -41,7 +41,6 @@ have 90 total units and two planning units.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -100,5 +99,4 @@ mp <-
 # print number of total units
 print(number_of_total_units(mp))
 #> [1] 100
-# }
 ```

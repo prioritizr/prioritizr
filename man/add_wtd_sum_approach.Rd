@@ -100,7 +100,7 @@ that achieves multiple objectives.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -198,7 +198,7 @@ plot(
 # exactly the same performance for the two objectives (these appear
 # as points with slightly thicker borders), and this is a key limitation
 # of the weighted sum approach
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted

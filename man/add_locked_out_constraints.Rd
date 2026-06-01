@@ -120,7 +120,7 @@ recommend standardizing missing (\code{NA}) values in \code{locked_out} with the
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -263,7 +263,7 @@ s10 <- solve(p10)
 
 # plot solution
 plot(category_layer(s10), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding constraints:

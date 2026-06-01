@@ -78,7 +78,6 @@ multiple management zones.
 ## Examples
 
 ``` r
-# \dontrun{
 # load planning unit data
 sim_pu_raster <- get_sim_pu_raster()
 
@@ -134,5 +133,4 @@ print(z)
 #> A zones object <ZonesCharacter/Zones>
 #> • zones:    "zone1", "zone2", and "zone3" (3 total)
 #> • features: "spp1" and "spp2" (2 total)
-# }
 ```

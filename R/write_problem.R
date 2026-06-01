@@ -27,8 +27,7 @@ NULL
 #'
 #' @return An invisible `TRUE` indicating success.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -56,7 +55,6 @@ NULL
 #'
 #' # print model file
 #' cat(readLines(path), sep = "\n")
-#' }
 #'
 #' @export
 write_problem <- function(x, path, solver = NULL) {

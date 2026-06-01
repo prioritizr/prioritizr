@@ -167,7 +167,7 @@ Beyer \emph{et al.} (2016).
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -269,8 +269,7 @@ names(s2) <- c(
 
 # plot solutions
 plot(s2, axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

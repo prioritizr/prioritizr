@@ -112,7 +112,7 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -201,7 +201,7 @@ r3 <- eval_n_summary(
   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 )
 print(r3)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{summaries} for an overview of all functions for summarizing solutions.

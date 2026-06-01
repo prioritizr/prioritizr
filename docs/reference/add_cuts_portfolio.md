@@ -61,12 +61,12 @@ Other functions for adding portfolios:
 [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
 [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
 [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+[`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md),
 [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -123,7 +123,7 @@ str(s2, max.level = 1)
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#>  - attr(*, "runtime")= Named num [1:10] 0.006 0.005 0.006 0.006 0.006 ...
+#>  - attr(*, "runtime")= Named num [1:10] 0.005 0.005 0.005 0.006 0.006 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "gap")= Named num [1:10] 0.175 0.183 0.187 0.189 0.173 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
@@ -135,6 +135,4 @@ s2 <- terra::rast(lapply(s2, category_layer))
 
 # plot solutions in portfolio
 plot(s2, main = "solution", axes = FALSE)
-
-# }
 ```

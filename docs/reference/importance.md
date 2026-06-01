@@ -115,7 +115,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -153,6 +152,4 @@ names(ir) <- c(
 
 # plot importance scores
 plot(ir, axes = FALSE)
-
-# }
 ```

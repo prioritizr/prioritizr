@@ -78,8 +78,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -168,7 +167,7 @@ NULL
 #'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 #' )
 #' print(r3)
-#' }
+#'
 #' @export
 eval_cost_summary <- function(x, solution) {
   assert_required(x)

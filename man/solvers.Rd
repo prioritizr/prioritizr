@@ -91,7 +91,7 @@ performance.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -154,7 +154,7 @@ if (require("lpsymphony")) {
 # plot solutions
 names(s) <- n
 plot(terra::rast(s), axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,

@@ -153,10 +153,9 @@ NULL
 #' (TNC), Arlington, Virginia, United States and Pacific Marine Analysis and
 #' Research Association (PacMARA), Victoria, British Columbia, Canada.
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # create Marxan problem using Marxan input file
 #' # (note this example requires the vroom package to be installed)
-#' \dontrun{
 #' input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 #' p1 <-
 #'   marxan_problem(input_file) %>%
@@ -218,7 +217,7 @@ NULL
 #'
 #' # print solution
 #' head(s3)
-#' }
+#'
 #' @export
 marxan_problem <- function(x, ...) {
   assert_required(x)

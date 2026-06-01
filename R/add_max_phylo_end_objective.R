@@ -101,8 +101,7 @@ NULL
 #' concentrations of evolutionary history. *Molecular Ecology*, 18:
 #' 4061--4072.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load ape package
 #' require(ape)
 #'
@@ -215,7 +214,7 @@ NULL
 #'     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
 #'   )
 #' )
-#' }
+#'
 #' @name add_max_phylo_end_objective
 NULL
 

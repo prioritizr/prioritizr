@@ -107,7 +107,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -180,6 +179,4 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-
-# }
 ```

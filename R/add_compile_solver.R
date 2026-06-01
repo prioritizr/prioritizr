@@ -21,8 +21,7 @@ NULL
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -37,7 +36,7 @@ NULL
 #'
 #' # print problem
 #' print(p1)
-#' }
+#'
 #' @noRd
 add_compile_solver <- function(x, ...) {
   # assert that arguments are valid

@@ -39,7 +39,7 @@ problem formulation to generate multiple solutions.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -86,7 +86,7 @@ s2 <- terra::rast(lapply(s2, category_layer))
 
 # plot solutions in portfolio
 plot(s2, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,

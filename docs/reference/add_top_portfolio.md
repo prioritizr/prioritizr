@@ -43,12 +43,12 @@ Other functions for adding portfolios:
 [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md),
 [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
 [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
-[`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
+[`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+[`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -100,6 +100,4 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-
-# }
 ```

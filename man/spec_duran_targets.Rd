@@ -202,7 +202,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -273,7 +273,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution based on varying targets", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Akçakaya HR, Sjögren-Gulve P (2000) Population viability analyses in

@@ -31,8 +31,7 @@ NULL
 #'
 #' @return An [optimization_problem()] object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -48,7 +47,7 @@ NULL
 #'
 #' # print the optimization problem
 #' print(o)
-#' }
+#'
 #' @export
 compile <- function(x, ...) {
   assert_required(x)

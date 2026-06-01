@@ -163,8 +163,7 @@ NULL
 #' issues prior to solving a problem, and [category_layer()] and
 #' [category_vector()] to reformat solutions that contain multiple zones.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -277,7 +276,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s4[, "solution"])
-#' }
+#'
 #' @name solve
 NULL
 

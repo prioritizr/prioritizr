@@ -199,6 +199,7 @@ Collate:
     'data.R'
     'decisions.R'
     'deprecated.R'
+    'do_run_example.R'
     'eval_asym_connectivity_summary.R'
     'eval_boundary_summary.R'
     'eval_connectivity_summary.R'

@@ -34,7 +34,7 @@ Compile multiple \code{\link[=OptimizationProblem-class]{OptimizationProblem}} o
 multi-objective optimization.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # import data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -62,7 +62,7 @@ mo <- multi_compile(mp)
 
 # print multi-objective optimization problem
 print(mo)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=compile]{compile()}} to create an \code{\link[=OptimizationProblem-class]{OptimizationProblem}} object.

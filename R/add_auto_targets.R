@@ -167,8 +167,7 @@ NULL
 #' protected-area system to represent threatened species.
 #' *Conservation Biology*,25: 324--332.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -285,7 +284,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s5[, "solution_1"], axes = FALSE)
-#' }
+#'
 #' @name add_auto_targets
 #'
 #' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,TargetMethod-method add_auto_targets,ConservationProblem,list-method

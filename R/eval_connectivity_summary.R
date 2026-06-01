@@ -64,8 +64,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -145,7 +144,6 @@ NULL
 #' )
 #' print(r2)
 #'
-#' }
 #' @name eval_connectivity_summary
 #'
 #' @exportMethod eval_connectivity_summary

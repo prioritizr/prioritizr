@@ -127,7 +127,7 @@ steps 1, 2, 3, and 4 correspond to \eqn{a}{a}, \eqn{b}{b}, \eqn{c}{c}, and
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -162,7 +162,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ardron JA, Possingham HP, and Klein CJ (eds) (2010) Marxan Good Practices

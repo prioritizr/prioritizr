@@ -166,8 +166,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -213,7 +212,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_interp_absolute_targets <- function(rare_absolute_threshold,
                                          rare_relative_target,

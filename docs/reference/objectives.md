@@ -118,7 +118,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -174,8 +173,7 @@ names(s) <- c(
   "min largest shortfall", "max phylogenetic diversity",
   "max phylogenetic endemism", "max wtd sum"
 )
+
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

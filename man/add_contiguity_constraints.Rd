@@ -104,7 +104,7 @@ In early versions, this function was named as the
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -223,7 +223,7 @@ s7 <- category_layer(solve(p7))
 
 # plot solutions
 plot(s7, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Önal H and Briers RA (2006) Optimal selection of a connected

@@ -79,7 +79,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -162,15 +161,14 @@ mp <-
 
 # generate solutions
 ms <- solve(mp)
-#> ■■■■                              10% | ETA: 31s
-#> ■■■■■■■                           20% | ETA: 29s
-#> ■■■■■■■■■■                        30% | ETA: 25s
-#> ■■■■■■■■■■■■■                     40% | ETA: 21s
-#> ■■■■■■■■■■■■■■■■                  50% | ETA: 18s
-#> ■■■■■■■■■■■■■■■■■■■               60% | ETA: 14s
-#> ■■■■■■■■■■■■■■■■■■■■■■            70% | ETA: 11s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  7s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■      90% | ETA:  3s
+#> ■■■■                              10% | ETA: 24s
+#> ■■■■■■■                           20% | ETA: 22s
+#> ■■■■■■■■■■                        30% | ETA: 19s
+#> ■■■■■■■■■■■■■                     40% | ETA: 16s
+#> ■■■■■■■■■■■■■■■■                  50% | ETA: 14s
+#> ■■■■■■■■■■■■■■■■■■■               60% | ETA: 11s
+#> ■■■■■■■■■■■■■■■■■■■■■■            70% | ETA:  8s
+#> ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  5s
 #> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
 # plot the solutions
@@ -198,6 +196,4 @@ plot(
   xlab = "Species representation (overall shortfall)",
   ylab = "Solution cost"
 )
-
-# }
 ```

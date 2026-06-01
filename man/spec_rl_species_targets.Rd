@@ -160,7 +160,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -225,7 +225,7 @@ names(s) <- c("EN (0\%)", "EN (20\%)", "VU (20\%)")
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,

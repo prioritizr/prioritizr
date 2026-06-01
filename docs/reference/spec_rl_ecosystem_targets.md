@@ -214,7 +214,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -282,6 +281,4 @@ s <- s[, c("s1", "s2", "s3"), drop = FALSE]
 
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

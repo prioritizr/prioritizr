@@ -153,8 +153,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -219,7 +218,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)
-#' }
+#'
 #' @export
 spec_rl_species_targets <- function(status, criterion_a, criterion_b,
                                     prop_uplift = 0, method = "max",

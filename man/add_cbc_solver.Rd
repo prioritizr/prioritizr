@@ -179,7 +179,7 @@ values in \code{start_solution}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -213,7 +213,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution with boundary penalties", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Forrest J and Lougee-Heimer R (2005) CBC User Guide. In Emerging theory,

@@ -45,7 +45,7 @@ that have binary decisions (i.e., specified using
 \code{\link[=add_binary_decisions]{add_binary_decisions()}}).
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -96,7 +96,7 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

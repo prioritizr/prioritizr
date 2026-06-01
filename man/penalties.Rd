@@ -67,7 +67,7 @@ selecting planning units based on a certain variable
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -128,7 +128,7 @@ names(s) <- c(
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 For information on calibrating the penalties, see the Calibrating Trade-offs

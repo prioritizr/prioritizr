@@ -28,8 +28,7 @@ NULL
 #'
 #' @return A [terra::rast()] object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -40,7 +39,7 @@ NULL
 #'
 #' # plot simulated data
 #' plot(x, main = "simulated data", axes = FALSE)
-#' }
+#'
 #' @export
 simulate_data <- function(x, n, scale, intensity, sd, transform) {
   assert_required(x)
@@ -122,8 +121,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #'
 #' @family simulations
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -134,7 +132,6 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #'
 #' # plot simulated species
 #' plot(spp, main = "simulated species distributions", axes = FALSE)
-#' }
 #'
 #' @export
 simulate_species <- function(x, n, scale) {
@@ -191,8 +188,7 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #'
 #' @return A [terra::rast()] object with integer values greater than zero.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -203,7 +199,6 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #'
 #' # plot simulated species
 #' plot(cost, main = "simulated cost data", axes = FALSE)
-#' }
 #'
 #' @export
 simulate_cost <- function(x, n, intensity, sd, scale) {

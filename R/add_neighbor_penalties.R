@@ -66,8 +66,7 @@ NULL
 #' design models: A review. *Environmental Modeling and Assessment*, 10:
 #' 163--181.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -145,7 +144,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s2, main = names(s2), axes = FALSE)
-#' }
+#'
 #' @name add_neighbor_penalties
 #'
 #' @exportMethod add_neighbor_penalties

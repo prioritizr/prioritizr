@@ -91,7 +91,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -195,6 +194,4 @@ s5$solution_locked <- factor(s5$solution_locked)
 
 # plot solutions
 plot(s5[, c("solution", "solution_locked")], axes = FALSE)
-
-# }
 ```

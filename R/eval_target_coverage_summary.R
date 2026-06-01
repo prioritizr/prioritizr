@@ -174,8 +174,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -268,7 +267,7 @@ NULL
 #'
 #' # print r3 again to show the new column
 #' print(r3, width = Inf)
-#' }
+#'
 #' @export
 eval_target_coverage_summary <- function(
   x,

@@ -215,6 +215,7 @@ reference:
       - knit_print
       - as_km2
       - as_per_km2
+      - do_run_example
 
   - title: Deprecated functions
     desc: Documentation for functions that are no longer available.

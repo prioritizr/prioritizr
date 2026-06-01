@@ -92,8 +92,7 @@ NULL
 #' conservation planning problems with integer linear programming.
 #' *Ecological Modelling*, 228: 14--22.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -203,7 +202,6 @@ NULL
 #'
 #' # plot solutions
 #' plot(s4, axes = FALSE)
-#' }
 #'
 #' @name add_asym_connectivity_penalties
 #'

@@ -25,8 +25,7 @@ NULL
 #'
 #' @return A `numeric` vector.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create series of x-values
 #' x <- seq(0, 1000)
 #'
@@ -81,7 +80,7 @@ NULL
 #'   1, pretty(log10(spp_range_size_km2)),
 #'   10^pretty(log10(spp_range_size_km2))
 #' )
-#' }
+#'
 #' @export
 loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
                                     coordinate_two_x, coordinate_two_y) {

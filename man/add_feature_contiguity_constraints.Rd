@@ -141,7 +141,7 @@ In early versions, it was named as the \code{add_corridor_constraints} function.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -229,7 +229,7 @@ s2 <- terra::rast(lapply(s2, category_layer))
 names(s2) <- c("p5", "p6", "p7", "p8")
 # plot solutions
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Önal H and Briers RA (2006) Optimal selection of a connected

@@ -32,8 +32,7 @@ NULL
 #'
 #' @family portfolios
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -83,7 +82,7 @@ NULL
 #'
 #' # plot solutions in portfolio
 #' plot(s2, axes = FALSE)
-#' }
+#'
 #' @name add_shuffle_portfolio
 NULL
 

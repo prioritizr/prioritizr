@@ -147,8 +147,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -186,7 +185,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_wilson_targets <- function(mean_growth_rates, var_growth_rates,
                                 pop_density, density_units,

@@ -46,7 +46,6 @@ Other functions for simulating data:
 ## Examples
 
 ``` r
-# \dontrun{
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -57,6 +56,4 @@ spp <- simulate_species(r, 4)
 
 # plot simulated species
 plot(spp, main = "simulated species distributions", axes = FALSE)
-
-# }
 ```

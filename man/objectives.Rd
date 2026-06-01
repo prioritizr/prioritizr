@@ -96,7 +96,7 @@ priorities that are biologically ineffective and economically inefficient"
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -145,9 +145,10 @@ names(s) <- c(
   "min largest shortfall", "max phylogenetic diversity",
   "max phylogenetic endemism", "max wtd sum"
 )
+
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Brown CJ, Bode M, Venter O, Barnes MD, McGowan J, Runge CA, Watson JEM,

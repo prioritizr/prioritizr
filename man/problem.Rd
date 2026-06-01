@@ -335,7 +335,7 @@ millions of planning units.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -541,7 +541,7 @@ s9 <- solve(p9)
 
 # plot solution
 plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=solve]{solve()}} for details on solving a problem to generate solutions.

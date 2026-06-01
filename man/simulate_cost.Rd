@@ -35,7 +35,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with integer values greater tha
 Generates simulated cost data using Gaussian random fields.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -46,8 +46,7 @@ cost <- simulate_cost(r)
 
 # plot simulated species
 plot(cost, main = "simulated cost data", axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for simulating data:

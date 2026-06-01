@@ -38,7 +38,7 @@ Also, if no decision is
 added to a \code{\link[=problem]{problem()}}, then this decision will be used by default.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -79,7 +79,7 @@ print(s2)
 # plot solution
 # panels show the proportion of each planning unit allocated to each zone
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{decisions} for an overview of all functions for adding decisions.

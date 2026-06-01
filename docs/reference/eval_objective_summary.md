@@ -92,7 +92,6 @@ Other functions for summarizing solutions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -139,5 +138,4 @@ print(v2)
 #>   value
 #>   <dbl>
 #> 1 1987.
-# }
 ```

@@ -71,7 +71,6 @@ to perform rescaling.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -128,6 +127,4 @@ Matrix::image(cm_lns, main = "proximity matrix")
 plot(pts[, 1], main = "points", axes = FALSE)
 
 Matrix::image(cm_pts, main = "proximity matrix")
-
-# }
 ```

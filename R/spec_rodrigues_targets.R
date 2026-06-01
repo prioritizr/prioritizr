@@ -128,8 +128,7 @@ NULL
 #' Smith RJ, Venter M, Watson JEM (2014) Targeting global protected area
 #' expansion for imperiled biodiversity. *PLoS Biology*, 12: e1001891.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -150,7 +149,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_rodrigues_targets <- function(rare_area_threshold = 1000,
                                    rare_relative_target = 1,

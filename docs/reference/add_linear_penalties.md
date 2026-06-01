@@ -154,7 +154,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -200,7 +199,7 @@ print(p1)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
+#>  ├•portfolio:   single portfolio
 #>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 #> # ℹ Use `summary(...)` to see further details.
 
@@ -228,7 +227,7 @@ print(p2)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
+#>  ├•portfolio:   single portfolio
 #>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 #> # ℹ Use `summary(...)` to see further details.
 
@@ -311,7 +310,7 @@ print(p4)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
+#>  ├•portfolio:   single portfolio
 #>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 #> # ℹ Use `summary(...)` to see further details.
 
@@ -320,6 +319,4 @@ s4 <- solve(p4)
 
 # plot solution
 plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
-
-# }
 ```

@@ -177,7 +177,7 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -287,8 +287,7 @@ names(s4) <- c("basic problem", paste0("acm2 (", penalties,")"))
 
 # plot solutions
 plot(s4, axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)

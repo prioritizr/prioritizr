@@ -61,8 +61,7 @@ NULL
 #'
 #' @aliases rij_matrix,Raster,Raster-method rij_matrix,Spatial,Raster-method rij_matrix,sf,Raster-method rij_matrix,SpatRaster,SpatRaster-method rij_matrix,sf,SpatRaster-method
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -80,7 +79,7 @@ NULL
 #' # create rij matrix using raster planning units with multiple zones
 #' rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 #' print(rij_zones_raster)
-#' }
+#'
 #' @export
 methods::setGeneric(
   "rij_matrix",

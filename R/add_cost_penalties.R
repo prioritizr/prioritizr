@@ -57,8 +57,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -148,7 +147,7 @@ NULL
 #'   xlab = "Species representation (overall shortfall)",
 #'   ylab = "Solution cost"
 #' )
-#' }
+#'
 #' @export
 add_cost_penalties <- function(x, penalty) {
   # assert valid arguments

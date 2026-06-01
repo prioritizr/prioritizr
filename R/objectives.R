@@ -104,8 +104,7 @@ NULL
 #' the selection of nature reserves: An example from Tasmania.
 #' *Biological Conservation*, 25: 127--134.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -154,9 +153,9 @@ NULL
 #'   "min largest shortfall", "max phylogenetic diversity",
 #'   "max phylogenetic endemism", "max wtd sum"
 #' )
-#"
+#'
 #' # plot solutions
 #' plot(s, axes = FALSE)
-#' }
+#'
 #' @name objectives
 NULL

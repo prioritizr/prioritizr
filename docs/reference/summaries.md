@@ -62,7 +62,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -154,6 +153,4 @@ eval_asym_connectivity_summary(p, s, data = acm)
 #>   summary asym_connectivity
 #>   <chr>               <dbl>
 #> 1 overall              51.4
-
-# }
 ```

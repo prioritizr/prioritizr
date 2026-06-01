@@ -20,8 +20,7 @@ NULL
 #'
 #' @name number_of_total_units
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -74,7 +73,7 @@ NULL
 #'
 #' # print number of total units
 #' print(number_of_total_units(mp))
-#' }
+#'
 #' @export
 number_of_total_units <- function(x, ...) {
   assert_required(x)

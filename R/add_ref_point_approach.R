@@ -124,8 +124,7 @@ NULL
 #' Eds Fandel G and Gal T. Lecture notes in economics and mathematical
 #' systems (pp. 468--486). Springer Berlin Heidelberg.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # in this example, we aim to identify a set of planning units that will
 #' # not exceed a particular budget and meet objectives for
 #' # (i) representing species that are important for ecosystem
@@ -220,7 +219,7 @@ NULL
 #'   xlab = "Keystone objective (shortfall)",
 #'   ylab = "Iconic objective (shortfall)"
 #' )
-#' }
+#'
 #' @export
 add_ref_point_approach <- function(x,
                                    weights = NULL,

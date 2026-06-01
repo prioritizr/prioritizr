@@ -44,7 +44,6 @@ An invisible `TRUE` indicating success.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -65,7 +64,7 @@ p <-
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
 print(path)
-#> [1] "/tmp/Rtmpl187uO/model.lp"
+#> [1] "/tmp/RtmpItPP1X/model.lp"
 
 # save problem to file
 ## note that either the gurobi or Rsymphony package needs to be installed
@@ -97,5 +96,4 @@ cat(readLines(path), sep = "\n")
 #> Binaries
 #>  C0 C1 C2 C3
 #> End
-# }
 ```

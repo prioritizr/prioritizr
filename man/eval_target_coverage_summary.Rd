@@ -269,7 +269,7 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -362,7 +362,7 @@ r3$zone2 <- vapply(r3$zone, FUN.VALUE = character(1), paste, sep = " & ")
 
 # print r3 again to show the new column
 print(r3, width = Inf)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{summaries} for an overview of all functions for summarizing solutions.

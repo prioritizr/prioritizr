@@ -20,8 +20,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -92,7 +91,7 @@ NULL
 #'
 #' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s6), main = "varying targets")
-#' }
+#'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method
 #'
 #' @name add_relative_targets

@@ -55,8 +55,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -153,7 +152,6 @@ NULL
 #'
 #' # plot solutions
 #' plot(s5[, c("solution", "solution_bounded")], axes = FALSE)
-#' }
 #'
 #' @name add_manual_bounded_constraints
 #'

@@ -124,8 +124,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -146,7 +145,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_jung_targets <- function(status = "VU", prop_uplift = 0.1,
                               cap_area_target = 1000000,

@@ -35,7 +35,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -84,7 +84,7 @@ names(s) <- c("20\% targets", "Jung targets", "Polak targets", "min targets")
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other target setting methods:

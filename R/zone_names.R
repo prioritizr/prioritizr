@@ -9,8 +9,7 @@ NULL
 #'
 #' @return A `character` vector of zone names.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_zones_features <- get_sim_zones_features()
@@ -49,7 +48,7 @@ NULL
 #'
 #' # print zone names
 #' print(zone_names(mp))
-#' }
+#'
 #' @export
 zone_names <- function(x, ...) {
   assert_required(x)

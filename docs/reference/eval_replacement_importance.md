@@ -188,8 +188,7 @@ Other functions for evaluating solution importance:
 ## Examples
 
 ``` r
-# \dontrun{
-# seed seed for reproducibility
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -367,6 +366,4 @@ names(rc4) <- paste0("zone ", seq_len(terra::nlyr(s4)))
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
 plot(rc4, axes = FALSE)
-
-# }
 ```

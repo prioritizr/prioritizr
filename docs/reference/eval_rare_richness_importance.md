@@ -147,8 +147,7 @@ Other functions for evaluating solution importance:
 ## Examples
 
 ``` r
-# \dontrun{
-# seed seed for reproducibility
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -246,6 +245,4 @@ rwr2 <- eval_rare_richness_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
 plot(rwr2, main = "rarity weighted richness")
-
-# }
 ```

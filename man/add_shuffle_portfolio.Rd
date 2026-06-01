@@ -43,7 +43,7 @@ the \code{remove_duplicates} parameter of \code{\link[=solve]{solve()}}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -93,7 +93,7 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

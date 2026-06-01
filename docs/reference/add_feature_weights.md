@@ -88,7 +88,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # load package
 require(ape)
 #> Loading required package: ape
@@ -293,6 +292,4 @@ s8 <- solve(p8)
 
 # plot solution
 plot(s8, main = "solution", axes = FALSE)
-
-# }
 ```

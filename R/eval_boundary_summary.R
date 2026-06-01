@@ -64,8 +64,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -172,7 +171,7 @@ NULL
 #' # sum of the individual zone boundaries, because it does not
 #' # consider the shared boundary between two planning units allocated to
 #' # different zones as "exposed" when performing the calculations
-#' }
+#'
 #' @export
 eval_boundary_summary <- function(x, solution,
                                   edge_factor = rep(0.5, number_of_zones(x)),

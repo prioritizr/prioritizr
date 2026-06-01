@@ -66,7 +66,7 @@ in the solution.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -163,8 +163,7 @@ s5$solution_bounded <- factor(s5$solution_bounded)
 
 # plot solutions
 plot(s5[, c("solution", "solution_bounded")], axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding constraints:

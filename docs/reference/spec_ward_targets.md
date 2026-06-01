@@ -151,7 +151,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -172,6 +171,4 @@ s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-
-# }
 ```

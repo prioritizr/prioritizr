@@ -90,7 +90,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -140,6 +139,4 @@ names(s) <- c(
 
 # plot solutions
 plot(s, axes = FALSE, nr = 2)
-
-# }
 ```

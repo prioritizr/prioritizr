@@ -27,7 +27,7 @@ be solved using the \emph{Gurobi} software (i.e., using
 of the \pkg{gurobi} package must be installed.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -76,7 +76,7 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

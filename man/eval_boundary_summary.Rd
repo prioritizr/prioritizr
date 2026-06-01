@@ -205,7 +205,7 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -312,7 +312,7 @@ print(r3_combined)
 # sum of the individual zone boundaries, because it does not
 # consider the shared boundary between two planning units allocated to
 # different zones as "exposed" when performing the calculations
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

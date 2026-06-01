@@ -45,9 +45,8 @@ NULL
 #'
 #' @family importances
 #'
-#' @examples
-#' \dontrun{
-#' # seed seed for reproducibility
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
@@ -106,8 +105,6 @@ NULL
 #'
 #' # plot importance scores
 #' plot(fs2)
-#'
-#' }
 #'
 #' @export
 eval_ferrier_importance <- function(x, solution) {

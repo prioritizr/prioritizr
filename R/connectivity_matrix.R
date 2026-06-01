@@ -47,8 +47,7 @@ NULL
 #' Connectivity matrix data might need rescaling to improve optimization
 #' performance, see [rescale_matrix()] to perform these calculations.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -160,7 +159,6 @@ NULL
 #' ## plot data and matrix
 #' plot(r, main = "planning units (raster)", axes = FALSE)
 #' Matrix::image(cm_zwsum, main = "connectivity matrix")
-#' }
 #'
 #' @aliases connectivity_matrix,Spatial,character-method connectivity_matrix,Spatial,Raster-method connectivity_matrix,Raster,Raster-method connectivity_matrix,sf,character-method connectivity_matrix,sf,Raster-method connectivity_matrix,sf,SpatRaster-method connectivity_matrix,SpatRaster,SpatRaster-method
 #'

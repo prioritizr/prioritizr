@@ -336,8 +336,7 @@ Other functions for evaluating solution importance:
 ## Examples
 
 ``` r
-# \dontrun{
-# seed seed for reproducibility
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -408,7 +407,7 @@ print(attr(rs1, "gap"))
 #>  [1] 0 0 0 0 0 0 0 0 0 0
 ## run time
 print(attr(rs1, "runtime"))
-#>  [1] 0.002 0.002 0.002 0.002 0.002 0.003 0.002 0.002 0.002 0.003
+#>  [1] 0.003 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002
 ## objective value
 print(attr(rs1, "objective"))
 #>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220
@@ -519,6 +518,4 @@ names(rs4) <- paste0("zone ", seq_len(terra::nlyr(sim_zones_pu_raster)))
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
 plot(rs4, axes = FALSE)
-
-# }
 ```

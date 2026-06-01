@@ -29,7 +29,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with values between zero and on
 Generates simulated species data using Gaussian random fields.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -40,8 +40,7 @@ spp <- simulate_species(r, 4)
 
 # plot simulated species
 plot(spp, main = "simulated species distributions", axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for simulating data:

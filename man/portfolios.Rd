@@ -80,7 +80,7 @@ when the \emph{Gurobi} software is not available.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -131,8 +131,7 @@ plot(terra::rast(s[[5]]), axes = FALSE)
 
 # plot solutions from gap portfolio
 plot(terra::rast(s[[6]]), axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other overviews:

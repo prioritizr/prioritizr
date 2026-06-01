@@ -31,7 +31,7 @@ Note that the number of solutions returned may be less than
 may be fewer than \code{number_solutions}.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -80,7 +80,7 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding portfolios:

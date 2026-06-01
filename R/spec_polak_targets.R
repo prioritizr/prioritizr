@@ -96,8 +96,7 @@ NULL
 #' UNEP-WCMC and IUCN (2025) Protected Planet Report 2024.
 #' Cambridge, UK: UNEP-WCMC and IUCN. Available at <www.protectedplanet.net>.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -118,7 +117,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_polak_targets <- function(rare_area_threshold = 1000,
                                rare_relative_target = 1,

@@ -80,9 +80,8 @@ NULL
 #.
 #' @family importances
 #'
-#' @examples
-#' \dontrun{
-#' # seed seed for reproducibility
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
@@ -193,7 +192,6 @@ NULL
 #' # each panel corresponds to a different zone, and data show the
 #' # importance of each planning unit in a given zone
 #' plot(rc4, axes = FALSE)
-#' }
 #'
 #' @references
 #' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site

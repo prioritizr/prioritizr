@@ -310,6 +310,8 @@ Functions for generating a portfolio of solutions.
   : Add a gap portfolio
 - [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
   : Add a shuffle portfolio
+- [`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)
+  : Add a single portfolio
 - [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
   : Add a top portfolio
 
@@ -567,6 +569,9 @@ Assorted functions distributed with the package.
 - [`as_per_km2()`](https://prioritizr.net/reference/as_per_km2.md) :
 
   Standardize unit to density per km²
+
+- [`do_run_example()`](https://prioritizr.net/reference/do_run_example.md)
+  : Do run example?
 
 ## Deprecated functions
 

@@ -71,8 +71,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -150,7 +149,6 @@ NULL
 #'
 #' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s5), main = "varying targets", axes = FALSE)
-#' }
 #'
 #' @aliases add_absolute_targets-method add_absolute_targets,ConservationProblem,numeric-method add_absolute_targets,ConservationProblem,matrix-method add_absolute_targets,ConservationProblem,character-method
 #'

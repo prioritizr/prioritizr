@@ -85,7 +85,6 @@ other spatial association matrix functions.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -116,7 +115,4 @@ Matrix::image(am_raster, main = "adjacency matrix")
 plot(ply[, 1], main = "polygons")
 
 Matrix::image(am_ply, main = "adjacency matrix")
-
-
-# }
 ```

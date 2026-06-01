@@ -82,7 +82,7 @@ the \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cple
 be used.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -100,7 +100,7 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex

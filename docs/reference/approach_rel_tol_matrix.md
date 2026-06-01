@@ -70,7 +70,6 @@ objectives.
 ## Examples
 
 ``` r
-# \dontrun{
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -201,6 +200,4 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-
-# }
 ```

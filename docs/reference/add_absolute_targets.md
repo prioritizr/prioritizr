@@ -126,7 +126,6 @@ Other functions for adding targets:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -218,6 +217,4 @@ s5 <- solve(p5)
 
 # plot solution (cell values correspond to zone identifiers)
 plot(category_layer(s5), main = "varying targets", axes = FALSE)
-
-# }
 ```

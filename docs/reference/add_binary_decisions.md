@@ -46,7 +46,6 @@ Other decisions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -102,6 +101,4 @@ print(s2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
-
-# }
 ```

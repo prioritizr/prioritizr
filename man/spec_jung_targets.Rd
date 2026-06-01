@@ -108,7 +108,7 @@ thresholds.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -129,7 +129,7 @@ s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,

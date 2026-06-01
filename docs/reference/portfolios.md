@@ -20,10 +20,15 @@ the last function added will be used.
 
 - [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md):
 
-  Generate a portfolio containing a single solution. This portfolio
-  method is added to
+  Generate a portfolio containing a single solution (per
+  [`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)).
+  This portfolio method is added to
   [`problem()`](https://prioritizr.net/reference/problem.md) objects by
   default.
+
+- [`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md):
+
+  Generate a portfolio containing a single solution.
 
 - [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md):
 
@@ -85,7 +90,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -98,8 +102,8 @@ p <-
   add_binary_decisions() %>%
   add_default_solver(gap = 0.02, verbose = FALSE)
 
-# create problem with default portfolio
-p1 <- p %>% add_default_portfolio()
+# create problem with single portfolio
+p1 <- p %>% add_single_portfolio()
 
 # create problem with cuts portfolio with 4 solutions
 p2 <- p %>% add_cuts_portfolio(4)
@@ -141,6 +145,4 @@ plot(terra::rast(s[[5]]), axes = FALSE)
 
 # plot solutions from gap portfolio
 plot(terra::rast(s[[6]]), axes = FALSE)
-
-# }
 ```

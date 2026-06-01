@@ -76,7 +76,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -94,5 +94,5 @@ print(rij_polygons)
 # create rij matrix using raster planning units with multiple zones
 rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 print(rij_zones_raster)
-}
+\dontshow{\}) # examplesIf}
 }

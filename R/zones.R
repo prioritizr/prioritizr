@@ -76,8 +76,7 @@ NULL
 #'
 #' @aliases Zones-class ZonesCharacter ZonesRaster ZonesSpatRaster Zones
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load planning unit data
 #' sim_pu_raster <- get_sim_pu_raster()
 #'
@@ -123,7 +122,7 @@ NULL
 #'   feature_names = c("spp1", "spp2")
 #' )
 #' print(z)
-#' }
+#'
 #' @export
 zones <- function(..., zone_names = NULL, feature_names = NULL) {
   # parse arguments

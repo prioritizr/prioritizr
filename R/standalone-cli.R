@@ -8,7 +8,7 @@
 #'
 #' Theme for the package.
 #'
-#" @details This function is designed to be used with [cli::cli_div()].
+#' @details This function is designed to be used with [cli::cli_div()].
 #'
 #' @return A `list` object.
 #'

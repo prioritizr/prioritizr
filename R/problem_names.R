@@ -13,8 +13,7 @@ NULL
 #'
 #' @name problem_names
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -49,7 +48,7 @@ NULL
 #'
 #' # print problem names
 #' print(problem_names(mp))
-#' }
+#'
 #' @export
 problem_names <- function(x, ...) {
   assert_required(x)

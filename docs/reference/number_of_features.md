@@ -49,7 +49,6 @@ An `integer` value.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -87,5 +86,4 @@ mp <-
 # print number of features
 print(number_of_features(mp))
 #> [1] 5
-# }
 ```

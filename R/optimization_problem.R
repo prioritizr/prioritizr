@@ -89,6 +89,7 @@ NULL
 #'
 #' # print fully formulated object
 #' print(x2)
+#'
 #' @export
 optimization_problem <- function(x = NULL) {
   assert(is_inherits(x, c("NULL", "list")))

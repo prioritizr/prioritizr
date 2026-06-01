@@ -223,8 +223,7 @@ an appropriate <code>penalty</code> value.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">600</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
@@ -262,14 +261,14 @@ an appropriate <code>penalty</code> value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">├•formulation</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>penalties:   none specified</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #555555;">none specified</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>features:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    none specified</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: none specified</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #555555;">none specified</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #555555;">none specified</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">└•optimization</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span>
 <span class="r-in"><span></span></span>
@@ -293,11 +292,11 @@ an appropriate <code>penalty</code> value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>1:          linear penalties (`penalty` = <span style="color: #0000BB;">100</span>, …)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>features:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    none specified</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: none specified</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #555555;">none specified</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #555555;">none specified</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">└•optimization</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span>
 <span class="r-in"><span></span></span>
@@ -376,11 +375,11 @@ an appropriate <code>penalty</code> value.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>1:          linear penalties (`penalty` = <span style="color: #0000BB;">1, 1</span>, and <span style="color: #0000BB;">1</span>, …)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>features:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    none specified</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: none specified</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #555555;">none specified</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #555555;">none specified</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">└•optimization</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span>
 <span class="r-in"><span></span></span>
@@ -390,7 +389,6 @@ an appropriate <code>penalty</code> value.</p>
 <span class="r-in"><span><span class="co"># plot solution</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"multi-zone solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_linear_penalties-4.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

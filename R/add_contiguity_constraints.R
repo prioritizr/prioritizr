@@ -93,8 +93,7 @@ NULL
 #' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -213,7 +212,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s7, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_contiguity_constraints
 #'
 #' @exportMethod add_contiguity_constraints

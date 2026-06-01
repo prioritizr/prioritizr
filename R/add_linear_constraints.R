@@ -62,8 +62,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -209,7 +208,6 @@ NULL
 #'
 #' # plot solutions s0 and s3 to compare them
 #' plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
-#' }
 #'
 #' @name add_linear_constraints
 #'

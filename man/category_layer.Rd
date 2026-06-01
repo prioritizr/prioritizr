@@ -31,6 +31,7 @@ have binary decisions.
 It is essentially a wrapper for \code{\link[terra:which.max]{terra::which.max()}}.
 }
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create a binary raster stack
 x <- terra::rast(list(
  terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
@@ -45,9 +46,8 @@ plot(x)
 y <- category_layer(x)
 
 # plot result
-\dontrun{
 plot(y)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{\link[=binary_stack]{binary_stack()}} function performs the reverse of this function.

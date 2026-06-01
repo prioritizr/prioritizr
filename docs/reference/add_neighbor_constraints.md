@@ -152,7 +152,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -238,6 +237,4 @@ names(s2) <- c("basic problem", "p6", "p7", "p8")
 
 # plot solutions
 plot(s2, main = names(s2), axes = FALSE)
-
-# }
 ```

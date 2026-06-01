@@ -117,8 +117,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -218,7 +217,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
-#' }
+#'
 #' @name add_linear_penalties
 #'
 #' @exportMethod add_linear_penalties

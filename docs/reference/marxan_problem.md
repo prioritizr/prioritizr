@@ -182,7 +182,6 @@ see the [official *Marxan* website](https://marxansolutions.org), Ball
 ``` r
 # create Marxan problem using Marxan input file
 # (note this example requires the vroom package to be installed)
-# \dontrun{
 input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 p1 <-
   marxan_problem(input_file) %>%
@@ -336,5 +335,4 @@ head(s3)
 #> 4    58  16959.      0 1116623. -4500408. FALSE     FALSE               0
 #> 5    84  34220.      0 1098623. -4503872. FALSE     FALSE               0
 #> 6    85 178908.      0 1110623. -4503872. FALSE     FALSE               0
-# }
 ```

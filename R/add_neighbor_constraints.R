@@ -121,8 +121,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -199,7 +198,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s2, main = names(s2), axes = FALSE)
-#' }
+#'
 #' @name add_neighbor_constraints
 #'
 #' @exportMethod add_neighbor_constraints

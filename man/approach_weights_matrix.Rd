@@ -46,7 +46,7 @@ multi-objective optimization
 \code{\link[=add_ref_point_approach]{add_ref_point_approach()}}).
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -144,5 +144,5 @@ plot(
 # exactly the same performance for the two objectives (these appear
 # as points with slightly thicker borders), and this is a key limitation
 # of the weighted sum approach
-}
+\dontshow{\}) # examplesIf}
 }

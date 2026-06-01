@@ -140,7 +140,7 @@ replaced with \eqn{-P_z}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -240,7 +240,7 @@ s4 <- solve(p4)
 
 # plot solution
 plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.

@@ -184,9 +184,8 @@ NULL
 #'
 #' @family importances
 #'
-#' @examples
-#' \dontrun{
-#' # seed seed for reproducibility
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
@@ -300,7 +299,6 @@ NULL
 #' # each panel corresponds to a different zone, and data show the
 #' # importance of each planning unit in a given zone
 #' plot(rs4, axes = FALSE)
-#' }
 #'
 #' @references
 #' Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,

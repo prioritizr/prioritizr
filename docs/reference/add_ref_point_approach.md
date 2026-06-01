@@ -149,7 +149,6 @@ Other functions for adding multi-objective optimization approaches:
 ## Examples
 
 ``` r
-# \dontrun{
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -236,7 +235,8 @@ mp2 <-
 # solve problem
 ms2 <- solve(mp2)
 #> Generating solutions ■■■■■■■                           20% | ETA:  5s
-#> Generating solutions ■■■■■■■■■■■■■■■■■                 53% | ETA:  3s
+#> Generating solutions ■■■■■■■■■■■                       33% | ETA:  4s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  1s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
 # plot multiple solutions
@@ -265,6 +265,4 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-
-# }
 ```

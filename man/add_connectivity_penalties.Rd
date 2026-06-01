@@ -176,7 +176,7 @@ asymmetric connectivity data.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -406,7 +406,7 @@ names(s5) <- c("basic problem", "connectivity array")
 
 # plot solutions
 plot(s5, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)

@@ -164,7 +164,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -287,6 +286,4 @@ s2 <- terra::rast(lapply(s2, category_layer))
 names(s2) <- c("p5", "p6", "p7", "p8")
 # plot solutions
 plot(s2, axes = FALSE)
-
-# }
 ```

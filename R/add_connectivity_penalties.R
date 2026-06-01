@@ -173,8 +173,7 @@ NULL
 #' reserve network selection. *Proceedings of the Royal Society of London.*
 #' *Series B: Biological Sciences*, 269: 2437--2441.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -404,7 +403,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s5, axes = FALSE)
-#' }
+#'
 #' @name add_connectivity_penalties
 #'
 #' @exportMethod add_connectivity_penalties

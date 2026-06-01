@@ -27,6 +27,30 @@ Ranked from best to worst, the available solvers that can be used are:
 For information on the performance of different solvers,
 please see Schuster \emph{et al.} (2020).
 }
+\examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
+set.seed(600)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# create minimal problem with default portfolio
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s <- solve(p)
+
+# plot solution
+plot(s)
+\dontshow{\}) # examplesIf}
+}
 \references{
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for

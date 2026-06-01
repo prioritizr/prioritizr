@@ -147,9 +147,9 @@ data.
 }
 
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create Marxan problem using Marxan input file
 # (note this example requires the vroom package to be installed)
-\dontrun{
 input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 p1 <-
   marxan_problem(input_file) \%>\%
@@ -211,7 +211,7 @@ s3 <- solve(p3)
 
 # print solution
 head(s3)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

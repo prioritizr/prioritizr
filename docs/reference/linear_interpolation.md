@@ -52,7 +52,6 @@ values.
 ## Examples
 
 ``` r
-# \dontrun{
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -65,6 +64,4 @@ plot(y ~ x)
 
 # add the reference points to the plot (shown in red)
 points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-
-# }
 ```

@@ -151,7 +151,7 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -324,7 +324,7 @@ s5$solution <- factor(s5$solution)
 
 # plot solution
 plot(s5[, "solution"])
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{summaries} for an overview of all functions for summarizing solutions.

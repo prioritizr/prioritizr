@@ -31,8 +31,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -170,7 +169,6 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s10), main = "solution", axes = FALSE)
-#' }
 #'
 #' @name add_locked_in_constraints
 #'

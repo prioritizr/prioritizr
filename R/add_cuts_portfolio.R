@@ -40,8 +40,7 @@ NULL
 #' efficiency, and accountability: adapting reserve selection algorithms to
 #' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -88,7 +87,7 @@ NULL
 #'
 #' # plot solutions in portfolio
 #' plot(s2, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_cuts_portfolio
 NULL
 

@@ -46,6 +46,7 @@ y <- category_vector(x)
 
 # print category vector
 print(y)
+
 }
 \seealso{
 The \code{\link[base:max.col]{base::max.col()}} provides similar functionality.

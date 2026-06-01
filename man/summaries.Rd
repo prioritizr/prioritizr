@@ -50,7 +50,7 @@ Calculate the connectivity held within a solution using asymmetric data.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -104,8 +104,7 @@ acm <- matrix(
 
 # evaluate connectivity of solution using asymmetric data
 eval_asym_connectivity_summary(p, s, data = acm)
-
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other overviews:

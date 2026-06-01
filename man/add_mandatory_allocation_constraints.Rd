@@ -35,7 +35,7 @@ problem with multiple zones must be allocated to a management zone (i.e.,
 zone allocation is mandatory).
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -70,7 +70,7 @@ c2 <- category_layer(s2)
 
 # plot solution category layers
 plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding constraints:

@@ -52,7 +52,6 @@ object.
 ## Examples
 
 ``` r
-# \dontrun{
 # import data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -118,5 +117,4 @@ print(mo)
 #> • dimensions:  7, 95, 635 (rows, columns, cells)
 #> • variables:   90 (B), 5 (C)
 #> 
-# }
 ```

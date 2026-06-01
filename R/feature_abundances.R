@@ -65,8 +65,7 @@ NULL
 #' The [eval_feature_representation_summary()] function can be used
 #' evaluate how well features are represented by a solution.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -161,7 +160,7 @@ NULL
 #' # this solution contains all the planning units with finite cost data
 #' # (i.e., cost data that do not have NA values)
 #' plot(s5)
-#' }
+#'
 #' @export
 feature_abundances <- function(x, na.rm) {
   assert_required(x)

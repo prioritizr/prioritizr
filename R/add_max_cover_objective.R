@@ -79,8 +79,7 @@ NULL
 #'
 #' @family objectives
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -151,7 +150,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_max_cover_objective
 NULL
 

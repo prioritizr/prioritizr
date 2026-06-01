@@ -31,8 +31,7 @@ NULL
 #'
 #' @aliases intersecting_units,Raster,ANY-method intersecting_units,ANY,Raster-method intersecting_units,Spatial,ANY-method intersecting_units,ANY,Spatial-method intersecting_units,sf,sf-method intersecting_units,SpatRaster,sf-method intersecting_units,SpatRaster,SpatRaster-method intersecting_units,sf,SpatRaster-method intersecting_units,data.frame,ANY-method
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create data
 #' r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 #' r_with_holes <- r
@@ -63,7 +62,6 @@ NULL
 #' plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
 #' plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 #' print(intersecting_units(ply, ply_with_holes))
-#' }
 #'
 #' @export
 methods::setGeneric(

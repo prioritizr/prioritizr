@@ -176,7 +176,7 @@ obtained from published databases
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -214,7 +214,7 @@ s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Brook BW, Traill LW, Bradshaw CJA (2006) Minimum viable population sizes and

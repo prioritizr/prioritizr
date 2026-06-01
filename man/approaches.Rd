@@ -92,7 +92,7 @@ different solutions (Das and Dennis 1997).
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -145,7 +145,7 @@ names(s) <- c("hierarchical", "reference point", "weighted sum")
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted

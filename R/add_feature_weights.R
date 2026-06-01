@@ -62,8 +62,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load package
 #' require(ape)
 #'
@@ -228,7 +227,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s8, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_feature_weights
 #'
 #' @exportMethod add_feature_weights

@@ -64,7 +64,7 @@ replaced with \eqn{-P_z}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -154,7 +154,7 @@ plot(
   xlab = "Species representation (overall shortfall)",
   ylab = "Solution cost"
 )
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for adding penalties:

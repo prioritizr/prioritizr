@@ -33,7 +33,6 @@ object. As such, it does not return anything. To use this function with
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -86,15 +85,14 @@ s2 <- system.time({solve(p1); solve(p2); solve(p3)})
 # now lets compare the times
 print(s1) # time spent without running preliminary calculations
 #>    user  system elapsed 
-#>   1.372   0.002   1.374 
+#>   1.317   0.003   1.320 
 print(s2) # time spent after running preliminary calculations
 #>    user  system elapsed 
-#>   1.380   0.001   1.381 
+#>   1.279   0.002   1.281 
 
 # As we can see, we can save time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints. Although the time saved in this example
 # is rather small, this is because the example data are very small.
 # We would expect larger time savings for larger datasets.
-# }
 ```

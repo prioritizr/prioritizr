@@ -19,8 +19,7 @@ NULL
 #'
 #' @inherit marxan_boundary_data_to_matrix return
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -78,7 +77,7 @@ NULL
 #'
 #' # print array
 #' print(m3)
-#' }
+#'
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
   assert_required(x)

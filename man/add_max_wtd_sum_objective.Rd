@@ -93,7 +93,7 @@ problem based on minimizing cost penalties (i.e., by using
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -140,7 +140,7 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Brown CJ, Bode M, Venter O, Barnes MD, McGowan J, Runge CA, Watson JEM,

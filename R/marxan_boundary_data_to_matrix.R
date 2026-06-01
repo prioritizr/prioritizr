@@ -24,7 +24,7 @@ NULL
 #' that pertain to multiple zones. This is no longer possible, following
 #' updates to streamline the package.
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # create example planning unit layer
 #' pu_data <-
 #'   matrix(1:3, nrow = 1) %>%

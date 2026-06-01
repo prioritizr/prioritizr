@@ -229,7 +229,7 @@ objective (i.e., lowest priority objective), then this solution is returned.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -342,7 +342,7 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted

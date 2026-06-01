@@ -151,6 +151,8 @@ Other classes:
 
 - [`ConservationProblem$zone_names()`](#method-ConservationProblem-zone_names)
 
+- [`ConservationProblem$number_of_problems()`](#method-ConservationProblem-number_of_problems)
+
 - [`ConservationProblem$add_portfolio()`](#method-ConservationProblem-add_portfolio)
 
 - [`ConservationProblem$add_solver()`](#method-ConservationProblem-add_solver)
@@ -691,6 +693,20 @@ Obtain the zone names.
 #### Returns
 
 A `character` vector.
+
+------------------------------------------------------------------------
+
+### `ConservationProblem$number_of_problems()`
+
+Obtain the number of problems.
+
+#### Usage
+
+    ConservationProblem$number_of_problems()
+
+#### Returns
+
+An `integer` value of 1.
 
 ------------------------------------------------------------------------
 

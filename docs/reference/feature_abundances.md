@@ -81,7 +81,6 @@ solution.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -209,6 +208,4 @@ s5 <- solve(p5)
 # this solution contains all the planning units with finite cost data
 # (i.e., cost data that do not have NA values)
 plot(s5)
-
-# }
 ```

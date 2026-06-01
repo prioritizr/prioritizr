@@ -66,8 +66,7 @@ NULL
 #' Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
 #' \doi{10.1287/educ.1053.0020}.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -101,7 +100,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution with boundary penalties", axes = FALSE)
-#' }
+#'
 #' @name add_cbc_solver
 NULL
 

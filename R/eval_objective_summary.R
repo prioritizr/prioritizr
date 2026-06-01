@@ -47,8 +47,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -77,7 +76,7 @@ NULL
 #' # calculate objective value excluding penalties
 #' v2 <- eval_objective_summary(p1, s1, include_penalties = FALSE)
 #' print(v2)
-#' }
+#'
 #' @export
 eval_objective_summary <- function(x, solution, include_penalties = TRUE) {
   assert_required(x)

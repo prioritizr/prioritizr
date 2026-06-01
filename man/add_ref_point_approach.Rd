@@ -130,7 +130,7 @@ Conversely, if the weights should not be normalized
 is set to a value of 1 for each objective.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -225,7 +225,7 @@ plot(
   xlab = "Keystone objective (shortfall)",
   ylab = "Iconic objective (shortfall)"
 )
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Jaimes AL, Saúl ZM, and Coello Coello CA (2009) \emph{An introduction to

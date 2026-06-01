@@ -126,7 +126,7 @@ already take a very long time time to solve, then might not be of much
 help.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -191,7 +191,7 @@ s3 <-
 # penalty is so high that cost becomes irrelevant, so we should try using
 # a much lower penalty value
 plot(s3, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See the Gurobi documentation for more information on numerical

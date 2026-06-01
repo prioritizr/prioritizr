@@ -31,7 +31,7 @@ and only two of these cells contain non-missing (\code{NA}) values.
 As such, this dataset would have 90 total units and two planning units.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -84,5 +84,5 @@ mp <-
 
 # print number of total units
 print(number_of_total_units(mp))
-}
+\dontshow{\}) # examplesIf}
 }

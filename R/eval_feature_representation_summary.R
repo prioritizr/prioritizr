@@ -78,8 +78,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -252,7 +251,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s5[, "solution"])
-#' }
+#'
 #' @export
 eval_feature_representation_summary <- function(x, solution) {
   assert_required(x)

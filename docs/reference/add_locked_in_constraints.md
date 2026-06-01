@@ -147,7 +147,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -288,6 +287,4 @@ s10 <- solve(p10)
 
 # plot solution
 plot(category_layer(s10), main = "solution", axes = FALSE)
-
-# }
 ```

@@ -122,13 +122,13 @@ more complex conservation problems. <em>Ecography</em>, 23: 565–574.</p>
 <code><a href="add_extra_portfolio.html">add_extra_portfolio()</a></code>,
 <code><a href="add_gap_portfolio.html">add_gap_portfolio()</a></code>,
 <code><a href="add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code>,
+<code><a href="add_single_portfolio.html">add_single_portfolio()</a></code>,
 <code><a href="add_top_portfolio.html">add_top_portfolio()</a></code></p></div>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
@@ -184,7 +184,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565–574.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num [1:10] 0.006 0.005 0.006 0.006 0.006 ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num [1:10] 0.005 0.005 0.005 0.006 0.006 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "gap")= Named num [1:10] 0.175 0.183 0.187 0.189 0.173 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</span>
@@ -197,7 +197,6 @@ more complex conservation problems. <em>Ecography</em>, 23: 565–574.</p>
 <span class="r-in"><span><span class="co"># plot solutions in portfolio</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">s2</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="add_cuts_portfolio-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

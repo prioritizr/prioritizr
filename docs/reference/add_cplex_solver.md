@@ -130,7 +130,6 @@ Other functions for adding solvers:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -148,6 +147,4 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-
-# }
 ```

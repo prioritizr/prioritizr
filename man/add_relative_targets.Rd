@@ -115,7 +115,7 @@ contain a \code{character} value for each zone in \code{x}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -186,7 +186,7 @@ s6 <- solve(p6)
 
 # plot solution (cell values correspond to zone identifiers)
 plot(category_layer(s6), main = "varying targets")
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting

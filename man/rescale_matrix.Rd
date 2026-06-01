@@ -43,7 +43,7 @@ values for optimization.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # rescale_matrix() is especially useful for re-scaling boundary length data
 # prior to optimization, and so here we provide an example showing how
 # this can be accomplished
@@ -75,8 +75,7 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=boundary_matrix]{boundary_matrix()}} and \code{\link[=connectivity_matrix]{connectivity_matrix()}} for details on

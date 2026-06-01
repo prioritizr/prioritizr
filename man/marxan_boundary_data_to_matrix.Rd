@@ -32,6 +32,7 @@ updates to streamline the package.
 }
 
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create example planning unit layer
 pu_data <-
   matrix(1:3, nrow = 1) \%>\%
@@ -72,5 +73,5 @@ m2 <- boundary_matrix(pu_data)
 ## this is because marxan_boundary_data_to_matrix() automatically
 ## converts Marxan data to the same format as boundary_matrix()
 print(m2)
-
+\dontshow{\}) # examplesIf}
 }

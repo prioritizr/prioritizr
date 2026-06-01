@@ -30,8 +30,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -66,7 +65,7 @@ NULL
 #'
 #' # plot solution category layers
 #' plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
-#' }
+#'
 #' @name add_mandatory_allocation_constraints
 #'
 #' @export

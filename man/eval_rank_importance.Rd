@@ -276,8 +276,8 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
-# seed seed for reproducibility
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -391,8 +391,7 @@ names(rs4) <- paste0("zone ", seq_len(terra::nlyr(sim_zones_pu_raster)))
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
 plot(rs4, axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,

@@ -53,7 +53,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create data
 r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
@@ -84,8 +84,7 @@ par(mfrow = c(1, 2))
 plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
 plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(ply, ply_with_holes))
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=fast_extract]{fast_extract()}} for extracting data from spatial datasets.

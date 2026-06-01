@@ -109,8 +109,8 @@ values in \code{solution}.
 }
 
 \examples{
-\dontrun{
-# seed seed for reproducibility
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -169,9 +169,7 @@ fs2 <- eval_ferrier_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
 plot(fs2)
-
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the

@@ -36,7 +36,7 @@ A \code{character} vector of feature names.
 Extract the names of the features in an object.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -71,5 +71,5 @@ mp <-
 
 # print number of features
 print(feature_names(mp))
-}
+\dontshow{\}) # examplesIf}
 }

@@ -157,8 +157,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontshow{if (requireNamespace("prioritizrdata", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-\dontrun{
+\dontshow{if (prioritizr::do_run_example() && requireNamespace("prioritizrdata", quietly = TRUE)) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -226,7 +225,6 @@ s <- s[, c("s1", "s2", "s3"), drop = FALSE]
 
 # plot solutions
 plot(s, axes = FALSE)
-}
 \dontshow{\}) # examplesIf}
 }
 \references{

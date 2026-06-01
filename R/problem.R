@@ -286,8 +286,7 @@ NULL
 #'
 #' @name problem
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -493,7 +492,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
-#' }
+#'
 #' @export
 methods::setGeneric(
   "problem",

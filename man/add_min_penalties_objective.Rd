@@ -60,7 +60,7 @@ solutions during optimization.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -117,7 +117,7 @@ s2 <- solve(mp)
 
 # plot multi-objective solutions
 plot(terra::rast(s2), main = paste("rel_tol =", rel_tol), axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{objectives} for an overview of all functions for adding objectives.

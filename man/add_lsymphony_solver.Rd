@@ -86,7 +86,7 @@ remotes::install_bioc("lpsymphony")
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -104,7 +104,7 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed

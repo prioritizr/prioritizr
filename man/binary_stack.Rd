@@ -43,21 +43,19 @@ It is essentially a wrapper for \code{\link[terra:segregate]{terra::segregate()}
 Note that this function assumes \code{x} contains integer values.
 }
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster with categorical values
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
-\dontrun{
 plot(x, main = "x")
-}
 
 # convert to binary stack
 y <- binary_stack(x)
 
 # plot result
-\dontrun{
 plot(y)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{\link[=category_layer]{category_layer()}} function performs the reverse of this function.

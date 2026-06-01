@@ -75,6 +75,7 @@
 <url><loc>https://prioritizr.net/reference/add_rsymphony_solver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_semicontinuous_decisions.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_single_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_top_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_wtd_sum_approach.html</loc></url>
 <url><loc>https://prioritizr.net/reference/adjacency_matrix.html</loc></url>
@@ -93,6 +94,7 @@
 <url><loc>https://prioritizr.net/reference/connectivity_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/do_run_example.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc></url>

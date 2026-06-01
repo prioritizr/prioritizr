@@ -51,7 +51,7 @@ all the representation targets while minimizing the overall cost.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -90,7 +90,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,

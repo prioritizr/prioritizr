@@ -67,7 +67,7 @@ with other spatial association matrix functions.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -95,6 +95,5 @@ Matrix::image(am_raster, main = "adjacency matrix")
 ## plot polygons and adjacency matrix
 plot(ply[, 1], main = "polygons")
 Matrix::image(am_ply, main = "adjacency matrix")
-
-}
+\dontshow{\}) # examplesIf}
 }

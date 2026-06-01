@@ -104,7 +104,6 @@ generating solutions.
 ## Examples
 
 ``` r
-# \dontrun{
 # In this example we select a set of planning units under a conservation
 # budget, aiming to meet representation targets for two species groups:
 # (1) keystone species (higher ecological priority) and
@@ -140,6 +139,4 @@ ms <- solve(mp)
 
 # plot solution
 plot(ms, axes = FALSE)
-
-# }
 ```

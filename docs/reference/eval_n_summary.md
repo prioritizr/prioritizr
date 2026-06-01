@@ -137,7 +137,6 @@ Other functions for summarizing solutions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -295,5 +294,4 @@ print(r3)
 #> 2 zone_1     17
 #> 3 zone_2     17
 #> 4 zone_3     17
-# }
 ```

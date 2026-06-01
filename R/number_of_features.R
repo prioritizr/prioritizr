@@ -12,8 +12,7 @@ NULL
 #'
 #' @return An `integer` value.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -48,7 +47,7 @@ NULL
 #'
 #' # print number of features
 #' print(number_of_features(mp))
-#' }
+#'
 #' @export
 number_of_features <- function(x, ...) {
   assert_required(x)

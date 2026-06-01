@@ -55,7 +55,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -90,6 +89,4 @@ c2 <- category_layer(s2)
 
 # plot solution category layers
 plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
-
-# }
 ```

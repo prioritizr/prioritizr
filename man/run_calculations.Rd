@@ -26,7 +26,7 @@ anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use t
 \verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -85,5 +85,5 @@ print(s2) # time spent after running preliminary calculations
 # different constraints. Although the time saved in this example
 # is rather small, this is because the example data are very small.
 # We would expect larger time savings for larger datasets.
-}
+\dontshow{\}) # examplesIf}
 }

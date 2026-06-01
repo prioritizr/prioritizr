@@ -17,8 +17,7 @@ NULL
 #'
 #' @family decisions
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -59,7 +58,7 @@ NULL
 #' # plot solution
 #' # panels show the proportion of each planning unit allocated to each zone
 #' plot(s2, axes = FALSE)
-#' }
+#'
 #' @name add_proportion_decisions
 NULL
 

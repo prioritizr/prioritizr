@@ -65,7 +65,7 @@ minimum set objective (i.e., \code{\link[=add_min_set_objective]{add_min_set_obj
 all stages of multi-objective optimization.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # In this example we select a set of planning units under a conservation
 # budget, aiming to meet representation targets for two species groups:
 # (1) keystone species (higher ecological priority) and
@@ -101,7 +101,7 @@ ms <- solve(mp)
 
 # plot solution
 plot(ms, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Giakoumi S, Richardson AJ, Doxa A, Moro S, Andrello M, Hanson JO, Hermoso V,

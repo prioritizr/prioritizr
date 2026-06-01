@@ -70,7 +70,7 @@ target.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load package
 require(ape)
 
@@ -235,7 +235,7 @@ s8 <- solve(p8)
 
 # plot solution
 plot(s8, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.

@@ -53,7 +53,6 @@ problem, or unnecessarily long solve times.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -73,5 +72,4 @@ print(o)
 #> • model sense: min
 #> • dimensions:  5, 90, 450 (rows, columns, cells)
 #> • variables:   90 (B)
-# }
 ```

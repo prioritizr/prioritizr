@@ -56,8 +56,7 @@ NULL
 #' biodiversity in reserve selection: representation, species weighting, and
 #' benefit functions. *Conservation Biology*, 19: 2009--2014.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -110,7 +109,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_min_shortfall_objective
 NULL
 

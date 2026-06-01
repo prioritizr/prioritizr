@@ -9,8 +9,7 @@ NULL
 #'
 #' @inherit loglinear_interpolation details return
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create series of x-values
 #' x <- seq(0, 1000)
 #'
@@ -23,7 +22,7 @@ NULL
 #'
 #' # add the reference points to the plot (shown in red)
 #' points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-#' }
+#'
 #' @export
 linear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
                                     coordinate_two_x, coordinate_two_y) {

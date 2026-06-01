@@ -53,8 +53,7 @@ NULL
 #'
 #' @return An updated [problem()] object with the objective added to it.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -93,7 +92,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_min_set_objective
 NULL
 

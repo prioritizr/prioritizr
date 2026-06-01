@@ -92,7 +92,6 @@ to perform these calculations.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -123,6 +122,4 @@ plot(ply[, 1], main = "polygons", axes = FALSE)
 # plot boundary matrix
 # here each row and column corresponds to a different planning unit
 Matrix::image(bm_ply, main = "boundary matrix")
-
-# }
 ```

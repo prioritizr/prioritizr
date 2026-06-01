@@ -96,7 +96,6 @@ the cache size to 4 GB.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -351,5 +350,4 @@ print(rij_zones_raster)
 #> feature_3 0.7677462 0.7589920 0.7423053 0.7195554 0.6644490 0.6371886
 #> feature_4 0.3741982 0.3774461 0.3792402 0.3785580 0.3601426 0.3391285
 #> feature_5 0.6078230 0.6002851 0.6064383 0.6166496 0.6410043 0.6515710
-# }
 ```

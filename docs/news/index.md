@@ -131,6 +131,16 @@
 - Fix compatibility issues with internal error handling functions and
   developmental changes to error conditions in *R*.
 - New
+  [`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)
+  function to explicitly specify that a portfolio with a single solution
+  should be generated. This portfolio is added by default when using
+  [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md).
+  Although this new function does not change any of the default behavior
+  from previous versions, the idea for this function is to help make the
+  default behavior for a
+  [`problem()`](https://prioritizr.net/reference/problem.md) object
+  clearer to new users.
+- New
   [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
   function for
   [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)

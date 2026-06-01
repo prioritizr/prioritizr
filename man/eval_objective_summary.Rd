@@ -59,7 +59,7 @@ a weighted sum of the \link{objectives} and \link{penalties}
 in the \link{penalties} function).
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -88,7 +88,7 @@ print(v1)
 # calculate objective value excluding penalties
 v2 <- eval_objective_summary(p1, s1, include_penalties = FALSE)
 print(v2)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for summarizing solutions:

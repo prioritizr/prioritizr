@@ -63,8 +63,5 @@ plot(x)
 y <- category_layer(x)
 
 # plot result
-# \dontrun{
 plot(y)
-
-# }
 ```

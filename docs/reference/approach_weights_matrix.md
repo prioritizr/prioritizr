@@ -57,7 +57,6 @@ prioritization.
 ## Examples
 
 ``` r
-# \dontrun{
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem
@@ -174,5 +173,4 @@ plot(
 # exactly the same performance for the two objectives (these appear
 # as points with slightly thicker borders), and this is a key limitation
 # of the weighted sum approach
-# }
 ```

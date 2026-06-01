@@ -84,7 +84,7 @@ problem based on minimizing cost penalties (i.e., by using
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -155,7 +155,7 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Church RL and Velle CR (1974) The maximum covering location problem.

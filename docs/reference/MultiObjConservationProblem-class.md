@@ -331,7 +331,7 @@ Obtain the names of the features.
 
 #### Returns
 
-A `list` of `character` vectors.
+A `character` vector.
 
 ------------------------------------------------------------------------
 

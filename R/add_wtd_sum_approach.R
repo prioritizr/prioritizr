@@ -114,8 +114,7 @@ NULL
 #'
 #' @family approaches
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # in this example, we aim to identify a set of planning units that will
 #' # not exceed a particular budget and meet objectives for
 #' # (i) representing species that are important for ecosystem
@@ -213,7 +212,7 @@ NULL
 #' # exactly the same performance for the two objectives (these appear
 #' # as points with slightly thicker borders), and this is a key limitation
 #' # of the weighted sum approach
-#' }
+#'
 #' @export
 add_wtd_sum_approach <- function(x, weights, verbose = TRUE) {
   # assert arguments are valid

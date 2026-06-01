@@ -42,7 +42,6 @@ A `character` vector of zone names.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()
@@ -83,5 +82,4 @@ mp <-
 # print zone names
 print(zone_names(mp))
 #> [1] "zone_1" "zone_2" "zone_3"
-# }
 ```

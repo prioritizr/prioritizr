@@ -25,8 +25,7 @@ NULL
 #' @seealso
 #' See [compile()] to create an [`OptimizationProblem-class`] object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # import data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -54,7 +53,7 @@ NULL
 #'
 #' # print multi-objective optimization problem
 #' print(mo)
-#' }
+#'
 #' @export
 multi_compile <- function(x, ...) {
   assert_required(x)

@@ -50,8 +50,7 @@ NULL
 #'
 #' @family overviews
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -106,6 +105,5 @@ NULL
 #' # evaluate connectivity of solution using asymmetric data
 #' eval_asym_connectivity_summary(p, s, data = acm)
 #'
-#' }
 #' @name summaries
 NULL

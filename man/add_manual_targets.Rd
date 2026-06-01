@@ -114,7 +114,7 @@ prioritizations based on different target scenarios.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -283,7 +283,7 @@ s7 <- solve(p7)
 
 # plot solution
 plot(category_layer(s7), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting

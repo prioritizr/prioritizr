@@ -162,7 +162,7 @@ allocated to zones 3 and 4 (respectively).
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -240,7 +240,7 @@ names(s2) <- c("basic problem", "p6", "p7", "p8", "p9")
 
 # plot solutions
 plot(s2, main = names(s2), axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Williams JC, ReVelle CS, and Levin SA (2005) Spatial attributes and reserve

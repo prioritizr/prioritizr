@@ -104,7 +104,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -174,6 +173,4 @@ if (require("lpsymphony")) {
 # plot solutions
 names(s) <- n
 plot(terra::rast(s), axes = FALSE)
-
-# }
 ```

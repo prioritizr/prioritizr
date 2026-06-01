@@ -68,8 +68,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -238,7 +237,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s7), main = "solution", axes = FALSE)
-#' }
+#'
 #' @aliases add_manual_targets-method add_manual_targets,ConservationProblem,data.frame-method add_manual_targets,ConservationProblem,tbl_df-method
 #'
 #' @name add_manual_targets

@@ -66,7 +66,7 @@ zone. Note that these columns must not contain any missing (\code{NA}) values.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load planning unit data
 sim_pu_raster <- get_sim_pu_raster()
 
@@ -112,7 +112,7 @@ z <- zones(
   feature_names = c("spp1", "spp2")
 )
 print(z)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=problem]{problem()}} for information on using this function to generate

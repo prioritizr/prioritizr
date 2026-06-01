@@ -376,8 +376,7 @@ terrestrial biodiversity, carbon and water. <em>Nature Ecology and Evolution</em
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># seed seed for reproducibility</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># set seed for reproducibility</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">600</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># load data</span></span></span>
@@ -448,7 +447,7 @@ terrestrial biodiversity, carbon and water. <em>Nature Ecology and Evolution</em
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0 0 0 0 0 0 0 0 0 0</span>
 <span class="r-in"><span><span class="co">## run time</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.002 0.002 0.002 0.002 0.002 0.003 0.002 0.002 0.002 0.003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.003 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002</span>
 <span class="r-in"><span><span class="co">## objective value</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">rs1</span>, <span class="st">"objective"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220</span>
@@ -560,8 +559,6 @@ terrestrial biodiversity, carbon and water. <em>Nature Ecology and Evolution</em
 <span class="r-in"><span><span class="co"># importance of each planning unit in a given zone</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rs4</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="eval_rank_importance-7.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span><span class="co"># }</span></span></span>
-<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

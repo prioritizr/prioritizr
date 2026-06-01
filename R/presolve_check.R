@@ -114,8 +114,7 @@ NULL
 #' See the Gurobi documentation for more information on numerical
 #' instability issues (<https://docs.gurobi.com/projects/optimizer/en/current/concepts/numericguide.html>).
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -180,7 +179,7 @@ NULL
 #' # penalty is so high that cost becomes irrelevant, so we should try using
 #' # a much lower penalty value
 #' plot(s3, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 presolve_check <- function(x, warn = TRUE) {
   assert_required(x)

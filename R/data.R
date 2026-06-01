@@ -193,7 +193,7 @@ NULL
 #'
 #' @keywords datasets
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
@@ -208,7 +208,6 @@ NULL
 #' sim_zones_features <- get_sim_zones_features()
 #'
 #' # plot raster data
-#' \dontrun{
 #' par(mfrow = c(2, 2))
 #' plot(sim_pu_raster, main = "planning units (raster)", axes = FALSE)
 #' plot(sim_locked_in_raster, main = "locked in units (raster)", axes = FALSE)
@@ -253,7 +252,7 @@ NULL
 #'   terra::rast(as.list(sim_zones_features)),
 #'   main = plot_names, axes = FALSE
 #' )
-#' }
+#'
 #' @name sim_data
 NULL
 

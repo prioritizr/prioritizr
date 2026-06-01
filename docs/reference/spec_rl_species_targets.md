@@ -236,7 +236,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -301,6 +300,4 @@ names(s) <- c("EN (0%)", "EN (20%)", "VU (20%)")
 
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

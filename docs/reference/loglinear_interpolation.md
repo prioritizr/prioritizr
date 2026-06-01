@@ -52,7 +52,6 @@ values.
 ## Examples
 
 ``` r
-# \dontrun{
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -109,6 +108,4 @@ axis(
   1, pretty(log10(spp_range_size_km2)),
   10^pretty(log10(spp_range_size_km2))
 )
-
-# }
 ```

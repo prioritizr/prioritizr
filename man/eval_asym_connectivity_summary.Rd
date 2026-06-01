@@ -211,7 +211,7 @@ unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -290,9 +290,7 @@ r2 <- eval_asym_connectivity_summary(
   data = acm2
 )
 print(r2)
-
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
