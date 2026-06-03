@@ -228,5 +228,3 @@ methods::setMethod("intersecting_units",
     which(c(fast_extract(y[[1]] > 0, x, fun = "mean")) > 1e-7)
   }
 )
-
-na_crs <- "ENGCRS[\"Undefined Cartesian SRS\",\n    EDATUM[\"\"],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"

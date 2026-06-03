@@ -11,9 +11,7 @@ NULL
 #' software is available.
 #'
 #' @inheritParams add_cuts_portfolio
-#'
-#' @param threads `integer` value denoting the number of threads to use for
-#' generating the solution portfolio. Defaults to 1.
+#' @inheritParams add_gurobi_solver
 #'
 #' @details
 #' This strategy for generating a portfolio of solutions often
@@ -100,6 +98,8 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
     is_thread_count(threads),
     all_finite(threads)
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # add portfolio
   x$add_portfolio(
     R6::R6Class(

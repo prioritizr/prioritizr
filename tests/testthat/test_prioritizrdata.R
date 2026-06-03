@@ -51,7 +51,7 @@ test_that("wa_data", {
   wa_pu <- prioritizrdata::get_wa_pu()
   wa_locked_in <- prioritizrdata::get_wa_locked_in()
   wa_locked_out <- prioritizrdata::get_wa_locked_out()
-  wa_features <- prioritizrdata::get_wa_features()
+  wa_features <- suppressWarnings(prioritizrdata::get_wa_features())
   # build and solve problem
   p <-
     problem(wa_pu, wa_features) %>%

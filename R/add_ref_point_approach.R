@@ -4,7 +4,8 @@ NULL
 #' Add a reference point approach
 #'
 #' Add a reference point approach for multi-objective optimization to a
-#' multi-objective conservation planning problem (Wierzbicki 1980, Jaimes 2009).
+#' multi-objective conservation planning problem
+#' (Wierzbicki 1980, López Jaimes 2009).
 #' Broadly speaking, this approach considers a set of (i) reference point
 #' parameters that specify an aspirational level of achievement for each
 #' objective and (ii) weight parameters that specify the relative importance
@@ -114,7 +115,8 @@ NULL
 #' @family approaches
 #'
 #' @references
-#' Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
+#' López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009)
+#' *An introduction to
 #' multiobjective optimization techniques* in Optimization in Polymer
 #' Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers Inc,
 #' New York, United States.

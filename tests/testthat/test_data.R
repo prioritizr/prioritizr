@@ -25,6 +25,12 @@ test_that("simulated single zone data", {
   expect_true(is_spatial_extents_overlap(d4, d7))
   expect_true(is_spatial_extents_overlap(d5, d7))
   expect_true(is_spatial_extents_overlap(d6, d7))
+  expect_true(is_same_crs(d1, d2))
+  expect_true(is_same_crs(d1, d3))
+  expect_true(is_same_crs(d1, d4))
+  expect_true(is_same_crs(d1, d5))
+  expect_true(is_same_crs(d1, d6))
+  expect_true(is_same_crs(d1, d7))
   expect_true(setequal(names(d7), d8$tip.label))
 })
 
@@ -46,6 +52,10 @@ test_that("simulated complex data", {
   expect_true(is_comparable_raster(d1, d3))
   expect_true(is_comparable_raster(d1, d4))
   expect_true(is_comparable_raster(d1, d5))
+  expect_true(is_same_crs(d1, d2))
+  expect_true(is_same_crs(d1, d3))
+  expect_true(is_same_crs(d1, d4))
+  expect_true(is_same_crs(d1, d5))
   expect_true(identical(names(d4), names(d5)))
 })
 
@@ -62,4 +72,6 @@ test_that("simulated multi-zone data", {
   ## compatibility
   expect_true(is_comparable_raster(d1, d3))
   expect_true(is_spatial_extents_overlap(d2, d3))
+  expect_true(is_same_crs(d1, d2))
+  expect_true(is_same_crs(d1, d3))
 })

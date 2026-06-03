@@ -109,7 +109,7 @@ test_that("x = crs", {
     "NA (unknown)"
   )
   expect_equal(
-    repr(get_crs(get_sim_pu_polygons())),
+    repr(sf::st_crs(na_crs)),
     "Undefined Cartesian SRS (projected)"
   )
   skip_if_not_installed("prioritizrdata", minimum_version = "0.3.0")

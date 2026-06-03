@@ -42,7 +42,7 @@ test_that("solve (single zone)", {
   # solve problem
   expect_message(
     s <- solve(p),
-    "Portfolio could only"
+    "Found"
   )  # tests
   expect_inherits(s, "list")
   expect_length(s, 3) # only three feasible solutions exist

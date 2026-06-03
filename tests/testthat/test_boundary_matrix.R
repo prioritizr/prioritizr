@@ -336,7 +336,9 @@ test_that("Raster", {
   r[[1]][2] <- NA
   x <- boundary_matrix(r)
   expect_warning(
-    y <- boundary_matrix(raster::stack(r)),
+    y <- boundary_matrix(
+      raster::stack(raster::raster(get_sim_pu_raster())[[rep(1, 2)]])
+    ),
     "deprecated"
   )
   expect_inherits(x, "dsCMatrix")

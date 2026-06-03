@@ -259,46 +259,54 @@ NULL
 #' @rdname sim_data
 #' @export
 get_sim_pu_polygons <- function() {
-  sf::st_set_crs(
-    sf::read_sf(
-      system.file("extdata", "sim_pu_polygons.gpkg", package = "prioritizr")
-    ),
-    na_crs
+  suppressWarnings(
+    sf::st_set_crs(
+      sf::read_sf(
+        system.file("extdata", "sim_pu_polygons.gpkg", package = "prioritizr")
+      ),
+      sim_crs
+    )
   )
 }
 
 #' @rdname sim_data
 #' @export
 get_sim_zones_pu_polygons <- function() {
-  sf::st_set_crs(
-    sf::read_sf(
-      system.file(
-        "extdata", "sim_zones_pu_polygons.gpkg", package = "prioritizr"
-      )
-    ),
-    na_crs
+  suppressWarnings(
+    sf::st_set_crs(
+      sf::read_sf(
+        system.file(
+          "extdata", "sim_zones_pu_polygons.gpkg", package = "prioritizr"
+        )
+      ),
+      sim_crs
+    )
   )
 }
 
 #' @rdname sim_data
 #' @export
 get_sim_pu_lines <- function() {
-  sf::st_set_crs(
-    sf::read_sf(
-      system.file("extdata", "sim_pu_lines.gpkg", package = "prioritizr")
-    ),
-    na_crs
+  suppressWarnings(
+    sf::st_set_crs(
+      sf::read_sf(
+        system.file("extdata", "sim_pu_lines.gpkg", package = "prioritizr")
+      ),
+      sim_crs
+    )
   )
 }
 
 #' @rdname sim_data
 #' @export
 get_sim_pu_points <- function() {
-  sf::st_set_crs(
-    sf::read_sf(
-      system.file("extdata", "sim_pu_points.gpkg", package = "prioritizr")
-    ),
-    na_crs
+  suppressWarnings(
+    sf::st_set_crs(
+      sf::read_sf(
+        system.file("extdata", "sim_pu_points.gpkg", package = "prioritizr")
+      ),
+      sim_crs
+    )
   )
 }
 
@@ -308,7 +316,7 @@ get_sim_pu_raster <- function() {
   x <- terra::rast(
     system.file("extdata", "sim_pu_raster.tif", package = "prioritizr")
   )
-  terra::crs(x) <- na_crs
+  terra::crs(x) <- sim_crs
   terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
@@ -319,7 +327,7 @@ get_sim_locked_in_raster <- function() {
   x <- terra::rast(
     system.file("extdata", "sim_locked_in_raster.tif", package = "prioritizr")
   )
-  terra::crs(x) <- na_crs
+  terra::crs(x) <- sim_crs
   terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
@@ -330,7 +338,7 @@ get_sim_locked_out_raster <- function() {
   x <- terra::rast(
     system.file("extdata", "sim_locked_out_raster.tif", package = "prioritizr")
   )
-  terra::crs(x) <- na_crs
+  terra::crs(x) <- sim_crs
   terra::ext(x) <- c(0, 1, 0, 1)
   x
 }
@@ -341,7 +349,7 @@ get_sim_zones_pu_raster <- function() {
   x <- terra::rast(
     system.file("extdata", "sim_zones_pu_raster.tif", package = "prioritizr")
   )
-  terra::crs(x) <- na_crs
+  terra::crs(x) <- sim_crs
   terra::ext(x) <- c(0, 1, 0, 1)
   names(x) <- paste0("zone_", seq_len(terra::nlyr(x)))
   x
@@ -353,7 +361,7 @@ get_sim_features <- function() {
   x <- terra::rast(
    system.file("extdata", "sim_features.tif", package = "prioritizr")
   )
-  terra::crs(x) <- na_crs
+  terra::crs(x) <- sim_crs
   terra::ext(x) <- c(0, 1, 0, 1)
   names(x) <- paste0("feature_", seq_len(terra::nlyr(x)))
   x
@@ -383,7 +391,7 @@ get_sim_zones_features <- function() {
       "feature_1", "feature_2", "feature_3", "feature_4", "feature_5"
     )
   )
-  for (i in seq_along(x)) terra::crs(x[[i]]) <- na_crs
+  for (i in seq_along(x)) terra::crs(x[[i]]) <- sim_crs
   for (i in seq_along(x)) terra::ext(x[[i]]) <- c(0, 1, 0, 1)
   x
 }
@@ -445,3 +453,5 @@ get_sim_complex_historical_features <- function() {
     )
   )
 }
+
+sim_crs <- "PROJCRS[\"WGS 84 / Pseudo-Mercator\",\n    BASEGEOGCRS[\"WGS 84\",\n        ENSEMBLE[\"World Geodetic System 1984 ensemble\",\n            MEMBER[\"World Geodetic System 1984 (Transit)\"],\n            MEMBER[\"World Geodetic System 1984 (G730)\"],\n            MEMBER[\"World Geodetic System 1984 (G873)\"],\n            MEMBER[\"World Geodetic System 1984 (G1150)\"],\n            MEMBER[\"World Geodetic System 1984 (G1674)\"],\n            MEMBER[\"World Geodetic System 1984 (G1762)\"],\n            MEMBER[\"World Geodetic System 1984 (G2139)\"],\n            MEMBER[\"World Geodetic System 1984 (G2296)\"],\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ENSEMBLEACCURACY[2.0]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4326]],\n    CONVERSION[\"Popular Visualisation Pseudo-Mercator\",\n        METHOD[\"Popular Visualisation Pseudo Mercator\",\n            ID[\"EPSG\",1024]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"False easting\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"easting (X)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"northing (Y)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Web mapping and visualisation.\"],\n        AREA[\"World between 85.06S and 85.06N.\"],\n        BBOX[-85.06,-180,85.06,180]],\n    ID[\"EPSG\",3857]]"

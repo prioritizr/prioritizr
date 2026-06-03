@@ -35,9 +35,22 @@ Skipping these checks may reduce run time for large problems.}
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
 
-\item{threads}{\code{integer} number of threads to use for the
-optimization algorithm. Defaults to 1 such that only a single
-thread is used.}
+\item{threads}{\code{integer} value denoting the number of threads to use during
+optimization. Broadly speaking, we recommend setting \code{threads} to be no
+higher than the number of computational cores minus one or two
+(e.g., \code{threads = parallel::detectCores(TRUE) - 2}). This is because setting
+\code{threads} to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting \code{threads} to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., \code{threads = 5} may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.}
 }
 \value{
 A \code{numeric}, \code{matrix}, \code{data.frame},

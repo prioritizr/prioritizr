@@ -152,6 +152,8 @@ add_cbc_solver <- function(x,
     is.list(control),
     is_installed("rcbc")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # additional checks for control
   if (length(control) > 0) {
     assert(

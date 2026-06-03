@@ -36,8 +36,21 @@ optimization problem should be simplified before solving it?
 Defaults to \code{TRUE}.}
 
 \item{threads}{\code{integer} value denoting the number of threads to use during
-optimization.
-The default value is 1.}
+optimization. Broadly speaking, we recommend setting \code{threads} to be no
+higher than the number of computational cores minus one or two
+(e.g., \code{threads = parallel::detectCores(TRUE) - 2}). This is because setting
+\code{threads} to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting \code{threads} to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., \code{threads = 5} may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.}
 
 \item{verbose}{\code{logical} value indicating if information should be displayed
 during the optimization process. Defaults to \code{TRUE}.}

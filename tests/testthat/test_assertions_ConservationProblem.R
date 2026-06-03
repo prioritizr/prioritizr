@@ -145,6 +145,9 @@ test_that(
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # set NA crs
+  terra::crs(sim_pu_raster) <- na_crs
+  terra::crs(sim_features) <- na_crs
   # build message
   msg <- try(
     problem(sim_pu_raster, sim_features) %>%
@@ -165,6 +168,10 @@ test_that(
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_pu_polygons$spp_1 <- 1
   sim_pu_polygons$spp_2 <- 2
+  # set NA crs
+  sim_pu_polygons <- suppressWarnings(
+    sf::st_set_crs(sim_pu_polygons, sf::st_crs(na_crs))
+  )
   # build message
   msg <- try(
     problem(

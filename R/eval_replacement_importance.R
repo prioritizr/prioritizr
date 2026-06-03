@@ -21,9 +21,7 @@ NULL
 #' made to solve the problem even if potential issues were detected during
 #' the presolve checks. Defaults to `FALSE`.
 #'
-#' @param threads `integer` number of threads to use for the
-#' optimization algorithm. Defaults to 1 such that only a single
-#' thread is used.
+#' @inheritParams add_gurobi_solver
 #'
 #' @inheritParams eval_cost_summary
 #'
@@ -223,6 +221,8 @@ eval_replacement_importance <- function(x, solution, rescale = TRUE,
     assertthat::is.flag(force),
     is_thread_count(threads)
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # extract planning unit solution status
   status <- planning_unit_solution_status(x, solution)
   # calculate replacement costs

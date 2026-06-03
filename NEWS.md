@@ -41,6 +41,13 @@
   `add_max_wtd_sum_objective()` to improve clarity.
 - The `add_max_features_objective()` function has been renamed to
   `add_max_n_targets_met_objective()` to improve clarity.
+- Update `sim_pu_raster()`, `sim_locked_in()`, `sim_locked_out()`,
+  `sim_pu_polygons()`,`sim_pu_lines()`, `sim_features()`,
+  `get_sim_zones_pu_raster()`, `get_sim_zones_pu_polygons()`,
+  `get_sim_zones_features()` functions so that simulated datasets have the Web
+  Mercator coordinate reference system. This was done so that simulated datasets
+  can be visualized with the _ggplot2_ package (#390). Thanks to Jason
+  Everett (\@jaseeverett) for bug report.
 
 ## Minor improvements and bug fixes
 
@@ -78,16 +85,30 @@
   this new function does not change any of the default behavior from
   previous versions, the idea for this function is to help make the
   default behavior for a `problem()` object clearer to new users.
-- New `number_of_problems()` function for `multi_problem()` objects.
+- Update `add_gurobi_solver()`, `add_cplex_solver()`, `add_cbc_solver()`,
+  `add_highs_solver()`, `add_shuffle_portfolio()`, and
+  `add_eval_replacement_importance()` functions to throw a warning if the
+  `threads` parameter is set to be equal to the number of available cores and
+  provide a suggestion on a more suitable value.
+- New `number_of_problems()` function for `multi_problem()` and `problem()`
+  objects.
 
 ## Documentation
 
+- Update _Package overview_ and _Calibrating trade-offs_ vignettes to include
+  multi-objective optimization approaches.
+- Update `add_gurobi_solver()`, `add_cplex_solver()`, `add_cbc_solver()`,
+  `add_highs_solver()`, `add_shuffle_portfolio()`, and
+  `add_eval_replacement_importance()` function documentation to provide better
+  guidance on setting the `threads` parameter.
+- Update `add_max_wtd_sum_objective()` (formerly named
+  `add_max_utility_objective()`) function documentation to provide more
+  information about limitations.
+- Update README Usage section with package installation instructions. Thanks to
+  \@paolahre for the suggestion.
+- Update publication record (#402). Thanks to Flavia CB Trigo (\@FBCT) for
+  sharing her work.
 - Update documentation for various functions to improve readability.
-- Update Calibrating trade-offs vignette to include multi-objective
-  optimization approaches.
-- Update documentation for `add_max_wtd_sum_objective()` (formerly
-  named `add_max_utility_objective()`) to provide more information limitations.
-- Update publication record.
 
 # prioritizr 8.1.0.3
 

@@ -4,7 +4,7 @@ NULL
 #' Add a weighted sum approach
 #'
 #' Add a weighted sum approach for multi-objective optimization to a
-#' multi-objective conservation planning problem (Jaimes *et al.* 2009).
+#' multi-objective conservation planning problem (López Jaimes *et al.* 2009).
 #' Broadly speaking, this approach involves combining each [problem()] in a
 #' [multi_problem()] object together based on weights, wherein
 #' those associated with a greater weight value exert a greater influence
@@ -97,7 +97,8 @@ NULL
 #' sums of objectives for Pareto set generation in multicriteria optimization
 #' problems. _Structural Optimization_, **14**: 63--69.
 #'
-#' Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
+#' López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009)
+#' *An introduction to
 #' multiobjective optimization techniques* in Optimization in Polymer
 #' Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers Inc,
 #' New York, United States.

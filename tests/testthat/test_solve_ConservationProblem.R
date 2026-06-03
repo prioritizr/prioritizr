@@ -656,7 +656,7 @@ test_that("remove_duplicates = TRUE", {
   # solve problem
   expect_message(
     s <- solve_fixed_seed(p, remove_duplicates = TRUE),
-    "Portfolio could only"
+    "Found"
   )
   # tests
   expect_inherits(s, "list")

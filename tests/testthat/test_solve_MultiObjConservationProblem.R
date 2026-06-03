@@ -950,7 +950,7 @@ test_that("remove_duplicates = TRUE", {
   # solve problem
   expect_message(
     s <- solve(p, remove_duplicates = TRUE),
-    "Approach could only"
+    "Found"
   )
   # tests
   expect_inherits(s, "SpatRaster")

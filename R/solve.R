@@ -330,10 +330,10 @@ solve.ConservationProblem <- function(a, b, ...,
   ) {
     cli::cli_inform(
       message = c(
-        "i" = paste(
-          "Portfolio could only find",
-          "{.val {length(sol)}} out of",
-          "{.val {portfolio_number_solutions}}",
+        "i" = paste0(
+          "Found {.val {length(sol)}} out of the requested ",
+          "{.val {portfolio_number_solutions}} ",
+          ifelse(isTRUE(remove_duplicates), "non-duplicate ", ""),
           "solution{?s}."
         )
       )
@@ -408,10 +408,10 @@ solve.MultiObjConservationProblem <- function(a, b, ...,
   ) {
     cli::cli_inform(
       message = c(
-        "i" = paste(
-          "Approach could only find",
-          "{.val {length(sol)}} out of",
-          "{.val {approach_number_solutions}}",
+        "i" = paste0(
+          "Found {.val {length(sol)}} out of the requested ",
+          "{.val {approach_number_solutions}} ",
+          ifelse(isTRUE(remove_duplicates), "non-duplicate ", ""),
           "solution{?s}."
         )
       )
@@ -595,7 +595,7 @@ distinct_raw_solutions <- function(x, solutions) {
   idx <- seq_len(x$number_of_zones() * x$number_of_planning_units())
   hash <- vapply(
     solutions,
-    function(s) cli::hash_obj_md5(s[idx]),
+    function(s) cli::hash_obj_md5(s$x[idx]),
     character(1)
   )
   # return subset of solutions that are unique

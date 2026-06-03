@@ -5,11 +5,11 @@ NULL
 #'
 #' An approach can be added to a multi-objective conservation planning problem
 #' to specify the multi-objective optimization algorithm for generating
-#' solutions (Jaimes *et al.* 2009).
+#' solutions (López Jaimes *et al.* 2009).
 #'
 #' @details
 #' Multi-objective optimization approaches can be used to identify
-#' solutions that achieve multiple criteria (Jaimes *et al.* 2009).
+#' solutions that achieve multiple criteria (López Jaimes *et al.* 2009).
 #' For example, these approaches can help inform multi-use planning, where
 #' land use decisions must conserve biodiversity, meet food demands, and provide
 #' adequate housing supply (Neubert *et al.* 2025).
@@ -99,7 +99,8 @@ NULL
 #' system towards the 30*2030 target. _Biological Conservation_, **299**:
 #' 110799.
 #'
-#' Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
+#' López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009)
+#' *An introduction to
 #' multiobjective optimization techniques* in Optimization in Polymer
 #' Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers Inc,
 #' New York, United States.

@@ -8,6 +8,17 @@ test_that("is_thread_count", {
   )
 })
 
+test_that("is_recommended_thread_count", {
+  n <- parallel::detectCores(TRUE)
+  expect_true(is_recommended_thread_count(1))
+  skip_if(parallel::detectCores(TRUE) <= 3, "Small number of cores")
+  expect_false(is_recommended_thread_count(n))
+  expect_error(
+    assert(is_recommended_thread_count(n)),
+    "computational bottlenecks"
+  )
+})
+
 test_that("is_budget_length", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

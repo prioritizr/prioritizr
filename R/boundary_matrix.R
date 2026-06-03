@@ -109,6 +109,10 @@ boundary_matrix.SpatRaster <- function(x, ...) {
   assert(inherits(x, "SpatRaster"))
   # indices of cells with finite values
   include <- terra::cells(terra::allNA(x), 0)[[1]]
+  assert(
+    isTRUE(length(include) > 0),
+    msg = "{.arg x} must have at least one non-missing ({.val {NA}}) value."
+  )
   # set x to a single raster layer with only values in cells that are not
   # NA in all layers
   x <- terra::setValues(x[[1]], NA_real_)

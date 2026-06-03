@@ -109,6 +109,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::is.flag(verbose),
     is_installed("cplexAPI")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # add solver
   x$add_solver(
     R6::R6Class(

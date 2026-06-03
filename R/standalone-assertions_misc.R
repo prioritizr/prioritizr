@@ -29,6 +29,56 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
   )
 }
 
+#' Is recommended thread count?
+#'
+#' Check if a value is a recommended threat count or not.
+#'
+#' @param x `numeric` value.
+#'
+#' @details
+#' A value is a recommended threat count if it is a positive
+#' value and smaller than the number of available cores minus two.
+#' Note that if the number of available cores is smaller than two,
+#' then the recommended value is one.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_recommended_thread_count <- function(x) {
+  # run checks
+  out <-
+    assertthat::is.count(x) &&
+    assertthat::noNA(x)
+  # run additional checks
+  if (isTRUE(out)) {
+    out <- !(
+      (x > 2) &&
+      (parallel::detectCores(TRUE) > 2) &&
+      (x == parallel::detectCores(TRUE))
+    )
+  }
+  # return result
+  out
+}
+
+assertthat::on_failure(is_recommended_thread_count) <- function(call, env) {
+  # calculate recommended number of threads
+  recommended_threads <- max(1L, parallel::detectCores(TRUE) - 2L)
+  # return message
+  c(
+    ">" = paste0(
+      "{.arg ", deparse(call$x),
+      "} is equal to the number of available cores."
+    ),
+    "i" =
+      "This can cause computational bottlenecks with background processes.",
+    "v" = paste0(
+      "To avoid this on your system, try {.code threads = ",
+      recommended_threads, "}."
+    )
+  )
+}
+
 #' Is budget length?
 #'
 #' Check if a value is a valid budget length for a [problem].

@@ -123,7 +123,7 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   expect_message(
     s <- solve(p),
-    "Portfolio could only"
+    "Found"
   )
   # output checks
   expect_inherits(s, "SpatRaster")

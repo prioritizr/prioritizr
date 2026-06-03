@@ -68,7 +68,8 @@ added to it.
 }
 \description{
 Add a hierarchical (lexicographic) approach for multi-objective optimization
-to a multi-objective conservation planning problem (Jaimes \emph{et al.} 2009).
+to a multi-objective conservation planning problem
+(López Jaimes \emph{et al.} 2009).
 Broadly speaking, this approach involves using multiple optimization
 procedures to solve each \code{\link[=problem]{problem()}} in a
 \code{\link[=multi_problem]{multi_problem()}} object following a hierarchical (lexicographic) ordering,
@@ -349,7 +350,8 @@ Das I and Dennis JE (1997) A closer look at drawbacks of minimizing weighted
 sums of objectives for Pareto set generation in multicriteria optimization
 problems. \emph{Structural Optimization}, \strong{14}: 63--69.
 
-Jaimes AL, Saúl ZM, and Coello Coello CA (2009) \emph{An introduction to
+López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009)
+\emph{An introduction to
 multiobjective optimization techniques} in Optimization in Polymer
 Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers Inc,
 New York, United States.

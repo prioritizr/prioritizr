@@ -89,6 +89,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     is.list(control),
     is_installed("highs")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # additional checks for control
   if (length(control) > 0) {
     assert(
