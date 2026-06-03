@@ -117,8 +117,21 @@ Defaults to <code>TRUE</code>.</p></dd>
 
 <dt id="arg-threads">threads<a class="anchor" aria-label="anchor" href="#arg-threads"></a></dt>
 <dd><p><code>integer</code> value denoting the number of threads to use during
-optimization.
-The default value is 1.</p></dd>
+optimization. Broadly speaking, we recommend setting <code>threads</code> to be no
+higher than the number of computational cores minus one or two
+(e.g., <code>threads = parallel::detectCores(TRUE) - 2</code>). This is because setting
+<code>threads</code> to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting <code>threads</code> to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., <code>threads = 5</code> may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.</p></dd>
 
 
 <dt id="arg-start-solution">start_solution<a class="anchor" aria-label="anchor" href="#arg-start-solution"></a></dt>

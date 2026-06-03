@@ -71,6 +71,20 @@
 - The `add_max_features_objective()` function has been renamed to
   [`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md)
   to improve clarity.
+- Update
+  [`sim_pu_raster()`](https://prioritizr.net/reference/sim_data.md),
+  `sim_locked_in()`, `sim_locked_out()`,
+  [`sim_pu_polygons()`](https://prioritizr.net/reference/sim_data.md),[`sim_pu_lines()`](https://prioritizr.net/reference/sim_data.md),
+  [`sim_features()`](https://prioritizr.net/reference/sim_data.md),
+  [`get_sim_zones_pu_raster()`](https://prioritizr.net/reference/sim_data.md),
+  [`get_sim_zones_pu_polygons()`](https://prioritizr.net/reference/sim_data.md),
+  [`get_sim_zones_features()`](https://prioritizr.net/reference/sim_data.md)
+  functions so that simulated datasets have the Web Mercator coordinate
+  reference system. This was done so that simulated datasets can be
+  visualized with the *ggplot2* package
+  ([\#390](https://github.com/prioritizr/prioritizr/issues/390)). Thanks
+  to Jason Everett ([@jaseeverett](https://github.com/jaseeverett)) for
+  bug report.
 
 ### Minor improvements and bug fixes
 
@@ -140,23 +154,46 @@
   default behavior for a
   [`problem()`](https://prioritizr.net/reference/problem.md) object
   clearer to new users.
+- Update
+  [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
+  [`add_cplex_solver()`](https://prioritizr.net/reference/add_cplex_solver.md),
+  [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.md),
+  [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
+  [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+  and `add_eval_replacement_importance()` functions to throw a warning
+  if the `threads` parameter is set to be equal to the number of
+  available cores and provide a suggestion on a more suitable value.
 - New
   [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
   function for
   [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  and [`problem()`](https://prioritizr.net/reference/problem.md)
   objects.
 
 ### Documentation
 
-- Update documentation for various functions to improve readability.
-- Update Calibrating trade-offs vignette to include multi-objective
-  optimization approaches.
-- Update documentation for
+- Update *Package overview* and *Calibrating trade-offs* vignettes to
+  include multi-objective optimization approaches.
+- Update
+  [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
+  [`add_cplex_solver()`](https://prioritizr.net/reference/add_cplex_solver.md),
+  [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.md),
+  [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
+  [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+  and `add_eval_replacement_importance()` function documentation to
+  provide better guidance on setting the `threads` parameter.
+- Update
   [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
   (formerly named
   [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md))
-  to provide more information limitations.
-- Update publication record.
+  function documentation to provide more information about limitations.
+- Update README Usage section with package installation instructions.
+  Thanks to [@paolahre](https://github.com/paolahre) for the suggestion.
+- Update publication record
+  ([\#402](https://github.com/prioritizr/prioritizr/issues/402)). Thanks
+  to Flavia CB Trigo ([@FBCT](https://github.com/FBCT)) for sharing her
+  work.
+- Update documentation for various functions to improve readability.
 
 ## prioritizr 8.1.0.3
 
@@ -867,7 +904,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

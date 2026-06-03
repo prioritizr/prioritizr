@@ -2,21 +2,21 @@
 
 An approach can be added to a multi-objective conservation planning
 problem to specify the multi-objective optimization algorithm for
-generating solutions (Jaimes *et al.* 2009).
+generating solutions (López Jaimes *et al.* 2009).
 
 ## Details
 
 Multi-objective optimization approaches can be used to identify
-solutions that achieve multiple criteria (Jaimes *et al.* 2009). For
-example, these approaches can help inform multi-use planning, where land
-use decisions must conserve biodiversity, meet food demands, and provide
-adequate housing supply (Neubert *et al.* 2025). These approaches can
-also be used to accommodate trade-offs between competing conservation
-objectives, such as representing multiple different conservation
-features (Deléglise *et al.* 2024) or minimizing multiple different cost
-datasets (Schuster *et al.* 2023). The following functions can be used
-to add an approach for multi-objective optimization to a multi-objective
-conservation planning
+solutions that achieve multiple criteria (López Jaimes *et al.* 2009).
+For example, these approaches can help inform multi-use planning, where
+land use decisions must conserve biodiversity, meet food demands, and
+provide adequate housing supply (Neubert *et al.* 2025). These
+approaches can also be used to accommodate trade-offs between competing
+conservation objectives, such as representing multiple different
+conservation features (Deléglise *et al.* 2024) or minimizing multiple
+different cost datasets (Schuster *et al.* 2023). The following
+functions can be used to add an approach for multi-objective
+optimization to a multi-objective conservation planning
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md).
 
 - [`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md):
@@ -104,10 +104,10 @@ optimization and ecological connectivity to strengthen Peru's protected
 area system towards the 30\*2030 target. *Biological Conservation*,
 **299**: 110799.
 
-Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
-multiobjective optimization techniques* in Optimization in Polymer
-Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers
-Inc, New York, United States.
+López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009) *An
+introduction to multiobjective optimization techniques* in Optimization
+in Polymer Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science
+Publishers Inc, New York, United States.
 
 Neubert S, McGowan J, Metcalfe K, Hanson JO, Buenafe KCV, Dabalà A, Dunn
 DC, Everett JD, Possingham HP, Stelzenmüller V, Estep A, Ervin J, and

@@ -189,7 +189,7 @@ print(p1)
 #> │ ├•data:       <sf> (90 total)
 #> │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties:   none specified
@@ -216,7 +216,7 @@ print(p2)
 #> │ ├•data:       <sf> (90 total)
 #> │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties: 
@@ -299,7 +299,7 @@ print(p4)
 #> │ ├•data:       <SpatRaster> (90 total)
 #> │ ├•costs:      continuous values (between 182.6017 and 224.8492)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties: 

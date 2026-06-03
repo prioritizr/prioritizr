@@ -220,7 +220,7 @@ print(p0)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 

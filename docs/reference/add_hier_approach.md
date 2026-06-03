@@ -1,9 +1,9 @@
 # Add a hierarchical approach
 
 Add a hierarchical (lexicographic) approach for multi-objective
-optimization to a multi-objective conservation planning problem (Jaimes
-*et al.* 2009). Broadly speaking, this approach involves using multiple
-optimization procedures to solve each
+optimization to a multi-objective conservation planning problem (López
+Jaimes *et al.* 2009). Broadly speaking, this approach involves using
+multiple optimization procedures to solve each
 [`problem()`](https://prioritizr.net/reference/problem.md) in a
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object following a hierarchical (lexicographic) ordering, wherein those
@@ -236,10 +236,10 @@ Das I and Dennis JE (1997) A closer look at drawbacks of minimizing
 weighted sums of objectives for Pareto set generation in multicriteria
 optimization problems. *Structural Optimization*, **14**: 63–69.
 
-Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
-multiobjective optimization techniques* in Optimization in Polymer
-Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers
-Inc, New York, United States.
+López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009) *An
+introduction to multiobjective optimization techniques* in Optimization
+in Polymer Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science
+Publishers Inc, New York, United States.
 
 Schuster R, Buxton R, Hanson JO, Binley AD, Pittman J, Tulloch V, La
 Sorte FA, Roehrdanz PR, Verburg PH, Rodewald AD, Wilson S, Possingham

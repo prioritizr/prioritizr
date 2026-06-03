@@ -118,6 +118,9 @@ package. Additionally, we will use the *terra R* package to perform
 raster calculations. To begin with, we will load the packages.
 
 ``` r
+# to install packages for this example, please use:
+# install.packages(c("prioritizr", "prioritizrdata"))
+
 # load packages
 library(prioritizr)
 library(prioritizrdata)
@@ -258,7 +261,7 @@ print(p1)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `presolve` = 2, `threads` = 1, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -281,7 +284,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##      3.386
+    ##      3.347
 
 ``` r
 # extract state message from the solver

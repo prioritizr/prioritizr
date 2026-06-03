@@ -222,7 +222,7 @@ print(pus)
 #> size        : 10, 10, 2  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> sources     : sim_zones_pu_raster.tif
 #>               memory
 #> varnames    : sim_zones_pu_raster

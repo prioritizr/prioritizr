@@ -309,15 +309,15 @@ units for protected area establishment).</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / UTM zone 55S (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.17</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -876,7 +876,7 @@ objectives.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">17</span> weight_2767.00545      <span style="text-decoration: underline;">9</span>772.              1<span style="text-decoration: underline;">288</span>656. weighted sum    weight = …</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> weight_3162.27766      <span style="text-decoration: underline;">9</span>772.              1<span style="text-decoration: underline;">288</span>656. weighted sum    weight = …</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> Cohon                  <span style="text-decoration: underline;">2</span>040.              1<span style="text-decoration: underline;">673</span>569. Cohon           Cohon     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">20</span> reference point         595.              2<span style="text-decoration: underline;">643</span>724. reference point reference…</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> reference point         463.              2<span style="text-decoration: underline;">284</span>516. reference point reference…</span></span></code></pre>
 <p>After calculating the metrics, we can use them to visualize
 trade-offs among the prioritizations.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
@@ -1251,12 +1251,12 @@ Vane-Wright, R.I., Humphries, C.J. &amp; Williams, P.H. (1991). What to
 protect? — <span>Systematics</span> and the agony of choice.
 <em>Biological Conservation</em>, <em>55</em>, 235–254.
 </div>
-<div id="ref-r68" class="csl-entry">
+<div id="ref-r74" class="csl-entry">
 Wierzbicki, A.P. (1980). The use of reference objectives in
-multiobjective optimization. <em>Multiple criteria decision making
-theory and application. Lecture notes in economics and mathematical
-systems</em> (eds G. Fandel &amp; T. Gal), pp. 468–486. Springer Berlin
-Heidelberg, Berlin, Heidelberg.
+multiobjective optimization. <em><span class="nocase">Multiple Criteria
+Decision Making Theory and Application. Lecture Notes in Economics and
+Mathematical Systems</span></em> (eds G. Fandel &amp; T. Gal), pp.
+468–486. Springer Berlin Heidelberg, Berlin, Heidelberg.
 </div>
 <div id="ref-r47" class="csl-entry">
 Williams, B.A., Venter, O., Allan, J.R., Atkinson, S.C., Rehbein, J.A.,

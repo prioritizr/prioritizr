@@ -172,7 +172,7 @@ print(s1)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : layer
@@ -192,7 +192,7 @@ print(rwr1)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : rwr
@@ -220,7 +220,7 @@ print(s2)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 5
 #>     cost locked_in locked_out solution_1                                geometry
 #>  * <dbl> <lgl>     <lgl>           <dbl>                           <POLYGON [m]>

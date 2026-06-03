@@ -99,7 +99,7 @@ print(s2)
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varnames    : sim_zones_pu_raster
 #>               sim_zones_pu_raster

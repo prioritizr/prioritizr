@@ -462,7 +462,7 @@ are selected or not selected for protection.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
@@ -472,7 +472,7 @@ are selected or not selected for protection.</p>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -598,7 +598,7 @@ using the following code.</p>
 ## size        : 10, 10, 2  (nrow, ncol, nlyr)
 ## resolution  : 0.1, 0.1  (x, y)
 ## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-## coord. ref. : Undefined Cartesian SRS
+## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 ## sources     : sim_pu_raster.tif
 ## names       :      layer,      layer
 ## min values  : 190.132751, 190.132751
@@ -620,7 +620,7 @@ using the following code.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
@@ -630,7 +630,7 @@ using the following code.</p>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -760,7 +760,7 @@ example.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (90 total)
 ## │ ├•costs:      continuous values (between 182.6017 and 221.363)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
@@ -770,7 +770,7 @@ example.</p>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -935,7 +935,7 @@ We can formulate and solve this problem using the following code.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
@@ -945,7 +945,7 @@ We can formulate and solve this problem using the following code.</p>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -1083,7 +1083,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:   none specified
@@ -1094,7 +1094,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -1237,7 +1237,7 @@ fragmented solutions.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
@@ -1249,7 +1249,7 @@ fragmented solutions.</p>
 ## ││└•1:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -1317,7 +1317,7 @@ fragmented solutions.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (1169 simplex iterations) in 0.11 seconds (0.15 work units)
+## Explored 1 nodes (1169 simplex iterations) in 0.12 seconds (0.15 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 10: 13780 15120 15200 ... 18060
@@ -1396,7 +1396,7 @@ unit.</p>
 ## │ ├•data:       &lt;SpatRaster&gt; (100 total)
 ## │ ├•costs:      continuous values (between 0 and 300)
 ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-## │ └•CRS:        Undefined Cartesian SRS (projected)
+## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 ## ├•formulation
 ## │├•objective:   minimum set objective
 ## │├•penalties:
@@ -1409,7 +1409,7 @@ unit.</p>
 ## ││└•2:          manual locked constraints (80 planning units)
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   default portfolio
+##  ├•portfolio:   single portfolio
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="co"># solve problem</span></span>
@@ -1446,7 +1446,7 @@ unit.</p>
 ## 
 ## Found heuristic solution: objective 24400.000000
 ## Presolve removed 1120 rows and 324 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## Variable types: 0 continuous, 876 integer (876 binary)
 ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros

@@ -363,7 +363,7 @@ print(s1)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : layer
@@ -386,7 +386,7 @@ print(rs1)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : rs
@@ -407,7 +407,7 @@ print(attr(rs1, "gap"))
 #>  [1] 0 0 0 0 0 0 0 0 0 0
 ## run time
 print(attr(rs1, "runtime"))
-#>  [1] 0.003 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002 0.002
+#>  [1] 0.003 0.002 0.003 0.002 0.002 0.002 0.002 0.002 0.002 0.002
 ## objective value
 print(attr(rs1, "objective"))
 #>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220
@@ -438,7 +438,7 @@ print(rs2)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : rs
@@ -466,7 +466,7 @@ print(rs3)
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varname     : sim_pu_raster
 #> name        : rs
@@ -495,7 +495,7 @@ print(s4)
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
 #> varnames    : sim_zones_pu_raster
 #>               sim_zones_pu_raster

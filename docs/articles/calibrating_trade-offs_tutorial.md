@@ -257,7 +257,7 @@ print(p0)
     ## ││└•1:          locked in constraints (257 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -851,7 +851,7 @@ print(metric_data)
     ## 17 weight_2767.00545      9772.              1288656. weighted sum    weight = …
     ## 18 weight_3162.27766      9772.              1288656. weighted sum    weight = …
     ## 19 Cohon                  2040.              1673569. Cohon           Cohon     
-    ## 20 reference point         595.              2643724. reference point reference…
+    ## 20 reference point         463.              2284516. reference point reference…
 
 After calculating the metrics, we can use them to visualize trade-offs
 among the prioritizations.
@@ -1225,8 +1225,8 @@ protect? — Systematics and the agony of choice. *Biological
 Conservation*, *55*, 235–254.
 
 Wierzbicki, A.P. (1980). The use of reference objectives in
-multiobjective optimization. *Multiple criteria decision making theory
-and application. Lecture notes in economics and mathematical systems*
+multiobjective optimization. *Multiple Criteria Decision Making Theory
+and Application. Lecture Notes in Economics and Mathematical Systems*
 (eds G. Fandel & T. Gal), pp. 468–486. Springer Berlin Heidelberg,
 Berlin, Heidelberg.
 

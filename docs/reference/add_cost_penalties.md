@@ -156,7 +156,7 @@ mp <-
 
 # generate solutions
 ms <- solve(mp)
-#> ■■■■                              10% | ETA: 27s
+#> ■■■■                              10% | ETA: 26s
 #> ■■■■■■■                           20% | ETA: 24s
 #> ■■■■■■■■■■                        30% | ETA: 21s
 #> ■■■■■■■■■■■■■                     40% | ETA: 18s

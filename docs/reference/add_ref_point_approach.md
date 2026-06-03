@@ -1,14 +1,14 @@
 # Add a reference point approach
 
 Add a reference point approach for multi-objective optimization to a
-multi-objective conservation planning problem (Wierzbicki 1980, Jaimes
-2009). Broadly speaking, this approach considers a set of (i) reference
-point parameters that specify an aspirational level of achievement for
-each objective and (ii) weight parameters that specify the relative
-importance for reaching the reference point for each objective. To
-ensure that solutions are not biased by differences in scale among the
-objectives, this approach also considers the best and worst possible
-objective values for each objective.
+multi-objective conservation planning problem (Wierzbicki 1980, López
+Jaimes 2009). Broadly speaking, this approach considers a set of (i)
+reference point parameters that specify an aspirational level of
+achievement for each objective and (ii) weight parameters that specify
+the relative importance for reaching the reference point for each
+objective. To ensure that solutions are not biased by differences in
+scale among the objectives, this approach also considers the best and
+worst possible objective values for each objective.
 
 ## Usage
 
@@ -130,10 +130,10 @@ objective.
 
 ## References
 
-Jaimes AL, Saúl ZM, and Coello Coello CA (2009) *An introduction to
-multiobjective optimization techniques* in Optimization in Polymer
-Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science Publishers
-Inc, New York, United States.
+López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009) *An
+introduction to multiobjective optimization techniques* in Optimization
+in Polymer Processing. Eds Gaspar-Cunha A and Covas JA. Nova Science
+Publishers Inc, New York, United States.
 
 Wierzbicki AP (1980) *The use of reference objectives in multiobjective
 optimization* in Multiple criteria decision making theory and
@@ -235,8 +235,8 @@ mp2 <-
 # solve problem
 ms2 <- solve(mp2)
 #> Generating solutions ■■■■■■■                           20% | ETA:  5s
-#> Generating solutions ■■■■■■■■■■■                       33% | ETA:  4s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■         80% | ETA:  1s
+#> Generating solutions ■■■■■■■■■■■■■                     40% | ETA:  4s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■     93% | ETA:  0s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
 # plot multiple solutions

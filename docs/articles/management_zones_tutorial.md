@@ -101,7 +101,7 @@ print(p1)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -111,7 +111,7 @@ print(p1)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -263,7 +263,7 @@ print(pu2)
     ## size        : 10, 10, 2  (nrow, ncol, nlyr)
     ## resolution  : 0.1, 0.1  (x, y)
     ## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : Undefined Cartesian SRS
+    ## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
     ## sources     : sim_pu_raster.tif
     ## names       :      layer,      layer
     ## min values  : 190.132751, 190.132751
@@ -289,7 +289,7 @@ print(p2)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -299,7 +299,7 @@ print(p2)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -451,7 +451,7 @@ print(p3)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 182.6017 and 221.363)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -461,7 +461,7 @@ print(p3)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -652,7 +652,7 @@ print(p4)
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -662,7 +662,7 @@ print(p4)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -822,7 +822,7 @@ print(p5)
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -833,7 +833,7 @@ print(p5)
     ## ││└•1:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -893,7 +893,7 @@ s5 <- solve(p5)
     ## H    0     0                    7000.0000000 6938.06815  0.88%     -    0s
     ##      0     0 6938.06815    0    1 7000.00000 6938.06815  0.88%     -    0s
     ## 
-    ## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)
+    ## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 4: 7000 10700 12100 13600 
@@ -998,7 +998,7 @@ print(p6)
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1010,7 +1010,7 @@ print(p6)
     ## ││└•1:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1175,7 +1175,7 @@ print(p7)
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1188,7 +1188,7 @@ print(p7)
     ## ││└•2:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 

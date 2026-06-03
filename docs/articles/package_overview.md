@@ -323,7 +323,7 @@ print(sim_pu_raster)
     ## size        : 10, 10, 1  (nrow, ncol, nlyr)
     ## resolution  : 0.1, 0.1  (x, y)
     ## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : Undefined Cartesian SRS
+    ## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
     ## source      : sim_pu_raster.tif
     ## name        :      layer
     ## min value   : 190.132751
@@ -358,7 +358,7 @@ print(sim_pu_polygons)
     ## Geometry type: POLYGON
     ## Dimension:     XY
     ## Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-    ## Projected CRS: Undefined Cartesian SRS
+    ## Projected CRS: WGS 84 / Pseudo-Mercator
     ## # A tibble: 90 × 4
     ##     cost locked_in locked_out                                      geom
     ##  * <dbl> <lgl>     <lgl>                                  <POLYGON [m]>
@@ -478,7 +478,7 @@ print(p1)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   none specified
     ## │├•penalties:   none specified
@@ -488,7 +488,7 @@ print(p1)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -544,7 +544,7 @@ print(p2)
     ## │ ├•data:       <sf> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   none specified
     ## │├•penalties:   none specified
@@ -554,7 +554,7 @@ print(p2)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -663,7 +663,7 @@ print(p3)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -714,7 +714,7 @@ print(p3)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -724,7 +724,7 @@ print(p3)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -750,7 +750,7 @@ print(p4)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   maximum coverage objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -760,7 +760,7 @@ print(p4)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -794,7 +794,7 @@ print(p5)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   maximum number targets met objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -804,7 +804,7 @@ print(p5)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -836,7 +836,7 @@ print(p6)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum shortfall objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -846,7 +846,7 @@ print(p6)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -877,7 +877,7 @@ print(p7)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum largest shortfall objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -887,7 +887,7 @@ print(p7)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -921,7 +921,7 @@ print(p8)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   phylogenetic diversity objective (`budget` = 5000, …)
     ## │├•penalties:   none specified
@@ -931,7 +931,7 @@ print(p8)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -964,7 +964,7 @@ print(p9)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   phylogenetic endemism objective (`budget` = 5000, …)
     ## │├•penalties:   none specified
@@ -974,7 +974,7 @@ print(p9)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1011,7 +1011,7 @@ print(p10)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   maximum weighted sum objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -1021,7 +1021,7 @@ print(p10)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1048,7 +1048,7 @@ print(p11)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum penalties objective (`budget` = 5000)
     ## │├•penalties:   none specified
@@ -1058,7 +1058,7 @@ print(p11)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1100,7 +1100,7 @@ print(p12)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1110,7 +1110,7 @@ print(p12)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1142,7 +1142,7 @@ print(p13)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1152,7 +1152,7 @@ print(p13)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1177,7 +1177,7 @@ print(p14)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1187,7 +1187,7 @@ print(p14)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1240,7 +1240,7 @@ print(p15)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1250,7 +1250,7 @@ print(p15)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1315,7 +1315,7 @@ print(p16)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1325,7 +1325,7 @@ print(p16)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1375,7 +1375,7 @@ print(p17)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1385,7 +1385,7 @@ print(p17)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1423,7 +1423,7 @@ print(p18)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1434,7 +1434,7 @@ print(p18)
     ## ││└•1:          locked in constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1463,7 +1463,7 @@ print(p19)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1474,7 +1474,7 @@ print(p19)
     ## ││└•1:          locked out constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1502,7 +1502,7 @@ print(p20)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1513,7 +1513,7 @@ print(p20)
     ## ││└•1:          neighbor constraints (`k` = 1, `clamp` = TRUE, …)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1541,7 +1541,7 @@ print(p21)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1552,7 +1552,7 @@ print(p21)
     ## ││└•1:          contiguity constraints (`data` = NULL, …)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1583,7 +1583,7 @@ print(p22)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1594,7 +1594,7 @@ print(p22)
     ## ││└•1:          feature contiguity constraints (`data` = NULL, …)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1625,7 +1625,7 @@ print(p23)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum shortfall objective (`budget` = 1800)
     ## │├•penalties:   none specified
@@ -1636,7 +1636,51 @@ print(p23)
     ## ││└•1:          linear constraints (`threshold` = 190, `sense` = "<=", …)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+- **Cost constraints**: Add constraints to ensure that the cost of
+  selected planning units meet certain criteria. These constraints are a
+  specialized version of linear constraints (per
+  [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md))
+  designed to work with the specified cost data. For example, they can
+  be used to specify both lower and upper budgets to ensure that the
+  total cost is within a predefined range of values (e.g., 25% and 30%
+  of total costs).
+
+``` r
+# create problem with constraints which specify that the total
+# cost of the solution must be greater than or equal to 1600
+p24 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_shortfall_objective(budget = 1800) %>%
+  add_relative_targets(0.1) %>%
+  add_cost_constraints(1600, ">=")
+
+# print problem
+print(p24)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum shortfall objective (`budget` = 1800)
+    ## │├•penalties:   none specified
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.1)
+    ## ││└•weights:    none specified
+    ## │├•constraints:
+    ## ││└•1:          cost constraints (`budget` = 1600, `sense` = ">=")
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1668,12 +1712,12 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-33-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-34-1.png)
 
 ``` r
 # create a problem using raster planning unit data and use the locked raster
 # data to lock in some planning units and lock out some other planning units
-p24 <-
+p25 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -1681,7 +1725,7 @@ p24 <-
   add_locked_out_constraints(sim_locked_out_raster)
 
 # print problem
-print(p24)
+print(p25)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -1691,7 +1735,7 @@ print(p24)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1703,7 +1747,7 @@ print(p24)
     ## ││└•2:          locked out constraints (10 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1725,7 +1769,7 @@ print(sim_pu_polygons)
     ## Geometry type: POLYGON
     ## Dimension:     XY
     ## Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-    ## Projected CRS: Undefined Cartesian SRS
+    ## Projected CRS: WGS 84 / Pseudo-Mercator
     ## # A tibble: 90 × 4
     ##     cost locked_in locked_out                                      geom
     ##  * <dbl> <lgl>     <lgl>                                  <POLYGON [m]>
@@ -1743,45 +1787,11 @@ print(sim_pu_polygons)
 
 ``` r
 # specify locked in data using the field name
-p25 <-
-  problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_relative_targets(0.1) %>%
-  add_locked_in_constraints("locked_in")
-
-# print problem
-print(p25)
-```
-
-    ## A conservation problem (<ConservationProblem>)
-    ## ├•data
-    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
-    ## │└•planning units:
-    ## │ ├•data:       <sf> (90 total)
-    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
-    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
-    ## ├•formulation
-    ## │├•objective:   minimum set objective
-    ## │├•penalties:   none specified
-    ## │├•features:
-    ## ││├•targets:    relative targets (all equal to 0.1)
-    ## ││└•weights:    none specified
-    ## │├•constraints:
-    ## ││└•1:          locked in constraints (10 planning units)
-    ## │└•decisions:   binary decision
-    ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
-    ## # ℹ Use `summary(...)` to see further details.
-
-``` r
-# specify locked in data using the values in the field
 p26 <-
   problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
-  add_locked_in_constraints(which(sim_pu_polygons$locked_in))
+  add_locked_in_constraints("locked_in")
 
 # print problem
 print(p26)
@@ -1794,7 +1804,7 @@ print(p26)
     ## │ ├•data:       <sf> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -1805,7 +1815,41 @@ print(p26)
     ## ││└•1:          locked in constraints (10 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+``` r
+# specify locked in data using the values in the field
+p27 <-
+  problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.1) %>%
+  add_locked_in_constraints(which(sim_pu_polygons$locked_in))
+
+# print problem
+print(p27)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
+    ## │└•planning units:
+    ## │ ├•data:       <sf> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum set objective
+    ## │├•penalties:   none specified
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.1)
+    ## ││└•weights:    none specified
+    ## │├•constraints:
+    ## ││└•1:          locked in constraints (10 planning units)
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1833,14 +1877,14 @@ period of time. The following penalties are available.
 ``` r
 # create problem with penalties that penalize fragmented solutions with a
 # penalty factor of 0.01
-p27 <-
+p28 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_boundary_penalties(penalty = 0.01)
 
 # print problem
-print(p27)
+print(p28)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -1850,7 +1894,7 @@ print(p27)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1861,7 +1905,7 @@ print(p27)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1872,14 +1916,14 @@ print(p27)
 
 ``` r
 # create problem with neighbor penalties
-p28 <-
+p29 <-
   problem(sim_pu_raster, sim_features[[1:4]]) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_neighbor_penalties(penalty = 5)
 
 # print problem
-print(p28)
+print(p29)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -1889,7 +1933,7 @@ print(p28)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1900,7 +1944,7 @@ print(p28)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1916,7 +1960,7 @@ print(p28)
 # to represent the connectivity data, where the connectivity_matrix function
 # will create a matrix showing the average strength of connectivity between
 # adjacent planning units using the data in the fifth layer of sim_features
-p29 <-
+p30 <-
   problem(sim_pu_raster, sim_features[[1:4]]) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -1926,7 +1970,7 @@ p29 <-
   )
 
 # print problem
-print(p29)
+print(p30)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -1936,7 +1980,7 @@ print(p29)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1947,7 +1991,7 @@ print(p29)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -1966,14 +2010,14 @@ asym_con_matrix <- matrix(
 )
 
 # create problem with penalties for asymmetric connectivity
-p30 <-
+p31 <-
   problem(sim_pu_raster, sim_features[[1:4]]) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_asym_connectivity_penalties(penalty = 5, data = asym_con_matrix)
 
 # print problem
-print(p30)
+print(p31)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -1983,7 +2027,7 @@ print(p30)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -1994,12 +2038,12 @@ print(p30)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
 - **Linear penalties**: Add penalties to penalize solutions that select
-  planning units according to a certain variable (e.g., anthropogenic
+  planning units according to a certain criteria (e.g., anthropogenic
   pressure).
 
 ``` r
@@ -2011,14 +2055,14 @@ pen_raster <- simulate_cost(sim_pu_raster)
 # here we will use a penalty value of 5 to indicate the trade-off (scaling)
 # between the penalty values (in the sim_pu_raster) and the main objective
 # (i.e., the cost of the solution)
-p31 <-
+p32 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_linear_penalties(penalty = 5, data = pen_raster)
 
 # print problem
-print(p31)
+print(p32)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2028,7 +2072,7 @@ print(p31)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -2039,7 +2083,50 @@ print(p31)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+- **Cost penalties**: Add penalties to penalize solutions that select
+  planning units with high cost values. These penalties are a
+  specialized version of linear constraints (per
+  [`add_linear_penalties()`](https://prioritizr.net/reference/add_linear_penalties.md))
+  designed to work with the specified cost data.
+
+``` r
+# create problem with cost penalties, and here we will use a penalty value
+# of 0.01 to indicate the trade-off (scaling)
+# between the cost values (in the sim_pu_raster) and the main objective
+# (i.e., sum of feature shortfall values)
+p33 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_shortfall_objective(budget = 1800) %>%
+  add_cost_penalties(0.01) %>%
+  add_relative_targets(0.1)
+
+# print problem
+print(p33)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum shortfall objective (`budget` = 1800)
+    ## │├•penalties:
+    ## ││└•1:          cost penalties (`penalty` = 0.01)
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.1)
+    ## ││└•weights:    none specified
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2063,14 +2150,14 @@ available.
 
 ``` r
 # add binary decisions to a problem
-p32 <-
+p34 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # print problem
-print(p32)
+print(p34)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2080,7 +2167,7 @@ print(p32)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2090,7 +2177,7 @@ print(p32)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2105,14 +2192,14 @@ print(p32)
 
 ``` r
 # add proportion decisions to a problem
-p33 <-
+p35 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_proportion_decisions()
 
 # print problem
-print(p33)
+print(p35)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2122,7 +2209,7 @@ print(p33)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2132,7 +2219,7 @@ print(p33)
     ## │├•constraints: none specified
     ## │└•decisions:   proportion decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2148,14 +2235,14 @@ print(p33)
 ``` r
 # add semi-continuous decisions to a problem, where we can only manage at most
 # 50 % of the area encompassed by a planning unit
-p34 <-
+p36 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_semicontinuous_decisions(0.5)
 
 # print problem
-print(p34)
+print(p36)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2165,7 +2252,7 @@ print(p34)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2175,7 +2262,7 @@ print(p34)
     ## │├•constraints: none specified
     ## │└•decisions:   semicontinuous decision (`upper_limit` = 0.5)
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2201,7 +2288,7 @@ The following solvers are available.
 ``` r
 # create a problem and specify that Gurobi should be used to solve the problem
 # and specify an optimality gap of zero to obtain the optimal solution
-p35 <-
+p37 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2209,7 +2296,7 @@ p35 <-
   add_gurobi_solver(gap = 0)
 
 # print problem
-print(p35)
+print(p37)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2219,7 +2306,7 @@ print(p35)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2229,7 +2316,7 @@ print(p35)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2243,7 +2330,7 @@ print(p35)
 ``` r
 # create a problem and specify that IBM CPLEX should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p36 <-
+p38 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2251,7 +2338,7 @@ p36 <-
   add_cplex_solver(gap = 0)
 
 # print problem
-print(p36)
+print(p38)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2261,7 +2348,7 @@ print(p36)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2271,7 +2358,7 @@ print(p36)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      cplex solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2292,7 +2379,7 @@ print(p36)
 ``` r
 # create a problem and specify that CBC should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p37 <-
+p39 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2300,7 +2387,7 @@ p37 <-
   add_cbc_solver(gap = 0)
 
 # print problem
-print(p37)
+print(p39)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2310,7 +2397,7 @@ print(p37)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2320,7 +2407,7 @@ print(p37)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      cbc solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2342,7 +2429,7 @@ print(p37)
 ``` r
 # create a problem and specify that HiGHS should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p38 <-
+p40 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2350,7 +2437,7 @@ p38 <-
   add_highs_solver(gap = 0)
 
 # print problem
-print(p38)
+print(p40)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2360,7 +2447,7 @@ print(p38)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2370,7 +2457,7 @@ print(p38)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      highs solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2384,7 +2471,7 @@ print(p38)
 ``` r
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p39 <-
+p41 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2392,7 +2479,7 @@ p39 <-
   add_lpsymphony_solver(gap = 0)
 
 # print problem
-print(p39)
+print(p41)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2402,7 +2489,7 @@ print(p39)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2412,7 +2499,7 @@ print(p39)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      lpsymphony (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2425,7 +2512,7 @@ print(p39)
 ``` r
 # create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p40 <-
+p42 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2433,7 +2520,7 @@ p40 <-
   add_rsymphony_solver(gap = 0)
 
 # print problem
-print(p40)
+print(p42)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2443,7 +2530,7 @@ print(p40)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2453,7 +2540,7 @@ print(p40)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      rsymphony solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2476,7 +2563,7 @@ portfolio methods are available.
 ``` r
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p41 <-
+p43 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2484,7 +2571,7 @@ p41 <-
   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p41)
+print(p43)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2494,7 +2581,7 @@ print(p41)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2516,7 +2603,7 @@ print(p41)
 ``` r
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p42 <-
+p44 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2524,7 +2611,7 @@ p42 <-
   add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p42)
+print(p44)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2534,7 +2621,7 @@ print(p42)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2556,7 +2643,7 @@ print(p42)
 ``` r
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p43 <-
+p45 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2564,7 +2651,7 @@ p43 <-
   add_extra_portfolio()
 
 # print problem
-print(p43)
+print(p45)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2574,7 +2661,7 @@ print(p43)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2595,7 +2682,7 @@ print(p43)
 ``` r
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p44 <-
+p46 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2603,7 +2690,7 @@ p44 <-
   add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p44)
+print(p46)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2613,7 +2700,7 @@ print(p44)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2636,15 +2723,15 @@ print(p44)
 ``` r
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p45 <-
+p47 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions() %>%
-  add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
+  add_shuffle_portfolio(number_solutions = 10)
 
 # print problem
-print(p45)
+print(p47)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2654,7 +2741,7 @@ print(p45)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -2664,7 +2751,7 @@ print(p45)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1, …)
+    ##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1)
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2679,7 +2766,7 @@ when searching for a suitable solution.
 
 ``` r
 # formulate the problem
-p46 <-
+p48 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2687,7 +2774,7 @@ p46 <-
   add_binary_decisions()
 
 # print problem
-print(p46)
+print(p48)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2697,7 +2784,7 @@ print(p46)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
@@ -2708,13 +2795,13 @@ print(p46)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve the problem (using the default solver)
-s46 <- solve(p46)
+s48 <- solve(p48)
 ```
 
     ## 
@@ -2789,12 +2876,12 @@ s46 <- solve(p46)
 ``` r
 # plot solution
 plot(
-  s46, col = c("grey90", "darkgreen"), main = "Solution",
+  s48, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-55-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-57-1.png)
 
 We can plot this solution because the planning unit input data are
 spatially referenced in a raster format. The output format will always
@@ -2810,7 +2897,7 @@ quality of the solution and the optimization process.
 ``` r
 # extract the objective value for solution
 # (numerical value that is being minimized or maximized during optimization)
-print(attr(s46, "objective"))
+print(attr(s48, "objective"))
 ```
 
     ## solution_1 
@@ -2818,16 +2905,16 @@ print(attr(s46, "objective"))
 
 ``` r
 # extract time spent solving solution
-print(attr(s46, "runtime"))
+print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.189
+    ##      0.187
 
 ``` r
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s46, "status"))
+print(attr(s48, "status"))
 ```
 
     ## solution_1 
@@ -2836,7 +2923,7 @@ print(attr(s46, "status"))
 ``` r
 # extract the objective bound
 # (best estimate of lower or upper limit for optimal objective value)
-print(attr(s46, "objbound"))
+print(attr(s48, "objbound"))
 ```
 
     ## solution_1 
@@ -2864,7 +2951,7 @@ The following functions are available to summarize a solution:
 
 ``` r
 # calculate statistic
-eval_n_summary(p46, s46)
+eval_n_summary(p48, s48)
 ```
 
     ## # A tibble: 1 × 2
@@ -2876,7 +2963,7 @@ eval_n_summary(p46, s46)
 
 ``` r
 # calculate statistic
-eval_cost_summary(p46, s46)
+eval_cost_summary(p48, s48)
 ```
 
     ## # A tibble: 1 × 2
@@ -2890,7 +2977,7 @@ eval_cost_summary(p46, s46)
 
 ``` r
 # calculate statistics
-eval_feature_representation_summary(p46, s46)
+eval_feature_representation_summary(p48, s48)
 ```
 
     ## # A tibble: 5 × 5
@@ -2908,7 +2995,7 @@ eval_feature_representation_summary(p46, s46)
 
 ``` r
 # calculate statistics
-eval_target_coverage_summary(p46, s46)
+eval_target_coverage_summary(p48, s48)
 ```
 
     ## # A tibble: 5 × 10
@@ -2927,7 +3014,7 @@ eval_target_coverage_summary(p46, s46)
 
 ``` r
 # calculate statistic
-eval_boundary_summary(p46, s46)
+eval_boundary_summary(p48, s48)
 ```
 
     ## # A tibble: 1 × 2
@@ -2945,7 +3032,7 @@ eval_boundary_summary(p46, s46)
 cm <- adjacency_matrix(sim_pu_raster)
 
 # calculate statistic
-eval_connectivity_summary(p46, s46, data = cm)
+eval_connectivity_summary(p48, s48, data = cm)
 ```
 
     ## # A tibble: 1 × 2
@@ -2962,7 +3049,7 @@ eval_connectivity_summary(p46, s46, data = cm)
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 
 # calculate statistic
-eval_asym_connectivity_summary(p46, s46, data = acm)
+eval_asym_connectivity_summary(p48, s48, data = acm)
 ```
 
     ## # A tibble: 1 × 2
@@ -2990,81 +3077,23 @@ importance methods.
 
 ``` r
 # formulate the problem
-p47 <-
+p49 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # solve the problem
-s47 <- solve(p47)
-```
+s49 <- solve(p49)
 
-    ## 
-
-    ## ── Optimization ────────────────────────────────────────────────────────────────
-
-    ## Set parameter Username
-    ## Set parameter LicenseID to value 2806834
-    ## Set parameter TimeLimit to value 2147483647
-    ## Set parameter MIPGap to value 0.1
-    ## Set parameter Presolve to value 2
-    ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Non-default parameters:
-    ## TimeLimit  2147483647
-    ## MIPGap  0.1
-    ## Presolve  2
-    ## Threads  1
-    ## 
-    ## Optimize a model with 5 rows, 90 columns and 450 nonzeros (Min)
-    ## Model fingerprint: 0x4bb5d283
-    ## Model has 90 linear objective coefficients
-    ## Variable types: 0 continuous, 90 integer (90 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-01, 9e-01]
-    ##   Objective range  [2e+02, 2e+02]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [3e+00, 8e+00]
-    ## 
-    ## Found heuristic solution: objective 2337.9617767
-    ## Presolve time: 0.00s
-    ## Presolved: 5 rows, 90 columns, 450 nonzeros
-    ## Variable types: 0 continuous, 90 integer (90 binary)
-    ## Root relaxation presolved: 5 rows, 90 columns, 450 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 1931.58191    0    4 2337.96178 1931.58191  17.4%     -    0s
-    ## H    0     0                    2207.8530121 1931.58191  12.5%     -    0s
-    ## H    0     0                    1987.3985291 1931.58191  2.81%     -    0s
-    ## 
-    ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds (0.00 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 3: 1987.4 2207.85 2337.96 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%
-
-``` r
 # plot solution
 plot(
-  s47, col = c("grey90", "darkgreen"), main = "Solution",
+  s49, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-64-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-66-1.png)
 
 The following methods are available for computing importance scores.
 
@@ -3083,19 +3112,19 @@ The following methods are available for computing importance scores.
 
 ``` r
 # calculate replacement cost scores and make the solver quiet
-rc47 <-
-  p47 %>%
+rc49 <-
+  p49 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_replacement_importance(s47)
+  eval_replacement_importance(s49)
 
 # plot replacement cost scores
 plot(
-  rc47, main = "Replacement cost scores",
+  rc49, main = "Replacement cost scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-65-1.png) \*
+![](package_overview_files/figure-html/unnamed-chunk-67-1.png) \*
 **Incremental ranks**: Evaluate importance scores by calculating ranks
 via an incremental optimization process (Jung *et al.* 2021). Briefly,
 this approach involves generating incremental prioritizations with
@@ -3110,19 +3139,19 @@ apply to solutions generated using any objective function.
 
 ``` r
 # calculate rank scores and make the solver quiet
-rs47 <-
-  p47 %>%
+rs49 <-
+  p49 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_rank_importance(s47, n = 10)
+  eval_rank_importance(s49, n = 10)
 
 # plot replacement cost scores
 plot(
-  rs47, main = "Rank scores",
+  rs49, main = "Rank scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-66-1.png) \*
+![](package_overview_files/figure-html/unnamed-chunk-68-1.png) \*
 **Ferrier method**: Evaluate importance by computing irreplaceability
 scores following Ferrier *et al.* (2000). The advantages of this method
 are that it (i) can be computed relatively quickly for moderate
@@ -3134,16 +3163,16 @@ single zone (i.e., similar to *Marxan*-type problems).
 
 ``` r
 # calculate Ferrier scores and extract total score
-fs47 <- eval_ferrier_importance(p47, s47)[["total"]]
+fs49 <- eval_ferrier_importance(p49, s49)[["total"]]
 
 # plot Ferrier scores
 plot(
-  fs47, main = "Ferrier scores",
+  fs49, main = "Ferrier scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-67-1.png) \*
+![](package_overview_files/figure-html/unnamed-chunk-69-1.png) \*
 **Rarity weighted richness**: Evaluate importance by computing rarity
 weighted richness scores (Williams *et al.* 1996). The only advantage
 with this method is that it can be computed very quickly for very large
@@ -3155,16 +3184,16 @@ objective functions, or feature representation targets.
 
 ``` r
 # calculate rarity weighted richness scores
-rwr47 <- eval_rare_richness_importance(p47, s47)
+rwr49 <- eval_rare_richness_importance(p49, s49)
 
 # plot rarity weighted richness scores
 plot(
-  rwr47, main = "Rarity weighted richness scores",
+  rwr49, main = "Rarity weighted richness scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-68-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-70-1.png)
 
 In general, we recommend using replacement cost scores for small and
 moderate sized problems (e.g., less than 30,000 planning units) when it
@@ -3177,6 +3206,382 @@ representation targets, unlike the rarity weighted richness scores. We
 almost never recommend using the rarity weighted richness scores. This
 is because they do not consider criteria needed to inform conservation
 decision making (Brown *et al.* 2015).
+
+## Multi-objective optimization
+
+Multi-objective optimization provides a framework to examine trade-offs
+and identify solutions that represent a desirable compromise among
+multiple objectives (López Jaimes *et al.* 2011; Neubert *et al.* 2025).
+To apply multi-objective optimization, users should start by carefully
+considering the preferences and motivations that underpin the planning
+process (i.e., fundamental objectives) that need to be examined (e.g.,
+trade-offs between connectivity, representation of different types of
+features, opportunity costs, spatial area). Users should then build a
+separate conservation planning problem for each fundamental objective
+(with the [`problem()`](https://prioritizr.net/reference/problem.md)
+function) and then combine them into a single multi-objective problem
+with the
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+function. Next, the
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+object can be customized by adding (i) an approach to specify how
+multiple objectives should be accommodated during optimization, and (ii)
+a solver to specify the optimization software settings. After completing
+these steps, the [`solve()`](https://prioritizr.net/reference/solve.md)
+function can be used to generate a single solution, or multiple
+solutions, that aim to achieve multiple objectives.
+
+It is important to ensure that each
+[`problem()`](https://prioritizr.net/reference/problem.md) object has
+comparable planning units, decision types, and zones when building a
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+object. For example, if using
+[`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+planning units, then each
+[`problem()`](https://prioritizr.net/reference/problem.md) should have
+planning units that have the same resolution, dimensionality (number of
+rows and columns), and coordinate reference system. Although the
+planning units in different
+[`problem()`](https://prioritizr.net/reference/problem.md) objects can
+have different values (e.g., one
+[`problem()`](https://prioritizr.net/reference/problem.md) may have
+costs based on human pressure and another
+[`problem()`](https://prioritizr.net/reference/problem.md) may have
+costs based on spatial area), they must have missing (`NA`) values in
+the same cells (or rows if planning units are
+[`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html)
+objects). If you try building a
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+object based on
+[`problem()`](https://prioritizr.net/reference/problem.md) objects that
+do not have comparable planning units and zones, then it will throw an
+error. Note that each
+[`problem()`](https://prioritizr.net/reference/problem.md) object can
+have different planning unit costs, features, constraints, objectives,
+and penalties.
+
+Let’s generate a multi-objective conservation problem so that we can
+compare different approaches. In this example, we have two fundamental
+objectives: representing keystone species and representing iconic
+species. Although we ideally want to achieve adequate representation of
+all species (in other words, meet the representation targets for all
+species), the total budget available for purchasing planning units is
+too low to achieve this. As such, we need to generate solutions that
+weigh these two competing objectives.
+
+``` r
+# import data
+cost_data <- get_sim_pu_raster()
+keystone_spp_data <- get_sim_features()[[1:3]]
+iconic_spp_data <- get_sim_features()[[4:5]]
+
+# define a total budget (30% of total cost)
+budget <- 0.3 * terra::global(cost_data, "sum", na.rm = TRUE)[[1]]
+
+# create problem for keystone fundamental objective
+keystone_problem <-
+  problem(cost_data, keystone_spp_data) %>%
+  add_min_shortfall_objective(budget) %>%
+  add_relative_targets(0.4) %>%
+  add_binary_decisions()
+
+# print keystone problem
+print(keystone_problem)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_1", "feature_2", and "feature_3" (3 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum shortfall objective (`budget` = 5546.159)
+    ## │├•penalties:   none specified
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.4)
+    ## ││└•weights:    none specified
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+``` r
+# create problem for iconic fundamental objective
+iconic_problem <-
+  problem(cost_data, iconic_spp_data) %>%
+  add_min_shortfall_objective(budget) %>%
+  add_relative_targets(0.5) %>%
+  add_binary_decisions()
+
+# print iconic problem
+print(iconic_problem)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_4" and "feature_5" (2 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum shortfall objective (`budget` = 5546.159)
+    ## │├•penalties:   none specified
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.5)
+    ## ││└•weights:    none specified
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+``` r
+# create multi-objective problem
+mop <- multi_problem(keystone = keystone_problem, iconic = iconic_problem)
+
+# display multi-objective problem
+print(mop)
+```
+
+    ## A multi-objective conservation problem (<MultiObjConservationProblem>)
+    ## ├•data
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•name:        keystone
+    ## ││├•objective:  minimum shortfall objective (`budget` = 5546.159)
+    ## ││├•penalties:
+    ## │││└•1:         none specified
+    ## ││└•features:   "feature_1", "feature_2", and "feature_3" (3 total)
+    ## ││ ├•targets:   relative targets (all equal to 0.4)
+    ## ││ └•weights:   none specified
+    ## │├•name:        iconic
+    ## ││├•objective:  minimum shortfall objective (`budget` = 5546.159)
+    ## ││├•penalties:
+    ## │││└•1:         none specified
+    ## ││└•features:   "feature_4" and "feature_5" (2 total)
+    ## ││ ├•targets:   relative targets (all equal to 0.5)
+    ## ││ └•weights:   none specified
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•approach:    none specified
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
+- **Weighted sum**: This approach involves linearly combining objectives
+  together based on weights (`weights`), wherein those associated with a
+  greater weight value exert a greater influence on the optimization
+  process (López Jaimes *et al.* 2011). Although this approach is
+  conceptually simple, it is sensitive to differences in scale among the
+  objectives (Das & Dennis 1997). As such, an objective with a
+  relatively high weight value may not actually have much influence on
+  the optimization process. Thus the weighted sum approach often
+  requires extensive calibration to identify weight values that reflect
+  the underlying preferences and motivations for stakeholders. Due to
+  its limitations, we generally recommend other approaches instead of
+  the weighted sum approach.
+
+``` r
+# build multi-objective problem with weighted sum approach and
+# specify equal weights for each objective
+mop1 <-
+  mop %>%
+  add_wtd_sum_approach(weights = c(1, 1))
+
+# solve the problem
+mos1 <- solve(mop1)
+
+# plot solution
+plot(
+  mos1, col = c("grey90", "darkgreen"), main = "Solution",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+
+![](package_overview_files/figure-html/unnamed-chunk-72-1.png) \*
+**Reference point**: This approaches involves combining the objectives
+together using (i) reference point (`ref_points`) parameters that
+specify aspirational levels of achievement for each objective and (ii)
+weight (`weight`) parameters that specify the relative importance of
+each objective (Wierzbicki 1980). It also considers the best (`best`)
+and worst (`worst`) possible objective values for each objective to
+ensure that differences in scale among objective do not bias the
+optimization process. To help make this approach accessible, the best
+and worst objective values are calculated automatically and the
+reference point values are set based on the best objective values (note,
+if required, these values can be manually specified). Since setting
+equal weights for each objective ensures that a solution has (as much as
+possible) an equal compromise in how close it is to achieving the
+reference point for each objective, setting weight parameters for this
+approach is a much more intuitive process than for the weighted sum
+approach (Deléglise *et al.* 2024). As such, this approach is especially
+well-suited for applied contexts that seek to identify solutions that
+meet stakeholder preferences and motivations (Dujardin & Chadès 2018).
+
+``` r
+# build multi-objective problem with reference point approach and
+# specify equal weights for each objective
+mop2 <-
+  mop %>%
+  add_ref_point_approach(weights = c(1, 1))
+
+# solve the problem
+mos2 <- solve(mop2)
+
+# plot solution
+plot(
+  mos2, col = c("grey90", "darkgreen"), main = "Solution",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+
+![](package_overview_files/figure-html/unnamed-chunk-73-1.png) \*
+**Hierarchical**: This approach involves solving an optimization problem
+for each objective in a hierarchical (lexicographic) manner, wherein
+those associated with a higher priority are solved before those with a
+lower priority (López Jaimes *et al.* 2011). By default, the order of
+priority is based on the order of problems in the
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+object. To express trade-offs, this approach uses relative tolerance
+(`rel_tol`) parameters that allow the optimization process to degrade
+previously optimized objectives so that solutions can achieve better
+performance when optimizing subsequent (lower priority) objectives. This
+approach is especially well-suited for characterizing the full range of
+trade-offs between different objectives (in other words, generating a
+Pareto frontier).
+
+``` r
+# build multi-objective problem with hierarchical approach and
+# specify that the keystone objective should be optimized first
+# and performance of the keystone objective can be reduced by 10%
+# when subsequently optimizing the iconic objective
+mop3 <-
+  mop %>%
+  add_hier_approach(rel_tol = 0.1)
+
+# solve the problem
+mos3 <- solve(mop3)
+
+# plot solution
+plot(
+  mos3, col = c("grey90", "darkgreen"), main = "Solution",
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+
+![](package_overview_files/figure-html/unnamed-chunk-74-1.png)
+
+The multi-objective optimization approaches can also be used to generate
+multiple solutions. Although portfolio functions can also be used to
+generate multiple solutions, the approach functions are different
+because they are designed to generate solutions that have different
+levels of performance in achieving different objectives. Conversely, the
+portfolio functions are designed to generate solutions that have the
+(approximately) same performance and have different spatial
+configurations. For example, here we will use the hierarchical approach
+to generate a range of different solutions to explore trade-offs between
+representing keystone and iconic species. Additionally, the
+[`approach_rel_tol_matrix()`](https://prioritizr.net/reference/approach_rel_tol_matrix.md)
+and
+[`approach_weights_matrix()`](https://prioritizr.net/reference/approach_weights_matrix.md)
+functions can be used to generate values for the `rel_tol` and `weights`
+parameters of approach functions.
+
+``` r
+# define a matrix of relative tolerance values between 0 and 1
+rel_tol_matrix <-
+  approach_rel_tol_matrix(n_problems = 2, n_values = 20, max = 1)
+
+# print matrix
+print(rel_tol_matrix)
+```
+
+    ##             [,1]
+    ##  [1,] 0.00000000
+    ##  [2,] 0.05263158
+    ##  [3,] 0.10526316
+    ##  [4,] 0.15789474
+    ##  [5,] 0.21052632
+    ##  [6,] 0.26315789
+    ##  [7,] 0.31578947
+    ##  [8,] 0.36842105
+    ##  [9,] 0.42105263
+    ## [10,] 0.47368421
+    ## [11,] 0.52631579
+    ## [12,] 0.57894737
+    ## [13,] 0.63157895
+    ## [14,] 0.68421053
+    ## [15,] 0.73684211
+    ## [16,] 0.78947368
+    ## [17,] 0.84210526
+    ## [18,] 0.89473684
+    ## [19,] 0.94736842
+    ## [20,] 1.00000000
+
+``` r
+# build multi-objective problem with hierarchical approach and specify
+# gap of 1% to better characterize trade-offs
+mop4 <-
+  mop %>%
+  add_hier_approach(rel_tol = rel_tol_matrix) %>%
+  add_default_solver(gap = 0.01)
+
+# generate multiple solutions and remove any duplicates
+mos4 <- solve(mop4, remove_duplicates = TRUE)
+```
+
+``` r
+# plot solutions
+plot(
+  terra::rast(mos4), col = c("grey90", "darkgreen"),
+  xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
+)
+```
+
+![](package_overview_files/figure-html/unnamed-chunk-77-1.png)
+
+``` r
+# extract objective values for the solutions
+obj_matrix <- attributes(mos4)$objective
+
+# print the objective values
+print(obj_matrix)
+```
+
+    ##             keystone    iconic
+    ## solution_1 0.8570267 0.9560810
+    ## solution_2 0.9021151 0.8479742
+    ## solution_3 0.9472400 0.8136019
+    ## solution_4 0.9923467 0.7883789
+    ## solution_5 1.0374533 0.7660535
+    ## solution_6 1.0825600 0.7496580
+    ## solution_7 1.1276667 0.7451962
+
+``` r
+# plot the objectives values to visualize trade-offs
+# (note that smaller values are better because these objectives seek to
+# minimize representation shortfalls)
+plot(
+  obj_matrix,
+  main = "Trade-offs between objectives",
+  xlab = "Keystone objective (shortfall)",
+  ylab = "Iconic objective (shortfall)",
+  asp = 1
+)
+```
+
+![](package_overview_files/figure-html/unnamed-chunk-78-1.png)
 
 ## *Marxan* problems
 
@@ -3232,7 +3637,7 @@ print(mp)
     ## ││└•2:          locked out constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -3240,64 +3645,6 @@ print(mp)
 # solve the problem
 ms <- solve(mp)
 ```
-
-    ## 
-
-    ## ── Optimization ────────────────────────────────────────────────────────────────
-
-    ## Set parameter Username
-    ## Set parameter LicenseID to value 2806834
-    ## Set parameter TimeLimit to value 2147483647
-    ## Set parameter MIPGap to value 0.1
-    ## Set parameter Presolve to value 2
-    ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Non-default parameters:
-    ## TimeLimit  2147483647
-    ## MIPGap  0.1
-    ## Presolve  2
-    ## Threads  1
-    ## 
-    ## Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros (Min)
-    ## Model fingerprint: 0x49c86f37
-    ## Model has 6780 linear objective coefficients
-    ## Variable types: 5029 continuous, 1751 integer (1751 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [5e-05, 4e+03]
-    ##   Objective range  [8e+03, 4e+05]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [5e+03, 3e+05]
-    ## 
-    ## Found heuristic solution: objective 1.255825e+08
-    ## Presolve removed 4707 rows and 3103 columns
-    ## Presolve time: 0.06s
-    ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
-    ## Variable types: 0 continuous, 3677 integer (3677 binary)
-    ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 9.975843e+07, 652 iterations, 0.01 seconds (0.02 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 9.9758e+07    0   43 1.2558e+08 9.9758e+07  20.6%     -    0s
-    ## H    0     0                    1.021771e+08 9.9758e+07  2.37%     -    0s
-    ## 
-    ## Cleanup yields a better solution
-    ## 
-    ## Explored 1 nodes (652 simplex iterations) in 0.08 seconds (0.12 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 3: 1.02121e+08 1.02177e+08 1.25582e+08 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.021211480564e+08, best bound 9.975842517354e+07, gap 2.3136%
 
 ``` r
 # since the Marxan data was in a tabular format, the solution is also returned
@@ -3366,7 +3713,7 @@ print(mp2)
     ## ││└•2:          locked out constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -3398,8 +3745,8 @@ repository](https://github.com/prioritizr/prioritizr/issues).
 ## References
 
 Achterberg, T. & Wunderling, R. (2013). Mixed Integer Programming:
-Analyzing 12 Years of Progress. *Facets of combinatorial optimization:
-Festschrift for martin grötschel* (eds M. Jünger & G. Reinelt), pp.
+Analyzing 12 Years of Progress. *Facets of Combinatorial Optimization:
+Festschrift for Martin Grötschel* (eds M. Jünger & G. Reinelt), pp.
 449–481. Springer, Berlin, Heidelberg.
 
 Ball, I.R., Possingham, H. & Watts, M.E. (2009). Marxan and relatives:
@@ -3444,6 +3791,20 @@ Church, R.L., Stoms, D.M. & Davis, F.W. (1996). Reserve selection as a
 maximal covering location problem. *Biological conservation*, *76*,
 105–112.
 
+Das, I. & Dennis, J.E. (1997). A closer look at drawbacks of minimizing
+weighted sums of objectives for Pareto set generation in multicriteria
+optimization problems. *Structural Optimization*, *14*, 63–69.
+
+Deléglise, H., Justeau-Allaire, D., Mulligan, M., Espinoza, J.-C.,
+Isasi-Catalá, E., Alvarez, C., Condom, T. & Palomo, I. (2024).
+Integrating multi-objective optimization and ecological connectivity to
+strengthen Peru’s protected area system towards the 30\*2030 target.
+*Biological Conservation*, *299*, 110799.
+
+Dujardin, Y. & Chadès, I. (2018). Solving multi-objective optimization
+problems in conservation with the reference point method. *PLOS ONE*,
+*13*, e0190748.
+
 Faith, D.P. (1992). Conservation evaluation and phylogenetic diversity.
 *Biological Conservation*, *61*, 1–10.
 
@@ -3483,12 +3844,23 @@ Smith, M.S., Mackey, B. & Possingham, H. (2009). Incorporating
 ecological and evolutionary processes into continental-scale
 conservation planning. *Ecological Applications*, *19*, 206–217.
 
+López Jaimes, A., Zapotecas Martínez, S. & Coello Coello, C.A. (2011).
+An introduction to multiobjective optimization techniques. *Optimization
+in Polymer Processing*, pp. 29–57. Nova Science Publishers Inc, New
+York, United States.
+
 Margules, C.R. & Pressey, R.L. (2000). Systematic conservation planning.
 *Nature*, *405*, 243–253.
 
 Moilanen, A. (2007). Landscape Zonation, benefit functions and
 target-based planning: Unifying reserve selection strategies.
 *Biological Conservation*, *134*, 571–579.
+
+Neubert, S., McGowan, J., Metcalfe, K., Hanson, J.O., Buenafe, K.C.V.,
+Dabalà, A., Dunn, D.C., Everett, J.D., Possingham, H.P., Stelzenmüller,
+V., Estep, A., Ervin, J. & Richardson, A.J. (2025). Multiple-use spatial
+planning for sustainable development and conservation. *Trends in
+Ecology and Evolution*, *40*, 1126–1142.
 
 Nicholls, A.O. & Margules, C.R. (1993). An upgraded reserve selection
 algorithm. *Biological Conservation*, *64*, 165–169.
@@ -3518,6 +3890,12 @@ Ecology*, *18*, 4061–4072.
 Stigner, M.G., Beyer, H.L., Klein, C.J. & Fuller, R.A. (2016).
 Reconciling recreational use and conservation values in a coastal
 protected area. *Journal of Applied Ecology*, *53*, 1206–1214.
+
+Wierzbicki, A.P. (1980). The use of reference objectives in
+multiobjective optimization. *Multiple Criteria Decision Making Theory
+and Application. Lecture Notes in Economics and Mathematical Systems*
+(eds G. Fandel & T. Gal), pp. 468–486. Springer Berlin Heidelberg,
+Berlin, Heidelberg.
 
 Williams, P., Gibbons, D., Margules, C., Rebelo, A., Humphries, C. &
 Pressey, R. (1996). A comparison of richness hotspots, rarity hotspots,

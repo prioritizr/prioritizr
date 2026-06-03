@@ -184,7 +184,7 @@ print(p1)
     ## ││└•1:          locked in constraints (257 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -246,13 +246,13 @@ s1 <- solve(p1)
     ## Found heuristic solution: objective 19927.539083
     ## Found heuristic solution: objective 1862.3053991
     ## Presolve removed 2343 rows and 1516 columns
-    ## Presolve time: 0.04s
+    ## Presolve time: 0.03s
     ## Presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## Variable types: 0 continuous, 2762 integer (2762 binary)
     ## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.01 seconds (0.01 work units)
+    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.00 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -594,8 +594,8 @@ prt <- solve(p2)
     ## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s
     ## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s
     ## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s
-    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    2s
-    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    2s
+    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s
+    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s
     ## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s
     ## 
     ## Cutting planes:
@@ -607,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.64 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.21 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
@@ -840,7 +840,7 @@ print(p3)
     ## ││└•2:          locked out constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
+    ##  ├•portfolio:   single portfolio
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 

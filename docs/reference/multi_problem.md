@@ -88,6 +88,12 @@ Stelzenmüller V, Possingham HP, and Katsanevakis S (2025) Advances in
 systematic conservation planning to meet global biodiversity goals.
 *Trends in Ecology and Evolution*, **40**: 395–410.
 
+Neubert S, McGowan J, Metcalfe K, Hanson JO, Buenafe KCV, Dabalà A, Dunn
+DC, Everett JD, Possingham HP, Stelzenmüller V, Estep A, Ervin J, and
+Richardson AJ (2025) Multiple-use spatial planning for sustainable
+development and conservation. *Trends in Ecology and Evolution*, **40**:
+1126–1142.
+
 Williams PJ and Kendall WL (2017) A guide to multi-objective
 optimization for ecological problems with an application to cackling
 goose management. *Ecological Modelling*, **343**: 54-67.

@@ -183,17 +183,17 @@ are selected or not selected for protection.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -326,7 +326,7 @@ using the following code.</p>
 <span><span class="co">## size        : 10, 10, 2  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : Undefined Cartesian SRS</span></span>
+<span><span class="co">## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span></span>
 <span><span class="co">## sources     : sim_pu_raster.tif</span></span>
 <span><span class="co">## names       :      layer,      layer</span></span>
 <span><span class="co">## min values  : 190.132751, 190.132751</span></span>
@@ -349,17 +349,17 @@ using the following code.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -495,17 +495,17 @@ example.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">182.6017</span> and <span style="color: #0000BB;">221.363</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
@@ -677,17 +677,17 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
@@ -831,18 +831,18 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
@@ -897,7 +897,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## H    0     0                    7000.0000000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">##      0     0 6938.06815    0    1 7000.00000 6938.06815  0.88%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.01 seconds (0.00 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1 simplex iterations) in 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 4: 7000 10700 12100 13600 </span></span>
@@ -991,19 +991,19 @@ fragmented solutions.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
@@ -1155,20 +1155,20 @@ unit.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          mandatory allocation constraints</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">

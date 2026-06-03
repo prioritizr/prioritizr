@@ -107,9 +107,22 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-threads">threads<a class="anchor" aria-label="anchor" href="#arg-threads"></a></dt>
-<dd><p><code>integer</code> number of threads to use for the
-optimization algorithm. Defaults to 1 such that only a single
-thread is used.</p></dd>
+<dd><p><code>integer</code> value denoting the number of threads to use during
+optimization. Broadly speaking, we recommend setting <code>threads</code> to be no
+higher than the number of computational cores minus one or two
+(e.g., <code>threads = parallel::detectCores(TRUE) - 2</code>). This is because setting
+<code>threads</code> to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting <code>threads</code> to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., <code>threads = 5</code> may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -270,7 +283,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> size        : 10, 10, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.1, 0.1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : Undefined Cartesian SRS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varname     : sim_pu_raster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        : layer</span>
@@ -290,7 +303,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> size        : 10, 10, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.1, 0.1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : Undefined Cartesian SRS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varname     : sim_pu_raster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        : rc</span>
@@ -322,7 +335,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> size        : 10, 10, 1  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.1, 0.1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : Undefined Cartesian SRS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varname     : sim_pu_raster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> name        : rc</span>
@@ -353,7 +366,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: POLYGON</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Projected CRS: Undefined Cartesian SRS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Projected CRS: WGS 84 / Pseudo-Mercator</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 90 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     cost locked_in locked_out solution_1                                geometry</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                           <span style="color: #949494; font-style: italic;">&lt;POLYGON [m]&gt;</span></span>
@@ -398,7 +411,7 @@ the importance of planning units selected in a solution.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> size        : 10, 10, 3  (nrow, ncol, nlyr)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> resolution  : 0.1, 0.1  (x, y)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : Undefined Cartesian SRS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> source(s)   : memory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> varnames    : sim_zones_pu_raster</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               sim_zones_pu_raster</span>

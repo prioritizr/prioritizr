@@ -454,7 +454,7 @@ plot(
 
 ### Reference point approach
 
-The reference point approach [@r68] is another multi-objective optimization approach that can be used to balance trade-offs. Although it has a `weights` parameter that can be used to specify trade-offs among objectives (similar to the weighted sum approach), this approach can also be used to automatically identify a prioritization that equally balances how well each objective is achieved. This is because -- similar to the Cohon *et al.* [-@r49] approach -- the reference point approach considers the best and worst possible performance that could be achieved for each objective. Now let's use the reference point approach to generate a prioritization.
+The reference point approach [@r74] is another multi-objective optimization approach that can be used to balance trade-offs. Although it has a `weights` parameter that can be used to specify trade-offs among objectives (similar to the weighted sum approach), this approach can also be used to automatically identify a prioritization that equally balances how well each objective is achieved. This is because -- similar to the Cohon *et al.* [-@r49] approach -- the reference point approach considers the best and worst possible performance that could be achieved for each objective. Now let's use the reference point approach to generate a prioritization.
 
 ```{r "ref-point-prioritization", fig.width = w, fig.height = h, results = "hide", message = FALSE}
 # generate prioritization based on reference point approach

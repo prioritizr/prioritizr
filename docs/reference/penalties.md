@@ -133,13 +133,12 @@ p6 <- p1 %>% add_linear_penalties(100, data = sim_penalty_raster)
 p7 <- p1 %>% add_cost_penalties(5)
 
 # solve problems
-s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p6, p7), solve))
+s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p7), solve))
 names(s) <- c(
   "basic solution", "boundary penalties", "neighbor penalties",
   "connectivity penalties", "asymmetric penalties", "linear penalties",
   "cost penalties"
 )
-#> Error: [names<-] incorrect number of names
 
 # plot solutions
 plot(s, axes = FALSE)
