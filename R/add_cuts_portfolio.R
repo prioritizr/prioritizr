@@ -136,11 +136,13 @@ add_cuts_portfolio <- function(x, number_solutions = 10, verbose = TRUE) {
           }
           ## if solving the problem failed then return NULL
           if (!is_valid_raw_solution(sol, multiple = FALSE)) {
+            # nocov start
             ## if needed, clean up progress bar
             if (isTRUE(verbose)) {
               cli::cli_progress_done(id = pb)
             }
-            return(sol) # nocov
+            return(sol)
+            # nocov end
           }
           ## generate additional solutions
           sol <- list(sol)
