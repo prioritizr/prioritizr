@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate target coverage by solution
@@ -325,9 +325,9 @@ eval_target_coverage_summary.ConservationProblem <- function(
 }
 
 #' @rdname eval_target_coverage_summary
-#' @method eval_target_coverage_summary MultiObjConservationProblem
+#' @method eval_target_coverage_summary MultiConservationProblem
 #' @export
-eval_target_coverage_summary.MultiObjConservationProblem <- function(
+eval_target_coverage_summary.MultiConservationProblem <- function(
   x,
   solution,
   include_zone = number_of_zones(x) > 1,

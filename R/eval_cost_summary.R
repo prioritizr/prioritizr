@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate cost of solution
@@ -189,9 +189,9 @@ eval_cost_summary.ConservationProblem <- function(x, solution) {
 }
 
 #' @rdname eval_cost_summary
-#' @method eval_cost_summary MultiObjConservationProblem
+#' @method eval_cost_summary MultiConservationProblem
 #' @export
-eval_cost_summary.MultiObjConservationProblem <- function(x, solution) {
+eval_cost_summary.MultiConservationProblem <- function(x, solution) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)

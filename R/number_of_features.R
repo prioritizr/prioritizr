@@ -65,7 +65,7 @@ number_of_features.ConservationProblem <- function(x, ...) {
 #' @rdname number_of_features
 #'
 #' @export
-number_of_features.MultiObjConservationProblem <- function(x, ...) {
+number_of_features.MultiConservationProblem <- function(x, ...) {
   x$number_of_features()
 }
 

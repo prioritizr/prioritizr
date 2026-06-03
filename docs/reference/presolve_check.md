@@ -20,7 +20,7 @@ presolve_check(x, warn = TRUE)
 # S3 method for class 'OptimizationProblem'
 presolve_check(x, warn = TRUE)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 presolve_check(x, warn = TRUE)
 ```
 

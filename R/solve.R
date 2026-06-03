@@ -352,10 +352,10 @@ solve.ConservationProblem <- function(a, b, ...,
 }
 
 #' @rdname solve
-#' @method solve MultiObjConservationProblem
-#' @export solve.MultiObjConservationProblem
+#' @method solve MultiConservationProblem
+#' @export solve.MultiConservationProblem
 #' @export
-solve.MultiObjConservationProblem <- function(a, b, ...,
+solve.MultiConservationProblem <- function(a, b, ...,
                                               run_checks = TRUE,
                                               force = FALSE,
                                               remove_duplicates = FALSE) {

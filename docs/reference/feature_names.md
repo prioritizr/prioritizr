@@ -10,7 +10,7 @@ feature_names(x, ...)
 # S3 method for class 'ConservationProblem'
 feature_names(x, ...)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 feature_names(x, ...)
 
 # S3 method for class 'ZonesRaster'
@@ -22,7 +22,7 @@ feature_names(x, ...)
 # S3 method for class 'ZonesCharacter'
 feature_names(x, ...)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 problem_names(x, ...)
 ```
 

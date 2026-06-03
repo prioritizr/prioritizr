@@ -3,14 +3,14 @@
 \name{eval_objective_summary}
 \alias{eval_objective_summary}
 \alias{eval_objective_summary.ConservationProblem}
-\alias{eval_objective_summary.MultiObjConservationProblem}
+\alias{eval_objective_summary.MultiConservationProblem}
 \title{Evaluate objective value of solution}
 \usage{
 eval_objective_summary(x, solution, include_penalties = TRUE)
 
 \method{eval_objective_summary}{ConservationProblem}(x, solution, include_penalties = TRUE)
 
-\method{eval_objective_summary}{MultiObjConservationProblem}(x, solution, include_penalties = TRUE)
+\method{eval_objective_summary}{MultiConservationProblem}(x, solution, include_penalties = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}

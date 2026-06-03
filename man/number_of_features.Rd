@@ -3,19 +3,19 @@
 \name{number_of_features}
 \alias{number_of_features}
 \alias{number_of_features.ConservationProblem}
-\alias{number_of_features.MultiObjConservationProblem}
+\alias{number_of_features.MultiConservationProblem}
 \alias{number_of_features.OptimizationProblem}
 \alias{number_of_features.ZonesSpatRaster}
 \alias{number_of_features.ZonesRaster}
 \alias{number_of_features.ZonesCharacter}
-\alias{number_of_problems.MultiObjConservationProblem}
+\alias{number_of_problems.MultiConservationProblem}
 \title{Number of features}
 \usage{
 number_of_features(x, ...)
 
 \method{number_of_features}{ConservationProblem}(x, ...)
 
-\method{number_of_features}{MultiObjConservationProblem}(x, ...)
+\method{number_of_features}{MultiConservationProblem}(x, ...)
 
 \method{number_of_features}{OptimizationProblem}(x, ...)
 
@@ -25,7 +25,7 @@ number_of_features(x, ...)
 
 \method{number_of_features}{ZonesCharacter}(x, ...)
 
-\method{number_of_problems}{MultiObjConservationProblem}(x, ...)
+\method{number_of_problems}{MultiConservationProblem}(x, ...)
 }
 \arguments{
 \item{x}{A \code{\link[=problem]{problem()}}, \code{\link[=multi_problem]{multi_problem()}}

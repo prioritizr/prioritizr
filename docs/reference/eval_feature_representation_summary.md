@@ -13,7 +13,7 @@ eval_feature_representation_summary(x, solution)
 # S3 method for class 'ConservationProblem'
 eval_feature_representation_summary(x, solution)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 eval_feature_representation_summary(x, solution)
 ```
 

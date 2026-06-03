@@ -314,7 +314,7 @@ test_that("invalid inputs", {
   ## works
   expect_inherits(
     add_ref_point_approach(mp, wts, rp, b, w, FALSE, TRUE),
-    "MultiObjConservationProblem"
+    "MultiConservationProblem"
   )
   ## weights
   expect_error(

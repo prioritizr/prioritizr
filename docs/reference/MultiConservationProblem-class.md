@@ -56,59 +56,59 @@ Other classes:
 
 ### Public methods
 
-- [`MultiObjConservationProblem$new()`](#method-MultiObjConservationProblem-initialize)
+- [`MultiConservationProblem$new()`](#method-MultiConservationProblem-initialize)
 
-- [`MultiObjConservationProblem$summary()`](#method-MultiObjConservationProblem-summary)
+- [`MultiConservationProblem$summary()`](#method-MultiConservationProblem-summary)
 
-- [`MultiObjConservationProblem$print()`](#method-MultiObjConservationProblem-print)
+- [`MultiConservationProblem$print()`](#method-MultiConservationProblem-print)
 
-- [`MultiObjConservationProblem$show()`](#method-MultiObjConservationProblem-show)
+- [`MultiConservationProblem$show()`](#method-MultiConservationProblem-show)
 
-- [`MultiObjConservationProblem$repr()`](#method-MultiObjConservationProblem-repr)
+- [`MultiConservationProblem$repr()`](#method-MultiConservationProblem-repr)
 
-- [`MultiObjConservationProblem$number_of_planning_units()`](#method-MultiObjConservationProblem-number_of_planning_units)
+- [`MultiConservationProblem$number_of_planning_units()`](#method-MultiConservationProblem-number_of_planning_units)
 
-- [`MultiObjConservationProblem$is_ids_equivalent_to_indices()`](#method-MultiObjConservationProblem-is_ids_equivalent_to_indices)
+- [`MultiConservationProblem$is_ids_equivalent_to_indices()`](#method-MultiConservationProblem-is_ids_equivalent_to_indices)
 
-- [`MultiObjConservationProblem$planning_unit_indices()`](#method-MultiObjConservationProblem-planning_unit_indices)
+- [`MultiConservationProblem$planning_unit_indices()`](#method-MultiConservationProblem-planning_unit_indices)
 
-- [`MultiObjConservationProblem$total_unit_ids()`](#method-MultiObjConservationProblem-total_unit_ids)
+- [`MultiConservationProblem$total_unit_ids()`](#method-MultiConservationProblem-total_unit_ids)
 
-- [`MultiObjConservationProblem$convert_total_unit_ids_to_indices()`](#method-MultiObjConservationProblem-convert_total_unit_ids_to_indices)
+- [`MultiConservationProblem$convert_total_unit_ids_to_indices()`](#method-MultiConservationProblem-convert_total_unit_ids_to_indices)
 
-- [`MultiObjConservationProblem$planning_unit_indices_with_finite_costs()`](#method-MultiObjConservationProblem-planning_unit_indices_with_finite_costs)
+- [`MultiConservationProblem$planning_unit_indices_with_finite_costs()`](#method-MultiConservationProblem-planning_unit_indices_with_finite_costs)
 
-- [`MultiObjConservationProblem$number_of_total_units()`](#method-MultiObjConservationProblem-number_of_total_units)
+- [`MultiConservationProblem$number_of_total_units()`](#method-MultiConservationProblem-number_of_total_units)
 
-- [`MultiObjConservationProblem$planning_unit_class()`](#method-MultiObjConservationProblem-planning_unit_class)
+- [`MultiConservationProblem$planning_unit_class()`](#method-MultiConservationProblem-planning_unit_class)
 
-- [`MultiObjConservationProblem$number_of_features()`](#method-MultiObjConservationProblem-number_of_features)
+- [`MultiConservationProblem$number_of_features()`](#method-MultiConservationProblem-number_of_features)
 
-- [`MultiObjConservationProblem$feature_names()`](#method-MultiObjConservationProblem-feature_names)
+- [`MultiConservationProblem$feature_names()`](#method-MultiConservationProblem-feature_names)
 
-- [`MultiObjConservationProblem$number_of_problems()`](#method-MultiObjConservationProblem-number_of_problems)
+- [`MultiConservationProblem$number_of_problems()`](#method-MultiConservationProblem-number_of_problems)
 
-- [`MultiObjConservationProblem$problem_names()`](#method-MultiObjConservationProblem-problem_names)
+- [`MultiConservationProblem$problem_names()`](#method-MultiConservationProblem-problem_names)
 
-- [`MultiObjConservationProblem$number_of_zones()`](#method-MultiObjConservationProblem-number_of_zones)
+- [`MultiConservationProblem$number_of_zones()`](#method-MultiConservationProblem-number_of_zones)
 
-- [`MultiObjConservationProblem$zone_names()`](#method-MultiObjConservationProblem-zone_names)
+- [`MultiConservationProblem$zone_names()`](#method-MultiConservationProblem-zone_names)
 
-- [`MultiObjConservationProblem$add_approach()`](#method-MultiObjConservationProblem-add_approach)
+- [`MultiConservationProblem$add_approach()`](#method-MultiConservationProblem-add_approach)
 
-- [`MultiObjConservationProblem$add_solver()`](#method-MultiObjConservationProblem-add_solver)
+- [`MultiConservationProblem$add_solver()`](#method-MultiConservationProblem-add_solver)
 
-- [`MultiObjConservationProblem$clone()`](#method-MultiObjConservationProblem-clone)
+- [`MultiConservationProblem$clone()`](#method-MultiConservationProblem-clone)
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$new()`
+### `MultiConservationProblem$new()`
 
 Create a new multi-objective conservation problem object.
 
 #### Usage
 
-    MultiObjConservationProblem$new(problems)
+    MultiConservationProblem$new(problems)
 
 #### Arguments
 
@@ -120,17 +120,17 @@ Create a new multi-objective conservation problem object.
 
 #### Returns
 
-A new `MultiObjConservationProblem` object.
+A new `MultiConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$summary()`
+### `MultiConservationProblem$summary()`
 
 Print extended information about the object.
 
 #### Usage
 
-    MultiObjConservationProblem$summary()
+    MultiConservationProblem$summary()
 
 #### Returns
 
@@ -138,13 +138,13 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$print()`
+### `MultiConservationProblem$print()`
 
 Print concise information about the object.
 
 #### Usage
 
-    MultiObjConservationProblem$print()
+    MultiConservationProblem$print()
 
 #### Returns
 
@@ -152,13 +152,13 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$show()`
+### `MultiConservationProblem$show()`
 
 Display concise information about the object.
 
 #### Usage
 
-    MultiObjConservationProblem$show()
+    MultiConservationProblem$show()
 
 #### Returns
 
@@ -166,13 +166,13 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$repr()`
+### `MultiConservationProblem$repr()`
 
 Generate a character representation of the object.
 
 #### Usage
 
-    MultiObjConservationProblem$repr()
+    MultiConservationProblem$repr()
 
 #### Returns
 
@@ -180,7 +180,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$number_of_planning_units()`
+### `MultiConservationProblem$number_of_planning_units()`
 
 Obtain the number of planning units. The planning units correspond to
 elements in the cost data (e.g., indices, rows, geometries, cells) that
@@ -190,7 +190,7 @@ every zone.
 
 #### Usage
 
-    MultiObjConservationProblem$number_of_planning_units()
+    MultiConservationProblem$number_of_planning_units()
 
 #### Returns
 
@@ -198,14 +198,14 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$is_ids_equivalent_to_indices()`
+### `MultiConservationProblem$is_ids_equivalent_to_indices()`
 
 Check if planning unit identifiers are equivalent to the planning unit
 indices? Only `FALSE` if the planning units are `data.frame` format.
 
 #### Usage
 
-    MultiObjConservationProblem$is_ids_equivalent_to_indices()
+    MultiConservationProblem$is_ids_equivalent_to_indices()
 
 #### Returns
 
@@ -213,13 +213,13 @@ A `logical` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$planning_unit_indices()`
+### `MultiConservationProblem$planning_unit_indices()`
 
 Obtain the planning unit indices.
 
 #### Usage
 
-    MultiObjConservationProblem$planning_unit_indices()
+    MultiConservationProblem$planning_unit_indices()
 
 #### Returns
 
@@ -227,13 +227,13 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$total_unit_ids()`
+### `MultiConservationProblem$total_unit_ids()`
 
 Obtain the total unit identifiers.
 
 #### Usage
 
-    MultiObjConservationProblem$total_unit_ids()
+    MultiConservationProblem$total_unit_ids()
 
 #### Returns
 
@@ -241,13 +241,13 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$convert_total_unit_ids_to_indices()`
+### `MultiConservationProblem$convert_total_unit_ids_to_indices()`
 
 Convert total unit identifiers to indices.
 
 #### Usage
 
-    MultiObjConservationProblem$convert_total_unit_ids_to_indices(ids)
+    MultiConservationProblem$convert_total_unit_ids_to_indices(ids)
 
 #### Arguments
 
@@ -261,14 +261,14 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$planning_unit_indices_with_finite_costs()`
+### `MultiConservationProblem$planning_unit_indices_with_finite_costs()`
 
 Obtain the planning unit indices that are associated with finite cost
 values.
 
 #### Usage
 
-    MultiObjConservationProblem$planning_unit_indices_with_finite_costs()
+    MultiConservationProblem$planning_unit_indices_with_finite_costs()
 
 #### Returns
 
@@ -277,7 +277,7 @@ different zone.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$number_of_total_units()`
+### `MultiConservationProblem$number_of_total_units()`
 
 Obtain the number of total units. The total units include all elements
 in the cost data (e.g., indices, rows, geometries, cells), including
@@ -285,7 +285,7 @@ those with missing (`NA`) values.
 
 #### Usage
 
-    MultiObjConservationProblem$number_of_total_units()
+    MultiConservationProblem$number_of_total_units()
 
 #### Returns
 
@@ -293,13 +293,13 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$planning_unit_class()`
+### `MultiConservationProblem$planning_unit_class()`
 
 Get planning unit class.
 
 #### Usage
 
-    MultiObjConservationProblem$planning_unit_class()
+    MultiConservationProblem$planning_unit_class()
 
 #### Returns
 
@@ -307,13 +307,13 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$number_of_features()`
+### `MultiConservationProblem$number_of_features()`
 
 Obtain the number of features.
 
 #### Usage
 
-    MultiObjConservationProblem$number_of_features()
+    MultiConservationProblem$number_of_features()
 
 #### Returns
 
@@ -321,13 +321,13 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$feature_names()`
+### `MultiConservationProblem$feature_names()`
 
 Obtain the names of the features.
 
 #### Usage
 
-    MultiObjConservationProblem$feature_names()
+    MultiConservationProblem$feature_names()
 
 #### Returns
 
@@ -335,13 +335,13 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$number_of_problems()`
+### `MultiConservationProblem$number_of_problems()`
 
 Obtain the number of problems.
 
 #### Usage
 
-    MultiObjConservationProblem$number_of_problems()
+    MultiConservationProblem$number_of_problems()
 
 #### Returns
 
@@ -349,13 +349,13 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$problem_names()`
+### `MultiConservationProblem$problem_names()`
 
 Obtain the names of the problems.
 
 #### Usage
 
-    MultiObjConservationProblem$problem_names()
+    MultiConservationProblem$problem_names()
 
 #### Returns
 
@@ -363,13 +363,13 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$number_of_zones()`
+### `MultiConservationProblem$number_of_zones()`
 
 Obtain the number of zones.
 
 #### Usage
 
-    MultiObjConservationProblem$number_of_zones()
+    MultiConservationProblem$number_of_zones()
 
 #### Returns
 
@@ -377,13 +377,13 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$zone_names()`
+### `MultiConservationProblem$zone_names()`
 
 Obtain the zone names.
 
 #### Usage
 
-    MultiObjConservationProblem$zone_names()
+    MultiConservationProblem$zone_names()
 
 #### Returns
 
@@ -391,13 +391,13 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$add_approach()`
+### `MultiConservationProblem$add_approach()`
 
 Create a new object with an approach added to the problem formulation.
 
 #### Usage
 
-    MultiObjConservationProblem$add_approach(x)
+    MultiConservationProblem$add_approach(x)
 
 #### Arguments
 
@@ -408,17 +408,17 @@ Create a new object with an approach added to the problem formulation.
 
 #### Returns
 
-An updated `MultiObjConservationProblem` object.
+An updated `MultiConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$add_solver()`
+### `MultiConservationProblem$add_solver()`
 
 Create a new object with a solver added to the problem formulation.
 
 #### Usage
 
-    MultiObjConservationProblem$add_solver(x)
+    MultiConservationProblem$add_solver(x)
 
 #### Arguments
 
@@ -428,17 +428,17 @@ Create a new object with a solver added to the problem formulation.
 
 #### Returns
 
-An updated `MultiObjConservationProblem` object.
+An updated `MultiConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### `MultiObjConservationProblem$clone()`
+### `MultiConservationProblem$clone()`
 
 The objects of this class are cloneable with this method.
 
 #### Usage
 
-    MultiObjConservationProblem$clone(deep = FALSE)
+    MultiConservationProblem$clone(deep = FALSE)
 
 #### Arguments
 

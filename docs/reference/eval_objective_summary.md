@@ -11,7 +11,7 @@ eval_objective_summary(x, solution, include_penalties = TRUE)
 # S3 method for class 'ConservationProblem'
 eval_objective_summary(x, solution, include_penalties = TRUE)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 eval_objective_summary(x, solution, include_penalties = TRUE)
 ```
 

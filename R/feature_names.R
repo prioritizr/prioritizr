@@ -66,7 +66,7 @@ feature_names.ConservationProblem <- function(x, ...) {
 #' @rdname feature_names
 #'
 #' @export
-feature_names.MultiObjConservationProblem <- function(x, ...) {
+feature_names.MultiConservationProblem <- function(x, ...) {
   rlang::check_dots_empty()
   x$feature_names()
 }

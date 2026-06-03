@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate feature representation by solution
@@ -278,9 +278,9 @@ eval_feature_representation_summary.ConservationProblem <- function(
 }
 
 #' @rdname eval_feature_representation_summary
-#' @method eval_feature_representation_summary MultiObjConservationProblem
+#' @method eval_feature_representation_summary MultiConservationProblem
 #' @export
-eval_feature_representation_summary.MultiObjConservationProblem <- function(
+eval_feature_representation_summary.MultiConservationProblem <- function(
   x, solution
 ) {
   # assert arguments are valid

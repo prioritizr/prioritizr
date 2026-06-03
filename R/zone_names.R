@@ -66,7 +66,7 @@ zone_names.ConservationProblem <- function(x, ...) {
 #' @rdname zone_names
 #'
 #' @export
-zone_names.MultiObjConservationProblem <- function(x, ...) {
+zone_names.MultiConservationProblem <- function(x, ...) {
   rlang::check_dots_empty()
   x$zone_names()
 }

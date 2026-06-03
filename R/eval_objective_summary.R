@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate objective value of solution
@@ -108,9 +108,9 @@ eval_objective_summary.ConservationProblem <- function(
 }
 
 #' @rdname eval_objective_summary
-#' @method eval_objective_summary MultiObjConservationProblem
+#' @method eval_objective_summary MultiConservationProblem
 #' @export
-eval_objective_summary.MultiObjConservationProblem <- function(
+eval_objective_summary.MultiConservationProblem <- function(
   x, solution, include_penalties = TRUE
 ) {
   # assert that arguments are valid

@@ -64,7 +64,7 @@ number_of_zones.ConservationProblem <- function(x, ...) {
 #' @rdname number_of_zones
 #'
 #' @export
-number_of_zones.MultiObjConservationProblem <- function(x, ...) {
+number_of_zones.MultiConservationProblem <- function(x, ...) {
   x$number_of_zones()
 }
 

@@ -3,7 +3,7 @@
 \name{number_of_planning_units}
 \alias{number_of_planning_units}
 \alias{number_of_planning_units.ConservationProblem}
-\alias{number_of_planning_units.MultiObjConservationProblem}
+\alias{number_of_planning_units.MultiConservationProblem}
 \alias{number_of_planning_units.OptimizationProblem}
 \title{Number of planning units}
 \usage{
@@ -11,7 +11,7 @@ number_of_planning_units(x, ...)
 
 \method{number_of_planning_units}{ConservationProblem}(x, ...)
 
-\method{number_of_planning_units}{MultiObjConservationProblem}(x, ...)
+\method{number_of_planning_units}{MultiConservationProblem}(x, ...)
 
 \method{number_of_planning_units}{OptimizationProblem}(x, ...)
 }

@@ -28,7 +28,7 @@ knit_print.ConservationProblem <- function(x, ...) {
 
 #' @rdname knit_print
 #' @export
-knit_print.MultiObjConservationProblem <- function(x, ...) {
+knit_print.MultiConservationProblem <- function(x, ...) {
   internal_knit_print(x)
 }
 

@@ -13,7 +13,7 @@ eval_cost_summary(x, solution)
 # S3 method for class 'ConservationProblem'
 eval_cost_summary(x, solution)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 eval_cost_summary(x, solution)
 ```
 

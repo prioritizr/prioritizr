@@ -216,9 +216,9 @@ presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
 }
 
 #' @rdname presolve_check
-#' @method presolve_check MultiObjConservationProblem
+#' @method presolve_check MultiConservationProblem
 #' @export
-presolve_check.MultiObjConservationProblem <- function(x, warn = TRUE) {
+presolve_check.MultiConservationProblem <- function(x, warn = TRUE) {
   assert(is_multi_conservation_problem(x))
   res <- run_multi_presolve_check(
     stats::setNames(

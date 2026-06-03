@@ -25,7 +25,7 @@ eval_target_coverage_summary(
   include_sense = number_of_zones(x) > 1
 )
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 eval_target_coverage_summary(
   x,
   solution,

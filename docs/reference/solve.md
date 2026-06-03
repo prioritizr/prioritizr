@@ -8,7 +8,7 @@ Solve a conservation planning problem.
 # S3 method for class 'ConservationProblem'
 solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 ```
 

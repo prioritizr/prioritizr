@@ -10,7 +10,7 @@ number_of_features(x, ...)
 # S3 method for class 'ConservationProblem'
 number_of_features(x, ...)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 number_of_features(x, ...)
 
 # S3 method for class 'OptimizationProblem'
@@ -25,7 +25,7 @@ number_of_features(x, ...)
 # S3 method for class 'ZonesCharacter'
 number_of_features(x, ...)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 number_of_problems(x, ...)
 ```
 

@@ -10,7 +10,7 @@
 \alias{eval_target_coverage_summary,ConservationProblem,Raster-method}
 \alias{eval_target_coverage_summary,ConservationProblem,SpatRaster-method}
 \alias{eval_target_coverage_summary.ConservationProblem}
-\alias{eval_target_coverage_summary.MultiObjConservationProblem}
+\alias{eval_target_coverage_summary.MultiConservationProblem}
 \title{Evaluate target coverage by solution}
 \usage{
 eval_target_coverage_summary(
@@ -27,7 +27,7 @@ eval_target_coverage_summary(
   include_sense = number_of_zones(x) > 1
 )
 
-\method{eval_target_coverage_summary}{MultiObjConservationProblem}(
+\method{eval_target_coverage_summary}{MultiConservationProblem}(
   x,
   solution,
   include_zone = number_of_zones(x) > 1,

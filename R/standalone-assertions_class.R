@@ -34,7 +34,7 @@ assertthat::on_failure(is_matrix_ish) <- function(call, env) {
 #' Is single-objective or multi-objective conservation planning problem?
 #'
 #' Check if an object is a `ConservationProblem` object or a
-#' `MultiObjConservationProblem` object.
+#' `MultiConservationProblem` object.
 #'
 #' @param x Object.
 #'
@@ -54,7 +54,7 @@ assertthat::on_failure(is_generic_conservation_problem) <- function(call, env) {
 
 #' Is multi-objective conservation planning problem?
 #'
-#' Check if an object is a `MultiObjConservationProblem` object.
+#' Check if an object is a `MultiConservationProblem` object.
 #'
 #' @param x Object.
 #'
@@ -62,7 +62,7 @@ assertthat::on_failure(is_generic_conservation_problem) <- function(call, env) {
 #'
 #' @noRd
 is_multi_conservation_problem <- function(x) {
-  inherits(x, "MultiObjConservationProblem")
+  inherits(x, "MultiConservationProblem")
 }
 
 assertthat::on_failure(is_multi_conservation_problem) <- function(call, env) {

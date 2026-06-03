@@ -3,14 +3,14 @@
 \name{eval_feature_representation_summary}
 \alias{eval_feature_representation_summary}
 \alias{eval_feature_representation_summary.ConservationProblem}
-\alias{eval_feature_representation_summary.MultiObjConservationProblem}
+\alias{eval_feature_representation_summary.MultiConservationProblem}
 \title{Evaluate feature representation by solution}
 \usage{
 eval_feature_representation_summary(x, solution)
 
 \method{eval_feature_representation_summary}{ConservationProblem}(x, solution)
 
-\method{eval_feature_representation_summary}{MultiObjConservationProblem}(x, solution)
+\method{eval_feature_representation_summary}{MultiConservationProblem}(x, solution)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}

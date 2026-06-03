@@ -3,7 +3,7 @@
 \name{number_of_zones}
 \alias{number_of_zones}
 \alias{number_of_zones.ConservationProblem}
-\alias{number_of_zones.MultiObjConservationProblem}
+\alias{number_of_zones.MultiConservationProblem}
 \alias{number_of_zones.OptimizationProblem}
 \alias{number_of_zones.ZonesRaster}
 \alias{number_of_zones.ZonesSpatRaster}
@@ -14,7 +14,7 @@ number_of_zones(x, ...)
 
 \method{number_of_zones}{ConservationProblem}(x, ...)
 
-\method{number_of_zones}{MultiObjConservationProblem}(x, ...)
+\method{number_of_zones}{MultiConservationProblem}(x, ...)
 
 \method{number_of_zones}{OptimizationProblem}(x, ...)
 

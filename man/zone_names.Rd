@@ -3,7 +3,7 @@
 \name{zone_names}
 \alias{zone_names}
 \alias{zone_names.ConservationProblem}
-\alias{zone_names.MultiObjConservationProblem}
+\alias{zone_names.MultiConservationProblem}
 \alias{zone_names.ZonesRaster}
 \alias{zone_names.ZonesSpatRaster}
 \alias{zone_names.ZonesCharacter}
@@ -13,7 +13,7 @@ zone_names(x, ...)
 
 \method{zone_names}{ConservationProblem}(x, ...)
 
-\method{zone_names}{MultiObjConservationProblem}(x, ...)
+\method{zone_names}{MultiConservationProblem}(x, ...)
 
 \method{zone_names}{ZonesRaster}(x, ...)
 

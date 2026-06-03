@@ -3351,7 +3351,7 @@ mop <- multi_problem(keystone = keystone_problem, iconic = iconic_problem)
 print(mop)
 ```
 
-    ## A multi-objective conservation problem (<MultiObjConservationProblem>)
+    ## A multi-objective conservation problem (<MultiConservationProblem>)
     ## ├•data
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (90 total)

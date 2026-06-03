@@ -1,4 +1,4 @@
-#' @include internal.R MultiObjConservationProblem-class.R ConservationProblem-class.R
+#' @include internal.R MultiConservationProblem-class.R ConservationProblem-class.R
 NULL
 
 #' Multi-objective conservation planning problem

@@ -8,9 +8,9 @@ summary.ConservationProblem <- function(object, ...) {
   cli::cli({object$summary()})
 }
 
-#' @method summary MultiObjConservationProblem
+#' @method summary MultiConservationProblem
 #'
 #' @export
-summary.MultiObjConservationProblem <- function(object, ...) {
+summary.MultiConservationProblem <- function(object, ...) {
   object$summary(...)
 }

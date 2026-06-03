@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R MultiObjConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate asymmetric connectivity of solution

@@ -2,11 +2,11 @@
 NULL
 
 #' @export
-if (!methods::isClass("MultiObjConservationProblem")) {
-  methods::setOldClass("MultiObjConservationProblem")
+if (!methods::isClass("MultiConservationProblem")) {
+  methods::setOldClass("MultiConservationProblem")
   methods::setClassUnion(
     "GenericConservationProblem",
-    c("ConservationProblem", "MultiObjConservationProblem"))
+    c("ConservationProblem", "MultiConservationProblem"))
 }
 NULL
 
@@ -23,13 +23,13 @@ NULL
 #' with them (e.g., [number_of_features()], [number_of_planning_units()]).
 #' **Only experts should use the fields and methods for this class directly.**
 #'
-#' @name MultiObjConservationProblem-class
+#' @name MultiConservationProblem-class
 #'
 #' @family classes
 #'
 #' @export
-MultiObjConservationProblem <- R6::R6Class(
-  "MultiObjConservationProblem",
+MultiConservationProblem <- R6::R6Class(
+  "MultiConservationProblem",
   public = list(
 
     #' @field problems `list` containing [`ConservationProblem-class`] objects.
@@ -52,7 +52,7 @@ MultiObjConservationProblem <- R6::R6Class(
     #' @description
     #' Create a new multi-objective conservation problem object.
     #' @param problems `list` containing [`ConservationProblem-class`] objects.
-    #' @return A new `MultiObjConservationProblem` object.
+    #' @return A new `MultiConservationProblem` object.
     initialize = function(problems) {
       self$problems <- problems
     },
@@ -76,7 +76,7 @@ MultiObjConservationProblem <- R6::R6Class(
       cli::cli_text(
         paste(
           "A multi-objective conservation problem",
-          "({.cls MultiObjConservationProblem})"
+          "({.cls MultiConservationProblem})"
         )
       )
 
@@ -329,7 +329,7 @@ MultiObjConservationProblem <- R6::R6Class(
       cli::cli_text(
         paste(
           "A multi-objective conservation problem",
-          "({.cls MultiObjConservationProblem})"
+          "({.cls MultiConservationProblem})"
         )
       )
 
@@ -570,7 +570,7 @@ MultiObjConservationProblem <- R6::R6Class(
     #' Generate a character representation of the object.
     #' @return A `character` value.
     repr = function() {
-      "{.cls MultiObjConservationProblem} object"
+      "{.cls MultiConservationProblem} object"
     },
 
     #' @description
@@ -704,7 +704,7 @@ MultiObjConservationProblem <- R6::R6Class(
     #' @description
     #' Create a new object with an approach added to the problem formulation.
     #' @param x [MultiObjApproach-class] object.
-    #' @return An updated `MultiObjConservationProblem` object.
+    #' @return An updated `MultiConservationProblem` object.
     add_approach = function(x) {
       assert(inherits(x, "MultiObjApproach"))
       p <- self$clone(deep = TRUE)
@@ -720,7 +720,7 @@ MultiObjConservationProblem <- R6::R6Class(
     #' @description
     #' Create a new object with a solver added to the problem formulation.
     #' @param x [Solver-class] object.
-    #' @return An updated `MultiObjConservationProblem` object.
+    #' @return An updated `MultiConservationProblem` object.
     add_solver = function(x) {
       assert(inherits(x, "Solver"))
       p <- self$clone(deep = TRUE)
@@ -742,7 +742,7 @@ MultiObjConservationProblem <- R6::R6Class(
 #'
 #' @param problems `list` of [`ConservationProblem-class`] objects.ks
 #'
-#' @return A [`MultiObjConservationProblem-class`] object.
+#' @return A [`MultiConservationProblem-class`] object.
 #'
 #' @noRd
 new_multi_obj_conservation_problem <- function(problems) {
@@ -761,7 +761,7 @@ new_multi_obj_conservation_problem <- function(problems) {
   }
 
   # create new multi objective conservation problem
-  p <- MultiObjConservationProblem$new(problems = problems)
+  p <- MultiConservationProblem$new(problems = problems)
 
   # add defaults
   p <- suppressWarnings(add_default_solver(p))

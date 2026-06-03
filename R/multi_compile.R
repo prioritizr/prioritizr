@@ -62,7 +62,7 @@ multi_compile <- function(x, ...) {
 
 #' @rdname multi_compile
 #' @export
-multi_compile.MultiObjConservationProblem <- function(x, ...) {
+multi_compile.MultiConservationProblem <- function(x, ...) {
   # compile each problem individually, and compile into multi-objective problem
   multi_compile.list(
     stats::setNames(

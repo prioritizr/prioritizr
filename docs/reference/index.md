@@ -15,7 +15,7 @@ Functions for creating new problems and solving them.
 - [`problem()`](https://prioritizr.net/reference/problem.md) :
   Conservation planning problem
 - [`solve(`*`<ConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
-  [`solve(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
+  [`solve(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
   : Solve
 - [`zones()`](https://prioritizr.net/reference/zones.md) : Management
   zones
@@ -460,12 +460,12 @@ Functions for working with problems.
 - [`feature_abundances()`](https://prioritizr.net/reference/feature_abundances.md)
   : Feature abundances
 - [`feature_names()`](https://prioritizr.net/reference/feature_names.md)
-  [`problem_names(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/feature_names.md)
+  [`problem_names(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/feature_names.md)
   : Feature names
 - [`multi_compile()`](https://prioritizr.net/reference/multi_compile.md)
   : Compile a multi-objective optimization problem
 - [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md)
-  [`number_of_problems(`*`<MultiObjConservationProblem>`*`)`](https://prioritizr.net/reference/number_of_features.md)
+  [`number_of_problems(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/number_of_features.md)
   : Number of features
 - [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md)
   : Number of planning units
@@ -506,12 +506,12 @@ Documentation for internal classes and associated functions.
 - [`Decision-class`](https://prioritizr.net/reference/Decision-class.md)
   [`Decision`](https://prioritizr.net/reference/Decision-class.md) :
   Decision class
+- [`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md)
+  [`MultiConservationProblem`](https://prioritizr.net/reference/MultiConservationProblem-class.md)
+  : Multi-objective conservation problem class
 - [`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md)
   [`MultiObjApproach`](https://prioritizr.net/reference/MultiObjApproach-class.md)
   : Multi-objective approach class
-- [`MultiObjConservationProblem-class`](https://prioritizr.net/reference/MultiObjConservationProblem-class.md)
-  [`MultiObjConservationProblem`](https://prioritizr.net/reference/MultiObjConservationProblem-class.md)
-  : Multi-objective conservation problem class
 - [`Objective-class`](https://prioritizr.net/reference/Objective-class.md)
   [`Objective`](https://prioritizr.net/reference/Objective-class.md) :
   Objective class
@@ -558,7 +558,7 @@ Assorted functions distributed with the package.
   : Log-linear interpolation
 
 - [`knit_print.ConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
-  [`knit_print.MultiObjConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
+  [`knit_print.MultiConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
   [`knit_print.OptimizationProblem()`](https://prioritizr.net/reference/knit_print.md)
   : Print an object for knitr package.
 

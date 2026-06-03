@@ -72,7 +72,7 @@ number_of_planning_units.ConservationProblem <- function(x, ...) {
 #' @rdname number_of_planning_units
 #'
 #' @export
-number_of_planning_units.MultiObjConservationProblem <- function(x, ...) {
+number_of_planning_units.MultiConservationProblem <- function(x, ...) {
   x$number_of_planning_units()
 }
 

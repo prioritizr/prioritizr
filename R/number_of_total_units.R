@@ -91,6 +91,6 @@ number_of_total_units.ConservationProblem <- function(x, ...) {
 #' @rdname number_of_total_units
 #'
 #' @export
-number_of_total_units.MultiObjConservationProblem <- function(x, ...) {
+number_of_total_units.MultiConservationProblem <- function(x, ...) {
   x$number_of_total_units()
 }

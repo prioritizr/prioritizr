@@ -3,18 +3,18 @@
 \name{feature_names}
 \alias{feature_names}
 \alias{feature_names.ConservationProblem}
-\alias{feature_names.MultiObjConservationProblem}
+\alias{feature_names.MultiConservationProblem}
 \alias{feature_names.ZonesRaster}
 \alias{feature_names.ZonesSpatRaster}
 \alias{feature_names.ZonesCharacter}
-\alias{problem_names.MultiObjConservationProblem}
+\alias{problem_names.MultiConservationProblem}
 \title{Feature names}
 \usage{
 feature_names(x, ...)
 
 \method{feature_names}{ConservationProblem}(x, ...)
 
-\method{feature_names}{MultiObjConservationProblem}(x, ...)
+\method{feature_names}{MultiConservationProblem}(x, ...)
 
 \method{feature_names}{ZonesRaster}(x, ...)
 
@@ -22,7 +22,7 @@ feature_names(x, ...)
 
 \method{feature_names}{ZonesCharacter}(x, ...)
 
-\method{problem_names}{MultiObjConservationProblem}(x, ...)
+\method{problem_names}{MultiConservationProblem}(x, ...)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}}, \code{\link[=multi_problem]{multi_problem()}}, or \code{\link[=Zones]{Zones()}} object.}

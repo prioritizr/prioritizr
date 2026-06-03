@@ -3,14 +3,14 @@
 \name{eval_cost_summary}
 \alias{eval_cost_summary}
 \alias{eval_cost_summary.ConservationProblem}
-\alias{eval_cost_summary.MultiObjConservationProblem}
+\alias{eval_cost_summary.MultiConservationProblem}
 \title{Evaluate cost of solution}
 \usage{
 eval_cost_summary(x, solution)
 
 \method{eval_cost_summary}{ConservationProblem}(x, solution)
 
-\method{eval_cost_summary}{MultiObjConservationProblem}(x, solution)
+\method{eval_cost_summary}{MultiConservationProblem}(x, solution)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}

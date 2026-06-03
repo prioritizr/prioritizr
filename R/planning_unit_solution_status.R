@@ -463,7 +463,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "numeric"),
+  methods::signature("MultiConservationProblem", "numeric"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -471,7 +471,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "matrix"),
+  methods::signature("MultiConservationProblem", "matrix"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -479,7 +479,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "data.frame"),
+  methods::signature("MultiConservationProblem", "data.frame"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -487,7 +487,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "Spatial"),
+  methods::signature("MultiConservationProblem", "Spatial"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -495,7 +495,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "sf"),
+  methods::signature("MultiConservationProblem", "sf"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -503,7 +503,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "Raster"),
+  methods::signature("MultiConservationProblem", "Raster"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }
@@ -511,7 +511,7 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_status",
-  methods::signature("MultiObjConservationProblem", "SpatRaster"),
+  methods::signature("MultiConservationProblem", "SpatRaster"),
   function(x, solution, call = fn_caller_env()) {
     planning_unit_solution_status(x$problems[[1]], solution, call = call)
   }

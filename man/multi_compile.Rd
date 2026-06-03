@@ -2,13 +2,13 @@
 % Please edit documentation in R/multi_compile.R
 \name{multi_compile}
 \alias{multi_compile}
-\alias{multi_compile.MultiObjConservationProblem}
+\alias{multi_compile.MultiConservationProblem}
 \alias{multi_compile.list}
 \title{Compile a multi-objective optimization problem}
 \usage{
 multi_compile(x, ...)
 
-\method{multi_compile}{MultiObjConservationProblem}(x, ...)
+\method{multi_compile}{MultiConservationProblem}(x, ...)
 
 \method{multi_compile}{list}(x, ...)
 }

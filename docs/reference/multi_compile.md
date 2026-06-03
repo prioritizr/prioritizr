@@ -9,7 +9,7 @@ objects for multi-objective optimization.
 ``` r
 multi_compile(x, ...)
 
-# S3 method for class 'MultiObjConservationProblem'
+# S3 method for class 'MultiConservationProblem'
 multi_compile(x, ...)
 
 # S3 method for class 'list'

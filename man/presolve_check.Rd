@@ -4,7 +4,7 @@
 \alias{presolve_check}
 \alias{presolve_check.ConservationProblem}
 \alias{presolve_check.OptimizationProblem}
-\alias{presolve_check.MultiObjConservationProblem}
+\alias{presolve_check.MultiConservationProblem}
 \title{Presolve check}
 \usage{
 presolve_check(x, warn = TRUE)
@@ -13,7 +13,7 @@ presolve_check(x, warn = TRUE)
 
 \method{presolve_check}{OptimizationProblem}(x, warn = TRUE)
 
-\method{presolve_check}{MultiObjConservationProblem}(x, warn = TRUE)
+\method{presolve_check}{MultiConservationProblem}(x, warn = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
