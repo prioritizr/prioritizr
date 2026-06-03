@@ -4,7 +4,7 @@
 \alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
-add_shuffle_portfolio(x, number_solutions = 10, threads = 1)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -29,6 +29,10 @@ This is because solving optimization problems with multiple threads
 can involve creating multiple copies of the problem
 (e.g., \code{threads = 5} may mean 5 copies) and exhausting most of the available
 memory will drastically slow run times. Defaults to 1.}
+
+\item{verbose}{\code{logical} should progress on generating multiple solutions
+be displayed? Note that progress will not be displayed if using
+multiple threads for parallel processing. Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.

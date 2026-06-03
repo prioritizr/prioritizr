@@ -73,7 +73,7 @@ software is available.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_shuffle_portfolio</span><span class="op">(</span><span class="va">x</span>, number_solutions <span class="op">=</span> <span class="fl">10</span>, threads <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_shuffle_portfolio</span><span class="op">(</span><span class="va">x</span>, number_solutions <span class="op">=</span> <span class="fl">10</span>, threads <span class="op">=</span> <span class="fl">1</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -107,6 +107,12 @@ This is because solving optimization problems with multiple threads
 can involve creating multiple copies of the problem
 (e.g., <code>threads = 5</code> may mean 5 copies) and exhausting most of the available
 memory will drastically slow run times. Defaults to 1.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p><code>logical</code> should progress on generating multiple solutions
+be displayed? Note that progress will not be displayed if using
+multiple threads for parallel processing. Defaults to <code>TRUE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -162,6 +168,9 @@ the <code>remove_duplicates</code> parameter of <code><a href="solve.html">solve
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve problem and generate 10 solutions within 20% of optimality</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■                      </span> | 3/10 |  30% | ETA: 3s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■                </span> | 5/10 |  50% | ETA: 2s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> | 10/10 | 100% | ETA: 0s</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert portfolio into a multi-layer raster</span></span></span>
 <span class="r-in"><span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span></span></span>
@@ -185,6 +194,9 @@ the <code>remove_duplicates</code> parameter of <code><a href="solve.html">solve
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># solve the problem</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■                      </span> | 3/10 |  30% | ETA: 3s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■       </span> | 8/10 |  80% | ETA: 1s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> | 10/10 | 100% | ETA: 0s</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># convert each solution in the portfolio into a single category layer</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">s2</span>, <span class="va">category_layer</span><span class="op">)</span><span class="op">)</span></span></span>

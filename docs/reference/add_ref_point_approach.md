@@ -243,9 +243,10 @@ mp2 <-
 
 # solve multi-objective problem and remove duplicate solutions
 ms2 <- solve(mp2, remove_duplicates = TRUE)
-#> Generating solutions ■■■■■■■                           20% | ETA:  5s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■               60% | ETA:  3s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+#> Generating solutions ■■■■■■■                          | 3/15 |  20% | ETA: 5s
+#> Generating solutions ■■■■■■■■■■■                      | 5/15 |  33% | ETA: 4s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■          | 11/15 |  73% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 15/15 | 100% | ETA: 0s
 
 # plot multiple solutions
 plot(terra::rast(ms2), axes = FALSE)
@@ -254,15 +255,24 @@ plot(terra::rast(ms2), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 
-# preview the objective values
-head(obj_matrix)
-#>            keystone_obj iconic_obj
-#> solution_1    0.9616594  0.6677060
-#> solution_2    0.8567573  2.0000000
-#> solution_3    3.0000000  0.6033789
-#> solution_4    0.8949350  0.7202442
-#> solution_5    0.8949350  0.7202442
-#> solution_6    0.8893569  0.7320958
+# print the objective values
+print(obj_matrix)
+#>             keystone_obj iconic_obj
+#> solution_1     0.9616594  0.6677060
+#> solution_2     0.8567573  2.0000000
+#> solution_3     3.0000000  0.6033789
+#> solution_4     0.8949350  0.7202442
+#> solution_5     0.8949350  0.7202442
+#> solution_6     0.8893569  0.7320958
+#> solution_7     1.0622668  0.6105064
+#> solution_8     0.9061754  0.7086196
+#> solution_9     0.8949350  0.7202442
+#> solution_10    1.0759486  0.6061551
+#> solution_11    1.0622668  0.6105064
+#> solution_12    0.9061754  0.7086196
+#> solution_13    1.0776369  0.6058445
+#> solution_14    1.0759486  0.6061551
+#> solution_15    1.0485940  0.6175877
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to

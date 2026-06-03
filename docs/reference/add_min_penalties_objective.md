@@ -142,8 +142,8 @@ mp <-
 
 # generate multi-objective solutions
 s2 <- solve(mp)
-#> ■■■■■■■■■                         25% | ETA:  4s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+#> Generating solutions ■■■■■■■■■                        | 1/4 |  25% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 4/4 | 100% | ETA: 0s
 
 # plot multi-objective solutions
 plot(terra::rast(s2), main = paste("rel_tol =", rel_tol), axes = FALSE)

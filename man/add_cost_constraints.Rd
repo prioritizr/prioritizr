@@ -133,8 +133,8 @@ mp <-
   mp \%>\%
   add_hier_approach(rel_tol = rel_tol_matrix)
 
-# generate solutions
-ms <- solve(mp)
+# generate solutions and remove duplicates
+ms <- solve(mp, remove_duplicates = TRUE)
 
 # plot the solutions
 plot(terra::rast(ms), axes = FALSE)
@@ -142,8 +142,8 @@ plot(terra::rast(ms), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms)$objective
 
-# preview the objective values
-head(obj_matrix)
+# print the objective values
+print(obj_matrix)
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better for both objectives)

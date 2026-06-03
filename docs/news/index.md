@@ -94,6 +94,12 @@
   requires installation of the developmental version of the *highs*
   package.
 - Update
+  [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
+  and
+  [`add_cuts_portfolio()`](https://prioritizr.net/reference/add_cuts_portfolio.md)
+  to have a `verbose` parameter that can be used to display a progress
+  bar.
+- Update
   [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
   function to display a message to help ensure that make users aware of
   its limitations.
@@ -904,7 +910,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

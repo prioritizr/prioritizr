@@ -2710,7 +2710,7 @@ print(p46)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   cuts portfolio (`number_solutions` = 10)
+    ##  ├•portfolio:   cuts portfolio (`number_solutions` = 10, `verbose` = TRUE)
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
@@ -2751,7 +2751,7 @@ print(p47)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1)
+    ##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1, …)
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 

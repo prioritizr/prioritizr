@@ -71,6 +71,7 @@
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-9-0-0-0">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-9-0-0-0"></a></h3>
 <ul><li>Update <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code> function to support a starting solution. Note that this currently requires installation of the developmental version of the <em>highs</em> package.</li>
+<li>Update <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> and <code><a href="../reference/add_cuts_portfolio.html">add_cuts_portfolio()</a></code> to have a <code>verbose</code> parameter that can be used to display a progress bar.</li>
 <li>Update <code><a href="../reference/add_max_wtd_sum_objective.html">add_max_wtd_sum_objective()</a></code> function to display a message to help ensure that make users aware of its limitations.</li>
 <li>Update <code><a href="../reference/solve.html">solve()</a></code> so that it will display a message (instead of a warning) if a portfolio produces fewer solutions than requested.</li>
 <li>Fix <code><a href="../reference/add_extra_portfolio.html">add_extra_portfolio()</a></code>, <code><a href="../reference/add_gap_portfolio.html">add_gap_portfolio()</a></code>, and <code><a href="../reference/add_top_portfolio.html">add_top_portfolio()</a></code> functions to ensure compatibility with Gurobi version 13.</li>
@@ -374,7 +375,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -2848,7 +2848,7 @@ available.</li>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   cuts portfolio (`number_solutions` = 10)
+##  ├•portfolio:   cuts portfolio (`number_solutions` = 10, `verbose` = TRUE)
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 <ul>
@@ -2886,7 +2886,7 @@ of solutions within a specified distance from optimality.</li>
 ## │├•constraints: none specified
 ## │└•decisions:   binary decision
 ## └•optimization
-##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1)
+##  ├•portfolio:   shuffle portfolio (`number_solutions` = 10, `threads` = 1, …)
 ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
 ## # ℹ Use `summary(...)` to see further details.</code></pre>
 </div>
@@ -3020,7 +3020,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s48, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.185</code></pre>
+##      0.186</code></pre>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s48, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>

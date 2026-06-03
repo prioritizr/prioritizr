@@ -214,8 +214,8 @@ plot(terra::rast(ms2), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 
-# preview the objective values
-head(obj_matrix)
+# print the objective values
+print(obj_matrix)
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to

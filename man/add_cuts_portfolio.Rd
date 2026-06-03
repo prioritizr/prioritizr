@@ -4,7 +4,7 @@
 \alias{add_cuts_portfolio}
 \title{Add Bender's cuts portfolio}
 \usage{
-add_cuts_portfolio(x, number_solutions = 10)
+add_cuts_portfolio(x, number_solutions = 10, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -12,6 +12,9 @@ add_cuts_portfolio(x, number_solutions = 10)
 \item{number_solutions}{\code{integer} value denoting the
 number of required solutions.
 Defaults to 10.}
+
+\item{verbose}{\code{logical} should progress on generating multiple solutions
+be displayed? Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.

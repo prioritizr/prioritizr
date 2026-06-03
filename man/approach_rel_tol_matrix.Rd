@@ -139,10 +139,7 @@ print(rel_tol_matrix)
 # specified in order of priority
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
-  add_hier_approach(
-    rel_tol = rel_tol_matrix,
-    verbose = FALSE
-  ) \%>\%
+  add_hier_approach(rel_tol = rel_tol_matrix, verbose = TRUE) \%>\%
   add_default_solver(gap = 0.01, verbose = FALSE)
 
 # solve multi-objective problem and remove duplicate solutions
@@ -154,8 +151,8 @@ plot(terra::rast(ms2), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 
-# preview the objective values
-head(obj_matrix)
+# print the objective values
+print(obj_matrix)
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to

@@ -607,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.33 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.28 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
@@ -897,7 +897,7 @@ s3 <- solve(p3)
     ##      0     0 9.5648e+07    0   20 1.2212e+08 9.5648e+07  21.7%     -    0s
     ## H    0     0                    9.660231e+07 9.5648e+07  0.99%     -    0s
     ## 
-    ## Explored 1 nodes (521 simplex iterations) in 0.11 seconds (0.11 work units)
+    ## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.11 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 3: 9.66023e+07 9.66023e+07 1.2212e+08 

@@ -178,14 +178,15 @@ print(rel_tol_matrix)
 # specified in order of priority
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_hier_approach(
-    rel_tol = rel_tol_matrix,
-    verbose = FALSE
-  ) %>%
+  add_hier_approach(rel_tol = rel_tol_matrix, verbose = TRUE) %>%
   add_default_solver(gap = 0.01, verbose = FALSE)
 
 # solve multi-objective problem and remove duplicate solutions
 ms2 <- solve(mp2, remove_duplicates = TRUE)
+#> Generating solutions ■■■■■                            | 3/20 |  15% | ETA: 8s
+#> Generating solutions ■■■■■■■■■■■                      | 7/20 |  35% | ETA: 6s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 14/20 |  70% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 20/20 | 100% | ETA: 0s
 #> ℹ Found 7 out of the requested 20 non-duplicate solutions.
 
 # plot multiple solutions
@@ -195,8 +196,8 @@ plot(terra::rast(ms2), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 
-# preview the objective values
-head(obj_matrix)
+# print the objective values
+print(obj_matrix)
 #>            keystone_obj iconic_obj
 #> solution_1    0.8570267  0.8400900
 #> solution_2    0.9111362  0.7086196
@@ -204,6 +205,7 @@ head(obj_matrix)
 #> solution_4    1.0194107  0.6370060
 #> solution_5    1.0735387  0.6115551
 #> solution_6    1.1276667  0.6057715
+#> solution_7    1.5065627  0.6019638
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to

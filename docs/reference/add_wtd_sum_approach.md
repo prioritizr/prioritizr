@@ -227,11 +227,15 @@ print(weights_matrix)
 # create multi-objective problem using weight matrix
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
-  add_wtd_sum_approach(weights_matrix, verbose = FALSE) %>%
+  add_wtd_sum_approach(weights_matrix, verbose = TRUE) %>%
   add_default_solver(gap = 0.01, verbose = FALSE)
 
 # solve multi-objective problem and remove duplicate solutions
 ms2 <- solve(mp2, remove_duplicates = TRUE)
+#> Generating solutions ■■■■■■■                          | 3/15 |  20% | ETA: 5s
+#> Generating solutions ■■■■■■■■■■■■■■■                  | 7/15 |  47% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■    | 14/15 |  93% | ETA: 0s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 15/15 | 100% | ETA: 0s
 #> ℹ Found 13 out of the requested 15 non-duplicate solutions.
 
 # plot multiple solutions
@@ -241,15 +245,22 @@ plot(terra::rast(ms2), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms2)$objective
 
-# preview the objective values
-head(obj_matrix)
-#>            keystone_obj iconic_obj
-#> solution_1    0.9059099  0.7111356
-#> solution_2    0.8567573  2.0000000
-#> solution_3    3.0000000  0.6057715
-#> solution_4    0.8949350  0.7202442
-#> solution_5    0.8893569  0.7320958
-#> solution_6    0.8893569  0.7320958
+# print the objective values
+print(obj_matrix)
+#>             keystone_obj iconic_obj
+#> solution_1     0.9059099  0.7111356
+#> solution_2     0.8567573  2.0000000
+#> solution_3     3.0000000  0.6057715
+#> solution_4     0.8949350  0.7202442
+#> solution_5     0.8893569  0.7320958
+#> solution_6     0.8893569  0.7320958
+#> solution_7     1.0348682  0.6327522
+#> solution_8     0.8949350  0.7202442
+#> solution_9     1.0801232  0.6129796
+#> solution_10    0.9616594  0.6677060
+#> solution_11    1.0799882  0.6111864
+#> solution_12    1.0348183  0.6323333
+#> solution_13    0.9616594  0.6677060
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to

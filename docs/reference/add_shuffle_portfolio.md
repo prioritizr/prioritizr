@@ -10,7 +10,7 @@ if the *Gurobi* software is available.
 ## Usage
 
 ``` r
-add_shuffle_portfolio(x, number_solutions = 10, threads = 1)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1, verbose = TRUE)
 ```
 
 ## Arguments
@@ -42,6 +42,12 @@ add_shuffle_portfolio(x, number_solutions = 10, threads = 1)
   multiple copies of the problem (e.g., `threads = 5` may mean 5 copies)
   and exhausting most of the available memory will drastically slow run
   times. Defaults to 1.
+
+- verbose:
+
+  `logical` should progress on generating multiple solutions be
+  displayed? Note that progress will not be displayed if using multiple
+  threads for parallel processing. Defaults to `TRUE`.
 
 ## Value
 
@@ -96,6 +102,9 @@ p1 <-
 
 # solve problem and generate 10 solutions within 20% of optimality
 s1 <- solve(p1)
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert portfolio into a multi-layer raster
 s1 <- terra::rast(s1)
@@ -119,6 +128,9 @@ p2 <-
 
 # solve the problem
 s2 <- solve(p2)
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 1s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert each solution in the portfolio into a single category layer
 s2 <- terra::rast(lapply(s2, category_layer))

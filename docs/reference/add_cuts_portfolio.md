@@ -9,7 +9,7 @@ when the *Gurobi* software is not available.
 ## Usage
 
 ``` r
-add_cuts_portfolio(x, number_solutions = 10)
+add_cuts_portfolio(x, number_solutions = 10, verbose = TRUE)
 ```
 
 ## Arguments
@@ -22,6 +22,11 @@ add_cuts_portfolio(x, number_solutions = 10)
 
   `integer` value denoting the number of required solutions. Defaults to
   10.
+
+- verbose:
+
+  `logical` should progress on generating multiple solutions be
+  displayed? Defaults to `TRUE`.
 
 ## Value
 
@@ -86,6 +91,9 @@ p1 <-
 
 # solve problem and generate 10 solutions within 20% of optimality
 s1 <- solve(p1)
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA: 1s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert portfolio into a multi-layer raster object
 s1 <- terra::rast(s1)
@@ -105,6 +113,8 @@ p2 <-
 
 # solve the problem
 s2 <- solve(p2)
+#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # print solution
 str(s2, max.level = 1)
@@ -123,7 +133,7 @@ str(s2, max.level = 1)
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#>  - attr(*, "runtime")= Named num [1:10] 0.006 0.005 0.006 0.005 0.006 ...
+#>  - attr(*, "runtime")= Named num [1:10] 0.005 0.005 0.005 0.005 0.006 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "gap")= Named num [1:10] 0.175 0.183 0.187 0.189 0.173 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...

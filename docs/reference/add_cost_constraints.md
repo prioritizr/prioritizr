@@ -159,17 +159,18 @@ mp <-
   mp %>%
   add_hier_approach(rel_tol = rel_tol_matrix)
 
-# generate solutions
-ms <- solve(mp)
-#> ■■■■                              10% | ETA: 24s
-#> ■■■■■■■                           20% | ETA: 22s
-#> ■■■■■■■■■■                        30% | ETA: 19s
-#> ■■■■■■■■■■■■■                     40% | ETA: 17s
-#> ■■■■■■■■■■■■■■■■                  50% | ETA: 14s
-#> ■■■■■■■■■■■■■■■■■■■               60% | ETA: 11s
-#> ■■■■■■■■■■■■■■■■■■■■■■            70% | ETA:  9s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■      90% | ETA:  3s
-#> ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
+# generate solutions and remove duplicates
+ms <- solve(mp, remove_duplicates = TRUE)
+#> Generating solutions ■■■■                             | 1/10 |  10% | ETA:24s
+#> Generating solutions ■■■■■■■                          | 2/10 |  20% | ETA:22s
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA:19s
+#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA:16s
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA:14s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA:11s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA: 8s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 6s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # plot the solutions
 plot(terra::rast(ms), axes = FALSE)
@@ -178,15 +179,19 @@ plot(terra::rast(ms), axes = FALSE)
 # extract objective values for the solutions
 obj_matrix <- attributes(ms)$objective
 
-# preview the objective values
-head(obj_matrix)
-#>                 obj1     obj2      obj3
-#> solution_1 0.5254115 17.44765 1027535.5
-#> solution_2 0.5254618 18.41463  855765.4
-#> solution_3 0.5254624 19.38561  771956.7
-#> solution_4 0.5254624 20.35338  718990.5
-#> solution_5 0.5254624 21.32408  680327.2
-#> solution_6 0.5254624 22.29214  648289.1
+# print the objective values
+print(obj_matrix)
+#>                  obj1     obj2      obj3
+#> solution_1  0.5254115 17.44765 1027535.5
+#> solution_2  0.5254618 18.41463  855765.4
+#> solution_3  0.5254624 19.38561  771956.7
+#> solution_4  0.5254624 20.35338  718990.5
+#> solution_5  0.5254624 21.32408  680327.2
+#> solution_6  0.5254624 22.29214  648289.1
+#> solution_7  0.5254624 23.26140  620477.7
+#> solution_8  0.5254624 24.22503  596998.6
+#> solution_9  0.5254624 25.19655  576838.1
+#> solution_10 0.5254624 26.16770  558808.8
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better for both objectives)

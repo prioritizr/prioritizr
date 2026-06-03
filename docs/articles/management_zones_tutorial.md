@@ -1084,7 +1084,7 @@ s6 <- solve(p6)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 1 nodes (1169 simplex iterations) in 0.12 seconds (0.15 work units)
+    ## Explored 1 nodes (1169 simplex iterations) in 0.11 seconds (0.15 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 10: 13780 15120 15200 ... 18060
@@ -1231,7 +1231,7 @@ s7 <- solve(p7)
     ## 
     ## Found heuristic solution: objective 24400.000000
     ## Presolve removed 1120 rows and 324 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 785 rows, 876 columns, 2448 nonzeros
     ## Variable types: 0 continuous, 876 integer (876 binary)
     ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros
