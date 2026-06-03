@@ -15,6 +15,9 @@ NULL
 #' number of required solutions.
 #' Defaults to 10.
 #'
+#' @param verbose `logical` should progress on generating multiple solutions
+#' be displayed? Defaults to `TRUE`.
+#'
 #' @details
 #' This strategy for generating a portfolio of solutions involves
 #' solving the problem multiple times and adding additional constraints
@@ -93,14 +96,17 @@ NULL
 
 #' @rdname add_cuts_portfolio
 #' @export
-add_cuts_portfolio <- function(x, number_solutions = 10) {
+add_cuts_portfolio <- function(x, number_solutions = 10, verbose = TRUE) {
   # assert that arguments are valid
   assert_required(x)
   assert_required(number_solutions)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
-    all_finite(number_solutions)
+    all_finite(number_solutions),
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose)
   )
   # add portfolio
   x$add_portfolio(
@@ -109,14 +115,31 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
       inherit = Portfolio,
       public = list(
         name = "cuts portfolio",
-        data = list(number_solutions = number_solutions),
+        data = list(number_solutions = number_solutions, verbose = verbose),
         run = function(x, solver) {
           ## extract number of desired solutions
           n <- self$get_data("number_solutions")
+          verbose <- self$get_data("verbose")
+          ## if needed, set up progress bar
+          if (isTRUE(verbose)) {
+            pb <- cli::cli_progress_bar(
+              format = cli_progress_bar_format("Generating solutions"),
+              total = n,
+              .envir = parent.frame()
+            )
+          }
           ## solve problem to verify that it is feasible
           sol <- solver$solve(x)
+          ## if needed, update progress bar
+          if (isTRUE(verbose)) {
+            cli::cli_progress_update(id = pb)
+          }
           ## if solving the problem failed then return NULL
           if (!is_valid_raw_solution(sol, multiple = FALSE)) {
+            ## if needed, clean up progress bar
+            if (isTRUE(verbose)) {
+              cli::cli_progress_done(id = pb)
+            }
             return(sol) # nocov
           }
           ## generate additional solutions
@@ -126,12 +149,20 @@ add_cuts_portfolio <- function(x, number_solutions = 10) {
             rcpp_forbid_solution(x$ptr, sol[[i - 1]][[1]])
             ### solve solution
             curr_sol <- solver$solve(x)
+            ## if needed, update progress bar
+            if (isTRUE(verbose)) {
+              cli::cli_progress_update(id = pb)
+            }
             ### if contains valid solution then
             if (is_valid_raw_solution(curr_sol, multiple = FALSE)) {
               sol[[i]] <- curr_sol
             } else {
               break()
             }
+          }
+          ## if needed, clean up progress bar
+          if (isTRUE(verbose)) {
+            cli::cli_progress_done(id = pb)
           }
           ## compile results
           return(sol)

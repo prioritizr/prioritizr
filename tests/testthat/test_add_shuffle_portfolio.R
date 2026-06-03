@@ -11,7 +11,7 @@ test_that("compile", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(2) %>%
+    add_shuffle_portfolio(2, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   o <- compile(p)
@@ -36,7 +36,7 @@ test_that("solve (single solution)", {
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
     add_locked_in_constraints(locked_in) %>%
-    add_shuffle_portfolio(1) %>%
+    add_shuffle_portfolio(1, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve_fixed_seed(p)
@@ -65,7 +65,7 @@ test_that("solve (single zone)", {
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
     add_locked_in_constraints(locked_in) %>%
-    add_shuffle_portfolio(3) %>%
+    add_shuffle_portfolio(3, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve_fixed_seed(p)
@@ -99,7 +99,7 @@ test_that("solve (multiple zones)", {
         ncol = number_of_zones(sim_zones_features)
       )
     ) %>%
-    add_shuffle_portfolio(3) %>%
+    add_shuffle_portfolio(3, verbose = FALSE) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
@@ -137,7 +137,7 @@ test_that("solve (parallel processing)", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(10, threads = 2) %>%
+    add_shuffle_portfolio(10, threads = 2, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   suppressWarnings(s <- solve_fixed_seed(p))
@@ -179,14 +179,14 @@ test_that("start_solution (single solution)", {
       )
     ) %>%
     add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
-    add_shuffle_portfolio(number_solutions = 1)
+    add_shuffle_portfolio(number_solutions = 1, verbose = FALSE)
   # create solution
   s <- solve(p)
   # test for correct solution
   expect_equal(c(terra::values(s)), c(1, 0, 1, 0, NA))
 })
 
-test_that("start_solution (multiple solution)", {
+test_that("start_solution (multiple solution, verbose = TRUE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # create data
@@ -211,7 +211,7 @@ test_that("start_solution (multiple solution)", {
       )
     ) %>%
     add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
-    add_shuffle_portfolio(number_solutions = 3)
+    add_shuffle_portfolio(number_solutions = 3, verbose = TRUE)
   # create solution
   s <- solve(p)
   # test for correct solution

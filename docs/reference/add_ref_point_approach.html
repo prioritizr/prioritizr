@@ -298,27 +298,36 @@ systems (pp. 468–486). Springer Berlin Heidelberg.</p>
 <span class="r-in"><span>  n_problems <span class="op">=</span> <span class="fl">2</span>, n_values <span class="op">=</span> <span class="fl">5</span>, include_zero <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># preview weight matrix</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">weights_matrix</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1] [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 1.00 1.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 1.00 0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.00 1.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.50 0.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.75 0.25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 1.00 0.25</span>
+<span class="r-in"><span><span class="co"># print weight matrix</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">weights_matrix</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 1.00 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 1.00 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.00 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 0.50 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 0.75 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 1.00 0.25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 0.25 0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.75 0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 1.00 0.50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 0.25 0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 0.50 0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 1.00 0.75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 0.25 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 0.50 1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] 0.75 1.00</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># now create multi-objective problem with reference point approach,</span></span></span>
 <span class="r-in"><span><span class="co"># with weights to generate multiple solutions</span></span></span>
 <span class="r-in"><span><span class="va">mp2</span> <span class="op">&lt;-</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="multi_problem.html">multi_problem</a></span><span class="op">(</span>keystone_obj <span class="op">=</span> <span class="va">p1</span>, iconic_obj <span class="op">=</span> <span class="va">p2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">add_ref_point_approach</span><span class="op">(</span>weights <span class="op">=</span> <span class="va">weights_matrix</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0.01</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># solve problem</span></span></span>
-<span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># solve multi-objective problem and remove duplicate solutions</span></span></span>
+<span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span>, remove_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■                         </span>  20% | ETA:  5s</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■               </span>  53% | ETA:  3s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■             </span>  60% | ETA:  3s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> 100% | ETA:  0s</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot multiple solutions</span></span></span>
@@ -331,9 +340,9 @@ systems (pp. 468–486). Springer Berlin Heidelberg.</p>
 <span class="r-in"><span><span class="co"># preview the objective values</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj_matrix</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            keystone_obj iconic_obj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_1    1.0110347  0.6474533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_2    0.8656717  2.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_3    3.0000000  0.6035939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_1    0.9616594  0.6677060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_2    0.8567573  2.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_3    3.0000000  0.6033789</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_4    0.8949350  0.7202442</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_5    0.8949350  0.7202442</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> solution_6    0.8893569  0.7320958</span>

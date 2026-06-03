@@ -207,3 +207,22 @@ cli_deprecated <- function(old, new = NULL) {
 #'
 #' @noRd
 col_light_gray <- cli::make_ansi_style("grey60")
+
+#' Progress bar format
+#'
+#' @param name `
+#' @return A `character` value for formatting [cli::cli_progress_bar()].
+#'
+#' @noRd
+cli_progress_bar_format <- function(name = NULL) {
+  out <- ""
+  if (!is.null(name)) {
+    out <- paste0(name, " ")
+  }
+  out <- paste0(
+    out,
+    "{cli::pb_bar} | ",
+    "{cli::pb_current}/{cli::pb_total} | {cli::pb_percent} | ETA:{cli::pb_eta}"
+  )
+  out
+}

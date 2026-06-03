@@ -904,8 +904,7 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
-  not displaying correct text for linear constraints
+  `summarize()` not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

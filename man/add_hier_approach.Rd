@@ -301,14 +301,13 @@ plot(ms1, main = "multi-objective solution", axes = FALSE)
 # we will explore trade-offs between the two objectives, by generating
 # multiple solutions using multi-objective optimization
 
-# create a matrix with 40 different combinations of relative tolerance values
-# that can be used to generate 40 solutions
+# create a matrix with multiple different relative tolerance values
 rel_tol_matrix <- approach_rel_tol_matrix(
-  n_problems = 2, n_values = 40, max = 1.2
+  n_problems = 2, n_values = 20, max = 1.2
 )
 
-# preview matrix with relative tolerance values
-head(rel_tol_matrix)
+# print matrix with relative tolerance values
+print(rel_tol_matrix)
 
 # create a multi-objective problem with the matrix of relative tolerance
 # values and - because we do not specify values for priority - the
@@ -320,10 +319,10 @@ mp2 <-
     rel_tol = rel_tol_matrix,
     verbose = FALSE
   ) \%>\%
-  add_default_solver(verbose = FALSE)
+  add_default_solver(gap = 0.01, verbose = FALSE)
 
-# solve multi-objective problem and generate 40 solutions
-ms2 <- solve(mp2)
+# solve multi-objective problem and remove duplicate solutions
+ms2 <- solve(mp2, remove_duplicates = TRUE)
 
 # plot multiple solutions
 plot(terra::rast(ms2), axes = FALSE)

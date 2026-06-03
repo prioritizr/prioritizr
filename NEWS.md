@@ -54,6 +54,8 @@
 - Update `add_highs_solver()` function to support a starting solution.
   Note that this currently requires installation of the developmental
   version of the _highs_ package.
+- Update `add_shuffle_portfolio()` and `add_cuts_portfolio()` to have
+  a `verbose` parameter that can be used to display a progress bar.
 - Update `add_max_wtd_sum_objective()` function to display a message to help
   ensure that make users aware of its limitations.
 - Update `solve()` so that it will display a message (instead of a warning)

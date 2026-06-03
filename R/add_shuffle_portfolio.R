@@ -13,6 +13,10 @@ NULL
 #' @inheritParams add_cuts_portfolio
 #' @inheritParams add_gurobi_solver
 #'
+#' @param verbose `logical` should progress on generating multiple solutions
+#' be displayed? Note that progress will not be displayed if using
+#' multiple threads for parallel processing. Defaults to `TRUE`.
+#'
 #' @details
 #' This strategy for generating a portfolio of solutions often
 #' results in different solutions, depending on optimality gap, but may
@@ -86,17 +90,21 @@ NULL
 
 #' @rdname add_shuffle_portfolio
 #' @export
-add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
+add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
+                                  verbose = TRUE) {
   # assert that arguments are valid
   assert_required(x)
   assert_required(number_solutions)
   assert_required(threads)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     all_finite(number_solutions),
     is_thread_count(threads),
-    all_finite(threads)
+    all_finite(threads),
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose)
   )
   # additional argument validation
   verify(is_recommended_thread_count(threads))
@@ -109,11 +117,16 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
         name = "shuffle portfolio",
         data = list(
           number_solutions = number_solutions,
-          threads = threads
+          threads = threads,
+          verbose = verbose
         ),
         run = function(x, solver) {
+          # initialization
+          verbose <- self$get_data("verbose")
+          n <- self$get_data("number_solutions")
+          threads <- self$get_data("threads")
           # determine behavior based on number of solutions
-          if (self$get_data("number_solutions") == 1) {
+          if (n == 1) {
             ## if only one solution is needed,
             ## then simply shuffle the problem and return the solution
             shuffle_key <- sample(seq_len(x$ncol()))
@@ -176,22 +189,21 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
           }
           ## if multiple solutions are needed,
           ## then we need to be more complex
-          if (self$get_data("threads") > 1L) {
-            ### if using paralell processing, then...
+          if (threads > 1L) {
+            ### if using parallel processing, then...
             ### convert problem to list so we can copy between workers
             x_list <- as.list(x)
             ### initialize cluster
-            cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
+            cl <- parallel::makeCluster(threads, "PSOCK")
             ### prepare cluster clean up
             on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
             ### create RNG seeds
             pids <- parallel::clusterEvalQ(cl, Sys.getpid())
-            seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
+            seeds <- sample.int(n = 1e+5, size = threads)
             names(seeds) <- as.character(unlist(pids))
             ### copy data to cluster
             parallel::clusterExport(
-              cl,
-              c("solver", "x_list", "seeds"),
+              cl, c("solver", "x_list", "seeds"),
               envir = environment()
             )
             ### set up workers
@@ -202,16 +214,36 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1) {
             })
             ### main processing
             sol <- parallel::parLapply(
-              cl = cl,
-              seq_len(self$get_data("number_solutions")),
+              cl = cl, seq_len(n),
               generate_single_solution
             )
           } else {
+            ### if needed, set up progress bar
+             if (isTRUE(verbose)) {
+              pb <- cli::cli_progress_bar(
+                format = cli_progress_bar_format("Generating solutions"),
+                total = n,
+                .envir = parent.frame()
+              )
+            }
             ### if NOT using parallel processing, then...
             sol <- lapply(
-              seq_len(self$get_data("number_solutions")),
-              generate_single_solution
+              seq_len(n),
+              function(i) {
+                ### generate solution
+                out <- generate_single_solution(i)
+                ## if needed, update progress bar
+                if (isTRUE(verbose)) {
+                  cli::cli_progress_update(id = pb)
+                }
+                ### return solution
+                out
+              }
             )
+            ### if needed, clean up progress bar
+            if (isTRUE(verbose)) {
+              cli::cli_progress_done(id = pb)
+            }
           }
           ## return result
           sol

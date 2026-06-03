@@ -163,17 +163,17 @@ weights_matrix <- approach_weights_matrix(
   n_problems = 2, n_values = 5, include_zero = TRUE
 )
 
-# preview weight matrix
-head(weights_matrix)
+# print weight matrix
+print(weights_matrix)
 
 # create multi-objective problem using weight matrix
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) \%>\%
   add_wtd_sum_approach(weights_matrix, verbose = FALSE) \%>\%
-  add_default_solver(verbose = FALSE)
+  add_default_solver(gap = 0.01, verbose = FALSE)
 
-# solve multi-objective problem and generate multiple solutions
-ms2 <- solve(mp2)
+# solve multi-objective problem and remove duplicate solutions
+ms2 <- solve(mp2, remove_duplicates = TRUE)
 
 # plot multiple solutions
 plot(terra::rast(ms2), axes = FALSE)

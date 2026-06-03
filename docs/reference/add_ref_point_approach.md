@@ -215,27 +215,36 @@ weights_matrix <- approach_weights_matrix(
   n_problems = 2, n_values = 5, include_zero = TRUE
 )
 
-# preview weight matrix
-head(weights_matrix)
-#>      [,1] [,2]
-#> [1,] 1.00 1.00
-#> [2,] 1.00 0.00
-#> [3,] 0.00 1.00
-#> [4,] 0.50 0.25
-#> [5,] 0.75 0.25
-#> [6,] 1.00 0.25
+# print weight matrix
+print(weights_matrix)
+#>       [,1] [,2]
+#>  [1,] 1.00 1.00
+#>  [2,] 1.00 0.00
+#>  [3,] 0.00 1.00
+#>  [4,] 0.50 0.25
+#>  [5,] 0.75 0.25
+#>  [6,] 1.00 0.25
+#>  [7,] 0.25 0.50
+#>  [8,] 0.75 0.50
+#>  [9,] 1.00 0.50
+#> [10,] 0.25 0.75
+#> [11,] 0.50 0.75
+#> [12,] 1.00 0.75
+#> [13,] 0.25 1.00
+#> [14,] 0.50 1.00
+#> [15,] 0.75 1.00
 
 # now create multi-objective problem with reference point approach,
 # with weights to generate multiple solutions
 mp2 <-
   multi_problem(keystone_obj = p1, iconic_obj = p2) %>%
   add_ref_point_approach(weights = weights_matrix, verbose = TRUE) %>%
-  add_default_solver(verbose = FALSE)
+  add_default_solver(gap = 0.01, verbose = FALSE)
 
-# solve problem
-ms2 <- solve(mp2)
+# solve multi-objective problem and remove duplicate solutions
+ms2 <- solve(mp2, remove_duplicates = TRUE)
 #> Generating solutions ■■■■■■■                           20% | ETA:  5s
-#> Generating solutions ■■■■■■■■■■■■■■■■■                 53% | ETA:  3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■               60% | ETA:  3s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  100% | ETA:  0s
 
 # plot multiple solutions
@@ -248,9 +257,9 @@ obj_matrix <- attributes(ms2)$objective
 # preview the objective values
 head(obj_matrix)
 #>            keystone_obj iconic_obj
-#> solution_1    1.0110347  0.6474533
-#> solution_2    0.8656717  2.0000000
-#> solution_3    3.0000000  0.6035939
+#> solution_1    0.9616594  0.6677060
+#> solution_2    0.8567573  2.0000000
+#> solution_3    3.0000000  0.6033789
 #> solution_4    0.8949350  0.7202442
 #> solution_5    0.8949350  0.7202442
 #> solution_6    0.8893569  0.7320958

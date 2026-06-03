@@ -94,13 +94,13 @@ mp <-
       add_binary_decisions()
   ) \%>\%
   add_hier_approach(rel_tol = 0.1, verbose = FALSE) \%>\%
-  add_gurobi_solver(gap = 0, verbose = FALSE)
+  add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 ms <- solve(mp)
 
 # plot solution
-plot(ms, axes = FALSE)
+plot(ms, main = "solution", axes = FALSE)
 \dontshow{\}) # examplesIf}
 }
 \references{

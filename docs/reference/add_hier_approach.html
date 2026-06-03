@@ -404,21 +404,34 @@ for <code>rel_tol</code>.</p>
 <span class="r-in"><span><span class="co"># we will explore trade-offs between the two objectives, by generating</span></span></span>
 <span class="r-in"><span><span class="co"># multiple solutions using multi-objective optimization</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># create a matrix with 40 different combinations of relative tolerance values</span></span></span>
-<span class="r-in"><span><span class="co"># that can be used to generate 40 solutions</span></span></span>
+<span class="r-in"><span><span class="co"># create a matrix with multiple different relative tolerance values</span></span></span>
 <span class="r-in"><span><span class="va">rel_tol_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="approach_rel_tol_matrix.html">approach_rel_tol_matrix</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  n_problems <span class="op">=</span> <span class="fl">2</span>, n_values <span class="op">=</span> <span class="fl">40</span>, max <span class="op">=</span> <span class="fl">1.2</span></span></span>
+<span class="r-in"><span>  n_problems <span class="op">=</span> <span class="fl">2</span>, n_values <span class="op">=</span> <span class="fl">20</span>, max <span class="op">=</span> <span class="fl">1.2</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># preview matrix with relative tolerance values</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">rel_tol_matrix</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.03076923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.06153846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] 0.09230769</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] 0.12307692</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,] 0.15384615</span>
+<span class="r-in"><span><span class="co"># print matrix with relative tolerance values</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">rel_tol_matrix</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,] 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,] 0.06315789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,] 0.12631579</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,] 0.18947368</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,] 0.25263158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,] 0.31578947</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,] 0.37894737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,] 0.44210526</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,] 0.50526316</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,] 0.56842105</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,] 0.63157895</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,] 0.69473684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,] 0.75789474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,] 0.82105263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,] 0.88421053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,] 0.94736842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,] 1.01052632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,] 1.07368421</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,] 1.13684211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,] 1.20000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create a multi-objective problem with the matrix of relative tolerance</span></span></span>
 <span class="r-in"><span><span class="co"># values and - because we do not specify values for priority - the</span></span></span>
@@ -430,10 +443,11 @@ for <code>rel_tol</code>.</p>
 <span class="r-in"><span>    rel_tol <span class="op">=</span> <span class="va">rel_tol_matrix</span>,</span></span>
 <span class="r-in"><span>    verbose <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0.01</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># solve multi-objective problem and generate 40 solutions</span></span></span>
-<span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># solve multi-objective problem and remove duplicate solutions</span></span></span>
+<span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span>, remove_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Found <span style="color: #0000BB;">7</span> out of the requested <span style="color: #0000BB;">20</span> non-duplicate solutions.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot multiple solutions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu">terra</span><span class="fu">::</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">rast</a></span><span class="op">(</span><span class="va">ms2</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
@@ -445,12 +459,12 @@ for <code>rel_tol</code>.</p>
 <span class="r-in"><span><span class="co"># preview the objective values</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">obj_matrix</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            keystone_obj iconic_obj</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_1    0.9154189  0.7474219</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_2    0.9480973  0.7206985</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_3    0.9717524  0.7006131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_4    0.9999191  0.6972927</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_5    1.0280859  0.6695586</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> solution_6    1.0562526  0.6378101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_1    0.8570267  0.8400900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_2    0.9111362  0.7086196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_3    0.9652827  0.6677060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_4    1.0194107  0.6370060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_5    1.0735387  0.6115551</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> solution_6    1.1276667  0.6057715</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># plot the objectives values to visualize trade-offs</span></span></span>
 <span class="r-in"><span><span class="co"># (note that smaller values are better because these objectives seek to</span></span></span>

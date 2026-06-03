@@ -149,7 +149,9 @@ NULL
 #'   ) %>%
 #'   add_default_solver(gap = 0, verbose = FALSE)
 #'
-#' # create multi-problem with hierarchical approach
+#' # create multi-problem with hierarchical approach,
+#' # with settings to allow for 10% reduction in performance
+#' # for the keystone objective to optimize the iconic objective
 #' mp1 <-
 #'  mp %>%
 #'  add_hier_approach(rel_tol = 0.1, verbose = FALSE)
@@ -161,6 +163,8 @@ NULL
 #'  add_ref_point_approach(verbose = FALSE)
 #'
 #' # create multi-problem with weighted sum approach,
+#' # with weights to emphasize the keystone objective more than the
+#' # iconic objective
 #' mp3 <-
 #'   mp %>%
 #'   add_wtd_sum_approach(weights = c(0.9, 0.1), verbose = FALSE)

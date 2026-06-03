@@ -338,21 +338,34 @@ plot(ms1, main = "multi-objective solution", axes = FALSE)
 # we will explore trade-offs between the two objectives, by generating
 # multiple solutions using multi-objective optimization
 
-# create a matrix with 40 different combinations of relative tolerance values
-# that can be used to generate 40 solutions
+# create a matrix with multiple different relative tolerance values
 rel_tol_matrix <- approach_rel_tol_matrix(
-  n_problems = 2, n_values = 40, max = 1.2
+  n_problems = 2, n_values = 20, max = 1.2
 )
 
-# preview matrix with relative tolerance values
-head(rel_tol_matrix)
-#>            [,1]
-#> [1,] 0.00000000
-#> [2,] 0.03076923
-#> [3,] 0.06153846
-#> [4,] 0.09230769
-#> [5,] 0.12307692
-#> [6,] 0.15384615
+# print matrix with relative tolerance values
+print(rel_tol_matrix)
+#>             [,1]
+#>  [1,] 0.00000000
+#>  [2,] 0.06315789
+#>  [3,] 0.12631579
+#>  [4,] 0.18947368
+#>  [5,] 0.25263158
+#>  [6,] 0.31578947
+#>  [7,] 0.37894737
+#>  [8,] 0.44210526
+#>  [9,] 0.50526316
+#> [10,] 0.56842105
+#> [11,] 0.63157895
+#> [12,] 0.69473684
+#> [13,] 0.75789474
+#> [14,] 0.82105263
+#> [15,] 0.88421053
+#> [16,] 0.94736842
+#> [17,] 1.01052632
+#> [18,] 1.07368421
+#> [19,] 1.13684211
+#> [20,] 1.20000000
 
 # create a multi-objective problem with the matrix of relative tolerance
 # values and - because we do not specify values for priority - the
@@ -364,10 +377,11 @@ mp2 <-
     rel_tol = rel_tol_matrix,
     verbose = FALSE
   ) %>%
-  add_default_solver(verbose = FALSE)
+  add_default_solver(gap = 0.01, verbose = FALSE)
 
-# solve multi-objective problem and generate 40 solutions
-ms2 <- solve(mp2)
+# solve multi-objective problem and remove duplicate solutions
+ms2 <- solve(mp2, remove_duplicates = TRUE)
+#> ℹ Found 7 out of the requested 20 non-duplicate solutions.
 
 # plot multiple solutions
 plot(terra::rast(ms2), axes = FALSE)
@@ -379,12 +393,12 @@ obj_matrix <- attributes(ms2)$objective
 # preview the objective values
 head(obj_matrix)
 #>            keystone_obj iconic_obj
-#> solution_1    0.9154189  0.7474219
-#> solution_2    0.9480973  0.7206985
-#> solution_3    0.9717524  0.7006131
-#> solution_4    0.9999191  0.6972927
-#> solution_5    1.0280859  0.6695586
-#> solution_6    1.0562526  0.6378101
+#> solution_1    0.8570267  0.8400900
+#> solution_2    0.9111362  0.7086196
+#> solution_3    0.9652827  0.6677060
+#> solution_4    1.0194107  0.6370060
+#> solution_5    1.0735387  0.6115551
+#> solution_6    1.1276667  0.6057715
 
 # plot the objectives values to visualize trade-offs
 # (note that smaller values are better because these objectives seek to
