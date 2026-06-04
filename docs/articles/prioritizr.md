@@ -252,7 +252,7 @@ s1 <- solve(p1)
     ## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.01 seconds (0.01 work units)
+    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.00 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -607,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.28 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.27 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784

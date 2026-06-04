@@ -142,7 +142,7 @@ mp <-
 
 # generate multi-objective solutions
 s2 <- solve(mp)
-#> Generating solutions ■■■■■■■■■                        | 1/4 |  25% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 2/4 |  50% | ETA: 2s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 4/4 | 100% | ETA: 0s
 
 # plot multi-objective solutions

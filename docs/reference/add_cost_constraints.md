@@ -161,10 +161,9 @@ mp <-
 
 # generate solutions and remove duplicates
 ms <- solve(mp, remove_duplicates = TRUE)
-#> Generating solutions ■■■■                             | 1/10 |  10% | ETA:24s
-#> Generating solutions ■■■■■■■                          | 2/10 |  20% | ETA:22s
-#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA:19s
-#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA:16s
+#> Generating solutions ■■■■                             | 1/10 |  10% | ETA:25s
+#> Generating solutions ■■■■■■■                          | 2/10 |  20% | ETA:23s
+#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA:17s
 #> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA:14s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA:11s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA: 8s

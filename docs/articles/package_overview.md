@@ -2909,7 +2909,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.187
+    ##       0.18
 
 ``` r
 # extract state message from the solver that describes why this specific
@@ -3212,36 +3212,37 @@ decision making (Brown *et al.* 2015).
 Multi-objective optimization provides a framework to examine trade-offs
 and identify solutions that represent a desirable compromise among
 multiple objectives (López Jaimes *et al.* 2011; Neubert *et al.* 2025).
-To apply multi-objective optimization, users should start by carefully
-considering the preferences and motivations that underpin the planning
-process (i.e., fundamental objectives) that need to be examined (e.g.,
-trade-offs between connectivity, representation of different types of
-features, opportunity costs, spatial area). Users should then build a
-separate conservation planning problem for each fundamental objective
-(with the [`problem()`](https://prioritizr.net/reference/problem.md)
-function) and then combine them into a single multi-objective problem
-with the
+To apply multi-objective optimization, users should first identify the
+underlying motivations and preferences (hereafter, fundamental
+objectives) that underpin the planning process and trade-offs they wish
+to examine (e.g., connectivity, representation of different types of
+features, competing human uses). For each fundamental objective, users
+should then formulate a separate conservation planning problem using the
+[`problem()`](https://prioritizr.net/reference/problem.md) function.
+These [`problem()`](https://prioritizr.net/reference/problem.md) objects
+are then combined into a multi-objective problem with the
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 function. Next, the
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
-object can be customized by adding (i) an approach to specify how
-multiple objectives should be accommodated during optimization, and (ii)
-a solver to specify the optimization software settings. After completing
-these steps, the [`solve()`](https://prioritizr.net/reference/solve.md)
-function can be used to generate a single solution, or multiple
-solutions, that aim to achieve multiple objectives.
+object is customized by adding (i) an approach to specify a mathematical
+technique for optimizing multiple objectives, and (ii) a solver to
+specify settings for the optimization software. After completing these
+steps, the [`solve()`](https://prioritizr.net/reference/solve.md)
+function is used to generate solutions that aim to achieve multiple
+objectives.
 
-It is important to ensure that each
-[`problem()`](https://prioritizr.net/reference/problem.md) object has
-comparable planning units, decision types, and zones when building a
+When building a
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
-object. For example, if using
+object, it is important to ensure that each
+[`problem()`](https://prioritizr.net/reference/problem.md) object has
+comparable planning units, decision types, and zones. For example, if
+using
 [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
 planning units, then each
-[`problem()`](https://prioritizr.net/reference/problem.md) should have
-planning units that have the same resolution, dimensionality (number of
-rows and columns), and coordinate reference system. Although the
-planning units in different
+[`problem()`](https://prioritizr.net/reference/problem.md) object should
+have planning units that have the same resolution, dimensionality
+(number of rows and columns), and coordinate reference system. Although
+the planning units in different
 [`problem()`](https://prioritizr.net/reference/problem.md) objects can
 have different values (e.g., one
 [`problem()`](https://prioritizr.net/reference/problem.md) may have
@@ -3254,8 +3255,8 @@ objects). If you try building a
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object based on
 [`problem()`](https://prioritizr.net/reference/problem.md) objects that
-do not have comparable planning units and zones, then it will throw an
-error. Note that each
+not have comparable planning units, decision types, and zones, then it
+will throw an error. Note that each
 [`problem()`](https://prioritizr.net/reference/problem.md) object can
 have different planning unit costs, features, constraints, objectives,
 and penalties.
@@ -3379,18 +3380,23 @@ print(mop)
     ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
-- **Weighted sum**: This approach involves linearly combining objectives
-  together based on weights (`weights`), wherein those associated with a
-  greater weight value exert a greater influence on the optimization
-  process (López Jaimes *et al.* 2011). Although this approach is
-  conceptually simple, it is sensitive to differences in scale among the
-  objectives (Das & Dennis 1997). As such, an objective with a
-  relatively high weight value may not actually have much influence on
-  the optimization process. Thus the weighted sum approach often
-  requires extensive calibration to identify weight values that reflect
-  the underlying preferences and motivations for stakeholders. Due to
-  its limitations, we generally recommend other approaches instead of
-  the weighted sum approach.
+- **Weighted sum**: This approach linearly combines multiple objectives
+  using weight (`weights`) parameters. In particular, objectives with
+  greater weights are intended to exert greater influence on the
+  optimization process (López Jaimes *et al.* 2011). Although this
+  approach is conceptually simple and widely used, it is sensitive to
+  differences in scale between objectives (Das & Dennis 1997). Thus the
+  degree of influence that a given objective has on the optimization
+  process may not actually reflect its assigned weight. For example, an
+  objective with a relatively high weight (e.g., 0.99) may have a much
+  smaller influence than an objective with a relatively low weight
+  (e.g., 0.01) if the range of values for the first objective are much
+  smaller than the second objective (e.g., if the objective values for
+  the first objective range between 0 and 1, and the second objective
+  range between 0 and 1000). Due to this limitation, substantial
+  calibration is often required to identify weights that accurately
+  reflect stakeholder preferences and motivations. As such, we generally
+  recommend alternative approaches when possible.
 
 ``` r
 # build multi-objective problem with weighted sum approach and
@@ -3427,7 +3433,8 @@ reference point for each objective, setting weight parameters for this
 approach is a much more intuitive process than for the weighted sum
 approach (Deléglise *et al.* 2024). As such, this approach is especially
 well-suited for applied contexts that seek to identify solutions that
-meet stakeholder preferences and motivations (Dujardin & Chadès 2018).
+meet multiple stakeholder preferences and motivations (Dujardin & Chadès
+2018).
 
 ``` r
 # build multi-objective problem with reference point approach and
@@ -3448,10 +3455,11 @@ plot(
 
 ![](package_overview_files/figure-html/unnamed-chunk-73-1.png) \*
 **Hierarchical**: This approach involves solving an optimization problem
-for each objective in a hierarchical (lexicographic) manner, wherein
-those associated with a higher priority are solved before those with a
-lower priority (López Jaimes *et al.* 2011). By default, the order of
-priority is based on the order of problems in the
+for each objective in a hierarchical (lexicographic) manner. In
+particular, it solves optimization problems based on an order of
+priority, wherein those associated with a higher priority are solved
+before those with a lower priority (López Jaimes *et al.* 2011). By
+default, the order of priority is based on the order of problems in the
 [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object. To express trade-offs, this approach uses relative tolerance
 (`rel_tol`) parameters that allow the optimization process to degrade
@@ -3482,21 +3490,24 @@ plot(
 
 ![](package_overview_files/figure-html/unnamed-chunk-74-1.png)
 
-The multi-objective optimization approaches can also be used to generate
+The multi-objective optimization approaches can be used to generate
 multiple solutions. Although portfolio functions can also be used to
-generate multiple solutions, the approach functions are different
-because they are designed to generate solutions that have different
-levels of performance in achieving different objectives. Conversely, the
-portfolio functions are designed to generate solutions that have the
-(approximately) same performance and have different spatial
-configurations. For example, here we will use the hierarchical approach
-to generate a range of different solutions to explore trade-offs between
-representing keystone and iconic species. Additionally, the
+generate multiple solutions, they are different from the approach
+functions. This is because the approach functions are designed to
+generate solutions that have different levels of performance
+(trade-offs) in achieving different objectives, whereas the portfolio
+functions are designed to generate solutions that have the
+(approximately) same performance with different spatial configurations.
+To help explore trade-offs with the approach functions, the
 [`approach_rel_tol_matrix()`](https://prioritizr.net/reference/approach_rel_tol_matrix.md)
 and
 [`approach_weights_matrix()`](https://prioritizr.net/reference/approach_weights_matrix.md)
-functions can be used to generate values for the `rel_tol` and `weights`
-parameters of approach functions.
+functions can be used to generate multiple sets of values for the
+`rel_tol` and `weights` parameters of approach functions. For example,
+here we will use the hierarchical approach and the
+[`approach_rel_tol_matrix()`](https://prioritizr.net/reference/approach_rel_tol_matrix.md)
+function to generate multiple solutions and explore trade-offs between
+representing keystone and iconic species.
 
 ``` r
 # define a matrix of relative tolerance values between 0 and 1

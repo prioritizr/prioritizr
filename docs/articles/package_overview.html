@@ -2839,7 +2839,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s48</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.187</span></span></code></pre>
+<span><span class="co">##       0.18</span></span></code></pre>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
@@ -3121,35 +3121,36 @@ decision making <span class="citation">(Brown <em>et al.</em>
 trade-offs and identify solutions that represent a desirable compromise
 among multiple objectives <span class="citation">(López Jaimes <em>et
 al.</em> 2011; Neubert <em>et al.</em> 2025)</span>. To apply
-multi-objective optimization, users should start by carefully
-considering the preferences and motivations that underpin the planning
-process (i.e., fundamental objectives) that need to be examined (e.g.,
-trade-offs between connectivity, representation of different types of
-features, opportunity costs, spatial area). Users should then build a
-separate conservation planning problem for each fundamental objective
-(with the <code><a href="../reference/problem.html">problem()</a></code> function) and then combine them into a
-single multi-objective problem with the <code><a href="../reference/multi_problem.html">multi_problem()</a></code>
-function. Next, the <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object can be
-customized by adding (i) an approach to specify how multiple objectives
-should be accommodated during optimization, and (ii) a solver to specify
-the optimization software settings. After completing these steps, the
-<code><a href="../reference/solve.html">solve()</a></code> function can be used to generate a single solution,
-or multiple solutions, that aim to achieve multiple objectives.</p>
-<p>It is important to ensure that each <code><a href="../reference/problem.html">problem()</a></code> object has
-comparable planning units, decision types, and zones when building a
-<code><a href="../reference/multi_problem.html">multi_problem()</a></code> object. For example, if using
+multi-objective optimization, users should first identify the underlying
+motivations and preferences (hereafter, fundamental objectives) that
+underpin the planning process and trade-offs they wish to examine (e.g.,
+connectivity, representation of different types of features, competing
+human uses). For each fundamental objective, users should then formulate
+a separate conservation planning problem using the
+<code><a href="../reference/problem.html">problem()</a></code> function. These <code><a href="../reference/problem.html">problem()</a></code> objects
+are then combined into a multi-objective problem with the
+<code><a href="../reference/multi_problem.html">multi_problem()</a></code> function. Next, the
+<code><a href="../reference/multi_problem.html">multi_problem()</a></code> object is customized by adding (i) an
+approach to specify a mathematical technique for optimizing multiple
+objectives, and (ii) a solver to specify settings for the optimization
+software. After completing these steps, the <code><a href="../reference/solve.html">solve()</a></code>
+function is used to generate solutions that aim to achieve multiple
+objectives.</p>
+<p>When building a <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object, it is important
+to ensure that each <code><a href="../reference/problem.html">problem()</a></code> object has comparable
+planning units, decision types, and zones. For example, if using
 <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> planning units, then each
-<code><a href="../reference/problem.html">problem()</a></code> should have planning units that have the same
-resolution, dimensionality (number of rows and columns), and coordinate
-reference system. Although the planning units in different
+<code><a href="../reference/problem.html">problem()</a></code> object should have planning units that have the
+same resolution, dimensionality (number of rows and columns), and
+coordinate reference system. Although the planning units in different
 <code><a href="../reference/problem.html">problem()</a></code> objects can have different values (e.g., one
 <code><a href="../reference/problem.html">problem()</a></code> may have costs based on human pressure and
 another <code><a href="../reference/problem.html">problem()</a></code> may have costs based on spatial area),
 they must have missing (<code>NA</code>) values in the same cells (or
 rows if planning units are <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> objects). If you try
 building a <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object based on
-<code><a href="../reference/problem.html">problem()</a></code> objects that do not have comparable planning
-units and zones, then it will throw an error. Note that each
+<code><a href="../reference/problem.html">problem()</a></code> objects that not have comparable planning units,
+decision types, and zones, then it will throw an error. Note that each
 <code><a href="../reference/problem.html">problem()</a></code> object can have different planning unit costs,
 features, constraints, objectives, and penalties.</p>
 <p>Let’s generate a multi-objective conservation problem so that we can
@@ -3263,19 +3264,23 @@ weigh these two competing objectives.</p>
 <span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <ul>
 <li>
-<strong>Weighted sum</strong>: This approach involves linearly
-combining objectives together based on weights (<code>weights</code>),
-wherein those associated with a greater weight value exert a greater
-influence on the optimization process <span class="citation">(López
-Jaimes <em>et al.</em> 2011)</span>. Although this approach is
-conceptually simple, it is sensitive to differences in scale among the
-objectives <span class="citation">(Das &amp; Dennis 1997)</span>. As
-such, an objective with a relatively high weight value may not actually
-have much influence on the optimization process. Thus the weighted sum
-approach often requires extensive calibration to identify weight values
-that reflect the underlying preferences and motivations for
-stakeholders. Due to its limitations, we generally recommend other
-approaches instead of the weighted sum approach.</li>
+<strong>Weighted sum</strong>: This approach linearly combines
+multiple objectives using weight (<code>weights</code>) parameters. In
+particular, objectives with greater weights are intended to exert
+greater influence on the optimization process <span class="citation">(López Jaimes <em>et al.</em> 2011)</span>. Although
+this approach is conceptually simple and widely used, it is sensitive to
+differences in scale between objectives <span class="citation">(Das
+&amp; Dennis 1997)</span>. Thus the degree of influence that a given
+objective has on the optimization process may not actually reflect its
+assigned weight. For example, an objective with a relatively high weight
+(e.g., 0.99) may have a much smaller influence than an objective with a
+relatively low weight (e.g., 0.01) if the range of values for the first
+objective are much smaller than the second objective (e.g., if the
+objective values for the first objective range between 0 and 1, and the
+second objective range between 0 and 1000). Due to this limitation,
+substantial calibration is often required to identify weights that
+accurately reflect stakeholder preferences and motivations. As such, we
+generally recommend alternative approaches when possible.</li>
 </ul>
 <div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build multi-objective problem with weighted sum approach and</span></span>
@@ -3310,7 +3315,7 @@ is to achieving the reference point for each objective, setting weight
 parameters for this approach is a much more intuitive process than for
 the weighted sum approach <span class="citation">(Deléglise <em>et
 al.</em> 2024)</span>. As such, this approach is especially well-suited
-for applied contexts that seek to identify solutions that meet
+for applied contexts that seek to identify solutions that meet multiple
 stakeholder preferences and motivations <span class="citation">(Dujardin
 &amp; Chadès 2018)</span>.</p>
 <div class="sourceCode" id="cb169"><pre class="downlit sourceCode r">
@@ -3331,8 +3336,9 @@ stakeholder preferences and motivations <span class="citation">(Dujardin
 <p><img src="package_overview_files/figure-html/unnamed-chunk-73-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;">
 * <strong>Hierarchical</strong>: This approach involves solving an
 optimization problem for each objective in a hierarchical
-(lexicographic) manner, wherein those associated with a higher priority
-are solved before those with a lower priority <span class="citation">(López Jaimes <em>et al.</em> 2011)</span>. By default,
+(lexicographic) manner. In particular, it solves optimization problems
+based on an order of priority, wherein those associated with a higher
+priority are solved before those with a lower priority <span class="citation">(López Jaimes <em>et al.</em> 2011)</span>. By default,
 the order of priority is based on the order of problems in the
 <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object. To express trade-offs, this
 approach uses relative tolerance (<code>rel_tol</code>) parameters that
@@ -3360,20 +3366,23 @@ frontier).</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="package_overview_files/figure-html/unnamed-chunk-74-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
-<p>The multi-objective optimization approaches can also be used to
-generate multiple solutions. Although portfolio functions can also be
-used to generate multiple solutions, the approach functions are
-different because they are designed to generate solutions that have
-different levels of performance in achieving different objectives.
-Conversely, the portfolio functions are designed to generate solutions
-that have the (approximately) same performance and have different
-spatial configurations. For example, here we will use the hierarchical
-approach to generate a range of different solutions to explore
-trade-offs between representing keystone and iconic species.
-Additionally, the <code><a href="../reference/approach_rel_tol_matrix.html">approach_rel_tol_matrix()</a></code> and
+<p>The multi-objective optimization approaches can be used to generate
+multiple solutions. Although portfolio functions can also be used to
+generate multiple solutions, they are different from the approach
+functions. This is because the approach functions are designed to
+generate solutions that have different levels of performance
+(trade-offs) in achieving different objectives, whereas the portfolio
+functions are designed to generate solutions that have the
+(approximately) same performance with different spatial configurations.
+To help explore trade-offs with the approach functions, the
+<code><a href="../reference/approach_rel_tol_matrix.html">approach_rel_tol_matrix()</a></code> and
 <code><a href="../reference/approach_weights_matrix.html">approach_weights_matrix()</a></code> functions can be used to generate
-values for the <code>rel_tol</code> and <code>weights</code> parameters
-of approach functions.</p>
+multiple sets of values for the <code>rel_tol</code> and
+<code>weights</code> parameters of approach functions. For example, here
+we will use the hierarchical approach and the
+<code><a href="../reference/approach_rel_tol_matrix.html">approach_rel_tol_matrix()</a></code> function to generate multiple
+solutions and explore trade-offs between representing keystone and
+iconic species.</p>
 <div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># define a matrix of relative tolerance values between 0 and 1</span></span>
 <span><span class="va">rel_tol_matrix</span> <span class="op">&lt;-</span></span>
