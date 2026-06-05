@@ -193,8 +193,9 @@
   (formerly named
   [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md))
   function documentation to provide more information about limitations.
-- Update README Usage section with package installation instructions.
-  Thanks to [@paolahre](https://github.com/paolahre) for the suggestion.
+- Update README Usage section with package installation instructions
+  ([\#396](https://github.com/prioritizr/prioritizr/issues/396)). Thanks
+  to [@paolahre](https://github.com/paolahre) for the suggestion.
 - Update publication record
   ([\#402](https://github.com/prioritizr/prioritizr/issues/402)). Thanks
   to Flavia CB Trigo ([@FBCT](https://github.com/FBCT)) for sharing her

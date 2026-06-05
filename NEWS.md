@@ -106,8 +106,8 @@
 - Update `add_max_wtd_sum_objective()` (formerly named
   `add_max_utility_objective()`) function documentation to provide more
   information about limitations.
-- Update README Usage section with package installation instructions. Thanks to
-  \@paolahre for the suggestion.
+- Update README Usage section with package installation instructions (#396).
+  Thanks to \@paolahre for the suggestion.
 - Update publication record (#402). Thanks to Flavia CB Trigo (\@FBCT) for
   sharing her work.
 - Update documentation for various functions to improve readability.
