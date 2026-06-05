@@ -18,44 +18,45 @@ zones(..., zone_names = NULL, feature_names = NULL)
 - ...:
 
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  or `character` objects that pertain to the biodiversity data. See
-  Details for more information.
+  or `character` objects that pertain to the feature data. See Details
+  for more information.
 
 - zone_names:
 
-  `character` names of the management zones. Defaults to `NULL` which
-  results in sequential integers.
+  `character` names of the management zones. Defaults to `NULL` such
+  that zones are assigned names according in sequential integers.
 
 - feature_names:
 
-  `character` names of the features zones. Defaults to `NULL` which
-  results in sequential integers.
+  `character` names of the features. Defaults to `NULL` such that
+  features are assigned names according in sequential integers.
 
 ## Value
 
-A `Zones` object containing data for each zone, and the feature and zone
-names.
+A `Zones` object containing data for each zone, as well as the names of
+the features and zones.
 
 ## Details
 
 This function is used to store and organize data for use in a
 conservation planning
 [`problem()`](https://prioritizr.net/reference/problem.md) that has
-multiple management zones. In all cases, the data for each zone is input
-as a separate argument. The correct arguments depends on the type of
-planning unit data used when building the conservation planning
-[`problem()`](https://prioritizr.net/reference/problem.md).
+multiple management zones. In particular, the data for each zone should
+be specified as a separate argument. The correct arguments depends on
+the type of planning unit data used when building the conservation
+planning [`problem()`](https://prioritizr.net/reference/problem.md).
 
 - [`problem()`](https://prioritizr.net/reference/problem.md) will have
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
+  Here
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object can be supplied to specify the expected amount of each feature
-  within each planning unit under each management zone. Data for each
-  zone should be specified as separate arguments, and the data for each
-  feature in a given zone are specified in separate layers in a
+  objects can be specified to specify the expected amount of each
+  feature within each planning unit under each management zone. Data for
+  each zone should be specified as separate arguments, and the data for
+  each feature in a given zone are specified in separate layers in a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object. Note that all layers for a given zone must have missing (`NA`)
   values in exactly the same cells.
@@ -64,37 +65,9 @@ planning unit data used when building the conservation planning
   [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
   `data.frame` planning units:
 
-  `character` vector containing column names can be supplied to specify
-  the expected amount of each feature under each zone. Note that these
-  columns must not contain any missing (`NA`) values.
-
-- [`problem()`](https://prioritizr.net/reference/problem.md) will have
-  [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html),
-  `data.frame`, or `matrix` planning units:
-
-  `data.frame` object can be supplied to specify the expected amount of
-  each feature under each zone. Following conventions used in *Marxan*,
-  the `data.frame` object should contain the following columns.
-
-  pu
-
-  :   `integer` planning unit identifier.
-
-  species
-
-  :   `integer` feature identifier.
-
-  amount
-
-  :   `numeric` amount of the feature in the planning unit for a given
-      zone.
-
-  Note that data for each zone are specified in a separate argument, and
-  the data contained in a single `data.frame` object should correspond
-  to a single zone. Also, note that data are not required for all
-  combinations of planning units, features, and zones. The expected
-  amount of features in planning units under management zones that are
-  missing from the table are assumed to be zero.
+  Here `character` vectors containing column names can be used to
+  specify the expected amount of each feature under each zone. Note that
+  these columns must not contain any missing (`NA`) values.
 
 ## See also
 
@@ -105,10 +78,10 @@ multiple management zones.
 ## Examples
 
 ``` r
-# \dontrun{
 # load planning unit data
 sim_pu_raster <- get_sim_pu_raster()
 
+# simulate distributions for three species under two management zones
 zone_1 <- simulate_species(sim_pu_raster, 3)
 zone_2 <- simulate_species(sim_pu_raster, 3)
 
@@ -160,5 +133,4 @@ print(z)
 #> A zones object <ZonesCharacter/Zones>
 #> • zones:    "zone1", "zone2", and "zone3" (3 total)
 #> • features: "spp1" and "spp2" (2 total)
-# }
 ```

@@ -50,8 +50,7 @@ NULL
 #'
 #' @family overviews
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -87,8 +86,8 @@ NULL
 #' # see ?connectivity_matrix for more information
 #'
 #' # for brevity, we will do this using the cost data
-#  # and assume that pairs of adjacent planning units with high
-#' # cost valuers have high connectivity between them
+#' # and assume that pairs of adjacent planning units with high
+#' # cost values have high connectivity between them
 #' cm <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 #'
 #' # evaluate connectivity of solution using symmetric data
@@ -106,6 +105,5 @@ NULL
 #' # evaluate connectivity of solution using asymmetric data
 #' eval_asym_connectivity_summary(p, s, data = acm)
 #'
-#' }
 #' @name summaries
 NULL

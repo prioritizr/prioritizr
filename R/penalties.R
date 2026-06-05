@@ -32,6 +32,12 @@ NULL
 #' planning units clumped together into contiguous areas.
 #' }
 #'
+#' \item{[add_cost_penalties()]}{
+#' Add penalties to a
+#' conservation problem to favor solutions that have low costs.
+#' These penalties would typically be used with multi-objective optimization.
+#' }
+#'
 #' \item{[add_neighbor_penalties()]}{
 #' Add penalties to a
 #' conservation problem to favor solutions that have
@@ -66,8 +72,7 @@ NULL
 #' vignette. Also, see [calibrate_cohon_penalty()] for assistance with selecting
 #' an appropriate `penalty` value.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -115,17 +120,19 @@ NULL
 #' # create problem with linear penalties, with a penalty scaling factor of 100
 #' p6 <- p1 %>% add_linear_penalties(100, data = sim_penalty_raster)
 #'
+#' # create problem with cost penalties, with a penalty scaling factor of 5
+#' p7 <- p1 %>% add_cost_penalties(5)
+#'
 #' # solve problems
-#' s <- c(
-#'   solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6)
-#' )
+#' s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p7), solve))
 #' names(s) <- c(
 #'   "basic solution", "boundary penalties", "neighbor penalties",
-#'   "connectivity penalties", "asymmetric penalties", "linear penalties"
+#'   "connectivity penalties", "asymmetric penalties", "linear penalties",
+#'   "cost penalties"
 #' )
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)
-#' }
+#'
 #' @name penalties
 NULL

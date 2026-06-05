@@ -13,20 +13,45 @@ add_default_portfolio(x)
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
 }
 \description{
-Generate a portfolio containing a single solution.
+Generate a portfolio based on defaults.
 }
 \details{
 By default, this is portfolio is added to \code{\link[=problem]{problem()}} objects if no
-other portfolios is manually specified.
+other portfolios is manually specified. In particular, this
+function adds the \code{\link[=add_single_portfolio]{add_single_portfolio()}} function to \code{x} so
+that only a single solution is generated.
+}
+\examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
+set.seed(600)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# create minimal problem with default portfolio
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_default_portfolio() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s <- solve(p)
+
+# plot solution
+plot(s)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
-\code{\link{add_cuts_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_shuffle_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_single_portfolio]{add_single_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

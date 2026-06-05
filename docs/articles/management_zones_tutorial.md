@@ -55,7 +55,7 @@ library(prioritizr)
 library(terra)
 ```
 
-    ## terra 1.8.93
+    ## terra 1.9.27
 
     ## 
     ## Attaching package: 'terra'
@@ -96,12 +96,12 @@ print(p1)
 
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
-    ## │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -111,23 +111,26 @@ print(p1)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s1 <- solve(p1)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -256,16 +259,15 @@ pu2 <- c(sim_pu_raster, sim_pu_raster)
 print(pu2)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 10, 10, 2  (nrow, ncol, nlyr)
     ## resolution  : 0.1, 0.1  (x, y)
     ## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : Undefined Cartesian SRS 
-    ## sources     : sim_pu_raster.tif  
-    ##               sim_pu_raster.tif  
-    ## names       :    layer,    layer 
-    ## min values  : 190.1328, 190.1328 
-    ## max values  : 215.8638, 215.8638
+    ## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
+    ## sources     : sim_pu_raster.tif
+    ## names       :      layer,      layer
+    ## min values  : 190.132751, 190.132751
+    ## max values  : 215.863846, 215.863846
 
 ``` r
 # build two-zone problem
@@ -287,7 +289,7 @@ print(p2)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -297,23 +299,26 @@ print(p2)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s2 <- solve(p2)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -446,7 +451,7 @@ print(p3)
     ## │ ├•data:       <SpatRaster> (90 total)
     ## │ ├•costs:      continuous values (between 182.6017 and 221.363)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -456,23 +461,26 @@ print(p3)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s3 <- solve(p3)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -639,12 +647,12 @@ print(p4)
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
     ## │├•zones:       "few traps", "many traps", and "baiting" (3 total)
-    ## │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -654,23 +662,26 @@ print(p4)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s4 <- solve(p4)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -806,12 +817,12 @@ print(p5)
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
     ## │├•zones:       "few traps", "many traps", and "baiting" (3 total)
-    ## │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:   none specified
@@ -822,23 +833,26 @@ print(p5)
     ## ││└•1:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s5 <- solve(p5)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -979,16 +993,16 @@ print(p6)
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
     ## │├•zones:       "few traps", "many traps", and "baiting" (3 total)
-    ## │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
-    ## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = "simple", …)
+    ## ││└•1:          boundary penalties (`penalty` = 640, …)
     ## │├•features:
     ## ││├•targets:    absolute targets (all equal to 8)
     ## ││└•weights:    none specified
@@ -996,23 +1010,26 @@ print(p6)
     ## ││└•1:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s6 <- solve(p6)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -1025,40 +1042,55 @@ s6 <- solve(p6)
     ## Threads  1
     ## 
     ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros (Min)
-    ## Model fingerprint: 0xa1eb9e03
+    ## Model fingerprint: 0x4a95c3c3
     ## Model has 1200 linear objective coefficients
     ## Variable types: 900 continuous, 300 integer (300 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-02, 1e+00]
-    ##   Objective range  [1e+02, 6e+02]
+    ##   Objective range  [3e+02, 9e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
     ## 
-    ## Found heuristic solution: objective 20096.000000
+    ## Found heuristic solution: objective 29840.000000
     ## Presolve removed 1028 rows and 232 columns
-    ## Presolve time: 0.03s
+    ## Presolve time: 0.02s
     ## Presolved: 877 rows, 968 columns, 2712 nonzeros
     ## Variable types: 0 continuous, 968 integer (968 binary)
     ## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)
+    ## Root relaxation: objective 1.289388e+04, 662 iterations, 0.01 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s
-    ## H    0     0                    11408.000000 10054.0986  11.9%     -    0s
-    ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
-    ## H    0     0                    11112.000000 10054.0986  9.52%     -    0s
+    ##      0     0 12893.8842    0  141 29840.0000 12893.8842  56.8%     -    0s
+    ## H    0     0                    22960.000000 12893.8842  43.8%     -    0s
+    ## H    0     0                    18060.000000 12893.8842  28.6%     -    0s
+    ## H    0     0                    17180.000000 12893.8842  24.9%     -    0s
+    ## H    0     0                    16880.000000 12893.8842  23.6%     -    0s
+    ## H    0     0                    16580.000000 12893.8842  22.2%     -    0s
+    ## H    0     0                    16500.000000 12893.8842  21.9%     -    0s
+    ## H    0     0                    16400.000000 12893.8842  21.4%     -    0s
+    ##      0     0 13004.1024    0  207 16400.0000 13004.1024  20.7%     -    0s
+    ##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s
+    ##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s
+    ##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s
+    ## H    0     0                    15520.000000 13082.4685  15.7%     -    0s
+    ## H    0     0                    15200.000000 13082.4685  13.9%     -    0s
+    ## H    0     0                    15120.000000 13082.4685  13.5%     -    0s
+    ## H    0     0                    13780.000000 13082.4685  5.06%     -    0s
     ## 
-    ## Explored 1 nodes (685 simplex iterations) in 0.04 seconds (0.04 work units)
+    ## Cutting planes:
+    ##   Gomory: 3
+    ## 
+    ## Explored 1 nodes (1169 simplex iterations) in 0.11 seconds (0.15 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 4: 11112 11300 11408 20096 
+    ## Solution count 10: 13780 15120 15200 ... 18060
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.111200000000e+04, best bound 1.005600000000e+04, gap 9.5032%
+    ## Best objective 1.378000000000e+04, best bound 1.310000000000e+04, gap 4.9347%
 
 ``` r
 # calculate feature representation
@@ -1069,21 +1101,21 @@ print(r6)
     ## # A tibble: 20 × 5
     ##    summary    feature   total_amount absolute_held relative_held
     ##    <chr>      <chr>            <dbl>         <dbl>         <dbl>
-    ##  1 overall    feature_1       117.           23.3          0.200
-    ##  2 overall    feature_2        43.7           8.41         0.192
-    ##  3 overall    feature_3       101.           18.6          0.185
-    ##  4 overall    feature_4        59.7          12.1          0.202
-    ##  5 overall    feature_5        79.4          16.2          0.204
+    ##  1 overall    feature_1       117.           22.4          0.192
+    ##  2 overall    feature_2        43.7           8.03         0.184
+    ##  3 overall    feature_3       101.           17.8          0.176
+    ##  4 overall    feature_4        59.7          11.7          0.196
+    ##  5 overall    feature_5        79.4          15.7          0.197
     ##  6 few traps  feature_1         8.33          0            0    
     ##  7 few traps  feature_2         3.12          0            0    
     ##  8 few traps  feature_3         7.20          0            0    
     ##  9 few traps  feature_4         4.27          0            0    
     ## 10 few traps  feature_5         5.67          0            0    
-    ## 11 many traps feature_1        41.6           8.82         0.212
-    ## 12 many traps feature_2        15.6           3.79         0.243
-    ## 13 many traps feature_3        36.0           6.89         0.192
-    ## 14 many traps feature_4        21.3           6.01         0.282
-    ## 15 many traps feature_5        28.4           6.23         0.220
+    ## 11 many traps feature_1        41.6           7.95         0.191
+    ## 12 many traps feature_2        15.6           3.41         0.219
+    ## 13 many traps feature_3        36.0           6.06         0.169
+    ## 14 many traps feature_4        21.3           5.65         0.265
+    ## 15 many traps feature_5        28.4           5.68         0.200
     ## 16 baiting    feature_1        66.6          14.4          0.217
     ## 17 baiting    feature_2        25.0           4.62         0.185
     ## 18 baiting    feature_3        57.6          11.7          0.203
@@ -1138,16 +1170,16 @@ print(p7)
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
     ## │├•zones:       "few traps", "many traps", and "baiting" (3 total)
-    ## │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
     ## │└•planning units:
     ## │ ├•data:       <SpatRaster> (100 total)
     ## │ ├•costs:      continuous values (between 0 and 300)
     ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-    ## │ └•CRS:        Undefined Cartesian SRS (projected)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
-    ## ││└•1:          boundary penalties (`penalty` = 640, `edge_factor` = 0.5, 0.5, and 0.5, `formulation` = "simple", …)
+    ## ││└•1:          boundary penalties (`penalty` = 640, …)
     ## │├•features:
     ## ││├•targets:    absolute targets (all equal to 8)
     ## ││└•weights:    none specified
@@ -1156,23 +1188,26 @@ print(p7)
     ## ││└•2:          manual locked constraints (80 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s7 <- solve(p7)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -1185,38 +1220,44 @@ s7 <- solve(p7)
     ## Threads  1
     ## 
     ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros (Min)
-    ## Model fingerprint: 0x4c3901b1
+    ## Model fingerprint: 0x5ecdaddd
     ## Model has 1200 linear objective coefficients
     ## Variable types: 900 continuous, 300 integer (300 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-02, 1e+00]
-    ##   Objective range  [1e+02, 6e+02]
+    ##   Objective range  [3e+02, 9e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 8e+00]
     ## 
-    ## Found heuristic solution: objective 19600.000000
+    ## Found heuristic solution: objective 24400.000000
     ## Presolve removed 1120 rows and 324 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 785 rows, 876 columns, 2448 nonzeros
     ## Variable types: 0 continuous, 876 integer (876 binary)
     ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 1.323093e+04, 295 iterations, 0.00 seconds (0.00 work units)
+    ## Root relaxation: objective 1.695102e+04, 309 iterations, 0.00 seconds (0.00 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s
-    ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
+    ##      0     0 16951.0158    0   95 24400.0000 16951.0158  30.5%     -    0s
+    ## H    0     0                    19100.000000 16951.0158  11.3%     -    0s
+    ## H    0     0                    19020.000000 16951.0158  10.9%     -    0s
+    ##      0     0 17029.0334    0  102 19020.0000 17029.0334  10.5%     -    0s
+    ## H    0     0                    18700.000000 17029.0334  8.94%     -    0s
     ## 
-    ## Explored 1 nodes (388 simplex iterations) in 0.03 seconds (0.03 work units)
+    ## Cutting planes:
+    ##   Gomory: 1
+    ## 
+    ## Explored 1 nodes (447 simplex iterations) in 0.03 seconds (0.04 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 2: 13260 19600 
+    ## Solution count 4: 18700 19020 19100 24400 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%
+    ## Best objective 1.870000000000e+04, best bound 1.704000000000e+04, gap 8.8770%
 
 ``` r
 # calculate feature representation
@@ -1227,26 +1268,26 @@ print(r7)
     ## # A tibble: 20 × 5
     ##    summary    feature   total_amount absolute_held relative_held
     ##    <chr>      <chr>            <dbl>         <dbl>         <dbl>
-    ##  1 overall    feature_1       117.           23.4         0.201 
-    ##  2 overall    feature_2        43.7           8.04        0.184 
-    ##  3 overall    feature_3       101.           19.4         0.192 
-    ##  4 overall    feature_4        59.7          10.9         0.182 
-    ##  5 overall    feature_5        79.4          16.1         0.203 
-    ##  6 few traps  feature_1         8.33          5.92        0.711 
-    ##  7 few traps  feature_2         3.12          2.33        0.745 
-    ##  8 few traps  feature_3         7.20          5.25        0.730 
-    ##  9 few traps  feature_4         4.27          3.18        0.745 
-    ## 10 few traps  feature_5         5.67          4.00        0.706 
-    ## 11 many traps feature_1        41.6           3.02        0.0725
-    ## 12 many traps feature_2        15.6           1.09        0.0700
-    ## 13 many traps feature_3        36.0           2.41        0.0670
-    ## 14 many traps feature_4        21.3           1.66        0.0779
-    ## 15 many traps feature_5        28.4           2.11        0.0743
-    ## 16 baiting    feature_1        66.6          14.4         0.217 
-    ## 17 baiting    feature_2        25.0           4.62        0.185 
-    ## 18 baiting    feature_3        57.6          11.7         0.203 
-    ## 19 baiting    feature_4        34.1           6.05        0.177 
-    ## 20 baiting    feature_5        45.4           9.98        0.220
+    ##  1 overall    feature_1       117.           25.7          0.221
+    ##  2 overall    feature_2        43.7           9.25         0.212
+    ##  3 overall    feature_3       101.           21.4          0.212
+    ##  4 overall    feature_4        59.7          12.5          0.210
+    ##  5 overall    feature_5        79.4          17.7          0.223
+    ##  6 few traps  feature_1         8.33          5.33         0.640
+    ##  7 few traps  feature_2         3.12          2.02         0.648
+    ##  8 few traps  feature_3         7.20          4.74         0.659
+    ##  9 few traps  feature_4         4.27          2.76         0.647
+    ## 10 few traps  feature_5         5.67          3.59         0.633
+    ## 11 many traps feature_1        41.6           5.95         0.143
+    ## 12 many traps feature_2        15.6           2.61         0.167
+    ## 13 many traps feature_3        36.0           4.94         0.137
+    ## 14 many traps feature_4        21.3           3.74         0.175
+    ## 15 many traps feature_5        28.4           4.16         0.147
+    ## 16 baiting    feature_1        66.6          14.4          0.217
+    ## 17 baiting    feature_2        25.0           4.62         0.185
+    ## 18 baiting    feature_3        57.6          11.7          0.203
+    ## 19 baiting    feature_4        34.1           6.05         0.177
+    ## 20 baiting    feature_5        45.4           9.98         0.220
 
 ``` r
 # plot solution

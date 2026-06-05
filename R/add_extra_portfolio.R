@@ -10,22 +10,19 @@ NULL
 #' but does not provide any guarantees on the number of solutions, or
 #' the quality of solutions.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_cuts_portfolio
 #'
-#' @details This strategy for generating a portfolio requires problems to
-#'   be solved using the *Gurobi* software suite (i.e., using
-#'   [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
-#'   of the \pkg{gurobi} package must be installed.
+#' @details
+#' This strategy for generating a portfolio requires problems to
+#' be solved using the *Gurobi* software (i.e., using
+#' [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
+#' of the \pkg{gurobi} package must be installed.
 #'
-#' @inherit add_cuts_portfolio return
-#'
-#' @seealso
-#' See [portfolios] for an overview of all functions for adding a portfolio.
+#' @inherit add_cuts_portfolio return seealso
 #'
 #' @family portfolios
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -74,7 +71,7 @@ NULL
 #'
 #' # plot solutions in portfolio
 #' plot(s2, axes = FALSE)
-#' }
+#'
 #' @name add_extra_portfolio
 NULL
 
@@ -104,7 +101,7 @@ add_extra_portfolio <- function(x) {
           ## check that problem has gurobi solver
           assert(
             inherits(solver, "GurobiSolver"),
-            call = rlang::expr(add_gap_portfolio()),
+            call = rlang::expr(add_extra_portfolio()),
             msg = "The solver must be specified using {.fn add_gurobi_solver}."
           )
           ## solve problem

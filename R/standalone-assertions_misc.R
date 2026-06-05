@@ -29,6 +29,56 @@ assertthat::on_failure(is_thread_count) <- function(call, env) {
   )
 }
 
+#' Is recommended thread count?
+#'
+#' Check if a value is a recommended threat count or not.
+#'
+#' @param x `numeric` value.
+#'
+#' @details
+#' A value is a recommended threat count if it is a positive
+#' value and smaller than the number of available cores minus two.
+#' Note that if the number of available cores is smaller than two,
+#' then the recommended value is one.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_recommended_thread_count <- function(x) {
+  # run checks
+  out <-
+    assertthat::is.count(x) &&
+    assertthat::noNA(x)
+  # run additional checks
+  if (isTRUE(out)) {
+    out <- !(
+      (x > 2) &&
+      (parallel::detectCores(TRUE) > 2) &&
+      (x == parallel::detectCores(TRUE))
+    )
+  }
+  # return result
+  out
+}
+
+assertthat::on_failure(is_recommended_thread_count) <- function(call, env) {
+  # calculate recommended number of threads
+  recommended_threads <- max(1L, parallel::detectCores(TRUE) - 2L)
+  # return message
+  c(
+    ">" = paste0(
+      "{.arg ", deparse(call$x),
+      "} is equal to the number of available cores."
+    ),
+    "i" =
+      "This can cause computational bottlenecks with background processes.",
+    "v" = paste0(
+      "To avoid this on your system, try {.code threads = ",
+      recommended_threads, "}."
+    )
+  )
+}
+
 #' Is budget length?
 #'
 #' Check if a value is a valid budget length for a [problem].
@@ -83,7 +133,7 @@ assertthat::on_failure(is_installed) <- function(call, env) {
     code <- ": {.code remotes::install_bioc(\"lpsymphony\")}"
   } else if (identical(pkg, "gurobi")) {
     code <- c(
-      "instructions in {.vignette \"gurobi_installation_guide\"}."
+      " instructions in {.vignette \"gurobi_installation_guide\"}."
     )
   } else {
     code <- paste0(": {.code install.packages(\"", pkg, "\")}")
@@ -100,18 +150,23 @@ assertthat::on_failure(is_installed) <- function(call, env) {
 #'
 #' @param x object.
 #'
-#' @param time_limit `numeric` time limit for generating solution.
+#' @param time_limit `numeric` value denoting the time limit for generating
+#' solution. Note that this information is used only to customize the error
+#' message if the object does not contain a valid raw solution.
 #' Defaults to `NULL`.
 #'
-#' @param call Caller environment.
-#'
-#' @return A `logical` value.
+#' @param multiple `logical` value indicating if `x` should be a `list`
+#' of `list` objects that can potentially contain multiple solutions,
+#' or if `x` should be a `list` of a single solution. Defaults to `TRUE`.
 #'
 #' @return A `logical` value.
 #'
 #' @noRd
-is_valid_raw_solution <- function(x, time_limit = NULL) {
-  !is.null(x) && !is.null(x[[1]]$x)
+is_valid_raw_solution <- function(x, time_limit = NULL, multiple = TRUE) {
+  if (isTRUE(multiple)) {
+    return(!is.null(x) && !is.null(x[[1]]$x))
+  }
+  !is.null(x) && !is.null(x$x)
 }
 
 assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
@@ -179,7 +234,7 @@ assertthat::on_failure(is_area_units) <- function(call, env) {
 #'
 #' @param na.rm `logical` value. Defaults to `FALSE`.
 #'
-#' @return A `logical` value indicating if it is a valid unit of measurement.
+#' @return A `logical` value.
 #'
 #' @noRd
 all_area_units <- function(x, na.rm = FALSE) {

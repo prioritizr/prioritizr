@@ -117,7 +117,7 @@ NULL
 #' when building a [problem()] object if the feature data
 #' are provided in a different format. In particular, if the feature
 #' data are provided as a `data.frame` or `character` vector,
-#' then you will need to specify an argument to `feature_units` when
+#' then you will need to specify `feature_units` when
 #' using the [problem()] function. See the Examples section below for a
 #' demonstration of using the `feature_units` parameter.
 #'
@@ -167,8 +167,7 @@ NULL
 #' protected-area system to represent threatened species.
 #' *Conservation Biology*,25: 324--332.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -285,7 +284,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s5[, "solution_1"], axes = FALSE)
-#' }
+#'
 #' @name add_auto_targets
 #'
 #' @aliases add_auto_targets,ConservationProblem,character-method add_auto_targets,ConservationProblem,TargetMethod-method add_auto_targets,ConservationProblem,list-method

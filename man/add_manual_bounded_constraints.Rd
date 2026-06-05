@@ -31,7 +31,7 @@ or semi-continuous decisions.
 }
 \section{Data format}{
 
-The argument to \code{data} should be a \code{data.frame} with the following columns:
+Here \code{data} must be a \code{data.frame} with the following columns.
 
 \describe{
 
@@ -39,31 +39,34 @@ The argument to \code{data} should be a \code{data.frame} with the following col
 If \code{x} has \code{data.frame} planning units,
 then these values must refer to values in the \code{id} column of the planning
 unit data.
-Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+Alternatively, if \code{x} has \code{\link[sf:st_sf]{sf::st_sf()}} or \code{matrix} planning units,
 then these values must refer to the row numbers of the planning unit data.
 Additionally, if \code{x} has \code{numeric} vector planning units,
 then these values must refer to the element indices of the planning unit
 data.
 Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
-then these values must refer to cell indices.}
+then these values must refer to cell indices.
+}
 
 \item{zone}{\code{character} names of zones. Note that this
-argument is optional for arguments to \code{x} that contain a single
-zone.}
+column is optional if \code{x} has a single zone.
+}
 
 \item{lower}{\code{numeric} lower values. These values indicate the minimum
 value that each planning unit can be allocated to in each zone
-in the solution.}
+in the solution.
+}
 
 \item{upper}{\code{numeric} upper values. These values indicate the maximum
 value that each planning unit can be allocated to in each zone
-in the solution.}
+in the solution.
+}
 
 }
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -160,20 +163,18 @@ s5$solution_bounded <- factor(s5$solution_bounded)
 
 # plot solutions
 plot(s5[, c("solution", "solution_bounded")], axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-See \link{constraints} for an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
-\code{\link{add_contiguity_constraints}()},
-\code{\link{add_feature_contiguity_constraints}()},
-\code{\link{add_linear_constraints}()},
-\code{\link{add_locked_in_constraints}()},
-\code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints}()},
-\code{\link{add_manual_locked_constraints}()},
-\code{\link{add_neighbor_constraints}()}
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}},
+\code{\link[=add_cost_constraints]{add_cost_constraints()}},
+\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}},
+\code{\link[=add_linear_constraints]{add_linear_constraints()}},
+\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}},
+\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}},
+\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}},
+\code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}},
+\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}
 }
 \concept{constraints}

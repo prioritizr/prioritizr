@@ -166,9 +166,9 @@ initializing the
 [`problem()`](https://prioritizr.net/reference/problem.md) objects if
 the feature data are provided in a different format. In particular, if
 the feature data are provided as a `data.frame` or `character` vector,
-then you will need to specify an argument to `feature_units` when using
-the [`problem()`](https://prioritizr.net/reference/problem.md) function.
-See the Examples section of the documentation for
+then you will need to specify `feature_units` when using the
+[`problem()`](https://prioritizr.net/reference/problem.md) function. See
+the Examples section of the documentation for
 [`add_auto_targets()`](https://prioritizr.net/reference/add_auto_targets.md)
 for a demonstration of specifying the spatial units for features.
 
@@ -214,7 +214,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -282,6 +281,4 @@ s <- s[, c("s1", "s2", "s3"), drop = FALSE]
 
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

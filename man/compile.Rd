@@ -14,16 +14,14 @@ compile(x, ...)
 
 \item{...}{not used.}
 
-\item{compressed_formulation}{\code{logical} should the conservation problem
-compiled into a compressed version of a planning problem?
-If \code{TRUE} then the problem is expressed using the compressed
-formulation. If \code{FALSE} then the problem is expressed using the
-expanded formulation. If \code{NA}, then the compressed is used unless one
-of the constraints requires the expanded formulation. This argument
-defaults to \code{NA}.}
+\item{compressed_formulation}{\code{logical} value indicating if \code{x} should be
+compiled following the compressed formulation?
+If \code{compressed_formulation = NA}, then the compressed is used unless one
+of the constraints in \code{x} requires the expanded formulation.
+Defaults to \code{NA}.}
 }
 \value{
-A \code{\link[=optimization_problem]{optimization_problem()}} object.
+An \code{\link[=optimization_problem]{optimization_problem()}} object.
 }
 \description{
 Compile a conservation planning problem into an
@@ -32,20 +30,18 @@ mixed integer linear programming problem.
 \details{
 This function might be useful for those interested in understanding
 how their conservation planning \code{\link[=problem]{problem()}} is expressed
-as a mathematical problem. However, if the problem just needs to
-be solved, then the \code{\link[=solve]{solve()}} function should just be used.
+as a mathematical optimization problem. However, if \code{x} just needs to
+be solved, then the \code{\link[=solve]{solve()}} function should be used directly.
 
-\strong{Please note that in nearly all cases, the default argument to
-\code{compressed_formulation} should be used}. The only situation where
-manually
-setting the argument to \code{formulation} is desirable is during testing.
-Manually setting the argument to \code{formulation} will at best
+\strong{Please note that in nearly all cases, the default value for
+\code{compressed_formulation} should be used}.
+This is because manually setting the \code{compressed_formulation} will, at best,
 have no effect on the problem. At worst, it may result in
-an error, a misspecified problem, or unnecessarily long
+an error, a mis-specified problem, or unnecessarily long
 solve times.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -61,5 +57,5 @@ o <- compile(p)
 
 # print the optimization problem
 print(o)
-}
+\dontshow{\}) # examplesIf}
 }

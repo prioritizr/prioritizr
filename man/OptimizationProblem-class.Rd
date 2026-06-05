@@ -10,15 +10,17 @@ It stores the information needed to generate a solution using
 an exact algorithm solver.
 Most users should use \code{\link[=compile]{compile()}} to generate new optimization problem
 objects, and the functions distributed with the package to interact
-with them (e.g., \code{\link[base:list]{base::as.list()}}).
+with them (e.g., \code{\link[base:as.list]{base::as.list()}}).
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{
-Other classes: 
+Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiConservationProblem-class}},
+\code{\link{MultiObjApproach-class}},
 \code{\link{Objective-class}},
 \code{\link{Penalty-class}},
 \code{\link{Portfolio-class}},
@@ -29,461 +31,538 @@ Other classes:
 }
 \concept{classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{ptr}}{A \code{Rcpp::Xptr} external pointer.
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{ptr}}{A \code{Rcpp::Xptr} external pointer.
 Create a new optimization problem object.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-OptimizationProblem-new}{\code{OptimizationProblem$new()}}
-\item \href{#method-OptimizationProblem-print}{\code{OptimizationProblem$print()}}
-\item \href{#method-OptimizationProblem-show}{\code{OptimizationProblem$show()}}
-\item \href{#method-OptimizationProblem-ncol}{\code{OptimizationProblem$ncol()}}
-\item \href{#method-OptimizationProblem-nrow}{\code{OptimizationProblem$nrow()}}
-\item \href{#method-OptimizationProblem-ncell}{\code{OptimizationProblem$ncell()}}
-\item \href{#method-OptimizationProblem-modelsense}{\code{OptimizationProblem$modelsense()}}
-\item \href{#method-OptimizationProblem-vtype}{\code{OptimizationProblem$vtype()}}
-\item \href{#method-OptimizationProblem-obj}{\code{OptimizationProblem$obj()}}
-\item \href{#method-OptimizationProblem-A}{\code{OptimizationProblem$A()}}
-\item \href{#method-OptimizationProblem-rhs}{\code{OptimizationProblem$rhs()}}
-\item \href{#method-OptimizationProblem-sense}{\code{OptimizationProblem$sense()}}
-\item \href{#method-OptimizationProblem-lb}{\code{OptimizationProblem$lb()}}
-\item \href{#method-OptimizationProblem-ub}{\code{OptimizationProblem$ub()}}
-\item \href{#method-OptimizationProblem-number_of_features}{\code{OptimizationProblem$number_of_features()}}
-\item \href{#method-OptimizationProblem-number_of_planning_units}{\code{OptimizationProblem$number_of_planning_units()}}
-\item \href{#method-OptimizationProblem-number_of_zones}{\code{OptimizationProblem$number_of_zones()}}
-\item \href{#method-OptimizationProblem-col_ids}{\code{OptimizationProblem$col_ids()}}
-\item \href{#method-OptimizationProblem-row_ids}{\code{OptimizationProblem$row_ids()}}
-\item \href{#method-OptimizationProblem-compressed_formulation}{\code{OptimizationProblem$compressed_formulation()}}
-\item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
-\item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
-\item \href{#method-OptimizationProblem-set_obj}{\code{OptimizationProblem$set_obj()}}
-\item \href{#method-OptimizationProblem-set_lb}{\code{OptimizationProblem$set_lb()}}
-\item \href{#method-OptimizationProblem-set_ub}{\code{OptimizationProblem$set_ub()}}
-\item \href{#method-OptimizationProblem-remove_last_linear_constraint}{\code{OptimizationProblem$remove_last_linear_constraint()}}
-\item \href{#method-OptimizationProblem-append_linear_constraints}{\code{OptimizationProblem$append_linear_constraints()}}
-\item \href{#method-OptimizationProblem-clone}{\code{OptimizationProblem$clone()}}
-}
+  \itemize{
+    \item \href{#method-OptimizationProblem-initialize}{\code{OptimizationProblem$new()}}
+    \item \href{#method-OptimizationProblem-print}{\code{OptimizationProblem$print()}}
+    \item \href{#method-OptimizationProblem-show}{\code{OptimizationProblem$show()}}
+    \item \href{#method-OptimizationProblem-ncol}{\code{OptimizationProblem$ncol()}}
+    \item \href{#method-OptimizationProblem-nrow}{\code{OptimizationProblem$nrow()}}
+    \item \href{#method-OptimizationProblem-ncell}{\code{OptimizationProblem$ncell()}}
+    \item \href{#method-OptimizationProblem-modelsense}{\code{OptimizationProblem$modelsense()}}
+    \item \href{#method-OptimizationProblem-vtype}{\code{OptimizationProblem$vtype()}}
+    \item \href{#method-OptimizationProblem-obj}{\code{OptimizationProblem$obj()}}
+    \item \href{#method-OptimizationProblem-A}{\code{OptimizationProblem$A()}}
+    \item \href{#method-OptimizationProblem-rhs}{\code{OptimizationProblem$rhs()}}
+    \item \href{#method-OptimizationProblem-sense}{\code{OptimizationProblem$sense()}}
+    \item \href{#method-OptimizationProblem-lb}{\code{OptimizationProblem$lb()}}
+    \item \href{#method-OptimizationProblem-ub}{\code{OptimizationProblem$ub()}}
+    \item \href{#method-OptimizationProblem-number_of_features}{\code{OptimizationProblem$number_of_features()}}
+    \item \href{#method-OptimizationProblem-number_of_planning_units}{\code{OptimizationProblem$number_of_planning_units()}}
+    \item \href{#method-OptimizationProblem-number_of_zones}{\code{OptimizationProblem$number_of_zones()}}
+    \item \href{#method-OptimizationProblem-col_ids}{\code{OptimizationProblem$col_ids()}}
+    \item \href{#method-OptimizationProblem-row_ids}{\code{OptimizationProblem$row_ids()}}
+    \item \href{#method-OptimizationProblem-compressed_formulation}{\code{OptimizationProblem$compressed_formulation()}}
+    \item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
+    \item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
+    \item \href{#method-OptimizationProblem-set_obj}{\code{OptimizationProblem$set_obj()}}
+    \item \href{#method-OptimizationProblem-set_modelsense}{\code{OptimizationProblem$set_modelsense()}}
+    \item \href{#method-OptimizationProblem-set_lb}{\code{OptimizationProblem$set_lb()}}
+    \item \href{#method-OptimizationProblem-set_ub}{\code{OptimizationProblem$set_ub()}}
+    \item \href{#method-OptimizationProblem-remove_last_linear_constraint}{\code{OptimizationProblem$remove_last_linear_constraint()}}
+    \item \href{#method-OptimizationProblem-append_linear_constraints}{\code{OptimizationProblem$append_linear_constraints()}}
+    \item \href{#method-OptimizationProblem-clone}{\code{OptimizationProblem$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-OptimizationProblem-new"></a>}}
-\if{latex}{\out{\hypertarget{method-OptimizationProblem-new}{}}}
-\subsection{Method \code{new()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$new(ptr)}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-OptimizationProblem-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-initialize}{}}}
+\subsection{\code{OptimizationProblem$new()}}{
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$new(ptr)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{ptr}}{\code{Rcpp::Xptr} external pointer.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{OptimizationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ptr}}{\code{Rcpp::Xptr} external pointer.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new \code{OptimizationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-print"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-print}{}}}
-\subsection{Method \code{print()}}{
-Print concise information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$print()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$print()}}{
+  Print concise information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$print()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-show"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-show}{}}}
-\subsection{Method \code{show()}}{
-Print concise information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$show()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$show()}}{
+  Print concise information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$show()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-ncol"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-ncol}{}}}
-\subsection{Method \code{ncol()}}{
-Obtain the number of columns in the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$ncol()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$ncol()}}{
+  Obtain the number of columns in the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$ncol()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-nrow"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-nrow}{}}}
-\subsection{Method \code{nrow()}}{
-Obtain the number of rows in the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$nrow()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$nrow()}}{
+  Obtain the number of rows in the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$nrow()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-ncell"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-ncell}{}}}
-\subsection{Method \code{ncell()}}{
-Obtain the number of cells in the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$ncell()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$ncell()}}{
+  Obtain the number of cells in the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$ncell()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-modelsense"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-modelsense}{}}}
-\subsection{Method \code{modelsense()}}{
-Obtain the model sense.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$modelsense()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$modelsense()}}{
+  Obtain the model sense.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$modelsense()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-vtype"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-vtype}{}}}
-\subsection{Method \code{vtype()}}{
-Obtain the decision variable types.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$vtype()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$vtype()}}{
+  Obtain the decision variable types.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$vtype()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-obj"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-obj}{}}}
-\subsection{Method \code{obj()}}{
-Obtain the objective function.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$obj()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$obj()}}{
+  Obtain the objective function.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$obj()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-A"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-A}{}}}
-\subsection{Method \code{A()}}{
-Obtain the constraint matrix.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$A()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$A()}}{
+  Obtain the constraint matrix.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$A()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} object.
+  }
 }
 
-\subsection{Returns}{
-A \code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-rhs"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-rhs}{}}}
-\subsection{Method \code{rhs()}}{
-Obtain the right-hand-side constraint values.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$rhs()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$rhs()}}{
+  Obtain the right-hand-side constraint values.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$rhs()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-sense"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-sense}{}}}
-\subsection{Method \code{sense()}}{
-Obtain the constraint senses.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$sense()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$sense()}}{
+  Obtain the constraint senses.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$sense()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-lb"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-lb}{}}}
-\subsection{Method \code{lb()}}{
-Obtain the lower bounds for the decision variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$lb()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$lb()}}{
+  Obtain the lower bounds for the decision variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$lb()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-ub"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-ub}{}}}
-\subsection{Method \code{ub()}}{
-Obtain the upper bounds for the decision variables.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$ub()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$ub()}}{
+  Obtain the upper bounds for the decision variables.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$ub()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-number_of_features"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-number_of_features}{}}}
-\subsection{Method \code{number_of_features()}}{
-Obtain the number of features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$number_of_features()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$number_of_features()}}{
+  Obtain the number of features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$number_of_features()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-number_of_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-number_of_planning_units}{}}}
-\subsection{Method \code{number_of_planning_units()}}{
-Obtain the number of planning units.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$number_of_planning_units()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$number_of_planning_units()}}{
+  Obtain the number of planning units.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$number_of_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-number_of_zones"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-number_of_zones}{}}}
-\subsection{Method \code{number_of_zones()}}{
-Obtain the number of zones.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$number_of_zones()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$number_of_zones()}}{
+  Obtain the number of zones.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$number_of_zones()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-col_ids"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-col_ids}{}}}
-\subsection{Method \code{col_ids()}}{
-Obtain the identifiers for the columns.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$col_ids()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$col_ids()}}{
+  Obtain the identifiers for the columns.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$col_ids()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-row_ids"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-row_ids}{}}}
-\subsection{Method \code{row_ids()}}{
-Obtain the identifiers for the rows.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$row_ids()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$row_ids()}}{
+  Obtain the identifiers for the rows.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$row_ids()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-compressed_formulation"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-compressed_formulation}{}}}
-\subsection{Method \code{compressed_formulation()}}{
-Is the problem formulation compressed?
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$compressed_formulation()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$compressed_formulation()}}{
+  Is the problem formulation compressed?
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$compressed_formulation()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{logical} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{logical} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-shuffle_columns"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-shuffle_columns}{}}}
-\subsection{Method \code{shuffle_columns()}}{
-Shuffle the order of the columns in the optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$shuffle_columns(order)}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$shuffle_columns()}}{
+  Shuffle the order of the columns in the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$shuffle_columns(order)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{order}}{\code{integer} vector with new order.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} vector with indices to un-shuffle the problem.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{order}}{\code{integer} vector with new order.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An \code{integer} vector with indices to un-shuffle the problem.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-copy"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-copy}{}}}
-\subsection{Method \code{copy()}}{
-Create a copy of the optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$copy()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$copy()}}{
+  Create a copy of the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$copy()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{OptimizationProblem} object .
+  }
 }
 
-\subsection{Returns}{
-A new \code{OptimizationProblem} object .
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-set_obj"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-set_obj}{}}}
-\subsection{Method \code{set_obj()}}{
-Set objective coefficients for the decision variables in the
+\subsection{\code{OptimizationProblem$set_obj()}}{
+  Set objective coefficients for the decision variables in the
 optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_obj(obj)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$set_obj(obj)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{obj}}{\code{numeric} vector.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{obj}}{\code{numeric} vector.}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-set_modelsense"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-set_modelsense}{}}}
+\subsection{\code{OptimizationProblem$set_modelsense()}}{
+  Set the model sense for the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$set_modelsense(modelsense)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{modelsense}}{\code{character} value indicating the model sense.
+(i.e., either \code{"min"} or \code{"max"}).}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
 }
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An invisible \code{TRUE} indicating success.
-}
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-set_lb"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-set_lb}{}}}
-\subsection{Method \code{set_lb()}}{
-Set lower bounds for the decision variables in the optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_lb(lb)}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$set_lb()}}{
+  Set lower bounds for the decision variables in the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$set_lb(lb)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{lb}}{\code{numeric} vector.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{lb}}{\code{numeric} vector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An invisible \code{TRUE} indicating success.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-set_ub"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-set_ub}{}}}
-\subsection{Method \code{set_ub()}}{
-Set upper bounds for the decision variables in the optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$set_ub(ub)}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$set_ub()}}{
+  Set upper bounds for the decision variables in the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$set_ub(ub)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{ub}}{\code{numeric} vector.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ub}}{\code{numeric} vector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An invisible \code{TRUE} indicating success.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-remove_last_linear_constraint"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-remove_last_linear_constraint}{}}}
-\subsection{Method \code{remove_last_linear_constraint()}}{
-Remove last linear constraint added to a problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$remove_last_linear_constraint()}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$remove_last_linear_constraint()}}{
+  Remove last linear constraint added to a problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$remove_last_linear_constraint()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-An invisible \code{TRUE} indicating success.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-append_linear_constraints"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-append_linear_constraints}{}}}
-\subsection{Method \code{append_linear_constraints()}}{
-Append linear constraints to the optimization problem.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$append_linear_constraints(rhs, sense, A, row_ids)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{rhs}}{\code{numeric} vector with right-hand-side values.}
-
-\item{\code{sense}}{\code{character} vector with constraint sense values
+\subsection{\code{OptimizationProblem$append_linear_constraints()}}{
+  Append linear constraints to the optimization problem.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$append_linear_constraints(rhs, sense, A, row_ids)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{rhs}}{\code{numeric} vector with right-hand-side values.}
+      \item{\code{sense}}{\code{character} vector with constraint sense values
 (i.e., \code{"<="}, \code{">="}, or \code{"="}).}
+      \item{\code{A}}{\code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} with constraint coefficients.}
+      \item{\code{row_ids}}{\code{character} vector with identifier for constraints.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An invisible \code{TRUE}.
+  }
+}
 
-\item{\code{A}}{\code{\link[Matrix:sparseMatrix]{Matrix::sparseMatrix()}} with constraint coefficients.}
-
-\item{\code{row_ids}}{\code{character} vector with identifier for constraints.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An invisible \code{TRUE} indicating success.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-OptimizationProblem-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-OptimizationProblem-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{OptimizationProblem$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{OptimizationProblem$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

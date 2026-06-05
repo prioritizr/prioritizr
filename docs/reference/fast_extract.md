@@ -42,15 +42,14 @@ fast_extract(x, y, fun = "mean", ...)
 
 - fun:
 
-  `character` name of statistic to summarize data. Defaults to `"mean"`.
-  Available options include `"sum"` or `"mean"`. Defaults to `"mean"`.
+  `character` name of statistic to summarize data. Available options
+  include `"sum"` or `"mean"`. Defaults to `"mean"`.
 
 ## Value
 
 A `matrix` containing the summary amount of each feature within each
-planning unit. Rows correspond to different spatial features in the
-argument to `y` and columns correspond to different raster layers in the
-argument to `x`.
+planning unit. Rows correspond to different spatial features in `y` and
+columns correspond to different raster layers in `x`.
 
 ## Details
 
@@ -70,8 +69,11 @@ for other geometry types.
 
 ## See also
 
-[`terra::extract()`](https://rspatial.github.io/terra/reference/extract.html),
-[`exactextractr::exact_extract()`](https://isciences.gitlab.io/exactextractr/reference/exact_extract.html).
+The
+[`terra::extract()`](https://rspatial.github.io/terra/reference/extract.html)
+and
+[`exactextractr::exact_extract()`](https://isciences.gitlab.io/exactextractr/reference/exact_extract.html)
+functions are alternatives for extracting raster data.
 
 ## Examples
 

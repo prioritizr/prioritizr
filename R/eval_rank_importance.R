@@ -9,14 +9,14 @@ NULL
 #' @inheritParams eval_replacement_importance
 #'
 #' @param by_zone `logical` value indicating how budgets should be calculated
-#'  when `x` has multiple zones.
-#'  If `TRUE`, then the incremental rank procedure will
-#'  increment budgets for each zone separately.
-#'  If `FALSE`, then the incremental rank procedure will
-#'  increment a single budget that is applied to all zones.
-#'  Note that this parameter is only considered if `n` is specified,
-#'  and does not affect processing if `budgets` is specified.
-#'  Defaults to `TRUE`.
+#' when `x` has multiple zones.
+#' If `by_zone = TRUE`, then the incremental rank procedure will
+#' increment budgets for each zone separately.
+#' Otherwise, if `by_zone = FALSE`, then the incremental rank procedure will
+#' increment a single budget that is applied to all zones.
+#' Note that this parameter is only considered if `n` is specified,
+#' and does not affect processing if `budgets` is specified.
+#' Defaults to `TRUE`.
 #'
 #' @param objective `character` value with the name of the objective function
 #' that should be used for the incremental rank procedure.
@@ -54,9 +54,9 @@ NULL
 #' units), then the `budgets` parameter must be specified.
 #' The incremental rank procedure involves the following steps.
 #' 1. A set of budgets are defined.
-#'  If an argument to the `budgets` parameter is supplied,
+#' If `budgets` is specified,
 #' then the budgets are defined using the `budgets`.
-#' Otherwise, if an argument to the `n` parameter is supplied,
+#' Otherwise, if `n` is specified is supplied,
 #' then the budgets are automatically calculated as a set of values --
 #' with equal increments between successive values -- that range to a maximum
 #' value that is equal to the total cost of `solution`.
@@ -89,8 +89,8 @@ NULL
 #' defined for the first increment. When this step is
 #' repeated during subsequent increments, the objective will be overwritten with
 #' with the budget defined for the next increment.
-#' Additionally, if an argument to the `extra_args` parameter is specified,
-#' this argument is used when overwriting the objective.
+#' Additionally, if `extra_args` is specified,
+#' then these values are used when overwriting the objective.
 #' 5. The modified problem is solved to generate a solution.
 #' Due to the steps used to modify the problem (i.e., steps 3 and 4), the newly
 #' generated solution will contain a subset of the selected planning units in
@@ -143,7 +143,7 @@ NULL
 #' [terra::rast()], or [sf::sf()] object
 #' containing importance scores for the planning units in the solution.
 #' Specifically, the returned object is in the
-#' same format as the planning unit data in the argument to `x`.
+#' same format as the planning unit data in `x`.
 #' The object also has the following attributes that provide information
 #' on the incremental rank procedure.
 #' \describe{
@@ -184,9 +184,8 @@ NULL
 #'
 #' @family importances
 #'
-#' @examples
-#' \dontrun{
-#' # seed seed for reproducibility
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
@@ -243,17 +242,17 @@ NULL
 #'   main = "Relationship between objective values and budget increment"
 #' )
 #'
-#' # calculate importance scores using the maximum utility objective and
+#' # calculate importance scores using the maximum weighted sum objective and
 #' # based on 10 different budgets
 #' rs2 <- eval_rank_importance(
-#'   p1, s1, n = 10, objective = "add_max_utility_objective"
+#'   p1, s1, n = 10, objective = "add_max_wtd_sum_objective"
 #' )
 #'
 #' # print importance scores
 #' print(rs2)
 #'
 #' # plot importance scores
-#' plot(rs2, main = "rank importance (10, max utility obj)", axes = FALSE)
+#' plot(rs2, main = "rank importance (10, max wtd sum obj)", axes = FALSE)
 #'
 #' # calculate importance scores based on 5 manually specified budgets
 #'
@@ -300,7 +299,6 @@ NULL
 #' # each panel corresponds to a different zone, and data show the
 #' # importance of each planning unit in a given zone
 #' plot(rs4, axes = FALSE)
-#' }
 #'
 #' @references
 #' Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,
@@ -443,29 +441,12 @@ internal_eval_rank_importance <- function(x,
   }
   # compile problem after updating the objective
   opt <- compile.ConservationProblem(x)
-  # run presolve check to try to identify potential problems
-  if (run_checks) {
-    ## run checks
-    presolve_res <- internal_presolve_check(opt)
-    ## prepare message
-    msg <- presolve_res$msg
-    if (!isTRUE(force)) {
-      msg <- c(
-        msg,
-        "i" = paste(
-          "To ignore checks and attempt optimization anyway,",
-          "use {.code solve(force = TRUE)}."
-        )
-      )
-    }
-    ## determine if error or warning should be thrown
-    if (!isTRUE(force)) {
-      f <- assert
+  if (isTRUE(run_checks)) {
+    if (isTRUE(force)) {
+      verify_pass_presolve_check(opt, call = NULL)
     } else {
-      f <- verify
+      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
     }
-    ## throw error or warning if checks failed
-    f(isTRUE(presolve_res$pass), call = parent.frame(), msg = msg)
   }
   # run calculations for compiling problem
   x$solver$calculate(opt)

@@ -6,26 +6,26 @@ NULL
 #' Set the objective of a conservation planning problem to
 #' maximize the phylogenetic diversity of the features represented in the
 #' solution subject to a budget. This objective is similar to
-#' [add_max_features_objective()] except
+#' [add_max_n_targets_met_objective()] except
 #' that emphasis is placed on representing a phylogenetically diverse set of
 #' species, rather than as many features as possible (subject to weights).
 #' This function was inspired by Faith (1992) and Rodrigues *et al.*
 #' (2002).
 #'
-#' @inheritParams add_max_utility_objective
+#' @inheritParams add_max_wtd_sum_objective
 #'
 #' @param tree [ape::phylo()] object specifying a phylogenetic tree
-#'   for the conservation features.
+#' for the features in `x`.
 #'
 #' @details
 #' The maximum phylogenetic diversity objective finds the set of
-#' planning units that meets representation targets for a phylogenetic tree
-#' while staying within a fixed budget. If multiple solutions can meet all
-#' targets while staying within budget, the cheapest solution is chosen.
-#' Note that this objective is similar to the maximum
-#' features objective ([add_max_features_objective()]) in that it
+#' planning units that meets as many representation targets for a phylogenetic
+#' tree as possible, while staying within a fixed budget.
+#' Note that this objective is similar to the maximum number of targets met
+#' objective ([add_max_n_targets_met_objective()]) in that it
 #' allows for both a budget and targets to be set for each feature. However,
-#' unlike the maximum feature objective, the aim of this objective is to
+#' unlike the maximum number of targets met objective, the aim of this
+#' objective is to
 #' maximize the total phylogenetic diversity of the targets met in the
 #' solution, so if multiple targets are provided for a single feature, the
 #' problem will only need to meet a single target for that feature
@@ -49,13 +49,12 @@ NULL
 #' (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
 #' indexed by \eqn{j}{j}) as:
 #'
-#' \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-#' \sum_{j = 1}^{J} m_b l_b \\
+#' \deqn{\mathit{Maximize} \space \sum_{j = 1}^{J} m_b l_b \\
 #' \mathit{subject \space to} \\
 #' \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
 #' m_b \leq y_j \forall j \in T(b) \\
 #' \sum_{i = 1}^{I} x_i c_i \leq B}{
-#' Maximize sum_i^I (-s * ci * xi) + sum_j^J (mb * lb) subject to sum_i^I
+#' Maximize sum_j^J (mb * lb) subject to sum_i^I
 #' (xi * rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) &
 #' sum_i^I (xi * ci) <= B}
 #'
@@ -72,25 +71,23 @@ NULL
 #' representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
 #' the features \eqn{j}{j} associated with branch \eqn{b}{b} using
 #' \eqn{T(b)}{T(b)}. Finally, \eqn{B}{B} is the budget allocated for the
-#' solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
-#' \eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
-#' will return a cheapest solution when there are multiple solutions that
-#' represent the same amount of all features within the budget.
+#' solution, and \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}.
 #'
 #' @section Notes:
 #' In early versions, this function was named as the
-#' `add_max_phylo_div_objective` function.
+#' `add_max_phylo_objective()` function.
+#' Additionally, in previous versions (< 9.0.0), this function had extra
+#' terms to help minimize the solution cost. Although these terms
+#' have since been removed to reduce solve time,
+#' this behavior can still be achieved by
+#' building a multi-objective optimization problem and specifying the
+#' first problem based on this objective function and the second
+#' problem based on minimizing cost penalties (i.e., by using
+#' [add_min_penalties_objective()] and [add_cost_penalties()]).
 #'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [targets] for an overview of all functions for adding targets, and
-#' [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
-#'
-#' @inherit add_min_set_objective return
-#'
-#' @aliases add_max_phylo_objective
 #'
 #' @references
 #' Faith DP (1992) Conservation evaluation and phylogenetic diversity.
@@ -100,8 +97,7 @@ NULL
 #' selection of networks of conservation areas. *Biological Conservation*,
 #' 105: 103--111.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load ape package
 #' require(ape)
 #'
@@ -213,7 +209,7 @@ NULL
 #'     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
 #'   )
 #' )
-#' }
+#'
 #' @name add_max_phylo_div_objective
 NULL
 

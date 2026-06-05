@@ -65,75 +65,74 @@ problem(x, features, ...)
 \S4method{problem}{sf,ZonesRaster}(x, features, cost_column, run_checks, ...)
 }
 \arguments{
-\item{x}{\code{\link[terra:rast]{terra::rast()}}, \code{\link[sf:sf]{sf::st_sf()}}, \code{data.frame}, \code{matrix}, or
-\code{numeric} vector specifying the planning units to use in the reserve
-design exercise and their corresponding cost. It may be desirable to
-exclude some planning units from the analysis, for example those outside
-the study area. To exclude planning units, set the cost for those raster
-cells to \code{NA}, or use the \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} function.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}}, \code{\link[sf:st_sf]{sf::st_sf()}}, \code{data.frame}, \code{matrix}, or
+\code{numeric} vector specifying the planning units and their corresponding cost.
+It may be desirable to exclude some planning units from the analysis, for
+example those outside the study area. To exclude planning units, set the
+cost for those raster cells to missing (\code{NA}) values,
+or use the \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} function.}
 
 \item{features}{The feature data can be specified in a variety of ways.
-The specific formats that can be used depend on the cost data format (i.e.,
-argument to \code{x}) and whether the problem should have a single zone or
-multiple zones. If the problem should have a single zone, then the feature
-data can be specified following:
+The specific formats that can be used depend on the cost data format
+(per \code{x}) and whether the problem should have a single zone or
+multiple zones.
+
+If the problem should have a single zone, then the following formats
+can be used to specify \code{features}.
 
 \describe{
 
-\item{\strong{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}}{
-The argument to \code{features} can be a \code{\link[terra:rast]{terra::rast()}}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:st_sf]{sf::st_sf()}} planning units}{
+Here \code{features} can be a \code{\link[terra:rast]{terra::rast()}}
 object showing the distribution of conservation features. Missing
 values (i.e., \code{NA} values) can be used to indicate the absence of
 a feature in a particular cell instead of explicitly setting these
-cells to zero. Note that this argument type for \code{features} can
-only be used to specify data for problems involving a single zone.}
+cells to zero.}
 
-\item{\strong{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}}{
-The argument to \code{features} can be a \code{character} vector
+\item{\code{x} has \code{\link[sf:st_sf]{sf::st_sf()}} or \code{data.frame} planning units}{
+Here \code{features} can be a \code{character} vector
 with column names (from \code{x}) that correspond to the abundance or
-occurrence of different features in each planning unit. Note that
-this argument type can only be used to create problems involving a
-single zone.}
+occurrence of different features in each planning unit.}
 
-\item{\strong{\code{x} has \code{data.frame}, \code{matrix}, or \code{numeric} vector planning
-units}}{
-The argument to \code{features} can be a \code{data.frame} object
-containing the names of the features. Note that if this
-type of argument is supplied to \code{features} then the argument
-\code{rij} or \code{rij_matrix} must also be supplied. This type of
-argument should follow the conventions used by \emph{Marxan}, wherein
-each row corresponds to a different feature. It must also contain the
-following columns:
+\item{\code{x} has \code{data.frame}, \code{matrix}, or \code{numeric} vector planning
+units}{
+Here \code{features} can be a \code{data.frame} object
+containing the names of the features. Note that if this format
+is specified, then \code{rij} or \code{rij_matrix} must also be specified.
+In particular, \code{features} must follow the conventions used by \emph{Marxan},
+wherein each row corresponds to a different feature. It must also contain the
+following columns.
 \describe{
-\item{id}{\code{integer} unique identifier for each feature
-These identifiers are used in the argument to \code{rij}.}
+\item{id}{
+\code{integer} unique identifier for each feature.
+Note that these identifiers are used by \code{rij}.}
 \item{name}{\code{character} name for each feature.}
-\item{prop}{\code{numeric} relative target for each feature
-(optional).}
-\item{amount}{\code{numeric} absolute target for each
-feature (optional).}
+\item{prop}{\code{numeric} relative target for each feature (optional).}
+\item{amount}{\code{numeric} absolute target for each feature (optional).}
 }
 }
 
 }
 
-If the problem should have multiple zones, then the feature
-data can be specified following:
+Alternatively, if the problem should have multiple zones, then the
+following formats can be used to specify \code{features}.
 
 \describe{
 
-\item{\strong{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::st_sf()}} planning units}}{
-The argument to \code{features} can be a \code{\link[=zones]{ZonesRaster}}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:st_sf]{sf::st_sf()}} planning units}{
+Here \code{features} can be a \code{\link[=zones]{ZonesRaster}}
 object showing the distribution of conservation features in multiple
-zones. As above, missing values (i.e., \code{NA} values) can be used to
+zones. As above, missing (\code{NA}) values can be used to
 indicate the absence of a feature in a particular cell instead of
-explicitly setting these cells to zero.}
+explicitly setting these cells to zero.
+}
 
-\item{\strong{\code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{data.frame} planning units}}{
-The argument to \code{features} can be a \code{\link[=zones]{ZonesCharacter}}
+\item{\code{x} has \code{\link[sf:st_sf]{sf::st_sf()}} or \code{data.frame} planning units}{
+Here \code{features} can be a \code{\link[=zones]{ZonesCharacter}}
 object with column names (from \code{x}) that correspond to the abundance or
 occurrence of different features in each planning unit in different
-zones.}
+zones.
+}
 
 }}
 
@@ -145,13 +144,14 @@ default; however, for large datasets they may increase run time. If it is
 taking a prohibitively long time to create the prioritization problem,
 try setting \code{run_checks} to \code{FALSE}.}
 
-\item{cost_column}{\code{character} name or \code{integer} indicating the
-column(s) with the cost data. This argument must be supplied when the
-argument to \code{x} is a \code{\link[sf:sf]{sf::st_sf()}} or
-\code{data.frame} object. This argument should contain the name of each
-column containing cost data for each management zone when creating
-problems with multiple zones. To create a problem with a single zone, then
-set the argument to \code{cost_column} as a single column name.}
+\item{cost_column}{\code{character} value or vector with
+name(s) of the column(s) of \code{x} with cost data.
+In particular, \code{cost_column} must be specified
+if \code{x} is a \code{\link[sf:st_sf]{sf::st_sf()}} or \code{data.frame} object.
+To create a problem with a single zone, then
+\code{cost_column} must contain a single column name.
+Alternatively, to create a problem with multiple zones, then
+\code{cost_column} must contain a column name for each zone.}
 
 \item{feature_units}{\code{character} vector containing the unit of
 measurement for the data associated with each feature.
@@ -161,27 +161,27 @@ the \code{feature_units} must refer to area-based units
 feature.}
 
 \item{rij}{\code{data.frame} containing information on the amount of
-each feature in each planning unit assuming each management zone. Similar
-to \code{data.frame} arguments for \code{features}, the \code{data.frame}
-objects must follow the conventions used by \emph{Marxan}. Note that the
-\code{"zone"} column is not needed for problems involving a single
-management zone. Specifically, the argument should contain the following
-columns:
+each feature in each planning unit that would be expected if the
+planning unit was selected (in other words, allocated to each zone).
+Following conventions used by \emph{Marxan}, \code{rij} must contain the following
+columns. Note that the \code{"zone"} column is not needed for problems involving
+a single zone.
 \describe{
 \item{pu}{\code{integer} planning unit identifier.}
 \item{species}{\code{integer} feature identifier.}
-\item{zone}{\code{integer} zone identifier (optional for
-problems involving a single zone).}
-\item{amount}{\code{numeric} amount of the feature in the
-planning unit.}
+\item{zone}{
+\code{integer} zone identifier (optional for problems involving a single zone).
+}
+\item{amount}{
+\code{numeric} amount of the feature in the planning unit.
+}
 }}
 
-\item{zones}{\code{data.frame} containing information on the zones. This
-argument is only used when argument to \code{x} and \code{features} are
+\item{zones}{\code{data.frame} containing information on the zones.
+Note that \code{zones} is only used if \code{x} and \code{features} are
 both \code{data.frame} objects and the problem being built contains
-multiple zones. Following conventions used in \code{MarZone}, this
-argument should contain the following columns:
-columns:
+multiple zones. Following conventions used by \emph{MarZone}, this
+argument must contain the following columns.
 \describe{
 \item{id}{\code{integer} zone identifier.}
 \item{name}{\code{character} zone name.}
@@ -191,14 +191,13 @@ columns:
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The \code{list} elements denote
 different zones, matrix rows denote features, and matrix columns denote
-planning units. For convenience, the argument to
-\code{rij_matrix} can be a single \code{matrix} or
+planning units. For convenience, the \code{rij_matrix} can be a single \code{matrix} or
 \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} when specifying a problem with a
-single management zone. This argument is only used when the argument
-to \code{x} is a \code{numeric} or \code{matrix} object.}
+single zone. Note that \code{rij_matrix} is only used
+if \code{x} is a \code{numeric} or \code{matrix} object.}
 }
 \value{
-A new \code{problem()} (\code{\linkS4class{ConservationProblem}}) object.
+A new \code{problem()} (\code{\link[=ConservationProblem-class]{ConservationProblem}}) object.
 }
 \description{
 Create a systematic conservation planning problem. This function is used to
@@ -208,7 +207,8 @@ the features (e.g., species, ecosystems) that need to be conserved. After
 constructing this object, it can be
 customized to meet specific goals using \link{objectives},
 \link{targets}, \link{constraints}, and
-\link{penalties}. After building the problem, the
+\link{penalties}. Additionally, \link{solvers} can be added to customize the
+optimization software and settings. After building the problem, the
 \code{\link[=solve]{solve()}} function can be used to identify solutions.
 }
 \details{
@@ -335,7 +335,7 @@ millions of planning units.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -526,6 +526,7 @@ p9 <-
     zones(
       c("spp1_z1", "spp2_z1", "spp3_z1"),
       c("spp1_z2", "spp2_z2", "spp3_z2"),
+      feature_names = c("spp1", "spp2", "spp3"),
       zone_names = c("z1", "z2")
     ),
     cost_column = c("cost_1", "cost_2")
@@ -540,7 +541,7 @@ s9 <- solve(p9)
 
 # plot solution
 plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=solve]{solve()}} for details on solving a problem to generate solutions.

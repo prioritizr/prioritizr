@@ -134,15 +134,15 @@ prioritizations that only contain a single management zone.
 
   Import planning unit data stored in vector format. Here, planning
   units are represented using spatial lines (e.g., each line corresponds
-  to a different section along a river) . The attribute table follows
-  the same conventions as for `sim_pu_polygons`.
+  to a different section along a river). The columns follow the same
+  conventions as for `get_sim_pu_polygons()`.
 
 - `get_sim_pu_lines()`:
 
   Import planning unit data stored in vector format. Here, planning
   units are represented using spatial points (e.g., each point
-  corresponds to a different site) . The attribute table follows the
-  same conventions as for `sim_pu_polygons`.
+  corresponds to a different site). The columns follow the same
+  conventions as for `get_sim_pu_polygons()`.
 
 - `get_sim_features()`:
 
@@ -152,7 +152,8 @@ prioritizations that only contain a single management zone.
 
 - `get_sim_phylogeny()`:
 
-  Import phylogenetic tree for the five species.
+  Import phylogenetic tree for the five features in
+  `get_sim_features()`.
 
 ## Complex single zone datasets
 
@@ -201,10 +202,10 @@ prioritizations that contain multiple management zones.
 
   Import planning unit data for multiple management zones that are
   stored in raster format. Here, each layer indicates the cost for a
-  different management zone. Cells with `NA` values in a given zone
-  indicate that a planning unit cannot be allocated to that zone in a
-  solution. Additionally, cells with `NA` values in all layers are not a
-  planning unit.
+  different management zone. Cells with missing (`NA`) values in a given
+  zone indicate that a planning unit cannot be allocated to that zone in
+  a solution. Additionally, cells with missing (`NA`) values in all
+  layers are not a planning unit.
 
 - `get_sim_zones_pu_polygons()`:
 
@@ -242,7 +243,6 @@ sim_features <- get_sim_features()
 sim_zones_features <- get_sim_zones_features()
 
 # plot raster data
-# \dontrun{
 par(mfrow = c(2, 2))
 plot(sim_pu_raster, main = "planning units (raster)", axes = FALSE)
 plot(sim_locked_in_raster, main = "locked in units (raster)", axes = FALSE)
@@ -293,8 +293,6 @@ plot_names <- paste0(
 )
 plot(
   terra::rast(as.list(sim_zones_features)),
-   main = plot_names, axes = FALSE
+  main = plot_names, axes = FALSE
 )
-
-# }
 ```

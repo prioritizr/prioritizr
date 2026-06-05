@@ -7,79 +7,83 @@ NULL
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_manual_locked_constraints
 #'
 #' @param zones `matrix` or `Matrix` object describing the
-#'   connection scheme for different zones. Each row and column corresponds
-#'   to a different zone in the argument to `x`, and cell values must
-#'   contain binary `numeric` values (i.e., one or zero) that indicate
-#'   if connected planning units (as specified in the argument to
-#'   `data`) should be still considered connected if they are allocated to
-#'   different zones. The cell values along the diagonal
-#'   of the matrix indicate if planning units should be subject to
-#'   contiguity constraints when they are allocated to a given zone. Note
-#'   arguments to `zones` must be symmetric, and that a row or column has
-#'   a value of one then the diagonal element for that row or column must also
-#'   have a value of one. The default argument to `zones` is an identity
-#'   matrix (i.e., a matrix with ones along the matrix diagonal and zeros
-#'   elsewhere), so that planning units are only considered connected if they
-#'   are both allocated to the same zone.
+#' connection scheme for different zones. Each row and column corresponds
+#' to a different zone in `x`, and cell values must
+#' contain binary `numeric` values (i.e., one or zero) that indicate
+#' if connected planning units (as specified per `data`) should be considered
+#' connected if they are allocated to
+#' different zones. The cell values along the diagonal
+#' of the matrix indicate if planning units should be subject to
+#' contiguity constraints when they are allocated to a given zone. Note
+#' that `zones` must have symmetric values, and that if a row or column has
+#' a value of one then the diagonal element for that row or column must also
+#' have a value of one. Defaults to an identity
+#' matrix (i.e., a matrix with ones along the matrix diagonal and zeros
+#' elsewhere), so that planning units are only considered connected if they
+#' are both allocated to the same zone.
 #'
-#' @param data `NULL`, `matrix`, `Matrix`, `data.frame`
-#'   object showing which planning units are connected with each
-#'   other. The argument defaults to `NULL` which means that the
-#'   connection data is calculated automatically using the
-#'   [adjacency_matrix()] function.
-#'   See the Data format section for more information.
+#' @param data `NULL`, `matrix`, `Matrix`, or `data.frame`
+#' object showing which planning units are connected with each
+#' other. Defaults to `NULL` such that `data` is calculated
+#' automatically using the [adjacency_matrix()] function.
+#' See the Data format section for more information.
 #'
-#' @details This function uses connection data to identify solutions that
-#'   form a single contiguous unit. It was inspired by the
-#'   mathematical formulations detailed in Önal and Briers (2006).
+#' @details
+#' This function uses connection data to identify solutions that
+#' form a single contiguous unit. It was inspired by the
+#' mathematical formulations detailed in Önal and Briers (2006).
 #'
 #' @section Data format:
 #'
-#' The argument to `data` can be specified using the following formats.
+#' The following formats can be used to specify `data`.
 #'
 #' \describe{
 #'
-#' \item{`data` as a `NULL` value}{indicating that connection data should be
-#'   calculated automatically using the [adjacency_matrix()] function.
-#'   This is the default argument.
-#'   Note that the connection data must be manually defined
-#'   using one of the other formats below when the planning unit data
-#'   in the argument to `x` is not spatially referenced (e.g.,
-#'   in `data.frame` or `numeric` format).}
+#' \item{`data` as a `NULL` value}{
+#' Here connection data are calculated automatically using the
+#' [adjacency_matrix()] function.
+#' This is the default for `data`.
+#' Note that the connection data must be manually specified
+#' using one of the other formats below when the planning unit data
+#' in `x` are not spatially referenced (e.g.,
+#' in `data.frame` or `numeric` format).
+#' }
 #'
-#' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
-#'   different planning units and the value of each cell indicates if the
-#'   two planning units are connected or not. Cell values should be binary
-#'   `numeric` values (i.e., one or zero). Cells that occur along the
-#'   matrix diagonal have no effect on the solution at all because each
-#'   planning unit cannot be a connected with itself.}
+#' \item{`data` as a `matrix`/`Matrix` object}{
+#' Here rows and columns correspond to different planning units and
+#' cell values indicate if two planning units are connected or not.
+#' In particular, cell values should be binary
+#' `numeric` values (i.e., one or zero). Cells that occur along the
+#' matrix diagonal have no effect on the solution because each
+#' planning unit cannot be a connected with itself.
+#' }
 #'
-#' \item{`data` as a `data.frame` object}{containing columns that are named
-#'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
-#'   denotes the connectivity between two planning units following the
-#'   *Marxan* format. The `"boundary"` column should contain
-#'   binary `numeric` values that indicate if the two planning units
-#'   specified in the `"id1"` and `"id2"` columns are connected
-#'   or not. This data can be used to describe symmetric or
-#'   asymmetric relationships between planning units. By default,
-#'   input data is assumed to be symmetric unless asymmetric data is
-#'   also included (e.g., if data is present for planning units 2 and 3, then
-#'   the same amount of connectivity is expected for planning units 3 and 2,
-#'   unless connectivity data is also provided for planning units 3 and 2).}
+#' \item{`data` as a `data.frame` object}{
+#' Here rows correspond to a pair of planning units and columns
+#' provide information about each pair of planning units.
+#' In particular, `data` must have the columns:
+#' `"id1"`, `"id2"`, and `"boundary"`.
+#' The `"boundary"` column should contain
+#' binary `numeric` values that indicate if the two planning units
+#' specified in the `"id1"` and `"id2"` columns are connected
+#' or not. This data can be used to describe symmetric or
+#' asymmetric relationships between planning units. By default,
+#' input data is assumed to be symmetric unless asymmetric data is
+#' specified (e.g., if data is present for planning units 2 and 3, then
+#' the same amount of connectivity is expected for planning units 3 and 2,
+#' unless connectivity data is also provided for planning units 3 and 2).
+#' }
 #'
-#'  }
+#' }
 #'
 #' @section Notes:
 #' In early versions, this function was named as the
 #' `add_connected_constraints()` function.
 #'
-#' @return An updated [problem()] object with the constraints added to it.
-#'
-#' @seealso
-#' See [constraints] for an overview of all functions for adding constraints.
+#' @inherit add_manual_locked_constraints return seealso
 #'
 #' @family constraints
 #'
@@ -89,8 +93,7 @@ NULL
 #' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -209,7 +212,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s7, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_contiguity_constraints
 #'
 #' @exportMethod add_contiguity_constraints

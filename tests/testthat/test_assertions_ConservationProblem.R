@@ -128,9 +128,9 @@ test_that(
   terra::crs(sim_features) <- terra::crs("epsg:4326")
   # build message
   msg <- try(
-    problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
+    problem(sim_pu_raster, sim_features) %>%
+    add_auto_targets(spec_jung_targets()) %>%
+    add_min_set_objective() %>%
     add_binary_decisions(),
     silent = TRUE
   )
@@ -145,11 +145,14 @@ test_that(
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
+  # set NA crs
+  terra::crs(sim_pu_raster) <- na_crs
+  terra::crs(sim_features) <- na_crs
   # build message
   msg <- try(
-    problem(sim_pu_raster, sim_features) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
+    problem(sim_pu_raster, sim_features) %>%
+    add_auto_targets(spec_jung_targets()) %>%
+    add_min_set_objective() %>%
     add_binary_decisions(),
     silent = TRUE
   )
@@ -165,14 +168,18 @@ test_that(
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_pu_polygons$spp_1 <- 1
   sim_pu_polygons$spp_2 <- 2
+  # set NA crs
+  sim_pu_polygons <- suppressWarnings(
+    sf::st_set_crs(sim_pu_polygons, sf::st_crs(na_crs))
+  )
   # build message
   msg <- try(
     problem(
       sim_pu_polygons, c("spp_1", "spp_2"), cost_column = "cost",
       feature_units = c("km^2", NA)
-    ) |>
-    add_auto_targets(spec_jung_targets()) |>
-    add_min_set_objective() |>
+    ) %>%
+    add_auto_targets(spec_jung_targets()) %>%
+    add_min_set_objective() %>%
     add_binary_decisions(),
     silent = TRUE
   )
@@ -267,4 +274,183 @@ test_that("has_single_zone (multiple zones problem)", {
   # tests
   expect_false(has_single_zone(p))
   expect_error(assert(has_single_zone(p)), "single zone")
+})
+
+test_that("all_comparable_problem (single zone, TRUE)", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # build problems
+  p1 <-
+    problem(sim_pu_raster, sim_features[[1:3]]) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_pu_raster, sim_features[[4:5]]) %>%
+    add_min_shortfall_objective(
+      budget = 0.2 * terra::global(sim_pu_raster, sum, na.rm = TRUE)[[1]]
+    ) %>%
+    add_relative_targets(0.2) %>%
+    add_binary_decisions()
+  # run tests
+  expect_true(all_comparable_problem(p1, p2))
+  assert(all_comparable_problem(p1, p2))
+})
+
+test_that(
+  "all_comparable_problem (single zone, different planning unit class)", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create additional data
+  pu2 <- data.frame(
+    id = seq(20,29), cost = c(runif(1), NA, runif(8)),
+    spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
+  )
+  # build problems
+  p1 <-
+    problem(sim_pu_raster, sim_features[[1:3]]) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  p2 <- problem(pu2, c("spp1", "spp2"), "cost")
+  # run tests
+  expect_false(all_comparable_problem(p1, p2))
+  expect_error(
+    assert(all_comparable_problem(p1, p2)),
+    "planning unit classes"
+  )
+})
+
+test_that(
+  "all_comparable_problem (single zone, different planning unit ids)", {
+  # create data
+  ## note that planning unit ids mismatch
+  pu <- data.frame(
+    id = seq_len(10), cost = c(runif(1), NA, runif(8)),
+    spp1 = runif(10), spp2 = c(rpois(9, 4), NA)
+  )
+  pu2 <- data.frame(
+    id = seq(20,28), cost = c(runif(1), NA, runif(7)),
+    spp1 = runif(9), spp2 = c(rpois(8, 4), NA)
+  )
+  # create problems
+  p1 <- problem(pu, c("spp1", "spp2"), "cost")
+  p2 <- problem(pu2, c("spp1", "spp2"), "cost")
+  # run tests
+  expect_false(all_comparable_problem(p1, p2))
+  expect_error(
+    assert(all_comparable_problem(p1, p2)),
+    "planning unit indices"
+  )
+})
+
+test_that(
+  "all_comparable_problem (multiple zones, TRUE)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  # build problems
+  p1 <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  # run tests
+  expect_true(all_comparable_problem(p1, p2))
+  assert(all_comparable_problem(p1, p2))
+})
+
+test_that(
+  "all_comparable_problem (multiple zones, different planning unit class)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  # create additional data
+  pu2 <- data.frame(
+    id = seq_len(9),
+    cost_1 = c(NA, NA, runif(7)), cost_2 = c(0.3, NA, runif(7)),
+    spp1_1 = runif(9), spp2_1 = c(rpois(8, 4), NA),
+    spp1_2 = runif(9), spp2_2 = runif(9)
+  )
+  # build problems
+  p1 <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  p2 <- problem(
+    pu2, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+    c("cost_1", "cost_2")
+  )
+  # run tests
+  expect_false(all_comparable_problem(p1, p2))
+  expect_error(
+    assert(all_comparable_problem(p1, p2)),
+    "planning unit class"
+  )
+})
+
+test_that("all_comparable_problem (multiple zones, different zone names)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_zones_features <- get_sim_zones_features()
+  # create additional data
+  sim_zones_features2 <- sim_zones_features
+  attr(sim_zones_features2, "zone_names") <- c("zone1", "zone2", "zone3")
+  # build problems
+  p1 <-
+    problem(sim_zones_pu_raster, sim_zones_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_zones_pu_raster, sim_zones_features2) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+    add_binary_decisions()
+  # run tests
+  expect_false(all_comparable_problem(p1, p2))
+  expect_error(
+    assert(all_comparable_problem(p1, p2)),
+    "zone names"
+  )
+})
+
+test_that(
+  "all_comparable_problem (multiple zones, different planning unit ids)", {
+  # create data
+  pu1 <- data.frame(
+    id = seq_len(10),
+    cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_2 = runif(10), spp2_2 = runif(10)
+  )
+  pu2 <- data.frame(
+    id = seq_len(9),
+    cost_1 = c(NA, NA, runif(7)), cost_2 = c(0.3, NA, runif(7)),
+    spp1_1 = runif(9), spp2_1 = c(rpois(8, 4), NA),
+    spp1_2 = runif(9), spp2_2 = runif(9)
+  )
+  # create problems
+  p1 <- problem(
+    pu1, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+    c("cost_1", "cost_2")
+  )
+  p2 <- problem(
+    pu2, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+    c("cost_1", "cost_2")
+  )
+  # run tests
+  expect_false(all_comparable_problem(p1, p2))
+  expect_error(
+    assert(all_comparable_problem(p1, p2)),
+    "planning unit indices"
+  )
 })

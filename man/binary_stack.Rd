@@ -17,10 +17,12 @@ binary_stack(x, keep_all = TRUE)
 values.}
 
 \item{keep_all}{\code{logical} value indicating if all integers should be kept
-in the output. If \code{TRUE}, the output will contain a layer for each
-sequential integer between 1 and the maximum value in \code{x}. If \code{FALSE},
-the output will only contain layers for integer values present in \code{x}.
-Defaults to \code{TRUE.}}
+in the returned object.
+If \code{keep_all = TRUE}, then the returned object will contain a layer
+for each sequential integer between 1 and the maximum value in \code{x}.
+Otherwise, if \code{keep_all = FALSE},
+then the returned object will only contain layers for integer values present
+in \code{x}. Defaults to \code{TRUE.}}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.
@@ -41,21 +43,19 @@ It is essentially a wrapper for \code{\link[terra:segregate]{terra::segregate()}
 Note that this function assumes \code{x} contains integer values.
 }
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster with categorical values
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
-\dontrun{
 plot(x, main = "x")
-}
 
 # convert to binary stack
 y <- binary_stack(x)
 
 # plot result
-\dontrun{
 plot(y)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{\link[=category_layer]{category_layer()}} function performs the reverse of this function.

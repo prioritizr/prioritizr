@@ -82,7 +82,7 @@ Available options include \code{"linear"} for linear interpolation and
 \code{"log10"} for log-linear interpolation.}
 }
 \value{
-An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
+An object (\code{\link[=TargetMethod-class]{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
 to add targets to a \code{\link[=problem]{problem()}}.
 }
@@ -163,7 +163,7 @@ t = min(i(h, g * f), j)
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -209,7 +209,7 @@ s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -236,22 +236,22 @@ protected-area network. \emph{BioScience}, 54: 1092--1100.
 }
 \seealso{
 Other target setting methods:
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_jung_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_min_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_relative_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_rule_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
+\code{\link[=spec_absolute_targets]{spec_absolute_targets()}},
+\code{\link[=spec_area_targets]{spec_area_targets()}},
+\code{\link[=spec_duran_targets]{spec_duran_targets()}},
+\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+\code{\link[=spec_jung_targets]{spec_jung_targets()}},
+\code{\link[=spec_max_targets]{spec_max_targets()}},
+\code{\link[=spec_min_targets]{spec_min_targets()}},
+\code{\link[=spec_polak_targets]{spec_polak_targets()}},
+\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
+\code{\link[=spec_relative_targets]{spec_relative_targets()}},
+\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}},
+\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
+\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
+\code{\link[=spec_rule_targets]{spec_rule_targets()}},
+\code{\link[=spec_ward_targets]{spec_ward_targets()}},
+\code{\link[=spec_watson_targets]{spec_watson_targets()}},
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}
 }
 \concept{methods}

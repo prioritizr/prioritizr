@@ -24,16 +24,14 @@ compile(x, compressed_formulation = NA, ...)
 
 - compressed_formulation:
 
-  `logical` should the conservation problem compiled into a compressed
-  version of a planning problem? If `TRUE` then the problem is expressed
-  using the compressed formulation. If `FALSE` then the problem is
-  expressed using the expanded formulation. If `NA`, then the compressed
-  is used unless one of the constraints requires the expanded
-  formulation. This argument defaults to `NA`.
+  `logical` value indicating if `x` should be compiled following the
+  compressed formulation? If `compressed_formulation = NA`, then the
+  compressed is used unless one of the constraints in `x` requires the
+  expanded formulation. Defaults to `NA`.
 
 ## Value
 
-A
+An
 [`optimization_problem()`](https://prioritizr.net/reference/optimization_problem.md)
 object.
 
@@ -42,21 +40,19 @@ object.
 This function might be useful for those interested in understanding how
 their conservation planning
 [`problem()`](https://prioritizr.net/reference/problem.md) is expressed
-as a mathematical problem. However, if the problem just needs to be
+as a mathematical optimization problem. However, if `x` just needs to be
 solved, then the [`solve()`](https://prioritizr.net/reference/solve.md)
-function should just be used.
+function should be used directly.
 
-**Please note that in nearly all cases, the default argument to
-`compressed_formulation` should be used**. The only situation where
-manually setting the argument to `formulation` is desirable is during
-testing. Manually setting the argument to `formulation` will at best
-have no effect on the problem. At worst, it may result in an error, a
-misspecified problem, or unnecessarily long solve times.
+**Please note that in nearly all cases, the default value for
+`compressed_formulation` should be used**. This is because manually
+setting the `compressed_formulation` will, at best, have no effect on
+the problem. At worst, it may result in an error, a mis-specified
+problem, or unnecessarily long solve times.
 
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -76,5 +72,4 @@ print(o)
 #> • model sense: min
 #> • dimensions:  5, 90, 450 (rows, columns, cells)
 #> • variables:   90 (B)
-# }
 ```

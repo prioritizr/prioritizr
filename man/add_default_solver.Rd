@@ -7,12 +7,13 @@
 add_default_solver(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{...}{arguments passed to the solver.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the best solver currently available should be
@@ -26,6 +27,30 @@ Ranked from best to worst, the available solvers that can be used are:
 For information on the performance of different solvers,
 please see Schuster \emph{et al.} (2020).
 }
+\examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
+set.seed(600)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# create minimal problem with default portfolio
+p <-
+  problem(sim_pu_raster, sim_features) \%>\%
+  add_min_set_objective() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_binary_decisions() \%>\%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s <- solve(p)
+
+# plot solution
+plot(s)
+\dontshow{\}) # examplesIf}
+}
 \references{
 Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
 integer linear programming solvers outperform simulated annealing for
@@ -35,11 +60,11 @@ solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 See \link{solvers} for an overview of all functions for adding a solver.
 
 Other functions for adding solvers:
-\code{\link{add_cbc_solver}()},
-\code{\link{add_cplex_solver}()},
-\code{\link{add_gurobi_solver}()},
-\code{\link{add_highs_solver}()},
+\code{\link[=add_cbc_solver]{add_cbc_solver()}},
+\code{\link[=add_cplex_solver]{add_cplex_solver()}},
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
+\code{\link[=add_highs_solver]{add_highs_solver()}},
 \code{\link{add_lsymphony_solver}},
-\code{\link{add_rsymphony_solver}()}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
 }
 \concept{solvers}

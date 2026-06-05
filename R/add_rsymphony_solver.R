@@ -25,10 +25,7 @@ NULL
 #' run time and solution quality of different solvers when applied to
 #' different sized datasets.
 #'
-#' @inherit add_gurobi_solver return references
-#'
-#' @seealso
-#' See [solvers] for an overview of all functions for adding a solver.
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @family solvers
 #'
@@ -43,8 +40,7 @@ NULL
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -62,7 +58,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_rsymphony_solver
 NULL
 
@@ -79,7 +75,7 @@ add_rsymphony_solver <- function(x, gap = 0.1,
   assert_required(first_feasible)
   assert_required(verbose)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,

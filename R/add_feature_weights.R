@@ -5,9 +5,9 @@ NULL
 #'
 #' Add features weights to a conservation planning problem. Specifically,
 #' some objective functions aim to maximize (or minimize) a metric that
-#' measures how well a set of features are represented by a solution
-#' (e.g., maximize the number of features that are adequately represented,
-#' [add_max_features_objective()]). In such cases,
+#' evaluates how well a set of features are represented by a solution
+#' (e.g., maximize the number of feature targets that are met,
+#' [add_max_n_targets_met_objective()]). In such cases,
 #' it may be desirable to prefer the representation of some features
 #' over other features (e.g., features that have higher extinction risk
 #' might be considered more important than those with lower extinction risk).
@@ -17,46 +17,43 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @param weights `numeric` or `matrix` of weights.
-#'   See the Weights format section for more information.
+#' @param weights `numeric` vector or `matrix` of weights.
+#' See the Weights format section for more information.
 #'
 #' @details
-#' Weights can only be applied to problems that have an objective
-#' that is budget limited (e.g., [add_max_cover_objective()],
-#' [add_min_shortfall_objective()]).
-#' They can also be applied to problems that aim to maximize phylogenetic
-#' representation ([add_max_phylo_div_objective()]) to favor the
-#' representation of specific features over the representation of
-#' some phylogenetic branches. Weights cannot be negative values
-#' and must have values that are equal to or larger than zero.
-#' **Note that planning unit costs are scaled to 0.01 to identify
-#' the cheapest solution among multiple optimal solutions. This means
-#' that the optimization process will favor cheaper solutions over solutions
-#' that meet feature targets (or occurrences) when feature weights are
-#' lower than 0.01.**
+#' Weights are only considered during optimization if a budget-limited
+#' objective is specified
+#' (e.g., [add_max_cover_objective()],
+#' [add_min_shortfall_objective()]). Although weights can be added
+#' to problems that have the minimum set objective
+#' (i.e., [add_min_set_objective()]), they will have no effect during
+#' optimization and a warning will be thrown.
 #'
 #' @section Weights format:
-#'
-#' The argument to `weights` can be specified using the following formats.
+#' The following formats can be used to specify `weights`.
+#' Note that `weights` must have values that are greater than, or equal to, zero
+#' (in other words, non-negative values).
 #'
 #' \describe{
 #'
-#' \item{`weights` as a `numeric` vector}{containing weights for each feature.
-#'   Note that this format cannot be used to specify weights for problems with
-#'   multiple zones.}
+#' \item{`weights` as a `numeric` vector}{
+#' Here weight values are specified for each feature.
+#' Note that this format cannot be used if `x` has multiple zones.
+#' }
 #'
-#' \item{`weights` as a `matrix` object}{containing weights
-#'   for each feature in each zone.
-#'   Here, each row corresponds to a different feature in argument to
-#'   `x`, each column corresponds to a different zone in argument to
-#'   `x`, and each cell contains the weight value for a given feature
-#'   that the solution can to secure in a given zone. Note that
-#'   if the problem contains targets created using
-#'   [add_manual_targets()] then a `matrix` should be
-#'   supplied containing a single column that indicates that weight for
-#'   fulfilling each target.}
+#' \item{`weights` as a `matrix` object}{
+#' Here weight values are specified for each feature in each zone.
+#' In particular, each row corresponds to a different feature in
+#' `x`, each column corresponds to a different zone in `x`, and cell values
+#' specify the weight value for representing a particular feature in a
+#' particular zone.
+#' Note that if the problem contains targets created using
+#' [add_manual_targets()], then `weights` should be a `matrix`
+#' that has a single column containing the weight value for meeting each
+#' target.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @return An updated [problem()] with the weights added to it.
 #'
@@ -65,8 +62,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load package
 #' require(ape)
 #'
@@ -82,7 +78,7 @@ NULL
 #' # needs 20% of its habitat for it to be considered adequately conserved
 #' p1 <-
 #'   problem(sim_pu_raster, sim_features) %>%
-#'   add_max_features_objective(budget = 3800) %>%
+#'   add_max_n_targets_met_objective(budget = 3800) %>%
 #'   add_relative_targets(0.2) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -178,13 +174,13 @@ NULL
 #'   )
 #' )
 #'
-#' # create multi-zone problem with maximum features objective,
+#' # create multi-zone problem with maximum number of targets met objective,
 #' # with 10% representation targets for each feature, and set
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
 #' p6 <-
 #'   problem(sim_zones_pu_raster, sim_zones_features) %>%
-#'   add_max_features_objective(3000) %>%
+#'   add_max_n_targets_met_objective(3000) %>%
 #'   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'   add_binary_decisions() %>%
 #'   add_default_solver(verbose = FALSE)
@@ -215,7 +211,7 @@ NULL
 #' # weights for problems with manual targets
 #' p8 <-
 #'   problem(sim_pu_raster, sim_features) %>%
-#'   add_max_features_objective(budget = 3000) %>%
+#'   add_max_n_targets_met_objective(budget = 3000) %>%
 #'   add_manual_targets(
 #'     data.frame(
 #'     feature = c("feature_1", "feature_4"),
@@ -231,7 +227,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s8, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_feature_weights
 #'
 #' @exportMethod add_feature_weights

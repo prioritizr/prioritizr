@@ -18,7 +18,8 @@ add_top_portfolio(x, number_solutions = 10)
 
 - number_solutions:
 
-  `integer` number of solutions required. Defaults to 10.
+  `integer` value denoting the number of required solutions. Defaults to
+  10.
 
 ## Value
 
@@ -28,29 +29,26 @@ object with the portfolio added to it.
 ## Details
 
 This strategy for generating a portfolio requires problems to be solved
-using the *Gurobi* software suite (i.e., using
+using the *Gurobi* software (i.e., using
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md).
 Specifically, version 8.0.0 (or greater) of the gurobi package must be
 installed. Note that the number of solutions returned may be less than
-the argument to `number_solutions`, if the total number of feasible
-solutions is less than the number of solutions requested.
+`number_solutions`, because the total number of feasible solutions may
+be fewer than `number_solutions`.
 
 ## See also
-
-See [portfolios](https://prioritizr.net/reference/portfolios.md) for an
-overview of all functions for adding a portfolio.
 
 Other functions for adding portfolios:
 [`add_cuts_portfolio()`](https://prioritizr.net/reference/add_cuts_portfolio.md),
 [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md),
 [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
 [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
-[`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
+[`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+[`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -102,6 +100,4 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-
-# }
 ```

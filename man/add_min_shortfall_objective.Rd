@@ -9,14 +9,11 @@ add_min_shortfall_objective(x, budget)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a separate budget for each management zone.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+a budget for each zone (separately) in the solution.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -26,10 +23,11 @@ ensuring that the cost of the solution does not exceed a budget.
 \details{
 The minimum shortfall objective aims to
 find the set of planning units that minimize the overall
-(weighted sum) shortfall for the
-representation targets---that is, the fraction of each target that
-remains unmet---for as many features as possible while staying within a
-fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
+(weighted sum) relative shortfall for the
+representation targets (i.e., the fraction of each target that
+remains unmet) for as many features as possible, whilst ensuring
+that the total cost of the solution does not exceed a pre-specified
+budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
 2005). Additionally, weights can be used
 to favor the representation of certain features over other features (see
 \code{\link[=add_feature_weights]{add_feature_weights()}}.
@@ -63,7 +61,7 @@ for target \eqn{j}{j}.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -116,7 +114,7 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of
@@ -124,18 +122,14 @@ biodiversity in reserve selection: representation, species weighting, and
 benefit functions. \emph{Conservation Biology}, 19: 2009--2014.
 }
 \seealso{
-See \link{objectives} for an overview of all functions for adding objectives.
-Also, see \link{targets} for an overview of all functions for adding targets, and
-\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
-
 Other functions for adding objectives:
-\code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
-\code{\link{add_max_phylo_div_objective}()},
-\code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
-\code{\link{add_min_largest_shortfall_objective}()},
-\code{\link{add_min_penalties_objective}()},
-\code{\link{add_min_set_objective}()}
+\code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}},
+\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}},
+\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}},
+\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}},
+\code{\link[=add_min_largest_shortfall_objective]{add_min_largest_shortfall_objective()}},
+\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}},
+\code{\link[=add_min_set_objective]{add_min_set_objective()}}
 }
 \concept{objectives}

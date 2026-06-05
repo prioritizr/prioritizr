@@ -14,6 +14,7 @@ add_highs_solver(
   time_limit = .Machine$integer.max,
   presolve = TRUE,
   threads = 1,
+  start_solution = NULL,
   verbose = TRUE,
   control = list()
 )
@@ -23,39 +24,67 @@ add_highs_solver(
 
 - x:
 
-  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+  [`problem()`](https://prioritizr.net/reference/problem.md) or
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - gap:
 
-  `numeric` gap to optimality. This gap is relative and expresses the
-  acceptable deviance from the optimal objective. For example, a value
-  of 0.01 will result in the solver stopping when it has found a
+  `numeric` value denoting the optimality gap. This gap is relative and
+  expresses the acceptable deviance from optimality. For example, a
+  value of 0.01 will result in the solver stopping when it has found a
   solution within 1% of optimality. Additionally, a value of 0 will
   result in the solver stopping when it has found an optimal solution.
   The default value is 0.1 (i.e., 10% from optimality).
 
 - time_limit:
 
-  `numeric` time limit (seconds) for generating solutions. The solver
-  will return the current best solution when this time limit is
-  exceeded. The default value is the largest integer value (i.e.,
-  `.Machine$integer.max`), effectively meaning that solver will keep
-  running until a solution within the optimality gap is found.
+  `numeric` value denoting the time limit (seconds) for generating
+  solutions. The solver will return the current best solution when this
+  time limit is exceeded. The default value is the largest integer value
+  (i.e., `.Machine$integer.max`), effectively meaning that solver will
+  keep running until a solution within the optimality gap is found.
 
 - presolve:
 
-  `logical` attempt to simplify the problem before solving it? Defaults
-  to `TRUE`.
+  `logical` value indicating if the optimization problem should be
+  simplified before solving it? Defaults to `TRUE`.
 
 - threads:
 
-  `integer` number of threads to use for the optimization algorithm. The
-  default value is 1.
+  `integer` value denoting the number of threads to use during
+  optimization. Broadly speaking, we recommend setting `threads` to be
+  no higher than the number of computational cores minus one or two
+  (e.g., `threads = parallel::detectCores(TRUE) - 2`). This is because
+  setting `threads` to be equal to the number of computational cores
+  means that the solver and is fighting for resources with other
+  software (e.g., Dropbox, iCloud, OneDrive, software updates, antivirus
+  software, internet browsers) and, in turn, can result in computational
+  bottlenecks that slow run times. Additionally, when setting `threads`
+  to be a value greater than 1, we recommend checking memory (RAM) usage
+  during the optimization process to ensure that the solver does not use
+  up the majority of available memory. This is because solving
+  optimization problems with multiple threads can involve creating
+  multiple copies of the problem (e.g., `threads = 5` may mean 5 copies)
+  and exhausting most of the available memory will drastically slow run
+  times. Defaults to 1.
+
+- start_solution:
+
+  `NULL` or object containing the starting solution for the solver. This
+  is can be useful because specifying a starting solution can speed up
+  the optimization process. To specify a starting solution,
+  `start_solution` should be in the same format as the planning units
+  (i.e., a `numeric`, `matrix`, `data.frame`,
+  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
+  or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
+  object). See the Start solution format section for more information.
+  Defaults to `NULL` such that no starting solution is used.
 
 - verbose:
 
-  `logical` should information be printed while solving optimization
-  problems? Defaults to `TRUE`.
+  `logical` value indicating if information should be displayed during
+  the optimization process. Defaults to `TRUE`.
 
 - control:
 
@@ -67,7 +96,8 @@ add_highs_solver(
 
 ## Value
 
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
+An updated [`problem()`](https://prioritizr.net/reference/problem.md) or
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object with the solver added to it.
 
 ## Details
@@ -105,7 +135,6 @@ Other functions for adding solvers:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -123,6 +152,4 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-
-# }
 ```

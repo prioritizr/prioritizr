@@ -10,12 +10,7 @@ if the *Gurobi* software is available.
 ## Usage
 
 ``` r
-add_shuffle_portfolio(
-  x,
-  number_solutions = 10,
-  threads = 1,
-  remove_duplicates = TRUE
-)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1, verbose = TRUE)
 ```
 
 ## Arguments
@@ -26,17 +21,33 @@ add_shuffle_portfolio(
 
 - number_solutions:
 
-  `integer` number of attempts to generate different solutions. Defaults
-  to 10.
+  `integer` value denoting the number of required solutions. Defaults to
+  10.
 
 - threads:
 
-  `integer` number of threads to use for the generating the solution
-  portfolio. Defaults to 1.
+  `integer` value denoting the number of threads to use during
+  optimization. Broadly speaking, we recommend setting `threads` to be
+  no higher than the number of computational cores minus one or two
+  (e.g., `threads = parallel::detectCores(TRUE) - 2`). This is because
+  setting `threads` to be equal to the number of computational cores
+  means that the solver and is fighting for resources with other
+  software (e.g., Dropbox, iCloud, OneDrive, software updates, antivirus
+  software, internet browsers) and, in turn, can result in computational
+  bottlenecks that slow run times. Additionally, when setting `threads`
+  to be a value greater than 1, we recommend checking memory (RAM) usage
+  during the optimization process to ensure that the solver does not use
+  up the majority of available memory. This is because solving
+  optimization problems with multiple threads can involve creating
+  multiple copies of the problem (e.g., `threads = 5` may mean 5 copies)
+  and exhausting most of the available memory will drastically slow run
+  times. Defaults to 1.
 
-- remove_duplicates:
+- verbose:
 
-  `logical` should duplicate solutions be removed? Defaults to `TRUE`.
+  `logical` should progress on generating multiple solutions be
+  displayed? Note that progress will not be displayed if using multiple
+  threads for parallel processing. Defaults to `TRUE`.
 
 ## Value
 
@@ -51,22 +62,27 @@ duplicate solutions. In general, this strategy is most effective when
 problems are quick to solve and multiple threads are available for
 solving each problem separately.
 
-## See also
+## Notes
 
-See [portfolios](https://prioritizr.net/reference/portfolios.md) for an
-overview of all functions for adding a portfolio.
+In previous versions (\< 9.0.0.0), this function had a
+`remove_duplicates` parameter. To streamline and provide this
+functionality for other functions, duplicate solutions can now be
+removed by using the the `remove_duplicates` parameter of
+[`solve()`](https://prioritizr.net/reference/solve.md).
+
+## See also
 
 Other functions for adding portfolios:
 [`add_cuts_portfolio()`](https://prioritizr.net/reference/add_cuts_portfolio.md),
 [`add_default_portfolio()`](https://prioritizr.net/reference/add_default_portfolio.md),
 [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
 [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
+[`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md),
 [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -81,11 +97,14 @@ p1 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.2) %>%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+  add_shuffle_portfolio(10) %>%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20% of optimality
 s1 <- solve(p1)
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 0s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert portfolio into a multi-layer raster
 s1 <- terra::rast(s1)
@@ -104,11 +123,13 @@ p2 <-
   add_min_set_objective() %>%
   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
   add_binary_decisions() %>%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+  add_shuffle_portfolio(10) %>%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem
 s2 <- solve(p2)
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert each solution in the portfolio into a single category layer
 s2 <- terra::rast(lapply(s2, category_layer))
@@ -119,6 +140,4 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-
-# }
 ```

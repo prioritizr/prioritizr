@@ -10,35 +10,61 @@ add_highs_solver(
   time_limit = .Machine$integer.max,
   presolve = TRUE,
   threads = 1,
+  start_solution = NULL,
   verbose = TRUE,
   control = list()
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is relative
-and expresses the acceptable deviance from the optimal objective.
+\item{gap}{\code{numeric} value denoting the optimality gap. This gap is relative
+and expresses the acceptable deviance from optimality.
 For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
 The default value is 0.1 (i.e., 10\% from optimality).}
 
-\item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
+\item{time_limit}{\code{numeric} value denoting the time limit (seconds) for
+generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
 (i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
-\item{presolve}{\code{logical} attempt to simplify the
-problem before solving it? Defaults to \code{TRUE}.}
+\item{presolve}{\code{logical} value indicating if the
+optimization problem should be simplified before solving it?
+Defaults to \code{TRUE}.}
 
-\item{threads}{\code{integer} number of threads to use for the
-optimization algorithm. The default value is 1.}
+\item{threads}{\code{integer} value denoting the number of threads to use during
+optimization. Broadly speaking, we recommend setting \code{threads} to be no
+higher than the number of computational cores minus one or two
+(e.g., \code{threads = parallel::detectCores(TRUE) - 2}). This is because setting
+\code{threads} to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting \code{threads} to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., \code{threads = 5} may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.}
 
-\item{verbose}{\code{logical} should information be printed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{start_solution}{\code{NULL} or object containing the starting solution
+for the solver. This is can be useful because specifying a starting
+solution can speed up the optimization process.
+To specify a starting solution, \code{start_solution} should
+be in the same format as the planning units (i.e., a \code{numeric},
+\code{matrix}, \code{data.frame}, \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object).
+See the Start solution format section for more information.
+Defaults to \code{NULL} such that no starting solution is used.}
+
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 
 \item{control}{\code{list} with additional parameters for tuning
 the optimization process.
@@ -48,7 +74,8 @@ See the \href{https://ergo-code.github.io/HiGHS/dev/options/definitions/}{online
 for information on the parameters.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the \href{https://highs.dev/}{\emph{HiGHS}} software
@@ -68,7 +95,7 @@ the \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cple
 be used.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -86,7 +113,7 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex
@@ -94,11 +121,11 @@ method. \emph{Mathematical Programming Computation}, 10: 119-142.
 }
 \seealso{
 Other functions for adding solvers:
-\code{\link{add_cbc_solver}()},
-\code{\link{add_cplex_solver}()},
-\code{\link{add_default_solver}()},
-\code{\link{add_gurobi_solver}()},
+\code{\link[=add_cbc_solver]{add_cbc_solver()}},
+\code{\link[=add_cplex_solver]{add_cplex_solver()}},
+\code{\link[=add_default_solver]{add_default_solver()}},
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
 \code{\link{add_lsymphony_solver}},
-\code{\link{add_rsymphony_solver}()}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
 }
 \concept{solvers}

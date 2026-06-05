@@ -116,8 +116,7 @@ NULL
 #' Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
 #' (Eds.). Gland, Switzerland: IUCN.
 #'
-#' @examplesIf requireNamespace("prioritizrdata", quietly = TRUE)
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example() && requireNamespace("prioritizrdata", quietly = TRUE)
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -185,7 +184,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE)
-#' }
+#'
 #' @export
 spec_rl_ecosystem_targets <- function(status, criterion_a, criterion_b,
                                  prop_uplift = 0, method = "max",

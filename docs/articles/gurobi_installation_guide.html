@@ -13,8 +13,8 @@
 <link rel="manifest" href="../site.webmanifest">
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Gurobi installation guide">
@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,7 +153,7 @@ contents to a folder, move the extracted contents to a suitable location
 (typically <em>/opt/gurobi</em>), and update your system’s variables so
 that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code>
 variable).</p>
-<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/" class="external-link"><em>RStudio</em></a>
+<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio" class="external-link"><em>RStudio</em></a>
 on a Linux system, you might need to add the following text to a Rstudio
 configuration file (located at
 <code>/etc/rstudio/rserver.conf</code>).</p>
@@ -260,9 +260,8 @@ R</em> package to solve an optimization problem. Copy and paste the
 <span><span class="co"># solve the optimization problem using Gurobi</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html" class="external-link">gurobi</a></span><span class="op">(</span><span class="va">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -341,14 +340,15 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span></span>
 <span><span class="co"># solve the problem</span></span>
 <span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -393,7 +393,7 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s</span>, col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"grey90"</span>, <span class="st">"darkgreen"</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Solution"</span>,</span>
@@ -414,7 +414,7 @@ your very own conservation planning problems.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, <a href="https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert" class="external-link">Sandra Neubert</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

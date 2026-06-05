@@ -359,6 +359,7 @@ in production landscapes. *Ecological Applications*, 20:1721–1732.
 ## See also
 
 Other overviews:
+[`approaches`](https://prioritizr.net/reference/approaches.md),
 [`constraints`](https://prioritizr.net/reference/constraints.md),
 [`decisions`](https://prioritizr.net/reference/decisions.md),
 [`importance`](https://prioritizr.net/reference/importance.md),
@@ -371,7 +372,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -426,6 +426,4 @@ names(s) <- c(
 
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

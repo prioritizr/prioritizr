@@ -11,25 +11,25 @@ NULL
 #' @param y [terra::rast()]  object.
 #'
 #' @param fun `character` for summarizing values inside each planning unit.
-#'   This parameter is only used when the argument to `x` is a
-#'   [sf::sf()] object.
-#'   Defaults to `"sum"`.
+#' This parameter is only used if `x` is a [sf::sf()] object.
+#' Defaults to `"sum"`.
 #'
 #' @param memory `logical` should calculations be performed using a method
-#'   that prioritizes reduced memory consumption over speed?
-#'   This is useful when processing particularly large raster datasets.
-#'   If `TRUE`, then calculations are performed by processing each raster layer
-#'   in `y` in a sequential manner.
-#'   If `FALSE`, then calculations are performed by processing all raster layers
-#'   in `y` together.
-#'   If `NA`, then the memory requirements will be estimated and, if required,
-#'   processing will be performed using the method that reduces memory
-#'   consumption.
-#'   Defaults to `NA`.
+#' that prioritizes reduced memory consumption over speed?
+#' This is useful when processing particularly large raster datasets.
+#' If `memory = TRUE`,
+#' then calculations are performed by processing each raster layer
+#' in `y` in a sequential manner.
+#' If `memory = FALSE`, then calculations are performed by processing all
+#' raster layers in `y` together.
+#' If `memory = NA`, then the memory requirements will be estimated and, if
+#' required, processing will be performed using the method that reduces memory
+#' consumption.
+#' Defaults to `NA`.
 #'
 #' @param idx `integer` vector containing planning unit
-#'   indices. Defaults to `NULL` such that the indices are computed
-#'   automatically based on `x`.
+#' indices. Defaults to `NULL` such that the indices are computed
+#' automatically based on `x`.
 #'
 #' @param ... not used.
 #'
@@ -46,13 +46,14 @@ NULL
 #' terra::gdalCache(size = 4000)
 #' ```
 #'
-#' @return A [`Matrix::dgCMatrix-class`] sparse matrix object.
-#'   The sparse matrix represents the spatial intersection between the
-#'   planning units and the features. Rows correspond to features,
-#'   and columns correspond to planning units. Values correspond to the amount
-#'   (or presence/absence) of the feature in the planning unit. For example,
-#'   the amount of the third species in the second planning unit would be
-#'   stored in the third column and second row.
+#' @return
+#' A [`Matrix::dgCMatrix-class`] sparse matrix object.
+#' The sparse matrix represents the spatial intersection between the
+#' planning units and the features. Rows correspond to features,
+#' and columns correspond to planning units. Values correspond to the amount
+#' (or presence/absence) of the feature in the planning unit. For example,
+#' the amount of the third species in the second planning unit would be
+#' stored in the third column and second row.
 #'
 #' @name rij_matrix
 #'
@@ -60,8 +61,7 @@ NULL
 #'
 #' @aliases rij_matrix,Raster,Raster-method rij_matrix,Spatial,Raster-method rij_matrix,sf,Raster-method rij_matrix,SpatRaster,SpatRaster-method rij_matrix,sf,SpatRaster-method
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -79,7 +79,7 @@ NULL
 #' # create rij matrix using raster planning units with multiple zones
 #' rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 #' print(rij_zones_raster)
-#' }
+#'
 #' @export
 methods::setGeneric(
   "rij_matrix",

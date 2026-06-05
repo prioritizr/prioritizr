@@ -5,18 +5,20 @@ NULL
 #'
 #' Add a binary decision to a conservation planning problem.
 #' This is the classic decision of either prioritizing or not prioritizing a
-#' planning unit. Typically, this decision has the assumed action of buying
-#' the planning unit to include in a protected area network. If no decision is
-#' added to a problem then this decision class will be used by default.
+#' planning unit. Typically, this decision has the assumed action of
+#' selecting planning units for protected area establishment.
 #'
 #' @param x [problem()] object.
 #'
-#' @details Conservation planning problems involve making decisions on planning
-#'   units. These decisions are then associated with actions (e.g., turning a
-#'   planning unit into a protected area). Only a
-#'   single decision should be added to a [problem()] object.
-#'   Note that if multiple decisions are added to an object, then the
-#'   last one to be added will be used.
+#' @details
+#' Conservation planning problems involve making decisions on planning
+#' units. These decisions are then associated with actions (e.g., turning a
+#' planning unit into a protected area). Only a
+#' single decision should be added to a [problem()] object.
+#' Note that if multiple decisions are added to an object, then the
+#' last one to be added will be used during optimization.
+#' Also, if no decision is
+#' added to a [problem()], then this decision will be used by default.
 #'
 #' @return An updated [problem()] object with the decisions added to it.
 #'
@@ -25,8 +27,7 @@ NULL
 #'
 #' @family decisions
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -69,7 +70,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_binary_decisions
 NULL
 

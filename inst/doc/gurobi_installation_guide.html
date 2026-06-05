@@ -414,7 +414,7 @@ contents to a folder, move the extracted contents to a suitable location
 (typically <em>/opt/gurobi</em>), and update your system’s variables so
 that it knows where to find <em>Gurobi</em> (i.e., the <code>PATH</code>
 variable).</p>
-<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio/"><em>RStudio</em></a>
+<p>Additionally, if you are using <a href="https://posit.co/products/open-source/rstudio"><em>RStudio</em></a>
 on a Linux system, you might need to add the following text to a Rstudio
 configuration file (located at
 <code>/etc/rstudio/rserver.conf</code>).</p>
@@ -515,9 +515,8 @@ R</em> package to solve an optimization problem. Copy and paste the
 <span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co"># solve the optimization problem using Gurobi</span></span>
 <span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">gurobi</span>(model, <span class="fu">list</span>())</span></code></pre></div>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2774703
-## Academic license - for non-commercial use only - expires 2027-02-03
-## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+## Set parameter LicenseID to value 2806834
+## Academic license - for non-commercial use only - expires 2027-04-14
 ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -592,14 +591,15 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a></span>
 <span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="co"># solve the problem</span></span>
 <span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">solve</span>(p)</span></code></pre></div>
+<pre><code>## </code></pre>
+<pre><code>## ── Optimization ────────────────────────────────────────────────────────────────</code></pre>
 <pre><code>## Set parameter Username
-## Set parameter LicenseID to value 2774703
+## Set parameter LicenseID to value 2806834
 ## Set parameter TimeLimit to value 2147483647
 ## Set parameter MIPGap to value 0.1
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
-## Academic license - for non-commercial use only - expires 2027-02-03
-## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+## Academic license - for non-commercial use only - expires 2027-04-14
 ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -644,11 +644,11 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># plot solution</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  s, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Solution&quot;</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>)</span></code></pre></div>
 <p><img role="img" aria-label src="data:image/png;base64,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" alt style="display: block; margin: auto;" /></p>
 <p>After running this code, hopefully, you should some information
 printed on-screen about the optimization process and <em>R</em> should

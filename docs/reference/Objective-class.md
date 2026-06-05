@@ -11,6 +11,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
 [`Portfolio-class`](https://prioritizr.net/reference/Portfolio-class.md),
@@ -21,14 +23,16 @@ Other classes:
 
 ## Super class
 
-[`prioritizr::ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
+[`ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
 -\> `Objective`
 
 ## Public fields
 
 - `has_targets`:
 
-  `logical` value indicating if the objective supports targets.
+  `logical` value indicating if the objective supports targets. Values
+  indicate that (`TRUE`) targets must be specified, (`NA`) targets are
+  optional, and (`FALSE`) must are not used at all.
 
 - `has_weights`:
 
@@ -46,18 +50,18 @@ Other classes:
 
 Inherited methods
 
-- [`prioritizr::ConservationModifier$calculate()`](https://prioritizr.net/reference/ConservationModifier.html#method-calculate)
-- [`prioritizr::ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
-- [`prioritizr::ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
-- [`prioritizr::ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
-- [`prioritizr::ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
-- [`prioritizr::ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
-- [`prioritizr::ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
-- [`prioritizr::ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
+- [`ConservationModifier$calculate()`](https://prioritizr.net/reference/ConservationModifier.html#method-calculate)
+- [`ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
+- [`ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
+- [`ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
+- [`ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
+- [`ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
+- [`ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
+- [`ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
 
 ------------------------------------------------------------------------
 
-### Method `default_weights()`
+### `Objective$default_weights()`
 
 Specify default value for the feature weights.
 
@@ -71,7 +75,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`apply()`](https://rdrr.io/r/base/apply.html)
+### `Objective$apply()`
 
 Update an optimization problem formulation.
 
@@ -92,7 +96,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Objective$clone()`
 
 The objects of this class are cloneable with this method.
 

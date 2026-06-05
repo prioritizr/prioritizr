@@ -11,42 +11,41 @@ NULL
 #' or which planning units are within threshold distance of each other (see
 #' [proximity_matrix()]).
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_boundary_penalties
 #'
-#' @param penalty `numeric` penalty that is used to scale the importance
-#'   of selecting planning units with strong connectivity between them compared
-#'   to the main problem objective (e.g., solution cost when the argument to
-#'   `x` has a minimum set objective set using
-#'   [add_min_set_objective()]). Higher `penalty` values
-#'   can be used to obtain solutions with a high degree of connectivity,
-#'   and smaller `penalty` values can be used to obtain solutions with a
-#'   small degree of connectivity. Note that negative `penalty` values can
-#'   be used to obtain solutions that have very little connectivity.
+#' @param penalty `numeric` value denoting the importance
+#' of selecting planning units with strong connectivity between them compared
+#' to the main problem objective (e.g., solution cost if
+#' `x` has a minimum set objective set using
+#' [add_min_set_objective()]). Higher `penalty` values
+#' can be used to obtain solutions with a high degree of connectivity,
+#' and smaller `penalty` values can be used to obtain solutions with a
+#' small degree of connectivity. Note that negative `penalty` values can
+#' be used to obtain solutions that avoid connectivity.
 #'
 #' @param zones `matrix` or `Matrix` object describing the
-#'   level of connectivity between different zones. Each row and column
-#'   corresponds to a different zone in the argument to `x`, and cell
-#'   values indicate the level of connectivity between each combination
-#'   of zones. Cell values along the diagonal of the matrix represent
-#'   the level of connectivity between planning units allocated to the
-#'   same zone. Cell values must lay between 1 and -1, where negative
-#'   values favor solutions with weak connectivity. The default argument to
-#'   `zones` is an identity matrix (i.e., a matrix with ones along the
-#'   matrix diagonal and zeros elsewhere), so that planning units are
-#'   only considered to be connected when they are allocated to the same zone.
-#'   This argument is required when working with multiple zones and the
-#'   argument to `data` is a `matrix` or `Matrix` object.
-#'   If the argument to `data` is an `array` or `data.frame` with data for
-#'   multiple zones (e.g., using the `"zone1"` and `"zone2"` column names),
-#'   this argument must explicitly be set to `NULL` otherwise an error will be
-#'   thrown.
+#' level of connectivity between different zones. Each row and column
+#' corresponds to a different zone in `x`, and cell
+#' values indicate the level of connectivity between each combination
+#' of zones. Cell values along the diagonal of the matrix represent
+#' the level of connectivity between planning units allocated to the
+#' same zone. Cell values must range between 1 and -1, where negative
+#' values favor solutions with weak connectivity. Defaults to an identity
+#' matrix (i.e., a matrix with ones along the
+#' matrix diagonal and zeros elsewhere), so that planning units are
+#' only considered to be connected when they are allocated to the same zone.
+#' Note that `zones` is only required when working with multiple zones and
+#' `data` is a `matrix` or `Matrix` object.
+#' If `data` is an `array` or `data.frame` with data for
+#' multiple zones (e.g., using the `"zone1"` and `"zone2"` column names),
+#' then `zones` must be `NULL`.
 #'
 #' @param data `matrix`, `Matrix`, `data.frame`, or
-#'   `array` object containing connectivity data. The connectivity values
-#'   correspond to the strength of connectivity between
-#'   different planning units. Thus connections between planning units
-#'   that are associated with higher values are more favorable in the solution.
-#'   See the Data format section for more information.
+#' `array` object containing connectivity data. The connectivity values
+#' correspond to the strength of connectivity between
+#' different planning units. Thus connections between planning units
+#' that are associated with higher values are more favorable in the solution.
+#' See the Data format section for more information.
 #'
 #' @details
 #' This function adds penalties to conservation planning problem to penalize
@@ -55,42 +54,49 @@ NULL
 #' that have high connectivity values (based on Önal and Briers 2002).
 #'
 #' @section Data format:
-#' The argument to `data` can be specified using several different formats.
+#' The following formats can be used to specify `data`.
 #'
 #' \describe{
 #'
-#' \item{`data` as a `matrix`/`Matrix` object}{where rows and columns represent
-#'   different planning units and the value of each cell represents the
-#'   strength of connectivity between two different planning units. Cells
-#'   that occur along the matrix diagonal are treated as weights which
-#'   indicate that planning units are more desirable in the solution.
-#'   The argument to `zones` can be used to control
-#'   the strength of connectivity between planning units in different zones.
-#'   The default argument for `zones` is to treat planning units
-#'   allocated to different zones as having zero connectivity.}
+#' \item{`data` as a `matrix`/`Matrix` object}{
+#' Here rows and columns correspond to different planning units and cell
+#' values denote the strength of connectivity between two planning units.
+#' Cells that occur along the matrix diagonal are treated as weights which
+#' indicate that planning units are more desirable in the solution.
+#' With this format, `zones` can be used to control
+#' the strength of connectivity between planning units in different zones.
+#' Note that the default for `zones` is to treat planning units
+#' allocated to different zones as having zero connectivity.
+#' }
 #'
-#' \item{`data` as a `data.frame` object}{containing columns that are named
-#'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
-#'   denotes the connectivity between a pair of planning units
-#'   (per values in the `"id1"` and `"id2"` columns) following the
-#'   *Marxan* format.
-#'   If the argument to `x` contains multiple zones, then the
-#'   `"zone1"` and `"zone2"` columns can optionally be provided to manually
-#'   specify the connectivity values between planning units when they are
-#'   allocated to specific zones. If the `"zone1"` and
-#'   `"zone2"` columns are present, then the argument to `zones` must be
-#'   `NULL`.}
+#' \item{`data` as a `data.frame` object}{
+#' Here rows correspond to a pair of planning units and columns
+#' provide information about each pair of planning units.
+#' In particular, `data` must have the columns:
+#' `"id1"`, `"id2"`, and `"boundary"`.
+#' The `"id1"` and `"id2"` columns contain
+#' identifiers (indices) for a pair of planning units, and the `"boundary"`
+#' column contains the strength of connectivity between them
+#' (following the *Marxan* format).
+#' If `x` has multiple zones, then the
+#' `"zone1"` and `"zone2"` columns can optionally be provided to manually
+#' specify the connectivity values between planning units when they are
+#' allocated to particular zones. Note that if the `"zone1"` and
+#' `"zone2"` columns are present, then `zones` must be
+#' `NULL`.
+#' }
 #'
 #' \item{`data` as an `array` object}{
-#'   containing four-dimensions where cell values
-#'   indicate the strength of connectivity between planning units
-#'   when they are assigned to specific management zones. The first two
-#'   dimensions (i.e., rows and columns) indicate the strength of
-#'   connectivity between different planning units and the second two
-#'   dimensions indicate the different management zones. Thus
-#'   the `data[1, 2, 3, 4]` indicates the strength of
-#'   connectivity between planning unit 1 and planning unit 2 when planning
-#'   unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+#' Here a four-dimension array is used to specify connectivity data,
+#' where cell values indicate the strength of connectivity between planning
+#' units when they are assigned to specific management zones. The first two
+#' dimensions (i.e., rows and columns) indicate the strength of
+#' connectivity between different planning units and the second two
+#' dimensions indicate the different management zones. Thus
+#' the `data[1, 2, 3, 4]` indicates the strength of
+#' connectivity between planning unit 1 and planning unit 2 when planning
+#' unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.
+#' }
 #'
 #' }
 #'
@@ -102,11 +108,10 @@ NULL
 #' represent the decision variable for planning unit \eqn{i} for in zone
 #' \eqn{z} (e.g., with binary
 #' values one indicating if planning unit is allocated or not). Also, let
-#' \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
-#' argument to `data`, and \eqn{W} represent the argument
-#' to `zones`.
+#' \eqn{p} represent `penalty`, \eqn{D} represent
+#' `data`, and \eqn{W} represent `zones`.
 #'
-#' If the argument to `data` is supplied as a `matrix` or
+#' If `data` is specified as a `matrix` or
 #' `Matrix` object, then the penalties are calculated as:
 #'
 #' \deqn{
@@ -115,7 +120,7 @@ NULL
 #' sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
 #' }
 #'
-#' Otherwise, if the argument to `data` is supplied as a
+#' Otherwise, if `data` is specified as a
 #' `data.frame` or `array` object, then the penalties are
 #' calculated as:
 #'
@@ -168,8 +173,7 @@ NULL
 #' reserve network selection. *Proceedings of the Royal Society of London.*
 #' *Series B: Biological Sciences*, 269: 2437--2441.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -384,7 +388,7 @@ NULL
 #'     )
 #'
 #' # create a problem with the manually specified connectivity array
-#' # note that the zones argument is set to NULL because the connectivity
+#' # note that the zones is set to NULL because the connectivity
 #' # data is an array
 #' p5 <- list(
 #'   p3,
@@ -399,7 +403,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s5, axes = FALSE)
-#' }
+#'
 #' @name add_connectivity_penalties
 #'
 #' @exportMethod add_connectivity_penalties

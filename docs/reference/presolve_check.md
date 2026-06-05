@@ -19,6 +19,9 @@ presolve_check(x, warn = TRUE)
 
 # S3 method for class 'OptimizationProblem'
 presolve_check(x, warn = TRUE)
+
+# S3 method for class 'MultiConservationProblem'
+presolve_check(x, warn = TRUE)
 ```
 
 ## Arguments
@@ -31,8 +34,8 @@ presolve_check(x, warn = TRUE)
 
 - warn:
 
-  `logical` should a warning be thrown if the presolve checks fail?
-  Defaults to `TRUE`.
+  `logical` value indicating if a warning should be thrown if the check
+  fails? Defaults to `TRUE`.
 
 ## Value
 
@@ -41,10 +44,10 @@ A `logical` value indicating if all checks passed successfully.
 ## Details
 
 This function checks for issues that are likely to result in "strange"
-solutions. Specifically, it checks if (i) all planning units are locked
-in, (ii) all planning units are locked out, and (iii) all planning units
-have negative cost values (after applying penalties if any were
-specified). Although such conservation planning problems are
+or "unrealistic" solutions. Specifically, it checks if (i) all planning
+units are locked in, (ii) all planning units are locked out, and (iii)
+all planning units have negative cost values (after applying penalties
+if any were specified). Although such conservation planning problems are
 mathematically valid, they are generally the result of a coding mistake
 when building the problem (e.g., using an absurdly high penalty value or
 using the wrong dataset to lock in planning units). Thus such issues, if
@@ -52,10 +55,10 @@ they are indeed issues and not false positives, can be fixed by
 carefully checking the code, data, and parameters used to build the
 conservation planning problem.
 
-This function then checks for values that may lead to numerical
-instability issues when solving the problem. Specifically, it checks if
-the range of values in certain components of the optimization problem
-are over a certain threshold (i.e., \\1 \times 10 ^9\\) or if the values
+This function also checks for values that may lead to numerical
+instability issues during optimization. Specifically, it checks if the
+range of values in certain components of the optimization problem are
+over a certain threshold (i.e., \\1 \times 10^9\\) or if the values
 themselves exceed a certain threshold (i.e., \\1 \times 10^{10}\\). In
 most cases, such issues will simply cause an exact algorithm solver to
 take a very long time to generate a solution. In rare cases, such issues
@@ -67,7 +70,7 @@ optimality gap is specified).
 
 What can you do if a conservation planning problem fails to pass these
 checks? Well, this function will have thrown some warning messages
-describing the source of these issues, so read them carefully. For
+describing the source of the issue(s), so read them carefully. For
 instance, a common issue is when a relatively large penalty value is
 specified for boundary
 ([`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md))
@@ -91,7 +94,7 @@ square meters then this could lead to very large numbers. You could fix
 this by converting the units from square meters to square kilometers or
 thousands of square kilometers. Alternatively, you could calculate the
 percentage of each planning unit that is occupied by suitable habitat,
-which will yield values between zero and one hundred.
+which will yield values between 0 and 100.
 
 But what can you do if you can't fix these issues by simply changing the
 penalty values or rescaling data? You will need to apply some creative
@@ -107,8 +110,8 @@ planning unit(s) is causing this infeasibility and set its cost to zero.
 After solving the problem, you will need to manually recalculate the
 cost of the solutions but at least now you can be confident that you
 have the optimal solution. Now let's pretend that you are using the
-maximum features objective (i.e.,
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md))
+maximum number of targets met objective (i.e.,
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md))
 and assigned some really high weights to the targets for some features
 to ensure that their targets were met in the optimal solution. If you
 set the weights for these features to one billion then you will probably
@@ -118,25 +121,25 @@ represented in the optimal solution and use this value instead of one
 billion. This minimum weight value can be calculated as the sum of the
 weight values for the other features and adding a small number to it
 (e.g., 1). Finally, if you're running out of ideas for addressing
-numerical stability issues you have one remaining option: you can use
-the `numeric_focus` argument in the
+numerical stability issues, then you have one remaining option: you can
+use the `numeric_focus` parameter of the
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md)
 function to tell the solver to pay extra attention to numerical
-instability issues. This is not a free lunch, however, because telling
-the solver to pay extra attention to numerical issues can substantially
-increase run time. So, if you have problems that are already taking an
-unreasonable time to solve, then this will not help at all.
+instability issues. Although this option can help address numerical
+instability issues, it often results in longer run times because the
+solver will now dedicate additional computational processing to
+addressing these issues. So, if you have problems that already take a
+very long time time to solve, then might not be of much help.
 
 ## See also
 
-[`problem()`](https://prioritizr.net/reference/problem.md),
-[`solve()`](https://prioritizr.net/reference/solve.md),
-<http://www.gurobi.cn/download/GuNum.pdf>.
+See the Gurobi documentation for more information on numerical
+instability issues
+(<https://docs.gurobi.com/projects/optimizer/en/current/concepts/numericguide.html>).
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -173,15 +176,21 @@ p2 <-
 # some issues, such as long solve time or suboptimal solutions, when
 # trying to solve the problem
 print(presolve_check(p2))
-#> Warning: Problem failed presolve checks.
+#> Warning: 
+#> ── Presolve checks
+#> ─────────────────────────────────────────────────────────────
 #> 
-#> These failures indicate that numerical issues could stall optimizer or produce
-#> incorrect results:
+#> ── Numerical issues ──
+#> 
+#> ℹ The following issues could stall optimization or produce incorrect solutions:
 #> 
 #> ✖ Planning units must not have cost values that are too high (> 1e6).
 #> → Try re-scaling cost values (e.g., convert units from USD to millions of USD).
 #> 
-#> ℹ For more information, see `presolve_check()`.
+#> ── Results ──
+#> 
+#> ✖ Failed.
+#> For more information, see `presolve_check()`.
 #> [1] FALSE
 
 # create a minimal problem with connectivity penalties values that have
@@ -199,16 +208,22 @@ p3 <-
 # note that a warning is thrown which suggests that we might encounter
 # some numerical instability issues when trying to solve the problem
 print(presolve_check(p3))
-#> Warning: Problem failed presolve checks.
+#> Warning: 
+#> ── Presolve checks
+#> ─────────────────────────────────────────────────────────────
 #> 
-#> These failures indicate that numerical issues could stall optimizer or produce
-#> incorrect results:
+#> ── Numerical issues ──
+#> 
+#> ℹ The following issues could stall optimization or produce incorrect solutions:
 #> 
 #> ✖ Multiplying the connectivity data by `penalty` must not produce values that
 #>   are too high (> 1e6).
 #> → Try using a smaller `penalty` in `add_connectivity_penalties()`.
 #> 
-#> ℹ For more information, see `presolve_check()`.
+#> ── Results ──
+#> 
+#> ✖ Failed.
+#> For more information, see `presolve_check()`.
 #> [1] FALSE
 
 # let's forcibly solve the problem using Gurobi and tell it to
@@ -217,25 +232,31 @@ s3 <-
    p3 %>%
    add_gurobi_solver(numeric_focus = TRUE) %>%
    solve(force = TRUE)
-#> Warning: → Problem failed presolve checks.
 #> 
-#> These failures indicate that numerical issues could stall optimizer or produce
-#> incorrect results:
+#> ── Presolve checks ─────────────────────────────────────────────────────────────
 #> 
-#> ✖ Multiplying the connectivity data by `penalty` must not produce values that
-#>   are too high (> 1e6).
+#> ── Numerical issues ──
+#> 
+#> ℹ The following issues could stall optimization or produce incorrect solutions:
+#> 
+#> ✖ Multiplying the connectivity data by `penalty` must not produce values that are too high (> 1e6).
 #> → Try using a smaller `penalty` in `add_connectivity_penalties()`.
 #> 
-#> ℹ For more information, see `presolve_check()`.
+#> ── Results ──
+#> 
+#> ✖ Failed.
+#> For more information, see `presolve_check()`.
+#> Warning: `a` failed presolve check.
+#> 
+#> ── Optimization ────────────────────────────────────────────────────────────────
 #> Set parameter Username
-#> Set parameter LicenseID to value 2774703
+#> Set parameter LicenseID to value 2806834
 #> Set parameter TimeLimit to value 2147483647
 #> Set parameter MIPGap to value 0.1
 #> Set parameter NumericFocus to value 2
 #> Set parameter Presolve to value 2
 #> Set parameter Threads to value 1
-#> Academic license - for non-commercial use only - expires 2027-02-03
-#> Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+#> Academic license - for non-commercial use only - expires 2027-04-14
 #> Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
 #> 
 #> CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -275,6 +296,4 @@ s3 <-
 # penalty is so high that cost becomes irrelevant, so we should try using
 # a much lower penalty value
 plot(s3, main = "solution", axes = FALSE)
-
-# }
 ```

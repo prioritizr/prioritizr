@@ -37,33 +37,46 @@ name of the desired vignette (e.g., \code{"gurobi_installation"}).
 
 \describe{
 
-\item{prioritizr}{Brief introduction to systematic conservation
+\item{prioritizr}{
+Brief introduction to systematic conservation
 planning and demonstration of the main package features.
 }
 
-\item{package_overview}{Comprehensive introduction to
+\item{package_overview}{
+Comprehensive introduction to
 systematic conservation planning and detailed overview of
-the package features.
+the package functionality.
 }
 
-\item{calibrating_trade-offs_tutorial}{Examples of balancing different
-criteria to identify candidate prioritizations.}
+\item{calibrating_trade-offs_tutorial}{
+Examples of balancing different
+objectives to identify candidate prioritizations.
+}
 
-\item{connectivity_tutorial}{Examples of incorporating and evaluating
-connectivity in prioritizations using a range of approaches.}
+\item{connectivity_tutorial}{
+Examples of incorporating and evaluating
+connectivity in prioritizations using a range of approaches.
+}
 
-\item{management_zones_tutorial}{Tutorial on using multiple management
-actions or zones to create detailed prioritizations.}
+\item{management_zones_tutorial}{
+Tutorial on using multiple management
+actions or zones to create detailed prioritizations.
+}
 
-\item{gurobi_installation}{Instructions for installing and setting up
-the \emph{Gurobi} optimization software for use with the package.}
+\item{gurobi_installation}{
+Instructions for installing and setting up
+the \emph{Gurobi} optimization software for use with the package.
+}
 
-\item{solver_benchmark}{Reports run times for solving
+\item{solver_benchmark}{
+Reports run times for solving
 conservation planning problems of varying size and complexity
-using different solvers.}
+using different solvers.
+}
 
-\item{publication_record}{List of publications that have cited the
-package.}
+\item{publication_record}{
+List of publications that have cited the package.
+}
 
 }
 }
@@ -118,6 +131,7 @@ Authors:
 \item Richard Schuster \email{richard.schuster@glel.carleton.ca} (\href{https://orcid.org/0000-0003-3191-7869}{ORCID}, maintainer)
 \item Nina Morrell \email{nina.morrell@ubc.ca}
 \item Matthew Strimas-Mackey \email{mstrimas@gmail.com} (\href{https://orcid.org/0000-0001-8929-7776}{ORCID})
+\item Sandra Neubert \email{s.neubert@uq.edu.au} (\href{https://orcid.org/0000-0002-3112-4116}{ORCID})
 \item Brandon P M Edwards \email{brandonedwards3@cmail.carleton.ca} (\href{https://orcid.org/0000-0003-0865-3076}{ORCID})
 \item Matthew E Watts \email{m.watts@uq.edu.au}
 \item Peter Arcese \email{peter.arcese@ubc.ca} (\href{https://orcid.org/0000-0002-8097-482X}{ORCID})

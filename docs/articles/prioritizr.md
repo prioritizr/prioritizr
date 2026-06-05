@@ -103,14 +103,14 @@ study area.
 print(tas_features)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 398, 359, 33  (nrow, ncol, nlyr)
     ## resolution  : 1000, 1000  (x, y)
     ## extent      : 288801.7, 647801.7, 5142976, 5540976  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755) 
-    ## source      : tas_features.tif 
-    ## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ... 
-    ## min values  :           0,           0,           0,           0,           0,           0, ... 
+    ## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755)
+    ## source      : tas_features.tif
+    ## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ...
+    ## min values  :           0,           0,           0,           0,           0,           0, ...
     ## max values  :           1,           1,           1,           1,           1,           1, ...
 
 ``` r
@@ -176,7 +176,7 @@ print(p1)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
-    ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, `formulation` = "simple", …)
+    ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, …)
     ## │├•features:
     ## ││├•targets:    relative targets (all equal to 0.17)
     ## ││└•weights:    none specified
@@ -184,9 +184,9 @@ print(p1)
     ## ││└•1:          locked in constraints (257 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ## Prioritization
 
@@ -211,14 +211,17 @@ After solving the problem, the prioritization will be stored in the
 s1 <- solve(p1)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -231,66 +234,42 @@ s1 <- solve(p1)
     ## Threads  1
     ## 
     ## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros (Min)
-    ## Model fingerprint: 0xdea3ac39
+    ## Model fingerprint: 0x23c33d6a
     ## Model has 4278 linear objective coefficients
     ## Variable types: 3148 continuous, 1130 integer (1130 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-06, 6e+01]
-    ##   Objective range  [5e-01, 2e+02]
+    ##   Objective range  [9e-06, 6e+01]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [2e-01, 2e+03]
     ## 
-    ## Found heuristic solution: objective 28313.965155
-    ## Found heuristic solution: objective 18343.093396
-    ## Presolve removed 1909 rows and 1249 columns
-    ## Presolve time: 0.06s
-    ## Presolved: 4420 rows, 3029 columns, 11081 nonzeros
-    ## Found heuristic solution: objective 17798.824635
-    ## Variable types: 0 continuous, 3029 integer (3029 binary)
-    ## Found heuristic solution: objective 17508.673350
-    ## Root relaxation presolve removed 8 rows and 6 columns
-    ## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros
+    ## Found heuristic solution: objective 19927.539083
+    ## Found heuristic solution: objective 1862.3053991
+    ## Presolve removed 2343 rows and 1516 columns
+    ## Presolve time: 0.04s
+    ## Presolved: 3986 rows, 2762 columns, 10246 nonzeros
+    ## Variable types: 0 continuous, 2762 integer (2762 binary)
+    ## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 9.520699e+03, 1230 iterations, 0.06 seconds (0.08 work units)
+    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.00 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 9520.69856    0 1115 17508.6734 9520.69856  45.6%     -    0s
-    ## H    0     0                    13545.245401 9520.69856  29.7%     -    0s
-    ## H    0     0                    12933.143362 9520.69856  26.4%     -    0s
-    ## H    0     0                    12890.484624 9520.69856  26.1%     -    0s
-    ## H    0     0                    12552.758530 9520.69856  24.2%     -    0s
-    ##      0     0 9615.33215    0 1144 12552.7585 9615.33215  23.4%     -    0s
-    ## H    0     0                    12507.566404 9615.33215  23.1%     -    0s
-    ## H    0     0                    11563.819178 9615.33215  16.8%     -    0s
-    ## H    0     0                    11369.016984 9615.33215  15.4%     -    0s
-    ## H    0     0                    11366.954539 9615.33215  15.4%     -    0s
-    ## H    0     0                    10939.351086 9615.33215  12.1%     -    0s
-    ## H    0     0                    10907.751816 9615.33215  11.8%     -    0s
-    ## H    0     0                    10861.560322 9615.33215  11.5%     -    0s
-    ## H    0     0                    10858.199126 9615.33215  11.4%     -    0s
-    ## H    0     0                    10810.254452 9615.33215  11.1%     -    0s
-    ## H    0     0                    10806.686406 9615.33215  11.0%     -    0s
-    ## H    0     0                    10699.834790 9615.33215  10.1%     -    0s
-    ##      0     0 9617.05045    0 1157 10699.8348 9617.05045  10.1%     -    0s
-    ##      0     0 9617.05168    0 1157 10699.8348 9617.05168  10.1%     -    0s
-    ##      0     0 9624.88617    0 1057 10699.8348 9624.88617  10.0%     -    0s
-    ## H    0     0                    10687.018567 9624.88617  9.94%     -    0s
+    ##      0     0  342.79665    0   19 1862.30540  342.79665  81.6%     -    0s
+    ## H    0     0                     508.7738070  342.79665  32.6%     -    0s
+    ## H    0     0                     408.7104348  342.79665  16.1%     -    0s
+    ## H    0     0                     407.0911745  342.79665  15.8%     -    0s
+    ## H    0     0                     372.6558311  342.79665  8.01%     -    0s
     ## 
-    ## Cutting planes:
-    ##   Cover: 2
-    ##   MIR: 1
-    ##   RLT: 3
-    ## 
-    ## Explored 1 nodes (1498 simplex iterations) in 0.70 seconds (1.28 work units)
+    ## Explored 1 nodes (189 simplex iterations) in 0.05 seconds (0.08 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 10: 10687 10699.8 10806.7 ... 11369
+    ## Solution count 6: 372.656 407.091 408.71 ... 19927.5
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 1.068701856687e+04, best bound 9.624886170910e+03, gap 9.9385%
+    ## Best objective 3.726558310933e+02, best bound 3.427966503971e+02, gap 8.0125%
 
 ``` r
 # plot map of prioritization
@@ -316,7 +295,7 @@ tc_pa <- eval_target_coverage_summary(p1, tas_pu[, "pa"])
 print(tc_pa)
 ```
 
-    ## # A tibble: 33 × 9
+    ## # A tibble: 33 × 10
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
     ##  1 Banksia … TRUE          2.00           0.340         0.367              0    
@@ -330,8 +309,8 @@ print(tc_pa)
     ##  9 Eucalypt… FALSE       388.            65.9          27.4               38.6  
     ## 10 Eucalypt… TRUE       6145.          1045.         1449.                 0    
     ## # ℹ 23 more rows
-    ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
-    ## #   relative_shortfall <dbl>
+    ## # ℹ 4 more variables: relative_target <dbl>, relative_held <dbl>,
+    ## #   relative_shortfall <dbl>, relative_met <dbl>
 
 ``` r
 # calculate  feature representation statistics based on the prioritization
@@ -339,22 +318,22 @@ tc_s1 <- eval_target_coverage_summary(p1, s1[, "solution_1"])
 print(tc_s1)
 ```
 
-    ## # A tibble: 33 × 9
+    ## # A tibble: 33 × 10
     ##    feature   met   total_amount absolute_target absolute_held absolute_shortfall
     ##    <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
     ##  1 Banksia … TRUE          2.00           0.340         0.367                  0
-    ##  2 Boulders… TRUE        140.            23.9          70.8                    0
-    ##  3 Callitri… TRUE          6.00           1.02          1.49                   0
-    ##  4 Cool tem… TRUE       7257.          1234.         3255.                     0
-    ##  5 Eucalypt… TRUE       5699.           969.         1772.                     0
-    ##  6 Eucalypt… TRUE       9180.          1561.         1838.                     0
-    ##  7 Eucalypt… TRUE         38.0            6.46         19.0                    0
-    ##  8 Eucalypt… TRUE       1908.           324.          345.                     0
-    ##  9 Eucalypt… TRUE        388.            65.9          79.5                    0
-    ## 10 Eucalypt… TRUE       6145.          1045.         2083.                     0
+    ##  2 Boulders… TRUE        140.            23.9          66.9                    0
+    ##  3 Callitri… TRUE          6.00           1.02          1.31                   0
+    ##  4 Cool tem… TRUE       7257.          1234.         3002.                     0
+    ##  5 Eucalypt… TRUE       5699.           969.         1462.                     0
+    ##  6 Eucalypt… TRUE       9180.          1561.         1563.                     0
+    ##  7 Eucalypt… TRUE         38.0            6.46         15.1                    0
+    ##  8 Eucalypt… TRUE       1908.           324.          326.                     0
+    ##  9 Eucalypt… TRUE        388.            65.9          84.4                    0
+    ## 10 Eucalypt… TRUE       6145.          1045.         1613.                     0
     ## # ℹ 23 more rows
-    ## # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
-    ## #   relative_shortfall <dbl>
+    ## # ℹ 4 more variables: relative_target <dbl>, relative_held <dbl>,
+    ## #   relative_shortfall <dbl>, relative_met <dbl>
 
 ``` r
 # explore representation by existing protected areas
@@ -390,7 +369,7 @@ summary(tc_s1$relative_held * 100)
 ```
 
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   17.28   18.44   31.10   37.12   50.03  100.00
+    ##   17.02   18.54   26.25   34.52   41.36  100.00
 
 ``` r
 ## calculate number of features adequately represented by the prioritization
@@ -489,7 +468,7 @@ print(p2)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
-    ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, `formulation` = "simple", …)
+    ## ││└•1:          boundary penalties (`penalty` = 0.005, `edge_factor` = 0.5, …)
     ## │├•features:
     ## ││├•targets:    relative targets (all equal to 0.17)
     ## ││└•weights:    none specified
@@ -498,16 +477,20 @@ print(p2)
     ## │└•decisions:   binary decision
     ## └•optimization
     ##  ├•portfolio:   gap portfolio (`number_solutions` = 1000, `pool_gap` = 0.2)
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # generate prioritizations
 prt <- solve(p2)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
@@ -515,8 +498,7 @@ prt <- solve(p2)
     ## Set parameter PoolSolutions to value 1000
     ## Set parameter PoolSearchMode to value 2
     ## Set parameter PoolGap to value 0.2
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -532,99 +514,107 @@ prt <- solve(p2)
     ## PoolGap  0.2
     ## 
     ## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros (Min)
-    ## Model fingerprint: 0xdea3ac39
+    ## Model fingerprint: 0x23c33d6a
     ## Model has 4278 linear objective coefficients
     ## Variable types: 3148 continuous, 1130 integer (1130 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-06, 6e+01]
-    ##   Objective range  [5e-01, 2e+02]
+    ##   Objective range  [9e-06, 6e+01]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [2e-01, 2e+03]
     ## 
-    ## Found heuristic solution: objective 28313.965155
-    ## Found heuristic solution: objective 18343.093396
+    ## Found heuristic solution: objective 19927.539083
+    ## Found heuristic solution: objective 1862.3053991
     ## Presolve removed 1434 rows and 258 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 4895 rows, 4020 columns, 12058 nonzeros
     ## Variable types: 3148 continuous, 872 integer (872 binary)
     ## Root relaxation presolved: 4895 rows, 4020 columns, 12058 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 9.516231e+03, 1430 iterations, 0.08 seconds (0.10 work units)
+    ## Root relaxation: objective 3.427967e+02, 194 iterations, 0.01 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 9516.23114    0  311 18343.0934 9516.23114  48.1%     -    0s
-    ## H    0     0                    13639.424721 9516.23114  30.2%     -    0s
-    ## H    0     0                    12501.341845 9516.23114  23.9%     -    0s
-    ## H    0     0                    12233.515013 9516.23114  22.2%     -    0s
-    ##      0     0 9564.51582    0  330 12233.5150 9564.51582  21.8%     -    0s
-    ## H    0     0                    11843.700741 9564.68826  19.2%     -    0s
-    ## H    0     0                    11798.635920 9564.68826  18.9%     -    0s
-    ##      0     0 9616.33444    0  323 11798.6359 9616.33444  18.5%     -    0s
-    ##      0     0 9624.88617    0  289 11798.6359 9624.88617  18.4%     -    0s
-    ##      0     0 9627.57060    0  314 11798.6359 9627.57060  18.4%     -    0s
-    ##      0     0 9630.97840    0  289 11798.6359 9630.97840  18.4%     -    0s
-    ##      0     0 9633.36306    0  287 11798.6359 9633.36306  18.4%     -    0s
-    ## H    0     0                    11708.165533 9633.74322  17.7%     -    0s
-    ##      0     0 9633.74322    0  287 11708.1655 9633.74322  17.7%     -    0s
-    ## H    0     0                    11462.888107 9633.74322  16.0%     -    0s
-    ## H    0     0                    11311.492903 9633.74322  14.8%     -    0s
-    ## H    0     0                    11223.974201 9633.74322  14.2%     -    0s
-    ## H    0     0                    11176.464423 9633.74322  13.8%     -    0s
-    ## H    0     0                    11112.227846 9633.74322  13.3%     -    0s
-    ## H    0     0                    11112.220632 9633.74322  13.3%     -    0s
-    ## H    0     0                    11101.823799 9633.74322  13.2%     -    0s
-    ## H    0     0                    11101.136772 9633.74322  13.2%     -    0s
-    ##      0     2 9633.74322    0  287 11101.1368 9633.74322  13.2%     -    0s
-    ## H    9     9                    11052.179320 9681.85648  12.4%  70.3    0s
-    ## H   20    20                    11049.615924 9681.85648  12.4%   112    1s
-    ## H   20    20                    11035.337817 9681.85648  12.3%   112    1s
-    ## H   27    27                    10894.286480 9681.85648  11.1%   105    1s
-    ## H   27    27                    10885.137873 9681.85648  11.1%   105    1s
-    ## H   31    31                    10879.879840 9681.85648  11.0%   122    1s
-    ## H   35    35                    10692.995163 9681.85648  9.46%   127    1s
-    ## H   35    35                    10657.288141 9681.85648  9.15%   127    1s
-    ## H   35    35                    10596.430044 9681.85648  8.63%   127    1s
-    ## H   48    48                    10524.835882 9681.85648  8.01%   118    1s
-    ## H   48    48                    10510.076877 9681.85648  7.88%   118    1s
-    ## H   48    48                    10503.646971 9681.85648  7.82%   118    1s
-    ## H   48    48                    10489.372919 9681.85648  7.70%   118    1s
-    ## H   48    48                    10468.425222 9681.85648  7.51%   118    1s
-    ## H  582   581                    10447.410643 9681.87545  7.33%  32.1    3s
-    ##    596    10 9779.25603   15  279 10447.4106 9722.64332  6.94%  35.2    5s
-    ## H  607    17                    10391.627829 9727.12134  6.39%  36.6    5s
-    ## H  664    74                    10382.118919 9727.12134  6.31%  42.1    7s
-    ## H  664    74                    10363.910766 9727.12134  6.14%  42.1    7s
-    ## H  676    86                    10363.902562 9727.12134  6.14%  42.6    8s
-    ## H  676    86                    10350.158606 9727.12134  6.02%  42.6    8s
-    ## H 1138   512                    10258.932319 9731.87054  5.14%  32.7    9s
-    ## H 1138   485                    10086.884243 9731.87054  3.52%  32.7    9s
-    ## H 1141   487                    10077.735636 9731.87054  3.43%  32.8   10s
-    ## H 1141   477                    10036.376759 9731.87054  3.03%  32.8   10s
-    ## H 1160   494                    10031.956217 9731.87054  2.99%  33.1   10s
-    ## H 1975  1250                    10000.713415 9772.14422  2.29%  26.1   12s
-    ## H 1975  1250                    9992.0469328 9772.14422  2.20%  26.1   12s
-    ## H 1975  1239                    9959.8770815 9772.14422  1.88%  26.1   12s
-    ## H 1975  1239                    9954.0029029 9772.14422  1.83%  26.1   12s
-    ## H 1975  1239                    9951.6451277 9772.14422  1.80%  26.1   12s
-    ## H 2730  1750                    9948.6785488 9797.83470  1.52%  23.8   14s
-    ##   2950  1910 10121.4631   30   41 9948.67855 9802.79760  1.47%  24.5   15s
+    ##      0     0  342.79665    0   11 1862.30540  342.79665  81.6%     -    0s
+    ## H    0     0                     547.8145520  342.79665  37.4%     -    0s
+    ## H    0     0                     436.6368231  342.79665  21.5%     -    0s
+    ## H    0     0                     389.1123332  342.79665  11.9%     -    0s
+    ## H    0     0                     387.6182977  342.79665  11.6%     -    0s
+    ## H    0     0                     375.7974539  342.79665  8.78%     -    0s
+    ##      0     0  347.15995    0   15  375.79745  347.15995  7.62%     -    0s
+    ## H    0     0                     375.5626203  347.22208  7.55%     -    0s
+    ## H    0     0                     360.1930415  347.22208  3.60%     -    0s
+    ##      0     0  347.37079    0   14  360.19304  347.37079  3.56%     -    0s
+    ##      0     0  347.40085    0   13  360.19304  347.40085  3.55%     -    0s
+    ##      0     0  349.31394    0   14  360.19304  349.31394  3.02%     -    0s
+    ##      0     0  350.64434    0   14  360.19304  350.64434  2.65%     -    0s
+    ##      0     0  350.70073    0   17  360.19304  350.70073  2.64%     -    0s
+    ##      0     0  351.00114    0   13  360.19304  351.00114  2.55%     -    0s
+    ##      0     0  351.08415    0   15  360.19304  351.08415  2.53%     -    0s
+    ##      0     0  351.11769    0   16  360.19304  351.11769  2.52%     -    0s
+    ##      0     0  351.14716    0   16  360.19304  351.14716  2.51%     -    0s
+    ##      0     0  351.21718    0   18  360.19304  351.21718  2.49%     -    0s
+    ##      0     0  351.23124    0   19  360.19304  351.23124  2.49%     -    0s
+    ##      0     0  351.23404    0   19  360.19304  351.23404  2.49%     -    0s
+    ##      0     0  351.23492    0   20  360.19304  351.23492  2.49%     -    0s
+    ##      0     0  351.32351    0   18  360.19304  351.32351  2.46%     -    0s
+    ##      0     0  351.32518    0   19  360.19304  351.32518  2.46%     -    0s
+    ##      0     0  351.32653    0   21  360.19304  351.32653  2.46%     -    0s
+    ## H    0     0                     360.1912915  351.32679  2.46%     -    0s
+    ## H    0     0                     358.6387144  351.32679  2.04%     -    0s
+    ##      0     0  351.40041    0   18  358.63871  351.40041  2.02%     -    0s
+    ##      0     0  351.47895    0   21  358.63871  351.47895  2.00%     -    0s
+    ##      0     0  351.49189    0   20  358.63871  351.49189  1.99%     -    0s
+    ##      0     0  351.51005    0   21  358.63871  351.51005  1.99%     -    0s
+    ##      0     0  351.51062    0   23  358.63871  351.51062  1.99%     -    0s
+    ##      0     0  351.54486    0   20  358.63871  351.54486  1.98%     -    0s
+    ##      0     0  351.64245    0   20  358.63871  351.64245  1.95%     -    0s
+    ##      0     0  351.69044    0   32  358.63871  351.69044  1.94%     -    0s
+    ##      0     0  351.69650    0   30  358.63871  351.69650  1.94%     -    0s
+    ##      0     0  351.70338    0   32  358.63871  351.70338  1.93%     -    0s
+    ##      0     0  351.78319    0   33  358.63871  351.78319  1.91%     -    0s
+    ##      0     0  351.83359    0   33  358.63871  351.83359  1.90%     -    0s
+    ##      0     0  351.83366    0   34  358.63871  351.83366  1.90%     -    0s
+    ##      0     0  351.91983    0   29  358.63871  351.91983  1.87%     -    0s
+    ## H    0     0                     358.6370049  351.92105  1.87%     -    0s
+    ## H    0     0                     358.3222361  351.92105  1.79%     -    0s
+    ##      0     0  351.92105    0   29  358.32224  351.92105  1.79%     -    0s
+    ##      0     0  351.92582    0   21  358.32224  351.92582  1.79%     -    0s
+    ##      0     0  351.95131    0   33  358.32224  351.95131  1.78%     -    0s
+    ##      0     0  351.95589    0   33  358.32224  351.95589  1.78%     -    0s
+    ##      0     0  351.95744    0   33  358.32224  351.95744  1.78%     -    0s
+    ##      0     0  351.96745    0   35  358.32224  351.96745  1.77%     -    0s
+    ##      0     0  351.96778    0   35  358.32224  351.96778  1.77%     -    0s
+    ## H    0     0                     357.6084895  351.96778  1.58%     -    0s
+    ## H    0     0                     356.5297846  351.96778  1.28%     -    0s
+    ## H    0     0                     355.6808824  351.96778  1.04%     -    0s
+    ##      0     2  351.97024    0   35  355.68088  351.97024  1.04%     -    0s
+    ## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s
+    ## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s
+    ## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s
+    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s
+    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s
+    ## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s
     ## 
     ## Cutting planes:
-    ##   Cover: 1
-    ##   MIR: 3
-    ##   RLT: 7
+    ##   Gomory: 2
+    ##   Lift-and-project: 3
+    ##   Cover: 12
+    ##   MIR: 24
+    ##   StrongCG: 5
+    ##   Flow cover: 16
+    ##   RLT: 3
     ## 
-    ## Explored 3606 nodes (92563 simplex iterations) in 17.27 seconds (18.18 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.27 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
-    ## Solution count 1000: 9948.68 9951.65 9954 ... 10916.1
-    ## No other solutions better than 10916.1
+    ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
+    ## No other solutions better than 391.784
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 9.948678548832e+03, best bound 9.825191496214e+03, gap 1.2412%
+    ## Best objective 3.545764742542e+02, best bound 3.526569687238e+02, gap 0.5414%
 
 ``` r
 print(prt)
@@ -702,8 +692,8 @@ prt_med_names <- prt_med$medoids
 print(prt_med_names)
 ```
 
-    ## [1] "solution_20"  "solution_127" "solution_521" "solution_57"  "solution_695"
-    ## [6] "solution_219"
+    ## [1] "solution_150" "solution_21"  "solution_28"  "solution_323" "solution_169"
+    ## [6] "solution_126"
 
 ``` r
 # create a copy of prt and set values for locked in planning units to -1
@@ -832,7 +822,7 @@ print(p3)
 
     ## A conservation problem (<ConservationProblem>)
     ## ├•data
-    ## │├•features:    "bird1", "nvis2", "nvis8", "nvis9", "nvis14", "nvis20", … (17 total)
+    ## │├•features:    "bird1", "nvis2", "nvis8", "nvis9", … (17 total)
     ## │└•planning units:
     ## │ ├•data:       <data.frame> (1751 total)
     ## │ ├•costs:      continuous values (between 0 and 415692.2)
@@ -841,7 +831,7 @@ print(p3)
     ## ├•formulation
     ## │├•objective:   minimum set objective
     ## │├•penalties:
-    ## ││└•1:          boundary penalties (`penalty` = 0.0005, `edge_factor` = 1, `formulation` = "simple", …)
+    ## ││└•1:          boundary penalties (`penalty` = 0.0005, `edge_factor` = 1, …)
     ## │├•features:
     ## ││├•targets:    relative targets (all equal to 0.3)
     ## ││└•weights:    none specified
@@ -850,23 +840,26 @@ print(p3)
     ## ││└•2:          locked out constraints (1 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s3 <- solve(p3)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
     ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
+    ## Set parameter LicenseID to value 2806834
     ## Set parameter TimeLimit to value 2147483647
     ## Set parameter MIPGap to value 0.1
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+    ## Academic license - for non-commercial use only - expires 2027-04-14
     ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -890,13 +883,13 @@ s3 <- solve(p3)
     ## 
     ## Found heuristic solution: objective 1.221202e+08
     ## Presolve removed 4707 rows and 3103 columns
-    ## Presolve time: 0.09s
+    ## Presolve time: 0.05s
     ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
     ## Variable types: 0 continuous, 3677 integer (3677 binary)
     ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 9.564790e+07, 521 iterations, 0.02 seconds (0.01 work units)
+    ## Root relaxation: objective 9.564790e+07, 521 iterations, 0.01 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -904,7 +897,7 @@ s3 <- solve(p3)
     ##      0     0 9.5648e+07    0   20 1.2212e+08 9.5648e+07  21.7%     -    0s
     ## H    0     0                    9.660231e+07 9.5648e+07  0.99%     -    0s
     ## 
-    ## Explored 1 nodes (521 simplex iterations) in 0.12 seconds (0.11 work units)
+    ## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.11 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 3: 9.66023e+07 9.66023e+07 1.2212e+08 

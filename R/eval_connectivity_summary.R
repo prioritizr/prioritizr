@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate connectivity of solution
@@ -19,34 +19,37 @@ NULL
 #' It is calculated using the same equations used to penalize solutions
 #' with connectivity data (i.e., [add_connectivity_penalties()]).
 #' Specifically, it is calculated as the sum of the pair-wise connectivity
-#' values in the argument to `data`, weighted by the value of the planning
+#' values in `data`, multiplied by the value of the planning
 #' units in the solution.
 #'
 #' @inheritSection eval_cost_summary Solution format
 #' @inheritSection add_connectivity_penalties Data format
 #'
 #' @return
-#'  A [tibble::tibble()] object describing the connectivity of the
-#'  solution.
-#'  It contains the following columns:
+#' A [tibble::tibble()] object describing the connectivity of the
+#' solution. It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistic associated with the `"overall"` value
+#' in this column is calculated using the entire solution
+#' (including all management zones if `x` has multiple zones).
+#' If `x` has multiple management zones, then summary statistics
+#' are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   \item{connectivity}{`numeric` connectivity value.
-#'     Greater values correspond to solutions associated with greater
-#'     connectivity.
-#'     Thus conservation planning exercises typically prefer solutions
-#'     with greater values.}
+#' \item{connectivity}{
+#' `numeric` connectivity value.
+#' Greater values correspond to solutions associated with greater
+#' connectivity.
+#' Thus conservation planning exercises typically prefer solutions
+#' with greater values.
+#' }
 #'
-#'   }
+#' }
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
@@ -61,8 +64,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -142,12 +144,11 @@ NULL
 #' )
 #' print(r2)
 #'
-#' }
 #' @name eval_connectivity_summary
 #'
 #' @exportMethod eval_connectivity_summary
 #'
-#' @aliases eval_connectivity_summary,ConservationProblem,ANY,ANY,Matrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,matrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,dgCMatrix-method eval_connectivity_summary,ConservationProblem,ANY,ANY,data.frame-method eval_connectivity_summary,ConservationProblem,ANY,ANY,array-method
+#' @aliases eval_connectivity_summary,GenericConservationProblem,ANY,ANY,Matrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,matrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,dgCMatrix-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,data.frame-method eval_connectivity_summary,GenericConservationProblem,ANY,ANY,array-method
 NULL
 
 #' @export
@@ -159,7 +160,7 @@ methods::setGeneric("eval_connectivity_summary",
     assert_required(zones)
     assert_required(data)
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_inherits(
         data,
         c("matrix", "Matrix", "dgCMatrix", "data.frame", "array")
@@ -170,30 +171,30 @@ methods::setGeneric("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,matrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
   }
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,Matrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(x, solution, zones, as_Matrix(data, "dgCMatrix"))
   }
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,data.frame}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "data.frame"),
   function(x, solution, zones, data) {
     eval_connectivity_summary(
       x, solution, zones, marxan_connectivity_data_to_matrix(x, data, TRUE)
@@ -202,14 +203,14 @@ methods::setMethod("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,dgCMatrix}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "dgCMatrix"),
   function(x, solution, zones, data) {
     # assert valid arguments
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is_matrix_ish(zones),
       nrow(zones) == ncol(zones),
       is_numeric_values(zones),
@@ -251,14 +252,14 @@ methods::setMethod("eval_connectivity_summary",
 )
 
 #' @name eval_connectivity_summary
-#' @usage \S4method{eval_connectivity_summary}{ConservationProblem,ANY,ANY,array}(x, solution, zones, data)
+#' @usage \S4method{eval_connectivity_summary}{GenericConservationProblem,ANY,ANY,array}(x, solution, zones, data)
 #' @rdname eval_connectivity_summary
 methods::setMethod("eval_connectivity_summary",
-  methods::signature("ConservationProblem", "ANY", "ANY", "array"),
+  methods::signature("GenericConservationProblem", "ANY", "ANY", "array"),
   function(x, solution, zones, data) {
     # assert valid arguments
     assert(
-      is_conservation_problem(x),
+      is_generic_conservation_problem(x),
       is.null(zones),
       is.array(data),
       all_finite(data),
@@ -292,7 +293,7 @@ internal_eval_connectivity_summary <- function(x, solution, zone_scaled_data,
                                                data) {
   # assert valid arguments
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     is.matrix(solution),
     is.list(zone_scaled_data),
     is_inherits(data, c("dgCMatrix", "NULL"))

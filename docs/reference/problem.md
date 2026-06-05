@@ -9,7 +9,9 @@ goals using
 [objectives](https://prioritizr.net/reference/objectives.md),
 [targets](https://prioritizr.net/reference/targets.md),
 [constraints](https://prioritizr.net/reference/constraints.md), and
-[penalties](https://prioritizr.net/reference/penalties.md). After
+[penalties](https://prioritizr.net/reference/penalties.md).
+Additionally, [solvers](https://prioritizr.net/reference/solvers.md) can
+be added to customize the optimization software and settings. After
 building the problem, the
 [`solve()`](https://prioritizr.net/reference/solve.md) function can be
 used to identify solutions.
@@ -84,52 +86,50 @@ problem(x, features, cost_column, run_checks, ...)
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html),
   `data.frame`, `matrix`, or `numeric` vector specifying the planning
-  units to use in the reserve design exercise and their corresponding
-  cost. It may be desirable to exclude some planning units from the
-  analysis, for example those outside the study area. To exclude
-  planning units, set the cost for those raster cells to `NA`, or use
-  the
+  units and their corresponding cost. It may be desirable to exclude
+  some planning units from the analysis, for example those outside the
+  study area. To exclude planning units, set the cost for those raster
+  cells to missing (`NA`) values, or use the
   [`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md)
   function.
 
 - features:
 
   The feature data can be specified in a variety of ways. The specific
-  formats that can be used depend on the cost data format (i.e.,
-  argument to `x`) and whether the problem should have a single zone or
-  multiple zones. If the problem should have a single zone, then the
-  feature data can be specified following:
+  formats that can be used depend on the cost data format (per `x`) and
+  whether the problem should have a single zone or multiple zones.
 
-  **`x` has [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html) or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) planning units**
+  If the problem should have a single zone, then the following formats
+  can be used to specify `features`.
 
-  :   The argument to `features` can be a
+  `x` has [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html) or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) planning units
+
+  :   Here `features` can be a
       [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
       object showing the distribution of conservation features. Missing
       values (i.e., `NA` values) can be used to indicate the absence of
       a feature in a particular cell instead of explicitly setting these
-      cells to zero. Note that this argument type for `features` can
-      only be used to specify data for problems involving a single zone.
+      cells to zero.
 
-  **`x` has [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or `data.frame` planning units**
+  `x` has [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or `data.frame` planning units
 
-  :   The argument to `features` can be a `character` vector with column
-      names (from `x`) that correspond to the abundance or occurrence of
-      different features in each planning unit. Note that this argument
-      type can only be used to create problems involving a single zone.
+  :   Here `features` can be a `character` vector with column names
+      (from `x`) that correspond to the abundance or occurrence of
+      different features in each planning unit.
 
-  **`x` has `data.frame`, `matrix`, or `numeric` vector planning units**
+  `x` has `data.frame`, `matrix`, or `numeric` vector planning units
 
-  :   The argument to `features` can be a `data.frame` object containing
-      the names of the features. Note that if this type of argument is
-      supplied to `features` then the argument `rij` or `rij_matrix`
-      must also be supplied. This type of argument should follow the
-      conventions used by *Marxan*, wherein each row corresponds to a
-      different feature. It must also contain the following columns:
+  :   Here `features` can be a `data.frame` object containing the names
+      of the features. Note that if this format is specified, then `rij`
+      or `rij_matrix` must also be specified. In particular, `features`
+      must follow the conventions used by *Marxan*, wherein each row
+      corresponds to a different feature. It must also contain the
+      following columns.
 
       id
 
-      :   `integer` unique identifier for each feature These identifiers
-          are used in the argument to `rij`.
+      :   `integer` unique identifier for each feature. Note that these
+          identifiers are used by `rij`.
 
       name
 
@@ -143,21 +143,21 @@ problem(x, features, cost_column, run_checks, ...)
 
       :   `numeric` absolute target for each feature (optional).
 
-  If the problem should have multiple zones, then the feature data can
-  be specified following:
+  Alternatively, if the problem should have multiple zones, then the
+  following formats can be used to specify `features`.
 
-  **`x` has [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html) or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) planning units**
+  `x` has [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html) or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) planning units
 
-  :   The argument to `features` can be a
+  :   Here `features` can be a
       [`ZonesRaster`](https://prioritizr.net/reference/zones.md) object
       showing the distribution of conservation features in multiple
-      zones. As above, missing values (i.e., `NA` values) can be used to
-      indicate the absence of a feature in a particular cell instead of
-      explicitly setting these cells to zero.
+      zones. As above, missing (`NA`) values can be used to indicate the
+      absence of a feature in a particular cell instead of explicitly
+      setting these cells to zero.
 
-  **`x` has [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or `data.frame` planning units**
+  `x` has [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or `data.frame` planning units
 
-  :   The argument to `features` can be a
+  :   Here `features` can be a
       [`ZonesCharacter`](https://prioritizr.net/reference/zones.md)
       object with column names (from `x`) that correspond to the
       abundance or occurrence of different features in each planning
@@ -177,13 +177,13 @@ problem(x, features, cost_column, run_checks, ...)
 
 - cost_column:
 
-  `character` name or `integer` indicating the column(s) with the cost
-  data. This argument must be supplied when the argument to `x` is a
+  `character` value or vector with name(s) of the column(s) of `x` with
+  cost data. In particular, `cost_column` must be specified if `x` is a
   [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
-  `data.frame` object. This argument should contain the name of each
-  column containing cost data for each management zone when creating
-  problems with multiple zones. To create a problem with a single zone,
-  then set the argument to `cost_column` as a single column name.
+  `data.frame` object. To create a problem with a single zone, then
+  `cost_column` must contain a single column name. Alternatively, to
+  create a problem with multiple zones, then `cost_column` must contain
+  a column name for each zone.
 
 - feature_units:
 
@@ -197,11 +197,11 @@ problem(x, features, cost_column, run_checks, ...)
 - rij:
 
   `data.frame` containing information on the amount of each feature in
-  each planning unit assuming each management zone. Similar to
-  `data.frame` arguments for `features`, the `data.frame` objects must
-  follow the conventions used by *Marxan*. Note that the `"zone"` column
-  is not needed for problems involving a single management zone.
-  Specifically, the argument should contain the following columns:
+  each planning unit that would be expected if the planning unit was
+  selected (in other words, allocated to each zone). Following
+  conventions used by *Marxan*, `rij` must contain the following
+  columns. Note that the `"zone"` column is not needed for problems
+  involving a single zone.
 
   pu
 
@@ -222,11 +222,10 @@ problem(x, features, cost_column, run_checks, ...)
 
 - zones:
 
-  `data.frame` containing information on the zones. This argument is
-  only used when argument to `x` and `features` are both `data.frame`
-  objects and the problem being built contains multiple zones. Following
-  conventions used in `MarZone`, this argument should contain the
-  following columns: columns:
+  `data.frame` containing information on the zones. Note that `zones` is
+  only used if `x` and `features` are both `data.frame` objects and the
+  problem being built contains multiple zones. Following conventions
+  used by *MarZone*, this argument must contain the following columns.
 
   id
 
@@ -243,12 +242,11 @@ problem(x, features, cost_column, run_checks, ...)
   objects specifying the amount of each feature (rows) within each
   planning unit (columns) for each zone. The `list` elements denote
   different zones, matrix rows denote features, and matrix columns
-  denote planning units. For convenience, the argument to `rij_matrix`
-  can be a single `matrix` or
+  denote planning units. For convenience, the `rij_matrix` can be a
+  single `matrix` or
   [`Matrix::dgCMatrix`](https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html)
-  when specifying a problem with a single management zone. This argument
-  is only used when the argument to `x` is a `numeric` or `matrix`
-  object.
+  when specifying a problem with a single zone. Note that `rij_matrix`
+  is only used if `x` is a `numeric` or `matrix` object.
 
 ## Value
 
@@ -392,7 +390,6 @@ information on evaluating solutions.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -506,7 +503,7 @@ str(s6)
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "gap")= Named num 0.0334
 #>   ..- attr(*, "names")= chr "solution_1"
-#>  - attr(*, "objbound")= Named num 3496
+#>  - attr(*, "objbound")= Named num 0.0334
 #>   ..- attr(*, "names")= chr "solution_1"
 
 # create some problems with multiple zones
@@ -528,11 +525,11 @@ targets <- matrix(
 # print targets
 print(targets)
 #>           zone_1 zone_2 zone_3
-#> feature_1      3      3      2
-#> feature_2      1      2      0
-#> feature_3      2      1      1
-#> feature_4      0      0      0
-#> feature_5      1      2      1
+#> feature_1      2      0      0
+#> feature_2      1      1      2
+#> feature_3      3      3      2
+#> feature_4      1      2      0
+#> feature_5      2      1      1
 
 # create a multi-zone problem with raster data
 p7 <-
@@ -608,6 +605,7 @@ p9 <-
     zones(
       c("spp1_z1", "spp2_z1", "spp3_z1"),
       c("spp1_z2", "spp2_z2", "spp3_z2"),
+      feature_names = c("spp1", "spp2", "spp3"),
       zone_names = c("z1", "z2")
     ),
     cost_column = c("cost_1", "cost_2")
@@ -622,6 +620,4 @@ s9 <- solve(p9)
 
 # plot solution
 plot(s9[, c("solution_1_z1", "solution_1_z2")], axes = FALSE)
-
-# }
 ```

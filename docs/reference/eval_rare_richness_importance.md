@@ -20,9 +20,9 @@ eval_rare_richness_importance(x, solution, rescale = TRUE)
   `numeric`, `matrix`, `data.frame`,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
-  object. The argument should be in the same format as the planning unit
-  cost data in the argument to `x`. See the Solution format section for
-  more information.
+  object. Note that `solution` must have the same format as the planning
+  unit data in `x`. See the Solution format section for more
+  information.
 
 - rescale:
 
@@ -37,7 +37,7 @@ A `numeric`, `matrix`, `data.frame`,
 or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
 containing the importance scores for each planning unit in the solution.
 Specifically, the returned object is in the same format as the planning
-unit data in the argument to `x`.
+unit data in `x`.
 
 ## Details
 
@@ -46,11 +46,12 @@ terms. Let \\I\\ denote the set of planning units (indexed by \\i\\),
 let \\J\\ denote the set of conservation features (indexed by \\j\\),
 let \\r\_{ij}\\ denote the amount of feature \\j\\ associated with
 planning unit \\i\\, and let \\m_j\\ denote the maximum value of feature
-\\j\\ in \\r\_{ij}\\ in all planning units \\i \in I\\. To calculate the
-rarity weighted richness (*RWR*) for planning unit \\k\\:
+\\j\\ in \\r\_{ij}\\ in all planning units \\i \in I\\. Given these
+terms, rarity weighted richness for planning unit \\k\\ is calculated as
+follows:
 
-\$\$ \mathit{RWR}\_{k} = \sum\_{j}^{J} \frac{ \frac{r\_{ik}}{m_j} }{
-\sum\_{i}^{I}r\_{ij}} \$\$
+\$\$ \mathit{RWR}\_{k} = \sum\_{j}^{J} \frac{ \frac{r\_{ik}}{m_j}
+}{\sum\_{i}^{I}r\_{ij}} \$\$
 
 This method is only recommended for large-scaled conservation planning
 exercises (i.e., more than 100,000 planning units) where importance
@@ -63,61 +64,56 @@ limitations.
 
 ## Solution format
 
-Broadly speaking, the argument to `solution` must be in the same format
-as the planning unit data in the argument to `x`. Further details on the
-correct format are listed separately for each of the different planning
-unit data formats:
+Broadly speaking, `solution` must be in the same format as the planning
+unit data in `x`. Further details on the correct format are listed
+separately for each of the different planning unit data formats.
 
 - `x` has `numeric` planning units:
 
-  The argument to `solution` must be a `numeric` vector with each
-  element corresponding to a different planning unit. It should have the
-  same number of planning units as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values should
-  also have missing (`NA`) values in the argument to `solution`.
+  Here `solution` must be a `numeric` vector with each element
+  corresponding to a different planning unit. It should have the same
+  number of planning units as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values should also have missing (`NA`)
+  values in the `solution`.
 
 - `x` has `matrix` planning units:
 
-  The argument to `solution` must be a `matrix` vector with each row
-  corresponding to a different planning unit, and each column correspond
-  to a different management zone. It should have the same number of
-  planning units and zones as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have a missing (`NA`) values in the
-  argument to `solution`.
+  Here `solution` must be a `matrix` vector with each row corresponding
+  to a different planning unit, and each column correspond to a
+  different management zone. It should have the same number of planning
+  units and zones as those in `x`. Additionally, any planning units with
+  missing cost (`NA`) values for a particular zone should also have a
+  missing (`NA`) values in `solution`.
 
 - `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units:
 
-  The argument to `solution` be a
+  Here `solution` be a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object where different cells correspond to different planning units
   and layers correspond to a different management zones. It should have
   the same dimensionality (rows, columns, layers), resolution, extent,
-  and coordinate reference system as the planning units in the argument
-  to `x`. Additionally, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `solution`.
+  and coordinate reference system as the planning units in `x`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has `data.frame` planning units:
 
-  The argument to `solution` must be a `data.frame` with each column
-  corresponding to a different zone, each row corresponding to a
-  different planning unit, and cell values corresponding to the solution
-  value. This means that if a `data.frame` object containing the
-  solution also contains additional columns, then these columns will
-  need to be subsetted prior to using this function (see below for
-  example with
+  Here `solution` must be a `data.frame` with each column corresponding
+  to a different zone, each row corresponding to a different planning
+  unit, and cell values corresponding to the solution value. This means
+  that if a `data.frame` object containing the solution also contains
+  additional columns, then these columns will need to be subsetted prior
+  to using this function (see below for example with
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) data).
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
-  The argument to `solution` must be a
+  Here `solution` must be a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   with each column corresponding to a different zone, each row
   corresponding to a different planning unit, and cell values
@@ -125,11 +121,10 @@ unit data formats:
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   containing the solution also contains additional columns, then these
   columns will need to be subsetted prior to using this function (see
-  below for example). Additionally, the argument to `solution` must also
-  have the same coordinate reference system as the planning unit data.
-  Furthermore, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  below for example). Additionally, `solution` must also have the same
+  coordinate reference system as the planning unit data. Furthermore,
+  any planning units with missing cost (`NA`) values for a particular
+  zone should also have missing (`NA`) values in `solution`.
 
 ## References
 
@@ -152,8 +147,7 @@ Other functions for evaluating solution importance:
 ## Examples
 
 ``` r
-# \dontrun{
-# seed seed for reproducibility
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -174,16 +168,16 @@ s1 <- solve(p1)
 
 # print solution
 print(s1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : layer 
-#> min value   :     0 
-#> max value   :     1 
+#> varname     : sim_pu_raster
+#> name        : layer
+#> min value   :     0
+#> max value   :     1
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
@@ -194,16 +188,16 @@ rwr1 <- eval_rare_richness_importance(p1, s1)
 
 # print importance scores
 print(rwr1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : rwr 
-#> min value   :   0 
-#> max value   :   1 
+#> varname     : sim_pu_raster
+#> name        : rwr
+#> min value   :   0
+#> max value   :   1
 
 # plot importance scores
 plot(rwr1, main = "rarity weighted richness", axes = FALSE)
@@ -226,7 +220,7 @@ print(s2)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 5
 #>     cost locked_in locked_out solution_1                                geometry
 #>  * <dbl> <lgl>     <lgl>           <dbl>                           <POLYGON [m]>
@@ -251,6 +245,4 @@ rwr2 <- eval_rare_richness_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
 plot(rwr2, main = "rarity weighted richness")
-
-# }
 ```

@@ -11,8 +11,8 @@ eval_rare_richness_importance(x, solution, rescale = TRUE)
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
-The argument should be in the same format as the planning unit cost
-data in the argument to \code{x}.
+Note that \code{solution} must have the same format as the planning unit
+data in \code{x}.
 See the Solution format section for more information.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
@@ -24,7 +24,7 @@ A \code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
 containing the importance scores for each planning
 unit in the solution. Specifically, the returned object is in the
-same format as the planning unit data in the argument to \code{x}.
+same format as the planning unit data in \code{x}.
 }
 \description{
 Calculate importance scores for planning units selected in a solution
@@ -37,15 +37,15 @@ terms. Let \eqn{I} denote the set of planning units (indexed by
 \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
 associated with planning unit \eqn{i}, and let \eqn{m_j} denote the
 maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
-\eqn{i \in I}. To calculate the rarity weighted richness (\emph{RWR}) for
-planning unit \eqn{k}:
+\eqn{i \in I}. Given these terms, rarity weighted richness for
+planning unit \eqn{k} is calculated as follows:
 
 \deqn{
-  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{ik}}{m_j} }{
-                                          \sum_{i}^{I}r_{ij}}
-  }{
-  RWRk = sum_j^J ( (rik / mj) / sum_i^I rij)
-  }
+\mathit{RWR}_{k} = \sum_{j}^{J}
+\frac{ \frac{r_{ik}}{m_j} }{\sum_{i}^{I}r_{ij}}
+}{
+RWRk = sum_j^J ( (rik / mj) / sum_i^I rij)
+}
 
 This method is only recommended for large-scaled conservation
 planning exercises (i.e., more than 100,000 planning units) where
@@ -58,71 +58,71 @@ limitations.
 }
 \section{Solution format}{
 
-Broadly speaking, the argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}.
+Broadly speaking, \code{solution} must be in the same format as
+the planning unit data in \code{x}.
 Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+for each of the different planning unit data formats.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{solution}.
+\code{solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{solution}.
+missing (\code{NA}) values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{solution} must also have the same
+Additionally, \code{solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 }
 }
 
 \examples{
-\dontrun{
-# seed seed for reproducibility
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -178,8 +178,7 @@ rwr2 <- eval_rare_richness_importance(p2, s2[, "solution_1"])
 
 # plot importance scores
 plot(rwr2, main = "rarity weighted richness")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
@@ -192,8 +191,8 @@ See \link{importance} for an overview of all functions for evaluating
 the importance of planning units selected in a solution.
 
 Other functions for evaluating solution importance:
-\code{\link{eval_ferrier_importance}()},
-\code{\link{eval_rank_importance}()},
-\code{\link{eval_replacement_importance}()}
+\code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}},
+\code{\link[=eval_rank_importance]{eval_rank_importance()}},
+\code{\link[=eval_replacement_importance]{eval_replacement_importance()}}
 }
 \concept{importances}

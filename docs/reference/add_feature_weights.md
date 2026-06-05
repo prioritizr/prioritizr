@@ -2,9 +2,9 @@
 
 Add features weights to a conservation planning problem. Specifically,
 some objective functions aim to maximize (or minimize) a metric that
-measures how well a set of features are represented by a solution (e.g.,
-maximize the number of features that are adequately represented,
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md)).
+evaluates how well a set of features are represented by a solution
+(e.g., maximize the number of feature targets that are met,
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md)).
 In such cases, it may be desirable to prefer the representation of some
 features over other features (e.g., features that have higher extinction
 risk might be considered more important than those with lower extinction
@@ -30,8 +30,8 @@ add_feature_weights(x, weights)
 
 - weights:
 
-  `numeric` or `matrix` of weights. See the Weights format section for
-  more information.
+  `numeric` vector or `matrix` of weights. See the Weights format
+  section for more information.
 
 ## Value
 
@@ -40,41 +40,37 @@ with the weights added to it.
 
 ## Details
 
-Weights can only be applied to problems that have an objective that is
-budget limited (e.g.,
+Weights are only considered during optimization if a budget-limited
+objective is specified (e.g.,
 [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md),
 [`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)).
-They can also be applied to problems that aim to maximize phylogenetic
-representation
-([`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md))
-to favor the representation of specific features over the representation
-of some phylogenetic branches. Weights cannot be negative values and
-must have values that are equal to or larger than zero. **Note that
-planning unit costs are scaled to 0.01 to identify the cheapest solution
-among multiple optimal solutions. This means that the optimization
-process will favor cheaper solutions over solutions that meet feature
-targets (or occurrences) when feature weights are lower than 0.01.**
+Although weights can be added to problems that have the minimum set
+objective (i.e.,
+[`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md)),
+they will have no effect during optimization and a warning will be
+thrown.
 
 ## Weights format
 
-The argument to `weights` can be specified using the following formats.
+The following formats can be used to specify `weights`. Note that
+`weights` must have values that are greater than, or equal to, zero (in
+other words, non-negative values).
 
 - `weights` as a `numeric` vector:
 
-  containing weights for each feature. Note that this format cannot be
-  used to specify weights for problems with multiple zones.
+  Here weight values are specified for each feature. Note that this
+  format cannot be used if `x` has multiple zones.
 
 - `weights` as a `matrix` object:
 
-  containing weights for each feature in each zone. Here, each row
-  corresponds to a different feature in argument to `x`, each column
-  corresponds to a different zone in argument to `x`, and each cell
-  contains the weight value for a given feature that the solution can to
-  secure in a given zone. Note that if the problem contains targets
-  created using
-  [`add_manual_targets()`](https://prioritizr.net/reference/add_manual_targets.md)
-  then a `matrix` should be supplied containing a single column that
-  indicates that weight for fulfilling each target.
+  Here weight values are specified for each feature in each zone. In
+  particular, each row corresponds to a different feature in `x`, each
+  column corresponds to a different zone in `x`, and cell values specify
+  the weight value for representing a particular feature in a particular
+  zone. Note that if the problem contains targets created using
+  [`add_manual_targets()`](https://prioritizr.net/reference/add_manual_targets.md),
+  then `weights` should be a `matrix` that has a single column
+  containing the weight value for meeting each target.
 
 ## See also
 
@@ -85,13 +81,13 @@ Other functions for adding penalties:
 [`add_asym_connectivity_penalties()`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md),
 [`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md),
 [`add_connectivity_penalties()`](https://prioritizr.net/reference/add_connectivity_penalties.md),
+[`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md),
 [`add_linear_penalties()`](https://prioritizr.net/reference/add_linear_penalties.md),
 [`add_neighbor_penalties()`](https://prioritizr.net/reference/add_neighbor_penalties.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # load package
 require(ape)
 #> Loading required package: ape
@@ -108,7 +104,7 @@ sim_zones_features <- get_sim_zones_features()
 # needs 20% of its habitat for it to be considered adequately conserved
 p1 <-
   problem(sim_pu_raster, sim_features) %>%
-  add_max_features_objective(budget = 3800) %>%
+  add_max_n_targets_met_objective(budget = 3800) %>%
   add_relative_targets(0.2) %>%
   add_binary_decisions() %>%
   add_default_solver(verbose = FALSE)
@@ -160,21 +156,21 @@ plot(s4, main = "solution", axes = FALSE)
 # find out which features have their targets met
 r4 <- eval_target_coverage_summary(p4, s4)
 print(r4, width = Inf)
-#> # A tibble: 5 × 9
+#> # A tibble: 5 × 10
 #>   feature   met   total_amount absolute_target absolute_held absolute_shortfall
 #>   <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-#> 1 feature_1 FALSE         83.3            8.33          5.87               2.46
-#> 2 feature_2 TRUE          31.2            3.12          3.18               0   
-#> 3 feature_3 FALSE         72.0            7.20          4.39               2.80
-#> 4 feature_4 TRUE          42.7            4.27          4.37               0   
-#> 5 feature_5 FALSE         56.7            5.67          4.43               1.24
-#>   relative_target relative_held relative_shortfall
-#>             <dbl>         <dbl>              <dbl>
-#> 1             0.1        0.0705              0.295
-#> 2             0.1        0.102               0    
-#> 3             0.1        0.0611              0.389
-#> 4             0.1        0.102               0    
-#> 5             0.1        0.0781              0.219
+#> 1 feature_1 FALSE         83.3            8.33          6.84              1.49 
+#> 2 feature_2 TRUE          31.2            3.12          3.24              0    
+#> 3 feature_3 FALSE         72.0            7.20          6.02              1.18 
+#> 4 feature_4 TRUE          42.7            4.27          4.31              0    
+#> 5 feature_5 FALSE         56.7            5.67          4.70              0.973
+#>   relative_target relative_held relative_shortfall relative_met
+#>             <dbl>         <dbl>              <dbl>        <dbl>
+#> 1             0.1        0.0821              0.179        0.821
+#> 2             0.1        0.104               0            1    
+#> 3             0.1        0.0836              0.164        0.836
+#> 4             0.1        0.101               0            1    
+#> 5             0.1        0.0828              0.172        0.828
 
 # plot the example phylogeny and color the represented features in red
 plot(
@@ -213,21 +209,21 @@ plot(s5, main = "solution", axes = FALSE)
 # find which features have their targets met
 r5 <- eval_target_coverage_summary(p4, s5)
 print(r5, width = Inf)
-#> # A tibble: 5 × 9
+#> # A tibble: 5 × 10
 #>   feature   met   total_amount absolute_target absolute_held absolute_shortfall
 #>   <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-#> 1 feature_1 FALSE         83.3            8.33          7.82              0.511
-#> 2 feature_2 FALSE         31.2            3.12          2.86              0.259
-#> 3 feature_3 TRUE          72.0            7.20          7.22              0    
-#> 4 feature_4 FALSE         42.7            4.27          3.60              0.669
-#> 5 feature_5 FALSE         56.7            5.67          4.94              0.730
-#>   relative_target relative_held relative_shortfall
-#>             <dbl>         <dbl>              <dbl>
-#> 1             0.1        0.0939             0.0614
-#> 2             0.1        0.0917             0.0831
-#> 3             0.1        0.100              0     
-#> 4             0.1        0.0843             0.157 
-#> 5             0.1        0.0871             0.129 
+#> 1 feature_1 FALSE         83.3            8.33          8.05              0.281
+#> 2 feature_2 FALSE         31.2            3.12          2.85              0.268
+#> 3 feature_3 TRUE          72.0            7.20          7.26              0    
+#> 4 feature_4 FALSE         42.7            4.27          3.53              0.740
+#> 5 feature_5 FALSE         56.7            5.67          5.13              0.536
+#>   relative_target relative_held relative_shortfall relative_met
+#>             <dbl>         <dbl>              <dbl>        <dbl>
+#> 1             0.1        0.0966             0.0337        0.966
+#> 2             0.1        0.0914             0.0859        0.914
+#> 3             0.1        0.101              0             1    
+#> 4             0.1        0.0827             0.173         0.827
+#> 5             0.1        0.0905             0.0946        0.905
 
 # plot the example phylogeny and color the represented features in red
 # here we can see that this solution only adequately conserves the
@@ -242,13 +238,13 @@ plot(
 )
 
 
-# create multi-zone problem with maximum features objective,
+# create multi-zone problem with maximum number of targets met objective,
 # with 10% representation targets for each feature, and set
 # a budget such that the total maximum expenditure in all zones
 # cannot exceed 3000
 p6 <-
   problem(sim_zones_pu_raster, sim_zones_features) %>%
-  add_max_features_objective(3000) %>%
+  add_max_n_targets_met_objective(3000) %>%
   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
   add_binary_decisions() %>%
   add_default_solver(verbose = FALSE)
@@ -280,7 +276,7 @@ plot(c(c6, c7), main = c("equal weights", "manual weights"), axes = FALSE)
 # weights for problems with manual targets
 p8 <-
   problem(sim_pu_raster, sim_features) %>%
-  add_max_features_objective(budget = 3000) %>%
+  add_max_n_targets_met_objective(budget = 3000) %>%
   add_manual_targets(
     data.frame(
     feature = c("feature_1", "feature_4"),
@@ -296,6 +292,4 @@ s8 <- solve(p8)
 
 # plot solution
 plot(s8, main = "solution", axes = FALSE)
-
-# }
 ```

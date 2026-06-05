@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-class.R MultiConservationProblem-class.R
 NULL
 
 #' Evaluate cost of solution
@@ -9,12 +9,12 @@ NULL
 #' (USD), then the total cost would be net cost (USD) needed to acquire
 #' all planning units selected within the solution.
 #'
-#' @param x [problem()] object.
+#' @param x [problem()] or [multi_problem()] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'  [terra::rast()], or [sf::sf()] object.
-#'  The argument should be in the same format as the planning unit cost
-#'  data in the argument to `x`.
+#'  Note that `solution` must have the same format as the planning unit
+#'  data in `x`.
 #'  See the Solution format section for more information.
 #'
 #' @details
@@ -22,39 +22,48 @@ NULL
 #' [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009).
 #' Specifically, the cost of a solution is defined as the sum of the cost
 #' values, supplied when creating a [problem()] object
-#' (e.g., using the `cost_column` argument),
+#' (e.g., per `cost_column`),
 #' weighted by the status of each planning unit in the solution.
 #'
 #' @section Solution format:
-#' Broadly speaking, the argument to `solution` must be in the same format as
-#' the planning unit data in the argument to `x`.
+#' Broadly speaking, `solution` must be in the same format as
+#' the planning unit data in `x`.
 #' Further details on the correct format are listed separately
-#' for each of the different planning unit data formats:
+#' for each of the different planning unit data formats.
+#'
 #' `r solution_format_documentation("solution")`
 #'
 #' @return
-#'   A [tibble::tibble()] object containing the solution cost.
-#'   It contains the following columns:
+#' A [tibble::tibble()] object describing the solution cost.
+#' It contains the following columns.
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{summary}{`character` description of the summary statistic.
-#'     The statistic associated with the `"overall"` value
-#'     in this column is calculated using the entire solution
-#'     (including all management zones if there are multiple zones).
-#'     If multiple management zones are present, then summary statistics
-#'     are also provided for each zone separately
-#'     (indicated using zone names).}
+#' \item{problem}{
+#' `character` name of problem. Note that this column
+#' is only present if `x` is a [multi_problem()] object.
+#' }
 #'
-#'   \item{cost}{`numeric` cost value.
-#'     Greater values correspond to solutions that are more costly
-#'     to implement.
-#'     Thus conservation planning exercises typically prefer solutions
-#'     with smaller values, because they are cheaper to implement
-#'     (assuming all other relevant factors, such as feature representation,
-#'     are equal).}
+#' \item{summary}{
+#' `character` description of the summary statistic.
+#' The statistic associated with the `"overall"` value
+#' in this column is calculated using the entire solution
+#' (including all management zones if `x` has multiple zones).
+#' If `x` has multiple management zones, then summary statistics
+#' are also provided for each zone separately
+#' (indicated using zone names).
+#' }
 #'
-#'   }
+#' \item{cost}{
+#' `numeric` cost value.
+#' Greater values correspond to solutions that are more costly
+#' to implement.
+#' Thus conservation planning exercises typically prefer solutions
+#' with smaller values, because they are cheaper to implement
+#' (assuming all else is equal).
+#' }
+#'
+#' }
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
@@ -69,8 +78,7 @@ NULL
 #'
 #' @family summaries
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -159,15 +167,52 @@ NULL
 #'   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")]
 #' )
 #' print(r3)
-#' }
+#'
 #' @export
 eval_cost_summary <- function(x, solution) {
+  assert_required(x)
+  assert_required(solution)
+  assert(is_generic_conservation_problem(x))
+  UseMethod("eval_cost_summary")
+}
+
+#' @rdname eval_cost_summary
+#' @method eval_cost_summary ConservationProblem
+#' @export
+eval_cost_summary.ConservationProblem <- function(x, solution) {
   # assert arguments are valid
   assert_required(x)
   assert_required(solution)
   assert(is_conservation_problem(x))
   # calculate costs
   internal_eval_cost_summary(x, planning_unit_solution_status(x, solution))
+}
+
+#' @rdname eval_cost_summary
+#' @method eval_cost_summary MultiConservationProblem
+#' @export
+eval_cost_summary.MultiConservationProblem <- function(x, solution) {
+  # assert arguments are valid
+  assert_required(x)
+  assert_required(solution)
+  assert(is_multi_conservation_problem(x))
+  # extract solution
+  solution <- planning_unit_solution_status(x, solution)
+  # calculate costs
+  out <- do.call(
+    rbind,
+    lapply(
+      seq_along(x$problems),
+      function(i) {
+        out <- internal_eval_cost_summary(x$problems[[i]], solution)
+        out$problem <- x$problem_names()[[i]]
+        out
+      }
+    )
+  )
+  out <- tibble::as_tibble(out)
+  # return result
+  out[, c("problem", setdiff(names(out), "problem")), drop = FALSE]
 }
 
 internal_eval_cost_summary <- function(x, status) {

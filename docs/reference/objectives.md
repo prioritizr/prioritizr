@@ -15,10 +15,8 @@ an objective will result in an error.
 
 The following functions can be used to add an objective to a
 conservation planning
-[`problem()`](https://prioritizr.net/reference/problem.md). For the vast
-majority of conservation planning exercises, the minimum set and minimum
-shortfall objectives are most appropriate. Note that if multiple of
-these functions are added to a
+[`problem()`](https://prioritizr.net/reference/problem.md). Note that if
+multiple of these functions are added to a
 [`problem()`](https://prioritizr.net/reference/problem.md), then only
 the last function added will be used.
 
@@ -54,10 +52,11 @@ the last function added will be used.
   Maximize the phylogenetic endemism of the features represented in the
   solution subject to a budget.
 
-- [`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md):
+- [`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md):
 
-  Fulfill as many targets as possible while ensuring that the cost of
-  the solution does not exceed a budget.
+  Maximize the number of feature targets that are fully met, while
+  ensuring that the cost of the solution does not exceed a budget. Note
+  that this objective does not value the partial fulfillment of targets.
 
 - [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md):
 
@@ -65,15 +64,48 @@ the last function added will be used.
   a given budget. Note that this objective is not compatible with
   targets.
 
-- [`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md):
+- [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md):
 
   Maximize the weighted sum of the features represented by the solution
   subject to a budget. Note that this objective is not compatible with
-  targets.
+  targets. Although there are a few cases where this objective may be
+  suitable, we strongly advise against using this objective in general.
+
+## Recommended practices
+
+In general, we recommend using either the minimum set
+[`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md)
+or the minimum shortfall
+[`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)
+objectives for conservation planning This is because both of these
+objectives account for complementarity—a foundational concept in
+systematic conservation planning (Kirkpatrick 1983). If solutions need
+to conform to a type of budget (e.g., maximum expenditure, or maximum
+amount of land that can be protected), then the minimum shortfall
+objective is typically most appropriate. Otherwise, if solutions do not
+need to conform to a particular budget, then the minimum set objective
+is typically most appropriate. We strongly caution against using the
+maximum weighted sum objective
+([`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
+because – except under very specific conditions – it has "repeatedly
+been shown to identify priorities that are biologically ineffective and
+economically inefficient" (Brown *et al.* 2015).
+
+## References
+
+Brown CJ, Bode M, Venter O, Barnes MD, McGowan J, Runge CA, Watson JEM,
+and Possingham HP (2015) Effective conservation requires clear
+objectives and prioritizing actions, not places or species. *Proceedings
+of the National Academy of Sciences* 112: E4342.
+
+Kirkpatrick JB (1983) An iterative method for establishing priorities
+for the selection of nature reserves: An example from Tasmania.
+*Biological Conservation*, 25: 127–134.
 
 ## See also
 
 Other overviews:
+[`approaches`](https://prioritizr.net/reference/approaches.md),
 [`constraints`](https://prioritizr.net/reference/constraints.md),
 [`decisions`](https://prioritizr.net/reference/decisions.md),
 [`importance`](https://prioritizr.net/reference/importance.md),
@@ -86,7 +118,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -106,8 +137,8 @@ p1 <- p %>% add_min_set_objective()
 # note that this objective does not use targets
 p2 <- p %>% add_max_cover_objective(500)
 
-# create problem with added maximum feature representation objective
-p3 <- p %>% add_max_features_objective(1900)
+# create problem with added maximum number of targets met objective
+p3 <- p %>% add_max_n_targets_met_objective(1900)
 
 # create problem with added minimum shortfall objective
 p4 <- p %>% add_min_shortfall_objective(1900)
@@ -121,9 +152,10 @@ p6 <- p %>% add_max_phylo_div_objective(1900, sim_phylogeny)
 # create problem with added maximum phylogenetic diversity objective
 p7 <- p %>% add_max_phylo_end_objective(1900, sim_phylogeny)
 
-# create problem with added maximum utility objective
+# create problem with added maximum weighted sum objective
 # note that this objective does not use targets
-p8 <- p %>% add_max_utility_objective(1900)
+p8 <- p %>% add_max_wtd_sum_objective(1900)
+#> ℹ `add_max_wtd_sum_objective()` has severe limitations - use with caution.
 
 # solve problems
 s <- c(
@@ -137,12 +169,11 @@ s <- c(
 #> ℹ The specified targets will be ignored during optimization.
 #> ℹ If the targets are important, then use a different objective.
 names(s) <- c(
-  "min set", "max coverage", "max features", "min shortfall",
+  "min set", "max coverage", "max n targets met", "min shortfall",
   "min largest shortfall", "max phylogenetic diversity",
-  "max phylogenetic endemism", "max utility"
+  "max phylogenetic endemism", "max wtd sum"
 )
+
 # plot solutions
 plot(s, axes = FALSE)
-
-# }
 ```

@@ -1,0 +1,679 @@
+test_that("x = SpatRaster, y = SpatRaster (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), ncol = 4)),
+    terra::rast(matrix(c(NA, 0, 1, 1), ncol = 4))
+  )
+  names(spp) <- make.unique(names(spp))
+  # solve problem
+  s <-
+    problem(costs, spp) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 1)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
+  expect_true(is_comparable_raster(s, costs))
+})
+
+test_that("x = SpatRaster, y = ZonesSpatRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- c(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7))
+  )
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  names(spp) <- make.unique(names(spp))
+  # create and solve problem
+  s <-
+    problem(costs, zones(spp[[1:2]], spp[[3:4]])) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(c(terra::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(c(terra::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("x = sf, y = SpatRaster (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost <- c(1, 2, NA, 3)
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE, ncol = 2)),
+    terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE, ncol = 2))
+  )
+  names(spp) <- make.unique(names(spp))
+  # create and solve problem
+  s <-
+    problem(costs, spp, cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 1)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+})
+
+test_that("x = sf, y = ZonesSpatRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:7, ncol = 7))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  # create and solve problem
+  s <-
+    problem(
+      costs, zones(spp[[1:2]], spp[[3:4]]),
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+})
+
+test_that("x = sf, y = character (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost <- c(1, 2, NA, 3)
+  costs$spp1 <- c(1, 2, 0, 0)
+  costs$spp2 <- c(NA, 0, 1, 1)
+  # create and solve problem
+  s <-
+    problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 1)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+  expect_equal(s$spp1, costs$spp1)
+  expect_equal(s$spp2, costs$spp2)
+})
+
+test_that("x = sf, y = ZonesCharacter (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  costs$spp1_z1 <- c(1,  2, 0, 0, 0, 0,  0)
+  costs$spp2_z1 <- c(NA, 0, 1, 1, 0, 0,  0)
+  costs$spp1_z2 <- c(1,  0, 0, 0, 1, 0,  0)
+  costs$spp2_z2 <- c(0,  0, 0, 0, 0, 10, 0)
+  # create and solve problem
+  s <-
+    problem(
+      costs,
+      zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+      cost_column  = c("cost_1", "cost_2")
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+  expect_equal(s$spp1_z1, costs$spp1_z1)
+  expect_equal(s$spp2_z1, costs$spp2_z1)
+  expect_equal(s$spp1_z2, costs$spp1_z2)
+  expect_equal(s$spp2_z2, costs$spp2_z2)
+})
+
+test_that("x = sf, y = RasterStack (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost <- c(1, 2, NA, 3)
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE, ncol = 2)),
+    terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE, ncol = 2))
+  )
+  # create and solve problem
+  expect_warning(
+    s <-
+      problem(costs, raster::stack(spp), cost_column = "cost") %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(c(1, 1)) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      solve(),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+})
+
+test_that("x = sf, y = ZonesRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # make data
+  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  # solve problem
+  expect_warning(
+    expect_warning(
+      s <-
+        problem(
+          costs,
+          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
+          cost_column = c("cost_1", "cost_2")
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "sf")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("x = data.frame, y = data.frame (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- data.frame(id = seq_len(4), cost = c(1, 2, NA, 3))
+  species <- data.frame(id = seq_len(2), name = letters[1:2])
+  rij <- data.frame(
+    pu = rep(1:4, 2),
+    species = rep(1:2, each = 4),
+    amount = c(1, 2, 0, 0, 0, 0, 1, 1)
+  )
+  # create and solve problem
+  s <-
+    problem(pu, species, "cost", rij = rij) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 1)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # run tests
+  expect_inherits(s, "data.frame")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$id, pu$id)
+  expect_equal(s$cost, pu$cost)
+})
+
+test_that("x = data.frame, y = data.frame (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # simulate data
+  costs <- data.frame(
+    id = seq_len(7),
+    cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+    cost_2 = c(10, 10, 10, 10,  4,   1, NA)
+  )
+  spp <- data.frame(id = 1:2, name = c("spp1", "spp2"))
+  zone <- data.frame(id = 1:2, name = c("z1", "z2"))
+  rij <- data.frame(
+    pu = rep(1:7, 4),
+    species = rep(rep(1:2, each = 7), 2),
+    zone = rep(1:2, each = 14),
+    amount = c(
+      1,  2, 0, 0, 0, 0,  0,
+      NA, 0, 1, 1, 0, 0,  0,
+      1,  0, 0, 0, 1, 0,  0,
+      0,  0, 0, 0, 0, 10, 0
+    )
+  )
+  rij <- rij[!is.na(rij$amount), , drop = FALSE]
+  # solve problem
+  s <-
+    problem(
+      costs,
+      spp,
+      rij = rij, zone,
+      cost_column = c("cost_1", "cost_2")
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "data.frame")
+  expect_equal(s$solution_1_z1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_z2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$id, costs$id)
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+})
+
+test_that("x = numeric, y = data.frame (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  pu <- data.frame(id = seq_len(4), cost = c(1, NA, 1000, 3))
+  species <- data.frame(id = seq_len(2), name = letters[1:2])
+  rij <- matrix(c(1, 2, 0, 0, NA, 0, 1, 1), byrow = TRUE, nrow = 2)
+  # create and solve problem
+  s <-
+    problem(pu$cost, species, rij = rij) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 1)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # run tests
+  expect_inherits(s, "numeric")
+  expect_equal(c(s), c(1, NA, 0, 1))
+})
+
+test_that("x = matrix, y = data.frame (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- data.frame(
+    id = seq_len(7),
+    cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+    cost_2 = c(10, 10, 10, 10,  4,   1, NA),
+    spp1_z1 = c(1,  2, 0, 0, 0, 0,  0),
+    spp2_z1 = c(NA, 0, 1, 1, 0, 0,  0),
+    spp1_z2 = c(1,  0, 0, 0, 1, 0,  0),
+    spp2_z2 = c(0,  0, 0, 0, 0, 10, 0)
+  )
+  spp <- data.frame(id = 1:2, name = c("spp1", "spp2"))
+  rij_matrix <- list(
+    z1 = t(as.matrix(costs[, c("spp1_z1", "spp2_z1")])),
+    z2 = t(as.matrix(costs[, c("spp1_z2", "spp2_z2")]))
+  )
+  # create and solve problem
+  s <-
+    problem(
+      as.matrix(costs[, c("cost_1", "cost_2")]), spp,
+      rij_matrix
+    ) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  # tests
+  expect_inherits(s, "matrix")
+  expect_equal(s[, "z1"], c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s[, "z2"], c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("numerical instability (error when force = FALSE)", {
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # update data
+  sim_pu_polygons$cost[1] <- 1e+35
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_default_solver(verbose = FALSE)
+  # tests
+  expect_tidy_error(
+    expect_message(solve(p), "Numerical issues"),
+    "failed presolve check"
+  )
+})
+
+test_that("infeasibility (error when force = FALSE)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.99) %>%
+    add_linear_constraints(0, "<=", sim_pu_raster) %>%
+    add_binary_decisions() %>%
+    add_default_solver(verbose = FALSE)
+  # tests
+  expect_tidy_error(solve(p))
+})
+
+test_that("numerical instability (solution when force = TRUE)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_pu_polygons <- get_sim_pu_polygons()
+  sim_features <- get_sim_features()
+  # update data
+  sim_pu_polygons$cost[1] <- 1e+20
+  # create problem
+  p <-
+    problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_default_solver(first_feasible = TRUE, verbose = FALSE)
+  # solve problem
+  expect_warning(
+    expect_message(
+      s <- solve(p, force = TRUE),
+      "Numerical issues"
+    ),
+    "presolve"
+  )
+  # tests
+  expect_inherits(s, "sf")
+})
+
+test_that("x = RasterLayer, y = RasterStack (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), ncol = 4)),
+    terra::rast(matrix(c(NA, 0, 1, 1), ncol = 4))
+  )
+  names(spp) <- make.unique(names(spp))
+  # create and solve problem
+  expect_warning(
+    s <-
+      problem(raster::raster(costs), raster::stack(spp)) %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(c(1, 1)) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      solve(),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "RasterLayer")
+  expect_equal(c(raster::values(s)), c(1, 0, NA, 1))
+  expect_true(is_comparable_raster(s, raster::raster(costs)))
+})
+
+test_that("x = RasterStack, y = ZonesRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- c(
+    terra::rast(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    terra::rast(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7))
+  )
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  names(spp) <- make.unique(names(spp))
+  # create and solve problem
+  expect_warning(
+    expect_warning(
+      s <-
+        problem(
+          raster::stack(costs),
+          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]]))
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "RasterStack")
+  expect_equal(c(raster::values(s[[1]])), c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(c(raster::values(s[[2]])), c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("x = Spatial, y = character (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # make data
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 4))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost <- c(1, 2, NA, 3)
+  costs$spp1 <- c(1, 2, 0, 0)
+  costs$spp2 <- c(NA, 0, 1, 1)
+  # solve problem
+  expect_warning(
+    s <-
+      problem(
+        sf::as_Spatial(costs), c("spp1", "spp2"), cost_column = "cost"
+      ) %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(c(1, 1)) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      solve(),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+  expect_equal(s$spp1, costs$spp1)
+  expect_equal(s$spp2, costs$spp2)
+})
+
+test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  costs$spp1_z1 <- c(1,  2, 0, 0, 0, 0,  0)
+  costs$spp2_z1 <- c(NA, 0, 1, 1, 0, 0,  0)
+  costs$spp1_z2 <- c(1,  0, 0, 0, 1, 0,  0)
+  costs$spp2_z2 <- c(0,  0, 0, 0, 0, 10, 0)
+  # create and solve problem
+  expect_warning(
+    s <-
+      problem(
+        sf::as_Spatial(costs),
+        zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+        cost_column  = c("cost_1", "cost_2")
+      ) %>%
+      add_min_set_objective() %>%
+      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      solve(),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+  expect_equal(s$spp1_z1, costs$spp1_z1)
+  expect_equal(s$spp2_z1, costs$spp2_z1)
+  expect_equal(s$spp1_z2, costs$spp1_z2)
+  expect_equal(s$spp2_z2, costs$spp2_z2)
+})
+
+test_that("x = Spatial, y = RasterStack (single zone)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost <- c(1, 2, NA, 3)
+  spp <- c(
+    terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE, ncol = 2)),
+    terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE, ncol = 2))
+  )
+  # create and solve problem
+  expect_warning(
+    expect_warning(
+      s <-
+        problem(
+          sf::as_Spatial(costs), raster::stack(spp), cost_column = "cost"
+        ) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(c(1, 1)) %>%
+        add_binary_decisions() %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        solve(),
+      "deprecated"
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+  expect_equal(s$cost, costs$cost)
+})
+
+test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # make data
+  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
+  costs <- sf::st_as_sf(terra::as.polygons(costs))
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  spp <- c(
+    terra::rast(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    terra::rast(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7))
+  )
+  # solve problem
+  expect_warning(
+    expect_warning(
+      expect_warning(
+        s <-
+          problem(
+            sf::as_Spatial(costs),
+            zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
+            cost_column = c("cost_1", "cost_2")
+          ) %>%
+          add_min_set_objective() %>%
+          add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+          add_binary_decisions() %>%
+          add_default_solver(gap = 0, verbose = FALSE) %>%
+          solve(),
+        "deprecated"
+      ),
+      "deprecated"
+    ),
+    "deprecated"
+  )
+  # tests
+  expect_inherits(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+  expect_equal(s$cost_1, costs$cost_1)
+  expect_equal(s$cost_2, costs$cost_2)
+})
+
+test_that("remove_duplicates = TRUE", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # create data
+  set.seed(500)
+  cost <- terra::rast(matrix(c(1, 1, 0.5, NA), ncol = 4))
+  features <- c(
+    terra::rast(matrix(c(2, 2, 1, 0), ncol = 4)),
+    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
+  )
+  names(features) <- make.unique(names(features))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(2, 10)) %>%
+    add_shuffle_portfolio(5) %>%
+    add_default_solver(gap = 0.8, verbose = FALSE)
+  # solve problem
+  expect_message(
+    s <- solve_fixed_seed(p, remove_duplicates = TRUE),
+    "Found"
+  )
+  # tests
+  expect_inherits(s, "list")
+  expect_length(s, 2)
+  expect_named(s, paste0("solution_", seq_len(2)))
+  expect_true(all_elements_inherit(s, "SpatRaster"))
+  expect_equal(
+    anyDuplicated(
+      apply(terra::as.data.frame(terra::rast(s)), 2, paste, collapse = " ")
+    ),
+    0
+  )
+  expect_equal(names(s), paste0("solution_", seq_len(2)))
+  for (i in seq_len(2))
+    expect_true(
+      all(
+        terra::global(s[[i]] * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10)
+      )
+    )
+})

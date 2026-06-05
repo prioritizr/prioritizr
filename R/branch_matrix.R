@@ -13,15 +13,16 @@ NULL
 #'
 #' @param x [ape::phylo()] tree object.
 #'
-#' @return A [`Matrix::dgCMatrix-class`] sparse matrix object. Each row
-#'   corresponds to a different species. Each column corresponds to a different
-#'   branch. Species that inherit from a given branch are denoted with a one.
+#' @return
+#' A [`Matrix::dgCMatrix-class`] sparse matrix object. Each row
+#' corresponds to a different species. Each column corresponds to a different
+#' branch. Species that inherit from a given branch are denoted with a one.
 #'
 #' @name branch_matrix
 #'
 #' @rdname branch_matrix
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_phylogeny <- get_sim_phylogeny()
 #'
@@ -29,10 +30,9 @@ NULL
 #' m <- branch_matrix(sim_phylogeny)
 #'
 #' # plot data
-#' \dontrun{
 #' plot(sim_phylogeny, main = "phylogeny")
 #' Matrix::image(m, main = "branch matrix")
-#' }
+#'
 #' @export
 branch_matrix <- function(x) {
   assert_required(x)

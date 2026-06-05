@@ -37,20 +37,20 @@ add_linear_constraints(x, threshold, sense, data)
 - threshold:
 
   `numeric` value. This threshold value is also known as a
-  "right-hand-side" value per integer programming terminology.
+  "right-hand-side value" per integer programming terminology.
 
 - sense:
 
-  `character` sense for the constraint. Available options include
-  `">="`, `"<="`, or `"="` values.
+  `character` value denoting the sense for the constraint. Acceptable
+  values are: `">="`, `"<="`, or `"="`.
 
 - data:
 
-  `character`, `numeric`,
+  `character` value or vector, `numeric` vector or matrix,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
-  `matrix`, or `Matrix` object containing the constraint values. These
-  constraint values are also known as constraint coefficients per
-  integer programming terminology. See the Data format section for more
+  or `Matrix` object containing the constraint values. These constraint
+  values are also known as constraint coefficients per integer
+  programming terminology. See the Data format section for more
   information.
 
 ## Value
@@ -80,70 +80,67 @@ of management zones (indexed by \\z\\), and \\X\_{iz}\\ the decision
 variable for allocating planning unit \\i\\ to zone \\z\\ (e.g., with
 binary values indicating if each planning unit is allocated or not).
 Also, let \\D\_{iz}\\ denote the constraint data associated with
-planning units \\i \in I\\ for zones \\z \in Z\\ (argument to `data`, if
+planning units \\i \in I\\ for zones \\z \in Z\\ (per `data`, if
 supplied as a `matrix` object), \\\theta\\ denote the constraint sense
-(argument to `sense`, e.g., \\\<=\\), and \\t\\ denote the constraint
-threshold (argument to `threshold`).
+(per `sense`), and \\t\\ denote the constraint threshold (per
+`threshold`).
 
 \$\$ \sum\_{i}^{I} \sum\_{z}^{Z} (D\_{iz} \times X\_{iz}) \space \theta
 \space t \$\$
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
+The following formats can be used to specify `data`.
 
-- `data` as `character` vector:
+- `data` as a `character` vector:
 
-  containing column name(s) that contain penalty values for planning
-  units. This format is only compatible if the planning units in the
-  argument to `x` are a
+  Here values are specified based on column name(s) for the planning
+  unit data in `x`. This format is only compatible if the planning units
+  in `x` are a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
   `data.frame` object. The column(s) must have `numeric` values, and
-  must not contain any missing (`NA`) values. For problems that contain
-  a single zone, the argument to `data` must contain a single column
-  name. Otherwise, for problems that contain multiple zones, the
-  argument to `data` must contain a column name for each zone.
+  must not contain any missing (`NA`) values. If `x` has a single zone,
+  then `data` must contain a single column name. Otherwise, if `x` has
+  multiple zones, then `data` must contain a column name for each zone.
 
 - `data` as a `numeric` vector:
 
-  containing values for planning units. These values must not contain
-  any missing (`NA`) values. Note that this format is only available for
-  planning units that contain a single zone.
+  Here values are specified for each planning unit. These values must
+  not contain any missing (`NA`) values. Note that this format can only
+  be used if `x` has a single zone.
 
 - `data` as a `matrix`/`Matrix` object:
 
-  containing `numeric` values that specify data for each planning unit.
-  Each row corresponds to a planning unit, each column corresponds to a
-  zone, and each cell indicates the data for penalizing a planning unit
-  when it is allocated to a given zone.
+  Here values are specified for each planning unit and each zone. Note
+  that `data` must have `numeric` values. Each row corresponds to a
+  planning unit, each column corresponds to a zone, and each cell
+  indicates the value associated with a planning unit when it is
+  allocated to a given zone.
 
 - `data` as a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object:
 
-  containing values for planning units. This format is only compatible
-  if the planning units in the argument to `x` are
+  Here values are specified for each planning unit and each zone. This
+  format is only compatible if the planning units in `x` are
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html), or
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   objects. If the planning unit data are a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object,
   then the values are calculated by overlaying the planning units with
-  the argument to `data` and calculating the sum of the values
-  associated with each planning unit. If the planning unit data are a
+  `data` and calculating the sum of the values associated with each
+  planning unit. If the planning unit data are a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object, then the values are calculated by extracting the cell values
-  (note that the planning unit data and the argument to `data` must have
-  exactly the same dimensionality, extent, and missingness). For
-  problems involving multiple zones, the argument to `data` must contain
-  a layer for each zone.
+  (note that `data` and the planning unit in `x` must have exactly the
+  same dimensionality, extent, and missing values). Additionally, if `x`
+  has multiple zones, then `data` must contain a layer for each zone.
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
 [`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md),
@@ -155,7 +152,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -213,7 +209,7 @@ plot(c(s0, s1), main = c("s0", "s1"), axes = FALSE)
 # additional constraints to ensure that each feature definitely has
 # at least 8% of its overall distribution represented by the solution
 # (in addition to the 20% targets which specify how much we would
-# ideally want to conserve for each feature) 
+# ideally want to conserve for each feature)
 
 # to achieve this, we need to calculate the total amount of each feature
 # within the planning units so we can, in turn, set the constraint thresholds
@@ -307,6 +303,4 @@ s3 <- solve(p3)
 
 # plot solutions s0 and s3 to compare them
 plot(c(s0, s3), main = c("s0", "s3"), axes = FALSE)
-
-# }
 ```

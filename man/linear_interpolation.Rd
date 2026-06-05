@@ -13,8 +13,7 @@ linear_interpolation(
 )
 }
 \arguments{
-\item{x}{\code{numeric} \emph{x} values for which interpolate \emph{y}
-values.}
+\item{x}{\code{numeric} \emph{x} values that require interpolation.}
 
 \item{coordinate_one_x}{\code{numeric} value for lower \emph{x}-coordinate.}
 
@@ -32,12 +31,14 @@ Linearly interpolate values between two thresholds.
 }
 \details{
 Values are log-linearly interpolated at the \emph{x}-coordinates
-specified in \code{x} using the lower and upper coordinate arguments to
-define the line. Values lesser or greater than these numbers are assigned
-the minimum and maximum \emph{y} coordinates.
+specified in \code{x} based on a line defined by the other parameters.
+Values that are smaller than or greater than \code{coordinate_one_x} and
+\code{coordinate_two_x} are assigned values equal to
+\code{coordinate_one_y} and \code{coordinate_two_y} (respectively).
+In other words, this function does not extrapolate values.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -50,5 +51,5 @@ plot(y ~ x)
 
 # add the reference points to the plot (shown in red)
 points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-}
+\dontshow{\}) # examplesIf}
 }

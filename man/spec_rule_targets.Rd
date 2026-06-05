@@ -51,7 +51,7 @@ Defaults to \code{"km^2"}
 (i.e., \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}).}
 }
 \value{
-An object (\code{\linkS4class{TargetMethod}}) for specifying targets that
+An object (\code{\link[=TargetMethod-class]{TargetMethod}}) for specifying targets that
 can be used with \code{\link[=add_auto_targets]{add_auto_targets()}} and \code{\link[=add_group_targets]{add_group_targets()}}
 to add targets to a \code{\link[=problem]{problem()}}.
 }
@@ -117,14 +117,14 @@ you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
 data are provided as a \code{data.frame} or \code{character} vector,
-then you will need to specify an argument to \code{feature_units} when
+then you will need to specify \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function.
 See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
 for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -146,9 +146,11 @@ feature_size <- as.numeric(units::set_units(
 rule_data <- tibble::tibble(feature = names(sim_complex_features))
 
 # add a column indicating if each feature has a small distribution,
+# based on a threshold of 1000 km^2
 rule_data$small_distribution <- feature_size <= 1000
 
 # add a column indicating if each feature has a large distribution,
+# based on a threshold of 5000 km^2
 rule_data$large_distribution <- feature_size >= 5000
 
 # add a column indicating if each feature has low quality data
@@ -221,7 +223,7 @@ s1 <- solve(p1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
@@ -240,22 +242,22 @@ marine biodiversity targets for systematic conservation planning.
 }
 \seealso{
 Other target setting methods:
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_absolute_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_jung_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_min_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_relative_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
+\code{\link[=spec_absolute_targets]{spec_absolute_targets()}},
+\code{\link[=spec_area_targets]{spec_area_targets()}},
+\code{\link[=spec_duran_targets]{spec_duran_targets()}},
+\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}},
+\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+\code{\link[=spec_jung_targets]{spec_jung_targets()}},
+\code{\link[=spec_max_targets]{spec_max_targets()}},
+\code{\link[=spec_min_targets]{spec_min_targets()}},
+\code{\link[=spec_polak_targets]{spec_polak_targets()}},
+\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
+\code{\link[=spec_relative_targets]{spec_relative_targets()}},
+\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}},
+\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
+\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
+\code{\link[=spec_ward_targets]{spec_ward_targets()}},
+\code{\link[=spec_watson_targets]{spec_watson_targets()}},
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}
 }
 \concept{methods}

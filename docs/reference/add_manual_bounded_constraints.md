@@ -39,8 +39,7 @@ object with the constraints added to it.
 
 ## Data format
 
-The argument to `data` should be a `data.frame` with the following
-columns:
+Here `data` must be a `data.frame` with the following columns.
 
 - pu:
 
@@ -57,8 +56,8 @@ columns:
 
 - zone:
 
-  `character` names of zones. Note that this argument is optional for
-  arguments to `x` that contain a single zone.
+  `character` names of zones. Note that this column is optional if `x`
+  has a single zone.
 
 - lower:
 
@@ -72,11 +71,9 @@ columns:
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
 [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
@@ -88,7 +85,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -194,6 +190,4 @@ s5$solution_bounded <- factor(s5$solution_bounded)
 
 # plot solutions
 plot(s5[, c("solution", "solution_bounded")], axes = FALSE)
-
-# }
 ```

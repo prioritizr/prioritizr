@@ -6,7 +6,7 @@ NULL
 #' Specify that the best solver currently available should be
 #' used to solve a conservation planning problem.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_gurobi_solver
 #'
 #' @param ... arguments passed to the solver.
 #'
@@ -30,11 +30,33 @@ NULL
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
+#' set.seed(600)
+#'
+#' # load data
+#' sim_pu_raster <- get_sim_pu_raster()
+#' sim_features <- get_sim_features()
+#'
+#' # create minimal problem with default portfolio
+#' p <-
+#'   problem(sim_pu_raster, sim_features) %>%
+#'   add_min_set_objective() %>%
+#'   add_relative_targets(0.05) %>%
+#'   add_binary_decisions() %>%
+#'   add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # solve problem
+#' s <- solve(p)
+#'
+#' # plot solution
+#' plot(s)
+#'
 #' @export
 add_default_solver <- function(x, ...) {
   # assert valid arguments
   assert_required(x)
-  assert(is_conservation_problem(x), call = NULL)
+  assert(is_generic_conservation_problem(x), call = NULL)
   if (!identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")) {
     assert(
       any_solvers_installed(),

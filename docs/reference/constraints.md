@@ -60,6 +60,14 @@ planning [`problem()`](https://prioritizr.net/reference/problem.md).
   administrative areas within a study region (e.g., different
   countries).
 
+- [`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md):
+
+  Add constraints to ensure that the cost of selected planning units
+  meets certain criteria. For example, they can be used to ensure that
+  the solution has a total cost that exceeds a particular threshold.
+  These constraints would typically be used with multi-objective
+  optimization.
+
 - [`add_mandatory_allocation_constraints()`](https://prioritizr.net/reference/add_mandatory_allocation_constraints.md):
 
   Add constraints to ensure that every planning unit is allocated to a
@@ -69,6 +77,7 @@ planning [`problem()`](https://prioritizr.net/reference/problem.md).
 ## See also
 
 Other overviews:
+[`approaches`](https://prioritizr.net/reference/approaches.md),
 [`decisions`](https://prioritizr.net/reference/decisions.md),
 [`importance`](https://prioritizr.net/reference/importance.md),
 [`objectives`](https://prioritizr.net/reference/objectives.md),
@@ -81,7 +90,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -111,15 +119,24 @@ p5 <- p1 %>% add_contiguity_constraints()
 # create problem with feature contiguity constraints
 p6 <- p1 %>% add_feature_contiguity_constraints()
 
+# create problem with linear constraints to ensure that,
+# at least, 5 planning units in the locked in raster are selected
+p6 <- p1 %>% add_linear_constraints(5, ">=", sim_locked_in_raster)
+
+# create problem with linear constraints to ensure that
+# the total cost of solution is greater than or equal to 10
+# (note that this example is fairly contrived, see the documentation for
+# this function for a more realistic example)
+p7 <- p1 %>% add_cost_constraints(10, ">=")
+
 # solve problems
-s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6), solve))
+s <- terra::rast(lapply(list(p1, p2, p3, p4, p5, p6, p6, p7), solve))
 names(s) <- c(
   "minimal problem", "locked in", "locked out",
-  "neighbor", "contiguity", "feature contiguity"
+  "neighbor", "contiguity", "feature contiguity",
+  "linear constraints", "cost constraints"
 )
 
 # plot solutions
 plot(s, axes = FALSE, nr = 2)
-
-# }
 ```

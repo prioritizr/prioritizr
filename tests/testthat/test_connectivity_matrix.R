@@ -63,7 +63,7 @@ test_that("x = sf, y = Raster", {
   )
   expect_tidy_error(
     connectivity_matrix(
-      suppressWarnings(sf::st_set_crs(get_sim_pu_polygons(), 3857)),
+      suppressWarnings(sf::st_set_crs(get_sim_pu_polygons(), 4326)),
       get_sim_pu_raster()
     )
   )

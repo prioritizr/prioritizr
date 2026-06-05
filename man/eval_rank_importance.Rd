@@ -22,8 +22,8 @@ eval_rank_importance(
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
-The argument should be in the same format as the planning unit cost
-data in the argument to \code{x}.
+Note that \code{solution} must have the same format as the planning unit
+data in \code{x}.
 See the Solution format section for more information.}
 
 \item{...}{not used.}
@@ -39,9 +39,9 @@ the presolve checks. Defaults to \code{FALSE}.}
 
 \item{by_zone}{\code{logical} value indicating how budgets should be calculated
 when \code{x} has multiple zones.
-If \code{TRUE}, then the incremental rank procedure will
+If \code{by_zone = TRUE}, then the incremental rank procedure will
 increment budgets for each zone separately.
-If \code{FALSE}, then the incremental rank procedure will
+Otherwise, if \code{by_zone = FALSE}, then the incremental rank procedure will
 increment a single budget that is applied to all zones.
 Note that this parameter is only considered if \code{n} is specified,
 and does not affect processing if \code{budgets} is specified.
@@ -79,7 +79,7 @@ A \code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object
 containing importance scores for the planning units in the solution.
 Specifically, the returned object is in the
-same format as the planning unit data in the argument to \code{x}.
+same format as the planning unit data in \code{x}.
 The object also has the following attributes that provide information
 on the incremental rank procedure.
 \describe{
@@ -130,9 +130,9 @@ units), then the \code{budgets} parameter must be specified.
 The incremental rank procedure involves the following steps.
 \enumerate{
 \item A set of budgets are defined.
-If an argument to the \code{budgets} parameter is supplied,
+If \code{budgets} is specified,
 then the budgets are defined using the \code{budgets}.
-Otherwise, if an argument to the \code{n} parameter is supplied,
+Otherwise, if \code{n} is specified is supplied,
 then the budgets are automatically calculated as a set of values --
 with equal increments between successive values -- that range to a maximum
 value that is equal to the total cost of \code{solution}.
@@ -165,8 +165,8 @@ the incremental rank procedure (per \code{objective}) with the budget
 defined for the first increment. When this step is
 repeated during subsequent increments, the objective will be overwritten with
 with the budget defined for the next increment.
-Additionally, if an argument to the \code{extra_args} parameter is specified,
-this argument is used when overwriting the objective.
+Additionally, if \code{extra_args} is specified,
+then these values are used when overwriting the objective.
 \item The modified problem is solved to generate a solution.
 Due to the steps used to modify the problem (i.e., steps 3 and 4), the newly
 generated solution will contain a subset of the selected planning units in
@@ -213,71 +213,71 @@ in the problem (per \code{x}) (see the Solution Format section for details).
 }
 \section{Solution format}{
 
-Broadly speaking, the argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}.
+Broadly speaking, \code{solution} must be in the same format as
+the planning unit data in \code{x}.
 Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+for each of the different planning unit data formats.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{solution}.
+\code{solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{solution}.
+missing (\code{NA}) values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{solution} must also have the same
+Additionally, \code{solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 }
 }
 
 \examples{
-\dontrun{
-# seed seed for reproducibility
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -334,17 +334,17 @@ plot(
   main = "Relationship between objective values and budget increment"
 )
 
-# calculate importance scores using the maximum utility objective and
+# calculate importance scores using the maximum weighted sum objective and
 # based on 10 different budgets
 rs2 <- eval_rank_importance(
-  p1, s1, n = 10, objective = "add_max_utility_objective"
+  p1, s1, n = 10, objective = "add_max_wtd_sum_objective"
 )
 
 # print importance scores
 print(rs2)
 
 # plot importance scores
-plot(rs2, main = "rank importance (10, max utility obj)", axes = FALSE)
+plot(rs2, main = "rank importance (10, max wtd sum obj)", axes = FALSE)
 
 # calculate importance scores based on 5 manually specified budgets
 
@@ -391,8 +391,7 @@ names(rs4) <- paste0("zone ", seq_len(terra::nlyr(sim_zones_pu_raster)))
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
 plot(rs4, axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Jung M, Arnell A, de Lamo X, García-Rangel S, Lewis M, Mark J, Merow C,
@@ -409,8 +408,8 @@ terrestrial biodiversity, carbon and water. \emph{Nature Ecology and Evolution},
 }
 \seealso{
 Other functions for evaluating solution importance:
-\code{\link{eval_ferrier_importance}()},
-\code{\link{eval_rare_richness_importance}()},
-\code{\link{eval_replacement_importance}()}
+\code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}},
+\code{\link[=eval_rare_richness_importance]{eval_rare_richness_importance()}},
+\code{\link[=eval_replacement_importance]{eval_replacement_importance()}}
 }
 \concept{importances}

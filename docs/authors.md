@@ -13,6 +13,10 @@
 - **[Matthew Strimas-Mackey](http://strimas.com)**. Author.
   [](https://orcid.org/0000-0001-8929-7776)
 
+- **[Sandra
+  Neubert](https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert)**.
+  Author. [](https://orcid.org/0000-0002-3112-4116)
+
 - **Brandon P M Edwards**. Author.
   [](https://orcid.org/0000-0003-0865-3076)
 

@@ -31,6 +31,7 @@ NULL
 #'
 #' # print category vector
 #' print(y)
+#'
 #' @name category_vector
 #'
 #' @export

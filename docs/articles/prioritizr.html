@@ -13,8 +13,8 @@
 <link rel="manifest" href="../site.webmanifest">
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Getting started">
@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -178,14 +178,14 @@ vegetation community across the study area.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print planning unit data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tas_features</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 398, 359, 33  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 1000, 1000  (x, y)</span></span>
 <span><span class="co">## extent      : 288801.7, 647801.7, 5142976, 5540976  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755) </span></span>
-<span><span class="co">## source      : tas_features.tif </span></span>
-<span><span class="co">## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ... </span></span>
-<span><span class="co">## min values  :           0,           0,           0,           0,           0,           0, ... </span></span>
+<span><span class="co">## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755)</span></span>
+<span><span class="co">## source      : tas_features.tif</span></span>
+<span><span class="co">## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ...</span></span>
+<span><span class="co">## min values  :           0,           0,           0,           0,           0,           0, ...</span></span>
 <span><span class="co">## max values  :           1,           1,           1,           1,           1,           1, ...</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of the first four vegetation classes</span></span>
@@ -239,17 +239,17 @@ select – or not select – planning units for prioritization (using the
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.17</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="prioritization">Prioritization<a class="anchor" aria-label="anchor" href="#prioritization"></a>
@@ -273,14 +273,15 @@ the <code>s1</code> object.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -293,67 +294,43 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros (Min)</span></span>
-<span><span class="co">## Model fingerprint: 0xdea3ac39</span></span>
+<span><span class="co">## Model fingerprint: 0x23c33d6a</span></span>
 <span><span class="co">## Model has 4278 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 3148 continuous, 1130 integer (1130 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
-<span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
+<span><span class="co">##   Objective range  [9e-06, 6e+01]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
-<span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
-<span><span class="co">## Presolve removed 1909 rows and 1249 columns</span></span>
-<span><span class="co">## Presolve time: 0.06s</span></span>
-<span><span class="co">## Presolved: 4420 rows, 3029 columns, 11081 nonzeros</span></span>
-<span><span class="co">## Found heuristic solution: objective 17798.824635</span></span>
-<span><span class="co">## Variable types: 0 continuous, 3029 integer (3029 binary)</span></span>
-<span><span class="co">## Found heuristic solution: objective 17508.673350</span></span>
-<span><span class="co">## Root relaxation presolve removed 8 rows and 6 columns</span></span>
-<span><span class="co">## Root relaxation presolved: 4412 rows, 3023 columns, 11060 nonzeros</span></span>
+<span><span class="co">## Found heuristic solution: objective 19927.539083</span></span>
+<span><span class="co">## Found heuristic solution: objective 1862.3053991</span></span>
+<span><span class="co">## Presolve removed 2343 rows and 1516 columns</span></span>
+<span><span class="co">## Presolve time: 0.04s</span></span>
+<span><span class="co">## Presolved: 3986 rows, 2762 columns, 10246 nonzeros</span></span>
+<span><span class="co">## Variable types: 0 continuous, 2762 integer (2762 binary)</span></span>
+<span><span class="co">## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.520699e+03, 1230 iterations, 0.06 seconds (0.08 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 3.427967e+02, 189 iterations, 0.00 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 9520.69856    0 1115 17508.6734 9520.69856  45.6%     -    0s</span></span>
-<span><span class="co">## H    0     0                    13545.245401 9520.69856  29.7%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12933.143362 9520.69856  26.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12890.484624 9520.69856  26.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12552.758530 9520.69856  24.2%     -    0s</span></span>
-<span><span class="co">##      0     0 9615.33215    0 1144 12552.7585 9615.33215  23.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12507.566404 9615.33215  23.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11563.819178 9615.33215  16.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11369.016984 9615.33215  15.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11366.954539 9615.33215  15.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10939.351086 9615.33215  12.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10907.751816 9615.33215  11.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10861.560322 9615.33215  11.5%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10858.199126 9615.33215  11.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10810.254452 9615.33215  11.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10806.686406 9615.33215  11.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10699.834790 9615.33215  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 9617.05045    0 1157 10699.8348 9617.05045  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 9617.05168    0 1157 10699.8348 9617.05168  10.1%     -    0s</span></span>
-<span><span class="co">##      0     0 9624.88617    0 1057 10699.8348 9624.88617  10.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    10687.018567 9624.88617  9.94%     -    0s</span></span>
+<span><span class="co">##      0     0  342.79665    0   19 1862.30540  342.79665  81.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                     508.7738070  342.79665  32.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                     408.7104348  342.79665  16.1%     -    0s</span></span>
+<span><span class="co">## H    0     0                     407.0911745  342.79665  15.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                     372.6558311  342.79665  8.01%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Cutting planes:</span></span>
-<span><span class="co">##   Cover: 2</span></span>
-<span><span class="co">##   MIR: 1</span></span>
-<span><span class="co">##   RLT: 3</span></span>
-<span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1498 simplex iterations) in 0.70 seconds (1.28 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (189 simplex iterations) in 0.05 seconds (0.08 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 10: 10687 10699.8 10806.7 ... 11369</span></span>
+<span><span class="co">## Solution count 6: 372.656 407.091 408.71 ... 19927.5</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.068701856687e+04, best bound 9.624886170910e+03, gap 9.9385%</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 3.726558310933e+02, best bound 3.427966503971e+02, gap 8.0125%</span></span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of prioritization</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Prioritization"</span>,</span>
@@ -366,14 +343,14 @@ the <code>s1</code> object.</p>
 </h2>
 <p>Let’s examine how well the vegetation communities are represented by
 existing protected areas and the prioritization.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create column with existing protected areas</span></span>
 <span><span class="va">tas_pu</span><span class="op">$</span><span class="va">pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/math-generics.html" class="external-link">round</a></span><span class="op">(</span><span class="va">tas_pu</span><span class="op">$</span><span class="va">locked_in</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># calculate feature representation statistics based on existing protected areas</span></span>
 <span><span class="va">tc_pa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">tas_pu</span><span class="op">[</span>, <span class="st">"pa"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tc_pa</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 33 × 9</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 33 × 10</span></span></span>
 <span><span class="co">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Banksia … TRUE          2.00           0.340         0.367              0    </span></span>
@@ -387,57 +364,57 @@ existing protected areas and the prioritization.</p>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… FALSE       388.            65.9          27.4               38.6  </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">1</span>449.                 0    </span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 23 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<span><span class="co">## <span style="color: #949494;"># ℹ 4 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;, relative_met &lt;dbl&gt;</span></span></span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate  feature representation statistics based on the prioritization</span></span>
 <span><span class="va">tc_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 33 × 9</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 33 × 10</span></span></span>
 <span><span class="co">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 1</span> Banksia … TRUE          2.00           0.340         0.367                  0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          70.8                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Callitri… TRUE          6.00           1.02          1.49                   0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>255.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>772.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>838.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         19.0                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Eucalypt… TRUE       <span style="text-decoration: underline;">1</span>908.           324.          345.                     0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          79.5                    0</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">2</span>083.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> Boulders… TRUE        140.            23.9          66.9                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> Callitri… TRUE          6.00           1.02          1.31                   0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> Cool tem… TRUE       <span style="text-decoration: underline;">7</span>257.          <span style="text-decoration: underline;">1</span>234.         <span style="text-decoration: underline;">3</span>002.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> Eucalypt… TRUE       <span style="text-decoration: underline;">5</span>699.           969.         <span style="text-decoration: underline;">1</span>462.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> Eucalypt… TRUE       <span style="text-decoration: underline;">9</span>180.          <span style="text-decoration: underline;">1</span>561.         <span style="text-decoration: underline;">1</span>563.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> Eucalypt… TRUE         38.0            6.46         15.1                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> Eucalypt… TRUE       <span style="text-decoration: underline;">1</span>908.           324.          326.                     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> Eucalypt… TRUE        388.            65.9          84.4                    0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> Eucalypt… TRUE       <span style="text-decoration: underline;">6</span>145.          <span style="text-decoration: underline;">1</span>045.         <span style="text-decoration: underline;">1</span>613.                     0</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 23 more rows</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
-<span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<span><span class="co">## <span style="color: #949494;"># ℹ 4 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;">#   relative_shortfall &lt;dbl&gt;, relative_met &lt;dbl&gt;</span></span></span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># explore representation by existing protected areas</span></span>
 <span><span class="co">## calculate number of features adequately represented by existing protected</span></span>
 <span><span class="co">## areas</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tc_pa</span><span class="op">$</span><span class="va">met</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 18</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## summarize representation (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tc_pa</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
 <span><span class="co">##   0.000   3.163  18.363  23.827  39.649  93.002</span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## visualize representation  (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">tc_pa</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Feature representation by existing protected areas"</span>,</span>
 <span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">100</span><span class="op">)</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Percent coverage of features (%)"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="672" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># explore representation by prioritization</span></span>
 <span><span class="co">## summarize representation (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span></span>
-<span><span class="co">##   17.28   18.44   31.10   37.12   50.03  100.00</span></span></code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<span><span class="co">##   17.02   18.54   26.25   34.52   41.36  100.00</span></span></code></pre>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## calculate number of features adequately represented by the prioritization</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tc_s1</span><span class="op">$</span><span class="va">met</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 33</span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## visualize representation  (values show percent coverage)</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/hist.html" class="external-link">hist</a></span><span class="op">(</span></span>
 <span>  <span class="va">tc_s1</span><span class="op">$</span><span class="va">relative_held</span> <span class="op">*</span> <span class="fl">100</span>,</span>
@@ -470,7 +447,7 @@ increment are locked in to the following solution. Additionally, locked
 out constraints are used to ensure that only planning units selected in
 the original solution are available for selection. If you’re interested,
 other approaches for examining importance are also available (see <a href="https://prioritizr.net/reference/importance.html"><code>?importance</code></a>).</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate relative importance</span></span>
 <span><span class="va">imp_s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rank_importance.html">eval_rank_importance</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span><span class="st">"solution_1"</span><span class="op">]</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">imp_s1</span><span class="op">)</span></span>
@@ -478,7 +455,7 @@ other approaches for examining importance are also available (see <a href="https
 <span><span class="co"># manually set locked in planning units to -1 to help with visualization,</span></span>
 <span><span class="co"># this way we can easily see the importance scores for the priority areas</span></span>
 <span><span class="va">imp_s1</span><span class="op">$</span><span class="va">rs</span><span class="op">[</span><span class="va">tas_pu</span><span class="op">$</span><span class="va">locked_in</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">1</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot map of importance scores</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span><span class="va">imp_s1</span><span class="op">[</span>, <span class="st">"rs"</span><span class="op">]</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Overall importance"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
@@ -497,7 +474,7 @@ we will use the gap portfolio to generate 1000 solutions that are within
 don’t have access to <em>Gurobi</em>, you could try using the shuffle
 portfolio instead (using the <code><a href="../reference/add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code>
 function).</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new problem with a portfolio added to it</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">p1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -516,22 +493,24 @@ function).</p>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.005</span>, `edge_factor` = <span style="color: #0000BB;">0.5</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.17</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          locked in constraints (257 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
 <span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   gap portfolio (`number_solutions` = <span style="color: #0000BB;">1000</span>, `pool_gap` = <span style="color: #0000BB;">0.2</span>)</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># generate prioritizations</span></span>
 <span><span class="va">prt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
@@ -539,8 +518,7 @@ function).</p>
 <span><span class="co">## Set parameter PoolSolutions to value 1000</span></span>
 <span><span class="co">## Set parameter PoolSearchMode to value 2</span></span>
 <span><span class="co">## Set parameter PoolGap to value 0.2</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -556,100 +534,108 @@ function).</p>
 <span><span class="co">## PoolGap  0.2</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 6329 rows, 4278 columns and 20749 nonzeros (Min)</span></span>
-<span><span class="co">## Model fingerprint: 0xdea3ac39</span></span>
+<span><span class="co">## Model fingerprint: 0x23c33d6a</span></span>
 <span><span class="co">## Model has 4278 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 3148 continuous, 1130 integer (1130 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-06, 6e+01]</span></span>
-<span><span class="co">##   Objective range  [5e-01, 2e+02]</span></span>
+<span><span class="co">##   Objective range  [9e-06, 6e+01]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [2e-01, 2e+03]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Found heuristic solution: objective 28313.965155</span></span>
-<span><span class="co">## Found heuristic solution: objective 18343.093396</span></span>
+<span><span class="co">## Found heuristic solution: objective 19927.539083</span></span>
+<span><span class="co">## Found heuristic solution: objective 1862.3053991</span></span>
 <span><span class="co">## Presolve removed 1434 rows and 258 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 4895 rows, 4020 columns, 12058 nonzeros</span></span>
 <span><span class="co">## Variable types: 3148 continuous, 872 integer (872 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 4895 rows, 4020 columns, 12058 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.516231e+03, 1430 iterations, 0.08 seconds (0.10 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 3.427967e+02, 194 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 9516.23114    0  311 18343.0934 9516.23114  48.1%     -    0s</span></span>
-<span><span class="co">## H    0     0                    13639.424721 9516.23114  30.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12501.341845 9516.23114  23.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    12233.515013 9516.23114  22.2%     -    0s</span></span>
-<span><span class="co">##      0     0 9564.51582    0  330 12233.5150 9564.51582  21.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11843.700741 9564.68826  19.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11798.635920 9564.68826  18.9%     -    0s</span></span>
-<span><span class="co">##      0     0 9616.33444    0  323 11798.6359 9616.33444  18.5%     -    0s</span></span>
-<span><span class="co">##      0     0 9624.88617    0  289 11798.6359 9624.88617  18.4%     -    0s</span></span>
-<span><span class="co">##      0     0 9627.57060    0  314 11798.6359 9627.57060  18.4%     -    0s</span></span>
-<span><span class="co">##      0     0 9630.97840    0  289 11798.6359 9630.97840  18.4%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.36306    0  287 11798.6359 9633.36306  18.4%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11708.165533 9633.74322  17.7%     -    0s</span></span>
-<span><span class="co">##      0     0 9633.74322    0  287 11708.1655 9633.74322  17.7%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11462.888107 9633.74322  16.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11311.492903 9633.74322  14.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11223.974201 9633.74322  14.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11176.464423 9633.74322  13.8%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11112.227846 9633.74322  13.3%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11112.220632 9633.74322  13.3%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11101.823799 9633.74322  13.2%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11101.136772 9633.74322  13.2%     -    0s</span></span>
-<span><span class="co">##      0     2 9633.74322    0  287 11101.1368 9633.74322  13.2%     -    0s</span></span>
-<span><span class="co">## H    9     9                    11052.179320 9681.85648  12.4%  70.3    0s</span></span>
-<span><span class="co">## H   20    20                    11049.615924 9681.85648  12.4%   112    1s</span></span>
-<span><span class="co">## H   20    20                    11035.337817 9681.85648  12.3%   112    1s</span></span>
-<span><span class="co">## H   27    27                    10894.286480 9681.85648  11.1%   105    1s</span></span>
-<span><span class="co">## H   27    27                    10885.137873 9681.85648  11.1%   105    1s</span></span>
-<span><span class="co">## H   31    31                    10879.879840 9681.85648  11.0%   122    1s</span></span>
-<span><span class="co">## H   35    35                    10692.995163 9681.85648  9.46%   127    1s</span></span>
-<span><span class="co">## H   35    35                    10657.288141 9681.85648  9.15%   127    1s</span></span>
-<span><span class="co">## H   35    35                    10596.430044 9681.85648  8.63%   127    1s</span></span>
-<span><span class="co">## H   48    48                    10524.835882 9681.85648  8.01%   118    1s</span></span>
-<span><span class="co">## H   48    48                    10510.076877 9681.85648  7.88%   118    1s</span></span>
-<span><span class="co">## H   48    48                    10503.646971 9681.85648  7.82%   118    1s</span></span>
-<span><span class="co">## H   48    48                    10489.372919 9681.85648  7.70%   118    1s</span></span>
-<span><span class="co">## H   48    48                    10468.425222 9681.85648  7.51%   118    1s</span></span>
-<span><span class="co">## H  582   581                    10447.410643 9681.87545  7.33%  32.1    3s</span></span>
-<span><span class="co">##    596    10 9779.25603   15  279 10447.4106 9722.64332  6.94%  35.2    5s</span></span>
-<span><span class="co">## H  607    17                    10391.627829 9727.12134  6.39%  36.6    5s</span></span>
-<span><span class="co">## H  664    74                    10382.118919 9727.12134  6.31%  42.1    7s</span></span>
-<span><span class="co">## H  664    74                    10363.910766 9727.12134  6.14%  42.1    7s</span></span>
-<span><span class="co">## H  676    86                    10363.902562 9727.12134  6.14%  42.6    8s</span></span>
-<span><span class="co">## H  676    86                    10350.158606 9727.12134  6.02%  42.6    8s</span></span>
-<span><span class="co">## H 1138   512                    10258.932319 9731.87054  5.14%  32.7    9s</span></span>
-<span><span class="co">## H 1138   485                    10086.884243 9731.87054  3.52%  32.7    9s</span></span>
-<span><span class="co">## H 1141   487                    10077.735636 9731.87054  3.43%  32.8   10s</span></span>
-<span><span class="co">## H 1141   477                    10036.376759 9731.87054  3.03%  32.8   10s</span></span>
-<span><span class="co">## H 1160   494                    10031.956217 9731.87054  2.99%  33.1   10s</span></span>
-<span><span class="co">## H 1975  1250                    10000.713415 9772.14422  2.29%  26.1   12s</span></span>
-<span><span class="co">## H 1975  1250                    9992.0469328 9772.14422  2.20%  26.1   12s</span></span>
-<span><span class="co">## H 1975  1239                    9959.8770815 9772.14422  1.88%  26.1   12s</span></span>
-<span><span class="co">## H 1975  1239                    9954.0029029 9772.14422  1.83%  26.1   12s</span></span>
-<span><span class="co">## H 1975  1239                    9951.6451277 9772.14422  1.80%  26.1   12s</span></span>
-<span><span class="co">## H 2730  1750                    9948.6785488 9797.83470  1.52%  23.8   14s</span></span>
-<span><span class="co">##   2950  1910 10121.4631   30   41 9948.67855 9802.79760  1.47%  24.5   15s</span></span>
+<span><span class="co">##      0     0  342.79665    0   11 1862.30540  342.79665  81.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                     547.8145520  342.79665  37.4%     -    0s</span></span>
+<span><span class="co">## H    0     0                     436.6368231  342.79665  21.5%     -    0s</span></span>
+<span><span class="co">## H    0     0                     389.1123332  342.79665  11.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                     387.6182977  342.79665  11.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                     375.7974539  342.79665  8.78%     -    0s</span></span>
+<span><span class="co">##      0     0  347.15995    0   15  375.79745  347.15995  7.62%     -    0s</span></span>
+<span><span class="co">## H    0     0                     375.5626203  347.22208  7.55%     -    0s</span></span>
+<span><span class="co">## H    0     0                     360.1930415  347.22208  3.60%     -    0s</span></span>
+<span><span class="co">##      0     0  347.37079    0   14  360.19304  347.37079  3.56%     -    0s</span></span>
+<span><span class="co">##      0     0  347.40085    0   13  360.19304  347.40085  3.55%     -    0s</span></span>
+<span><span class="co">##      0     0  349.31394    0   14  360.19304  349.31394  3.02%     -    0s</span></span>
+<span><span class="co">##      0     0  350.64434    0   14  360.19304  350.64434  2.65%     -    0s</span></span>
+<span><span class="co">##      0     0  350.70073    0   17  360.19304  350.70073  2.64%     -    0s</span></span>
+<span><span class="co">##      0     0  351.00114    0   13  360.19304  351.00114  2.55%     -    0s</span></span>
+<span><span class="co">##      0     0  351.08415    0   15  360.19304  351.08415  2.53%     -    0s</span></span>
+<span><span class="co">##      0     0  351.11769    0   16  360.19304  351.11769  2.52%     -    0s</span></span>
+<span><span class="co">##      0     0  351.14716    0   16  360.19304  351.14716  2.51%     -    0s</span></span>
+<span><span class="co">##      0     0  351.21718    0   18  360.19304  351.21718  2.49%     -    0s</span></span>
+<span><span class="co">##      0     0  351.23124    0   19  360.19304  351.23124  2.49%     -    0s</span></span>
+<span><span class="co">##      0     0  351.23404    0   19  360.19304  351.23404  2.49%     -    0s</span></span>
+<span><span class="co">##      0     0  351.23492    0   20  360.19304  351.23492  2.49%     -    0s</span></span>
+<span><span class="co">##      0     0  351.32351    0   18  360.19304  351.32351  2.46%     -    0s</span></span>
+<span><span class="co">##      0     0  351.32518    0   19  360.19304  351.32518  2.46%     -    0s</span></span>
+<span><span class="co">##      0     0  351.32653    0   21  360.19304  351.32653  2.46%     -    0s</span></span>
+<span><span class="co">## H    0     0                     360.1912915  351.32679  2.46%     -    0s</span></span>
+<span><span class="co">## H    0     0                     358.6387144  351.32679  2.04%     -    0s</span></span>
+<span><span class="co">##      0     0  351.40041    0   18  358.63871  351.40041  2.02%     -    0s</span></span>
+<span><span class="co">##      0     0  351.47895    0   21  358.63871  351.47895  2.00%     -    0s</span></span>
+<span><span class="co">##      0     0  351.49189    0   20  358.63871  351.49189  1.99%     -    0s</span></span>
+<span><span class="co">##      0     0  351.51005    0   21  358.63871  351.51005  1.99%     -    0s</span></span>
+<span><span class="co">##      0     0  351.51062    0   23  358.63871  351.51062  1.99%     -    0s</span></span>
+<span><span class="co">##      0     0  351.54486    0   20  358.63871  351.54486  1.98%     -    0s</span></span>
+<span><span class="co">##      0     0  351.64245    0   20  358.63871  351.64245  1.95%     -    0s</span></span>
+<span><span class="co">##      0     0  351.69044    0   32  358.63871  351.69044  1.94%     -    0s</span></span>
+<span><span class="co">##      0     0  351.69650    0   30  358.63871  351.69650  1.94%     -    0s</span></span>
+<span><span class="co">##      0     0  351.70338    0   32  358.63871  351.70338  1.93%     -    0s</span></span>
+<span><span class="co">##      0     0  351.78319    0   33  358.63871  351.78319  1.91%     -    0s</span></span>
+<span><span class="co">##      0     0  351.83359    0   33  358.63871  351.83359  1.90%     -    0s</span></span>
+<span><span class="co">##      0     0  351.83366    0   34  358.63871  351.83366  1.90%     -    0s</span></span>
+<span><span class="co">##      0     0  351.91983    0   29  358.63871  351.91983  1.87%     -    0s</span></span>
+<span><span class="co">## H    0     0                     358.6370049  351.92105  1.87%     -    0s</span></span>
+<span><span class="co">## H    0     0                     358.3222361  351.92105  1.79%     -    0s</span></span>
+<span><span class="co">##      0     0  351.92105    0   29  358.32224  351.92105  1.79%     -    0s</span></span>
+<span><span class="co">##      0     0  351.92582    0   21  358.32224  351.92582  1.79%     -    0s</span></span>
+<span><span class="co">##      0     0  351.95131    0   33  358.32224  351.95131  1.78%     -    0s</span></span>
+<span><span class="co">##      0     0  351.95589    0   33  358.32224  351.95589  1.78%     -    0s</span></span>
+<span><span class="co">##      0     0  351.95744    0   33  358.32224  351.95744  1.78%     -    0s</span></span>
+<span><span class="co">##      0     0  351.96745    0   35  358.32224  351.96745  1.77%     -    0s</span></span>
+<span><span class="co">##      0     0  351.96778    0   35  358.32224  351.96778  1.77%     -    0s</span></span>
+<span><span class="co">## H    0     0                     357.6084895  351.96778  1.58%     -    0s</span></span>
+<span><span class="co">## H    0     0                     356.5297846  351.96778  1.28%     -    0s</span></span>
+<span><span class="co">## H    0     0                     355.6808824  351.96778  1.04%     -    0s</span></span>
+<span><span class="co">##      0     2  351.97024    0   35  355.68088  351.97024  1.04%     -    0s</span></span>
+<span><span class="co">## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s</span></span>
+<span><span class="co">## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s</span></span>
+<span><span class="co">## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s</span></span>
+<span><span class="co">## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s</span></span>
+<span><span class="co">## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s</span></span>
+<span><span class="co">## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
-<span><span class="co">##   Cover: 1</span></span>
-<span><span class="co">##   MIR: 3</span></span>
-<span><span class="co">##   RLT: 7</span></span>
+<span><span class="co">##   Gomory: 2</span></span>
+<span><span class="co">##   Lift-and-project: 3</span></span>
+<span><span class="co">##   Cover: 12</span></span>
+<span><span class="co">##   MIR: 24</span></span>
+<span><span class="co">##   StrongCG: 5</span></span>
+<span><span class="co">##   Flow cover: 16</span></span>
+<span><span class="co">##   RLT: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 3606 nodes (92563 simplex iterations) in 17.27 seconds (18.18 work units)</span></span>
+<span><span class="co">## Explored 1815 nodes (15475 simplex iterations) in 4.27 seconds (4.95 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 1000: 9948.68 9951.65 9954 ... 10916.1</span></span>
-<span><span class="co">## No other solutions better than 10916.1</span></span>
+<span><span class="co">## Solution count 1000: 354.576 354.58 354.582 ... 391.784</span></span>
+<span><span class="co">## No other solutions better than 391.784</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 9.948678548832e+03, best bound 9.825191496214e+03, gap 1.2412%</span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 3.545764742542e+02, best bound 3.526569687238e+02, gap 0.5414%</span></span></code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Simple feature collection with 1130 features and 1004 fields</span></span>
 <span><span class="co">## Geometry type: MULTIPOLYGON</span></span>
@@ -683,7 +669,7 @@ us. We can visualize the differences between these different
 prioritizations – based on which planning units they selected – using a
 hierarchical cluster analysis <span class="citation">(Harris <em>et
 al.</em> 2014)</span>.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract solutions</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html" class="external-link">st_drop_geometry</a></span><span class="op">(</span><span class="va">prt</span><span class="op">)</span></span>
 <span><span class="va">prt_results</span> <span class="op">&lt;-</span> <span class="va">prt_results</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/startsWith.html" class="external-link">startsWith</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">prt_results</span><span class="op">)</span>, <span class="st">"solution_"</span><span class="op">)</span><span class="op">]</span></span>
@@ -709,16 +695,16 @@ let’s conduct another cluster analysis (i.e., a <em>k</em>-medoids
 analysis) to extract the most representative prioritization from each of
 these groups. In other words, we will run another statistical analysis
 to find the most central prioritization within each group.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># run k-medoids analysis</span></span>
 <span><span class="va">prt_med</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/cluster/man/pam.html" class="external-link">pam</a></span><span class="op">(</span><span class="va">prt_dists</span>, k <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># extract names of prioritizations that are most central for each group.</span></span>
 <span><span class="va">prt_med_names</span> <span class="op">&lt;-</span> <span class="va">prt_med</span><span class="op">$</span><span class="va">medoids</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">prt_med_names</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "solution_20"  "solution_127" "solution_521" "solution_57"  "solution_695"</span></span>
-<span><span class="co">## [6] "solution_219"</span></span></code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## [1] "solution_150" "solution_21"  "solution_28"  "solution_323" "solution_169"</span></span>
+<span><span class="co">## [6] "solution_126"</span></span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a copy of prt and set values for locked in planning units to -1</span></span>
 <span><span class="co"># so we can easily visualize differences between prioritizations</span></span>
 <span><span class="va">prt2</span> <span class="op">&lt;-</span> <span class="va">prt</span><span class="op">[</span>, <span class="va">prt_med_names</span><span class="op">]</span></span>
@@ -757,7 +743,7 @@ prioritizations that are near optimal.</p>
 <p>Here we will show the <em>prioritizr R</em> package can import
 <em>Marxan</em> data and generate a prioritization. To begin with, let’s
 import a conservation planning data prepared for <em>Marxan</em>.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import data</span></span>
 <span><span class="co">## planning unit data</span></span>
 <span><span class="va">pu_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/marxan/input/pu.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span><span class="op">)</span></span>
@@ -770,7 +756,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 58  16959.021      0 1116623 -4500408</span></span>
 <span><span class="co">## 5 84  34220.256      0 1098623 -4503872</span></span>
 <span><span class="co">## 6 85 178907.584      0 1110623 -4503872</span></span></code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## feature data</span></span>
 <span><span class="va">spec_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/spec.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -784,7 +770,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4 13  0.3   1  nvis9</span></span>
 <span><span class="co">## 5 14  0.3   1 nvis14</span></span>
 <span><span class="co">## 6 15  0.3   1 nvis20</span></span></code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## amount of each feature within each planning unit data</span></span>
 <span><span class="va">puvspr_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/puvspr.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -798,7 +784,7 @@ import a conservation planning data prepared for <em>Marxan</em>.</p>
 <span><span class="co">## 4      26  85   9.735624</span></span>
 <span><span class="co">## 5      26  86   7.803476</span></span>
 <span><span class="co">## 6      26 111 478.327417</span></span></code></pre>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## boundary data</span></span>
 <span><span class="va">bound_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata/marxan/input/bound.dat"</span>, package <span class="op">=</span> <span class="st">"prioritizr"</span></span>
@@ -820,7 +806,7 @@ function does not generate prioritizations using
 optimization problem formulation similar to <em>Marxan</em> – using hard
 constraints instead of soft constraints – and uses an exact algorithm
 solver to generate a prioritization.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/marxan_problem.html">marxan_problem</a></span><span class="op">(</span></span>
 <span>  <span class="va">pu_data</span>, <span class="va">spec_data</span>, <span class="va">puvspr_data</span>, <span class="va">bound_data</span>, blm <span class="op">=</span> <span class="fl">0.0005</span></span>
@@ -830,38 +816,39 @@ solver to generate a prioritization.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, <span style="color: #0000BB;">"nvis14"</span>, <span style="color: #0000BB;">"nvis20"</span>, … (17 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"bird1"</span>, <span style="color: #0000BB;">"nvis2"</span>, <span style="color: #0000BB;">"nvis8"</span>, <span style="color: #0000BB;">"nvis9"</span>, … (17 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;data.frame&gt;</span> (1751 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">415692.2</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #B2B2B2;">NA</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #B2B2B2;">NA</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #949494;">NA</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        <span style="color: #949494;">NA</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.0005</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">0.0005</span>, `edge_factor` = <span style="color: #0000BB;">1</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.3</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          locked in constraints (317 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          locked out constraints (1 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -885,13 +872,13 @@ solver to generate a prioritization.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Found heuristic solution: objective 1.221202e+08</span></span>
 <span><span class="co">## Presolve removed 4707 rows and 3103 columns</span></span>
-<span><span class="co">## Presolve time: 0.09s</span></span>
+<span><span class="co">## Presolve time: 0.05s</span></span>
 <span><span class="co">## Presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 3677 integer (3677 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.02 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 9.564790e+07, 521 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
@@ -899,14 +886,14 @@ solver to generate a prioritization.</p>
 <span><span class="co">##      0     0 9.5648e+07    0   20 1.2212e+08 9.5648e+07  21.7%     -    0s</span></span>
 <span><span class="co">## H    0     0                    9.660231e+07 9.5648e+07  0.99%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.12 seconds (0.11 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.11 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 3: 9.66023e+07 9.66023e+07 1.2212e+08 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 9.660230173667e+07, best bound 9.564790440581e+07, gap 0.9880%</span></span></code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># print first six rows of solution object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/headtail.html" class="external-link">head</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
@@ -985,7 +972,7 @@ Evolution</em>, <em>5</em>, 1499–1509.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, <a href="https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert" class="external-link">Sandra Neubert</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -10,6 +10,8 @@ list(
     summaries = "Other functions for summarizing solutions:",
     importances = "Other functions for evaluating solution importance:",
     simulations = "Other functions for simulating data:",
-    methods = "Other target setting methods:"
+    methods = "Other target setting methods:",
+    approaches =
+      "Other functions for adding multi-objective optimization approaches:"
   )
 )

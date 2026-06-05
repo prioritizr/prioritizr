@@ -29,11 +29,10 @@ NULL
 #' represent the decision variable for planning unit \eqn{i} for in zone
 #' \eqn{z} (e.g., with binary
 #' values one indicating if planning unit is allocated or not). Also, let
-#' \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
-#' argument to `data` , and \eqn{W} represent the argument
-#' to `zones`.
+#' \eqn{p} represent `penalty`, \eqn{D} represent `data`,
+#' and \eqn{W} represent `zones`.
 #'
-#' If the argument to `data` is supplied as a `matrix` or
+#' If `data` is specified as a `matrix` or
 #' `Matrix` object, then the penalties are calculated as:
 #'
 #' \deqn{
@@ -42,7 +41,7 @@ NULL
 #' sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
 #' }
 #'
-#' Otherwise, if the argument to `data` is supplied as a
+#' Otherwise, if `data` is specified as a
 #' `data.frame` or `array` object, then the penalties are
 #' calculated as:
 #'
@@ -67,8 +66,7 @@ NULL
 #' design models: A review. *Environmental Modeling and Assessment*, 10:
 #' 163--181.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -146,7 +144,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s2, main = names(s2), axes = FALSE)
-#' }
+#'
 #' @name add_neighbor_penalties
 #'
 #' @exportMethod add_neighbor_penalties

@@ -25,12 +25,13 @@ NULL
 #'
 #' @inheritSection eval_cost_summary Solution format
 #'
-#' @return A `matrix`, [tibble::tibble()],
-#'   [terra::rast()], or [sf::st_sf()] object containing the scores for each
-#'   planning unit selected in the solution.
-#'   Specifically, the returned object is in the
-#'   same format (except if the planning units are a `numeric` vector) as the
-#'   planning unit data in the argument to `x`.
+#' @return
+#' A `matrix`, [tibble::tibble()],
+#' [terra::rast()], or [sf::st_sf()] object containing the scores for each
+#' planning unit selected in the solution.
+#' Specifically, the returned object is in the
+#' same format (except if the planning units are a `numeric` vector) as the
+#' planning unit data in `x`.
 #'
 #' @references
 #' Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
@@ -44,9 +45,8 @@ NULL
 #'
 #' @family importances
 #'
-#' @examples
-#' \dontrun{
-#' # seed seed for reproducibility
+#' @examplesIf prioritizr::do_run_example()
+#' # set seed for reproducibility
 #' set.seed(600)
 #'
 #' # load data
@@ -106,8 +106,6 @@ NULL
 #' # plot importance scores
 #' plot(fs2)
 #'
-#' }
-#'
 #' @export
 eval_ferrier_importance <- function(x, solution) {
   # assert valid arguments
@@ -146,10 +144,7 @@ eval_ferrier_importance <- function(x, solution) {
     )
   )
   assert(
-    !inherits(
-      x$objective,
-      c("MaximumUtilityObjective", "MaximumCoverageObjective")
-    ),
+    isTRUE(x$objective$has_targets),
     msg = c(
       paste(
         "This function requires that {.arg x} must have an objective",

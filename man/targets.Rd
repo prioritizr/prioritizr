@@ -310,7 +310,7 @@ smaller than or equal to -- or equal to -- target thresholds
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -365,7 +365,7 @@ names(s) <- c(
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Durán AP, Green JMH, West CD, Visconti P, Burgess ND, Virah‐Sawmy M,
@@ -426,7 +426,8 @@ Rondinini C, Turner WR, Venter O, Watts M (2010) Conserving biodiversity in
 production landscapes. \emph{Ecological Applications}, 20:1721--1732.
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

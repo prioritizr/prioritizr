@@ -8,7 +8,7 @@
 #'
 #' Check if all columns have at least one finite value.
 #'
-#' @param x object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'

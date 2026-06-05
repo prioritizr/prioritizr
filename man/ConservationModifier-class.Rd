@@ -5,16 +5,18 @@
 \alias{ConservationModifier}
 \title{Conservation problem modifier class}
 \description{
-This super-class is used to construct \code{\linkS4class{Objective}}
-\code{\linkS4class{Penalty}}, \code{\linkS4class{Target}}, \code{\linkS4class{Constraint}},
-\code{\linkS4class{Portfolio}}, \code{\linkS4class{Solver}}, and \code{\linkS4class{Decision}} objects.
+This super-class is used to construct \code{\link[=Objective-class]{Objective}}
+\code{\link[=Penalty-class]{Penalty}}, \code{\link[=Target-class]{Target}}, \code{\link[=Constraint-class]{Constraint}},
+\code{\link[=Portfolio-class]{Portfolio}}, \code{\link[=Solver-class]{Solver}}, and \code{\link[=Decision-class]{Decision}} objects.
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{
-Other classes: 
+Other classes:
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiConservationProblem-class}},
+\code{\link{MultiObjApproach-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
@@ -26,210 +28,223 @@ Other classes:
 }
 \concept{classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{name}}{\code{character} value.}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{name}}{\code{character} value.}
 
-\item{\code{data}}{\code{list} containing data.}
+    \item{\code{data}}{\code{list} containing data.}
 
-\item{\code{internal}}{\code{list} containing internal computed values.}
+    \item{\code{internal}}{\code{list} containing internal computed values.}
 
-\item{\code{compressed_formulation}}{\code{logical} value indicating if the
+    \item{\code{compressed_formulation}}{\code{logical} value indicating if the
 object is compatible with a compressed formulation.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-ConservationModifier-print}{\code{ConservationModifier$print()}}
-\item \href{#method-ConservationModifier-show}{\code{ConservationModifier$show()}}
-\item \href{#method-ConservationModifier-repr}{\code{ConservationModifier$repr()}}
-\item \href{#method-ConservationModifier-calculate}{\code{ConservationModifier$calculate()}}
-\item \href{#method-ConservationModifier-get_data}{\code{ConservationModifier$get_data()}}
-\item \href{#method-ConservationModifier-set_data}{\code{ConservationModifier$set_data()}}
-\item \href{#method-ConservationModifier-get_internal}{\code{ConservationModifier$get_internal()}}
-\item \href{#method-ConservationModifier-set_internal}{\code{ConservationModifier$set_internal()}}
-\item \href{#method-ConservationModifier-clone}{\code{ConservationModifier$clone()}}
-}
+  \itemize{
+    \item \href{#method-ConservationModifier-print}{\code{ConservationModifier$print()}}
+    \item \href{#method-ConservationModifier-show}{\code{ConservationModifier$show()}}
+    \item \href{#method-ConservationModifier-repr}{\code{ConservationModifier$repr()}}
+    \item \href{#method-ConservationModifier-calculate}{\code{ConservationModifier$calculate()}}
+    \item \href{#method-ConservationModifier-get_data}{\code{ConservationModifier$get_data()}}
+    \item \href{#method-ConservationModifier-set_data}{\code{ConservationModifier$set_data()}}
+    \item \href{#method-ConservationModifier-get_internal}{\code{ConservationModifier$get_internal()}}
+    \item \href{#method-ConservationModifier-set_internal}{\code{ConservationModifier$set_internal()}}
+    \item \href{#method-ConservationModifier-clone}{\code{ConservationModifier$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-print}{}}}
-\subsection{Method \code{print()}}{
-Print information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$print()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$print()}}{
+  Print information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$print()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    None.
+  }
 }
 
-\subsection{Returns}{
-None.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-show"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-show}{}}}
-\subsection{Method \code{show()}}{
-Print information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$show()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$show()}}{
+  Print information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$show()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    None.
+  }
 }
 
-\subsection{Returns}{
-None.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-repr"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-repr}{}}}
-\subsection{Method \code{repr()}}{
-Generate a character representation of the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$repr(compact = TRUE)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$repr()}}{
+  Generate a character representation of the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$repr(compact = TRUE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{compact}}{\code{logical} value indicating if the output value
+should be compact? Defaults to \code{FALSE}.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{compact}}{\code{logical} value indicating if the output value
-should be compact? Defaults to \code{FALSE}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-calculate"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-calculate}{}}}
-\subsection{Method \code{calculate()}}{
-Perform computations that need to be completed before applying
+\subsection{\code{ConservationModifier$calculate()}}{
+  Perform computations that need to be completed before applying
 the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$calculate(x, y)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$calculate(x, y)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+      \item{\code{y}}{\code{\link[=problem]{problem()}} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
-
-\item{\code{y}}{\code{\link[=problem]{problem()}} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-get_data}{}}}
-\subsection{Method \code{get_data()}}{
-Get values stored in the \code{data} field.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$get_data(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$get_data()}}{
+  Get values stored in the \code{data} field.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$get_data(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object. If the \code{data} field does not contain an object
+associated with \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object. If the \code{data} field does not contain an object
-associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
-returned.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-set_data}{}}}
-\subsection{Method \code{set_data()}}{
-Set values stored in the \code{data} field. Note that this method will
+\subsection{\code{ConservationModifier$set_data()}}{
+  Set values stored in the \code{data} field. Note that this method will
 overwrite existing data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$set_data(x, value)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$set_data(x, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+      \item{\code{value}}{Object to store.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-
-\item{\code{value}}{Object to store.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-get_internal"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-get_internal}{}}}
-\subsection{Method \code{get_internal()}}{
-Get values stored in the \code{internal} field.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$get_internal(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$get_internal()}}{
+  Get values stored in the \code{internal} field.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$get_internal(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object. If the \code{internal} field does not contain an object
+associated with \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object. If the \code{internal} field does not contain an object
-associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
-returned.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-set_internal"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-set_internal}{}}}
-\subsection{Method \code{set_internal()}}{
-Set values stored in the \code{internal} field. Note that this method will
+\subsection{\code{ConservationModifier$set_internal()}}{
+  Set values stored in the \code{internal} field. Note that this method will
 overwrite existing data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$set_internal(x, value)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$set_internal(x, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+      \item{\code{value}}{Object to store.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-
-\item{\code{value}}{Object to store.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object. If the \code{internal} field does not contain an object
-associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
-returned.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationModifier-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationModifier-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationModifier$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationModifier$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationModifier$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

@@ -37,11 +37,11 @@ the desired vignette (e.g., `"gurobi_installation"`).
 - package_overview:
 
   Comprehensive introduction to systematic conservation planning and
-  detailed overview of the package features.
+  detailed overview of the package functionality.
 
 - calibrating_trade-offs_tutorial:
 
-  Examples of balancing different criteria to identify candidate
+  Examples of balancing different objectives to identify candidate
   prioritizations.
 
 - connectivity_tutorial:
@@ -130,6 +130,9 @@ Authors:
 
 - Matthew Strimas-Mackey <mstrimas@gmail.com>
   ([ORCID](https://orcid.org/0000-0001-8929-7776))
+
+- Sandra Neubert <s.neubert@uq.edu.au>
+  ([ORCID](https://orcid.org/0000-0002-3112-4116))
 
 - Brandon P M Edwards <brandonedwards3@cmail.carleton.ca>
   ([ORCID](https://orcid.org/0000-0003-0865-3076))

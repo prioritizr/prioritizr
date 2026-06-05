@@ -22,7 +22,9 @@ Objective <- R6::R6Class(
   public = list(
 
     #' @field has_targets `logical` value indicating if the objective
-    #' supports targets.
+    #' supports targets. Values indicate that (`TRUE`) targets must
+    #' be specified, (`NA`) targets are optional, and (`FALSE`) must
+    #' are not used at all.
     has_targets = new_waiver(),
 
     #' @field has_weights `logical` value indicating if the objective

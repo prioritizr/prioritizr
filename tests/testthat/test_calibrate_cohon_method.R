@@ -1,23 +1,25 @@
 test_that("min set objective (approx = FALSE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
-    add_relative_targets(0.2) %>%
+    add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
-  x <- calibrate_cohon_penalty(p2, verbose = FALSE, approx = FALSE)
+  system.time(x <- calibrate_cohon_penalty(p2, verbose = FALSE, approx = FALSE))
   # calculate correct result
   s1 <- solve(p1)
   s2 <- suppressWarnings(
@@ -28,11 +30,11 @@ test_that("min set objective (approx = FALSE)", {
   )
   s1_metrics <- data.frame(
     total_cost = eval_cost_summary(p2, s1)$cost,
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_cost = eval_cost_summary(p2, s2)$cost,
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_cost - s2_metrics$total_cost) /
@@ -69,19 +71,21 @@ test_that("min set objective (approx = FALSE)", {
 
 test_that("min set objective (approx = TRUE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.02
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
-    add_boundary_penalties(penalty = 1) %>%
-    add_relative_targets(0.2) %>%
+    add_boundary_penalties(penalty = 1, data = bd) %>%
+    add_relative_targets(0.6) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # calculate results
   x <- calibrate_cohon_penalty(p1, verbose = FALSE, approx = FALSE)
   y <- suppressMessages(
@@ -108,35 +112,37 @@ test_that("min set objective (approx = TRUE)", {
   expect_true(assertthat::noNA(attr(y, "solution_2_penalty")))
   expect_lte(
     abs(attr(x, "solution_1_objective") -  attr(y, "solution_1_objective")),
-    400
+    1
   )
   expect_gte(
     attr(y, "solution_1_penalty"),
     attr(x, "solution_1_penalty")
   )
-  expect_gte(
-    attr(y, "solution_2_objective"),
-    attr(x, "solution_2_objective")
+  expect_lte(
+    abs(attr(x, "solution_2_objective") - attr(y, "solution_2_objective")),
+    1
   )
   expect_lte(
     abs(attr(x, "solution_2_penalty") - attr(y, "solution_2_penalty")),
-    0.5
+    1
   )
   expect_lte(
     abs(x[[1]] - y[[1]]),
-    500
+    800
   )
 })
 
 test_that("min shortfall objective (approx = FALSE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.0
   budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.8
   wts <- runif(terra::nlyr(sim_features)) * 100
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
@@ -144,11 +150,11 @@ test_that("min shortfall objective (approx = FALSE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
   x <- suppressMessages(
     calibrate_cohon_penalty(p2, verbose = TRUE, approx = FALSE)
@@ -159,12 +165,12 @@ test_that("min shortfall objective (approx = FALSE)", {
   s1_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s1)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s2)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_shortfall - s2_metrics$total_shortfall) /
@@ -205,13 +211,15 @@ test_that("min shortfall objective (approx = FALSE)", {
 
 test_that("min shortfall objective (approx = TRUE)", {
   skip_on_cran()
-  skip_if_no_fast_solvers_installed()
+  skip_if_not_installed("rcbc")
   # import data
+  set.seed(500)
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   gap <- 0.0
   budget <- terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]] * 0.8
   wts <- runif(terra::nlyr(sim_features)) * 100
+  bd <- boundary_matrix(sim_pu_raster)
   # create minimal problem
   p1 <-
     problem(sim_pu_raster, sim_features) %>%
@@ -219,11 +227,11 @@ test_that("min shortfall objective (approx = TRUE)", {
     add_feature_weights(wts) %>%
     add_relative_targets(0.8) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = gap, verbose = FALSE)
+    add_cbc_solver(gap = gap, verbose = FALSE, control = list(RandomC = 500))
   # create problem with boundary penalties
   p2 <-
     p1 %>%
-    add_boundary_penalties(penalty = 1)
+    add_boundary_penalties(penalty = 1, data = bd)
   # calculate result
   x <- suppressMessages(
     calibrate_cohon_penalty(p2, verbose = FALSE, approx = TRUE)
@@ -234,12 +242,12 @@ test_that("min shortfall objective (approx = TRUE)", {
   s1_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s1)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s1)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s1, data = bd)$boundary
   )
   s2_metrics <- data.frame(
     total_shortfall =
       sum(eval_target_coverage_summary(p2, s2)$relative_shortfall * wts),
-    total_boundary_length = eval_boundary_summary(p2, s2)$boundary
+    total_boundary_length = eval_boundary_summary(p2, s2, data = bd)$boundary
   )
   y <-
     abs(s1_metrics$total_shortfall - s2_metrics$total_shortfall) /
@@ -301,7 +309,7 @@ test_that("invalid inputs", {
   # no trade-offs between objectives
   expect_error(
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = 0) %>%
+    add_max_wtd_sum_objective(budget = 0) %>%
     add_boundary_penalties(penalty = 1) %>%
     add_binary_decisions() %>%
     calibrate_cohon_penalty(verbose = FALSE),

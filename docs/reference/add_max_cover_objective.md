@@ -2,9 +2,10 @@
 
 Set the objective of a conservation planning problem to represent at
 least one instance of as many features as possible within a given
-budget. This objective does not use targets, and feature weights should
-be used instead to increase the representation of certain features by a
-solution.
+budget. In other words, this objective aims to ensure that no feature is
+completely missing from the prioritization. This objective does not use
+targets, and feature weights should be used instead to increase the
+representation of particular features by a solution.
 
 ## Usage
 
@@ -20,16 +21,11 @@ add_max_cover_objective(x, budget)
 
 - budget:
 
-  `numeric` value specifying the maximum expenditure of the
-  prioritization. For problems with multiple zones, the argument to
-  `budget` can be a single `numeric` value to specify a budget for the
-  entire solution or a `numeric` vector to specify a budget for each
-  each management zone.
-
-## Value
-
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
-object with the objective added to it.
+  `numeric` value specifying the maximum expenditure permitted for the
+  solution. If `x` has multiple zones, then `budget` can be (i) a single
+  `numeric` value to specify an overall budget for the entire solution
+  or (ii) a `numeric` vector to specify a budget for each zone
+  (separately) in the solution.
 
 ## Details
 
@@ -43,8 +39,8 @@ that indicate the presence/absence of suitable habitat (e.g., Church &
 Velle 1974). Additionally, weights can be used to favor the
 representation of certain features over other features (see
 [`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md)).
-Check out the
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md)
+Check out the maximum number of targets met objective (i.e.,
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md))
 for a more generalized formulation which can accommodate user-specified
 representation targets.
 
@@ -56,10 +52,9 @@ coverage objective for the reserve design problem can be expressed
 mathematically for a set of planning units (\\I\\ indexed by \\i\\) and
 a set of features (\\J\\ indexed by \\j\\) as:
 
-\$\$\mathit{Maximize} \space \sum\_{i = 1}^{I} -s \space c_i \space
-x_i + \sum\_{j = 1}^{J} y_j w_j \\ \mathit{subject \space to} \\
-\sum\_{i = 1}^{I} x_i r\_{ij} \geq y_j \times 1 \forall j \in J \\
-\sum\_{i = 1}^{I} x_i c_i \leq B\$\$
+\$\$\mathit{Maximize} \space \sum\_{j = 1}^{J} y_j w_j \\
+\mathit{subject \space to} \\ \sum\_{i = 1}^{I} x_i r\_{ij} \geq y_j
+\times 1 \forall j \in J \\ \sum\_{i = 1}^{I} x_i c_i \leq B\$\$
 
 Here, \\x_i\\ is the
 [decisions](https://prioritizr.net/reference/decisions.md) variable
@@ -70,10 +65,7 @@ feature \\j\\, and \\w_j\\ is the weight for feature \\j\\ (defaults to
 1 for all features; see
 [`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md)
 to specify weights). Additionally, \\B\\ is the budget allocated for the
-solution, \\c_i\\ is the cost of planning unit \\i\\, and \\s\\ is a
-scaling factor used to shrink the costs so that the problem will return
-a cheapest solution when there are multiple solutions that represent the
-same amount of all features within the budget.
+solution, and \\c_i\\ is the cost of planning unit \\i\\.
 
 ## Notes
 
@@ -81,8 +73,16 @@ In early versions (\< 3.0.0.0), the mathematical formulation
 underpinning this function was very different. Specifically, as
 described above, the function now follows the formulations outlined in
 Church *et al.* (1996). The old formulation is now provided by the
-[`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md)
-function.
+[`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
+function. Additionally, in previous versions (\< 9.0.0), this function
+had extra terms to help minimize the solution cost. Although these terms
+have since been removed to reduce solve time, this behavior can still be
+achieved by building a multi-objective optimization problem and
+specifying the first problem based on this objective function and the
+second problem based on minimizing cost penalties (i.e., by using
+[`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)
+and
+[`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md)).
 
 ## References
 
@@ -94,16 +94,11 @@ covering location problem. *Biological Conservation*, 76: 105–112.
 
 ## See also
 
-See [objectives](https://prioritizr.net/reference/objectives.md) for an
-overview of all functions for adding objectives. Also, see
-[`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md)
-to specify weights for different features.
-
 Other functions for adding objectives:
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md),
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md),
 [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
 [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md),
-[`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md),
+[`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md),
 [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md),
 [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md),
 [`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md),
@@ -112,7 +107,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
@@ -185,6 +179,4 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-
-# }
 ```

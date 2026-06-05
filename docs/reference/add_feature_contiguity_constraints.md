@@ -33,36 +33,35 @@ add_feature_contiguity_constraints(x, zones, data)
 - zones:
 
   `matrix`, `Matrix` or `list` object describing the connection scheme
-  for different zones. For `matrix` or and `Matrix` arguments, each row
-  and column corresponds to a different zone in the argument to `x`, and
-  cell values must contain binary `numeric` values (i.e., one or zero)
-  that indicate if connected planning units (as specified in the
-  argument to `data`) should be still considered connected if they are
-  allocated to different zones. The cell values along the diagonal of
-  the matrix indicate if planning units should be subject to contiguity
-  constraints when they are allocated to a given zone. Note arguments to
-  `zones` must be symmetric, and that a row or column has a value of one
-  then the diagonal element for that row or column must also have a
-  value of one. If the connection scheme between different zones should
-  differ among the features, then the argument to `zones` should be a
-  `list` of `matrix` or `Matrix` objects that shows the specific scheme
-  for each feature using the conventions described above. The default
-  argument to `zones` is an identity matrix (i.e., a matrix with ones
-  along the matrix diagonal and zeros elsewhere), so that planning units
-  are only considered connected if they are both allocated to the same
-  zone.
+  for different zones. For `matrix` or and `Matrix` formats, each row
+  and column corresponds to a different zone in `x`, and cell values
+  must contain binary `numeric` values (i.e., one or zero) that indicate
+  if connected planning units (as specified by `data`) should be still
+  considered connected if they are allocated to different zones. The
+  cell values along the diagonal of the matrix indicate if planning
+  units should be subject to contiguity constraints when they are
+  allocated to a given zone. Note that `zones` must be symmetric, and
+  that if a row or column has a value of one then the diagonal element
+  for that row or column must also have a value of one. If the
+  connection scheme between different zones should differ among the
+  features, then `zones` should be a `list` of `matrix` or `Matrix`
+  objects that shows the specific scheme for each feature using the
+  conventions described above. Defaults to an identity matrix (i.e., a
+  matrix with ones along the matrix diagonal and zeros elsewhere), so
+  that planning units are only considered connected if they are both
+  allocated to the same zone.
 
 - data:
 
   `NULL`, `matrix`, `Matrix`, `data.frame` or `list` of `matrix`,
-  `Matrix`, or `data.frame` objects. The argument to data shows which
-  planning units should be treated as being connected when implementing
-  constraints to ensure that features are represented in contiguous
-  units. If different features have different dispersal capabilities,
-  then it may be desirable to specify which sets of planning units
-  should be treated as being connected for which features using a `list`
-  of objects. The default argument is `NULL` which means that the
-  connection data is calculated automatically using the
+  `Matrix`, or `data.frame` objects. In particular, `data` indicates
+  which planning units should be treated as being connected when
+  implementing constraints to ensure that features are represented in
+  contiguous units. If different features have different dispersal
+  capabilities, then it may be desirable to specify which sets of
+  planning units should be treated as being connected for which features
+  using a `list` of objects. Defaults to `NULL` such that the connection
+  data are calculated automatically using the
   [`adjacency_matrix()`](https://prioritizr.net/reference/adjacency_matrix.md)
   function and so all adjacent planning units are treated as being
   connected for all features. See the Data format section for more
@@ -87,53 +86,49 @@ it.**
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
+The following formats can be used to specify `data`.
 
 - `data` as a `NULL` value:
 
-  connection data should be calculated automatically using the
+  Here connection data are calculated automatically using the
   [`adjacency_matrix()`](https://prioritizr.net/reference/adjacency_matrix.md)
-  function. This is the default argument and means that all adjacent
-  planning units are treated as potentially dispersible for all
-  features. Note that the connection data must be manually defined using
-  one of the other formats below when the planning unit data in the
-  argument to `x` is not spatially referenced (e.g., in `data.frame` or
-  `numeric` format).
+  function. This is the default and means that all adjacent planning
+  units are treated as potentially dispersible for all features. Note
+  that the connection data must be manually defined using one of the
+  other formats below when the planning unit data in `x` is not
+  spatially referenced (e.g., in `data.frame` or `numeric` format).
 
 - `data` as a`matrix`/`Matrix` object:
 
-  where rows and columns represent different planning units and the
-  value of each cell indicates if the two planning units are connected
-  or not. Cell values should be binary `numeric` values (i.e., one or
-  zero). Cells that occur along the matrix diagonal have no effect on
-  the solution at all because each planning unit cannot be a connected
-  with itself. Note that pairs of connected planning units are treated
-  as being potentially dispersible for all features.
+  Here rows and columns correspond to different planning units and cell
+  values indicates if a pair of planning units should be treated as
+  connected or not. In particular, cell values should be binary
+  `numeric` values (i.e., one or zero). Cells that occur along the
+  matrix diagonal have no effect on the solution because each planning
+  unit cannot be a connected with itself. Note that pairs of connected
+  planning units are treated as being potentially dispersible for all
+  features.
 
 - `data` as a `data.frame` object:
 
-  containing columns that are named `"id1"`, `"id2"`, and `"boundary"`.
-  Here, each row denotes the connectivity between two planning units
-  following the *Marxan* format. The `"boundary"` column should contain
-  binary `numeric` values that indicate if the two planning units
-  specified in the `"id1"` and `"id2"` columns are connected or not.
-  This data can be used to describe symmetric or asymmetric
-  relationships between planning units. By default, input data is
-  assumed to be symmetric unless asymmetric data is also included (e.g.,
-  if data is present for planning units 2 and 3, then the same amount of
-  connectivity is expected for planning units 3 and 2, unless
-  connectivity data is also provided for planning units 3 and 2). Note
-  that pairs of connected planning units are treated as being
+  Here rows correspond to a pair of planning units and columns provide
+  information about each pair of planning units. In particular, `data`
+  must have the columns: `"id1"`, `"id2"`, and `"boundary"`. The `"id1"`
+  and `"id2"` columns contain identifiers (indices) for a pair of
+  planning units, and the `"boundary"` column contains binary `numeric`
+  values that indicate if the two planning units specified in the
+  `"id1"` and `"id2"` columns should be treated as connected or not.
+  Note that pairs of connected planning units are treated as being
   potentially dispersible for all features.
 
 - `data` as a `list` object:
 
-  containing `matrix`, `Matrix`, or `data.frame` objects showing which
-  planning units should be treated as connected for each feature. Each
-  element in the `list` should correspond to a different feature
-  (specifically, a different target in the problem), and should contain
-  a `matrix`, `Matrix`, or `data.frame` object that follows the
-  conventions detailed above.
+  Here a `matrix`, `Matrix`, or `data.frame` object is specified for
+  each feature to indicate which planning units should be treated as
+  connected for that feature. In particular, each element in the `list`
+  should correspond to a different feature (specifically, a different
+  target in the problem), and should contain a `matrix`, `Matrix`, or
+  `data.frame` object that follows the formats described previously.
 
 ## Notes
 
@@ -155,11 +150,9 @@ gene flow. *Journal of Applied Ecology*, 56: 913–922.
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
 [`add_locked_out_constraints()`](https://prioritizr.net/reference/add_locked_out_constraints.md),
@@ -171,7 +164,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -294,6 +286,4 @@ s2 <- terra::rast(lapply(s2, category_layer))
 names(s2) <- c("p5", "p6", "p7", "p8")
 # plot solutions
 plot(s2, axes = FALSE)
-
-# }
 ```

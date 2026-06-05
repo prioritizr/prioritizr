@@ -73,8 +73,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -157,7 +156,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2[, "solution_1"], axes = FALSE)
-#' }
+#'
 #' @name add_group_targets
 NULL
 

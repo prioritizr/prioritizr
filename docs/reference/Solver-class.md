@@ -10,6 +10,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
@@ -20,7 +22,7 @@ Other classes:
 
 ## Super class
 
-[`prioritizr::ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
+[`ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
 -\> `Solver`
 
 ## Methods
@@ -43,21 +45,25 @@ Other classes:
 
 - [`Solver$solve()`](#method-Solver-solve)
 
+- [`Solver$default_solve_multiobj()`](#method-Solver-default_solve_multiobj)
+
+- [`Solver$solve_multiobj()`](#method-Solver-solve_multiobj)
+
 - [`Solver$clone()`](#method-Solver-clone)
 
 Inherited methods
 
-- [`prioritizr::ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
-- [`prioritizr::ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
-- [`prioritizr::ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
-- [`prioritizr::ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
-- [`prioritizr::ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
-- [`prioritizr::ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
-- [`prioritizr::ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
+- [`ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
+- [`ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
+- [`ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
+- [`ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
+- [`ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
+- [`ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
+- [`ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
 
 ------------------------------------------------------------------------
 
-### Method `run()`
+### `Solver$run()`
 
 Run the solver to generate a solution.
 
@@ -71,7 +77,7 @@ Run the solver to generate a solution.
 
 ------------------------------------------------------------------------
 
-### Method `calculate()`
+### `Solver$calculate()`
 
 Perform computations that need to be completed before applying the
 object.
@@ -97,7 +103,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `set_variable_ub()`
+### `Solver$set_variable_ub()`
 
 Set the upper bound for a decision variable.
 
@@ -130,7 +136,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `set_variable_lb()`
+### `Solver$set_variable_lb()`
 
 Set the lower bound for a decision variable.
 
@@ -163,7 +169,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `set_constraint_rhs()`
+### `Solver$set_constraint_rhs()`
 
 Set the right-hand-side coefficient bound for a constraint.
 
@@ -196,7 +202,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `set_start_solution()`
+### `Solver$set_start_solution()`
 
 Set the starting solution.
 
@@ -227,7 +233,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `remove_start_solution()`
+### `Solver$remove_start_solution()`
 
 Remove the starting solution.
 
@@ -247,7 +253,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`solve()`](https://prioritizr.net/reference/solve.md)
+### `Solver$solve()`
 
 Solve an optimization problem.
 
@@ -268,11 +274,113 @@ Solve an optimization problem.
 
 #### Returns
 
-Invisible `TRUE`.
+A `list` object with the solution and additional information.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Solver$default_solve_multiobj()`
+
+Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach. Broadly speaking, this approach
+involves using multiple optimization procedures to solve objectives
+following a hierarchical (lexicographic) ordering, wherein those
+associated with a higher priority order are solved before those with a
+lower priority order. When implementing this approach, constraints are
+added after generating a given solution to ensure that subsequent
+solutions for lower priority objectives have adequate performance
+according to higher priority objectives.
+
+#### Usage
+
+    Solver$default_solve_multiobj(x, priority, rel_tol, ...)
+
+#### Arguments
+
+- `x`:
+
+  `list` object with multi-objective optimization problem. Arguments
+  must contain the following elements: (`"opt"`)
+  [`OptimizationProblem`](https://prioritizr.net/reference/OptimizationProblem-class.md)
+  object; (`"modelsense"`) `character` vector containing the model sense
+  values for each objective; and (`"obj"`) numeric\` matrix containing
+  the coefficients for each of the objectives, wherein rows correspond
+  to different objectives, columns to different decision variables and
+  row names can be optionally specify names for the objectives.
+
+- `priority`:
+
+  `numeric` vector with values indicating the priority for each
+  objective. Greater values denote greater priority, and so objectives
+  associated with greater values are optimized earlier in the
+  multi-objective process.
+
+- `rel_tol`:
+
+  `numeric` vector with relative tolerance values for each constraint.
+  Greater values denote a greater degree of sub-optimality.
+
+- `...`:
+
+  Additional arguments passed to the `calculate()` method.
+
+#### Returns
+
+A `list` object with the solution and additional information.
+
+------------------------------------------------------------------------
+
+### `Solver$solve_multiobj()`
+
+Solve a multi-objective optimization problem using a hierarchical
+multi-objective optimization approach. Broadly speaking, this approach
+involves using multiple optimization procedures to solve objectives
+following a hierarchical (lexicographic) ordering, wherein those
+associated with a higher priority order are solved before those with a
+lower priority order. When implementing this approach, constraints are
+added after generating a given solution to ensure that subsequent
+solutions for lower priority objectives have adequate performance
+according to higher priority objectives.
+
+#### Usage
+
+    Solver$solve_multiobj(x, priority, rel_tol, ...)
+
+#### Arguments
+
+- `x`:
+
+  `list` object with multi-objective optimization problem. Arguments
+  must contain the following elements: (`"opt"`)
+  [`OptimizationProblem`](https://prioritizr.net/reference/OptimizationProblem-class.md)
+  object; (`"modelsense"`) `character` vector containing the model sense
+  values for each objective; and (`"obj"`) numeric\` matrix containing
+  the coefficients for each of the objectives, wherein rows correspond
+  to different objectives, columns to different decision variables and
+  row names can be optionally specify names for the objectives.
+
+- `priority`:
+
+  `numeric` vector with values indicating the priority for each
+  objective. Greater values denote greater priority, and so objectives
+  associated with greater values are optimized earlier in the
+  multi-objective process.
+
+- `rel_tol`:
+
+  `numeric` vector with relative tolerance values for each constraint.
+  Greater values denote a greater degree of sub-optimality.
+
+- `...`:
+
+  Additional arguments passed to the `calculate()` method.
+
+#### Returns
+
+A `list` object with the solution and additional information.
+
+------------------------------------------------------------------------
+
+### `Solver$clone()`
 
 The objects of this class are cloneable with this method.
 

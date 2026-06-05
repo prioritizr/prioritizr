@@ -32,9 +32,9 @@ eval_rank_importance(
   `numeric`, `matrix`, `data.frame`,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
-  object. The argument should be in the same format as the planning unit
-  cost data in the argument to `x`. See the Solution format section for
-  more information.
+  object. Note that `solution` must have the same format as the planning
+  unit data in `x`. See the Solution format section for more
+  information.
 
 - ...:
 
@@ -57,12 +57,12 @@ eval_rank_importance(
 - by_zone:
 
   `logical` value indicating how budgets should be calculated when `x`
-  has multiple zones. If `TRUE`, then the incremental rank procedure
-  will increment budgets for each zone separately. If `FALSE`, then the
-  incremental rank procedure will increment a single budget that is
-  applied to all zones. Note that this parameter is only considered if
-  `n` is specified, and does not affect processing if `budgets` is
-  specified. Defaults to `TRUE`.
+  has multiple zones. If `by_zone = TRUE`, then the incremental rank
+  procedure will increment budgets for each zone separately. Otherwise,
+  if `by_zone = FALSE`, then the incremental rank procedure will
+  increment a single budget that is applied to all zones. Note that this
+  parameter is only considered if `n` is specified, and does not affect
+  processing if `budgets` is specified. Defaults to `TRUE`.
 
 - objective:
 
@@ -108,8 +108,8 @@ A `numeric`, `matrix`, `data.frame`,
 or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
 containing importance scores for the planning units in the solution.
 Specifically, the returned object is in the same format as the planning
-unit data in the argument to `x`. The object also has the following
-attributes that provide information on the incremental rank procedure.
+unit data in `x`. The object also has the following attributes that
+provide information on the incremental rank procedure.
 
 - `budgets`:
 
@@ -157,12 +157,11 @@ constraints that do not involve locking in or locking out planning
 units), then the `budgets` parameter must be specified. The incremental
 rank procedure involves the following steps.
 
-1.  A set of budgets are defined. If an argument to the `budgets`
-    parameter is supplied, then the budgets are defined using the
-    `budgets`. Otherwise, if an argument to the `n` parameter is
-    supplied, then the budgets are automatically calculated as a set of
-    values – with equal increments between successive values – that
-    range to a maximum value that is equal to the total cost of
+1.  A set of budgets are defined. If `budgets` is specified, then the
+    budgets are defined using the `budgets`. Otherwise, if `n` is
+    specified is supplied, then the budgets are automatically calculated
+    as a set of values – with equal increments between successive values
+    – that range to a maximum value that is equal to the total cost of
     `solution`. For example, if considering a problem (per `x`) with a
     single zone, a solution with a total cost of 400, and `n = 4`: then
     the budgets will be automatically calculated as 100, 200, 300,
@@ -195,8 +194,8 @@ rank procedure involves the following steps.
     the budget defined for the first increment. When this step is
     repeated during subsequent increments, the objective will be
     overwritten with with the budget defined for the next increment.
-    Additionally, if an argument to the `extra_args` parameter is
-    specified, this argument is used when overwriting the objective.
+    Additionally, if `extra_args` is specified, then these values are
+    used when overwriting the objective.
 
 5.  The modified problem is solved to generate a solution. Due to the
     steps used to modify the problem (i.e., steps 3 and 4), the newly
@@ -251,61 +250,56 @@ rank procedure involves the following steps.
 
 ## Solution format
 
-Broadly speaking, the argument to `solution` must be in the same format
-as the planning unit data in the argument to `x`. Further details on the
-correct format are listed separately for each of the different planning
-unit data formats:
+Broadly speaking, `solution` must be in the same format as the planning
+unit data in `x`. Further details on the correct format are listed
+separately for each of the different planning unit data formats.
 
 - `x` has `numeric` planning units:
 
-  The argument to `solution` must be a `numeric` vector with each
-  element corresponding to a different planning unit. It should have the
-  same number of planning units as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values should
-  also have missing (`NA`) values in the argument to `solution`.
+  Here `solution` must be a `numeric` vector with each element
+  corresponding to a different planning unit. It should have the same
+  number of planning units as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values should also have missing (`NA`)
+  values in the `solution`.
 
 - `x` has `matrix` planning units:
 
-  The argument to `solution` must be a `matrix` vector with each row
-  corresponding to a different planning unit, and each column correspond
-  to a different management zone. It should have the same number of
-  planning units and zones as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have a missing (`NA`) values in the
-  argument to `solution`.
+  Here `solution` must be a `matrix` vector with each row corresponding
+  to a different planning unit, and each column correspond to a
+  different management zone. It should have the same number of planning
+  units and zones as those in `x`. Additionally, any planning units with
+  missing cost (`NA`) values for a particular zone should also have a
+  missing (`NA`) values in `solution`.
 
 - `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units:
 
-  The argument to `solution` be a
+  Here `solution` be a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object where different cells correspond to different planning units
   and layers correspond to a different management zones. It should have
   the same dimensionality (rows, columns, layers), resolution, extent,
-  and coordinate reference system as the planning units in the argument
-  to `x`. Additionally, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `solution`.
+  and coordinate reference system as the planning units in `x`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has `data.frame` planning units:
 
-  The argument to `solution` must be a `data.frame` with each column
-  corresponding to a different zone, each row corresponding to a
-  different planning unit, and cell values corresponding to the solution
-  value. This means that if a `data.frame` object containing the
-  solution also contains additional columns, then these columns will
-  need to be subsetted prior to using this function (see below for
-  example with
+  Here `solution` must be a `data.frame` with each column corresponding
+  to a different zone, each row corresponding to a different planning
+  unit, and cell values corresponding to the solution value. This means
+  that if a `data.frame` object containing the solution also contains
+  additional columns, then these columns will need to be subsetted prior
+  to using this function (see below for example with
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) data).
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
-  The argument to `solution` must be a
+  Here `solution` must be a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   with each column corresponding to a different zone, each row
   corresponding to a different planning unit, and cell values
@@ -313,11 +307,10 @@ unit data formats:
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   containing the solution also contains additional columns, then these
   columns will need to be subsetted prior to using this function (see
-  below for example). Additionally, the argument to `solution` must also
-  have the same coordinate reference system as the planning unit data.
-  Furthermore, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  below for example). Additionally, `solution` must also have the same
+  coordinate reference system as the planning unit data. Furthermore,
+  any planning units with missing cost (`NA`) values for a particular
+  zone should also have missing (`NA`) values in `solution`.
 
 ## References
 
@@ -343,8 +336,7 @@ Other functions for evaluating solution importance:
 ## Examples
 
 ``` r
-# \dontrun{
-# seed seed for reproducibility
+# set seed for reproducibility
 set.seed(600)
 
 # load data
@@ -367,16 +359,16 @@ s1 <- solve(p1)
 
 # print solution
 print(s1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : layer 
-#> min value   :     0 
-#> max value   :     1 
+#> varname     : sim_pu_raster
+#> name        : layer
+#> min value   :     0
+#> max value   :     1
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
@@ -390,16 +382,16 @@ rs1 <- eval_rank_importance(p1, s1, n = 10)
 
 # print importance scores
 print(rs1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : rs 
-#> min value   :  0 
-#> max value   :  1 
+#> varname     : sim_pu_raster
+#> name        : rs
+#> min value   :  0
+#> max value   :  1
 
 # plot importance scores
 plot(rs1, main = "rank importance (10, min shortfall obj", axes = FALSE)
@@ -415,7 +407,7 @@ print(attr(rs1, "gap"))
 #>  [1] 0 0 0 0 0 0 0 0 0 0
 ## run time
 print(attr(rs1, "runtime"))
-#>  [1] 0.004 0.003 0.003 0.003 0.003 0.003 0.003 0.003 0.003 0.003
+#>  [1] 0.002 0.002 0.002 0.002 0.002 0.001 0.001 0.002 0.002 0.003
 ## objective value
 print(attr(rs1, "objective"))
 #>  [1] 4.4831422 3.9636924 3.4483566 2.9239906 2.4229403 1.8946389 1.3955220
@@ -430,30 +422,31 @@ plot(
 )
 
 
-# calculate importance scores using the maximum utility objective and
+# calculate importance scores using the maximum weighted sum objective and
 # based on 10 different budgets
 rs2 <- eval_rank_importance(
-  p1, s1, n = 10, objective = "add_max_utility_objective"
+  p1, s1, n = 10, objective = "add_max_wtd_sum_objective"
 )
+#> ℹ `add_max_wtd_sum_objective()` has severe limitations - use with caution.
 #> Warning: `problem()` has an objective that does not support targets.
 #> ℹ The specified targets will be ignored during optimization.
 #> ℹ If the targets are important, then use a different objective.
 
 # print importance scores
 print(rs2)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : rs 
-#> min value   :  0 
-#> max value   :  1 
+#> varname     : sim_pu_raster
+#> name        : rs
+#> min value   :  0
+#> max value   :  1
 
 # plot importance scores
-plot(rs2, main = "rank importance (10, max utility obj)", axes = FALSE)
+plot(rs2, main = "rank importance (10, max wtd sum obj)", axes = FALSE)
 
 
 # calculate importance scores based on 5 manually specified budgets
@@ -469,16 +462,16 @@ rs3 <- eval_rank_importance(p1, s1, budgets = budgets)
 
 # print importance scores
 print(rs3)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : rs 
-#> min value   :  0 
-#> max value   :  1 
+#> varname     : sim_pu_raster
+#> name        : rs
+#> min value   :  0
+#> max value   :  1
 
 # plot importance scores
 plot(rs3, main = "rank importance (manual)", axes = FALSE)
@@ -498,18 +491,18 @@ names(s4) <- paste0("zone ", seq_len(terra::nlyr(sim_zones_pu_raster)))
 
 # print solution
 print(s4)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varnames    : sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#> names       : zone 1, zone 2, zone 3 
-#> min values  :      0,      0,      0 
-#> max values  :      1,      1,      1 
+#> varnames    : sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#> names       : zone 1, zone 2, zone 3
+#> min values  :      0,      0,      0
+#> max values  :      1,      1,      1
 
 # plot solution
 # each panel corresponds to a different zone, and data show the
@@ -525,6 +518,4 @@ names(rs4) <- paste0("zone ", seq_len(terra::nlyr(sim_zones_pu_raster)))
 # each panel corresponds to a different zone, and data show the
 # importance of each planning unit in a given zone
 plot(rs4, axes = FALSE)
-
-# }
 ```

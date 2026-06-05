@@ -17,53 +17,53 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{penalty}{\code{numeric} penalty that is used to scale the importance
+\item{penalty}{\code{numeric} value denoting the importance
 of selecting planning units that are spatially clumped together compared
-to the main problem objective (e.g., solution cost when the argument to
+to the main problem objective (e.g., solution cost if
 \code{x} has a minimum set objective per \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 Higher \code{penalty} values prefer solutions with a higher degree of spatial
 clumping, and smaller \code{penalty} values prefer solutions with a smaller
 degree of clumping. Note that negative \code{penalty} values prefer
-solutions that are more spread out. This parameter is equivalent to
+solutions that are spatially fragmented. This parameter is equivalent to
 the boundary length modifier (BLM)
 parameter in \href{https://marxansolutions.org/}{\emph{Marxan}}.}
 
-\item{edge_factor}{\code{numeric} proportion to scale
-planning unit edges (borders) that do not have any neighboring planning
-units. For example, an edge factor of \code{0.5} is commonly used to
-avoid overly penalizing planning units along a coastline.
-Note that this argument must have an element for each zone in the argument
-to \code{x}.}
+\item{edge_factor}{\code{numeric} value or vector denoting the proportion
+for scaling planning unit edges (borders) that do not have any neighboring
+planning units. For example, an edge factor of \code{0.5} is commonly used to
+avoid overly penalizing planning units along coastlines.
+Note that \code{edge_factor} must have a value for each zone in \code{x}.}
 
 \item{formulation}{\code{character} value denoting the name of the linearization
 technique used to formulate the penalties. Available options are \code{"simple"}
 and \code{"knapsack"}. Defaults to \code{"simple"}. If you are having issues with
-solving problems within a reasonable period of time using the \code{"simple"}
-technique, then consider trying the \code{"knapsack"} technique.
-Note that the \code{"knapsack"} technique is likely to yield better
+solving problems within a reasonable period of time using
+\code{formulation = "simple"}, then consider trying
+\code{formulation = "knapsack"}.
+Note that the \code{formulation = "knapsack"} is likely to yield better
 performance when each planning unit has a large number of neighbors
 (e.g., planning units are based on a hexagonal grid or irregular polygons).}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 clumping scheme for different zones. Each row and column corresponds to a
-different zone in the argument to \code{x}, and cell values indicate the
+different zone in \code{x}, and cell values indicate the
 relative importance of clumping planning units that are allocated to
 a combination of zones. Cell values along the diagonal of the matrix
 represent the relative importance of clumping planning units that are
 allocated to the same zone. Cell values must range between 1 and -1, where
-negative values favor solutions that spread out planning units. The default
-argument to \code{zones} is an identity
+negative values favor solutions that spread out planning units.
+Defaults to an identity
 matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that penalties are incurred when neighboring planning units
 are not assigned to the same zone. If the cells along
 the matrix diagonal contain markedly smaller values than those found
 elsewhere in the matrix, then solutions are preferred that surround
 planning units with those allocated to different zones
-(i.e., greater spatial fragmentation).}
+(i.e., greater spatial fragmentation of zones).}
 
 \item{data}{\code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
 object containing the boundary data. These data describe the total
-amount of boundary (perimeter) length  for each planning unit,
+amount of boundary (perimeter) length for each planning unit,
 and the amount of boundary (perimeter) length shared between different
 planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
@@ -79,7 +79,7 @@ boundary length (i.e., total perimeter).
 \details{
 This function adds penalties to a conservation planning problem
 to penalize fragmented solutions. It was is inspired by Ball \emph{et al.}
-(2009) and Beyer \emph{et al.} (2016). The \code{penalty} argument is
+(2009) and Beyer \emph{et al.} (2016). Indeed, \code{penalty} is
 equivalent to the boundary length modifier (\code{BLM}) used in
 \href{https://marxansolutions.org}{\emph{Marxan}}.
 Note that this function can only
@@ -89,36 +89,48 @@ asymmetric relationships are required, use the
 }
 \section{Data format}{
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 Note that boundary data must always describe symmetric relationships
 between planning units.
 
 \describe{
 
-\item{\code{data} as a \code{NULL} value}{indicating that the data should be
-automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function.
-This argument is the default.
+\item{\code{data} as a \code{NULL} value}{
+Here boundary length data are
+automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function and
+then rescaled with \code{\link[=rescale_matrix]{rescale_matrix()}}.
+This is the default for \code{data}.
 Note that the boundary data must be supplied
-using one of the other formats below if the planning unit data
-in the argument to \code{x} do not explicitly contain spatial information
-(e.g., planning unit data are a \code{data.frame} or \code{numeric} class).}
+using one of the other formats below if \code{x} does not contain planning units
+that are spatially referenced.
+(e.g., planning unit data are a \code{data.frame} object or \code{numeric} vector).
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell represents the
-amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal denote the total
-boundary length associated with each planning unit.}
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and cell
+values represent the amount of boundary length shared between two
+planning units. Cells along the matrix diagonal denote the total
+boundary length associated with each planning unit. For example,
+boundary data in this format can be generated with the \code{\link[=boundary_matrix]{boundary_matrix()}}
+function.
+}
 
-\item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"id1"} and \code{"id2"} columns contain
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
-Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+Additionally, if the \code{"id1"} and \code{"id2"} columns
 contain the same values, then the value denotes the
-amount of exposed boundary length (not total boundary).
+amount of exposed boundary length (not total boundary) for that particular
+planning unit.
 This format follows the the standard \emph{Marxan} format for boundary
-data (i.e., per the "bound.dat" file).}
+data (i.e., per the "bound.dat" file).
+}
 
 }
 }
@@ -132,10 +144,10 @@ the set of management zones (indexed by \eqn{z} or \eqn{y}), and
 \eqn{X_{iz}}{Xiz} represent the decision
 variable for planning unit \eqn{i} for in zone \eqn{z} (e.g., with binary
 values one indicating if planning unit is allocated or not). Also, let
-\eqn{p} represent the argument to \code{penalty}, \eqn{E_z}{Ez} represent the
-argument to \code{edge_factor}, \eqn{B_{ij}}{Bij} represent the matrix argument
-to \code{data} (e.g., generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
-\eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
+\eqn{p} represent \code{penalty}, \eqn{E_z}{Ez} represent \code{edge_factor},
+\eqn{B_{ij}}{Bij} represent \code{data} in matrix format
+(e.g., generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
+\eqn{W_{zz}}{Wzz} represent \code{zones} in matrix format.
 
 \deqn{
 \sum_{i}^{I} \sum_{z}^{Z} (p \times W_{zz} B_{ii}) +
@@ -155,7 +167,7 @@ Beyer \emph{et al.} (2016).
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -257,8 +269,7 @@ names(s2) <- c(
 
 # plot solutions
 plot(s2, axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
@@ -278,10 +289,11 @@ Additionally, see \code{\link[=calibrate_cohon_penalty]{calibrate_cohon_penalty(
 an appropriate \code{penalty} value.
 
 Other functions for adding penalties:
-\code{\link{add_asym_connectivity_penalties}()},
-\code{\link{add_connectivity_penalties}()},
-\code{\link{add_feature_weights}()},
-\code{\link{add_linear_penalties}()},
-\code{\link{add_neighbor_penalties}()}
+\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}},
+\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}},
+\code{\link[=add_cost_penalties]{add_cost_penalties()}},
+\code{\link[=add_feature_weights]{add_feature_weights()}},
+\code{\link[=add_linear_penalties]{add_linear_penalties()}},
+\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}
 }
 \concept{penalties}

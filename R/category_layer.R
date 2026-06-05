@@ -7,8 +7,7 @@ NULL
 #' [terra::rast()] object where pixel values indicate which input layer
 #' had the greatest value.
 #'
-#' @param x [terra::rast()] object containing multiple
-#'   layers.
+#' @param x [terra::rast()] object containing multiple layers.
 #'
 #' @details
 #' This function is provided to help manage data that encompass
@@ -22,7 +21,7 @@ NULL
 #' @seealso
 #' The [binary_stack()] function performs the reverse of this function.
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # create a binary raster stack
 #' x <- terra::rast(list(
 #'  terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
@@ -37,9 +36,8 @@ NULL
 #' y <- category_layer(x)
 #'
 #' # plot result
-#' \dontrun{
 #' plot(y)
-#' }
+#'
 #' @export
 category_layer <- function(x) {
   assert_required(x)

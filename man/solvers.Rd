@@ -91,7 +91,7 @@ performance.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -154,8 +154,7 @@ if (require("lpsymphony")) {
 # plot solutions
 names(s) <- n
 plot(terra::rast(s), axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \references{
 Hanson JO, Schuster R, Strimas-Mackey M, Morrell N, Edwards BPM, Arcese P,
@@ -167,7 +166,8 @@ integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{decisions}},
 \code{\link{importance}},

@@ -8,34 +8,30 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @param compressed_formulation `logical` should the conservation problem
-#'   compiled into a compressed version of a planning problem?
-#'   If `TRUE` then the problem is expressed using the compressed
-#'   formulation. If `FALSE` then the problem is expressed using the
-#'   expanded formulation. If `NA`, then the compressed is used unless one
-#'   of the constraints requires the expanded formulation. This argument
-#'   defaults to `NA`.
+#' @param compressed_formulation `logical` value indicating if `x` should be
+#' compiled following the compressed formulation?
+#' If `compressed_formulation = NA`, then the compressed is used unless one
+#' of the constraints in `x` requires the expanded formulation.
+#' Defaults to `NA`.
 #'
 #' @param ... not used.
 #'
-#' @details This function might be useful for those interested in understanding
-#'   how their conservation planning [problem()] is expressed
-#'   as a mathematical problem. However, if the problem just needs to
-#'   be solved, then the [solve()] function should just be used.
+#' @details
+#' This function might be useful for those interested in understanding
+#' how their conservation planning [problem()] is expressed
+#' as a mathematical optimization problem. However, if `x` just needs to
+#' be solved, then the [solve()] function should be used directly.
 #'
-#'   **Please note that in nearly all cases, the default argument to
-#'   `compressed_formulation` should be used**. The only situation where
-#'    manually
-#'   setting the argument to `formulation` is desirable is during testing.
-#'   Manually setting the argument to `formulation` will at best
-#'   have no effect on the problem. At worst, it may result in
-#'   an error, a misspecified problem, or unnecessarily long
-#'   solve times.
+#' **Please note that in nearly all cases, the default value for
+#' `compressed_formulation` should be used**.
+#' This is because manually setting the `compressed_formulation` will, at best,
+#' have no effect on the problem. At worst, it may result in
+#' an error, a mis-specified problem, or unnecessarily long
+#' solve times.
 #'
-#' @return A [optimization_problem()] object.
+#' @return An [optimization_problem()] object.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -51,7 +47,7 @@ NULL
 #'
 #' # print the optimization problem
 #' print(o)
-#' }
+#'
 #' @export
 compile <- function(x, ...) {
   assert_required(x)
@@ -61,6 +57,12 @@ compile <- function(x, ...) {
 #' @rdname compile
 #' @export
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
+  internal_compile(x, compressed_formulation = compressed_formulation)
+}
+
+internal_compile <- function(
+  x, compressed_formulation = NA, ..., call = fn_caller_env()
+) {
   # assert arguments are valid
   assert_required(x)
   assert_required(compressed_formulation)
@@ -79,9 +81,11 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
           "See {.topic prioritizr::objectives} for guidance on selecting",
           "an objective."
         )
-      )
+      ),
+      call = call
     )
   }
+
   ## problem must have targets if required by objective
   if (
     is.Waiver(x$targets) &&
@@ -93,12 +97,13 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
         "i" = "This is because it has an objective that requires targets.",
         "i" =
           "See {.topic prioritizr::targets} for guidance on selecting targets."
-      )
+      ),
+      call = call
     )
   }
   ## throw warning if targets are specified and will not be used
   if (
-    !isTRUE(x$objective$has_targets) &&
+    identical(x$objective$has_targets, FALSE) &&
     !is.Waiver(x$targets)
   ) {
     cli_warning(
@@ -194,7 +199,8 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
             "Either remove/update features with negative",
             "values, or remove these components."
           )
-        )
+        ),
+        call = call
       )
     } else if (x$has_negative_feature_data()) {
       #### throw more specific error message if user is manually trying the
@@ -213,23 +219,38 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
             "Either remove/replace features with negative",
             "values or use {.arg compressed_formulation = TRUE}."
           )
-        )
+        ),
+        call = call
       )
     }
   }
   # generate targets
   if (is.Waiver(x$targets)) {
-    # if objective doesn't actually use targets, create a "fake" targets tibble
-    # to initialize rij matrix
-    targets <- tibble::as_tibble(
-      expand.grid(
-        feature = seq_along(x$feature_names()),
-        zone = seq_along(x$zone_names()),
-        sense = "?",
-        value = 0
+    # if no targets specified,
+    # then create "fake" targets to initialize problem
+    if (identical(x$objective$has_targets, FALSE)) {
+      # if has_targets is FALSE,
+      # then the objective requires rij_matrix() data and so
+      # we create "fake" targets based on all features and zones
+      targets <- tibble::as_tibble(
+        expand.grid(
+          feature = seq_along(x$feature_names()),
+          zone = as.list(seq_along(x$zone_names())),
+          sense = "?",
+          value = 0
+        )
       )
-    )
-    targets$zone <- as.list(targets$zone)
+    } else {
+      # if not because it is NA,
+      # then the objective does not use rij_matrix() data and so
+      # we create "fake" targets based on an empty table
+      targets <- tibble::tibble(
+        feature = integer(0),
+        zone = list(),
+        sense = character(0),
+        value = numeric(0)
+      )
+    }
   } else {
     # generate "real" targets
     targets <- x$feature_targets()
@@ -256,7 +277,8 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     }
     assert(
       identical(length(weights), nrow(targets)),
-      msg = msg
+      msg = msg,
+      call = call
     )
   } else {
     weights <- rep(x$objective$default_weights(), nrow(targets))
@@ -296,10 +318,12 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # this the penalties and other constraints can leverage locked values
   # if required
   for (i in seq_along(x$constraints)) {
-    if (inherits(
-      x$constraints[[i]],
-      c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
-    )) {
+    if (
+      inherits(
+        x$constraints[[i]],
+        c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
+      )
+    ) {
       x$constraints[[i]]$apply(op, x)
     }
   }
@@ -311,10 +335,12 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   }
   # add remaining constraints
   for (i in seq_along(x$constraints)) {
-    if (!inherits(
-      x$constraints[[i]],
-      c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
-    )) {
+    if (
+      !inherits(
+        x$constraints[[i]],
+        c("LockedInConstraint", "LockedOutConstraint", "LockedManualConstraint")
+      )
+    ) {
       x$constraints[[i]]$apply(op, x)
     }
   }

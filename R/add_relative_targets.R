@@ -11,10 +11,7 @@ NULL
 #' (including any locked out planning units, or planning units with `NA`
 #' cost values) using the [feature_abundances()] function.
 #'
-#' @param x [problem()] object.
-#'
-#' @param targets Object that specifies the targets for each feature.
-#'   See the Targets format section for more information.
+#' @inheritParams add_absolute_targets
 #'
 #' @inheritSection add_auto_targets Target setting
 #' @inheritSection add_absolute_targets Targets format
@@ -23,8 +20,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -95,7 +91,7 @@ NULL
 #'
 #' # plot solution (cell values correspond to zone identifiers)
 #' plot(category_layer(s6), main = "varying targets")
-#' }
+#'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method
 #'
 #' @name add_relative_targets

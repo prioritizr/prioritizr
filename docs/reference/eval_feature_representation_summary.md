@@ -9,45 +9,60 @@ planning problem.
 
 ``` r
 eval_feature_representation_summary(x, solution)
+
+# S3 method for class 'ConservationProblem'
+eval_feature_representation_summary(x, solution)
+
+# S3 method for class 'MultiConservationProblem'
+eval_feature_representation_summary(x, solution)
 ```
 
 ## Arguments
 
 - x:
 
-  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+  [`problem()`](https://prioritizr.net/reference/problem.md) or
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - solution:
 
   `numeric`, `matrix`, `data.frame`,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
-  object. The argument should be in the same format as the planning unit
-  cost data in the argument to `x`. See the Solution format section for
-  more information.
+  object. Note that `solution` must have the same format as the planning
+  unit data in `x`. See the Solution format section for more
+  information.
 
 ## Value
 
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
-object describing feature representation. Here, each row describes a
-specific summary statistic (e.g., different management zone) for a
-specific feature. It contains the following columns:
+object describing feature representation by the solution. Here, each row
+describes a specific summary statistic (e.g., different management zone)
+for a specific feature. It contains the following columns.
+
+- problem:
+
+  `character` name of problem. Note that this column is only present if
+  `x` is a
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - summary:
 
   `character` description of the summary statistic. The statistics
   associated with the `"overall"` value in this column are calculated
-  using all planning unit values. For problems with multiple management
-  zones, this means that all calculations are completed by summing
-  together all planning unit values across all zones. For example, if
-  there are two zones, a single planning unit, and a feature has a value
-  of one in the single planning unit for both zones, then `total_amount`
-  will contain a value of two (even though it would not be possible to
-  to achieve a value of two because the planning unit could not
-  simultaneously be allocated to both zones). Additionally, if multiple
-  management zones are present, then summary statistics are also
-  provided for each zone separately (indicated using zone names).
+  using all planning unit values. If `x` has multiple management zones,
+  this means that all calculations are completed by summing together all
+  planning unit values across all zones. For example, if there are two
+  zones, a single planning unit, and a feature has a value of one in the
+  single planning unit for both zones, then `total_amount` will contain
+  a value of two (even though it would not be possible to to achieve a
+  value of two because the planning unit could not simultaneously be
+  allocated to both zones). Additionally, if `x` has multiple management
+  zones, then summary statistics are also provided for each zone
+  separately (indicated using zone names).
 
 - feature:
 
@@ -79,61 +94,56 @@ specific feature. It contains the following columns:
 
 ## Solution format
 
-Broadly speaking, the argument to `solution` must be in the same format
-as the planning unit data in the argument to `x`. Further details on the
-correct format are listed separately for each of the different planning
-unit data formats:
+Broadly speaking, `solution` must be in the same format as the planning
+unit data in `x`. Further details on the correct format are listed
+separately for each of the different planning unit data formats.
 
 - `x` has `numeric` planning units:
 
-  The argument to `solution` must be a `numeric` vector with each
-  element corresponding to a different planning unit. It should have the
-  same number of planning units as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values should
-  also have missing (`NA`) values in the argument to `solution`.
+  Here `solution` must be a `numeric` vector with each element
+  corresponding to a different planning unit. It should have the same
+  number of planning units as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values should also have missing (`NA`)
+  values in the `solution`.
 
 - `x` has `matrix` planning units:
 
-  The argument to `solution` must be a `matrix` vector with each row
-  corresponding to a different planning unit, and each column correspond
-  to a different management zone. It should have the same number of
-  planning units and zones as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have a missing (`NA`) values in the
-  argument to `solution`.
+  Here `solution` must be a `matrix` vector with each row corresponding
+  to a different planning unit, and each column correspond to a
+  different management zone. It should have the same number of planning
+  units and zones as those in `x`. Additionally, any planning units with
+  missing cost (`NA`) values for a particular zone should also have a
+  missing (`NA`) values in `solution`.
 
 - `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units:
 
-  The argument to `solution` be a
+  Here `solution` be a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object where different cells correspond to different planning units
   and layers correspond to a different management zones. It should have
   the same dimensionality (rows, columns, layers), resolution, extent,
-  and coordinate reference system as the planning units in the argument
-  to `x`. Additionally, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `solution`.
+  and coordinate reference system as the planning units in `x`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has `data.frame` planning units:
 
-  The argument to `solution` must be a `data.frame` with each column
-  corresponding to a different zone, each row corresponding to a
-  different planning unit, and cell values corresponding to the solution
-  value. This means that if a `data.frame` object containing the
-  solution also contains additional columns, then these columns will
-  need to be subsetted prior to using this function (see below for
-  example with
+  Here `solution` must be a `data.frame` with each column corresponding
+  to a different zone, each row corresponding to a different planning
+  unit, and cell values corresponding to the solution value. This means
+  that if a `data.frame` object containing the solution also contains
+  additional columns, then these columns will need to be subsetted prior
+  to using this function (see below for example with
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) data).
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
-  The argument to `solution` must be a
+  Here `solution` must be a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   with each column corresponding to a different zone, each row
   corresponding to a different planning unit, and cell values
@@ -141,11 +151,10 @@ unit data formats:
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   containing the solution also contains additional columns, then these
   columns will need to be subsetted prior to using this function (see
-  below for example). Additionally, the argument to `solution` must also
-  have the same coordinate reference system as the planning unit data.
-  Furthermore, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  below for example). Additionally, `solution` must also have the same
+  coordinate reference system as the planning unit data. Furthermore,
+  any planning units with missing cost (`NA`) values for a particular
+  zone should also have missing (`NA`) values in `solution`.
 
 ## See also
 
@@ -158,12 +167,12 @@ Other functions for summarizing solutions:
 [`eval_connectivity_summary()`](https://prioritizr.net/reference/eval_connectivity_summary.md),
 [`eval_cost_summary()`](https://prioritizr.net/reference/eval_cost_summary.md),
 [`eval_n_summary()`](https://prioritizr.net/reference/eval_n_summary.md),
+[`eval_objective_summary()`](https://prioritizr.net/reference/eval_objective_summary.md),
 [`eval_target_coverage_summary()`](https://prioritizr.net/reference/eval_target_coverage_summary.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -294,16 +303,16 @@ s2 <- solve(p2)
 
 # print solution
 print(s2)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : layer 
-#> min value   :     0 
-#> max value   :     1 
+#> varname     : sim_pu_raster
+#> name        : layer
+#> min value   :     0
+#> max value   :     1
 
 # calculate feature representation in the solution
 r2 <- eval_feature_representation_summary(p2, s2)
@@ -338,7 +347,7 @@ print(head(s3))
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0.9 xmax: 0.6 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 6 × 5
 #>    cost locked_in locked_out solution_1                                 geometry
 #>   <dbl> <lgl>     <lgl>           <dbl>                            <POLYGON [m]>
@@ -378,18 +387,18 @@ s4 <- solve(p4)
 
 # print solution
 print(s4)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varnames    : sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#> names       : zone_1, zone_2, zone_3 
-#> min values  :      0,      0,      0 
-#> max values  :      1,      1,      1 
+#> varnames    : sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#> names       : zone_1, zone_2, zone_3
+#> min values  :      0,      0,      0
+#> max values  :      1,      1,      1
 
 # calculate feature representation in the solution
 r4 <- eval_feature_representation_summary(p4, s4)
@@ -442,7 +451,7 @@ print(head(s5))
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0.9 xmax: 0.6 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 6 × 10
 #>   cost_1 cost_2 cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
 #>    <dbl>  <dbl>  <dbl> <lgl>    <lgl>    <lgl>                <dbl>
@@ -493,6 +502,4 @@ s5$solution <- factor(s5$solution)
 
 # plot solution
 plot(s5[, "solution"])
-
-# }
 ```

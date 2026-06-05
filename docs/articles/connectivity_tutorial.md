@@ -101,15 +101,15 @@ log-transform the values when plotting them on a map.
 print(salt_pu)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 94, 67, 1  (nrow, ncol, nlyr)
     ## resolution  : 300, 300  (x, y)
     ## extent      : 454589.9, 474689.9, 5394414, 5422614  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610) 
+    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610)
     ## source(s)   : memory
-    ## name        :       cost 
-    ## min value   :    0.02552 
-    ## max value   : 8290.38317
+    ## name        :        cost
+    ## min value   :     0.02552
+    ## max value   : 8290.383165
 
 ``` r
 # plot map showing the planning units costs on a log-scale
@@ -129,15 +129,15 @@ associated a given community.
 print(salt_features)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 94, 67, 4  (nrow, ncol, nlyr)
     ## resolution  : 300, 300  (x, y)
     ## extent      : 454589.9, 474689.9, 5394414, 5422614  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610) 
+    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610)
     ## source(s)   : memory
-    ## names       : old forest,   savanna,   wetland,     shrub 
-    ## min values  :  0.4235421, 0.3355335, 0.1485069, 0.4415211 
-    ## max values  :  0.8951858, 0.6440319, 0.5441603, 0.8065580
+    ## names       : old forest,  savanna,  wetland,    shrub
+    ## min values  :   0.423542, 0.335534, 0.148507, 0.441521
+    ## max values  :   0.895186, 0.644032,  0.54416, 0.806558
 
 ``` r
 # plot map showing the feature data
@@ -156,15 +156,15 @@ and so cells with higher values will have greater connectivity.
 print(salt_con)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 94, 67, 1  (nrow, ncol, nlyr)
     ## resolution  : 300, 300  (x, y)
     ## extent      : 454589.9, 474689.9, 5394414, 5422614  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610) 
+    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610)
     ## source(s)   : memory
-    ## name        : inverse human 
-    ## min value   :     0.4060181 
-    ## max value   :     0.8969550
+    ## name        : inverse human
+    ## min value   :      0.406018
+    ## max value   :      0.896955
 
 ``` r
 # plot map showing the connectivity data
@@ -220,9 +220,9 @@ print(p0)
     ## │├•constraints: none specified
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 After formulating the baseline problem, we can solve it to generate a
 prioritization.
@@ -232,19 +232,23 @@ prioritization.
 s0 <- solve(p0)
 ```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
 ``` r
 # print solution
 print(s0)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 94, 67, 1  (nrow, ncol, nlyr)
     ## resolution  : 300, 300  (x, y)
     ## extent      : 454589.9, 474689.9, 5394414, 5422614  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610) 
+    ## coord. ref. : WGS 84 / UTM zone 10N (EPSG:32610)
     ## source(s)   : memory
-    ## name        : cost 
-    ## min value   :    0 
+    ## name        : cost
+    ## min value   :    0
     ## max value   :    1
 
 ``` r
@@ -285,7 +289,13 @@ s1 <-
   p0 %>%
   add_neighbor_constraints(k = 3) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s1), main = c("baseline", "neighbors constraints"),
@@ -319,6 +329,10 @@ s2 <-
 ```
 
     ## Warning: Overwriting previously defined solver.
+
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
 
 ``` r
 # plot solutions
@@ -377,7 +391,13 @@ s3 <-
     data = salt_con, threshold = threshold, sense = ">="
   ) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s3), main = c("baseline", "linear constraints"),
@@ -426,7 +446,13 @@ s4 <-
     data = salt_con_binary, threshold = threshold, sense = ">="
   ) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s4), main = c("baseline", "linear constraints (binary)"),
@@ -466,7 +492,13 @@ s5 <-
     data = salt_con_clamp, threshold = threshold, sense = ">="
   ) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s5), main = c("baseline", "linear constraints (clamped)"),
@@ -509,7 +541,13 @@ s6 <-
     data = salt_con_clamp2, threshold = threshold, sense = ">="
   ) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s6), main = c("baseline", "linear constraints (clamped 2)"),
@@ -574,7 +612,13 @@ s7 <-
   p0 %>%
   add_boundary_penalties(penalty = 0.001, data = salt_boundary_data) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s7), main = c("baseline", "boundary penalties (0.001)"),
@@ -594,7 +638,13 @@ s8 <-
   p0 %>%
   add_boundary_penalties(penalty = 10, data = salt_boundary_data) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s8), main = c("baseline", "boundary penalties (10)"),
@@ -626,7 +676,7 @@ eval_cost_summary(p0, s7)
     ## # A tibble: 1 × 2
     ##   summary  cost
     ##   <chr>   <dbl>
-    ## 1 overall  46.2
+    ## 1 overall  36.0
 
 ``` r
 # calculate cost of prioritization high low boundary penalties (i.e., 0.1)
@@ -636,7 +686,7 @@ eval_cost_summary(p0, s8)
     ## # A tibble: 1 × 2
     ##   summary  cost
     ##   <chr>   <dbl>
-    ## 1 overall  318.
+    ## 1 overall  98.1
 
 We can see that the cost of the prioritizations increase with when we
 use higher `penalty` values. This is because there is a trade-off
@@ -700,7 +750,13 @@ s9 <-
   p0 %>%
   add_connectivity_penalties(penalty = 0.0001, data = salt_con_scores) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s9), main = c("baseline", "connectivity penalties (0.001)"),
@@ -719,7 +775,13 @@ s10 <-
   p0 %>%
   add_connectivity_penalties(penalty = 0.0002, data = salt_con_scores) %>%
   solve()
+```
 
+    ## 
+
+    ## ── Optimization ────────────────────────────────────────────────────────────────
+
+``` r
 # plot solutions
 plot(
   c(s0, s10), main = c("baseline", "connectivity penalties (0.002)"),

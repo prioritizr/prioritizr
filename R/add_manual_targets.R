@@ -17,37 +17,40 @@ NULL
 #' @param x [problem()] object.
 #'
 #' @param targets `data.frame` or [tibble::tibble()] object.
-#'   See the Targets format section for more information.
+#' See the Targets format section for more information.
 #'
 #' @inherit add_absolute_targets details
 #'
 #' @inheritSection add_auto_targets Target setting
 #'
 #' @section Targets format:
-#'
-#' The `targets` argument should be a `data.frame` with the following
-#' columns:
+#' Here `targets` must be a `data.frame` with the following columns.
 #'
 #' \describe{
 #'
-#' \item{feature}{`character` name of features in argument
-#'   to `x`.}
+#' \item{feature}{
+#' `character` name of features in `x`.
+#' }
 #'
-#' \item{zone}{`character` name of zones in the argument
-#'   `x`. It can also be a `list` of `character` vectors if
-#'   targets should correspond to multiple zones (see Examples section below).
-#'   This column is optional for arguments to `x`
-#'   that do not contain multiple zones.}
+#' \item{zone}{
+#' `character` name of zones in `x`.
+#' It can also be a `list` of `character` vectors if
+#' targets should correspond to multiple zones (see Examples section below).
+#' Note that this column is optional if `x` has a single zone.
+#' }
 #'
-#' \item{type}{`character` describing the type of target.
-#'   Acceptable values include `"absolute"` and `"relative"`.
-#'   These values correspond to [add_absolute_targets()],
-#'   and [add_relative_targets()] respectively.}
+#' \item{type}{
+#' `character` describing the type of target.
+#' Acceptable values are: `"absolute"` and `"relative"`.
+#' These values correspond to [add_absolute_targets()],
+#' and [add_relative_targets()] respectively.
+#' }
 #'
-#' \item{sense}{`character` sense of the target. Acceptable
-#'   values include: `">="`, `"<="`, and `"="`. This
-#'   column is optional and if it is missing then target senses will
-#'   default to `">="` values.}
+#' \item{sense}{`character` sense of the target.
+#' Acceptable values are: `">="`, `"<="`, and `"="`.
+#' This column is optional, and if it is not specified then senses will
+#' default to `">="` for all targets.
+#' }
 #'
 #' \item{target}{`numeric` target threshold.}
 #'
@@ -65,8 +68,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -235,7 +237,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s7), main = "solution", axes = FALSE)
-#' }
+#'
 #' @aliases add_manual_targets-method add_manual_targets,ConservationProblem,data.frame-method add_manual_targets,ConservationProblem,tbl_df-method
 #'
 #' @name add_manual_targets

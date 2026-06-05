@@ -13,8 +13,7 @@ category_layer(x)
 \method{category_layer}{default}(x)
 }
 \arguments{
-\item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple
-layers.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple layers.}
 }
 \value{
 A \code{\link[terra:rast]{terra::rast()}} object.
@@ -29,9 +28,10 @@ This function is provided to help manage data that encompass
 multiple management zones. For instance, this function may be helpful
 for interpreting solutions for problems associated with multiple zones that
 have binary decisions.
-It is essentially a wrapper for \code{\link[terra:summarize-generics]{terra::which.max()}}.
+It is essentially a wrapper for \code{\link[terra:which.max]{terra::which.max()}}.
 }
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create a binary raster stack
 x <- terra::rast(list(
  terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
@@ -46,9 +46,8 @@ plot(x)
 y <- category_layer(x)
 
 # plot result
-\dontrun{
 plot(y)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{\link[=binary_stack]{binary_stack()}} function performs the reverse of this function.

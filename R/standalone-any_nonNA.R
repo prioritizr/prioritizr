@@ -8,7 +8,7 @@
 #'
 #' Check if an object has any non-missing (`NA`) values?
 #'
-#' @param object.
+#' @param x Object.
 #'
 #' @param names `character` vector of column names.
 #'

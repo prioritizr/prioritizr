@@ -8,7 +8,7 @@ NULL
 #' This objective is similar to that used in
 #' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_max_wtd_sum_objective
 #'
 #' @details
 #' The minimum set objective -- in the the context of systematic reserve
@@ -53,8 +53,7 @@ NULL
 #'
 #' @return An updated [problem()] object with the objective added to it.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -93,7 +92,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_min_set_objective
 NULL
 

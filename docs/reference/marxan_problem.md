@@ -28,14 +28,14 @@ marxan_problem(x, ...)
 
   `character` file path for a *Marxan* input file (typically called
   `"input.dat"`), or `data.frame` containing planning unit data
-  (typically called `"pu.dat"`). If the argument to `x` is a
-  `data.frame`, then each row corresponds to a different planning unit,
-  and it must have the following columns:
+  (typically called `"pu.dat"`). If `x` is a `data.frame`, then each row
+  corresponds to a different planning unit, and it must have the
+  following columns.
 
   id
 
   :   `integer` unique identifier for each planning unit. These
-      identifiers are used in the argument to `puvspr`.
+      identifiers are used by `puvspr`.
 
   cost
 
@@ -55,19 +55,19 @@ marxan_problem(x, ...)
 
 - spec:
 
-  `data.frame` containing information on the features. The argument to
+  `data.frame` containing information on the features. In particular,
   `spec` must follow the conventions used by *Marxan* for the species
   data file (conventionally called `"spec.dat"`). Each row corresponds
   to a different feature and each column corresponds to different
   information about the features. It must contain the columns listed
-  below. Note that the argument to `spec` must contain at least one
-  column named `"prop"` or `"amount"`—**but not both columns with both
-  of these names**—to specify the target for each feature.
+  below. Note that `spec` must contain at least one column named
+  `"prop"` or `"amount"` – **but not columns with both of these names**
+  – to specify the target for each feature.
 
   id
 
   :   `integer` unique identifier for each feature These identifiers are
-      used in the argument to `puvspr`.
+      used by `puvspr`.
 
   name
 
@@ -84,9 +84,9 @@ marxan_problem(x, ...)
 - puvspr:
 
   `data.frame` containing information on the amount of each feature in
-  each planning unit. The argument to `puvspr` must follow the
+  each planning unit. In particular, `puvspr` must follow the
   conventions used in the *Marxan* input data file (conventionally
-  called `"puvspr.dat"`). It must contain the following columns:
+  called `"puvspr.dat"`). It must contain the following columns.
 
   pu
 
@@ -104,10 +104,10 @@ marxan_problem(x, ...)
 
   `NULL` object indicating that no boundary data is required for the
   conservation planning problem, or a `data.frame` containing
-  information on the planning units' boundaries. The argument to `bound`
-  must follow the conventions used in the *Marxan* input data file
-  (conventionally called `"bound.dat"`). It must contain the following
-  columns:
+  information on the planning units' boundaries. If `bound` is a
+  `data.frame` object, then it must follow the conventions used in the
+  *Marxan* input data file (conventionally called `"bound.dat"`). In
+  particular, it must contain the following columns.
 
   id1
 
@@ -124,15 +124,14 @@ marxan_problem(x, ...)
 
 - blm:
 
-  `numeric` boundary length modifier. This argument only has an effect
-  when argument to `x` is a `data.frame`. The default argument is zero.
+  `numeric` boundary length modifier value. Note that `blm` will only
+  have an affect if `bound` is a `data.frame` object. Defaults to 0.
 
 - symmetric:
 
-  `logical` does the boundary data (i.e., argument to `bound`) describe
-  symmetric relationships between planning units? If the boundary data
-  contain asymmetric connectivity data, this parameter should be set to
-  `FALSE`. Defaults to `TRUE`.
+  `logical` value indicating if `bound` describes symmetric
+  relationships between planning units? If `bound` has asymmetric
+  connectivity data, then use `symmetric = FALSE`. Defaults to `TRUE`.
 
 ## Value
 
@@ -145,7 +144,7 @@ problems using the prioritizr package. Note that this function does not
 support all of the functionality provided by the *Marxan* software. In
 particular, only the following parameters supported: `"INPUTDIR"`,
 `"SPECNAME`", `"PUNAME"`,
-`"PUVSPRNAME", `"BOUNDNAME"`, `"BLM"`, and `"ASYMMETRICCONNECTIVITY"`. Additionally, for the species data (i.e., argument to `spec`), only the `"id"`, `"name"`, `"prop"`, and `"amount"\`
+`"PUVSPRNAME", `"BOUNDNAME"`, `"BLM"`, and `"ASYMMETRICCONNECTIVITY"`. Additionally, for the species data (per `spec`), only the `"id"`, `"name"`, `"prop"`, and `"amount"\`
 columns are considered.
 
 ## Notes
@@ -176,14 +175,13 @@ Canada.
 
 For more information on the correct format for for *Marxan* input data,
 see the [official *Marxan* website](https://marxansolutions.org), Ball
-*et al.* (2009), Serra *et al.* (2020).
+*et al.* (2009), and Serra *et al.* (2020).
 
 ## Examples
 
 ``` r
 # create Marxan problem using Marxan input file
 # (note this example requires the vroom package to be installed)
-# \dontrun{
 input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")
 p1 <-
   marxan_problem(input_file) %>%
@@ -337,5 +335,4 @@ head(s3)
 #> 4    58  16959.      0 1116623. -4500408. FALSE     FALSE               0
 #> 5    84  34220.      0 1098623. -4503872. FALSE     FALSE               0
 #> 6    85 178908.      0 1110623. -4503872. FALSE     FALSE               0
-# }
 ```

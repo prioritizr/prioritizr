@@ -11,7 +11,7 @@ test_that("compile", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(2) %>%
+    add_shuffle_portfolio(2, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   o <- compile(p)
@@ -36,7 +36,7 @@ test_that("solve (single solution)", {
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
     add_locked_in_constraints(locked_in) %>%
-    add_shuffle_portfolio(1) %>%
+    add_shuffle_portfolio(1, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve_fixed_seed(p)
@@ -65,7 +65,7 @@ test_that("solve (single zone)", {
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
     add_locked_in_constraints(locked_in) %>%
-    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(3, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve_fixed_seed(p)
@@ -99,7 +99,7 @@ test_that("solve (multiple zones)", {
         ncol = number_of_zones(sim_zones_features)
       )
     ) %>%
-    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(3, verbose = FALSE) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
@@ -120,52 +120,10 @@ test_that("solve (multiple zones)", {
       )
 })
 
-test_that("solve (no duplicates)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  set.seed(500)
-  cost <- terra::rast(matrix(c(1, 1, 0.5, NA), ncol = 4))
-  features <- c(
-    terra::rast(matrix(c(2, 2, 1, 0), ncol = 4)),
-    terra::rast(matrix(c(10, 10, 10, 10), ncol = 4))
-  )
-  names(features) <- make.unique(names(features))
-  # create problem
-  p <-
-    problem(cost, features) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(5, remove_duplicates = TRUE) %>%
-    add_default_solver(gap = 0.8, verbose = FALSE)
-  # solve problem
-  expect_warning(
-    s <- solve_fixed_seed(p),
-    "Portfolio could only"
-  )
-  # tests
-  expect_inherits(s, "list")
-  expect_length(s, 2)
-  expect_named(s, paste0("solution_", seq_len(2)))
-  expect_true(all_elements_inherit(s, "SpatRaster"))
-  expect_equal(
-    anyDuplicated(
-      apply(terra::as.data.frame(terra::rast(s)), 2, paste, collapse = " ")
-    ),
-    0
-  )
-  expect_equal(names(s), paste0("solution_", seq_len(2)))
-  for (i in seq_len(2))
-    expect_true(
-      all(
-        terra::global(s[[i]] * features, "sum", na.rm = TRUE)[[1]] >= c(2, 10)
-      )
-    )
-})
-
 test_that("solve (parallel processing)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
+  skip_if_not_installed_for_parallel("prioritizr")
   # create data
   set.seed(500)
   cost <- terra::rast(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -179,7 +137,7 @@ test_that("solve (parallel processing)", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_shuffle_portfolio(10, threads = 2, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(10, threads = 2, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   suppressWarnings(s <- solve_fixed_seed(p))
@@ -221,14 +179,14 @@ test_that("start_solution (single solution)", {
       )
     ) %>%
     add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
-    add_shuffle_portfolio(number_solutions = 1)
+    add_shuffle_portfolio(number_solutions = 1, verbose = FALSE)
   # create solution
   s <- solve(p)
   # test for correct solution
   expect_equal(c(terra::values(s)), c(1, 0, 1, 0, NA))
 })
 
-test_that("start_solution (multiple solution)", {
+test_that("start_solution (multiple solution, verbose = TRUE)", {
   skip_on_cran()
   skip_if_not_installed("rcbc")
   # create data
@@ -253,7 +211,7 @@ test_that("start_solution (multiple solution)", {
       )
     ) %>%
     add_cbc_solver(gap = 0, start = start_valid, verbose = FALSE) %>%
-    add_shuffle_portfolio(number_solutions = 3, remove_duplicates = FALSE)
+    add_shuffle_portfolio(number_solutions = 3, verbose = TRUE)
   # create solution
   s <- solve(p)
   # test for correct solution

@@ -9,11 +9,9 @@
 #'
 #' Check if a value matches an element in a `vector.
 #'
-#' @param x value.
+#' @param x Value.
 #'
-#' @param choices vector.
-#'
-#' @param call Caller environment.
+#' @param choices Vector.
 #'
 #' @return A `logical` value.
 #'
@@ -46,8 +44,6 @@ assertthat::on_failure(is_match_of) <- function(call, env) {
 #'
 #' @param choices vector.
 #'
-#' @param call Caller environment.
-#'
 #' @return A `logical` value.
 #'
 #' @noRd
@@ -78,8 +74,6 @@ assertthat::on_failure(all_match_of) <- function(call, env) {
 #' Check if all elements in a vector are unique.
 #'
 #' @param x vector object.
-#'
-#' @param call Caller environment.
 #'
 #' @return A `logical` value.
 #'
@@ -119,8 +113,6 @@ assertthat::on_failure(is_integer) <- function(call, env) {
 #' Check if a vector contains count values.
 #'
 #' @param x object.
-#'
-#' @param call Caller environment.
 #'
 #' @return A `logical` value.
 #'

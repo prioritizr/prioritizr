@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the number of planning units in an object.
 #'
-#' @param x [problem()] or [optimization_problem()] object.
+#' @param x [problem()], [multi_problem()] or [optimization_problem()] object.
 #'
 #' @param ... not used.
 #'
@@ -17,10 +17,9 @@ NULL
 #' and only two of these cells contain non-missing (`NA`) values.
 #' As such, this dataset would have two planning units.
 #'
-#' @return An `integer` number of planning units.
+#' @return An `integer` value.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -34,7 +33,28 @@ NULL
 #'
 #' # print number of planning units
 #' print(number_of_planning_units(p))
-#' }
+#'
+#' # define budget for multi-objective problem
+#' b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+#'
+#' # create multi-objective problem
+#' mp <-
+#'   multi_problem(
+#'     obj1 =
+#'       problem(sim_pu_raster, sim_features[[1:2]]) %>%
+#'       add_max_wtd_sum_objective(budget = b) %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions(),
+#'     obj2 =
+#'       problem(sim_pu_raster, sim_features[[3:5]]) %>%
+#'       add_min_shortfall_objective(budget = b) %>%
+#'       add_relative_targets(0.8) %>%
+#'       add_binary_decisions()
+#'   )
+#'
+#' # print number of planning units
+#' print(number_of_planning_units(mp))
+#'
 #' @export
 number_of_planning_units <- function(x, ...) {
   assert_required(x)
@@ -46,6 +66,13 @@ number_of_planning_units <- function(x, ...) {
 #'
 #' @export
 number_of_planning_units.ConservationProblem <- function(x, ...) {
+  x$number_of_planning_units()
+}
+
+#' @rdname number_of_planning_units
+#'
+#' @export
+number_of_planning_units.MultiConservationProblem <- function(x, ...) {
   x$number_of_planning_units()
 }
 

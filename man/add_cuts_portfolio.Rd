@@ -4,13 +4,17 @@
 \alias{add_cuts_portfolio}
 \title{Add Bender's cuts portfolio}
 \usage{
-add_cuts_portfolio(x, number_solutions = 10)
+add_cuts_portfolio(x, number_solutions = 10, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of attempts to generate
-different solutions. Defaults to 10.}
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
+Defaults to 10.}
+
+\item{verbose}{\code{logical} should progress on generating multiple solutions
+be displayed? Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
@@ -38,7 +42,7 @@ problem formulation to generate multiple solutions.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -85,7 +89,7 @@ s2 <- terra::rast(lapply(s2, category_layer))
 
 # plot solutions in portfolio
 plot(s2, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
@@ -96,10 +100,11 @@ more complex conservation problems. \emph{Ecography}, 23: 565--574.
 See \link{portfolios} for an overview of all functions for adding a portfolio.
 
 Other functions for adding portfolios:
-\code{\link{add_default_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_shuffle_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_single_portfolio]{add_single_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

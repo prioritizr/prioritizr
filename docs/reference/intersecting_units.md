@@ -49,8 +49,7 @@ intersecting_units(x, y)
 
 ## Value
 
-An `integer` vector of indices of the units in `x` that intersect with
-`y`.
+An `integer` vector with indices of the units in `x`.
 
 ## Details
 
@@ -70,7 +69,6 @@ for extracting data from spatial datasets.
 ## Examples
 
 ``` r
-# \dontrun{
 # create data
 r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
@@ -109,5 +107,4 @@ plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 
 print(intersecting_units(ply, ply_with_holes))
 #> [1] 2 3 4 6 7 8
-# }
 ```

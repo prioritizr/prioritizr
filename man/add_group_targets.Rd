@@ -15,7 +15,7 @@ add_group_targets(x, groups, method)
 method for each group. Here, the names of \code{method} correspond to different
 values in \code{groups}. Additionally, the elements of \code{method} should be
 the \code{character} names of target setting methods, or objects
-(\code{\linkS4class{TargetMethod}}) that specify target setting methods.
+(\code{\link[=TargetMethod-class]{TargetMethod}}) that specify target setting methods.
 See Target methods below for more information.}
 }
 \value{
@@ -134,13 +134,13 @@ you will need to specify the spatial units for the features
 when building a \code{\link[=problem]{problem()}} object if the feature data
 are provided in a different format. In particular, if the feature
 data are provided as a \code{data.frame} or \code{character} vector,
-then you will need to specify an argument to \code{feature_units} when
+then you will need to specify \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function. See the Examples section below for a
 demonstration of using the \code{feature_units} parameter.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -223,7 +223,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2[, "solution_1"], axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Carwardine J, Klein CJ, Wilson KA, Pressey RL, Possingham HP (2009) Hitting
@@ -249,9 +249,9 @@ requires simultaneous planning for species and ecosystems.
 }
 \seealso{
 Other functions for adding targets:
-\code{\link{add_absolute_targets}()},
-\code{\link{add_auto_targets}()},
-\code{\link{add_manual_targets}()},
-\code{\link{add_relative_targets}()}
+\code{\link[=add_absolute_targets]{add_absolute_targets()}},
+\code{\link[=add_auto_targets]{add_auto_targets()}},
+\code{\link[=add_manual_targets]{add_manual_targets()}},
+\code{\link[=add_relative_targets]{add_relative_targets()}}
 }
 \concept{targets}

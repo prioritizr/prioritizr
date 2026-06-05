@@ -15,10 +15,12 @@ with them (e.g., \code{\link[=number_of_features]{number_of_features()}}, \code{
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{
-Other classes: 
+Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiConservationProblem-class}},
+\code{\link{MultiObjApproach-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Penalty-class}},
@@ -30,772 +32,872 @@ Other classes:
 }
 \concept{classes}
 \section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{data}}{\code{list} containing data (e.g., planning units, costs).}
+  \if{html}{\out{<div class="r6-fields">}}
+  \describe{
+    \item{\code{data}}{\code{list} containing data (e.g., planning units, costs).}
 
-\item{\code{defaults}}{\code{list} indicating if other fields contain defaults.}
+    \item{\code{defaults}}{\code{list} indicating if other fields contain defaults.}
 
-\item{\code{objective}}{\code{\linkS4class{Objective}} object specifying the objective
+    \item{\code{objective}}{\code{\link[=Objective-class]{Objective}} object specifying the objective
 function for the problem formulation.}
 
-\item{\code{decisions}}{\code{\linkS4class{Decision}} object specifying the decision types
+    \item{\code{decisions}}{\code{\link[=Decision-class]{Decision}} object specifying the decision types
 for the problem formulation.}
 
-\item{\code{targets}}{\code{\linkS4class{Target}} object specifying the representation
+    \item{\code{targets}}{\code{\link[=Target-class]{Target}} object specifying the representation
 targets for the problem formulation.}
 
-\item{\code{weights}}{\code{\linkS4class{Weight}} object specifying the feature weights
+    \item{\code{weights}}{\code{\link[=Weight-class]{Weight}} object specifying the feature weights
 for the problem formulation.}
 
-\item{\code{constraints}}{\code{list} containing \code{\linkS4class{Constraint}} objects that
+    \item{\code{constraints}}{\code{list} containing \code{\link[=Constraint-class]{Constraint}} objects that
 specify constraints for the problem formulation.}
 
-\item{\code{penalties}}{\code{list} containing \code{\linkS4class{Penalty}} objects that specify
+    \item{\code{penalties}}{\code{list} containing \code{\link[=Penalty-class]{Penalty}} objects that specify
 penalties for the problem formulation.}
 
-\item{\code{portfolio}}{\code{\linkS4class{Portfolio}} object specifying the approach for
+    \item{\code{portfolio}}{\code{\link[=Portfolio-class]{Portfolio}} object specifying the approach for
 generating multiple solutions.}
 
-\item{\code{solver}}{\code{\linkS4class{Solver}} object specifying the solver for
+    \item{\code{solver}}{\code{\link[=Solver-class]{Solver}} object specifying the solver for
 generating solutions.}
-}
-\if{html}{\out{</div>}}
+  }
+  \if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-ConservationProblem-new}{\code{ConservationProblem$new()}}
-\item \href{#method-ConservationProblem-summary}{\code{ConservationProblem$summary()}}
-\item \href{#method-ConservationProblem-print}{\code{ConservationProblem$print()}}
-\item \href{#method-ConservationProblem-show}{\code{ConservationProblem$show()}}
-\item \href{#method-ConservationProblem-repr}{\code{ConservationProblem$repr()}}
-\item \href{#method-ConservationProblem-get_data}{\code{ConservationProblem$get_data()}}
-\item \href{#method-ConservationProblem-set_data}{\code{ConservationProblem$set_data()}}
-\item \href{#method-ConservationProblem-number_of_planning_units}{\code{ConservationProblem$number_of_planning_units()}}
-\item \href{#method-ConservationProblem-is_ids_equivalent_to_indices}{\code{ConservationProblem$is_ids_equivalent_to_indices()}}
-\item \href{#method-ConservationProblem-planning_unit_indices}{\code{ConservationProblem$planning_unit_indices()}}
-\item \href{#method-ConservationProblem-total_unit_ids}{\code{ConservationProblem$total_unit_ids()}}
-\item \href{#method-ConservationProblem-convert_total_unit_ids_to_indices}{\code{ConservationProblem$convert_total_unit_ids_to_indices()}}
-\item \href{#method-ConservationProblem-planning_unit_indices_with_finite_costs}{\code{ConservationProblem$planning_unit_indices_with_finite_costs()}}
-\item \href{#method-ConservationProblem-set_planning_unit_indices_with_finite_costs}{\code{ConservationProblem$set_planning_unit_indices_with_finite_costs()}}
-\item \href{#method-ConservationProblem-number_of_total_units}{\code{ConservationProblem$number_of_total_units()}}
-\item \href{#method-ConservationProblem-planning_unit_costs}{\code{ConservationProblem$planning_unit_costs()}}
-\item \href{#method-ConservationProblem-planning_unit_class}{\code{ConservationProblem$planning_unit_class()}}
-\item \href{#method-ConservationProblem-set_planning_unit_costs}{\code{ConservationProblem$set_planning_unit_costs()}}
-\item \href{#method-ConservationProblem-number_of_features}{\code{ConservationProblem$number_of_features()}}
-\item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
-\item \href{#method-ConservationProblem-feature_abundances_in_planning_units}{\code{ConservationProblem$feature_abundances_in_planning_units()}}
-\item \href{#method-ConservationProblem-set_feature_abundances_in_planning_units}{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}
-\item \href{#method-ConservationProblem-feature_positive_abundances_in_planning_units}{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}
-\item \href{#method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}
-\item \href{#method-ConservationProblem-feature_abundances_in_total_units}{\code{ConservationProblem$feature_abundances_in_total_units()}}
-\item \href{#method-ConservationProblem-feature_units}{\code{ConservationProblem$feature_units()}}
-\item \href{#method-ConservationProblem-feature_abundances_km2_in_total_units}{\code{ConservationProblem$feature_abundances_km2_in_total_units()}}
-\item \href{#method-ConservationProblem-set_feature_abundances_km2_in_total_units}{\code{ConservationProblem$set_feature_abundances_km2_in_total_units()}}
-\item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
-\item \href{#method-ConservationProblem-feature_weights}{\code{ConservationProblem$feature_weights()}}
-\item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
-\item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
-\item \href{#method-ConservationProblem-zone_names}{\code{ConservationProblem$zone_names()}}
-\item \href{#method-ConservationProblem-add_portfolio}{\code{ConservationProblem$add_portfolio()}}
-\item \href{#method-ConservationProblem-add_solver}{\code{ConservationProblem$add_solver()}}
-\item \href{#method-ConservationProblem-add_targets}{\code{ConservationProblem$add_targets()}}
-\item \href{#method-ConservationProblem-add_weights}{\code{ConservationProblem$add_weights()}}
-\item \href{#method-ConservationProblem-add_objective}{\code{ConservationProblem$add_objective()}}
-\item \href{#method-ConservationProblem-add_decisions}{\code{ConservationProblem$add_decisions()}}
-\item \href{#method-ConservationProblem-add_constraint}{\code{ConservationProblem$add_constraint()}}
-\item \href{#method-ConservationProblem-add_penalty}{\code{ConservationProblem$add_penalty()}}
-\item \href{#method-ConservationProblem-remove_all_penalties}{\code{ConservationProblem$remove_all_penalties()}}
-\item \href{#method-ConservationProblem-clone}{\code{ConservationProblem$clone()}}
-}
+  \itemize{
+    \item \href{#method-ConservationProblem-initialize}{\code{ConservationProblem$new()}}
+    \item \href{#method-ConservationProblem-summary}{\code{ConservationProblem$summary()}}
+    \item \href{#method-ConservationProblem-print}{\code{ConservationProblem$print()}}
+    \item \href{#method-ConservationProblem-show}{\code{ConservationProblem$show()}}
+    \item \href{#method-ConservationProblem-repr}{\code{ConservationProblem$repr()}}
+    \item \href{#method-ConservationProblem-get_data}{\code{ConservationProblem$get_data()}}
+    \item \href{#method-ConservationProblem-set_data}{\code{ConservationProblem$set_data()}}
+    \item \href{#method-ConservationProblem-number_of_planning_units}{\code{ConservationProblem$number_of_planning_units()}}
+    \item \href{#method-ConservationProblem-is_ids_equivalent_to_indices}{\code{ConservationProblem$is_ids_equivalent_to_indices()}}
+    \item \href{#method-ConservationProblem-planning_unit_indices}{\code{ConservationProblem$planning_unit_indices()}}
+    \item \href{#method-ConservationProblem-total_unit_ids}{\code{ConservationProblem$total_unit_ids()}}
+    \item \href{#method-ConservationProblem-convert_total_unit_ids_to_indices}{\code{ConservationProblem$convert_total_unit_ids_to_indices()}}
+    \item \href{#method-ConservationProblem-planning_unit_indices_with_finite_costs}{\code{ConservationProblem$planning_unit_indices_with_finite_costs()}}
+    \item \href{#method-ConservationProblem-set_planning_unit_indices_with_finite_costs}{\code{ConservationProblem$set_planning_unit_indices_with_finite_costs()}}
+    \item \href{#method-ConservationProblem-number_of_total_units}{\code{ConservationProblem$number_of_total_units()}}
+    \item \href{#method-ConservationProblem-planning_unit_costs}{\code{ConservationProblem$planning_unit_costs()}}
+    \item \href{#method-ConservationProblem-planning_unit_class}{\code{ConservationProblem$planning_unit_class()}}
+    \item \href{#method-ConservationProblem-set_planning_unit_costs}{\code{ConservationProblem$set_planning_unit_costs()}}
+    \item \href{#method-ConservationProblem-number_of_features}{\code{ConservationProblem$number_of_features()}}
+    \item \href{#method-ConservationProblem-feature_names}{\code{ConservationProblem$feature_names()}}
+    \item \href{#method-ConservationProblem-feature_abundances_in_planning_units}{\code{ConservationProblem$feature_abundances_in_planning_units()}}
+    \item \href{#method-ConservationProblem-set_feature_abundances_in_planning_units}{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}
+    \item \href{#method-ConservationProblem-feature_positive_abundances_in_planning_units}{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}
+    \item \href{#method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}
+    \item \href{#method-ConservationProblem-feature_abundances_in_total_units}{\code{ConservationProblem$feature_abundances_in_total_units()}}
+    \item \href{#method-ConservationProblem-feature_units}{\code{ConservationProblem$feature_units()}}
+    \item \href{#method-ConservationProblem-feature_abundances_km2_in_total_units}{\code{ConservationProblem$feature_abundances_km2_in_total_units()}}
+    \item \href{#method-ConservationProblem-set_feature_abundances_km2_in_total_units}{\code{ConservationProblem$set_feature_abundances_km2_in_total_units()}}
+    \item \href{#method-ConservationProblem-feature_targets}{\code{ConservationProblem$feature_targets()}}
+    \item \href{#method-ConservationProblem-feature_weights}{\code{ConservationProblem$feature_weights()}}
+    \item \href{#method-ConservationProblem-has_negative_feature_data}{\code{ConservationProblem$has_negative_feature_data()}}
+    \item \href{#method-ConservationProblem-number_of_zones}{\code{ConservationProblem$number_of_zones()}}
+    \item \href{#method-ConservationProblem-zone_names}{\code{ConservationProblem$zone_names()}}
+    \item \href{#method-ConservationProblem-number_of_problems}{\code{ConservationProblem$number_of_problems()}}
+    \item \href{#method-ConservationProblem-add_portfolio}{\code{ConservationProblem$add_portfolio()}}
+    \item \href{#method-ConservationProblem-add_solver}{\code{ConservationProblem$add_solver()}}
+    \item \href{#method-ConservationProblem-add_targets}{\code{ConservationProblem$add_targets()}}
+    \item \href{#method-ConservationProblem-add_weights}{\code{ConservationProblem$add_weights()}}
+    \item \href{#method-ConservationProblem-add_objective}{\code{ConservationProblem$add_objective()}}
+    \item \href{#method-ConservationProblem-add_decisions}{\code{ConservationProblem$add_decisions()}}
+    \item \href{#method-ConservationProblem-add_constraint}{\code{ConservationProblem$add_constraint()}}
+    \item \href{#method-ConservationProblem-add_penalty}{\code{ConservationProblem$add_penalty()}}
+    \item \href{#method-ConservationProblem-remove_all_penalties}{\code{ConservationProblem$remove_all_penalties()}}
+    \item \href{#method-ConservationProblem-clone}{\code{ConservationProblem$clone()}}
+  }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-ConservationProblem-new"></a>}}
-\if{latex}{\out{\hypertarget{method-ConservationProblem-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new conservation problem object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$new(data = list())}\if{html}{\out{</div>}}
+\if{html}{\out{<a id="method-ConservationProblem-initialize"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-initialize}{}}}
+\subsection{\code{ConservationProblem$new()}}{
+  Create a new conservation problem object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$new(data = list())}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{data}}{\code{list} containing data}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A new \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{data}}{\code{list} containing data}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A new \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-summary"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-summary}{}}}
-\subsection{Method \code{summary()}}{
-Print extended information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$summary()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$summary()}}{
+  Print extended information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$summary()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-print}{}}}
-\subsection{Method \code{print()}}{
-Print concise information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$print()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$print()}}{
+  Print concise information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$print()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-show"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-show}{}}}
-\subsection{Method \code{show()}}{
-Display concise information about the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$show()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$show()}}{
+  Display concise information about the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$show()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-repr"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-repr}{}}}
-\subsection{Method \code{repr()}}{
-Generate a character representation of the object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$repr()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$repr()}}{
+  Generate a character representation of the object.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$repr()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-get_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-get_data}{}}}
-\subsection{Method \code{get_data()}}{
-Get values stored in the \code{data} field.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$get_data(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$get_data()}}{
+  Get values stored in the \code{data} field.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$get_data(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An object. If the \code{data} field does not contain an object
+associated with \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
+returned.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An object. If the \code{data} field does not contain an object
-associated with the argument to \code{x}, then a \code{\link[=new_waiver]{new_waiver()}} object is
-returned.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_data}{}}}
-\subsection{Method \code{set_data()}}{
-Set values stored in the \code{data} field. Note that this method will
+\subsection{\code{ConservationProblem$set_data()}}{
+  Set values stored in the \code{data} field. Note that this method will
 overwrite existing data.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_data(x, value)}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_data(x, value)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{character} name of data.}
+      \item{\code{value}}{Object to store.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{character} name of data.}
-
-\item{\code{value}}{Object to store.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-number_of_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_planning_units}{}}}
-\subsection{Method \code{number_of_planning_units()}}{
-Obtain the number of planning units. The planning units correspond to
+\subsection{\code{ConservationProblem$number_of_planning_units()}}{
+  Obtain the number of planning units. The planning units correspond to
 elements in the cost data
 (e.g., indices, rows, geometries, cells) that have finite
 values in at least one zone. In other words, planning unit are
 elements in the cost data that do not have missing (\code{NA}) values in
 every zone.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_planning_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-is_ids_equivalent_to_indices"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-is_ids_equivalent_to_indices}{}}}
-\subsection{Method \code{is_ids_equivalent_to_indices()}}{
-Check if planning unit identifiers are equivalent to the planning
+\subsection{\code{ConservationProblem$is_ids_equivalent_to_indices()}}{
+  Check if planning unit identifiers are equivalent to the planning
 unit indices? Only \code{FALSE} if the planning units are
 \code{data.frame} format.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$is_ids_equivalent_to_indices()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$is_ids_equivalent_to_indices()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{logical} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{logical} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-planning_unit_indices"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_indices}{}}}
-\subsection{Method \code{planning_unit_indices()}}{
-Obtain the planning unit indices.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_indices()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$planning_unit_indices()}}{
+  Obtain the planning unit indices.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$planning_unit_indices()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} vector.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-total_unit_ids"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-total_unit_ids}{}}}
-\subsection{Method \code{total_unit_ids()}}{
-Obtain the total unit identifiers.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$total_unit_ids()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$total_unit_ids()}}{
+  Obtain the total unit identifiers.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$total_unit_ids()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} vector.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-convert_total_unit_ids_to_indices"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-convert_total_unit_ids_to_indices}{}}}
-\subsection{Method \code{convert_total_unit_ids_to_indices()}}{
-Convert total unit identifiers to indices.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$convert_total_unit_ids_to_indices(ids)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$convert_total_unit_ids_to_indices()}}{
+  Convert total unit identifiers to indices.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$convert_total_unit_ids_to_indices(ids)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{ids}}{\code{integer} vector with planning unit identifiers.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} vector.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{ids}}{\code{integer} vector with planning unit identifiers.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An \code{integer} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-planning_unit_indices_with_finite_costs"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_indices_with_finite_costs}{}}}
-\subsection{Method \code{planning_unit_indices_with_finite_costs()}}{
-Obtain the planning unit indices that are associated with
+\subsection{\code{ConservationProblem$planning_unit_indices_with_finite_costs()}}{
+  Obtain the planning unit indices that are associated with
 finite cost values.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_indices_with_finite_costs()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$planning_unit_indices_with_finite_costs()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{list} of \code{integer} vectors. Each \code{list} element corresponds to
+a different zone.
+  }
 }
 
-\subsection{Returns}{
-A \code{list} of \code{integer} vectors. Each \code{list} element corresponds to
-a different zone.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_planning_unit_indices_with_finite_costs"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_planning_unit_indices_with_finite_costs}{}}}
-\subsection{Method \code{set_planning_unit_indices_with_finite_costs()}}{
-Perform calculations to cache the planning unit indices that are
+\subsection{\code{ConservationProblem$set_planning_unit_indices_with_finite_costs()}}{
+  Perform calculations to cache the planning unit indices that are
 associated with finite cost values.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_planning_unit_indices_with_finite_costs()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_planning_unit_indices_with_finite_costs()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-number_of_total_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_total_units}{}}}
-\subsection{Method \code{number_of_total_units()}}{
-Obtain the number of total units. The total units include all elements
+\subsection{\code{ConservationProblem$number_of_total_units()}}{
+  Obtain the number of total units. The total units include all elements
 in the cost data
 (e.g., indices, rows, geometries, cells), including those with
 missing (\code{NA}) values.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_total_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_total_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-planning_unit_costs"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_costs}{}}}
-\subsection{Method \code{planning_unit_costs()}}{
-Obtain the planning unit costs.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_costs()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$planning_unit_costs()}}{
+  Obtain the planning unit costs.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$planning_unit_costs()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} matrix.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} matrix.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-planning_unit_class"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-planning_unit_class}{}}}
-\subsection{Method \code{planning_unit_class()}}{
-Get planning unit class.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$planning_unit_class()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$planning_unit_class()}}{
+  Get planning unit class.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$planning_unit_class()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_planning_unit_costs"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_planning_unit_costs}{}}}
-\subsection{Method \code{set_planning_unit_costs()}}{
-Perform calculations to cache the planning unit costs.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_planning_unit_costs()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$set_planning_unit_costs()}}{
+  Perform calculations to cache the planning unit costs.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_planning_unit_costs()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-number_of_features"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_features}{}}}
-\subsection{Method \code{number_of_features()}}{
-Obtain the number of features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_features()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$number_of_features()}}{
+  Obtain the number of features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_features()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_names"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_names}{}}}
-\subsection{Method \code{feature_names()}}{
-Obtain the names of the features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_names()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_names()}}{
+  Obtain the names of the features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_names()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} vector.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_abundances_in_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_abundances_in_planning_units}{}}}
-\subsection{Method \code{feature_abundances_in_planning_units()}}{
-Obtain the abundance of the features in the planning units.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_abundances_in_planning_units()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_abundances_in_planning_units()}}{
+  Obtain the abundance of the features in the planning units.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_abundances_in_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_feature_abundances_in_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_feature_abundances_in_planning_units}{}}}
-\subsection{Method \code{set_feature_abundances_in_planning_units()}}{
-Perform calculations to cache the abundance of the features in the
+\subsection{\code{ConservationProblem$set_feature_abundances_in_planning_units()}}{
+  Perform calculations to cache the abundance of the features in the
 planning units.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_abundances_in_planning_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_feature_abundances_in_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_positive_abundances_in_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_positive_abundances_in_planning_units}{}}}
-\subsection{Method \code{feature_positive_abundances_in_planning_units()}}{
-Obtain the positive abundance of the features in the planning units.
+\subsection{\code{ConservationProblem$feature_positive_abundances_in_planning_units()}}{
+  Obtain the positive abundance of the features in the planning units.
 Note that this method, unlike \code{feature_abundances_in_planning_units},
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_positive_abundances_in_planning_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_positive_abundances_in_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_feature_positive_abundances_in_planning_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_feature_positive_abundances_in_planning_units}{}}}
-\subsection{Method \code{set_feature_positive_abundances_in_planning_units()}}{
-Perform calculations to cache the positive abundance of the features in
+\subsection{\code{ConservationProblem$set_feature_positive_abundances_in_planning_units()}}{
+  Perform calculations to cache the positive abundance of the features in
 the planning units.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_positive_abundances_in_planning_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_feature_positive_abundances_in_planning_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_abundances_in_total_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_abundances_in_total_units}{}}}
-\subsection{Method \code{feature_abundances_in_total_units()}}{
-Obtain the abundance of the features in the total units.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_abundances_in_total_units()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_abundances_in_total_units()}}{
+  Obtain the abundance of the features in the total units.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_abundances_in_total_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_units}{}}}
-\subsection{Method \code{feature_units()}}{
-Obtain the units of the features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_units()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_units()}}{
+  Obtain the units of the features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value. Each element corresponds to a different
+feature.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} value. Each element corresponds to a different
-feature.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_abundances_km2_in_total_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_abundances_km2_in_total_units}{}}}
-\subsection{Method \code{feature_abundances_km2_in_total_units()}}{
-Obtain the abundance of the features in area-based units of
+\subsection{\code{ConservationProblem$feature_abundances_km2_in_total_units()}}{
+  Obtain the abundance of the features in area-based units of
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_abundances_km2_in_total_units()}\if{html}{\out{</div>}}
-}
-
-\subsection{Details}{
-Note that if a feature has missing (\code{NA}) units
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_abundances_km2_in_total_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Details}{
+    Note that if a feature has missing (\code{NA}) units
 then missing values are returned.
+  }
+  \subsection{Returns}{
+    A \code{numeric} matrix. Each column corresponds to a different zone
+and each row corresponds to a different feature.
+  }
 }
 
-\subsection{Returns}{
-A \code{numeric} matrix. Each column corresponds to a different zone
-and each row corresponds to a different feature.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-set_feature_abundances_km2_in_total_units"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-set_feature_abundances_km2_in_total_units}{}}}
-\subsection{Method \code{set_feature_abundances_km2_in_total_units()}}{
-Perform calculations to cache the abundance of the features in
+\subsection{\code{ConservationProblem$set_feature_abundances_km2_in_total_units()}}{
+  Perform calculations to cache the abundance of the features in
 area-based units of \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$set_feature_abundances_km2_in_total_units()}\if{html}{\out{</div>}}
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$set_feature_abundances_km2_in_total_units()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_targets"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_targets}{}}}
-\subsection{Method \code{feature_targets()}}{
-Obtain the representation targets for the features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_targets()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_targets()}}{
+  Obtain the representation targets for the features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_targets()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
+  }
 }
 
-\subsection{Returns}{
-A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-feature_weights"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-feature_weights}{}}}
-\subsection{Method \code{feature_weights()}}{
-Obtain the weights for the features.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$feature_weights()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$feature_weights()}}{
+  Obtain the weights for the features.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$feature_weights()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
+  }
 }
 
-\subsection{Returns}{
-A \code{\link[tibble:tibble]{tibble::tibble()}} data frame.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-has_negative_feature_data"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-has_negative_feature_data}{}}}
-\subsection{Method \code{has_negative_feature_data()}}{
-See if the feature data contain any negative values.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$has_negative_feature_data()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$has_negative_feature_data()}}{
+  See if the feature data contain any negative values.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$has_negative_feature_data()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{logical} value.
+  }
 }
 
-\subsection{Returns}{
-A \code{logical} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-number_of_zones"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_zones}{}}}
-\subsection{Method \code{number_of_zones()}}{
-Obtain the number of zones.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$number_of_zones()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$number_of_zones()}}{
+  Obtain the number of zones.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_zones()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value.
+  }
 }
 
-\subsection{Returns}{
-An \code{integer} value.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-zone_names"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-zone_names}{}}}
-\subsection{Method \code{zone_names()}}{
-Obtain the zone names.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$zone_names()}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$zone_names()}}{
+  Obtain the zone names.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$zone_names()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} vector.
+  }
 }
 
-\subsection{Returns}{
-A \code{character} vector.
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConservationProblem-number_of_problems"></a>}}
+\if{latex}{\out{\hypertarget{method-ConservationProblem-number_of_problems}{}}}
+\subsection{\code{ConservationProblem$number_of_problems()}}{
+  Obtain the number of problems.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$number_of_problems()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An \code{integer} value of 1.
+  }
 }
-}
+
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_portfolio"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_portfolio}{}}}
-\subsection{Method \code{add_portfolio()}}{
-Create a new object with a portfolio added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_portfolio(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_portfolio()}}{
+  Create a new object with a portfolio added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_portfolio(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Portfolio-class]{Portfolio} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Portfolio} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_solver"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_solver}{}}}
-\subsection{Method \code{add_solver()}}{
-Create a new object with a solver added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_solver(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_solver()}}{
+  Create a new object with a solver added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_solver(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Solver-class]{Solver} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Solver} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_targets"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_targets}{}}}
-\subsection{Method \code{add_targets()}}{
-Create a new object with targets added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_targets(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_targets()}}{
+  Create a new object with targets added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_targets(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Target-class]{Target} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Target} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_weights"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_weights}{}}}
-\subsection{Method \code{add_weights()}}{
-Create a new object with weights added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_weights(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_weights()}}{
+  Create a new object with weights added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_weights(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Weight-class]{Weight} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Weight} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_objective"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_objective}{}}}
-\subsection{Method \code{add_objective()}}{
-Create a new object with an objective added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_objective(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_objective()}}{
+  Create a new object with an objective added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_objective(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Objective-class]{Objective} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Objective} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_decisions"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_decisions}{}}}
-\subsection{Method \code{add_decisions()}}{
-Create a new object with decisions added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_decisions(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_decisions()}}{
+  Create a new object with decisions added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_decisions(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Decision-class]{Decision} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Decision} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_constraint"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_constraint}{}}}
-\subsection{Method \code{add_constraint()}}{
-Create a new object with a constraint added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_constraint(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_constraint()}}{
+  Create a new object with a constraint added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_constraint(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Constraint-class]{Constraint} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Constraint} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-add_penalty"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-add_penalty}{}}}
-\subsection{Method \code{add_penalty()}}{
-Create a new object with a penalty added to the problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$add_penalty(x)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$add_penalty()}}{
+  Create a new object with a penalty added to the problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$add_penalty(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\link[=Penalty-class]{Penalty} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\linkS4class{Penalty} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-remove_all_penalties"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-remove_all_penalties}{}}}
-\subsection{Method \code{remove_all_penalties()}}{
-Create a new object without any penalties.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$remove_all_penalties(retain = NULL)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$remove_all_penalties()}}{
+  Create a new object without any penalties.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$remove_all_penalties(retain = NULL)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{retain}}{\code{character} vector of classes to retain. Defaults to
+\code{NULL} such that all penalties are excluded.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    An updated \code{ConservationProblem} object.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{retain}}{\code{character} vector of classes to retain. Defaults to
-\code{NULL} such that all penalties are excluded.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-An updated \code{ConservationProblem} object.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-ConservationProblem-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-ConservationProblem-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConservationProblem$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{ConservationProblem$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{ConservationProblem$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

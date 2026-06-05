@@ -199,7 +199,7 @@ test_that("mix of binary and continuous variables", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(b) %>%
+    add_max_wtd_sum_objective(b) %>%
     add_binary_decisions() %>%
     add_highs_solver(verbose = FALSE)
   # solve problem
@@ -315,7 +315,7 @@ test_that("solver information (multiple solutions)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_shuffle_portfolio(3, remove_duplicates = FALSE) %>%
+    add_shuffle_portfolio(3) %>%
     add_highs_solver(time_limit = 5, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -360,10 +360,7 @@ test_that("set_start_solution", {
   # force calculations
   p$solver$calculate(compile(p))
   # tests
-  expect_warning(
-    p$solver$set_start_solution(c(1, 2, 3)),
-    "starting"
-  )
+  expect_true(suppressWarnings(p$solver$set_start_solution(c(1, 2, 3))))
 })
 
 test_that("set_constraint_rhs", {
@@ -493,6 +490,56 @@ test_that("set_variable_ub", {
   )
 })
 
+test_that("start_solution", {
+  skip_on_cran()
+  skip_if_not_installed("highs")
+  skip_if_not(
+    isTRUE("start" %in% names(formals(highs::highs_solve))),
+    message = "newer version of highs R package required"
+  )
+  # create data
+  cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
+  features <- c(
+    terra::rast(matrix(c(5,  5,   0,  0,  NA), nrow = 1)),
+    terra::rast(matrix(c(2,  0,   8,  10, NA), nrow = 1)),
+    terra::rast(matrix(c(10, 100, 10, 10, NA), nrow = 1))
+  )
+  terra::set.names(features, make.unique(names(features)))
+  start_valid <- terra::rast(matrix(c(1, 0, 1, 0, NA), nrow = 1))
+  start_invalid <- terra::rast(matrix(c(0, 0, 0, 0, NA), nrow = 1))
+  # create problem
+  p <-
+    problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_manual_targets(
+    tibble::tibble(
+      feature = names(features),
+      type = "absolute",
+      sense = c("=", ">=", "<="),
+      target = c(5, 10, 20))
+    ) %>%
+    add_binary_decisions()
+  # create solution
+  s1 <-
+    p %>%
+    add_highs_solver(gap = 0, verbose = FALSE) %>%
+    solve()
+  s2 <-
+    p %>%
+    add_highs_solver(gap = 0, verbose = FALSE, start_solution = start_valid) %>%
+    solve()
+  s3 <-
+    p %>%
+    add_highs_solver(
+      gap = 0, verbose = FALSE, start_solution = start_invalid
+    ) %>%
+    solve()
+  # test for correct solution
+  expect_equal(c(terra::values(s1)), c(1, 0, 1, 0, NA))
+  expect_equal(terra::values(s1), terra::values(s2))
+  expect_equal(terra::values(s1), terra::values(s3))
+})
+
 test_that("control", {
   skip_on_cran()
   skip_on_os("windows")
@@ -517,4 +564,35 @@ test_that("control", {
   expect_equal(terra::nlyr(s1), 1)
   expect_true(all_binary(s1))
   expect_true(is_comparable_raster(sim_pu_raster, s1))
+})
+
+test_that("multi_problem", {
+  skip_on_cran()
+  skip_if_not_installed("highs")
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-objective problem
+  p <-
+    multi_problem(
+      obj1 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_pu_raster, sim_features) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions()
+    ) %>%
+    add_highs_solver(time_limit = 5, verbose = FALSE) %>%
+    add_wtd_sum_approach(weights = c(0.5, 0.5), verbose = FALSE)
+  # solve problem
+  s <- solve(p)
+  # tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(terra::nlyr(s), 1L)
+  expect_true(all_binary(s))
+  expect_true(is_comparable_raster(sim_pu_raster, s))
 })

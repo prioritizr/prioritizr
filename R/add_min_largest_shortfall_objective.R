@@ -11,7 +11,7 @@ NULL
 #' are too costly or are locked out), then solutions may only use a small
 #' proportion of the specified budget.
 #'
-#' @inheritParams add_max_features_objective
+#' @inheritParams add_max_wtd_sum_objective
 #'
 #' @details
 #' The minimum largest shortfall objective aims to
@@ -50,17 +50,11 @@ NULL
 #' \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}. Note that
 #'  continuous variable \eqn{l} is bounded between zero and one.
 #'
-#' @seealso
-#' See [objectives] for an overview of all functions for adding objectives.
-#' Also, see [targets] for an overview of all functions for adding targets, and
-#' [add_feature_weights()] to specify weights for different features.
+#' @inherit add_max_n_targets_met_objective return seealso
 #'
 #' @family objectives
 #'
-#' @inherit add_min_set_objective return
-#'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -113,7 +107,7 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_min_largest_shortfall_objective
 NULL
 

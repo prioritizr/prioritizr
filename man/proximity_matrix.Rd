@@ -40,7 +40,7 @@ Each row and column represents a planning unit.
 Cells values indicate if the pair-wise distances between different
 planning units are within the distance threshold or not (using ones and
 zeros). To reduce computational burden, cells among the matrix diagonal are
-set to zero. Furthermore, if the argument to \code{x} is a
+set to zero. Furthermore, if \code{x} is a
 \code{\link[terra:rast]{terra::rast()}} object, then cells with missing (\code{NA})
 values are set to zero too.
 }
@@ -49,11 +49,10 @@ Create a matrix showing which planning units are within a certain
 spatial proximity to each other.
 }
 \details{
-Proximity calculations are performed using
-\code{\link[sf:geos_binary_pred]{sf::st_is_within_distance()}}.
+Proximity calculations are performed using \code{\link[sf:st_is_within_distance]{sf::st_is_within_distance()}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -103,9 +102,9 @@ Matrix::image(cm_lns, main = "proximity matrix")
 ## plot points and proximity matrix
 plot(pts[, 1], main = "points", axes = FALSE)
 Matrix::image(cm_pts, main = "proximity matrix")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Proximity matrix data might need rescaling to improve optimization
-performance, see \code{\link[=rescale_matrix]{rescale_matrix()}} to perform these calculations.
+performance. See \code{\link[=rescale_matrix]{rescale_matrix()}} to perform rescaling.
 }

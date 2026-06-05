@@ -184,11 +184,10 @@ object, you will need to specify the spatial units for the features when
 building a [`problem()`](https://prioritizr.net/reference/problem.md)
 object if the feature data are provided in a different format. In
 particular, if the feature data are provided as a `data.frame` or
-`character` vector, then you will need to specify an argument to
-`feature_units` when using the
-[`problem()`](https://prioritizr.net/reference/problem.md) function. See
-the Examples section below for a demonstration of using the
-`feature_units` parameter.
+`character` vector, then you will need to specify `feature_units` when
+using the [`problem()`](https://prioritizr.net/reference/problem.md)
+function. See the Examples section below for a demonstration of using
+the `feature_units` parameter.
 
 ## Target setting
 
@@ -268,7 +267,6 @@ Other functions for adding targets:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -387,6 +385,4 @@ s5 <- solve(p5)
 
 # plot solution
 plot(s5[, "solution_1"], axes = FALSE)
-
-# }
 ```

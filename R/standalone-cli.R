@@ -8,14 +8,13 @@
 #'
 #' Theme for the package.
 #'
-#" @details This function is designed to be used with [cli::cli_div].
+#' @details This function is designed to be used with [cli::cli_div()].
 #'
-#' @return `list` object.
+#' @return A `list` object.
 #'
 #' @noRd
 cli_pkg_theme <- function() {
   list(
-    .gray = list(color = "gray"),
     .val = list(digits = 4),
     .h = list(color = "cyan")
   )
@@ -23,11 +22,11 @@ cli_pkg_theme <- function() {
 
 #' Box characters
 #'
-#' Determine characters for creating boxes.
+#' Determine characters for creating command line interfaces with boxes.
 #'
-#' @details This function is designed to be used with [cli::cli_text].
+#' @details This function is designed to be used with [cli::cli_text()].
 #'
-#' @return `list` object.
+#' @return A `list` object.
 #'
 #' @noRd
 cli_box_chars <- function() {
@@ -61,7 +60,7 @@ cli_box_chars <- function() {
 #' @param .envir `environment` for evaluating expressions.
 #'
 #' @details
-#' This function is a wrapper for [cli::cli_verbatim] that supports
+#' This function is a wrapper for [cli::cli_verbatim()] that supports
 #' \pkg{glue} expressions.
 #'
 #' @return None.
@@ -82,7 +81,7 @@ cli_vtext <- function(..., .envir = parent.frame()) {
 #' @param header `character` value displayed before first element in `x`.
 #'
 #' @param subheader `character` value displayed before subsequent elements in
-#'   `x`.
+#' `x`.
 #'
 #' @param width `integer` extra spaces to insert between `subheader` and `x`.
 #'
@@ -159,7 +158,7 @@ cli_warning <- function(message,
 #' @param old `character` value with name of defunct function.
 #'
 #' @param new `character` value with name of replacement function.
-#'   Defaults to `NULL` such that no replacement function is detailed.
+#' Defaults to `NULL` such that no replacement function is detailed.
 #'
 #' @return None.
 #'
@@ -196,4 +195,34 @@ cli_deprecated <- function(old, new = NULL) {
     msg <- c(msg, "i" = "Use {.fn {new}} instead.")
   }
   cli_warning(msg, call = FALSE)
+}
+
+#' Light gray text
+#'
+#' Display text with a gray color.
+#'
+#' @param ... `character` values.
+#'
+#' @return A `character` value.
+#'
+#' @noRd
+col_light_gray <- cli::make_ansi_style("grey60")
+
+#' Progress bar format
+#'
+#' @param name `
+#' @return A `character` value for formatting [cli::cli_progress_bar()].
+#'
+#' @noRd
+cli_progress_bar_format <- function(name = NULL) {
+  out <- ""
+  if (!is.null(name)) {
+    out <- paste0(name, " ")
+  }
+  out <- paste0(
+    out,
+    "{cli::pb_bar} | ",
+    "{cli::pb_current}/{cli::pb_total} | {cli::pb_percent} | ETA:{cli::pb_eta}"
+  )
+  out
 }

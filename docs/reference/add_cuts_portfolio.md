@@ -9,7 +9,7 @@ when the *Gurobi* software is not available.
 ## Usage
 
 ``` r
-add_cuts_portfolio(x, number_solutions = 10)
+add_cuts_portfolio(x, number_solutions = 10, verbose = TRUE)
 ```
 
 ## Arguments
@@ -20,8 +20,13 @@ add_cuts_portfolio(x, number_solutions = 10)
 
 - number_solutions:
 
-  `integer` number of attempts to generate different solutions. Defaults
-  to 10.
+  `integer` value denoting the number of required solutions. Defaults to
+  10.
+
+- verbose:
+
+  `logical` should progress on generating multiple solutions be
+  displayed? Defaults to `TRUE`.
 
 ## Value
 
@@ -61,12 +66,12 @@ Other functions for adding portfolios:
 [`add_extra_portfolio()`](https://prioritizr.net/reference/add_extra_portfolio.md),
 [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md),
 [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md),
+[`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md),
 [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -86,6 +91,9 @@ p1 <-
 
 # solve problem and generate 10 solutions within 20% of optimality
 s1 <- solve(p1)
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 1s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert portfolio into a multi-layer raster object
 s1 <- terra::rast(s1)
@@ -105,6 +113,8 @@ p2 <-
 
 # solve the problem
 s2 <- solve(p2)
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # print solution
 str(s2, max.level = 1)
@@ -123,11 +133,11 @@ str(s2, max.level = 1)
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#>  - attr(*, "runtime")= Named num [1:10] 0.008 0.007 0.007 0.007 0.007 ...
+#>  - attr(*, "runtime")= Named num [1:10] 0.006 0.006 0.005 0.007 0.006 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #>  - attr(*, "gap")= Named num [1:10] 0.175 0.183 0.187 0.189 0.173 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#>  - attr(*, "objbound")= Named num [1:10] 10407 10065 10065 10065 10065 ...
+#>  - attr(*, "objbound")= Named num [1:10] 0.175 0.183 0.187 0.189 0.173 ...
 #>   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 
 # convert each solution in the portfolio into a single category layer
@@ -135,6 +145,4 @@ s2 <- terra::rast(lapply(s2, category_layer))
 
 # plot solutions in portfolio
 plot(s2, main = "solution", axes = FALSE)
-
-# }
 ```

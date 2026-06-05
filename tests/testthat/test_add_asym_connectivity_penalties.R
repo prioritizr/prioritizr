@@ -96,7 +96,7 @@ test_that("maximum features objective (compile, single zone)", {
   cmatrix <- Matrix::drop0(as_Matrix(cmatrix, "dgCMatrix"))
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(100) %>%
+    add_max_n_targets_met_objective(100) %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_asym_connectivity_penalties(0.5, data = cmatrix)
@@ -124,8 +124,6 @@ test_that("maximum features objective (compile, single zone)", {
   c_vtype <- o$vtype()[n_pu + n_f +  seq_len(length(c_data@i))]
   # pu costs including total connectivity
   pu_costs <- o$obj()[seq_len(n_pu)]
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # matrix labels
   c_col_labels <- o$col_ids()[n_pu + n_f + seq_len(length(c_data@i))]
   c_row_labels <-
@@ -137,7 +135,7 @@ test_that("maximum features objective (compile, single zone)", {
   ## check that constraints added correctly
   expect_equal(
     pu_costs,
-    scaled_costs + (-1 * c_weights) + Matrix::rowSums(c_data)
+    rep(0, n_pu) + (-1 * c_weights) + Matrix::rowSums(c_data)
   )
   expect_equal(c_obj, -c_data@x)
   expect_equal(c_lb, rep(0, length(c_data@i)))

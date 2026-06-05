@@ -69,10 +69,10 @@ of all functions for adding targets.
 
 Other functions for adding objectives:
 [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md),
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md),
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md),
 [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
 [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md),
-[`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md),
+[`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md),
 [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md),
 [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md),
 [`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)
@@ -80,7 +80,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -120,6 +119,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(category_layer(s2), main = "solution", axes = FALSE)
-
-# }
 ```

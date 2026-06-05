@@ -12,8 +12,10 @@ optimization_problem(x = NULL)
 
 - x:
 
-  A `NULL` or `list` object. See Details for more information. Defaults
-  to `NULL`.
+  A `NULL` or `list` object. If `x` is a `NULL`, then an empty
+  optimization problem is created. Alternately, if a `x` is a `list`
+  then a fully formulated optimization problem is created. See Details
+  for more information on the `list` format. Defaults to `NULL`.
 
 ## Value
 
@@ -23,10 +25,8 @@ object.
 
 ## Details
 
-The argument to `x` can be a `NULL` or a `list`. If `x` is a `NULL`,
-then an empty optimization problem is created. Alternately, if a `x` is
-a `list` then a fully formulated optimization problem is created.
-Specifically, the `list` should contain the following elements.
+The argument to `x` can be a `NULL` or a `list` object. If `x` is a
+`list`, then it must have the following elements.
 
 - modelsense:
 
@@ -42,15 +42,15 @@ Specifically, the `list` should contain the following elements.
 
 - A_i:
 
-  `integer` row indices for problem matrix.
+  `integer` row indices for constraint matrix.
 
 - A_j:
 
-  `integer` column indices for problem matrix.
+  `integer` column indices for constraint matrix.
 
 - A_x:
 
-  `numeric` values for problem matrix.
+  `numeric` values for constraint matrix.
 
 - obj:
 
@@ -75,19 +75,16 @@ Specifically, the `list` should contain the following elements.
 - vtype:
 
   `character` variable types. These are used to specify that the
-  decision variables are binary (`"B"`) or continuous (`"C"`).
+  decision variables are binary (`"B"`), continuous (`"C"`), or
+  semi-continuous (`"S"`).
 
 - row_ids:
 
-  `character` identifiers for the rows in the problem matrix.
+  `character` identifiers for the rows in the constraint matrix.
 
 - col_ids:
 
-  `character` identifiers for the columns in the problem matrix.
-
-## See also
-
-[OptimizationProblem-methods](https://prioritizr.net/reference/OptimizationProblem-methods.md).
+  `character` identifiers for the columns in the constraint matrix.
 
 ## Examples
 

@@ -16,26 +16,22 @@ NULL
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_manual_locked_constraints
 #'
-#' @param locked_in Object that determines which planning units should be
-#'   locked in. See the Data format section for more information.
+#' @param locked_in Object that specifies which planning units should be
+#' locked in. See the Data format section for more information.
 #'
 #' @section Data format:
 #'
-#' The following formats can be used to lock in planning units.
+#' The following formats can be used to specify `locked_in`.
 #'
 #' `r locked_documentation("locked_in")`
 #'
-#' @inherit add_contiguity_constraints return
-#'
-#' @seealso
-#' See [constraints] for an overview of all functions for adding constraints.
+#' @inherit add_manual_locked_constraints return seealso
 #'
 #' @family constraints
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -173,7 +169,6 @@ NULL
 #'
 #' # plot solution
 #' plot(category_layer(s10), main = "solution", axes = FALSE)
-#' }
 #'
 #' @name add_locked_in_constraints
 #'
@@ -483,7 +478,7 @@ methods::setMethod("add_locked_in_constraints",
 
 #' Locked documentation
 #'
-#' @param x `character` name of argument.
+#' @param x `character` name of parameter.
 #'
 #' @noRd
 locked_documentation <- function(x) {
@@ -492,68 +487,64 @@ locked_documentation <- function(x) {
 \\describe{
 
 \\item{`", x, "` as a `numeric` vector}{
-  containing `numeric` values that indicate which
-  planning units should be locked for the solution.
-  If `x` has `data.frame` planning units,
-  then these values must refer to values in the `id` column of the planning
-  unit data.
-  Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
-  then these values must refer to the row numbers of the planning unit data.
-  Additionally, if `x` has `numeric` vector planning units,
-  then these values must refer to the element indices of the planning unit
-  data.
-  Finally, if `x` has [terra::rast()] planning units,
-  then these values must refer to cell indices.
-  Note that this format is available for problems that contain a single
-  zone.}
+Here `numeric` values are used to specify which
+planning units should be locked for the solution.
+If `x` has `data.frame` planning units,
+then these values must refer to values in the `id` column of the planning
+unit data.
+Alternatively, if `x` has [sf::st_sf()] or `matrix` planning units,
+then these values must refer to the row numbers of the planning unit data.
+Additionally, if `x` has `numeric` vector planning units,
+then these values must refer to the element indices of the planning unit
+data.
+Finally, if `x` has [terra::rast()] planning units,
+then these values must refer to cell indices.
+Note that this format is only compatible if `x` has a single zone.
+}
 
-\\item{`", x, "` as a `logical` vector}{containing `TRUE` and/or
-  `FALSE` values that indicate each if planning units should be locked
-  in the solution. Note that the vector should have a `TRUE` or `FALSE`
-  value for each and every planning unit in the argument to `x`.
-  This argument is only compatible with problems that
-  contain a single zone.}
+\\item{`", x, "` as a `logical` vector}{
+Here `TRUE`/`FALSE` values are used to specify each if planning unit should be
+locked for the solution. Note that `x` should have a `TRUE` or `FALSE`
+value for planning unit in `x`.
+Note that this format is only compatible if `x` has a single zone.
+}
 
-\\item{`", x, "` as a `matrix` object}{containing `logical` (i.e.,
-  `TRUE` or `FALSE`) values that indicate if certain planning units
-  should be locked to a specific zone in the solution. Each row
-  corresponds to a planning unit, each column corresponds to a zone, and
-  each cell indicates if the planning unit should be locked to a given
-  zone.}
+\\item{`", x, "` as a `matrix` object}{
+Here `TRUE`/`FALSE` values are used to specify each if each planning unit should be locked to a particular zone for the solution.
+Each row corresponds to a planning unit, each column corresponds to a zone, and each cell indicates if the planning unit should be locked to a given zone.
+}
 
-\\item{`", x, "` as a `character` vector}{containing column name(s)
-  for the planning unit data in `x` that indicate if planning units should
-  be locked for the solution.
-  This format is only
-  compatible if the argument to `x` has [sf::st_sf()] or `data.frame`
-  planning units.
-  The columns must have `logical` (i.e., `TRUE` or `FALSE`)
-  values indicating if planning units should be locked for the solution.
-  For problems that contain a single zone, the argument to `data` must
-  contain a single column name. Otherwise, for problems that
-  contain multiple zones, the argument to `data` must
-  contain a column name for each zone.}
+\\item{`", x, "` as a `character` vector}{
+Here column name(s) for the planning unit data in `x` are used
+to specify if planning units should be locked for the solution.
+This format is only compatible if `x` has planning units in [sf::st_sf()] or
+`data.frame` format. These columns must have `logical` (i.e., `TRUE`/`FALSE`)
+values indicating if planning units should be locked for the solution.
+If `x` has a single zone, `", x, "` must contain a single column
+name. Otherwise, if `x` has multiple zones, `", x, "` must
+contain a column name for each zone.
+}
 
 \\item{`", x, "` as a [sf::sf()] object}{
-  containing geometries that will be used to lock planning units for
-  the solution. Specifically, planning units in `x` that spatially
-  intersect with `y` will be locked (per [intersecting_units()]).
-  Note that this option is only available
-  for problems that contain a single management zone.}
+Here geometries of `", x, "` are used to specify which planning units should be
+locked for the solution.
+Specifically, planning units in `x` that spatially intersect
+with `", x, "` will be locked (per [intersecting_units()]).
+Note that this option is only compatible if `x` has a single zone.
+}
 
 \\item{`", x, "` as a [terra::rast()] object}{
-  containing cells used to lock planning units for the solution.
-  Specifically, planning units in `x`
-  that intersect with cells that have non-zero and non-`NA` values are
-  locked.
-  For problems that contain multiple zones, the
-  `data` object must contain a layer
-  for each zone. Note that for multi-band arguments, each cell must
-  only contain a non-zero value in a single band. Additionally, if the
-  cost data in `x` is a [terra::rast()] object, we
-  recommend standardizing `NA` values in this dataset with the cost
-  data. In other words, the cells in `x` that have `NA` values
-  should also have `NA` values in the locked data.}
+Here the cells in `", x, "` are used to lock planning units for the solution.
+Specifically, planning units in `x` that intersect with cells in `", x, "` that
+have non-zero and non-missing (`NA`) values will be locked.
+If `x` has a single zone, then `", x, "` must have a single layer.
+Otherwise, if `x` has multiple zones, then `", x, "` must have a layer
+for each zone. Note that if `", x, "` has multiple layers, each cell must
+only contain a non-zero value in a single layer. Additionally, if the
+planning unit data in `x` is a [terra::rast()] object, we
+recommend standardizing missing (`NA`) values in `", x, "` with them to ensure that missing (`NA`) are consistent across both objects.
 }
-  ")
+
+}
+")
 }

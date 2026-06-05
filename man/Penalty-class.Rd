@@ -9,11 +9,13 @@ This class is used to represent penalties used in optimization.
 \strong{Only experts should use the fields and methods for this class directly.}
 }
 \seealso{
-Other classes: 
+Other classes:
 \code{\link{ConservationModifier-class}},
 \code{\link{ConservationProblem-class}},
 \code{\link{Constraint-class}},
 \code{\link{Decision-class}},
+\code{\link{MultiConservationProblem-class}},
+\code{\link{MultiObjApproach-class}},
 \code{\link{Objective-class}},
 \code{\link{OptimizationProblem-class}},
 \code{\link{Portfolio-class}},
@@ -24,64 +26,66 @@ Other classes:
 }
 \concept{classes}
 \section{Super class}{
-\code{\link[prioritizr:ConservationModifier]{prioritizr::ConservationModifier}} -> \code{Penalty}
+\code{\link[prioritizr:ConservationModifier]{ConservationModifier}} -> \code{Penalty}
 }
 \section{Methods}{
 \subsection{Public methods}{
-\itemize{
-\item \href{#method-Penalty-apply}{\code{Penalty$apply()}}
-\item \href{#method-Penalty-clone}{\code{Penalty$clone()}}
+  \itemize{
+    \item \href{#method-Penalty-apply}{\code{Penalty$apply()}}
+    \item \href{#method-Penalty-clone}{\code{Penalty$clone()}}
+  }
 }
-}
-\if{html}{\out{
-<details><summary>Inherited methods</summary>
+\if{html}{\out{<details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="calculate"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-calculate'><code>prioritizr::ConservationModifier$calculate()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_data'><code>prioritizr::ConservationModifier$get_data()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_internal'><code>prioritizr::ConservationModifier$get_internal()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="print"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-print'><code>prioritizr::ConservationModifier$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="repr"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-repr'><code>prioritizr::ConservationModifier$repr()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_data'><code>prioritizr::ConservationModifier$set_data()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_internal'><code>prioritizr::ConservationModifier$set_internal()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="show"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-show'><code>prioritizr::ConservationModifier$show()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="calculate"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-calculate'><code>ConservationModifier$calculate()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_data'><code>ConservationModifier$get_data()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="get_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-get_internal'><code>ConservationModifier$get_internal()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="print"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-print'><code>ConservationModifier$print()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="repr"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-repr'><code>ConservationModifier$repr()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_data"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_data'><code>ConservationModifier$set_data()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="set_internal"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-set_internal'><code>ConservationModifier$set_internal()</code></a></span></li>
+  <li><span class="pkg-link" data-pkg="prioritizr" data-topic="ConservationModifier" data-id="show"><a href='../../prioritizr/html/ConservationModifier.html#method-ConservationModifier-show'><code>ConservationModifier$show()</code></a></span></li>
 </ul>
-</details>
-}}
+</details>}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Penalty-apply"></a>}}
 \if{latex}{\out{\hypertarget{method-Penalty-apply}{}}}
-\subsection{Method \code{apply()}}{
-Update an optimization problem formulation.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Penalty$apply(x)}\if{html}{\out{</div>}}
+\subsection{\code{Penalty$apply()}}{
+  Update an optimization problem formulation.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Penalty$apply(x)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
+    }
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    Invisible \code{TRUE}.
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\code{\link[=optimization_problem]{optimization_problem()}} object.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-Invisible \code{TRUE}.
-}
-}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Penalty-clone"></a>}}
 \if{latex}{\out{\hypertarget{method-Penalty-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Penalty$clone(deep = FALSE)}\if{html}{\out{</div>}}
+\subsection{\code{Penalty$clone()}}{
+  The objects of this class are cloneable with this method.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{Penalty$clone(deep = FALSE)}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Arguments}{
+    \if{html}{\out{<div class="arguments">}}
+    \describe{
+      \item{\code{deep}}{Whether to make a deep clone.}
+    }
+    \if{html}{\out{</div>}}
+  }
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

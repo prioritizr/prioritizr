@@ -58,7 +58,7 @@ NULL
 #' when initializing the [problem()] objects if the feature data
 #' are provided in a different format. In particular, if the feature
 #' data are provided as a `data.frame` or `character` vector,
-#' then you will need to specify an argument to `feature_units` when
+#' then you will need to specify `feature_units` when
 #' using the [problem()] function.
 #' See the Examples section of the documentation for [add_auto_targets()]
 #' for a demonstration of specifying the spatial units for features.
@@ -124,8 +124,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -146,7 +145,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_jung_targets <- function(status = "VU", prop_uplift = 0.1,
                               cap_area_target = 1000000,

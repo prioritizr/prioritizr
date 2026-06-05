@@ -22,16 +22,11 @@ add_min_largest_shortfall_objective(x, budget)
 
 - budget:
 
-  `numeric` value specifying the maximum expenditure of the
-  prioritization. For problems with multiple zones, the argument to
-  `budget` can be (i) a single `numeric` value to specify a single
-  budget for the entire solution or (ii) a `numeric` vector to specify a
-  separate budget for each management zone.
-
-## Value
-
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
-object with the objective added to it.
+  `numeric` value specifying the maximum expenditure permitted for the
+  solution. If `x` has multiple zones, then `budget` can be (i) a single
+  `numeric` value to specify an overall budget for the entire solution
+  or (ii) a `numeric` vector to specify a budget for each zone
+  (separately) in the solution.
 
 ## Details
 
@@ -69,19 +64,12 @@ continuous variable \\l\\ is bounded between zero and one.
 
 ## See also
 
-See [objectives](https://prioritizr.net/reference/objectives.md) for an
-overview of all functions for adding objectives. Also, see
-[targets](https://prioritizr.net/reference/targets.md) for an overview
-of all functions for adding targets, and
-[`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md)
-to specify weights for different features.
-
 Other functions for adding objectives:
 [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md),
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md),
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md),
 [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
 [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md),
-[`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md),
+[`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md),
 [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md),
 [`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md),
 [`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)
@@ -89,7 +77,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -144,6 +131,4 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-
-# }
 ```

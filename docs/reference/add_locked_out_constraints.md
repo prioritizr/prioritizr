@@ -51,8 +51,8 @@ add_locked_out_constraints(x, locked_out)
 
 - locked_out:
 
-  Object that determines which planning units that should be locked out.
-  See the Data format section for more information.
+  Object that determines which planning units should be locked out. See
+  the Data format section for more information.
 
 ## Value
 
@@ -61,11 +61,11 @@ object with the constraints added to it.
 
 ## Data format
 
-The following formats can be used to lock in planning units.
+The following formats can be used to specify `locked_out`.
 
 - `locked_out` as a `numeric` vector:
 
-  containing `numeric` values that indicate which planning units should
+  Here `numeric` values are used to specify which planning units should
   be locked for the solution. If `x` has `data.frame` planning units,
   then these values must refer to values in the `id` column of the
   planning unit data. Alternatively, if `x` has
@@ -76,70 +76,67 @@ The following formats can be used to lock in planning units.
   indices of the planning unit data. Finally, if `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units, then these values must refer to cell indices. Note
-  that this format is available for problems that contain a single zone.
+  that this format is only compatible if `x` has a single zone.
 
 - `locked_out` as a `logical` vector:
 
-  containing `TRUE` and/or `FALSE` values that indicate each if planning
-  units should be locked in the solution. Note that the vector should
-  have a `TRUE` or `FALSE` value for each and every planning unit in the
-  argument to `x`. This argument is only compatible with problems that
-  contain a single zone.
+  Here `TRUE`/`FALSE` values are used to specify each if planning unit
+  should be locked for the solution. Note that `x` should have a `TRUE`
+  or `FALSE` value for planning unit in `x`. Note that this format is
+  only compatible if `x` has a single zone.
 
 - `locked_out` as a `matrix` object:
 
-  containing `logical` (i.e., `TRUE` or `FALSE`) values that indicate if
-  certain planning units should be locked to a specific zone in the
-  solution. Each row corresponds to a planning unit, each column
-  corresponds to a zone, and each cell indicates if the planning unit
-  should be locked to a given zone.
+  Here `TRUE`/`FALSE` values are used to specify each if each planning
+  unit should be locked to a particular zone for the solution. Each row
+  corresponds to a planning unit, each column corresponds to a zone, and
+  each cell indicates if the planning unit should be locked to a given
+  zone.
 
 - `locked_out` as a `character` vector:
 
-  containing column name(s) for the planning unit data in `x` that
-  indicate if planning units should be locked for the solution. This
-  format is only compatible if the argument to `x` has
+  Here column name(s) for the planning unit data in `x` are used to
+  specify if planning units should be locked for the solution. This
+  format is only compatible if `x` has planning units in
   [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
-  `data.frame` planning units. The columns must have `logical` (i.e.,
-  `TRUE` or `FALSE`) values indicating if planning units should be
-  locked for the solution. For problems that contain a single zone, the
-  argument to `data` must contain a single column name. Otherwise, for
-  problems that contain multiple zones, the argument to `data` must
-  contain a column name for each zone.
+  `data.frame` format. These columns must have `logical` (i.e.,
+  `TRUE`/`FALSE`) values indicating if planning units should be locked
+  for the solution. If `x` has a single zone, `locked_out` must contain
+  a single column name. Otherwise, if `x` has multiple zones,
+  `locked_out` must contain a column name for each zone.
 
 - `locked_out` as a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object:
 
-  containing geometries that will be used to lock planning units for the
-  solution. Specifically, planning units in `x` that spatially intersect
-  with `y` will be locked (per
+  Here geometries of `locked_out` are used to specify which planning
+  units should be locked for the solution. Specifically, planning units
+  in `x` that spatially intersect with `locked_out` will be locked (per
   [`intersecting_units()`](https://prioritizr.net/reference/intersecting_units.md)).
-  Note that this option is only available for problems that contain a
-  single management zone.
+  Note that this option is only compatible if `x` has a single zone.
 
 - `locked_out` as a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object:
 
-  containing cells used to lock planning units for the solution.
-  Specifically, planning units in `x` that intersect with cells that
-  have non-zero and non-`NA` values are locked. For problems that
-  contain multiple zones, the `data` object must contain a layer for
-  each zone. Note that for multi-band arguments, each cell must only
-  contain a non-zero value in a single band. Additionally, if the cost
+  Here the cells in `locked_out` are used to lock planning units for the
+  solution. Specifically, planning units in `x` that intersect with
+  cells in `locked_out` that have non-zero and non-missing (`NA`) values
+  will be locked. If `x` has a single zone, then `locked_out` must have
+  a single layer. Otherwise, if `x` has multiple zones, then
+  `locked_out` must have a layer for each zone. Note that if
+  `locked_out` has multiple layers, each cell must only contain a
+  non-zero value in a single layer. Additionally, if the planning unit
   data in `x` is a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object, we recommend standardizing `NA` values in this dataset with
-  the cost data. In other words, the cells in `x` that have `NA` values
-  should also have `NA` values in the locked data.
+  object, we recommend standardizing missing (`NA`) values in
+  `locked_out` with them to ensure that missing (`NA`) are consistent
+  across both objects.
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
 [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
@@ -151,7 +148,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -297,6 +293,4 @@ s10 <- solve(p10)
 
 # plot solution
 plot(category_layer(s10), main = "solution", axes = FALSE)
-
-# }
 ```

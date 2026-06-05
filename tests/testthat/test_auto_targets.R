@@ -160,11 +160,15 @@ test_that("invalid inputs", {
   sim_features <- get_sim_features()
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
+  sim_pu_raster_na_crs <- get_sim_pu_raster()
+  sim_features_na_crs <- get_sim_features()
   # define spatial properties
   terra::ext(sim_pu_raster) <- c(0, 2e5, 0, 2e5)
   terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
   terra::ext(sim_features) <- terra::ext(sim_pu_raster)
   terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  terra::crs(sim_pu_raster_na_crs) <- na_crs
+  terra::crs(sim_features_na_crs) <- na_crs
   # create problems
   p <- problem(sim_pu_raster, sim_features)
   # run tests
@@ -204,12 +208,12 @@ test_that("invalid inputs", {
     "zones"
   )
   expect_tidy_error(
-    problem(get_sim_pu_raster(), get_sim_features()) %>%
+    problem(sim_pu_raster_na_crs, sim_features_na_crs) %>%
     add_auto_targets("jung"),
     "area-based"
   )
   expect_tidy_error(
-    problem(get_sim_pu_raster(), get_sim_features()) %>%
+    problem(sim_pu_raster_na_crs, sim_features_na_crs) %>%
     add_auto_targets(list("jung")[rep(1, 5)]),
     "area-based"
   )

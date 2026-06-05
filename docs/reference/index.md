@@ -15,6 +15,7 @@ Functions for creating new problems and solving them.
 - [`problem()`](https://prioritizr.net/reference/problem.md) :
   Conservation planning problem
 - [`solve(`*`<ConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
+  [`solve(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/solve.md)
   : Solve
 - [`zones()`](https://prioritizr.net/reference/zones.md) : Management
   zones
@@ -49,14 +50,14 @@ Functions for adding an objective to a problem.
   an objective
 - [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md)
   : Add maximum coverage objective
-- [`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md)
-  : Add maximum feature representation objective
+- [`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md)
+  : Add maximum number of targets met objective
 - [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md)
   : Add maximum phylogenetic diversity objective
 - [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md)
   : Add maximum phylogenetic endemism objective
-- [`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md)
-  : Add maximum utility objective
+- [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md)
+  : Add maximum weighted sum objective
 - [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md)
   : Add minimum largest shortfall objective
 - [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)
@@ -168,6 +169,8 @@ Functions for adding constraints to a problem.
   [`add_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_contiguity_constraints.md)
   [`add_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_contiguity_constraints.md)
   : Add contiguity constraints
+- [`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md)
+  : Add cost constraints
 - [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
   [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
   [`add_feature_contiguity_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`)`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md)
@@ -218,6 +221,8 @@ Functions for adding penalties to a problem.
   [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
   [`add_connectivity_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/add_connectivity_penalties.md)
   : Add connectivity penalties
+- [`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md)
+  : Add cost penalties
 - [`add_feature_weights(`*`<ConservationProblem>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_feature_weights.md)
   [`add_feature_weights(`*`<ConservationProblem>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_feature_weights.md)
   : Add feature weights
@@ -305,6 +310,8 @@ Functions for generating a portfolio of solutions.
   : Add a gap portfolio
 - [`add_shuffle_portfolio()`](https://prioritizr.net/reference/add_shuffle_portfolio.md)
   : Add a shuffle portfolio
+- [`add_single_portfolio()`](https://prioritizr.net/reference/add_single_portfolio.md)
+  : Add a single portfolio
 - [`add_top_portfolio()`](https://prioritizr.net/reference/add_top_portfolio.md)
   : Add a top portfolio
 
@@ -314,19 +321,19 @@ Functions for summarizing the performance of solutions.
 
 - [`summaries`](https://prioritizr.net/reference/summaries.md) :
   Evaluate solutions using summary statistics
-- [`eval_asym_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
-  [`eval_asym_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
-  [`eval_asym_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
-  [`eval_asym_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
-  [`eval_asym_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+- [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
+  [`eval_asym_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_asym_connectivity_summary.md)
   : Evaluate asymmetric connectivity of solution
 - [`eval_boundary_summary()`](https://prioritizr.net/reference/eval_boundary_summary.md)
   : Evaluate boundary length of solution
-- [`eval_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
-  [`eval_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
-  [`eval_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
-  [`eval_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
-  [`eval_connectivity_summary(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+- [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<data.frame>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
+  [`eval_connectivity_summary(`*`<GenericConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<array>`*`)`](https://prioritizr.net/reference/eval_connectivity_summary.md)
   : Evaluate connectivity of solution
 - [`eval_cost_summary()`](https://prioritizr.net/reference/eval_cost_summary.md)
   : Evaluate cost of solution
@@ -334,6 +341,8 @@ Functions for summarizing the performance of solutions.
   : Evaluate feature representation by solution
 - [`eval_n_summary()`](https://prioritizr.net/reference/eval_n_summary.md)
   : Evaluate number of planning units selected by solution
+- [`eval_objective_summary()`](https://prioritizr.net/reference/eval_objective_summary.md)
+  : Evaluate objective value of solution
 - [`eval_target_coverage_summary()`](https://prioritizr.net/reference/eval_target_coverage_summary.md)
   : Evaluate target coverage by solution
 
@@ -352,6 +361,25 @@ Functions for calculating importance scores for a solution.
   : Evaluate solution importance using rarity weighted richness scores
 - [`eval_replacement_importance()`](https://prioritizr.net/reference/eval_replacement_importance.md)
   : Evaluate solution importance using replacement cost scores
+
+## Multi-objective optimization
+
+Functions for multi-objective optimization.
+
+- [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  : Multi-objective conservation planning problem
+- [`approaches`](https://prioritizr.net/reference/approaches.md) : Add
+  an approach
+- [`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
+  : Add a hierarchical approach
+- [`add_ref_point_approach()`](https://prioritizr.net/reference/add_ref_point_approach.md)
+  : Add a reference point approach
+- [`add_wtd_sum_approach()`](https://prioritizr.net/reference/add_wtd_sum_approach.md)
+  : Add a weighted sum approach
+- [`approach_weights_matrix()`](https://prioritizr.net/reference/approach_weights_matrix.md)
+  : Create weight values for a multi-objective approach
+- [`approach_rel_tol_matrix()`](https://prioritizr.net/reference/approach_rel_tol_matrix.md)
+  : Create relative tolerance values for a multi-objective approach
 
 ## Data simulation
 
@@ -432,17 +460,25 @@ Functions for working with problems.
 - [`feature_abundances()`](https://prioritizr.net/reference/feature_abundances.md)
   : Feature abundances
 - [`feature_names()`](https://prioritizr.net/reference/feature_names.md)
+  [`problem_names(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/feature_names.md)
   : Feature names
+- [`multi_compile()`](https://prioritizr.net/reference/multi_compile.md)
+  : Compile a multi-objective optimization problem
 - [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md)
+  [`number_of_problems(`*`<MultiConservationProblem>`*`)`](https://prioritizr.net/reference/number_of_features.md)
   : Number of features
 - [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md)
   : Number of planning units
+- [`number_of_problems()`](https://prioritizr.net/reference/number_of_problems.md)
+  : Number of problems
 - [`number_of_total_units()`](https://prioritizr.net/reference/number_of_total_units.md)
   : Number of total units
 - [`number_of_zones()`](https://prioritizr.net/reference/number_of_zones.md)
   : Number of zones
 - [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
   : Presolve check
+- [`problem_names()`](https://prioritizr.net/reference/problem_names.md)
+  : Problem names
 - [`run_calculations()`](https://prioritizr.net/reference/run_calculations.md)
   : Run calculations
 - [`write_problem()`](https://prioritizr.net/reference/write_problem.md)
@@ -470,6 +506,12 @@ Documentation for internal classes and associated functions.
 - [`Decision-class`](https://prioritizr.net/reference/Decision-class.md)
   [`Decision`](https://prioritizr.net/reference/Decision-class.md) :
   Decision class
+- [`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md)
+  [`MultiConservationProblem`](https://prioritizr.net/reference/MultiConservationProblem-class.md)
+  : Multi-objective conservation problem class
+- [`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md)
+  [`MultiObjApproach`](https://prioritizr.net/reference/MultiObjApproach-class.md)
+  : Multi-objective approach class
 - [`Objective-class`](https://prioritizr.net/reference/Objective-class.md)
   [`Objective`](https://prioritizr.net/reference/Objective-class.md) :
   Objective class
@@ -494,26 +536,6 @@ Documentation for internal classes and associated functions.
 - [`Weight-class`](https://prioritizr.net/reference/Weight-class.md)
   [`Weight`](https://prioritizr.net/reference/Weight-class.md) : Weight
   class
-- [`nrow(`*`<OptimizationProblem>`*`)`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`ncol(`*`<OptimizationProblem>`*`)`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`ncell(`*`<OptimizationProblem>`*`)`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`modelsense()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`vtype()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`obj()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`A()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`rhs()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`sense()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`lb()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`ub()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`col_ids()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`row_ids()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`compressed_formulation()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`set_obj()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`set_lb()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`set_ub()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`append_linear_constraints()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  [`remove_last_linear_constraint()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
-  : Optimization problem methods
 - [`nrow(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
   [`ncol(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
   [`as.list(`*`<tbl_df>`*`)`](https://prioritizr.net/reference/tibble-methods.md)
@@ -536,6 +558,7 @@ Assorted functions distributed with the package.
   : Log-linear interpolation
 
 - [`knit_print.ConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
+  [`knit_print.MultiConservationProblem()`](https://prioritizr.net/reference/knit_print.md)
   [`knit_print.OptimizationProblem()`](https://prioritizr.net/reference/knit_print.md)
   : Print an object for knitr package.
 
@@ -546,6 +569,9 @@ Assorted functions distributed with the package.
 - [`as_per_km2()`](https://prioritizr.net/reference/as_per_km2.md) :
 
   Standardize unit to density per km²
+
+- [`do_run_example()`](https://prioritizr.net/reference/do_run_example.md)
+  : Do run example?
 
 ## Deprecated functions
 
@@ -566,4 +592,6 @@ Documentation for functions that are no longer available.
   [`new_optimization_problem()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   [`predefined_optimization_problem()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   [`add_loglinear_targets()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_max_phylo_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
+  [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   : Deprecation notice

@@ -18,9 +18,9 @@ write_problem(x, path, solver = NULL)
 
 - path:
 
-  `character` file path to save the problem formulation. The argument
-  should contain a `".lp"` or `.mps"` file extension to specify whether
-  the problem formulation will be saved in the
+  `character` file path to save the problem formulation. In particular,
+  `path` should have a `".lp"` or `.mps"` file extension to specify
+  whether the problem formulation should be saved in the
   [LP](https://docs.gurobi.com/current/#refman/lp_format.html) or
   [MPS](https://docs.gurobi.com/current/#refman/mps_format.html) format
   (respectively). If using the Gurobi solver (i.e.,
@@ -31,7 +31,7 @@ write_problem(x, path, solver = NULL)
 - solver:
 
   `character` name of optimization solver to write the problem to disk.
-  Available options include: `"rsymphony" `, `"gurobi"`, or `NULL`. Note
+  Available options are: `"rsymphony" `, `"gurobi"`, or `NULL`. Note
   that using the Gurobi solver is much faster, because the Rsymphony
   solver requires attempting to solve the problem before it can be
   written. Defaults to `NULL`, such that the best available solver is
@@ -44,7 +44,6 @@ An invisible `TRUE` indicating success.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -65,21 +64,20 @@ p <-
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
 print(path)
-#> [1] "/tmp/RtmpsCQbvK/model.lp"
+#> [1] "/tmp/RtmpNyFl5N/model.lp"
 
 # save problem to file
 ## note that either the gurobi or Rsymphony package needs to be installed
 write_problem(p, path)
 #> Set parameter Username
-#> Set parameter LicenseID to value 2774703
-#> Academic license - for non-commercial use only - expires 2027-02-03
-#> Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
+#> Set parameter LicenseID to value 2806834
+#> Academic license - for non-commercial use only - expires 2027-04-14
 
 # print model file
 cat(readLines(path), sep = "\n")
 #> \ Model R
 #> \ LP format - for model browsing. Use MPS format to capture full model detail.
-#> \ Signature: 0x54d8652510f6626a
+#> \ Signature: 0x54d8652510f6dfed
 #> Minimize
 #>   215.8638399028077 C0 + 212.7823480801063 C1 + 207.4962437102063 C2
 #>    + 208.9321699486367 C3
@@ -98,5 +96,4 @@ cat(readLines(path), sep = "\n")
 #> Binaries
 #>  C0 C1 C2 C3
 #> End
-# }
 ```

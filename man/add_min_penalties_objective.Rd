@@ -4,38 +4,34 @@
 \alias{add_min_penalties_objective}
 \title{Add minimum penalties objective}
 \usage{
-add_min_penalties_objective(x, budget)
+add_min_penalties_objective(x, budget = NULL)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a separate budget for each management zone.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+a budget for each zone (separately) in the solution.
+Defaults to \code{NULL} such expenditure is not limited.}
 }
 \description{
 Set the objective of a conservation planning problem to
-only minimize the penalties added to the problem, whilst ensuring that all
-\link{targets} are met and the cost of the solution does not exceed a budget.
-This objective is useful when using a hierarchical approach for
-multi-objective optimization.
+minimize the penalties added to the problem.
+Targets can optionally be specified to ensure that the solution
+must meet all the \link{targets}.
+Budgets can also optionally be specified to ensure that the solution
+does not exceed a budgetary threshold.
+This objective is designed to be used with multi-objective optimization.
 }
 \details{
 The minimum penalty objective is designed to be used with problems
 that have penalties (see \link{penalties} for details). It can be used
 to generate solutions that focus entirely on minimizing the penalties,
-whilst ensuring that certain constraints are met.
-This is is useful when performing multi-objective optimization using a
-hierarchical approach (see examples below). Although previous versions of the
-package recommended using the minimum set objective (i.e.,
-\code{\link[=add_min_set_objective]{add_min_set_objective()}}) with zero costs and linear constraints for this
-purpose, the minimum penalty objective provides a dedicated objective
-for performing hierarchical multi-objective optimization.
+whilst (optionally) ensuring that certain constraints are met.
+This is is useful when performing multi-objective optimization
+(see examples below).
 }
 \section{Mathematical formulation}{
 
@@ -64,7 +60,7 @@ solutions during optimization.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -74,52 +70,54 @@ sim_features <- get_sim_features()
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()
 
-# create initial problem with minimum set objective
+# here we will show how the min penalties objective can be used
+# to generate a solution that accounts for spatial fragmentation
+# (via boundary penalties) using multi-objective optimization techniques
+
+# create initial problem
+# note that this does not consider boundary penalties
 p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
+  add_relative_targets(0.3) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
 
-# solve initial problem
+# solve problem
 s1 <- solve(p1)
 
-# plot initial solution
+# plot solution
 plot(s1, main = "initial solution", axes = FALSE)
 
-# calculate total cost of initial solution
-c1 <- eval_cost_summary(p1, s1)
-
-# since the solution is spatially fragmented, we will now use
-# a hierarchical multi-objective optimization approach to reduce
-# spatial fragmentation
-
-# calculate budget for new prioritization based on cost of initial solution,
-# this budget will specify that we are willing to accept a 10\%
-# increase in the total cost of the solution to minimize fragmentation
-b <- c1$cost[[1]] * 1.1
-
-# create problem with minimum penalty objective using the budget and
-# boundary penalties to reduce spatial fragmentation
-#
-# note that although we use a penalty value of 0.01 as a placeholder,
-# any penalty value would give the same result since the optimization
-# process is focused entirely on the boundary penalties
-p2 <-
-  problem(sim_pu_raster, sim_features) \%>\%
-  add_min_penalties_objective(budget = b) \%>\%
-  add_boundary_penalties(penalty = 0.001) \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions() \%>\%
+# create a multi-objective problem that contains the
+# initial problem as well as an additional problem that is
+# focused entirely on minimizing spatial fragmentation.
+# additionally, this multi-objective problem will use the
+# hierarchical approach for optimization and we will
+# consider three rel_tol values to generate multiple solutions
+# that represent different levels of trade-off between total cost
+# and spatial fragmentation. note that we use a small penalty value
+# in add_boundary_penalties() to avoid scaling issues and this
+# has no influence on the trade-offs between cost and spatial fragmentation.
+rel_tol <- c(0, 0.05, 0.1, 0.2)
+mp <-
+  multi_problem(
+    obj1 = p1,
+    obj2 =
+      problem(sim_pu_raster, sim_features) \%>\%
+     add_min_penalties_objective() \%>\%
+     add_boundary_penalties(penalty = 0.1) \%>\%
+     add_binary_decisions()
+  ) \%>\%
+  add_hier_approach(rel_tol = matrix(rel_tol, ncol = 1)) \%>\%
   add_default_solver(verbose = FALSE)
 
-# solve problem with minimum penalty objective
-s2 <- solve(p2)
+# generate multi-objective solutions
+s2 <- solve(mp)
 
-# plot solution with minimum penalty objective
-plot(s2, main = "solution", axes = FALSE)
-}
+# plot multi-objective solutions
+plot(terra::rast(s2), main = paste("rel_tol =", rel_tol), axes = FALSE)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{objectives} for an overview of all functions for adding objectives.
@@ -128,13 +126,13 @@ Additionally, see \link{penalties} for an overview of all functions for adding
 penalties.
 
 Other functions for adding objectives:
-\code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
-\code{\link{add_max_phylo_div_objective}()},
-\code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
-\code{\link{add_min_largest_shortfall_objective}()},
-\code{\link{add_min_set_objective}()},
-\code{\link{add_min_shortfall_objective}()}
+\code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}},
+\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}},
+\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}},
+\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}},
+\code{\link[=add_min_largest_shortfall_objective]{add_min_largest_shortfall_objective()}},
+\code{\link[=add_min_set_objective]{add_min_set_objective()}},
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}
 }
 \concept{objectives}

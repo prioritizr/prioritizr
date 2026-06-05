@@ -10,10 +10,12 @@ bool rcpp_apply_linear_constraints(
 
   // add model coefficients
   for (auto itr = data.begin(); itr != data.end(); ++itr) {
-    ptr->_A_i.push_back(i);
-    ptr->_A_j.push_back((itr.col() * ptr->_number_of_planning_units) +
-                        itr.row());
-    ptr->_A_x.push_back(*itr);
+    if (std::abs(*itr) > 1.0e-15) {
+      ptr->_A_i.push_back(i);
+      ptr->_A_j.push_back((itr.col() * ptr->_number_of_planning_units) +
+                          itr.row());
+      ptr->_A_x.push_back(*itr);
+    }
   }
 
   // add sense

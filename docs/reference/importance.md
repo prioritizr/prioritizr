@@ -102,6 +102,7 @@ complementary areas for conserving diversity using British birds.
 ## See also
 
 Other overviews:
+[`approaches`](https://prioritizr.net/reference/approaches.md),
 [`constraints`](https://prioritizr.net/reference/constraints.md),
 [`decisions`](https://prioritizr.net/reference/decisions.md),
 [`objectives`](https://prioritizr.net/reference/objectives.md),
@@ -114,7 +115,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -152,6 +152,4 @@ names(ir) <- c(
 
 # plot importance scores
 plot(ir, axes = FALSE)
-
-# }
 ```

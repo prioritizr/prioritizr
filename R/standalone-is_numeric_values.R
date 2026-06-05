@@ -8,7 +8,7 @@
 #'
 #' Check if an object has numeric values?
 #'
-#' @param object.
+#' @param x Object.
 #'
 #' @return A `logical` value.
 #'

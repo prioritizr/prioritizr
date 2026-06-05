@@ -286,6 +286,7 @@ test_that("minimum set objective (solve, single zone)", {
 
 test_that("minimum set objective (matrix, compile, multiple zones)", {
   # import data
+  set.seed(500)
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # create constraints data
@@ -293,8 +294,10 @@ test_that("minimum set objective (matrix, compile, multiple zones)", {
   m <- as.matrix(m) * 600
   # create targets data
   targ <- matrix(
-    runif(number_of_features(sim_zones_features) *
-      number_of_zones(sim_zones_features)) * 10,
+    runif(
+      number_of_features(sim_zones_features) *
+      number_of_zones(sim_zones_features)
+    ) * 10,
     nrow = number_of_features(sim_zones_features),
     ncol = number_of_zones(sim_zones_features)
   )
@@ -324,6 +327,7 @@ test_that("minimum set objective (matrix, compile, multiple zones)", {
 
 test_that("minimum set objective (SpatRaster, compile, multiple zones)", {
   # import data
+  set.seed(500)
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # create constraints data
@@ -367,6 +371,7 @@ test_that("minimum set objective (SpatRaster, compile, multiple zones)", {
 
 test_that("minimum set objective (Raster, compile, multiple zones)", {
   # import data
+  set.seed(500)
   sim_zones_pu_raster <- raster::stack(get_sim_zones_pu_raster())
   sim_zones_features <- as.ZonesRaster(get_sim_zones_features())
   # create constraints data
@@ -413,6 +418,7 @@ test_that("minimum set objective (Raster, compile, multiple zones)", {
 test_that(
   "minimum set objective (character/Spatial, compile, multiple zones)", {
   # import data
+  set.seed(500)
   sim_zones_pu_polygons <- sf::as_Spatial(get_sim_zones_pu_polygons())
   sim_zones_features <- as.ZonesRaster(get_sim_zones_features())
   # create constraints data
@@ -470,6 +476,7 @@ test_that(
 
 test_that("minimum set objective (character/sf, compile, multiple zones)", {
   # import data
+  set.seed(500)
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
   # create constraints data
@@ -527,6 +534,7 @@ test_that(
     "multiple zones)"
   ), {
   # make data
+  set.seed(500)
   pu <- data.frame(
     id = seq_len(10),
     cost_1 = c(NA, NA, runif(8)), cost_2 = c(0.3, NA, runif(8)),

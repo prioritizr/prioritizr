@@ -36,8 +36,8 @@ spec_duran_targets(probability_target, historical_area, area_units)
 
 - area_units:
 
-  `character` vector denoting the unit of measurement for the argument
-  to `historical_area`. For example, to specify that `historical_area`
+  `character` vector denoting the unit of measurement for
+  `historical_area`. For example, to specify that `historical_area`
   contains historical distribution sizes expressed as km², then
   `area_units = "km^2"` should be used. If a single `character` value is
   specified, then all features are assigned targets assuming the same
@@ -196,9 +196,9 @@ initializing the
 [`problem()`](https://prioritizr.net/reference/problem.md) objects if
 the feature data are provided in a different format. In particular, if
 the feature data are provided as a `data.frame` or `character` vector,
-then you will need to specify an argument to `feature_units` when using
-the [`problem()`](https://prioritizr.net/reference/problem.md) function.
-See the Examples section of the documentation for
+then you will need to specify `feature_units` when using the
+[`problem()`](https://prioritizr.net/reference/problem.md) function. See
+the Examples section of the documentation for
 [`add_auto_targets()`](https://prioritizr.net/reference/add_auto_targets.md)
 for a demonstration of specifying the spatial units for features.
 
@@ -288,7 +288,6 @@ Other target setting methods:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -360,6 +359,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution based on varying targets", axes = FALSE)
-
-# }
 ```

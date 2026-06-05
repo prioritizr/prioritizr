@@ -23,7 +23,8 @@ simulate_cost(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
 
 - n:
 
-  `integer` number of layers to simulate. Defaults to 1.
+  `integer` value denoting the number of layers to simulate. Defaults to
+  1.
 
 - intensity:
 
@@ -53,7 +54,6 @@ Other functions for simulating data:
 ## Examples
 
 ``` r
-# \dontrun{
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -64,6 +64,4 @@ cost <- simulate_cost(r)
 
 # plot simulated species
 plot(cost, main = "simulated cost data", axes = FALSE)
-
-# }
 ```

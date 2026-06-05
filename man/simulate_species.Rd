@@ -15,10 +15,10 @@ simulate_species(x, n, scale)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
-\item{n}{\code{integer} number of layers to simulate.
+\item{n}{\code{integer} value denoting the number of layers to simulate.
 Defaults to 1.}
 
-\item{scale}{\code{numeric} parameter to control level of spatial
+\item{scale}{\code{numeric} value denoting the level of spatial
 auto-correlation in the simulated data.
 Defaults to 0.5.}
 }
@@ -29,7 +29,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with values between zero and on
 Generates simulated species data using Gaussian random fields.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -40,12 +40,11 @@ spp <- simulate_species(r, 4)
 
 # plot simulated species
 plot(spp, main = "simulated species distributions", axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for simulating data:
-\code{\link{simulate_cost}()},
-\code{\link{simulate_data}()}
+\code{\link[=simulate_cost]{simulate_cost()}},
+\code{\link[=simulate_data]{simulate_data()}}
 }
 \concept{simulations}

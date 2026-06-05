@@ -27,7 +27,7 @@ NULL
 #' See Details section for information on obtaining these data.
 #'
 #' @param area_units `character` vector denoting the unit of measurement
-#' for the argument to `historical_area`.
+#' for `historical_area`.
 #' For example, to specify that `historical_area` contains historical
 #' distribution sizes
 #' expressed as \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}, then
@@ -241,8 +241,7 @@ NULL
 #' Townsend Peterson A, Phillips OL, Williams SE (2004)
 #' Extinction risk from climate change. *Nature* 427:145--148.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -313,7 +312,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution based on varying targets", axes = FALSE)
-#' }
+#'
 #' @export
 spec_duran_targets <- function(probability_target,
                                historical_area,

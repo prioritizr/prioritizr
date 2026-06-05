@@ -17,9 +17,8 @@ marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
 - x:
 
   [`problem()`](https://prioritizr.net/reference/problem.md) object that
-  contains planning unit and zone data to ensure that the argument to
-  `data` is converted correctly. This argument can be set to `NULL` if
-  checks are not required (not recommended).
+  contains planning unit and zone data for running checks to help ensure
+  correctness.
 
 - data:
 
@@ -28,9 +27,9 @@ marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
 
 - symmetric:
 
-  `logical` does the connectivity data describe symmetric relationships
-  between planning units? If the data contain asymmetric connectivity
-  data, this parameter should be set to `FALSE`. Defaults to `TRUE`.
+  `logical` value indicating if the connectivity data describe symmetric
+  relationships between planning units? If the data contain asymmetric
+  connectivity data, then use `symmetric = FALSE`. Defaults to `TRUE`.
 
 ## Value
 
@@ -41,7 +40,6 @@ sparse matrix object.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -212,5 +210,4 @@ print(m3)
 #> [2,] 0.8543447 0.0000000 0.2312509
 #> [3,] 0.5892456 0.2387031 0.0000000
 #> 
-# }
 ```

@@ -21,8 +21,7 @@ NULL
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -37,19 +36,31 @@ NULL
 #'
 #' # print problem
 #' print(p1)
-#' }
+#'
 #' @noRd
 add_compile_solver <- function(x, ...) {
   # assert that arguments are valid
   assert_required(x)
-  assert(is_conservation_problem(x))
+  assert(is_generic_conservation_problem(x))
   # add solver
   x$add_solver(
     R6::R6Class(
       "CompileSolver",
       inherit = Solver,
       public = list(
-        name = "compile solver"
+        name = "compile solver",
+        calculate = function(x, ...) {
+          # return success
+          invisible(TRUE) # nocov
+        },
+        run = function() {
+          # nocov start
+          cli::cli_abort(
+            "Compile solver cannot solve problems.",
+            call = rlang::expr(add_compile_solver())
+          )
+          # nocov end
+        }
       )
     )$new()
   )

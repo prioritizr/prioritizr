@@ -23,45 +23,39 @@ add_max_phylo_end_objective(x, budget, tree)
 
 - budget:
 
-  `numeric` value specifying the maximum expenditure of the
-  prioritization. For problems with multiple zones, the argument to
-  `budget` can be (i) a single `numeric` value to specify a single
-  budget for the entire solution or (ii) a `numeric` vector to specify a
-  separate budget for each management zone.
+  `numeric` value specifying the maximum expenditure permitted for the
+  solution. If `x` has multiple zones, then `budget` can be (i) a single
+  `numeric` value to specify an overall budget for the entire solution
+  or (ii) a `numeric` vector to specify a budget for each zone
+  (separately) in the solution.
 
 - tree:
 
   [`ape::phylo()`](https://rdrr.io/pkg/ape/man/read.tree.html) object
-  specifying a phylogenetic tree for the conservation features.
-
-## Value
-
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
-object with the objective added to it.
+  specifying a phylogenetic tree for the features in `x`.
 
 ## Details
 
 The maximum phylogenetic endemism objective finds the set of planning
 units that meets representation targets for a phylogenetic tree while
-staying within a fixed budget. If multiple solutions can meet all
-targets while staying within budget, the cheapest solution is chosen.
-Note that this objective is similar to the maximum features objective
-([`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md))
+staying within a fixed budget. Note that this objective is similar to
+the maximum number of targets met objective
+([`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md))
 in that it allows for both a budget and targets to be set for each
-feature. However, unlike the maximum feature objective, the aim of this
-objective is to maximize the total phylogenetic endemism of the targets
-met in the solution, so if multiple targets are provided for a single
-feature, the problem will only need to meet a single target for that
-feature for the phylogenetic benefit for that feature to be counted when
-calculating the phylogenetic endemism of the solution. In other words,
-for multi-zone problems, this objective does not aim to maximize the
-phylogenetic endemism in each zone, but rather this objective aims to
-maximize the phylogenetic endemism of targets that can be met through
-allocating planning units to any of the different zones in a problem.
-This can be useful for problems where targets pertain to the total
-amount held for each feature across multiple zones. For example, each
-feature might have a non-zero amount of suitable habitat in each
-planning unit when the planning units are assigned to a (i) not
+feature. However, unlike the maximum number of targets met objective,
+the aim of this objective is to maximize the total phylogenetic endemism
+of the targets met in the solution, so if multiple targets are provided
+for a single feature, the problem will only need to meet a single target
+for that feature for the phylogenetic benefit for that feature to be
+counted when calculating the phylogenetic endemism of the solution. In
+other words, for multi-zone problems, this objective does not aim to
+maximize the phylogenetic endemism in each zone, but rather this
+objective aims to maximize the phylogenetic endemism of targets that can
+be met through allocating planning units to any of the different zones
+in a problem. This can be useful for problems where targets pertain to
+the total amount held for each feature across multiple zones. For
+example, each feature might have a non-zero amount of suitable habitat
+in each planning unit when the planning units are assigned to a (i) not
 restored, (ii) partially restored, or (iii) completely restored
 management zone. Here each target corresponds to a single feature and
 can be met through the total amount of habitat in planning units present
@@ -73,10 +67,10 @@ This objective can be expressed mathematically for a set of planning
 units (\\I\\ indexed by \\i\\) and a set of features (\\J\\ indexed by
 \\j\\) as:
 
-\$\$\mathit{Maximize} \space \sum\_{i = 1}^{I} -s \space c_i \space
-x_i + \sum\_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\ \mathit{subject \space
-to} \\ \sum\_{i = 1}^{I} x_i r\_{ij} \geq y_j t_j \forall j \in J \\ m_b
-\leq y_j \forall j \in T(b) \\ \sum\_{i = 1}^{I} x_i c_i \leq B\$\$
+\$\$\mathit{Maximize} \space \sum\_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
+\mathit{subject \space to} \\ \sum\_{i = 1}^{I} x_i r\_{ij} \geq y_j t_j
+\forall j \in J \\ m_b \leq y_j \forall j \in T(b) \\ \sum\_{i = 1}^{I}
+x_i c_i \leq B\$\$
 
 Here, \\x_i\\ is the
 [decisions](https://prioritizr.net/reference/decisions.md) variable
@@ -93,11 +87,20 @@ features \\j \in J\\ that are associated with the branch. The binary
 variable \\m_b\\ denotes if at least one feature associated with the
 branch \\b\\ has met its representation as indicated by \\y_j\\. For
 brevity, we denote the features \\j\\ associated with branch \\b\\ using
-\\T(b)\\. Finally, \\B\\ is the budget allocated for the solution,
-\\c_i\\ is the cost of planning unit \\i\\, and \\s\\ is a scaling
-factor used to shrink the costs so that the problem will return a
-cheapest solution when there are multiple solutions that represent the
-same amount of all features within the budget.
+\\T(b)\\. Finally, \\B\\ is the budget allocated for the solution, and
+\\c_i\\ is the cost of planning unit \\i\\.
+
+## Notes
+
+In previous versions (\< 9.0.0), this function had extra terms to help
+minimize the solution cost. Although these terms have since been removed
+to reduce solve time, this behavior can still be achieved by building a
+multi-objective optimization problem and specifying the first problem
+based on this objective function and the second problem based on
+minimizing cost penalties (i.e., by using
+[`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)
+and
+[`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md)).
 
 ## References
 
@@ -115,18 +118,11 @@ concentrations of evolutionary history. *Molecular Ecology*, 18:
 
 ## See also
 
-See [objectives](https://prioritizr.net/reference/objectives.md) for an
-overview of all functions for adding objectives. Also, see
-[targets](https://prioritizr.net/reference/targets.md) for an overview
-of all functions for adding targets, and
-[`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md)
-to specify weights for different features.
-
 Other functions for adding objectives:
 [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md),
-[`add_max_features_objective()`](https://prioritizr.net/reference/add_max_features_objective.md),
+[`add_max_n_targets_met_objective()`](https://prioritizr.net/reference/add_max_n_targets_met_objective.md),
 [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
-[`add_max_utility_objective()`](https://prioritizr.net/reference/add_max_utility_objective.md),
+[`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md),
 [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md),
 [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md),
 [`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md),
@@ -135,7 +131,6 @@ Other functions for adding objectives:
 ## Examples
 
 ``` r
-# \dontrun{
 # load ape package
 require(ape)
 
@@ -171,21 +166,21 @@ plot(s1, main = "solution", axes = FALSE)
 # find out which features have their targets met
 r1 <- eval_target_coverage_summary(p1, s1)
 print(r1, width = Inf)
-#> # A tibble: 5 × 9
+#> # A tibble: 5 × 10
 #>   feature   met   total_amount absolute_target absolute_held absolute_shortfall
 #>   <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
-#> 1 feature_1 FALSE         83.3            8.33          7.69              0.643
-#> 2 feature_2 FALSE         31.2            3.12          2.26              0.858
-#> 3 feature_3 FALSE         72.0            7.20          5.70              1.50 
-#> 4 feature_4 TRUE          42.7            4.27          4.28              0    
-#> 5 feature_5 TRUE          56.7            5.67          5.85              0    
-#>   relative_target relative_held relative_shortfall
-#>             <dbl>         <dbl>              <dbl>
-#> 1             0.1        0.0923             0.0772
-#> 2             0.1        0.0725             0.275 
-#> 3             0.1        0.0792             0.208 
-#> 4             0.1        0.100              0     
-#> 5             0.1        0.103              0     
+#> 1 feature_1 FALSE         83.3            8.33          7.85              0.479
+#> 2 feature_2 FALSE         31.2            3.12          2.44              0.680
+#> 3 feature_3 FALSE         72.0            7.20          6.10              1.10 
+#> 4 feature_4 TRUE          42.7            4.27          4.27              0    
+#> 5 feature_5 TRUE          56.7            5.67          5.72              0    
+#>   relative_target relative_held relative_shortfall relative_met
+#>             <dbl>         <dbl>              <dbl>        <dbl>
+#> 1             0.1        0.0942             0.0575        0.942
+#> 2             0.1        0.0782             0.218         0.782
+#> 3             0.1        0.0847             0.153         0.847
+#> 4             0.1        0.100              0             1    
+#> 5             0.1        0.101              0             1    
 
 # plot the phylogeny and color the adequately represented features in red
 plot(
@@ -232,21 +227,28 @@ plot(category_layer(s2), main = "solution", axes = FALSE)
 # find out which features have their targets met
 r2 <- eval_target_coverage_summary(p2, s2)
 print(r2, width = Inf)
-#> # A tibble: 5 × 11
+#> # A tibble: 5 × 12
 #>   feature   zone      sense met   total_amount absolute_target absolute_held
 #>   <chr>     <list>    <chr> <lgl>        <dbl>           <dbl>         <dbl>
-#> 1 feature_1 <chr [3]> >=    TRUE         250.               10         19.2 
-#> 2 feature_2 <chr [3]> >=    FALSE         93.6              10          7.11
+#> 1 feature_1 <chr [3]> >=    TRUE         250.               10         19.5 
+#> 2 feature_2 <chr [3]> >=    FALSE         93.6              10          7.17
 #> 3 feature_3 <chr [3]> >=    TRUE         216.               10         16.6 
-#> 4 feature_4 <chr [3]> >=    TRUE         128.               10         10.1 
-#> 5 feature_5 <chr [3]> >=    TRUE         170.               10         13.0 
+#> 4 feature_4 <chr [3]> >=    TRUE         128.               10         10.2 
+#> 5 feature_5 <chr [3]> >=    TRUE         170.               10         13.2 
 #>   absolute_shortfall relative_target relative_held relative_shortfall
 #>                <dbl>           <dbl>         <dbl>              <dbl>
-#> 1               0             0.0400        0.0769              0    
-#> 2               2.89          0.107         0.0760              0.289
-#> 3               0             0.0463        0.0768              0    
-#> 4               0             0.0781        0.0790              0    
-#> 5               0             0.0588        0.0767              0    
+#> 1               0             0.0400        0.0781              0    
+#> 2               2.83          0.107         0.0766              0.283
+#> 3               0             0.0463        0.0770              0    
+#> 4               0             0.0781        0.0796              0    
+#> 5               0             0.0588        0.0776              0    
+#>   relative_met
+#>          <dbl>
+#> 1        1    
+#> 2        0.717
+#> 3        1    
+#> 4        1    
+#> 5        1    
 
 # plot the phylogeny and color the adequately represented features in red
 plot(
@@ -276,21 +278,28 @@ plot(category_layer(s3), main = "solution", axes = FALSE)
 # find out which features have their targets met
 r3 <- eval_target_coverage_summary(p3, s3)
 print(r3, width = Inf)
-#> # A tibble: 5 × 11
+#> # A tibble: 5 × 12
 #>   feature   zone      sense met   total_amount absolute_target absolute_held
 #>   <chr>     <list>    <chr> <lgl>        <dbl>           <dbl>         <dbl>
-#> 1 feature_1 <chr [3]> >=    TRUE         250.               10         16.6 
-#> 2 feature_2 <chr [3]> >=    FALSE         93.6              10          5.86
-#> 3 feature_3 <chr [3]> >=    TRUE         216.               10         12.5 
-#> 4 feature_4 <chr [3]> >=    TRUE         128.               10         10.0 
-#> 5 feature_5 <chr [3]> >=    TRUE         170.               10         12.2 
+#> 1 feature_1 <chr [3]> >=    TRUE         250.               10         16.4 
+#> 2 feature_2 <chr [3]> >=    FALSE         93.6              10          7.54
+#> 3 feature_3 <chr [3]> >=    TRUE         216.               10         13.8 
+#> 4 feature_4 <chr [3]> >=    TRUE         128.               10         10.4 
+#> 5 feature_5 <chr [3]> >=    TRUE         170.               10         11.3 
 #>   absolute_shortfall relative_target relative_held relative_shortfall
 #>                <dbl>           <dbl>         <dbl>              <dbl>
-#> 1               0             0.0400        0.0664              0    
-#> 2               4.14          0.107         0.0626              0.414
-#> 3               0             0.0463        0.0579              0    
-#> 4               0             0.0781        0.0782              0    
-#> 5               0             0.0588        0.0720              0    
+#> 1               0             0.0400        0.0657              0    
+#> 2               2.46          0.107         0.0805              0.246
+#> 3               0             0.0463        0.0639              0    
+#> 4               0             0.0781        0.0816              0    
+#> 5               0             0.0588        0.0663              0    
+#>   relative_met
+#>          <dbl>
+#> 1        1    
+#> 2        0.754
+#> 3        1    
+#> 4        1    
+#> 5        1    
 
 # plot the phylogeny and color the adequately represented features in red
 plot(
@@ -299,6 +308,4 @@ plot(
     rep("black", terra::nlyr(sim_features)), which(r3$met), "red"
   )
 )
-
-# }
 ```

@@ -11,16 +11,15 @@ NULL
 #'
 #' @inheritParams marxan_boundary_data_to_matrix
 #'
-#' @param symmetric `logical` does the connectivity data
-#'  describe symmetric relationships between planning units?
-#'  If the data contain asymmetric connectivity data,
-#'  this parameter should be set to `FALSE`.
-#'  Defaults to `TRUE`.
+#' @param symmetric `logical` value indicating if the connectivity data
+#' describe symmetric relationships between planning units?
+#' If the data contain asymmetric connectivity data,
+#' then use `symmetric = FALSE`.
+#' Defaults to `TRUE`.
 #'
 #' @inherit marxan_boundary_data_to_matrix return
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -78,7 +77,7 @@ NULL
 #'
 #' # print array
 #' print(m3)
-#' }
+#'
 #' @export
 marxan_connectivity_data_to_matrix <- function(x, data, symmetric = TRUE) {
   assert_required(x)

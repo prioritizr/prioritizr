@@ -15,7 +15,7 @@ simulate_cost(x, n, intensity, sd, scale)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
 
-\item{n}{\code{integer} number of layers to simulate.
+\item{n}{\code{integer} value denoting the number of layers to simulate.
 Defaults to 1.}
 
 \item{intensity}{\code{numeric} average value of simulated data.
@@ -35,7 +35,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with integer values greater tha
 Generates simulated cost data using Gaussian random fields.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -46,12 +46,11 @@ cost <- simulate_cost(r)
 
 # plot simulated species
 plot(cost, main = "simulated cost data", axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other functions for simulating data:
-\code{\link{simulate_data}()},
-\code{\link{simulate_species}()}
+\code{\link[=simulate_data]{simulate_data()}},
+\code{\link[=simulate_species]{simulate_species()}}
 }
 \concept{simulations}

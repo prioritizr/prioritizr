@@ -4,24 +4,35 @@
 \alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
-add_shuffle_portfolio(
-  x,
-  number_solutions = 10,
-  threads = 1,
-  remove_duplicates = TRUE
-)
+add_shuffle_portfolio(x, number_solutions = 10, threads = 1, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{number_solutions}{\code{integer} number of attempts to generate
-different solutions. Defaults to 10.}
+\item{number_solutions}{\code{integer} value denoting the
+number of required solutions.
+Defaults to 10.}
 
-\item{threads}{\code{integer} number of threads to use for the generating
-the solution portfolio. Defaults to 1.}
+\item{threads}{\code{integer} value denoting the number of threads to use during
+optimization. Broadly speaking, we recommend setting \code{threads} to be no
+higher than the number of computational cores minus one or two
+(e.g., \code{threads = parallel::detectCores(TRUE) - 2}). This is because setting
+\code{threads} to be equal to the number of computational cores means that
+the solver and is fighting for resources with other software (e.g.,
+Dropbox, iCloud, OneDrive, software updates, antivirus software,
+internet browsers) and,
+in turn, can result in computational bottlenecks that slow run times.
+Additionally, when setting \code{threads} to be a value greater than 1, we
+recommend checking memory (RAM) usage during the optimization process to
+ensure that the solver does not use up the majority of available memory.
+This is because solving optimization problems with multiple threads
+can involve creating multiple copies of the problem
+(e.g., \code{threads = 5} may mean 5 copies) and exhausting most of the available
+memory will drastically slow run times. Defaults to 1.}
 
-\item{remove_duplicates}{\code{logical} should duplicate solutions
-be removed? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} should progress on generating multiple solutions
+be displayed? Note that progress will not be displayed if using
+multiple threads for parallel processing. Defaults to \code{TRUE}.}
 }
 \value{
 An updated \code{\link[=problem]{problem()}} object with the portfolio added to it.
@@ -41,8 +52,16 @@ return duplicate solutions. In general, this strategy is most effective
 when problems are quick to solve and multiple threads are available for
 solving each problem separately.
 }
+\section{Notes}{
+
+In previous versions (< 9.0.0.0), this function had a \code{remove_duplicates}
+parameter. To streamline and provide this functionality for other
+functions, duplicate solutions can now be removed by using the
+the \code{remove_duplicates} parameter of \code{\link[=solve]{solve()}}.
+}
+
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -57,7 +76,7 @@ p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.2) \%>\%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_shuffle_portfolio(10) \%>\%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve problem and generate 10 solutions within 20\% of optimality
@@ -78,7 +97,7 @@ p2 <-
   add_min_set_objective() \%>\%
   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) \%>\%
   add_binary_decisions() \%>\%
-  add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
+  add_shuffle_portfolio(10) \%>\%
   add_default_solver(gap = 0.2, verbose = FALSE)
 
 # solve the problem
@@ -92,16 +111,15 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
-\code{\link{add_cuts_portfolio}()},
-\code{\link{add_default_portfolio}()},
-\code{\link{add_extra_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}},
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_single_portfolio]{add_single_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

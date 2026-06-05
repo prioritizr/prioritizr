@@ -37,6 +37,7 @@ ConservationProblem <- R6::R6Class(
       weights = TRUE,
       constraints = TRUE,
       penalties = TRUE,
+      portfolio = TRUE,
       solver = TRUE
     ),
 
@@ -87,6 +88,11 @@ ConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
@@ -100,8 +106,8 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
       cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
@@ -141,7 +147,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- col_light_gray("none specified")
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -307,6 +313,11 @@ ConservationProblem <- R6::R6Class(
       # define characters
       ch <- cli_box_chars()
 
+      # set maximum width for character printing
+      old_width <- getOption("repr.width")
+      options(repr.width = floor(cli::console_width() * 0.95) - 16L)
+      on.exit(options(repr.width = old_width), add = TRUE, after = TRUE)
+
       # create container
       div_id <- cli::cli_div(theme = cli_pkg_theme())
 
@@ -320,10 +331,10 @@ ConservationProblem <- R6::R6Class(
         crs_text <- repr.crs(get_crs(self$data$cost))
         extent_text <- repr.bbox(sf::st_bbox(self$data$cost))
       } else {
-        crs_text <- "{.gray NA}"
-        extent_text <- "{.gray NA}"
+        crs_text <- col_light_gray("NA")
+        extent_text <- col_light_gray("NA")
       }
-      cost_range <- range(self$planning_unit_costs() , na.rm = TRUE)
+      cost_range <- range(self$planning_unit_costs(), na.rm = TRUE)
       cost_text <- repr_cost(self$planning_unit_costs())
 
       # print data section
@@ -361,7 +372,7 @@ ConservationProblem <- R6::R6Class(
 
       # pre-compute values for formulation section
       ## missing text
-      missing_text <- "{.gray none specified}"
+      missing_text <- col_light_gray("none specified")
       ## objective
       objective_text <- missing_text
       if (!is.Waiver(self$objective)) {
@@ -503,7 +514,7 @@ ConservationProblem <- R6::R6Class(
       cli::cli_text(
         cli::col_grey(
           "# {cli::symbol$info} Use {.code summary(...)}",
-          " to see complete formulation."
+          " to see further details."
         )
       )
 
@@ -522,7 +533,6 @@ ConservationProblem <- R6::R6Class(
       invisible(TRUE)
     },
 
-
     #' @description
     #' Generate a character representation of the object.
     #' @return A `character` value.
@@ -534,7 +544,7 @@ ConservationProblem <- R6::R6Class(
     #' Get values stored in the `data` field.
     #' @param x `character` name of data.
     #' @return An object. If the `data` field does not contain an object
-    #' associated with the argument to `x`, then a [new_waiver()] object is
+    #' associated with `x`, then a [new_waiver()] object is
     #' returned.
     get_data = function(x) {
       if (!x %in% names(self$data)) return(new_waiver())
@@ -726,7 +736,7 @@ ConservationProblem <- R6::R6Class(
       }
       colnames(x) <- self$zone_names()
       self$set_data("planning_unit_costs", x)
-      invisible()
+      invisible(TRUE)
     },
 
     #' @description
@@ -1001,6 +1011,13 @@ ConservationProblem <- R6::R6Class(
         )
         # nocov end
       }
+    },
+
+    #' @description
+    #' Obtain the number of problems.
+    #' @return An `integer` value of 1.
+    number_of_problems = function() {
+      1L
     },
 
     #' @description

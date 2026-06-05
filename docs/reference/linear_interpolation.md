@@ -18,7 +18,7 @@ linear_interpolation(
 
 - x:
 
-  `numeric` *x* values for which interpolate *y* values.
+  `numeric` *x* values that require interpolation.
 
 - coordinate_one_x:
 
@@ -43,14 +43,15 @@ A `numeric` vector.
 ## Details
 
 Values are log-linearly interpolated at the *x*-coordinates specified in
-`x` using the lower and upper coordinate arguments to define the line.
-Values lesser or greater than these numbers are assigned the minimum and
-maximum *y* coordinates.
+`x` based on a line defined by the other parameters. Values that are
+smaller than or greater than `coordinate_one_x` and `coordinate_two_x`
+are assigned values equal to `coordinate_one_y` and `coordinate_two_y`
+(respectively). In other words, this function does not extrapolate
+values.
 
 ## Examples
 
 ``` r
-# \dontrun{
 # create series of x-values
 x <- seq(0, 1000)
 
@@ -63,6 +64,4 @@ plot(y ~ x)
 
 # add the reference points to the plot (shown in red)
 points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
-
-# }
 ```

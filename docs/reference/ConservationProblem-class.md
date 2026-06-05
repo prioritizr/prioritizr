@@ -18,6 +18,8 @@ Other classes:
 [`ConservationModifier-class`](https://prioritizr.net/reference/ConservationModifier-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
@@ -83,7 +85,7 @@ Other classes:
 
 ### Public methods
 
-- [`ConservationProblem$new()`](#method-ConservationProblem-new)
+- [`ConservationProblem$new()`](#method-ConservationProblem-initialize)
 
 - [`ConservationProblem$summary()`](#method-ConservationProblem-summary)
 
@@ -149,6 +151,8 @@ Other classes:
 
 - [`ConservationProblem$zone_names()`](#method-ConservationProblem-zone_names)
 
+- [`ConservationProblem$number_of_problems()`](#method-ConservationProblem-number_of_problems)
+
 - [`ConservationProblem$add_portfolio()`](#method-ConservationProblem-add_portfolio)
 
 - [`ConservationProblem$add_solver()`](#method-ConservationProblem-add_solver)
@@ -171,7 +175,7 @@ Other classes:
 
 ------------------------------------------------------------------------
 
-### Method [`new()`](https://rdrr.io/r/methods/new.html)
+### `ConservationProblem$new()`
 
 Create a new conservation problem object.
 
@@ -191,7 +195,7 @@ A new `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method [`summary()`](https://rspatial.github.io/terra/reference/summary.html)
+### `ConservationProblem$summary()`
 
 Print extended information about the object.
 
@@ -205,7 +209,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `ConservationProblem$print()`
 
 Print concise information about the object.
 
@@ -219,7 +223,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`show()`](https://prioritizr.net/reference/show.md)
+### `ConservationProblem$show()`
 
 Display concise information about the object.
 
@@ -233,7 +237,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `repr()`
+### `ConservationProblem$repr()`
 
 Generate a character representation of the object.
 
@@ -247,7 +251,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `ConservationProblem$get_data()`
 
 Get values stored in the `data` field.
 
@@ -264,13 +268,13 @@ Get values stored in the `data` field.
 #### Returns
 
 An object. If the `data` field does not contain an object associated
-with the argument to `x`, then a
+with `x`, then a
 [`new_waiver()`](https://prioritizr.net/reference/new_waiver.md) object
 is returned.
 
 ------------------------------------------------------------------------
 
-### Method `set_data()`
+### `ConservationProblem$set_data()`
 
 Set values stored in the `data` field. Note that this method will
 overwrite existing data.
@@ -295,7 +299,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md)
+### `ConservationProblem$number_of_planning_units()`
 
 Obtain the number of planning units. The planning units correspond to
 elements in the cost data (e.g., indices, rows, geometries, cells) that
@@ -313,7 +317,7 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### Method `is_ids_equivalent_to_indices()`
+### `ConservationProblem$is_ids_equivalent_to_indices()`
 
 Check if planning unit identifiers are equivalent to the planning unit
 indices? Only `FALSE` if the planning units are `data.frame` format.
@@ -328,7 +332,7 @@ A `logical` value.
 
 ------------------------------------------------------------------------
 
-### Method `planning_unit_indices()`
+### `ConservationProblem$planning_unit_indices()`
 
 Obtain the planning unit indices.
 
@@ -342,7 +346,7 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### Method `total_unit_ids()`
+### `ConservationProblem$total_unit_ids()`
 
 Obtain the total unit identifiers.
 
@@ -356,7 +360,7 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### Method `convert_total_unit_ids_to_indices()`
+### `ConservationProblem$convert_total_unit_ids_to_indices()`
 
 Convert total unit identifiers to indices.
 
@@ -376,7 +380,7 @@ An `integer` vector.
 
 ------------------------------------------------------------------------
 
-### Method `planning_unit_indices_with_finite_costs()`
+### `ConservationProblem$planning_unit_indices_with_finite_costs()`
 
 Obtain the planning unit indices that are associated with finite cost
 values.
@@ -392,7 +396,7 @@ different zone.
 
 ------------------------------------------------------------------------
 
-### Method `set_planning_unit_indices_with_finite_costs()`
+### `ConservationProblem$set_planning_unit_indices_with_finite_costs()`
 
 Perform calculations to cache the planning unit indices that are
 associated with finite cost values.
@@ -407,7 +411,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_total_units()`](https://prioritizr.net/reference/number_of_total_units.md)
+### `ConservationProblem$number_of_total_units()`
 
 Obtain the number of total units. The total units include all elements
 in the cost data (e.g., indices, rows, geometries, cells), including
@@ -423,7 +427,7 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### Method `planning_unit_costs()`
+### `ConservationProblem$planning_unit_costs()`
 
 Obtain the planning unit costs.
 
@@ -437,7 +441,7 @@ A `numeric` matrix.
 
 ------------------------------------------------------------------------
 
-### Method `planning_unit_class()`
+### `ConservationProblem$planning_unit_class()`
 
 Get planning unit class.
 
@@ -451,7 +455,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method `set_planning_unit_costs()`
+### `ConservationProblem$set_planning_unit_costs()`
 
 Perform calculations to cache the planning unit costs.
 
@@ -465,7 +469,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md)
+### `ConservationProblem$number_of_features()`
 
 Obtain the number of features.
 
@@ -479,7 +483,7 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### Method [`feature_names()`](https://prioritizr.net/reference/feature_names.md)
+### `ConservationProblem$feature_names()`
 
 Obtain the names of the features.
 
@@ -493,7 +497,7 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### Method `feature_abundances_in_planning_units()`
+### `ConservationProblem$feature_abundances_in_planning_units()`
 
 Obtain the abundance of the features in the planning units.
 
@@ -508,7 +512,7 @@ row corresponds to a different feature.
 
 ------------------------------------------------------------------------
 
-### Method `set_feature_abundances_in_planning_units()`
+### `ConservationProblem$set_feature_abundances_in_planning_units()`
 
 Perform calculations to cache the abundance of the features in the
 planning units.
@@ -523,7 +527,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `feature_positive_abundances_in_planning_units()`
+### `ConservationProblem$feature_positive_abundances_in_planning_units()`
 
 Obtain the positive abundance of the features in the planning units.
 Note that this method, unlike `feature_abundances_in_planning_units`,
@@ -539,7 +543,7 @@ row corresponds to a different feature.
 
 ------------------------------------------------------------------------
 
-### Method `set_feature_positive_abundances_in_planning_units()`
+### `ConservationProblem$set_feature_positive_abundances_in_planning_units()`
 
 Perform calculations to cache the positive abundance of the features in
 the planning units.
@@ -554,7 +558,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `feature_abundances_in_total_units()`
+### `ConservationProblem$feature_abundances_in_total_units()`
 
 Obtain the abundance of the features in the total units.
 
@@ -569,7 +573,7 @@ row corresponds to a different feature.
 
 ------------------------------------------------------------------------
 
-### Method `feature_units()`
+### `ConservationProblem$feature_units()`
 
 Obtain the units of the features.
 
@@ -583,7 +587,7 @@ A `character` value. Each element corresponds to a different feature.
 
 ------------------------------------------------------------------------
 
-### Method `feature_abundances_km2_in_total_units()`
+### `ConservationProblem$feature_abundances_km2_in_total_units()`
 
 Obtain the abundance of the features in area-based units of km².
 
@@ -603,7 +607,7 @@ row corresponds to a different feature.
 
 ------------------------------------------------------------------------
 
-### Method `set_feature_abundances_km2_in_total_units()`
+### `ConservationProblem$set_feature_abundances_km2_in_total_units()`
 
 Perform calculations to cache the abundance of the features in
 area-based units of km².
@@ -618,7 +622,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `feature_targets()`
+### `ConservationProblem$feature_targets()`
 
 Obtain the representation targets for the features.
 
@@ -634,7 +638,7 @@ data frame.
 
 ------------------------------------------------------------------------
 
-### Method `feature_weights()`
+### `ConservationProblem$feature_weights()`
 
 Obtain the weights for the features.
 
@@ -650,7 +654,7 @@ data frame.
 
 ------------------------------------------------------------------------
 
-### Method `has_negative_feature_data()`
+### `ConservationProblem$has_negative_feature_data()`
 
 See if the feature data contain any negative values.
 
@@ -664,7 +668,7 @@ A `logical` value.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_zones()`](https://prioritizr.net/reference/number_of_zones.md)
+### `ConservationProblem$number_of_zones()`
 
 Obtain the number of zones.
 
@@ -678,7 +682,7 @@ An `integer` value.
 
 ------------------------------------------------------------------------
 
-### Method [`zone_names()`](https://prioritizr.net/reference/zone_names.md)
+### `ConservationProblem$zone_names()`
 
 Obtain the zone names.
 
@@ -692,7 +696,21 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### Method `add_portfolio()`
+### `ConservationProblem$number_of_problems()`
+
+Obtain the number of problems.
+
+#### Usage
+
+    ConservationProblem$number_of_problems()
+
+#### Returns
+
+An `integer` value of 1.
+
+------------------------------------------------------------------------
+
+### `ConservationProblem$add_portfolio()`
 
 Create a new object with a portfolio added to the problem formulation.
 
@@ -713,7 +731,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_solver()`
+### `ConservationProblem$add_solver()`
 
 Create a new object with a solver added to the problem formulation.
 
@@ -733,7 +751,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_targets()`
+### `ConservationProblem$add_targets()`
 
 Create a new object with targets added to the problem formulation.
 
@@ -753,7 +771,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_weights()`
+### `ConservationProblem$add_weights()`
 
 Create a new object with weights added to the problem formulation.
 
@@ -773,7 +791,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_objective()`
+### `ConservationProblem$add_objective()`
 
 Create a new object with an objective added to the problem formulation.
 
@@ -794,7 +812,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_decisions()`
+### `ConservationProblem$add_decisions()`
 
 Create a new object with decisions added to the problem formulation.
 
@@ -814,7 +832,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_constraint()`
+### `ConservationProblem$add_constraint()`
 
 Create a new object with a constraint added to the problem formulation.
 
@@ -835,7 +853,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `add_penalty()`
+### `ConservationProblem$add_penalty()`
 
 Create a new object with a penalty added to the problem formulation.
 
@@ -855,7 +873,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `remove_all_penalties()`
+### `ConservationProblem$remove_all_penalties()`
 
 Create a new object without any penalties.
 
@@ -876,7 +894,7 @@ An updated `ConservationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `ConservationProblem$clone()`
 
 The objects of this class are cloneable with this method.
 

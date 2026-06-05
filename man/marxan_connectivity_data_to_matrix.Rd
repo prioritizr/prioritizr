@@ -8,17 +8,16 @@ marxan_connectivity_data_to_matrix(x, data, symmetric = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object that
-contains planning unit and zone data to ensure that the argument to
-\code{data} is converted correctly. This argument can be set to
-\code{NULL} if checks are not required (not recommended).}
+contains planning unit and zone data for running checks to help ensure
+correctness.}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}.}
 
-\item{symmetric}{\code{logical} does the connectivity data
+\item{symmetric}{\code{logical} value indicating if the connectivity data
 describe symmetric relationships between planning units?
 If the data contain asymmetric connectivity data,
-this parameter should be set to \code{FALSE}.
+then use \code{symmetric = FALSE}.
 Defaults to \code{TRUE}.}
 }
 \value{
@@ -32,7 +31,7 @@ It ensures that the output matrix correctly specifies
 symmetric or asymmetric connectivity relationships between planning units.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -90,5 +89,5 @@ m3 <- marxan_connectivity_data_to_matrix(NULL, bldf3, symmetric = FALSE)
 
 # print array
 print(m3)
-}
+\dontshow{\}) # examplesIf}
 }

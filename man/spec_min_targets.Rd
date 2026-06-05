@@ -12,7 +12,7 @@ spec_min_targets(x, ...)
 \item{...}{Additional objects specifying target setting methods.}
 }
 \value{
-An object (\code{\linkS4class{TargetMethod}}) for specifying targets.
+An object (\code{\link[=TargetMethod-class]{TargetMethod}}) for specifying targets.
 }
 \description{
 Specify targets that are calculated based on the minimum of one or more
@@ -28,14 +28,14 @@ you will need to specify the spatial units for the features
 when initializing the \code{\link[=problem]{problem()}} objects if the feature data
 are provided in a different format. In particular, if the feature
 data are provided as a \code{data.frame} or \code{character} vector,
-then you will need to specify an argument to \code{feature_units} when
+then you will need to specify \code{feature_units} when
 using the \code{\link[=problem]{problem()}} function.
 See the Examples section of the documentation for \code{\link[=add_auto_targets]{add_auto_targets()}}
 for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -84,26 +84,26 @@ names(s) <- c("20\% targets", "Jung targets", "Polak targets", "min targets")
 
 # plot solutions
 plot(s, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Other target setting methods:
-\code{\link{spec_absolute_targets}()},
-\code{\link{spec_area_targets}()},
-\code{\link{spec_duran_targets}()},
-\code{\link{spec_interp_absolute_targets}()},
-\code{\link{spec_interp_area_targets}()},
-\code{\link{spec_jung_targets}()},
-\code{\link{spec_max_targets}()},
-\code{\link{spec_polak_targets}()},
-\code{\link{spec_pop_size_targets}()},
-\code{\link{spec_relative_targets}()},
-\code{\link{spec_rl_ecosystem_targets}()},
-\code{\link{spec_rl_species_targets}()},
-\code{\link{spec_rodrigues_targets}()},
-\code{\link{spec_rule_targets}()},
-\code{\link{spec_ward_targets}()},
-\code{\link{spec_watson_targets}()},
-\code{\link{spec_wilson_targets}()}
+\code{\link[=spec_absolute_targets]{spec_absolute_targets()}},
+\code{\link[=spec_area_targets]{spec_area_targets()}},
+\code{\link[=spec_duran_targets]{spec_duran_targets()}},
+\code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}},
+\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+\code{\link[=spec_jung_targets]{spec_jung_targets()}},
+\code{\link[=spec_max_targets]{spec_max_targets()}},
+\code{\link[=spec_polak_targets]{spec_polak_targets()}},
+\code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
+\code{\link[=spec_relative_targets]{spec_relative_targets()}},
+\code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}},
+\code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
+\code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
+\code{\link[=spec_rule_targets]{spec_rule_targets()}},
+\code{\link[=spec_ward_targets]{spec_ward_targets()}},
+\code{\link[=spec_watson_targets]{spec_watson_targets()}},
+\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}
 }
 \concept{methods}

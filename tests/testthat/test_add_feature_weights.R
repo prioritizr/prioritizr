@@ -12,11 +12,9 @@ test_that("compile (max cover, compressed formulation, single zone)", {
   # calculate variables for tests
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- terra::nlyr(sim_features)
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, seq(10, 14)))
+  expect_equal(o$obj(), c(rep(0, n_pu), seq(10, 14)))
   expect_equal(o$sense(), c(rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_f), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("present", n_f)))
@@ -50,17 +48,15 @@ test_that("compile (max utility, compressed formulation, single zone)", {
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_max_utility_objective(budget = b) %>%
+    add_max_wtd_sum_objective(budget = b) %>%
     add_feature_weights(seq(10, 14))
   o <- compile(p)
   # calculations for tests
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- terra::nlyr(sim_features)
-  scaled_costs <- c(p$planning_unit_costs())
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, seq(10, 14)))
+  expect_equal(o$obj(), c(rep(0, n_pu), seq(10, 14)))
   expect_equal(o$sense(), c(rep("=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_f), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("amount", n_f)))
@@ -138,7 +134,7 @@ test_that("compile (min shortfall, compressed formulation, single zone)", {
   expect_true(all(o$ub() == 1))
 })
 
-test_that("solve (max utility, compressed formulation, single zone)", {
+test_that("solve (max wtd sum, compressed formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -154,7 +150,7 @@ test_that("solve (max utility, compressed formulation, single zone)", {
   # create problem
   p <-
     problem(cost, features) %>%
-    add_max_utility_objective(budget = budget) %>%
+    add_max_wtd_sum_objective(budget = budget) %>%
     add_feature_weights(c(1, 1, 100)) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -181,11 +177,9 @@ test_that("compile (max cover, expanded formulation, single zone)", {
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- terra::nlyr(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f), seq(10, 14)))
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_pu * n_f), seq(10, 14)))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep( ">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_f * n_pu), rep(0, n_f), b))
   expect_equal(
@@ -221,7 +215,7 @@ test_that("compile (max cover, expanded formulation, single zone)", {
   )
 })
 
-test_that("solve (max utility, expanded formulation, single zone)", {
+test_that("solve (max wtd sum, expanded formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -237,7 +231,7 @@ test_that("solve (max utility, expanded formulation, single zone)", {
   # create problem
   p <-
     problem(cost, features) %>%
-    add_max_utility_objective(budget = budget) %>%
+    add_max_wtd_sum_objective(budget = budget) %>%
     add_feature_weights(c(1, 1, 100)) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(gap = 0, verbose = FALSE)
@@ -288,11 +282,9 @@ test_that("compile (max cover, compressed formulation, multiple zones)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, seq(11, 25)))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), seq(11, 25)))
   expect_equal(
     o$sense(),
     c(rep(">=", n_f * n_z), "<=", rep("<=", n_pu))
@@ -367,7 +359,7 @@ test_that("solve (max features, compressed formulation, multiple zones)", {
       cost,
       zones(features[[1:3]], features[[4:6]], feature_names = targs$feature)
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs[, -6]) %>%
     add_feature_weights(matrix(targs$weight, ncol = 1)) %>%
     add_default_solver(gap = 0, verbose = TRUE)
@@ -396,11 +388,12 @@ test_that("compile (max cover, expanded formulation, multiple zones)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   # tests
   expect_equal(o$modelsense(), "max")
-  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z), seq(11, 25)))
+  expect_equal(
+    o$obj(),
+    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z), seq(11, 25))
+  )
   expect_equal(
     o$sense(),
     c(rep("<=", n_f * n_z * n_pu), rep(">=", n_f * n_z), "<=", rep("<=", n_pu))
@@ -497,7 +490,7 @@ test_that("solve (max features, expanded formulation, multiple zones)", {
       cost,
       zones(features[[1:3]], features[[4:6]], feature_names = targs$feature)
     ) %>%
-    add_max_features_objective(budget = budget) %>%
+    add_max_n_targets_met_objective(budget = budget) %>%
     add_manual_targets(targs[, -6]) %>%
     add_feature_weights(matrix(targs$weight, ncol = 1)) %>%
     add_default_solver(gap = 0, verbose = FALSE)

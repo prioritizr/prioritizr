@@ -44,24 +44,24 @@ connectivity_matrix(x, y, ...)
 - y:
 
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object showing the conductance of different areas across the study
-  area, or a `character` object denoting a column name in the attribute
-  table of `x` that contains the conductance values. Note that argument
-  to `y` can only be a `character` object if the argument to `x` is a
+  object denoting the conductance of different areas across the study
+  area, or a `character` object denoting a column name of `x` that
+  contains the conductance values. Note `y` can only be a `character`
+  object if `x` is a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object.
-  Also, note that if the argument to `x` is a
+  Also, note that if `x` is a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object then argument to `y` must have the same spatial properties as
-  it (i.e., coordinate system, extent, resolution).
+  object then `y` must have the same spatial properties as `x` (i.e.,
+  coordinate system, extent, resolution).
 
 - ...:
 
   additional arguments passed to
   [`fast_extract()`](https://prioritizr.net/reference/fast_extract.md)
   for extracting and calculating the conductance values for each
-  planning unit. These arguments are only used if argument to `x` is a
+  planning unit. Note that these arguments are only used if `x` is a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
-  and argument to `y` is a
+  and `y` is a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object.
 
@@ -71,9 +71,8 @@ A
 [`Matrix::dsCMatrix`](https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html)
 symmetric sparse matrix object. Each row and column represents a
 planning unit. Cells values indicate the connectivity between different
-pairs of planning units. To reduce computational burden, cells among the
-matrix diagonal are set to zero. Furthermore, if the argument to `x` is
-a
+pairs of planning units. To reduce computational burden, cells along the
+matrix diagonal are set to zero. Furthermore, if `x` is a
 [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
 object, then cells with missing (`NA`) values are set to zero too.
 
@@ -92,7 +91,6 @@ to perform these calculations.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -217,6 +215,4 @@ cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 plot(r, main = "planning units (raster)", axes = FALSE)
 
 Matrix::image(cm_zwsum, main = "connectivity matrix")
-
-# }
 ```

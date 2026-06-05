@@ -51,7 +51,7 @@ entire area encompassed by any single planning unit.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -77,13 +77,14 @@ s <- c(solve(p1), solve(p2), solve(p3), solve(p4))
 names(s) <- c(
   "default (binary)", "binary", "proportion", "semicontinuous (upper = 0.5)"
 )
+
 # plot solutions
 plot(s)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-Other overviews: 
+Other overviews:
+\code{\link{approaches}},
 \code{\link{constraints}},
 \code{\link{importance}},
 \code{\link{objectives}},

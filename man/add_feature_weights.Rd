@@ -13,7 +13,7 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{weights}{\code{numeric} or \code{matrix} of weights.
+\item{weights}{\code{numeric} vector or \code{matrix} of weights.
 See the Weights format section for more information.}
 }
 \value{
@@ -22,9 +22,9 @@ An updated \code{\link[=problem]{problem()}} with the weights added to it.
 \description{
 Add features weights to a conservation planning problem. Specifically,
 some objective functions aim to maximize (or minimize) a metric that
-measures how well a set of features are represented by a solution
-(e.g., maximize the number of features that are adequately represented,
-\code{\link[=add_max_features_objective]{add_max_features_objective()}}). In such cases,
+evaluates how well a set of features are represented by a solution
+(e.g., maximize the number of feature targets that are met,
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}}). In such cases,
 it may be desirable to prefer the representation of some features
 over other features (e.g., features that have higher extinction risk
 might be considered more important than those with lower extinction risk).
@@ -33,47 +33,44 @@ it is for a solution to represent particular features compared with other
 features.
 }
 \details{
-Weights can only be applied to problems that have an objective
-that is budget limited (e.g., \code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
-\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}).
-They can also be applied to problems that aim to maximize phylogenetic
-representation (\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}) to favor the
-representation of specific features over the representation of
-some phylogenetic branches. Weights cannot be negative values
-and must have values that are equal to or larger than zero.
-\strong{Note that planning unit costs are scaled to 0.01 to identify
-the cheapest solution among multiple optimal solutions. This means
-that the optimization process will favor cheaper solutions over solutions
-that meet feature targets (or occurrences) when feature weights are
-lower than 0.01.}
+Weights are only considered during optimization if a budget-limited
+objective is specified
+(e.g., \code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}). Although weights can be added
+to problems that have the minimum set objective
+(i.e., \code{\link[=add_min_set_objective]{add_min_set_objective()}}), they will have no effect during
+optimization and a warning will be thrown.
 }
 \section{Weights format}{
 
-
-The argument to \code{weights} can be specified using the following formats.
+The following formats can be used to specify \code{weights}.
+Note that \code{weights} must have values that are greater than, or equal to, zero
+(in other words, non-negative values).
 
 \describe{
 
-\item{\code{weights} as a \code{numeric} vector}{containing weights for each feature.
-Note that this format cannot be used to specify weights for problems with
-multiple zones.}
+\item{\code{weights} as a \code{numeric} vector}{
+Here weight values are specified for each feature.
+Note that this format cannot be used if \code{x} has multiple zones.
+}
 
-\item{\code{weights} as a \code{matrix} object}{containing weights
-for each feature in each zone.
-Here, each row corresponds to a different feature in argument to
-\code{x}, each column corresponds to a different zone in argument to
-\code{x}, and each cell contains the weight value for a given feature
-that the solution can to secure in a given zone. Note that
-if the problem contains targets created using
-\code{\link[=add_manual_targets]{add_manual_targets()}} then a \code{matrix} should be
-supplied containing a single column that indicates that weight for
-fulfilling each target.}
+\item{\code{weights} as a \code{matrix} object}{
+Here weight values are specified for each feature in each zone.
+In particular, each row corresponds to a different feature in
+\code{x}, each column corresponds to a different zone in \code{x}, and cell values
+specify the weight value for representing a particular feature in a
+particular zone.
+Note that if the problem contains targets created using
+\code{\link[=add_manual_targets]{add_manual_targets()}}, then \code{weights} should be a \code{matrix}
+that has a single column containing the weight value for meeting each
+target.
+}
 
 }
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load package
 require(ape)
 
@@ -89,7 +86,7 @@ sim_zones_features <- get_sim_zones_features()
 # needs 20\% of its habitat for it to be considered adequately conserved
 p1 <-
   problem(sim_pu_raster, sim_features) \%>\%
-  add_max_features_objective(budget = 3800) \%>\%
+  add_max_n_targets_met_objective(budget = 3800) \%>\%
   add_relative_targets(0.2) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -185,13 +182,13 @@ plot(
   )
 )
 
-# create multi-zone problem with maximum features objective,
+# create multi-zone problem with maximum number of targets met objective,
 # with 10\% representation targets for each feature, and set
 # a budget such that the total maximum expenditure in all zones
 # cannot exceed 3000
 p6 <-
   problem(sim_zones_pu_raster, sim_zones_features) \%>\%
-  add_max_features_objective(3000) \%>\%
+  add_max_n_targets_met_objective(3000) \%>\%
   add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
   add_binary_decisions() \%>\%
   add_default_solver(verbose = FALSE)
@@ -222,7 +219,7 @@ plot(c(c6, c7), main = c("equal weights", "manual weights"), axes = FALSE)
 # weights for problems with manual targets
 p8 <-
   problem(sim_pu_raster, sim_features) \%>\%
-  add_max_features_objective(budget = 3000) \%>\%
+  add_max_n_targets_met_objective(budget = 3000) \%>\%
   add_manual_targets(
     data.frame(
     feature = c("feature_1", "feature_4"),
@@ -238,16 +235,17 @@ s8 <- solve(p8)
 
 # plot solution
 plot(s8, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{penalties} for an overview of all functions for adding penalties.
 
 Other functions for adding penalties:
-\code{\link{add_asym_connectivity_penalties}()},
-\code{\link{add_boundary_penalties}()},
-\code{\link{add_connectivity_penalties}()},
-\code{\link{add_linear_penalties}()},
-\code{\link{add_neighbor_penalties}()}
+\code{\link[=add_asym_connectivity_penalties]{add_asym_connectivity_penalties()}},
+\code{\link[=add_boundary_penalties]{add_boundary_penalties()}},
+\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}},
+\code{\link[=add_cost_penalties]{add_cost_penalties()}},
+\code{\link[=add_linear_penalties]{add_linear_penalties()}},
+\code{\link[=add_neighbor_penalties]{add_neighbor_penalties()}}
 }
 \concept{penalties}

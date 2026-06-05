@@ -106,6 +106,9 @@ Additionally, we keep a [record of publications](https://prioritizr.net/articles
 Here we provide a short example showing how the _prioritizr R_ package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the  _prioritizrdata R_ package. Additionally, we will use the _terra R_ package to perform raster calculations. To begin with, we will load the packages.
 
 ```{r, eval = FALSE}
+# to install packages for this example, please use:
+# install.packages(c("prioritizr", "prioritizrdata"))
+
 # load packages
 library(prioritizr)
 library(prioritizrdata)

@@ -102,8 +102,7 @@ NULL
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -166,6 +165,4 @@ NULL
 #' # plot solutions
 #' names(s) <- n
 #' plot(terra::rast(s), axes = FALSE)
-#' }
-#'
 NULL

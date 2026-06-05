@@ -14,35 +14,37 @@ add_rsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is relative
-and expresses the acceptable deviance from the optimal objective.
+\item{gap}{\code{numeric} value denoting the optimality gap. This gap is relative
+and expresses the acceptable deviance from optimality.
 For example, a value of 0.01 will result in the solver stopping when
 it has found a solution within 1\% of optimality.
 Additionally, a value of 0 will result in the solver stopping
 when it has found an optimal solution.
 The default value is 0.1 (i.e., 10\% from optimality).}
 
-\item{time_limit}{\code{numeric} time limit (seconds) for generating solutions.
+\item{time_limit}{\code{numeric} value denoting the time limit (seconds) for
+generating solutions.
 The solver will return the current best solution when this time limit is
 exceeded. The default value is the largest integer value
 (i.e., \code{.Machine$integer.max}), effectively meaning that solver
 will keep running until a solution within the optimality gap is found.}
 
-\item{first_feasible}{\code{logical} should the first feasible solution be
-be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
+\item{first_feasible}{\code{logical} value indicating if the first feasible
+solution should be returned? If \code{first_feasible = TRUE}, then the solver
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.
+relaxed problem, and is therefore often reasonably close to optimality.
 Defaults to \code{FALSE}.}
 
-\item{verbose}{\code{logical} should information be printed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 }
 \value{
-An updated \code{\link[=problem]{problem()}} object with the solver added to it.
+An updated \code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object with the solver added to
+it.
 }
 \description{
 Specify that the \href{https://github.com/coin-or/SYMPHONY}{\emph{SYMPHONY}}
@@ -66,7 +68,7 @@ run time and solution quality of different solvers when applied to
 different sized datasets.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -84,7 +86,7 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ralphs TK and Güzelsoy M (2005) The SYMPHONY callable library for mixed
@@ -96,14 +98,12 @@ integer linear programming solvers outperform simulated annealing for
 solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
-See \link{solvers} for an overview of all functions for adding a solver.
-
 Other functions for adding solvers:
-\code{\link{add_cbc_solver}()},
-\code{\link{add_cplex_solver}()},
-\code{\link{add_default_solver}()},
-\code{\link{add_gurobi_solver}()},
-\code{\link{add_highs_solver}()},
+\code{\link[=add_cbc_solver]{add_cbc_solver()}},
+\code{\link[=add_cplex_solver]{add_cplex_solver()}},
+\code{\link[=add_default_solver]{add_default_solver()}},
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
+\code{\link[=add_highs_solver]{add_highs_solver()}},
 \code{\link{add_lsymphony_solver}}
 }
 \concept{solvers}

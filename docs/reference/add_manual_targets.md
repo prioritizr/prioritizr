@@ -62,23 +62,22 @@ zones), see the `add_manual_targets()` function.
 
 ## Targets format
 
-The `targets` argument should be a `data.frame` with the following
-columns:
+Here `targets` must be a `data.frame` with the following columns.
 
 - feature:
 
-  `character` name of features in argument to `x`.
+  `character` name of features in `x`.
 
 - zone:
 
-  `character` name of zones in the argument `x`. It can also be a `list`
-  of `character` vectors if targets should correspond to multiple zones
-  (see Examples section below). This column is optional for arguments to
-  `x` that do not contain multiple zones.
+  `character` name of zones in `x`. It can also be a `list` of
+  `character` vectors if targets should correspond to multiple zones
+  (see Examples section below). Note that this column is optional if `x`
+  has a single zone.
 
 - type:
 
-  `character` describing the type of target. Acceptable values include
+  `character` describing the type of target. Acceptable values are:
   `"absolute"` and `"relative"`. These values correspond to
   [`add_absolute_targets()`](https://prioritizr.net/reference/add_absolute_targets.md),
   and
@@ -87,9 +86,9 @@ columns:
 
 - sense:
 
-  `character` sense of the target. Acceptable values include: `">="`,
-  `"<="`, and `"="`. This column is optional and if it is missing then
-  target senses will default to `">="` values.
+  `character` sense of the target. Acceptable values are: `">="`,
+  `"<="`, and `"="`. This column is optional, and if it is not specified
+  then senses will default to `">="` for all targets.
 
 - target:
 
@@ -138,7 +137,6 @@ Other functions for adding targets:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -311,6 +309,4 @@ s7 <- solve(p7)
 
 # plot solution
 plot(category_layer(s7), main = "solution", axes = FALSE)
-
-# }
 ```

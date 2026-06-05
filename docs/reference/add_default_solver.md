@@ -13,7 +13,9 @@ add_default_solver(x, ...)
 
 - x:
 
-  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+  [`problem()`](https://prioritizr.net/reference/problem.md) or
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - ...:
 
@@ -21,7 +23,8 @@ add_default_solver(x, ...)
 
 ## Value
 
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
+An updated [`problem()`](https://prioritizr.net/reference/problem.md) or
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object with the solver added to it.
 
 ## Details
@@ -55,3 +58,28 @@ Other functions for adding solvers:
 [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
 [`add_lsymphony_solver`](https://prioritizr.net/reference/add_lsymphony_solver.md),
 [`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+
+## Examples
+
+``` r
+# set seed for reproducibility
+set.seed(600)
+
+# load data
+sim_pu_raster <- get_sim_pu_raster()
+sim_features <- get_sim_features()
+
+# create minimal problem with default portfolio
+p <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.05) %>%
+  add_binary_decisions() %>%
+  add_default_solver(gap = 0, verbose = FALSE)
+
+# solve problem
+s <- solve(p)
+
+# plot solution
+plot(s)
+```

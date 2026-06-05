@@ -22,12 +22,12 @@ the quality of solutions.
 }
 \details{
 This strategy for generating a portfolio requires problems to
-be solved using the \emph{Gurobi} software suite (i.e., using
+be solved using the \emph{Gurobi} software (i.e., using
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 8.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 
@@ -76,16 +76,15 @@ print(terra::nlyr(s2))
 
 # plot solutions in portfolio
 plot(s2, axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-See \link{portfolios} for an overview of all functions for adding a portfolio.
-
 Other functions for adding portfolios:
-\code{\link{add_cuts_portfolio}()},
-\code{\link{add_default_portfolio}()},
-\code{\link{add_gap_portfolio}()},
-\code{\link{add_shuffle_portfolio}()},
-\code{\link{add_top_portfolio}()}
+\code{\link[=add_cuts_portfolio]{add_cuts_portfolio()}},
+\code{\link[=add_default_portfolio]{add_default_portfolio()}},
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}},
+\code{\link[=add_shuffle_portfolio]{add_shuffle_portfolio()}},
+\code{\link[=add_single_portfolio]{add_single_portfolio()}},
+\code{\link[=add_top_portfolio]{add_top_portfolio()}}
 }
 \concept{portfolios}

@@ -29,10 +29,11 @@ binary_stack(x, keep_all = TRUE)
 - keep_all:
 
   `logical` value indicating if all integers should be kept in the
-  output. If `TRUE`, the output will contain a layer for each sequential
-  integer between 1 and the maximum value in `x`. If `FALSE`, the output
-  will only contain layers for integer values present in `x`. Defaults
-  to `TRUE.`
+  returned object. If `keep_all = TRUE`, then the returned object will
+  contain a layer for each sequential integer between 1 and the maximum
+  value in `x`. Otherwise, if `keep_all = FALSE`, then the returned
+  object will only contain layers for integer values present in `x`.
+  Defaults to `TRUE.`
 
 ## Value
 
@@ -68,17 +69,12 @@ function provides similar functionality.
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 
 # plot the raster
-# \dontrun{
 plot(x, main = "x")
 
-# }
 
 # convert to binary stack
 y <- binary_stack(x)
 
 # plot result
-# \dontrun{
 plot(y)
-
-# }
 ```

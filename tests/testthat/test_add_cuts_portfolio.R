@@ -36,7 +36,7 @@ test_that("solve (number_solutions within limit, single zone)", {
     problem(cost, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(2, 10)) %>%
-    add_cuts_portfolio(2) %>%
+    add_cuts_portfolio(2, verbose = FALSE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -52,7 +52,8 @@ test_that("solve (number_solutions within limit, single zone)", {
     )
 })
 
-test_that("solve (number_solutions within limit, multiple zones)", {
+test_that("
+  solve (number_solutions within limit, multiple zones, verbose)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # load data
@@ -71,7 +72,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
     problem(sim_zones_pu_raster, sim_zones_features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(targets) %>%
-    add_cuts_portfolio(2) %>%
+    add_cuts_portfolio(2, verbose = FALSE) %>%
     add_binary_decisions() %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
@@ -99,7 +100,7 @@ test_that("solve (number_solutions within limit, multiple zones)", {
   )
 })
 
-test_that("solve (number_solutions outside limit)", {
+test_that("solve (number_solutions outside limit, verbose)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -118,12 +119,12 @@ test_that("solve (number_solutions outside limit)", {
     add_absolute_targets(c(2, 10)) %>%
     add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out) %>%
-    add_cuts_portfolio(100) %>%
+    add_cuts_portfolio(100, verbose = TRUE) %>%
     add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
-  expect_warning(
+  expect_message(
     s <- solve(p),
-    "Portfolio could only"
+    "Found"
   )
   # output checks
   expect_inherits(s, "SpatRaster")

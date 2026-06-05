@@ -13,11 +13,11 @@ NULL
 #' @inheritParams add_gurobi_solver
 #'
 #' @param control `list` with additional parameters for tuning
-#'  the optimization process.
-#'  For example, `control = list(simplex_strategy = 1)` could be used to
-#'  set the `simplex_strategy` parameter.
-#'  See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
-#'  for information on the parameters.
+#' the optimization process.
+#' For example, `control = list(simplex_strategy = 1)` could be used to
+#' set the `simplex_strategy` parameter.
+#' See the [online documentation](https://ergo-code.github.io/HiGHS/dev/options/definitions/)
+#' for information on the parameters.
 #'
 #' @details
 #' [*HiGHS*](https://highs.dev/) is an open source optimization software.
@@ -37,8 +37,7 @@ NULL
 #' Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex
 #' method. *Mathematical Programming Computation*, 10: 119-142.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -56,7 +55,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_highs_solver
 NULL
 
@@ -64,6 +63,7 @@ NULL
 #' @export
 add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                              presolve = TRUE, threads = 1,
+                             start_solution = NULL,
                              verbose = TRUE,
                              control = list()) {
   # assert that arguments are valid
@@ -72,10 +72,11 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(time_limit)
   assert_required(presolve)
   assert_required(threads)
+  assert_required(start_solution)
   assert_required(verbose)
   assert_required(control)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -88,6 +89,8 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     is.list(control),
     is_installed("highs")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # additional checks for control
   if (length(control) > 0) {
     assert(
@@ -95,6 +98,21 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       all(nzchar(names(control))),
       msg = "all elements in {.arg control} must have a name."
     )
+  }
+  # extract start solution
+  if (!is.null(start_solution)) {
+    # nocov start
+    # verify that version of highs installed supports starting solution
+    assert(
+      isTRUE("start" %in% names(formals(highs::highs_solve))),
+      msg = paste(
+        "To use {.arg start_solution}, please install a newer",
+        "version of the {.pkg highs} package."
+      )
+    )
+    # extract data
+    start_solution <- planning_unit_solution_status(x, start_solution)
+    # nocov end
   }
   # add solver
   x$add_solver(
@@ -108,6 +126,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           time_limit = time_limit,
           presolve = presolve,
           threads = threads,
+          start_solution = start_solution,
           verbose = verbose,
           control = control
         ),
@@ -172,6 +191,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           if (length(control) > 0) {
             p[names(control)] <- control
           }
+
           # store internal data and parameters
           self$set_internal("model", model)
           self$set_internal("parameters", p)
@@ -196,7 +216,15 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         run = function() {
           # access internal data and parameters
           model <- self$get_internal("model")
+          start <- self$get_internal("start")
           p <- self$get_internal("parameters")
+          # if needed, specify start solution
+          if (
+            is.null(start) &&
+            isTRUE("start" %in% names(formals(highs::highs_solve)))
+          ) {
+            model$start <- start # nocov
+          }
           # solve problem
           rt <- system.time({
             x <- do.call(
@@ -231,6 +259,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
           } else {
             x_gap <- NA_real_ # nocov
           }
+
           # return solution
           list(
             x = sol,

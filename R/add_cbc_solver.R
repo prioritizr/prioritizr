@@ -14,18 +14,18 @@ NULL
 #' @inheritParams add_cplex_solver
 #' @inheritParams add_gurobi_solver
 #'
-#' @param presolve `integer` number indicating how intensively the
-#'   solver should try to simplify the problem before solving it. Available
-#'   options are: (0) disable pre-solving, (1) conservative
-#'   level of pre-solving, and (2) very aggressive level of pre-solving .
-#'   The default value is 2.
+#' @param presolve `integer` value indicating how intensively the
+#' solver should try to simplify the problem before solving it. Available
+#' options include (0) disable pre-solving, (1) conservative
+#' level of pre-solving, and (2) very aggressive level of pre-solving .
+#' Defaults to 2.
 #'
 #' @param control `list` with additional parameters for tuning
-#'  the optimization process.
-#'  For example, `control = list(strategy = 2)` could be used to
-#'  set the `strategy` parameter.
-#'  See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
-#'  for information on the parameters.
+#' the optimization process.
+#' For example, `control = list(strategy = 2)` could be used to
+#' set the `strategy` parameter.
+#' See the [online documentation](https://www.gams.com/latest/docs/S_CBC.html#CBC_OPTIONS_LIST)
+#' for information on the parameters.
 #'
 #' @details
 #' [*CBC*](https://github.com/coin-or/Cbc) is an
@@ -66,8 +66,7 @@ NULL
 #' Methods, and Applications (pp. 257--277). INFORMS, Catonsville, MD.
 #' \doi{10.1287/educ.1053.0020}.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -101,7 +100,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s2, main = "solution with boundary penalties", axes = FALSE)
-#' }
+#'
 #' @name add_cbc_solver
 NULL
 
@@ -135,7 +134,7 @@ add_cbc_solver <- function(x,
   }
   # assert valid arguments
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -153,6 +152,8 @@ add_cbc_solver <- function(x,
     is.list(control),
     is_installed("rcbc")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # additional checks for control
   if (length(control) > 0) {
     assert(
@@ -161,16 +162,11 @@ add_cbc_solver <- function(x,
       msg = "all elements in {.arg control} must have a name."
     )
   }
- # extract start solution
+  # extract start solution
   if (!is.null(start_solution)) {
     # verify that version of rcbc installed supports starting solution
     assert(
-      any(
-        grepl(
-          "initial_solution", deparse1(args(rcbc::cbc_solve)),
-          fixed = TRUE
-        )
-      ),
+      isTRUE("initial_solution" %in% names(formals(rcbc::cbc_solve))),
       msg = paste(
         "To use {.arg start_solution}, please install a newer",
         "version of the {.pkg rcbc} package."
@@ -307,10 +303,12 @@ add_cbc_solver <- function(x,
           rt <- system.time({
             x <- do.call(rcbc::cbc_solve, append(model, list(cbc_args = p)))
           })
-          # return NULL if infeasible
-          if (x$is_proven_dual_infeasible ||
-              x$is_proven_infeasible ||
-              x$is_abandoned) {
+          # if infeasible, then return NULL
+          if (
+            x$is_proven_dual_infeasible ||
+            x$is_proven_infeasible ||
+            x$is_abandoned
+          ) {
             return(NULL)
           }
           # sanitize solver output

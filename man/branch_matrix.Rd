@@ -13,7 +13,7 @@ branch_matrix(x)
 \method{branch_matrix}{phylo}(x)
 }
 \arguments{
-\item{x}{\code{\link[ape:read.tree]{ape::phylo()}} tree object.}
+\item{x}{\code{\link[ape:phylo]{ape::phylo()}} tree object.}
 }
 \value{
 A \code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}} sparse matrix object. Each row
@@ -30,6 +30,7 @@ it creates a matrix that shows which periods of evolutionary history
 each species have experienced.
 }
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_phylogeny <- get_sim_phylogeny()
 
@@ -37,8 +38,7 @@ sim_phylogeny <- get_sim_phylogeny()
 m <- branch_matrix(sim_phylogeny)
 
 # plot data
-\dontrun{
 plot(sim_phylogeny, main = "phylogeny")
 Matrix::image(m, main = "branch matrix")
-}
+\dontshow{\}) # examplesIf}
 }

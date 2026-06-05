@@ -45,13 +45,13 @@ rij_matrix(x, y, fun, memory, idx, ...)
 
   `logical` should calculations be performed using a method that
   prioritizes reduced memory consumption over speed? This is useful when
-  processing particularly large raster datasets. If `TRUE`, then
-  calculations are performed by processing each raster layer in `y` in a
-  sequential manner. If `FALSE`, then calculations are performed by
-  processing all raster layers in `y` together. If `NA`, then the memory
-  requirements will be estimated and, if required, processing will be
-  performed using the method that reduces memory consumption. Defaults
-  to `NA`.
+  processing particularly large raster datasets. If `memory = TRUE`,
+  then calculations are performed by processing each raster layer in `y`
+  in a sequential manner. If `memory = FALSE`, then calculations are
+  performed by processing all raster layers in `y` together. If
+  `memory = NA`, then the memory requirements will be estimated and, if
+  required, processing will be performed using the method that reduces
+  memory consumption. Defaults to `NA`.
 
 - idx:
 
@@ -61,7 +61,7 @@ rij_matrix(x, y, fun, memory, idx, ...)
 - fun:
 
   `character` for summarizing values inside each planning unit. This
-  parameter is only used when the argument to `x` is a
+  parameter is only used if `x` is a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object.
   Defaults to `"sum"`.
 
@@ -96,7 +96,6 @@ the cache size to 4 GB.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -351,5 +350,4 @@ print(rij_zones_raster)
 #> feature_3 0.7677462 0.7589920 0.7423053 0.7195554 0.6644490 0.6371886
 #> feature_4 0.3741982 0.3774461 0.3792402 0.3785580 0.3601426 0.3391285
 #> feature_5 0.6078230 0.6002851 0.6064383 0.6166496 0.6410043 0.6515710
-# }
 ```

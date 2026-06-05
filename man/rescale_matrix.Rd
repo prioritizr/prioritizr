@@ -4,16 +4,16 @@
 \alias{rescale_matrix}
 \title{Rescale a matrix}
 \usage{
-rescale_matrix(x, max = 1000)
+rescale_matrix(x, max = 1)
 }
 \arguments{
 \item{x}{\code{\link{matrix}}, \code{\link{array}}, \code{\link[Matrix:Matrix-class]{Matrix::Matrix}} object.}
 
-\item{max}{\code{numeric} new maximum value in matrix. Defaults to 1000.}
+\item{max}{\code{numeric} new maximum value in matrix. Defaults to 1.}
 }
 \value{
 A \code{\link{matrix}}, \code{\link{array}}, or \code{\link[Matrix:Matrix-class]{Matrix::Matrix}} object.
-The returned object is the is the same class as the argument to \code{x}.
+The returned object is the same class as \code{x}.
 }
 \description{
 Linearly rescale a matrix. Specifically, the values in the matrix
@@ -34,8 +34,16 @@ data prior to optimization (e.g., before using \code{\link[=add_boundary_penalti
 \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}, this can help avoid numerical issues
 during optimization.
 }
+\section{Notes}{
+
+In previous versions, the default value for \code{max} was 1000.
+This default value has since been changed to a value of 1 to help
+ensure that the default scaling provides a better range of
+values for optimization.
+}
+
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # rescale_matrix() is especially useful for re-scaling boundary length data
 # prior to optimization, and so here we provide an example showing how
 # this can be accomplished
@@ -67,8 +75,7 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=boundary_matrix]{boundary_matrix()}} and \code{\link[=connectivity_matrix]{connectivity_matrix()}} for details on

@@ -9,10 +9,14 @@
 #' @param targets `data.frame` containing the targets. Here each row
 #' corresponds to a different target and columns contain information about
 #' the targets. It must contain the following columns:
-#' `"feature"` with `character` values denoting the features names,
-#' `"target"` with `numeric` values denoting target thresholds,
-#' and `"type"` with `character` values denoting if the target thresholds
+#' \describe{
+#' \item{`"feature"`}{`character` values denoting the features names.}
+#' \item{`"target"`}{`numeric` values denoting target thresholds.}
+#' \item{`"type"`}{
+#' `character` values denoting if the target thresholds
 #' are `"relative"` or `"absolute"`.
+#' }
+#' }
 #'
 #' @details
 #' This function is used to convert a `data.frame` with target information
@@ -44,8 +48,8 @@
 #' relative targets (per `targets$type`), then these are converted to
 #' absolute units based on `x$feature_abundances_in_total_units()`.
 #' 7. The `targets` data frame is processed to select the following columns:
-#' 8. The `targets` data frame is returned.
 #' `"feature"`, `"zone"`, `"sense"`, and `"value"`.
+#' 8. The `targets` data frame is returned.
 #'
 #' @return
 #' A `data.frame` with the columns `"feature"`, `"zone"`, `"sense"`, and

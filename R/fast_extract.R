@@ -9,9 +9,9 @@ NULL
 #'
 #' @param y [sf::sf()] object.
 #'
-#' @param fun `character` name of statistic to summarize data. Defaults
-#'   to `"mean"`. Available options include `"sum"` or `"mean"`.
-#'   Defaults to `"mean"`.
+#' @param fun `character` name of statistic to summarize data.
+#' Available options include `"sum"` or `"mean"`.
+#' Defaults to `"mean"`.
 #'
 #' @param ... not used.
 #'
@@ -24,12 +24,14 @@ NULL
 #' terra::gdalCache(size = 4000)
 #' ```
 #'
-#' @return A `matrix` containing the summary amount of each feature
-#'    within each planning unit. Rows correspond to different spatial features
-#'   in the argument to `y` and columns correspond to different raster
-#'   layers in the argument to `x`.
+#' @return
+#' A `matrix` containing the summary amount of each feature
+#' within each planning unit. Rows correspond to different spatial features
+#' in `y` and columns correspond to different raster layers in `x`.
 #'
-#' @seealso [terra::extract()], [exactextractr::exact_extract()].
+#' @seealso
+#' The [terra::extract()] and [exactextractr::exact_extract()] functions
+#' are alternatives for extracting raster data.
 #'
 #' @details
 #' This function is simply a wrapper that uses

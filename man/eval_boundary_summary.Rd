@@ -17,61 +17,63 @@ eval_boundary_summary(
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
-The argument should be in the same format as the planning unit cost
-data in the argument to \code{x}.
+Note that \code{solution} must have the same format as the planning unit
+data in \code{x}.
 See the Solution format section for more information.}
 
-\item{edge_factor}{\code{numeric} proportion to scale
-planning unit edges (borders) that do not have any neighboring planning
-units. For example, an edge factor of \code{0.5} is commonly used to
-avoid overly penalizing planning units along a coastline.
-Note that this argument must have an element for each zone in the argument
-to \code{x}.}
+\item{edge_factor}{\code{numeric} value or vector denoting the proportion
+for scaling planning unit edges (borders) that do not have any neighboring
+planning units. For example, an edge factor of \code{0.5} is commonly used to
+avoid overly penalizing planning units along coastlines.
+Note that \code{edge_factor} must have a value for each zone in \code{x}.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 clumping scheme for different zones. Each row and column corresponds to a
-different zone in the argument to \code{x}, and cell values indicate the
+different zone in \code{x}, and cell values indicate the
 relative importance of clumping planning units that are allocated to
 a combination of zones. Cell values along the diagonal of the matrix
 represent the relative importance of clumping planning units that are
 allocated to the same zone. Cell values must range between 1 and -1, where
-negative values favor solutions that spread out planning units. The default
-argument to \code{zones} is an identity
+negative values favor solutions that spread out planning units.
+Defaults to an identity
 matrix (i.e., a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that penalties are incurred when neighboring planning units
 are not assigned to the same zone. If the cells along
 the matrix diagonal contain markedly smaller values than those found
 elsewhere in the matrix, then solutions are preferred that surround
 planning units with those allocated to different zones
-(i.e., greater spatial fragmentation).}
+(i.e., greater spatial fragmentation of zones).}
 
 \item{data}{\code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
 object containing the boundary data. These data describe the total
-amount of boundary (perimeter) length  for each planning unit,
+amount of boundary (perimeter) length for each planning unit,
 and the amount of boundary (perimeter) length shared between different
 planning units (i.e., planning units that are adjacent to each other).
 See the Data format section for more information.}
 }
 \value{
-A \code{\link[tibble:tibble]{tibble::tibble()}} object containing the boundary length of the
-solution.
-It contains the following columns:
+A \code{\link[tibble:tibble]{tibble::tibble()}} object describing the boundary length of the
+solution. It contains the following columns.
 
 \describe{
 
-\item{summary}{\code{character} description of the summary statistic.
+\item{summary}{
+\code{character} description of the summary statistic.
 The statistic associated with the \code{"overall"} value
 in this column is calculated using the entire solution
-(including all management zones if there are multiple zones).
-If multiple management zones are present, then summary statistics
+(including all management zones if \code{x} has multiple zones).
+If \code{x} has multiple management zones, then summary statistics
 are also provided for each zone separately
-(indicated using zone names).}
+(indicated using zone names).
+}
 
-\item{boundary}{\code{numeric} exposed boundary length value.
+\item{boundary}{
+\code{numeric} exposed boundary length value.
 Greater values correspond to solutions with greater
 boundary length and, in turn, greater spatial fragmentation.
 Thus conservation planning exercises typically prefer solutions
-with smaller values.}
+with smaller values.
+}
 
 }
 }
@@ -87,111 +89,123 @@ reported by the \href{https://marxansolutions.org}{\emph{Marxan} software}
 (Ball \emph{et al.} 2009).
 It is calculated using the same equations used to penalize solutions
 according to their total exposed boundary (i.e., \code{\link[=add_boundary_penalties]{add_boundary_penalties()}}).
-See the Examples section for examples on how differences \code{zone} arguments
+See the Examples section for examples on how different \code{zone} values
 can be used to calculate boundaries for different combinations of zones.
 }
 \section{Data format}{
 
-The argument to \code{data} can be specified using the following formats.
+The following formats can be used to specify \code{data}.
 Note that boundary data must always describe symmetric relationships
 between planning units.
 
 \describe{
 
-\item{\code{data} as a \code{NULL} value}{indicating that the data should be
-automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function.
-This argument is the default.
+\item{\code{data} as a \code{NULL} value}{
+Here boundary length data are
+automatically calculated using the \code{\link[=boundary_matrix]{boundary_matrix()}} function and
+then rescaled with \code{\link[=rescale_matrix]{rescale_matrix()}}.
+This is the default for \code{data}.
 Note that the boundary data must be supplied
-using one of the other formats below if the planning unit data
-in the argument to \code{x} do not explicitly contain spatial information
-(e.g., planning unit data are a \code{data.frame} or \code{numeric} class).}
+using one of the other formats below if \code{x} does not contain planning units
+that are spatially referenced.
+(e.g., planning unit data are a \code{data.frame} object or \code{numeric} vector).
+}
 
-\item{\code{data} as a \code{matrix}/\code{Matrix} object}{where rows and columns represent
-different planning units and the value of each cell represents the
-amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal denote the total
-boundary length associated with each planning unit.}
+\item{\code{data} as a \code{matrix}/\code{Matrix} object}{
+Here rows and columns correspond to different planning units and cell
+values represent the amount of boundary length shared between two
+planning units. Cells along the matrix diagonal denote the total
+boundary length associated with each planning unit. For example,
+boundary data in this format can be generated with the \code{\link[=boundary_matrix]{boundary_matrix()}}
+function.
+}
 
-\item{\code{data} as a \code{data.frame} object}{with the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
+\item{\code{data} as a \code{data.frame} object}{
+Here rows correspond to a pair of planning units and columns
+provide information about each pair of planning units.
+In particular, \code{data} must have the columns:
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}.
+The \code{"id1"} and \code{"id2"} columns contain
 identifiers (indices) for a pair of planning units, and the \code{"boundary"}
 column contains the amount of shared boundary length between these
 two planning units.
-Additionally, if the values in the \code{"id1"} and \code{"id2"} columns
+Additionally, if the \code{"id1"} and \code{"id2"} columns
 contain the same values, then the value denotes the
-amount of exposed boundary length (not total boundary).
+amount of exposed boundary length (not total boundary) for that particular
+planning unit.
 This format follows the the standard \emph{Marxan} format for boundary
-data (i.e., per the "bound.dat" file).}
+data (i.e., per the "bound.dat" file).
+}
 
 }
 }
 
 \section{Solution format}{
 
-Broadly speaking, the argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}.
+Broadly speaking, \code{solution} must be in the same format as
+the planning unit data in \code{x}.
 Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+for each of the different planning unit data formats.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{solution}.
+\code{solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{solution}.
+missing (\code{NA}) values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{solution} must also have the same
+Additionally, \code{solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 }
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -298,7 +312,7 @@ print(r3_combined)
 # sum of the individual zone boundaries, because it does not
 # consider the shared boundary between two planning units allocated to
 # different zones as "exposed" when performing the calculations
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
@@ -312,11 +326,12 @@ Also, see \code{\link[=add_boundary_penalties]{add_boundary_penalties()}} to pen
 boundary length.
 
 Other functions for summarizing solutions:
-\code{\link{eval_asym_connectivity_summary}()},
-\code{\link{eval_connectivity_summary}()},
-\code{\link{eval_cost_summary}()},
-\code{\link{eval_feature_representation_summary}()},
-\code{\link{eval_n_summary}()},
-\code{\link{eval_target_coverage_summary}()}
+\code{\link[=eval_asym_connectivity_summary]{eval_asym_connectivity_summary()}},
+\code{\link[=eval_connectivity_summary]{eval_connectivity_summary()}},
+\code{\link[=eval_cost_summary]{eval_cost_summary()}},
+\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}},
+\code{\link[=eval_n_summary]{eval_n_summary()}},
+\code{\link[=eval_objective_summary]{eval_objective_summary()}},
+\code{\link[=eval_target_coverage_summary]{eval_target_coverage_summary()}}
 }
 \concept{summaries}

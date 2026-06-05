@@ -13,8 +13,8 @@ calibrate_cohon_penalty(x, approx = TRUE, verbose = TRUE)
 used for the calculations. Defaults to \code{TRUE} to reduce computational burden.
 See Details section for more information.}
 
-\item{verbose}{\code{logical} should information be printed while solving
-optimization problems? Defaults to \code{TRUE}.}
+\item{verbose}{\code{logical} value indicating if information should be displayed
+during the optimization process. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric} value corresponding to the calibrated penalty value.
@@ -127,7 +127,7 @@ steps 1, 2, 3, and 4 correspond to \eqn{a}{a}, \eqn{b}{b}, \eqn{c}{c}, and
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -162,7 +162,7 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \references{
 Ardron JA, Possingham HP, and Klein CJ (eds) (2010) Marxan Good Practices

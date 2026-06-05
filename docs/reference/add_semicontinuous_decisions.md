@@ -41,7 +41,10 @@ units. These decisions are then associated with actions (e.g., turning a
 planning unit into a protected area). Only a single decision should be
 added to a [`problem()`](https://prioritizr.net/reference/problem.md)
 object. Note that if multiple decisions are added to an object, then the
-last one to be added will be used.
+last one to be added will be used during optimization. Also, if no
+decision is added to a
+[`problem()`](https://prioritizr.net/reference/problem.md), then this
+decision will be used by default.
 
 ## See also
 
@@ -55,7 +58,6 @@ Other decisions:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -93,22 +95,20 @@ s2 <- solve(p2)
 
 # print solution
 print(s2)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varnames    : sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#> names       : zone_1, zone_2, zone_3 
-#> min values  :    0.0,    0.0,    0.0 
-#> max values  :    0.5,    0.5,    0.5 
+#> varnames    : sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#> names       : zone_1, zone_2, zone_3
+#> min values  :      0,      0,      0
+#> max values  :    0.5,    0.5,    0.5
 
 # plot solution
 # panels show the proportion of each planning unit allocated to each zone
 plot(s2, axes = FALSE)
-
-# }
 ```

@@ -20,8 +20,8 @@ feature_abundances(x, na.rm = FALSE)
 
 - na.rm:
 
-  `logical` should planning units with `NA` cost data be excluded from
-  the abundance calculations? The default argument is `FALSE`.
+  `logical` should planning units with missing (`NA`) cost data be
+  excluded from the abundance calculations? Defaults to `FALSE`.
 
 ## Value
 
@@ -30,8 +30,8 @@ A
 object containing the total amount (`"absolute_abundance"`) and
 proportion (`"relative_abundance"`) of the distribution of each feature
 in the planning units. Here, each row contains data that pertain to a
-specific feature in a specific management zone (if multiple zones are
-present). This object contains the following columns:
+particular feature in a particular management zone (if multiple zones
+are present). This object contains the following columns.
 
 - feature:
 
@@ -39,48 +39,48 @@ present). This object contains the following columns:
 
 - zone:
 
-  `character` name of the zone (not included when the argument to `x`
-  contains only one management zone).
+  `character` name of the zone (not included if `x` has a single
+  management zone).
 
 - absolute_abundance:
 
-  `numeric` amount of each feature in the planning units. If the problem
-  contains multiple zones, then this column shows how well each feature
-  is represented in a each zone.
+  `numeric` amount of each feature in the planning units. If `x` has
+  multiple zones, then this column shows how well each feature is
+  represented in a each zone.
 
 - relative_abundance:
 
   `numeric` proportion of the feature's distribution in the planning
-  units. If the argument to `na.rm` is `FALSE`, then this column will
-  only contain values equal to one. Otherwise, if the argument to
-  `na.rm` is `TRUE` and planning units with `NA` cost data contain
-  non-zero amounts of each feature, then this column will contain values
-  between zero and one.
+  units. If `na.rm = FALSE`, then this column will only contain values
+  equal to one. Otherwise, if `na.rm = TRUE` and planning units with
+  `NA` cost data contain non-zero amounts of each feature, then this
+  column will contain values between zero and one.
 
 ## Details
 
 Planning units can have cost data with finite values (e.g., 0.1, 3, 100)
-and `NA` values. This functionality is provided so that locations which
-are not available for protected area acquisition can be included when
-calculating targets for conservation features (e.g., when targets are
-specified using
+and missing (`NA`) values. This functionality is provided so that
+locations which are not available for protected area acquisition can be
+included when calculating targets for conservation features (e.g., when
+targets are specified using
 [`add_relative_targets()`](https://prioritizr.net/reference/add_relative_targets.md)).
 If the total amount of each feature in all the planning units is
-required—including the planning units with `NA` cost data—then the the
-`na.rm` argument should be set to `FALSE`. However, if the planning
-units with `NA` cost data should be excluded—for instance, to calculate
-the highest feasible targets for each feature—then the `na.rm` argument
-should be set to `TRUE`.
+required (including the planning units with `NA` cost data), then use
+`na.rm = FALSE`. However, if the planning units with `NA` cost data
+should be excluded, then use `na.rm = TRUE`. For example, `na.rm = TRUE`
+may be useful for calculating the maximum feasible target for each
+feature.
 
 ## See also
 
-[`problem()`](https://prioritizr.net/reference/problem.md),
-[`eval_feature_representation_summary()`](https://prioritizr.net/reference/eval_feature_representation_summary.md).
+The
+[`eval_feature_representation_summary()`](https://prioritizr.net/reference/eval_feature_representation_summary.md)
+function can be used evaluate how well features are represented by a
+solution.
 
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -103,8 +103,8 @@ print(a1)
 #> # A tibble: 2 × 3
 #>   feature absolute_abundance relative_abundance
 #>   <chr>                <dbl>              <dbl>
-#> 1 spp1                  3.93                  1
-#> 2 spp2                 34                     1
+#> 1 spp1                  4.10                  1
+#> 2 spp2                 31                     1
 
 # calculate feature abundances; excluding planning units with NA costs
 a2 <- feature_abundances(p1, na.rm = TRUE)
@@ -112,8 +112,8 @@ print(a2)
 #> # A tibble: 2 × 3
 #>   feature absolute_abundance relative_abundance
 #>   <chr>                <dbl>              <dbl>
-#> 1 spp1                  3.89              0.990
-#> 2 spp2                 27                 0.794
+#> 1 spp1                  3.84              0.935
+#> 2 spp2                 28                 0.903
 
 # verify correctness of feature abundance calculations
 all.equal(
@@ -208,6 +208,4 @@ s5 <- solve(p5)
 # this solution contains all the planning units with finite cost data
 # (i.e., cost data that do not have NA values)
 plot(s5)
-
-# }
 ```

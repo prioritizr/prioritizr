@@ -52,7 +52,7 @@ symmetric sparse matrix object. Each row and column represents a
 planning unit. Cells values indicate if the pair-wise distances between
 different planning units are within the distance threshold or not (using
 ones and zeros). To reduce computational burden, cells among the matrix
-diagonal are set to zero. Furthermore, if the argument to `x` is a
+diagonal are set to zero. Furthermore, if `x` is a
 [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
 object, then cells with missing (`NA`) values are set to zero too.
 
@@ -64,14 +64,13 @@ Proximity calculations are performed using
 ## See also
 
 Proximity matrix data might need rescaling to improve optimization
-performance, see
+performance. See
 [`rescale_matrix()`](https://prioritizr.net/reference/rescale_matrix.md)
-to perform these calculations.
+to perform rescaling.
 
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -128,6 +127,4 @@ Matrix::image(cm_lns, main = "proximity matrix")
 plot(pts[, 1], main = "points", axes = FALSE)
 
 Matrix::image(cm_pts, main = "proximity matrix")
-
-# }
 ```

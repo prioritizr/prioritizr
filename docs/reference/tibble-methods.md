@@ -30,21 +30,21 @@ The following methods are provided from manipulating
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
 objects.
 
-- nrow:
+- [`nrow()`](https://rspatial.github.io/terra/reference/dimensions.html):
 
-  `integer` number of rows.
+  Get `integer` number of rows.
 
-- ncol:
+- [`ncol()`](https://rspatial.github.io/terra/reference/dimensions.html):
 
-  `integer` number of columns.
+  Get `integer` number of columns.
 
-- as.list:
+- [`as.list()`](https://rspatial.github.io/terra/reference/as.list.html):
 
-  convert to a `list`.
+  Convert to a `list`.
 
-- print:
+- [`print()`](https://rdrr.io/r/base/print.html):
 
-  print the object.
+  Print the object.
 
 ## Examples
 

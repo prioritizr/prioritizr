@@ -40,9 +40,9 @@ test_that("solve (single zone)", {
     add_gap_portfolio(number_solutions = 5, pool_gap = 0.5) %>%
     add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
-  expect_warning(
+  expect_message(
     s <- solve(p),
-    "Portfolio could only"
+    "Found"
   )
   # tests
   expect_inherits(s, "list")

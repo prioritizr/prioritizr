@@ -28,64 +28,80 @@ add_gurobi_solver(
 
 - x:
 
-  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+  [`problem()`](https://prioritizr.net/reference/problem.md) or
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - gap:
 
-  `numeric` gap to optimality. This gap is relative and expresses the
-  acceptable deviance from the optimal objective. For example, a value
-  of 0.01 will result in the solver stopping when it has found a
+  `numeric` value denoting the optimality gap. This gap is relative and
+  expresses the acceptable deviance from optimality. For example, a
+  value of 0.01 will result in the solver stopping when it has found a
   solution within 1% of optimality. Additionally, a value of 0 will
   result in the solver stopping when it has found an optimal solution.
   The default value is 0.1 (i.e., 10% from optimality).
 
 - time_limit:
 
-  `numeric` time limit (seconds) for generating solutions. The solver
-  will return the current best solution when this time limit is
-  exceeded. The default value is the largest integer value (i.e.,
-  `.Machine$integer.max`), effectively meaning that solver will keep
-  running until a solution within the optimality gap is found.
+  `numeric` value denoting the time limit (seconds) for generating
+  solutions. The solver will return the current best solution when this
+  time limit is exceeded. The default value is the largest integer value
+  (i.e., `.Machine$integer.max`), effectively meaning that solver will
+  keep running until a solution within the optimality gap is found.
 
 - presolve:
 
-  `integer` number indicating how intensively the solver should try to
+  `integer` value indicating how intensively the solver should try to
   simplify the problem before solving it. Available options are: (-1)
   automatically determine the intensity of pre-solving, (0) disable
   pre-solving, (1) conservative level of pre-solving, and (2) very
-  aggressive level of pre-solving . The default value is 2.
+  aggressive level of pre-solving . Defaults to 2.
 
 - threads:
 
-  `integer` number of threads to use for the optimization algorithm. The
-  default value is 1.
+  `integer` value denoting the number of threads to use during
+  optimization. Broadly speaking, we recommend setting `threads` to be
+  no higher than the number of computational cores minus one or two
+  (e.g., `threads = parallel::detectCores(TRUE) - 2`). This is because
+  setting `threads` to be equal to the number of computational cores
+  means that the solver and is fighting for resources with other
+  software (e.g., Dropbox, iCloud, OneDrive, software updates, antivirus
+  software, internet browsers) and, in turn, can result in computational
+  bottlenecks that slow run times. Additionally, when setting `threads`
+  to be a value greater than 1, we recommend checking memory (RAM) usage
+  during the optimization process to ensure that the solver does not use
+  up the majority of available memory. This is because solving
+  optimization problems with multiple threads can involve creating
+  multiple copies of the problem (e.g., `threads = 5` may mean 5 copies)
+  and exhausting most of the available memory will drastically slow run
+  times. Defaults to 1.
 
 - first_feasible:
 
-  `logical` should the first feasible solution be be returned? If
-  `first_feasible` is set to `TRUE`, the solver will return the first
-  solution it encounters that meets all the constraints, regardless of
-  solution quality. Note that the first feasible solution is not an
-  arbitrary solution, rather it is derived from the relaxed solution,
-  and is therefore often reasonably close to optimality. Defaults to
-  `FALSE`.
+  `logical` value indicating if the first feasible solution should be
+  returned? If `first_feasible = TRUE`, then the solver will return the
+  first solution it encounters that meets all the constraints,
+  regardless of solution quality. Note that the first feasible solution
+  is not an arbitrary solution, rather it is derived from the relaxed
+  problem, and is therefore often reasonably close to optimality.
+  Defaults to `FALSE`.
 
 - numeric_focus:
 
-  `logical` should extra attention be paid to verifying the accuracy of
-  numerical calculations? This may be useful when dealing with problems
-  that may suffer from numerical instability issues. Beware that it will
-  likely substantially increase run time (sets the *Gurobi*
-  `NumericFocus` parameter to 2). Defaults to `FALSE`.
+  `logical` value indicating if extra attention be paid to verifying the
+  accuracy of numerical calculations? This may be useful when dealing
+  with problems that may suffer from numerical instability issues.
+  Beware that it will likely substantially increase run time (sets the
+  *Gurobi* `NumericFocus` parameter to 2). Defaults to `FALSE`.
 
 - node_file_start:
 
-  `numeric` threshold amount of memory (in GB). Once the amount of
-  memory (RAM) used to store information for solving the optimization
-  problem exceeds this parameter value, the solver will begin storing
-  this information on disk (using the *Gurobi* `NodeFileStart`
-  parameter). This functionality is useful if the system has
-  insufficient memory to solve a given problem (e.g., solving the
+  `numeric` value denoting a threshold amount of memory (in GB). Once
+  the amount of memory (RAM) used to store information for solving the
+  optimization problem exceeds this parameter value, the solver will
+  begin storing this information on disk (using the *Gurobi*
+  `NodeFileStart` parameter). This functionality is useful if the system
+  has insufficient memory to solve a given problem (e.g., solving the
   problem with default settings yields the `OUT OF MEMORY` error
   message) and a system with more memory is not readily available. For
   example, a value of 4 indicates that the solver will start using the
@@ -97,18 +113,18 @@ add_gurobi_solver(
 
   `NULL` or object containing the starting solution for the solver. This
   is can be useful because specifying a starting solution can speed up
-  the optimization process. Defaults to `NULL` such that no starting
-  solution is used. To specify a starting solution, the argument to
+  the optimization process. To specify a starting solution,
   `start_solution` should be in the same format as the planning units
-  (i.e., a `NULL`, `numeric`, `matrix`, `data.frame`,
+  (i.e., a `numeric`, `matrix`, `data.frame`,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   object). See the Start solution format section for more information.
+  Defaults to `NULL` such that no starting solution is used.
 
 - verbose:
 
-  `logical` should information be printed while solving optimization
-  problems? Defaults to `TRUE`.
+  `logical` value indicating if information should be displayed during
+  the optimization process. Defaults to `TRUE`.
 
 - control:
 
@@ -120,7 +136,8 @@ add_gurobi_solver(
 
 ## Value
 
-An updated [`problem()`](https://prioritizr.net/reference/problem.md)
+An updated [`problem()`](https://prioritizr.net/reference/problem.md) or
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
 object with the solver added to it.
 
 ## Details
@@ -148,61 +165,59 @@ or using the following code:
 
 ## Start solution format
 
-Broadly speaking, the argument to `start_solution` must be in the same
-format as the planning unit data in the argument to `x`. Further details
-on the correct format are listed separately for each of the different
-planning unit data formats:
+Broadly speaking, `start_solution` must be in the same format as the
+planning unit data in `x`. Further details on the correct format are
+described below.
 
 - `x` has `numeric` planning units:
 
-  The argument to `start_solution` must be a `numeric` vector with each
-  element corresponding to a different planning unit. It should have the
-  same number of planning units as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values should
-  also have missing (`NA`) values in the argument to `start_solution`.
+  Here `start_solution` must be a `numeric` vector with each element
+  corresponding to a different planning unit. It should have the same
+  number of planning units as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values should also have missing (`NA`)
+  values in the `start_solution`.
 
 - `x` has `matrix` planning units:
 
-  The argument to `start_solution` must be a `matrix` vector with each
-  row corresponding to a different planning unit, and each column
-  correspond to a different management zone. It should have the same
-  number of planning units and zones as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have a missing (`NA`) values in the
-  argument to `start_solution`.
+  Here `start_solution` must be a `matrix` vector with each row
+  corresponding to a different planning unit, and each column correspond
+  to a different management zone. It should have the same number of
+  planning units and zones as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values for a particular zone should
+  also have a missing (`NA`) values in `start_solution`.
 
 - `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units:
 
-  The argument to `start_solution` be a
+  Here `start_solution` be a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object where different cells correspond to different planning units
   and layers correspond to a different management zones. It should have
   the same dimensionality (rows, columns, layers), resolution, extent,
-  and coordinate reference system as the planning units in the argument
-  to `x`. Additionally, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `start_solution`.
+  and coordinate reference system as the planning units in `x`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in
+  `start_solution`.
 
 - `x` has `data.frame` planning units:
 
-  The argument to `start_solution` must be a `data.frame` with each
-  column corresponding to a different zone, each row corresponding to a
+  Here `start_solution` must be a `data.frame` with each column
+  corresponding to a different zone, each row corresponding to a
   different planning unit, and cell values corresponding to the solution
   value. This means that if a `data.frame` object containing the
   solution also contains additional columns, then these columns will
   need to be subsetted prior to using this function (see below for
   example with
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) data).
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `start_solution`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in
+  `start_solution`.
 
 - `x` has [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
-  The argument to `start_solution` must be a
+  Here `start_solution` must be a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   with each column corresponding to a different zone, each row
   corresponding to a different planning unit, and cell values
@@ -210,11 +225,11 @@ planning unit data formats:
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   containing the solution also contains additional columns, then these
   columns will need to be subsetted prior to using this function (see
-  below for example). Additionally, the argument to `start_solution`
-  must also have the same coordinate reference system as the planning
-  unit data. Furthermore, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `start_solution`.
+  below for example). Additionally, `start_solution` must also have the
+  same coordinate reference system as the planning unit data.
+  Furthermore, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in
+  `start_solution`.
 
 ## References
 
@@ -241,7 +256,6 @@ Other functions for adding solvers:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -276,6 +290,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution with boundary penalties", axes = FALSE)
-
-# }
 ```

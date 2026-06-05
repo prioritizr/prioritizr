@@ -75,7 +75,7 @@ perimeter associated with each planning unit.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -103,7 +103,7 @@ plot(ply[, 1], main = "polygons", axes = FALSE)
 # plot boundary matrix
 # here each row and column corresponds to a different planning unit
 Matrix::image(bm_ply, main = "boundary matrix")
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Boundary matrix data might need rescaling to improve optimization

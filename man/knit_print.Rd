@@ -3,10 +3,13 @@
 \name{knit_print}
 \alias{knit_print}
 \alias{knit_print.ConservationProblem}
+\alias{knit_print.MultiConservationProblem}
 \alias{knit_print.OptimizationProblem}
 \title{Print an object for knitr package.}
 \usage{
 knit_print.ConservationProblem(x, ...)
+
+knit_print.MultiConservationProblem(x, ...)
 
 knit_print.OptimizationProblem(x, ...)
 }

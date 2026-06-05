@@ -23,12 +23,13 @@ simulate_species(x, n = 1, scale = 0.5)
 
 - n:
 
-  `integer` number of layers to simulate. Defaults to 1.
+  `integer` value denoting the number of layers to simulate. Defaults to
+  1.
 
 - scale:
 
-  `numeric` parameter to control level of spatial auto-correlation in
-  the simulated data. Defaults to 0.5.
+  `numeric` value denoting the level of spatial auto-correlation in the
+  simulated data. Defaults to 0.5.
 
 ## Value
 
@@ -45,7 +46,6 @@ Other functions for simulating data:
 ## Examples
 
 ``` r
-# \dontrun{
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -56,6 +56,4 @@ spp <- simulate_species(r, 4)
 
 # plot simulated species
 plot(spp, main = "simulated species distributions", axes = FALSE)
-
-# }
 ```

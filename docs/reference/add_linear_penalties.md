@@ -41,15 +41,14 @@ add_linear_penalties(x, penalty, data)
 
 - penalty:
 
-  `numeric` penalty value that is used to scale the importance of not
-  selecting planning units with high `data` values. Higher `penalty`
-  values can be used to obtain solutions that are strongly averse to
-  selecting places with high `data` values, and smaller `penalty` values
-  can be used to obtain solutions that only avoid places with especially
-  high `data` values. Note that negative `penalty` values can be used to
-  obtain solutions that prefer places with high `data` values.
-  Additionally, when adding these penalties to problems with multiple
-  zones, the argument to `penalty` must have a value for each zone.
+  `numeric` value denoting the importance of not selecting planning
+  units with high `data` values. Higher `penalty` values can be used to
+  obtain solutions that are strongly averse to selecting places with
+  high `data` values, and smaller `penalty` values can be used to obtain
+  solutions that only avoid places with especially high `data` values.
+  Note that negative `penalty` values can be used to obtain solutions
+  that prefer places with high `data` values. Additionally, if has `x`
+  has multiple zones, then `penalty` must have a value for each zone.
 
 - data:
 
@@ -73,52 +72,51 @@ weighted by status of each planning unit in the solution.
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
+The following formats can be used to specify `data`.
 
-- `data` as `character` vector:
+- `data` as a `character` vector:
 
-  containing column name(s) that contain penalty values for planning
-  units. This format is only compatible if the planning units in the
-  argument to `x` are a
+  Here values are specified based on column name(s) for the planning
+  unit data in `x`. This format is only compatible if the planning units
+  in `x` are a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
   `data.frame` object. The column(s) must have `numeric` values, and
-  must not contain any missing (`NA`) values. For problems that contain
-  a single zone, the argument to `data` must contain a single column
-  name. Otherwise, for problems that contain multiple zones, the
-  argument to `data` must contain a column name for each zone.
+  must not contain any missing (`NA`) values. If `x` has a single zone,
+  then `data` must contain a single column name. Otherwise, if `x` has
+  multiple zones, then `data` must contain a column name for each zone.
 
 - `data` as a `numeric` vector:
 
-  containing values for planning units. These values must not contain
-  any missing (`NA`) values. Note that this format is only available for
-  planning units that contain a single zone.
+  Here values are specified for each planning unit. These values must
+  not contain any missing (`NA`) values. Note that this format can only
+  be used if `x` has a single zone.
 
 - `data` as a `matrix`/`Matrix` object:
 
-  containing `numeric` values that specify data for each planning unit.
-  Each row corresponds to a planning unit, each column corresponds to a
-  zone, and each cell indicates the data for penalizing a planning unit
-  when it is allocated to a given zone.
+  Here values are specified for each planning unit and each zone. Note
+  that `data` must have `numeric` values. Each row corresponds to a
+  planning unit, each column corresponds to a zone, and each cell
+  indicates the value associated with a planning unit when it is
+  allocated to a given zone.
 
 - `data` as a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object:
 
-  containing values for planning units. This format is only compatible
-  if the planning units in the argument to `x` are
+  Here values are specified for each planning unit and each zone. This
+  format is only compatible if the planning units in `x` are
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html), or
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   objects. If the planning unit data are a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object,
   then the values are calculated by overlaying the planning units with
-  the argument to `data` and calculating the sum of the values
-  associated with each planning unit. If the planning unit data are a
+  `data` and calculating the sum of the values associated with each
+  planning unit. If the planning unit data are a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object, then the values are calculated by extracting the cell values
-  (note that the planning unit data and the argument to `data` must have
-  exactly the same dimensionality, extent, and missingness). For
-  problems involving multiple zones, the argument to `data` must contain
-  a layer for each zone.
+  (note that `data` and the planning unit in `x` must have exactly the
+  same dimensionality, extent, and missing values). Additionally, if `x`
+  has multiple zones, then `data` must contain a layer for each zone.
 
 ## Mathematical formulation
 
@@ -128,9 +126,9 @@ of management zones (indexed by \\z\\), and \\X\_{iz}\\ the decision
 variable for allocating planning unit \\i\\ to zone \\z\\ (e.g., with
 binary values indicating if each planning unit is allocated or not).
 Also, let \\P_z\\ represent the penalty scaling value for zones \\z \in
-Z\\ (argument to `penalty`), and \\D\_{iz}\\ the penalty data for
-allocating planning unit \\i \in I\\ to zones \\z \in Z\\ (argument to
-`data`, if supplied as a `matrix` object).
+Z\\ (per `penalty`), and \\D\_{iz}\\ represent the penalty data for
+allocating planning unit \\i \in I\\ to zones \\z \in Z\\ (per `data` in
+matrix format).
 
 \$\$ \sum\_{i}^{I} \sum\_{z}^{Z} P_z \times D\_{iz} \times X\_{iz} \$\$
 
@@ -149,13 +147,13 @@ Other functions for adding penalties:
 [`add_asym_connectivity_penalties()`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md),
 [`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md),
 [`add_connectivity_penalties()`](https://prioritizr.net/reference/add_connectivity_penalties.md),
+[`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md),
 [`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md),
 [`add_neighbor_penalties()`](https://prioritizr.net/reference/add_neighbor_penalties.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(600)
 
@@ -186,12 +184,12 @@ p1 <-
 print(p1)
 #> A conservation problem (<ConservationProblem>)
 #> ├•data
-#> │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+#> │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
 #> │└•planning units:
 #> │ ├•data:       <sf> (90 total)
 #> │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties:   none specified
@@ -201,9 +199,9 @@ print(p1)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
-#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-#> # ℹ Use `summary(...)` to see complete formulation.
+#>  ├•portfolio:   single portfolio
+#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+#> # ℹ Use `summary(...)` to see further details.
 
 # create an updated version of the previous problem,
 # with the penalties added to it
@@ -213,12 +211,12 @@ p2 <- p1 %>% add_linear_penalties(100, data = "penalty_data")
 print(p2)
 #> A conservation problem (<ConservationProblem>)
 #> ├•data
-#> │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+#> │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
 #> │└•planning units:
 #> │ ├•data:       <sf> (90 total)
 #> │ ├•costs:      continuous values (between 190.1328 and 215.8638)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties: 
@@ -229,9 +227,9 @@ print(p2)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
-#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-#> # ℹ Use `summary(...)` to see complete formulation.
+#>  ├•portfolio:   single portfolio
+#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+#> # ℹ Use `summary(...)` to see further details.
 
 # solve the two problems
 s1 <- solve(p1)
@@ -296,12 +294,12 @@ print(p4)
 #> A conservation problem (<ConservationProblem>)
 #> ├•data
 #> │├•zones:       "zone_1", "zone_2", and "zone_3" (3 total)
-#> │├•features:    "feature_1", "feature_2", "feature_3", "feature_4", and "feature_5" (5 total)
+#> │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
 #> │└•planning units:
 #> │ ├•data:       <SpatRaster> (90 total)
 #> │ ├•costs:      continuous values (between 182.6017 and 224.8492)
 #> │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
-#> │ └•CRS:        Undefined Cartesian SRS (projected)
+#> │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
 #> ├•formulation
 #> │├•objective:   minimum set objective
 #> │├•penalties: 
@@ -312,15 +310,13 @@ print(p4)
 #> │├•constraints: none specified
 #> │└•decisions:   binary decision
 #> └•optimization
-#>  ├•portfolio:   default portfolio
-#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-#> # ℹ Use `summary(...)` to see complete formulation.
+#>  ├•portfolio:   single portfolio
+#>  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+#> # ℹ Use `summary(...)` to see further details.
 
 # solve problem
 s4 <- solve(p4)
 
 # plot solution
 plot(category_layer(s4), main = "multi-zone solution", axes = FALSE)
-
-# }
 ```

@@ -2,55 +2,64 @@
 
 ## Introduction
 
-Systematic conservation planning requires making trade-offs (Margules &
-Pressey 2000; Vane-Wright *et al.* 1991). Since different criteria may
-conflict with one another – or not align perfectly – prioritizations
-need to make trade-offs between different criteria (Klein *et al.*
-2013). Although some criteria can easily be accounted for by using
-locked constraints or representation targets (e.g., Dorji *et al.* 2020;
-Hermoso *et al.* 2018), this is not always the case (e.g., Beger *et
-al.* 2010). For example, prioritizations often need to balance overall
-cost with the overall level spatial fragmentation among reserves
-(Hermoso *et al.* 2011; Stewart & Possingham 2005). Additionally,
-prioritizations often need to balance the overall level of connectivity
-among reserves against other criteria (Hermoso *et al.* 2012). Since the
-best trade-off depends on a range of factors – such as available
-budgets, species’ connectivity requirements, and management capacity –
-finding the best balance can be challenging.
+Systematic conservation planning requires making trade-offs between
+objectives (Margules & Pressey 2000; Vane-Wright *et al.* 1991). Since
+different objectives may conflict with one another – or not align
+perfectly – prioritizations need to make trade-offs between different
+objectives (Klein *et al.* 2013). Although some objectives can easily be
+accounted for by using locked constraints or representation targets
+(e.g., Dorji *et al.* 2020; Hermoso *et al.* 2018), this is not always
+the case (e.g., Beger *et al.* 2010). For example, prioritizations often
+need to balance overall cost with the overall level spatial
+fragmentation among priority areas (Hermoso *et al.* 2011; Stewart &
+Possingham 2005). Additionally, prioritizations often need to balance
+the overall level of connectivity among priority areas against other
+objectives (Hermoso *et al.* 2012). Since the best trade-off depends on
+a range of factors – such as available budgets, species’ connectivity
+requirements, and management capacity – finding the best compromise can
+be challenging.
 
-The *prioritizr R* package provides multi-objective optimization methods
-to help identify the best trade-offs between different criteria. To
-achieve this, a conservation planning problem can be formulated with a
+The *prioritizr R* package provides multi-objective optimization
+approaches to help identify desirable compromises between different
+objectives. To achieve this, one option involves formulating a
+conservation planning problem (via
+[`problem()`](https://prioritizr.net/reference/problem.md)) with a
 primary objective (e.g.,
-[`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md))
-and penalties (e.g.,
-[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md))
-that relate to such criteria. When building the problem, the nature of
-the trade-offs can be specified using certain parameters (e.g., the
-`penalty` parameter of the
+[`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md)
+to minimize cost) and penalties specify to supplementary objectives
+(e.g.,
 [`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)
-function). To identify a prioritization that finds the best balance
-between different criteria, the trade-off parameters can be tuned using
-a calibration analysis. These analyses – in the context of systematic
-conservation planning – typically involve generating a set of candidate
-prioritizations based on different parameters, measuring their
-performance according to each of the criteria, and then selecting a
-prioritization (or set of prioritizations) based on how well they
-achieve the criteria (Hermoso *et al.* 2011; Stewart & Possingham 2005;
-Hermoso *et al.* 2012). For example, the *Marxan* decision support tool
-has a range of parameters (e.g., species penalty factors, boundary
-length modifier) that are calibrated to balance cost, species’
-representation, and spatial fragmentation (Ardron *et al.* 2010).
+to minimize spatial fragmentation). Another option involves formulating
+a multi-objective conservation planning problem (via
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md))
+with multiple objectives, (optionally) supplementary penalties, and a
+particular multi-objective objective optimization approach (e.g.,
+[`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
+for hierarchical optimization). When formulating a problem, the nature
+of these trade-offs can be specified using parameters (e.g., `penalty`
+parameter for
+[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)
+function, or `rel_tol` parameter for
+[`add_hier_approach()`](https://prioritizr.net/reference/add_hier_approach.md)
+). To identify a prioritization that represents a desirable compromise
+among multiple objectives, a calibration analysis can be performed to
+generate a set of candidate prioritizations based on different
+parameters or multi-objective optimization approaches, measure their
+performance according to each of the objectives, and then select a
+prioritization based on how well it achieves the objectives (Hermoso *et
+al.* 2011; Stewart & Possingham 2005; Hermoso *et al.* 2012).
 
 The aim of this tutorial is to provide guidance on calibrating
 trade-offs when using the *prioritizr R* package. Here we will explore a
-couple of different approaches for generating candidate prioritizations,
-and methods for finding the best balance between different criteria.
-Specifically, we will try to generate prioritizations that strike the
-best balance between total cost and spatial fragmentation (measured as
-total boundary length). As such, the code used in this vignette will be
-directly applicable when performing a boundary length calibration
-analysis.
+several different approaches for generating prioritizations and finding
+a desirable compromise between different objectives. Specifically, we
+will try to generate prioritizations that strike the best balance
+between total cost of priority areas and spatial fragmentation (measured
+as the total boundary length of prioritization). Although the code
+presented in this vignette is directly applicable to performing a
+boundary length calibration analysis (similar to Ardron *et al.* 2010),
+it can also be adapted for other penalty and objective functions (e.g.,
+exploring trade-offs between cost and species’ representation).
 
 ## Data
 
@@ -74,6 +83,8 @@ library(tibble)
 library(ggplot2)
 library(topsis)
 library(withr)
+library(stringr)
+library(ggrepel)
 
 # set seed for reproducibility
 set.seed(500)
@@ -109,14 +120,14 @@ tas_features <- get_tas_features()
 print(tas_features)
 ```
 
-    ## class       : SpatRaster 
+    ## class       : SpatRaster
     ## size        : 398, 359, 33  (nrow, ncol, nlyr)
     ## resolution  : 1000, 1000  (x, y)
     ## extent      : 288801.7, 647801.7, 5142976, 5540976  (xmin, xmax, ymin, ymax)
-    ## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755) 
-    ## source      : tas_features.tif 
-    ## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ... 
-    ## min values  :           0,           0,           0,           0,           0,           0, ... 
+    ## coord. ref. : WGS 84 / UTM zone 55S (EPSG:32755)
+    ## source      : tas_features.tif
+    ## names       : Banks~lands, Bould~marks, Calli~lands, Cool ~orest, Eucal~hyll), Eucal~torey, ...
+    ## min values  :           0,           0,           0,           0,           0,           0, ...
     ## max values  :           1,           1,           1,           1,           1,           1, ...
 
 The `tas_pu` object contains planning units represented as spatial
@@ -134,18 +145,18 @@ areas (denoted by a value of 1) or not (denoted by a value of zero).
 plot(tas_pu[, "cost"])
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/plot-pu-1.png)
 
 ``` r
 # plot map of planning unit statuses
 plot(tas_pu[, "locked_in"])
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-5-2.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/plot-pu-2.png)
 
-The `tas_features` object describes the spatial distribution of
-different vegetation communities (using presence/absence data). We will
-use the vegetation communities as the biodiversity features for the
+The `tas_features` object describes the spatial distribution of various
+vegetation communities (using presence/absence data). We will use these
+vegetation communities as the biodiversity features for the
 prioritization.
 
 ``` r
@@ -153,17 +164,67 @@ prioritization.
 plot(tas_features[[1:4]])
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-6-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/plot-features-1.png)
 
-We can use this dataset to generate a prioritization. Specifically, we
-will use the minimum set objective so that the optimization process
-minimizes total cost. We will add representation targets to ensure that
-prioritizations cover 17% of each vegetation community. Additionally, we
-will add constraints to ensure that planning units covered by existing
-protected areas are selected (i.e., locked in). Finally, we will specify
-that the conservation planning exercise involves binary decisions (i.e.,
-selecting or not selecting planning units for protected area
-establishment).
+## Preliminary processing
+
+We will now prepare the data for subsequent analysis. This is important
+to help make it easier to find suitable trade-off parameters, and avoid
+numerical scaling issues that can result in overly long run times (see
+[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
+for further information). These processing steps are akin to data
+scaling (or normalization) procedures that are applied in statistical
+analysis to improve model convergence.
+
+To begin with, we will set the cost values for all locked in planning
+units to zero. This is important so that the total cost of the
+prioritization reflects the total cost of new priority areas—-not total
+land value including existing protected areas. In other words, we want
+the total cost estimate for a prioritization to reflect the cost of
+establishing new protected areas. **This procedure is especially
+important for the hierarchical approach (see below), so that its
+trade-off parameters reflect proportionate increases in the cost of
+establishing new protected areas.**
+
+``` r
+# set costs for planning units covered by existing protected areas to zero
+tas_pu$cost[tas_pu$locked_in > 0.5] <- 0
+
+# plot map of planning unit costs
+plot(tas_pu[, "cost"])
+```
+
+![](calibrating_trade-offs_tutorial_files/figure-html/process-cost-1.png)
+
+Next, we will pre-compute and maually re-scale the boundary length data.
+This procedure is important because boundary length values are often
+very high, which can cause numerical issues that result in excessive run
+times (see
+[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
+for further details).
+
+``` r
+# generate boundary length data for the planning units
+tas_bd <- boundary_matrix(tas_pu)
+
+# manually re-scale the boundary length values
+tas_bd <- rescale_matrix(tas_bd)
+```
+
+After completing these procedures, our data is ready for analysis.
+
+## Initial prioritization
+
+We will generate an initial prioritization based on our primary
+objective (i.e., does not account for spatial fragmentation).
+Specifically, we will use the minimum set objective so that the
+optimization process minimizes total cost. We will add representation
+targets to ensure that prioritizations cover 17% of each vegetation
+community. Additionally, we will add constraints to ensure that planning
+units covered by existing protected areas are selected (i.e., locked
+in). Finally, we will specify that the conservation planning exercise
+involves binary decisions (i.e., selecting or not selecting planning
+units for protected area establishment).
 
 ``` r
 # define a problem
@@ -183,7 +244,7 @@ print(p0)
     ## │├•features:    "Banksia woodlands", … (33 total)
     ## │└•planning units:
     ## │ ├•data:       <sf> (1130 total)
-    ## │ ├•costs:      continuous values (between 0.1924883 and 61.92727)
+    ## │ ├•costs:      continuous values (between 0 and 61.92727)
     ## │ ├•extent:     298809.6, 5167775, 613818.8, 5502544 (xmin, ymin, xmax, ymax)
     ## │ └•CRS:        WGS 84 / UTM zone 55S (projected)
     ## ├•formulation
@@ -196,67 +257,14 @@ print(p0)
     ## ││└•1:          locked in constraints (257 planning units)
     ## │└•decisions:   binary decision
     ## └•optimization
-    ##  ├•portfolio:   default portfolio
-    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)
-    ## # ℹ Use `summary(...)` to see complete formulation.
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
 
 ``` r
 # solve problem
 s0 <- solve(p0)
 ```
-
-    ## Set parameter Username
-    ## Set parameter LicenseID to value 2774703
-    ## Set parameter TimeLimit to value 2147483647
-    ## Set parameter MIPGap to value 0.1
-    ## Set parameter Presolve to value 2
-    ## Set parameter Threads to value 1
-    ## Academic license - for non-commercial use only - expires 2027-02-03
-    ## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
-    ## 
-    ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
-    ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
-    ## 
-    ## Non-default parameters:
-    ## TimeLimit  2147483647
-    ## MIPGap  0.1
-    ## Presolve  2
-    ## Threads  1
-    ## 
-    ## Optimize a model with 33 rows, 1130 columns and 8157 nonzeros (Min)
-    ## Model fingerprint: 0xd205b612
-    ## Model has 1130 linear objective coefficients
-    ## Variable types: 0 continuous, 1130 integer (1130 binary)
-    ## Coefficient statistics:
-    ##   Matrix range     [2e-06, 6e+01]
-    ##   Objective range  [2e-01, 6e+01]
-    ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [2e-01, 2e+03]
-    ## 
-    ## Found heuristic solution: objective 10337.581214
-    ## Presolve removed 19 rows and 354 columns
-    ## Presolve time: 0.01s
-    ## Presolved: 14 rows, 776 columns, 2296 nonzeros
-    ## Variable types: 0 continuous, 776 integer (776 binary)
-    ## Root relaxation presolved: 14 rows, 776 columns, 2296 nonzeros
-    ## 
-    ## 
-    ## Root relaxation: objective 8.818115e+03, 20 iterations, 0.00 seconds (0.00 work units)
-    ## 
-    ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
-    ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-    ## 
-    ##      0     0 8818.11463    0   11 10337.5812 8818.11463  14.7%     -    0s
-    ## H    0     0                    9023.1107262 8818.11463  2.27%     -    0s
-    ## 
-    ## Explored 1 nodes (20 simplex iterations) in 0.01 seconds (0.01 work units)
-    ## Thread count was 1 (of 8 available processors)
-    ## 
-    ## Solution count 2: 9023.11 10337.6 
-    ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 9.023110726172e+03, best bound 8.818114631416e+03, gap 2.2719%
 
 ``` r
 # print result
@@ -298,197 +306,184 @@ plot(
 )
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-8-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/int-plot-1.png)
 
 We can see that the priority areas identified by the prioritization are
-scattered across the study area (shown in green). Indeed, none of the
+scattered across the study area (shown in green). Indeed, relatively few
 priority areas are connected to existing protected areas (shown in
-purple), and very of them are connected with other priority areas. As
-such, the prioritization has a high level of spatial fragmentation. If
-it is important to avoid such levels of spatial fragmentation, then we
-will need to explicitly account for spatial fragmentation in the
-optimization process.
-
-## Preliminary processing
-
-We need to conduct some preliminary processing procedures to prepare the
-data for subsequent analysis. This is important to help make it easier
-to find suitable trade-off parameters, and avoid numerical scaling
-issues that can result in overly long run times (see
-[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
-for further information). These processing steps are akin to data
-scaling (or normalization) procedures that are applied in statistical
-analysis to improve model convergence.
-
-The first processing procedure involves setting the cost values for all
-locked in planning units to zero. This is so that the total cost
-estimates of the prioritization reflects the total cost of establishing
-new protected areas – not just total land value. In other words, we want
-the total cost estimate for a prioritization to reflect the cost of
-implementing conservation actions. **This procedure is especially
-important when using the hierarchical approach described below, so that
-cost thresholds are based on percentage increases in the cost of
-establishing new protected areas.**
-
-``` r
-# set costs for planning units covered by existing protected areas to zero
-tas_pu$cost[tas_pu$locked_in > 0.5] <- 0
-
-# plot map of planning unit costs
-plot(tas_pu[, "cost"])
-```
-
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-9-1.png)
-
-The second procedure involves pre-computing the boundary length data and
-manually re-scaling the boundary length values. This procedure is
-important because boundary length values are often very high, which can
-cause numerical issues that result in excessive run times (see
-[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
-for further details).
-
-``` r
-# generate boundary length data for the planning units
-tas_bd <- boundary_matrix(tas_pu)
-
-# manually re-scale the boundary length values
-tas_bd <- rescale_matrix(tas_bd)
-```
-
-After applying these procedures, our data is ready for subsequent
-analysis.
+purple) or other priority areas (shown in green). As such, the
+prioritization has a high level of spatial fragmentation. If it is
+important to avoid such levels of spatial fragmentation, then we will
+need to explicitly account for spatial fragmentation in the optimization
+process.
 
 ## Generating candidate prioritizations
 
 Here we will start the calibration analysis by generating a set of
-candidate prioritizations. Specifically, these prioritizations will be
-generated using different parameters to specify different trade-offs
-between the different criteria. Since this tutorial involves navigating
-trade-offs between the overall cost of a prioritization and the level of
-spatial fragmentation associated with a prioritization (as measured by
-total boundary length), we will generate prioritizations using different
-parameters related to these criteria. We will examine two approaches for
-generating candidate prioritizations based on multi-objective
-optimization procedures. **Although we’ll be examining both approaches
-in this tutorial, you would normally only use one of these approaches
-when conducting your own analysis**
+candidate prioritizations. In particular, we will examine multiple
+different approaches for generating candidate prioritizations. Some of
+these approaches will involve generating multiple different
+prioritizations based on different trade-off parameters, and other
+approaches will involve generating a single prioritization that tries to
+automatically resolve trade-offs. Since this tutorial involves
+navigating trade-offs between the overall cost of a prioritization and
+the level of spatial fragmentation associated with a prioritization (as
+measured by total boundary length), we will generate prioritizations
+using different parameters related to these objectives. **Although we’ll
+be examining multiple approaches in this tutorial, you would normally
+only use one of these approaches when conducting your own analysis**
 
-### Blended approach
+### Weighted sum approach
 
-The blended approach for multi-objective optimization involves combining
-separate criteria (e.g., total cost and total boundary length) into a
-single joint criterion. To achieve this, a trade-off (or scaling)
+The weighted sum approach for multi-objective optimization involves
+combining separate objectives (e.g., total cost and total boundary
+length) into a single joint objective. To achieve this, a trade-off
 parameter is used to specify the relative importance of each criterion.
-This approach is the default approach provided by the *prioritizr R*
-package. Specifically, each of the functions for adding a penalty to a
-problem formulation (e.g.,
-[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md))
-contains a parameter to control the relative importance of the penalties
-(i.e., the `penalty` parameter). For example, when using the
-[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)
-function, setting a high `penalty` value will indicate that it is
-important to reduce the overall exposed boundary (perimeter) of the
-prioritization.
+Although older versions of the *prioritizr R* package required building
+multiple problems (separately) that each had their own trade-off
+parameter (i.e., via the `penalty` parameter for
+[`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)),
+it is now possible to automatically generate multiple prioritizations
+based on multiple different trade-off parameters by explicitly
+formulating a multi-objective optimization problem. As such, we will
+build a multi-objective problem (via
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md))
+and use the weighted sum approach (via
+[`add_wtd_sum_approach()`](https://prioritizr.net/reference/add_wtd_sum_approach.md))
+with `weights` values to indicate trade-offs.
 
-The main challenge with the blended approach is identifying a range of
-suitable `penalty` values to generate candidate prioritizations. If we
-set a `penalty` value that is too low, then the penalties will have no
-effect (e.g., boundary length penalties would have no effect on the
-prioritization). If we set a `penalty` value too high, then the
+The main challenge with the weighted sum approach is identifying a range
+of suitable `weights` (or `penalty`) values to generate candidate
+prioritizations. If we set a `weights` value for the boundary penalties
+that are too low, then the penalties will have no effect (e.g., boundary
+length penalties would have no effect on the prioritization).
+Conversely, if we set a `weights` value that is too high, then the
 prioritization will effectively ignore the primary objective. In such
 cases, the prioritization will be overly spatially clustered – because
-the planning unit cost values have no effect — and contain a single
-reserve. Thus we need to find a suitable range of `penalty` values
+the planning unit cost values have no effect – and contain a single
+reserve. Thus we need to find a suitable range of `weights` values
 before we can generate a set of candidate prioritizations.
 
-We can find a suitable range of `penalty` values by generating a set of
-preliminary prioritizations. These preliminary prioritizations will be
-based on different `penalty` values – similar to the process for
-generating the candidate prioritizations – but solved using customized
-settings that sacrifice optimality for fast run times (see below for
-details). This is especially important because specifying a `penalty`
-value that is too high will cause the optimization process to take a
-very long time to generate a solutions (due to the numerical scaling
-issues mentioned previously). To find a suitable range of `penalty`
-values, we need to identify an upper limit for the `penalty` value
-(i.e., the highest `penalty` value that result in a prioritization
-containing a single reserve). Let’s create some preliminary `penalty` to
-identify this upper limit. **Please note that you might need to adjust
-the `prelim_upper` value to find the upper limit when analyzing
-different datasets.**
+We can find a suitable range of `weights` values for the boundary
+penalties by generating a set of preliminary prioritizations. These
+preliminary prioritizations will be based on different `weights` values
+– similar to the process for generating the candidate prioritizations –
+but solved using customized settings that sacrifice optimality for fast
+run times (see below for details). This is especially important because
+specifying a `weights` value that is too high will cause the
+optimization process to take a very long time to generate a solutions
+(due to the numerical scaling issues mentioned previously). To find a
+suitable range of `weights` values, we need to identify an upper limit
+for the `weights` value (i.e., the highest `weights` value that result
+in a prioritization containing a single reserve). Let’s create some
+preliminary `weights` to identify this upper limit. **Please note that
+you might need to adjust the `prelim_upper` value to find the upper
+limit when analyzing different datasets.**
 
 ``` r
-# define a range of different penalty values
-## note that we use a power scale to avoid focusing on very high penalty values
-prelim_lower <- -5  # change this for your own data
-prelim_upper <- 1.75 # change this for your own data
-prelim_penalty <- round(10^seq(prelim_lower, prelim_upper, length.out = 9), 5)
+# define a range of different weight values for the boundary penalties
+## note that we use a power scale to avoid focusing too much on high weights
+prelim_lower <- -1 # change this for your own data
+prelim_upper <- 5  # change this for your own data
 
-# print penalty values
-print(prelim_penalty)
+# create a matrix of weights
+## the first column has weights fixed at 1 for the primary objective
+## the second column has varying weights for the boundary penalties
+prelim_weights <- matrix(
+  c(
+    rep(1, 9),
+    round(10^seq(prelim_lower, prelim_upper, length.out = 9), 5)
+  ),
+  ncol = 2
+)
+
+# assign row names for preliminary weights
+rownames(prelim_weights) <-
+  with_options(list(scipen = 30), paste0("weight_", prelim_weights[, 2]))
+
+# print weight values
+print(prelim_weights)
 ```
 
-    ## [1]  0.00001  0.00007  0.00049  0.00340  0.02371  0.16548  1.15478  8.05842
-    ## [9] 56.23413
+    ##                   [,1]         [,2]
+    ## weight_0.1           1      0.10000
+    ## weight_0.56234       1      0.56234
+    ## weight_3.16228       1      3.16228
+    ## weight_17.78279      1     17.78279
+    ## weight_100           1    100.00000
+    ## weight_562.34133     1    562.34133
+    ## weight_3162.27766    1   3162.27766
+    ## weight_17782.7941    1  17782.79410
+    ## weight_100000        1 100000.00000
 
-Next, let’s use the preliminary `penalty` values to generate preliminary
+Next, let’s use the preliminary `weights` values to generate preliminary
 prioritizations. As mentioned earlier, we will generate these
 preliminary prioritizations using customized settings to reduce runtime.
 Specifically, we will set a time limit of 10 minutes per run, and relax
 the optimality gap to 20%. Although we would not normally use such
 settings – because the resulting prioritizations are not guaranteed to
-be near-optimal (the default gap is 10%) – this is fine because our goal
-here is to tune the preliminary `penalty` values. Indeed, none of these
+be near-optimal (the default gap is 10%) – this is fine here because our
+goal is to tune the preliminary `weights` values. Indeed, none of these
 preliminary prioritizations will be considered as candidate
 prioritizations. **Please note that you might need to set a higher time
 limit, or relax the optimality gap even further (e.g., 40%) when
 analyzing larger datasets.**
 
 ``` r
-# define a problem without boundary penalties
-p0 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions()
+# define a multi-objective optimization problem
+p1 <-
+  multi_problem(
+    ## primj
+    cost_obj =
+      problem(tas_pu, tas_features, cost_column = "cost") %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.17) %>%
+      add_locked_in_constraints("locked_in") %>%
+      add_binary_decisions(),
+    boundary_obj =
+      problem(tas_pu, tas_features, cost_column = "cost") %>%
+      add_min_penalties_objective() %>%
+      # note that we use penalty = 1 here so that trade-offs will
+      # subsequently be specified by prelim_weights
+      add_boundary_penalties(penalty = 1, data = tas_bd) %>%
+      add_binary_decisions()
+  )
 
-# generate preliminary prioritizations based on each penalty
+# generate preliminary prioritizations based on each weight
 ## note that we specify a relaxed gap and time limit for the solver
-prelim_blended_results <- lapply(prelim_penalty, function(x) {
-  s <-
-    p0 %>%
-    add_boundary_penalties(penalty = x, data = tas_bd) %>%
-    add_default_solver(gap = 0.2, time_limit = 10 * 60) %>%
-    solve()
-  s <- data.frame(s = s$solution_1)
-  names(s) <- with_options(list(scipen = 30), paste0("penalty_", x))
-  s
-})
+prelim_wtd_sum_results <-
+  p1 %>%
+  add_wtd_sum_approach(weights = prelim_weights) %>%
+  add_default_solver(gap = 0.2, time_limit = 10 * 60) %>%
+  solve()
 
-# format results as a single spatial object
-prelim_blended_results <- cbind(
-  tas_pu, do.call(bind_cols, prelim_blended_results)
+# rename solution columns
+names(prelim_wtd_sum_results) <- str_replace_all(
+  names(prelim_wtd_sum_results),
+  setNames(
+    rownames(prelim_weights),
+    paste0("solution_", seq_len(nrow(prelim_weights)))
+  )
 )
 
 # preview results
-print(prelim_blended_results)
+print(prelim_wtd_sum_results)
 ```
 
 After generating the preliminary prioritizations, let’s create some maps
 to visualize them. In particular, we want to understand how different
-penalty values influence the spatial fragmentation of the
+weight values influence the spatial fragmentation of the
 prioritizations.
 
 ``` r
 # plot maps of prioritizations
 plot(
   x =
-    prelim_blended_results %>%
-    dplyr::select(starts_with("penalty_")) %>%
+    prelim_wtd_sum_results %>%
+    dplyr::select(starts_with("weight_")) %>%
     mutate_if(is.numeric, function(x) {
       case_when(
-        prelim_blended_results$locked_in > 0.5 ~ "locked in",
+        prelim_wtd_sum_results$locked_in > 0.5 ~ "locked in",
         x > 0.5 ~ "priority",
         TRUE ~ "other"
       )
@@ -497,51 +492,60 @@ plot(
 )
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-13-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/plot-prelim-prioritizations-1.png)
 
-We can see that as the `penalty` value used to generate the
+We can see that as the `weights` value used to generate the
 prioritizations increases, the spatial fragmentation of the
-prioritizations decreases. In particular, we can see that a `penalty`
-value of 1.15478 results in a single reserve – meaning this is our best
-guess of the upper limit. Using this `penalty` value as an upper limit,
-we will now generate a second series of prioritizations that will be the
-candidate prioritizations. Critically, these candidate prioritizations
-will not be generated using with time limit and be generated using a
-more suitable gap (i.e., default gap of 10%).
+prioritizations decreases. In particular, we can see that a `weights`
+value of 3162.27766 results in a single reserve – meaning this is our
+best guess of the upper limit. Using this `weights` value as an upper
+limit, we will now generate a second series of prioritizations that will
+be the candidate prioritizations. Critically, these candidate
+prioritizations will not be generated using with time limit and be
+generated using a more suitable gap (i.e., default gap of 10%).
 
 ``` r
-# define best guesss for upper penalty limit
-upper_penalty_limit <- 1.15478
+# define best guess for upper weight limit
+upper_weight_limit <- 3162.27766
 ```
 
 ``` r
-# define a new set of penalty values
-penalty <- round(10^seq(-5, log10(upper_penalty_limit), length.out = 9), 5)
+# define a new set of weights values
+weights <- matrix(
+  c(
+    rep(1, 9),
+    round(seq(10^prelim_lower, upper_weight_limit, length.out = 9), 5)
+  ),
+  ncol = 2
+)
 
-# generate prioritizations based on each penalty
-blended_results <- lapply(penalty, function(x) {
-  ## generate solution
-  s <-
-    p0 %>%
-    add_boundary_penalties(penalty = x, data = tas_bd) %>%
-    solve()
-  ## return data frame with solution
-  s <- data.frame(s = s$solution_1)
-  names(s) <- with_options(list(scipen = 30), paste0("penalty_", x))
-  s
-})
+# assign row names for weights
+rownames(weights) <-
+  with_options(list(scipen = 30), paste0("weight_", weights[, 2]))
 
-# format results as a single spatial object
-blended_results <- cbind(tas_pu, do.call(bind_cols, blended_results))
+# generate prioritizations based on weight sum approach
+wtd_sum_results <-
+  p1 %>%
+  add_wtd_sum_approach(weights = weights) %>%
+  solve()
+
+# rename columns with prioritizations so they have weight values
+names(wtd_sum_results) <- str_replace_all(
+  names(wtd_sum_results),
+  setNames(
+    rownames(weights),
+    paste0("solution_", seq_len(nrow(weights)))
+  )
+)
 
 # plot maps of prioritizations
 plot(
   x =
-    blended_results %>%
-    dplyr::select(starts_with("penalty_")) %>%
+    wtd_sum_results %>%
+    dplyr::select(starts_with("weight_")) %>%
     mutate_if(is.numeric, function(x) {
       case_when(
-        blended_results$locked_in > 0.5 ~ "locked in",
+        wtd_sum_results$locked_in > 0.5 ~ "locked in",
         x > 0.5 ~ "priority",
         TRUE ~ "other"
       )
@@ -550,21 +554,22 @@ plot(
 )
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-16-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/wtd-sum-prioritizations-1.png)
 
 We now have a set of candidate prioritizations generated using the
-blended approach. The main advantages of this approach is that it is
-similar calibration analyses used by other decision support tools for
-conservation (i.e., *Marxan*) and it is relatively straightforward to
-implement. However, this approach also has a key disadvantage. Because
-the `penalty` parameter is a unitless trade-off parameter – meaning that
-we can’t leverage existing knowledge to specify a suitable range of
-`penalty` values – we first have to conduct a preliminary analysis to
-identify an upper limit. Although finding an upper limit was fairly
-simple for the example dataset, it can be difficult to find for more
-realistic data. In the next section, we will show how to generate a set
-of candidate prioritizations using the hierarchical approach – which
-does not have this disadvantage.
+weighted sum approach. The main advantages of this approach is that it
+is similar calibration analyses used by other decision support tools for
+conservation and it is relatively straightforward to implement (Ardron
+*et al.* 2010). However, this approach also has a key disadvantage.
+Because the `weights` parameter is a unitless trade-off parameter –
+meaning that we can’t leverage existing knowledge to specify a suitable
+range of `weights` values – we first have to conduct a preliminary
+analysis to identify a suitable upper limit. Although finding an upper
+limit was fairly simple for the example dataset, it can be difficult to
+find for more realistic datasets with more planning units and features.
+In the next section, we will show how to generate a set of candidate
+prioritizations using the hierarchical approach – which does not have
+this disadvantage.
 
 ### Hierarchical approach
 
@@ -575,129 +580,60 @@ final solution achieves all of the objectives. The advantage with this
 approach is that we can specify trade-off parameters for each objective
 based on a percentage from optimality. This means that we can leverage
 our own knowledge – or that of decision maker – to generate a range of
-suitable trade-off parameters. As such, this approach does not require
-us to generate a series of preliminary prioritizations.
+suitable trade-off parameters. As such, this approach – unlike the
+weighted sum approach – does not require us to generate a series of
+preliminary prioritizations.
 
-This approach is slightly more complicated to implement within the
-*prioritizr R* package then the blended approach. To start off, we
-generate an initial prioritization based on a problem formulation that
-does not consider any penalties. Critically, we will generate this
-prioritization by solving the problem to optimality (using the `gap`
-parameter of the
-[`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md)
-function).
+This approach uses a relative tolerance (`rel_tol`) parameter to specify
+trade-offs. The `rel_tol` parameter specifies the relative degree –
+expressed as a proportion – to which we are willing to sacrifice higher
+priority objectives to better optimize lower priority objectives. As
+mentioned earlier, the total cost of the prioritization is the primary
+objective and spatial fragmentation is a supplemental objective—thus the
+total cost of the prioritization has a higher priority than spatial
+fragmentation. For example, a value of 0.05 means that we would be
+willing to sacrifice a 5% reduction in quality for the highest priority
+objective to better optimize low priority objectives. Since these values
+are expressed as proportions – and not unitless values as per the
+weighted sum approach – we can use domain knowledge to specify a
+suitable range of `rel_tol` values. For this tutorial, let’s assume that
+it would be impractical – per our domain knowledge – to expend more than
+four times the total cost of the initial prioritization to reduce
+spatial fragmentation.
 
 ``` r
-# define a problem without boundary penalties
-p1 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions() %>%
-  add_default_solver(gap = 0)
+# define relative tolerance values
+rel_tol <- matrix(seq(0, 4, length.out = 9))
 
-# solve problem
-s1 <- solve(p1)
+# assign row names for relative tolerance values
+rownames(rel_tol) <-
+  with_options(list(scipen = 30), paste0("rel_tol_", rel_tol[, 1]))
 
-# add column for making a map of the prioritization
-s1$map_1 <- case_when(
-  s1$locked_in > 0.5 ~ "locked in",
-  s1$solution_1 > 0.5 ~ "priority",
-  TRUE ~ "other"
+# print relative tolerance values
+print(rel_tol)
+
+# generate prioritizations based on hierarchical approach
+hierarchical_results <-
+  p1 %>%
+  # by default, objectives are assumed to be in order of priority
+  # (but this can be altered with the priority parameter)
+  add_hier_approach(rel_tol = rel_tol) %>%
+  solve()
+
+# rename columns with prioritizations so they have rel_tol values
+names(hierarchical_results) <- str_replace_all(
+  names(hierarchical_results),
+  setNames(
+    rownames(rel_tol),
+    paste0("solution_", seq_len(nrow(rel_tol)))
+  )
 )
-
-# plot map of prioritization
-plot(
-  s1[, "map_1"], pal = c("purple", "grey90", "darkgreen"),
-  main = NULL, key.pos = 1
-)
-```
-
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-17-1.png)
-
-Next, we will calculate the total cost of the initial prioritization.
-
-``` r
-# calculate cost
-s1_cost <- eval_cost_summary(p1, s1[, "solution_1"])$cost
-
-# print cost
-print(s1_cost)
-```
-
-    ## [1] 354.3258
-
-Now we will calculate a series of cost thresholds. These cost thresholds
-will be calculated by inflating the cost of the initial prioritization
-by a range of percentage values. Since these values are percentages –
-and not unitless values unlike those used in the blended approach – we
-can use domain knowledge to specify a suitable range of cost thresholds.
-For this tutorial, let’s assume that it would be impractical – per our
-domain knowledge – to expend more than four times the total cost of the
-initial prioritization to reduce spatial fragmentation.
-
-``` r
-# calculate cost threshold values
-threshold <- s1_cost + (s1_cost * seq(1e-5, 4, length.out = 9))
-threshold <- ceiling(threshold)
-
-# print cost thresholds
-print(threshold)
-```
-
-    ## [1]  355  532  709  886 1063 1241 1418 1595 1772
-
-After generating the cost thresholds, we can use them to generate
-prioritizations. Specifically, we will generate prioritizations that aim
-to minimize total boundary length – as much as possible – whilst
-ensuring that (i) the total cost of the prioritization does not exceed a
-given cost threshold, (ii) the representation targets for the features
-are met, and (iii) other considerations are met (e.g., locked in
-constraints). To achieve this, we will use the minimum penalties
-objective (i.e.,
-[`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)).
-This objective is specifically designed to enable the optimization
-process to evaluate competing solutions based only the penalties. As
-such, we can use it to perform hierarchical multi-objective
-optimization.
-
-``` r
-# define a problem with the boundary penalties
-## note that it doesn't actually matter what penalty value is used with the
-## boundary penalties (as long as the value is > 0) and so we just use
-## a penalty value of 1
-p2 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions()
-
-# generate prioritizations based on each cost threshold
-## note that the prioritizations are solved to within 10% of optimality
-## (the default gap) because the gap is not specified
-hierarchical_results <- lapply(threshold, function(x) {
-  ## generate solution by adding the minimum penalties objective with
-  ## the budget specified based on the threshold values
-  s <-
-    p2 %>%
-    add_min_penalties_objective(budget = x) %>%
-    solve()
-  ## return data frame with solution
-  s <- data.frame(s = s$solution_1)
-  names(s) <- paste0("threshold_", x)
-  s
-})
-
-# format results as a single spatial object
-hierarchical_results <- cbind(tas_pu, do.call(bind_cols, hierarchical_results))
 
 # plot maps of prioritizations
 plot(
   x =
     hierarchical_results %>%
-    dplyr::select(starts_with("threshold_")) %>%
+    dplyr::select(starts_with("rel_tol_")) %>%
     mutate_if(is.numeric, function(x) {
       case_when(
         hierarchical_results$locked_in > 0.5 ~ "locked in",
@@ -709,108 +645,268 @@ plot(
 )
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-20-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/hier-prioritizations-1.png)
 
-We now have a set of candidate prioritizations generated using the
-hierarchical approach. This approach can be much faster than the blended
-approach because it does not require generating a set of prioritizations
-to identify an upper limit for the `penalty` trade-off parameter. After
-generating a set of candidate prioritizations, we can then calculate
-performance metrics to compare the prioritizations.
+### Cohon *et al.* (1979) approach
+
+The Cohon *et al.* (1979) approach aims to automatically balance
+trade-offs between two objectives (Fischer & Church 2005). Specifically,
+it involves generating two optimal prioritizations – with each
+prioritization representing the optimal prioritization according to each
+criteria (e.g., total cost versus total boundary length) – and then
+using performance metrics for these prioritizations to automatically
+derive a trade-off parameter value (Ardron *et al.* 2010; Cohon *et al.*
+1979). Thus, unlike the two previous approaches, this approach can be
+used to automatically generate a single prioritization that balances
+trade-offs. As such, this approach can potentially be used to find a
+prioritization that represents a desirable compromise in a much shorter
+period of time than the previous approach.
+
+``` r
+# create problem with boundary penalties
+## note that penalty = 1 is used as a place-holder
+p2 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
+
+# find calibrated boundary penalty using Cohon's approach
+cohon_penalty <- calibrate_cohon_penalty(p2, verbose = FALSE)
+```
+
+``` r
+# print penalty value
+print(cohon_penalty[[1]])
+```
+
+    ## [1] 551.3914
+
+Now that we have calculated a `penalty` value using this approach, we
+can use it to generate a prioritization.
+
+``` r
+# generate prioritization using penalty value calculated using Cohon's approach
+p3 <-
+  problem(tas_pu, tas_features, cost_column = "cost") %>%
+  add_min_set_objective() %>%
+  add_boundary_penalties(penalty = cohon_penalty, data = tas_bd) %>%
+  add_relative_targets(0.17) %>%
+  add_locked_in_constraints("locked_in") %>%
+  add_binary_decisions()
+
+# solve problem
+s3 <- solve(p3)
+
+# plot map of prioritization
+plot(
+  x =
+    s3 %>%
+    mutate(
+      value = case_when(
+        locked_in > 0.5 ~ "locked in",
+        solution_1 > 0.5 ~ "priority",
+        TRUE ~ "other"
+      )
+    ) %>%
+    dplyr::select(value),
+  pal = c("purple", "grey90", "darkgreen"),
+  main = NULL, key.pos = 1
+)
+```
+
+![](calibrating_trade-offs_tutorial_files/figure-html/cohon-prioritization-1.png)
+
+### Reference point approach
+
+The reference point approach (Wierzbicki 1980) is another
+multi-objective optimization approach that can be used to balance
+trade-offs. Although it has a `weights` parameter that can be used to
+specify trade-offs among objectives (similar to the weighted sum
+approach), this approach can also be used to automatically identify a
+prioritization that equally balances how well each objective is
+achieved. This is because – similar to the Cohon *et al.* (1979)
+approach – the reference point approach considers the best and worst
+possible performance that could be achieved for each objective. Now
+let’s use the reference point approach to generate a prioritization.
+
+``` r
+# generate prioritization based on reference point approach
+s4 <-
+  p1 %>%
+  add_ref_point_approach() %>%
+  solve()
+
+# plot map of prioritization
+plot(
+  x =
+    s4 %>%
+    mutate(
+      value = case_when(
+        locked_in > 0.5 ~ "locked in",
+        solution_1 > 0.5 ~ "priority",
+        TRUE ~ "other"
+      )
+    ) %>%
+    dplyr::select(value),
+  pal = c("purple", "grey90", "darkgreen"),
+  main = NULL, key.pos = 1
+)
+```
+
+![](calibrating_trade-offs_tutorial_files/figure-html/ref-point-prioritization-1.png)
+
+After completing this, let’s compare the prioritizations to see if we
+can identify a desirable compromise between the objectives.
 
 ## Calculating performance metrics
 
 Here we will calculate performance metrics to compare the
-prioritizations. Since we aim to navigate trade-offs between the total
-cost of a prioritization and the overall level of spatial fragmentation
-associated with a prioritization (as measured by total boundary length),
-we will calculate metrics to assess these criteria. Although we
-generated two sets of candidate prioritizations in the previous section;
-for brevity, here we will consider the candidate prioritizations
-generated using the hierarchical approach. **Please note that you could
-also apply the following procedures to candidate prioritizations
-generated using the blended approach.**
+prioritizations. To help organize all the prioritizations generated by
+the different approaches, we will first create a `solutions` object to
+store them in. Next, since our aim is to navigate trade-offs between the
+total cost of a prioritization and the overall level of spatial
+fragmentation associated with a prioritization (as measured by total
+boundary length), we will calculate metrics to assess these objectives.
 
 ``` r
+# create object with all prioritizations
+solutions <-
+  sf::st_sf(geometry = sf::st_geometry(tas_pu)) %>%
+  bind_cols(
+    hierarchical_results %>%
+      dplyr::select(starts_with("rel_tol")) %>%
+      st_drop_geometry(),
+    wtd_sum_results %>%
+      dplyr::select(starts_with("weight")) %>%
+      st_drop_geometry(),
+    s3 %>%
+      dplyr::select(solution_1) %>%
+      rename(Cohon = solution_1) %>%
+      st_drop_geometry(),
+    s4 %>%
+      dplyr::select(solution_1) %>%
+      rename(`reference point` = solution_1) %>%
+      st_drop_geometry()
+  )
+
 # calculate metrics for prioritizations
-hierarchical_metrics <- lapply(
-  grep("threshold_", names(hierarchical_results)), function(x) {
-    x <- hierarchical_results[, x]
-    data.frame(
-      total_cost = eval_cost_summary(p2, x)$cost,
-      total_boundary_length = eval_boundary_summary(p2, x)$boundary
+metric_data <-
+  lapply(
+    names(st_drop_geometry(solutions)), function(x) {
+      data.frame(
+        name = x,
+        total_cost =
+          eval_cost_summary(p0, solutions[, x])$cost,
+        total_boundary_length =
+          eval_boundary_summary(p0, solutions[, x])$boundary
+      )
+    }
+  ) %>%
+  bind_rows() %>%
+  as_tibble() %>%
+  mutate(
+    approach = case_when(
+      startsWith(name, "rel_tol") ~ "hierarchical",
+      startsWith(name, "weight") ~ "weighted sum",
+      startsWith(name, "Cohon") ~ "Cohon",
+      startsWith(name, "reference point") ~ "reference point"
     )
-  }
-)
-hierarchical_metrics <- do.call(bind_rows, hierarchical_metrics)
-hierarchical_metrics$threshold <- threshold
-hierarchical_metrics <- as_tibble(hierarchical_metrics)
+  ) %>%
+  mutate(
+    label = case_when(
+      approach == "hierarchical" ~
+        gsub("rel_tol_", "rel_tol = ", name, fixed = TRUE),
+      approach == "weighted sum" ~
+        gsub("weight_", "weight = ", name, fixed = TRUE),
+      TRUE ~ name
+    )
+  )
 
 # preview metrics
-print(hierarchical_metrics)
+print(metric_data)
 ```
 
-    ## # A tibble: 9 × 3
-    ##   total_cost total_boundary_length threshold
-    ##        <dbl>                 <dbl>     <dbl>
-    ## 1       355.              2869559.       355
-    ## 2       517.              2298458.       532
-    ## 3       668.              2141521.       709
-    ## 4       883.              2020987.       886
-    ## 5      1060.              1965032.      1063
-    ## 6      1240.              1910963.      1241
-    ## 7      1414.              1827306.      1418
-    ## 8      1594.              1774384.      1595
-    ## 9      1771.              1713437.      1772
+    ## # A tibble: 20 × 5
+    ##    name              total_cost total_boundary_length approach        label     
+    ##    <chr>                  <dbl>                 <dbl> <chr>           <chr>     
+    ##  1 rel_tol_0               377.              2636025. hierarchical    rel_tol =…
+    ##  2 rel_tol_0.5             564.              2241411. hierarchical    rel_tol =…
+    ##  3 rel_tol_1               757.              2136875. hierarchical    rel_tol =…
+    ##  4 rel_tol_1.5             930.              2084474. hierarchical    rel_tol =…
+    ##  5 rel_tol_2              1141.              2013689. hierarchical    rel_tol =…
+    ##  6 rel_tol_2.5            1323.              1961490. hierarchical    rel_tol =…
+    ##  7 rel_tol_3              1518.              1858158. hierarchical    rel_tol =…
+    ##  8 rel_tol_3.5            1680.              1899301. hierarchical    rel_tol =…
+    ##  9 rel_tol_4              1867.              1834144. hierarchical    rel_tol =…
+    ## 10 weight_0.1              372.              2802603. weighted sum    weight = …
+    ## 11 weight_395.37221       1794.              1769184. weighted sum    weight = …
+    ## 12 weight_790.64442       2364.              1655994. weighted sum    weight = …
+    ## 13 weight_1185.91662      2392.              1645271. weighted sum    weight = …
+    ## 14 weight_1581.18883      9738.              1289465. weighted sum    weight = …
+    ## 15 weight_1976.46104      9738.              1289465. weighted sum    weight = …
+    ## 16 weight_2371.73324      9738.              1289465. weighted sum    weight = …
+    ## 17 weight_2767.00545      9772.              1288656. weighted sum    weight = …
+    ## 18 weight_3162.27766      9772.              1288656. weighted sum    weight = …
+    ## 19 Cohon                  2040.              1673569. Cohon           Cohon     
+    ## 20 reference point         463.              2284516. reference point reference…
 
-After calculating the metrics, let’s we can use them to help select a
-prioritization.
+After calculating the metrics, we can use them to visualize trade-offs
+among the prioritizations.
+
+``` r
+# create plot to visualize trade-offs among prioritizations
+result_plot <-
+  ggplot(
+    data = metric_data,
+    aes(x = total_boundary_length, y = total_cost, label = label)
+  ) +
+  geom_point(aes(color = approach), size = 3) +
+  geom_label_repel(
+    seed = 500,
+    nudge_x = 5.5,
+    nudge_y = 5.5,
+    force = 10,
+    max.overlaps = Inf
+  ) +
+  scale_color_manual(
+    name = "Approach",
+    values = c(
+      "hierarchical" = "#984ea3",
+      "weighted sum" = "#000000",
+      "Cohon" = "#377eb8",
+      "reference point" = "#ff7f00"
+    )
+  ) +
+  xlab("Total boundary length of prioritization") +
+  ylab("Total cost of prioritization") +
+  scale_x_continuous(expand = expansion(mult = c(0.2, 0.3))) +
+  scale_y_continuous(expand = expansion(mult = c(0.3, 0.2))) +
+  theme(
+    legend.position = c(0.95, 0.95),
+    legend.justification = c(1, 1)
+  )
+
+# render plot
+print(result_plot)
+```
+
+![](calibrating_trade-offs_tutorial_files/figure-html/metric-plot-1.png)
 
 ## Selecting a prioritization
 
-Now we need to decide on which candidate prioritization achieves the
-best trade-off. There are a range of qualitative and quantitative
-methods that are available to select a candidate prioritization (Ardron
-*et al.* 2010). Here we will consider three different methods. Since
-some of these methods use a set of candidate prioritizations, we will
-use the candidate prioritizations using the hierarchical approach for
-these methods. To keep track of the prioritizations selected by
-different methods, let’s create a `results_data` table.
-
-``` r
-# create data for plotting
-result_data <-
-  hierarchical_metrics %>%
-  ## rename threshold column to value column
-  rename(value = "threshold") %>%
-  ## add column with column names that contain candidate prioritizations
-  mutate(name = grep(
-    "threshold_", names(hierarchical_results), value = TRUE, fixed = TRUE
-  )) %>%
-  ## add column with labels for plotting
-  mutate(label = paste("Threshold =", value)) %>%
-  ## add column to keep track prioritizations selected by different methods
-  mutate(method = "none")
-
-# print table
-print(result_data)
-```
-
-    ## # A tibble: 9 × 6
-    ##   total_cost total_boundary_length value name           label            method
-    ##        <dbl>                 <dbl> <dbl> <chr>          <chr>            <chr> 
-    ## 1       355.              2869559.   355 threshold_355  Threshold = 355  none  
-    ## 2       517.              2298458.   532 threshold_532  Threshold = 532  none  
-    ## 3       668.              2141521.   709 threshold_709  Threshold = 709  none  
-    ## 4       883.              2020987.   886 threshold_886  Threshold = 886  none  
-    ## 5      1060.              1965032.  1063 threshold_1063 Threshold = 1063 none  
-    ## 6      1240.              1910963.  1241 threshold_1241 Threshold = 1241 none  
-    ## 7      1414.              1827306.  1418 threshold_1418 Threshold = 1418 none  
-    ## 8      1594.              1774384.  1595 threshold_1595 Threshold = 1595 none  
-    ## 9      1771.              1713437.  1772 threshold_1772 Threshold = 1772 none
-
-Next, let’s examine some different methods for selecting
-prioritizations.
+Now we need to decide which prioritization represents a desirable
+compromise between the objectives. Since weighted sum and hierarchical
+approaches involve generating a set of candidate prioritizations, we
+will begin by selecting a single prioritization from these
+prioritizations to help narrow down our set of choices. To achieve this,
+we will employ one qualitative method and one quantitative method.
+Although these methods could be applied to prioritizations generated
+with the weighted sum as well as the hierarchical approaches, here we
+will just consider those generated with the hierarchical approach for
+brevity.
 
 ### Visual method
 
@@ -819,28 +915,39 @@ different criteria, and using the plot to visually select a candidate
 prioritization. This visual method is often used to help calibrate
 trade-offs among prioritizations generated using the *Marxan* decision
 support tool (e.g., Hermoso *et al.* 2011; Stewart & Possingham 2005).
-So, let’s create a plot to select a prioritization.
+In particular, we will apply the visual method to select a
+prioritization from the set of prioritizations generated by the
+hierarchical approach. So, let’s create a plot to select a
+prioritization.
 
 ``` r
 # create plot to visualize trade-offs and show selected candidate prioritization
 result_plot <-
   ggplot(
-    data = result_data,
+    data = metric_data %>% filter(approach == "hierarchical"),
     aes(x = total_boundary_length, y = total_cost, label = label)
   ) +
   geom_line() +
   geom_point(size = 3) +
-  geom_text(hjust = -0.15) +
+  geom_label_repel(
+    seed = 500,
+    nudge_x = 5.5,
+    nudge_y = 5.5,
+    force = 10,
+    max.overlaps = Inf
+  ) +
   xlab("Total boundary length of prioritization") +
   ylab("Total cost of prioritization") +
-  scale_x_continuous(expand = expansion(mult = c(0.05, 0.4))) +
-  theme(legend.title = element_blank())
+  theme(
+    legend.position = c(0.95, 0.95),
+    legend.justification = c(1, 1)
+  )
 
 # render plot
 print(result_plot)
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-23-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/visual-method-plot-1.png)
 
 We can see that there is a clear relationship between total cost and
 total boundary length. It would seem that in order to achieve a lower
@@ -849,15 +956,35 @@ prioritization must have a greater cost. Although we might expect the
 results to show a smoother curve – in other words, only Pareto dominant
 solutions – this result is expected because we generated candidate
 prioritizations using the default optimality gap of 10%. Typically, the
-visual method involves selecting a prioritization near the elbow of the
-plot. So, let’s select the prioritization generated using a `threshold`
-value of 709. To keep track of the prioritizations selected based on
-different methods, let’s create a `method` column in the `result_data`
-table.
+visual method involves selecting a prioritization near the elbow (or
+knee) of the plot. So, let’s select the prioritization generated using a
+`rel_tol` value of 1. To keep track of the prioritizations selected
+based on different methods, let’s create a `method` column in the
+`metric_data` table.
 
 ``` r
+# initialize method column
+metric_data <-
+  metric_data %>%
+  mutate(method = "none") %>%
+  mutate(
+    method = if_else(
+      approach %in% c("Cohon", "reference point"),
+      approach,
+      method
+    )
+  )
+
 # specify prioritization selected by visual method
-result_data$method[3] <- "visual"
+metric_data <-
+  metric_data %>%
+  mutate(
+    method = if_else(
+      name == rownames(rel_tol)[[3]],
+      "visual",
+      method
+    )
+  )
 ```
 
 Next, let’s consider a quantitative approach.
@@ -865,22 +992,24 @@ Next, let’s consider a quantitative approach.
 ### TOPSIS method
 
 Multiple-criteria decision analysis is a discipline that uses analytical
-methods to evaluate trade-offs between multiple criteria \[MCDA;
+methods to evaluate trade-offs between multiple objectives \[MCDA;
 reviewed in Greene *et al.* (2011)\]. Although this discipline contains
 many different methods, here we will use the the Technique for Order of
 Preference by Similarity to Ideal Solution (TOPSIS) method (Hwang & Yoon
 1981). This method requires (i) data describing the performance of each
-prioritization according to the different criteria, (ii) weights to
-encode the relative importance of each criteria, and (iii) details on
-whether each criteria should ideally be minimized or maximized. Let’s
-run the analysis, assuming that we want equal weighting for total cost
-and total boundary length.
+prioritization according to each objective, (ii) weights to encode the
+relative importance of each objective, and (iii) details on whether each
+objective should ideally be minimized or maximized. Let’s run the
+analysis – assuming that we want equal weighting for total cost and
+total boundary length – to identify a candidate prioritization from
+those generated with the hierarchical approach.
 
 ``` r
 # calculate TOPSIS scores
 topsis_results <- topsis(
   decision =
-    hierarchical_metrics %>%
+    metric_data %>%
+    filter(approach == "hierarchical") %>%
     dplyr::select(total_cost, total_boundary_length) %>%
     as.matrix(),
   weights = c(1, 1),
@@ -892,137 +1021,79 @@ print(topsis_results)
 ```
 
     ##   alt.row     score rank
-    ## 1       1 0.6890516    3
-    ## 2       2 0.7812698    1
-    ## 3       3 0.7491596    2
-    ## 4       4 0.6439785    4
-    ## 5       5 0.5471350    5
-    ## 6       6 0.4568871    6
-    ## 7       7 0.3898302    7
-    ## 8       8 0.3371559    8
-    ## 9       9 0.3109484    9
+    ## 1       1 0.7595566    2
+    ## 2       2 0.8133448    1
+    ## 3       3 0.7327770    3
+    ## 4       4 0.6343975    4
+    ## 5       5 0.5135217    5
+    ## 6       6 0.4153342    6
+    ## 7       7 0.3352942    7
+    ## 8       8 0.2659945    8
+    ## 9       9 0.2404434    9
 
 The candidate prioritization with the greatest TOPSIS score is
 considered to represent the best trade-off between total cost and total
 boundary length. So, based on this method, we would select the
-prioritization generated using a `threshold` value of 532. Let’s update
-the `result_data` with this information.
+prioritization generated using a `rel_tol` value of 0.5. Let’s update
+the `metric_data` with this information.
 
 ``` r
 # add column indicating prioritization selected by TOPSIS method
-result_data$method[which.max(topsis_results$score)] <- "TOPSIS"
-```
-
-Next, let’s consider another quantitative method.
-
-### Cohon *et al.* (1979) method
-
-This method is based on an algorithm that was originally developed by
-Cohon *et al.* (1979), and was later adapted for use in systematic
-conservation planning (Fischer & Church 2005). Specifically, it involves
-generating two optimal prioritizations – with each prioritization
-representing the optimal prioritization according to each criteria
-(e.g., total cost versus total boundary length) – and then using
-performance metrics for these prioritizations to automatically derive a
-`penalty` value (Ardron *et al.* 2010; Cohon *et al.* 1979). Thus,
-unlike the two other methods, this method does not require a set of
-candidate prioritizations. As such, this method can be used to find a
-prioritization that represents a suitable compromise in a much shorter
-period of time than the other methods.
-
-``` r
-# create problem with boundary penalties
-## note that penalty = 1 is used as a place-holder
-p3 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_boundary_penalties(penalty = 1, data = tas_bd) %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions()
-
-# find calibrated boundary penalty using Cohon's method
-cohon_penalty <- calibrate_cohon_penalty(p3, verbose = FALSE)
-
-# print penalty value
-print(cohon_penalty[[1]])
-```
-
-    ## [1] 0.5513913
-
-Now that we have calculated a `penalty` value using this method, we can
-use it to generate a prioritization.
-
-``` r
-# generate prioritization using penalty value calculated using Cohon's method
-p4 <-
-  problem(tas_pu, tas_features, cost_column = "cost") %>%
-  add_min_set_objective() %>%
-  add_boundary_penalties(penalty = cohon_penalty, data = tas_bd) %>%
-  add_relative_targets(0.17) %>%
-  add_locked_in_constraints("locked_in") %>%
-  add_binary_decisions()
-
-# solve problem
-s4 <- solve(p4)
-```
-
-Let’s update the `results_data` table with results about the
-prioritization.
-
-``` r
-# add new row with data for prioritization
-result_data <- bind_rows(
-  result_data,
-  tibble(
-    total_cost = eval_cost_summary(p4, s4[, "solution_1"])$cost,
-    total_boundary_length =
-      eval_boundary_summary(p4, s4[, "solution_1"])$boundary,
-    value = cohon_penalty,
-    name = paste0("penalty_", cohon_penalty),
-    label = paste0("Penalty = ",  cohon_penalty),
-    method = "Cohon"
+metric_data <-
+  metric_data %>%
+  mutate(
+    method = if_else(
+      name == rownames(rel_tol)[[which.max(topsis_results$score)]],
+      "TOPSIS",
+      method
+    )
   )
-)
 ```
-
-After completing this, let’s compare the prioritizations selected by
-different methods.
 
 ### Method comparison
 
-Let’s create a plot to visualize the results from the different methods.
+Let’s create a plot to visualize the prioritizations selected by the
+different approaches and methods.
 
 ``` r
 # create plot to visualize trade-offs and show selected prioritizations
 result_plot <-
   ggplot(
-    data =
-      result_data %>%
-      mutate(vjust = if_else(method == "Cohon", -1, 0.5)),
+    data = metric_data,
     aes(x = total_boundary_length, y = total_cost, label = label)
   ) +
-  geom_line() +
   geom_point(aes(color = method), size = 3) +
-  geom_text(aes(vjust = vjust, color = method), hjust = -0.1) +
+  geom_label_repel(
+    seed = 500,
+    nudge_x = 5.5,
+    nudge_y = 5.5,
+    force = 10,
+    max.overlaps = Inf
+  ) +
   scale_color_manual(
     name = "Method",
     values = c(
       "visual" = "#984ea3",
       "none" = "#000000",
       "TOPSIS" = "#e41a1c",
-      "Cohon" = "#377eb8"
+      "Cohon" = "#377eb8",
+      "reference point" = "#ff7f00"
     )
   ) +
   xlab("Total boundary length of prioritization") +
   ylab("Total cost of prioritization") +
-  scale_x_continuous(expand = expansion(mult = c(0.05, 0.4)))
+  scale_x_continuous(expand = expansion(mult = c(0.2, 0.3))) +
+  scale_y_continuous(expand = expansion(mult = c(0.3, 0.2))) +
+  theme(
+    legend.position = c(0.95, 0.95),
+    legend.justification = c(1, 1)
+  )
 
 # render plot
 print(result_plot)
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-30-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/candidate-plot-1.png)
 
 We can see that the different methods selected different
 prioritizations. To further compare the results from the different
@@ -1030,34 +1101,19 @@ methods, let’s create some maps showing the selected prioritizations.
 
 ``` r
 # extract column names for creating the prioritizations
-visual_name <- result_data$name[[which(result_data$method == "visual")]]
-topsis_name <- result_data$name[[which(result_data$method == "TOPSIS")]]
-
-# create object with selected prioritizations
-solutions  <- bind_cols(
-  tas_pu,
-  s0 %>%
-    st_drop_geometry() %>%
-    dplyr::select(solution_1) %>%
-    setNames("No penalties"),
-  hierarchical_results %>%
-    st_drop_geometry() %>%
-    dplyr::select(all_of(c(visual_name, topsis_name))) %>%
-    setNames(c("Visual", "TOPSIS")),
-  s4 %>%
-    st_drop_geometry() %>%
-    dplyr::select(solution_1) %>%
-    rename(Cohon = "solution_1")
-)
+solutions$Visual <-
+  solutions[[metric_data$name[metric_data$method == "visual"]]]
+solutions$TOPSIS <-
+  solutions[[metric_data$name[metric_data$method == "TOPSIS"]]]
 
 # plot maps of selected prioritizations
 plot(
   x =
     solutions %>%
-    dplyr::select(`No penalties`, Visual, TOPSIS, Cohon) %>%
+    dplyr::select(Visual, TOPSIS, Cohon, `reference point`) %>%
     mutate_if(is.numeric, function(x) {
       case_when(
-        hierarchical_results$locked_in > 0.5 ~ "locked in",
+        tas_pu$locked_in > 0.5 ~ "locked in",
         x > 0.5 ~ "priority",
         TRUE ~ "other"
       )
@@ -1066,18 +1122,17 @@ plot(
 )
 ```
 
-![](calibrating_trade-offs_tutorial_files/figure-html/unnamed-chunk-31-1.png)
+![](calibrating_trade-offs_tutorial_files/figure-html/candidate-map-1.png)
 
 How do we determine which one is best? This is difficult to say.
-Ideally, additional information could be used to help select a
-prioritization, such as knowledge on available resources, species’
-connectivity requirements, and impacts of neighboring land use. However,
-from a practical perspective, prioritizations generated for academic
-contexts might find the quantitative approaches more useful because they
-have greater transparency and reproducibility. Ultimately, all of these
-methods are designed to support decision making. This means that they
-are intended to assist the decision making process, not serve as a
-replacement.
+Ideally, expert knowledge could be used to help select a prioritization,
+such as knowledge on available resources, species’ connectivity
+requirements, and management feasibility. However, from a practical
+perspective, prioritizations generated for academic contexts might find
+the quantitative approaches more useful because they have greater
+transparency and reproducibility. Ultimately, all of these methods are
+designed to support decision making. This means that they are intended
+to assist the decision making process, not serve as a replacement.
 
 ## Conclusion
 
@@ -1097,14 +1152,14 @@ function) or specific variables of interest – such as ecosystem
 intactness or inverse human footprint index (Williams *et al.* 2020;
 Beyer *et al.* 2019) – to inform decision making (using the
 [`add_linear_penalties()`](https://prioritizr.net/reference/add_linear_penalties.md)
-function). Furthermore, after identifying the best `penalty` or
-`threshold` values to strike a balance between multiple criteria, you
-could generate a portfolio of prioritizations (e.g., using the
-`add_gap_portfolio_function()`) to find multiple options for achieving a
-similar balance. This might be helpful when you need to generate a set
-of prioritizations that have comparable performance – in terms of how
-well they achieve different criteria – but select different planning
-units.
+function). Furthermore, after identifying the best `weights` or
+`rel_tol` values to strike a balance between multiple criteria, you
+could generate a portfolio of prioritizations (e.g., via
+[`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md))
+to find multiple options for achieving a similar balance. This might be
+helpful when you need to generate a set of prioritizations that have
+comparable performance – in terms of how well they achieve different
+criteria – but select different planning units.
 
 ## References
 
@@ -1168,6 +1223,12 @@ Assessment*, *10*, 203–213.
 Vane-Wright, R.I., Humphries, C.J. & Williams, P.H. (1991). What to
 protect? — Systematics and the agony of choice. *Biological
 Conservation*, *55*, 235–254.
+
+Wierzbicki, A.P. (1980). The use of reference objectives in
+multiobjective optimization. *Multiple Criteria Decision Making Theory
+and Application. Lecture Notes in Economics and Mathematical Systems*
+(eds G. Fandel & T. Gal), pp. 468–486. Springer Berlin Heidelberg,
+Berlin, Heidelberg.
 
 Williams, B.A., Venter, O., Allan, J.R., Atkinson, S.C., Rehbein, J.A.,
 Ward, M., Marco, M.D., Grantham, H.S., Ervin, J., Goetz, S.J., Hansen,

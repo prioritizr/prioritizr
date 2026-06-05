@@ -11,15 +11,15 @@ NULL
 #'
 #' @param x [problem()] object.
 #'
-#' @details This function is used for the effect of modifying the input
-#'   [`ConservationProblem-class`] object. As such, it does not return
-#'   anything. To use this function with [pipe()] operators, use the
-#'   `%T>%` operator and not the `%>%` operator.
+#' @details
+#' This function is used for the effect of modifying the input
+#' [`ConservationProblem-class`] object. As such, it does not return
+#' anything. To use this function with [pipe()] operators, use the
+#' `%T>%` operator and not the `%>%` operator.
 #'
 #' @return An invisible `TRUE` indicating success.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -78,7 +78,7 @@ NULL
 #' # different constraints. Although the time saved in this example
 #' # is rather small, this is because the example data are very small.
 #' # We would expect larger time savings for larger datasets.
-#' }
+#'
 #' @export
 run_calculations <- function(x) {
   assert_required(x)

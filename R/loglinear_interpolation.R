@@ -5,8 +5,7 @@ NULL
 #'
 #' Log-linearly interpolate values between two thresholds.
 #'
-#' @param x `numeric` *x* values for which interpolate *y*
-#'   values.
+#' @param x `numeric` *x* values that require interpolation.
 #'
 #' @param coordinate_one_x `numeric` value for lower *x*-coordinate.
 #'
@@ -16,15 +15,17 @@ NULL
 #'
 #' @param coordinate_two_y `numeric` value for upper *y*-coordinate.
 #'
-#' @details Values are log-linearly interpolated at the *x*-coordinates
-#'   specified in `x` using the lower and upper coordinate arguments to
-#'   define the line. Values lesser or greater than these numbers are assigned
-#'   the minimum and maximum *y* coordinates.
+#' @details
+#' Values are log-linearly interpolated at the *x*-coordinates
+#' specified in `x` based on a line defined by the other parameters.
+#' Values that are smaller than or greater than `coordinate_one_x` and
+#' `coordinate_two_x` are assigned values equal to
+#' `coordinate_one_y` and `coordinate_two_y` (respectively).
+#' In other words, this function does not extrapolate values.
 #'
 #' @return A `numeric` vector.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # create series of x-values
 #' x <- seq(0, 1000)
 #'
@@ -79,10 +80,11 @@ NULL
 #'   1, pretty(log10(spp_range_size_km2)),
 #'   10^pretty(log10(spp_range_size_km2))
 #' )
-#' }
+#'
 #' @export
 loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
                                     coordinate_two_x, coordinate_two_y) {
+  # assert valid arguments
   assert_required(x)
   assert_required(coordinate_one_x)
   assert_required(coordinate_one_y)
@@ -101,6 +103,7 @@ loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
     assertthat::noNA(coordinate_two_y),
     coordinate_one_x <= coordinate_two_x
   )
+  # perform log-linear interpolation
   out <- rep(NA_real_, length(x))
   out[x < coordinate_one_x] <- coordinate_one_y
   out[x > coordinate_two_x] <- coordinate_two_y
@@ -112,5 +115,6 @@ loglinear_interpolation <- function(x, coordinate_one_x, coordinate_one_y,
       xout = log10(x[idx]), method = "linear"
     )$y
   }
+  # return result
   out
 }

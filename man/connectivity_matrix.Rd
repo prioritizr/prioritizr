@@ -30,28 +30,28 @@ connectivity_matrix(x, y, ...)
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
 
-\item{y}{\code{\link[terra:rast]{terra::rast()}} object showing the conductance
+\item{y}{\code{\link[terra:rast]{terra::rast()}} object denoting the conductance
 of different areas across the study area, or a \code{character} object
-denoting a column name in the attribute table of \code{x} that contains
-the conductance values. Note that argument to \code{y} can only be a
-\code{character} object if the argument to \code{x} is a \code{\link[sf:sf]{sf::sf()}} object.
-Also, note that if the argument to \code{x} is a
+denoting a column name of \code{x} that contains
+the conductance values. Note \code{y} can only be a
+\code{character} object if \code{x} is a \code{\link[sf:sf]{sf::sf()}} object.
+Also, note that if \code{x} is a
 \code{\link[terra:rast]{terra::rast()}} object then
-argument to \code{y} must have the same spatial properties as it
+\code{y} must have the same spatial properties as \code{x}
 (i.e., coordinate system, extent, resolution).}
 
 \item{...}{additional arguments passed to \code{\link[=fast_extract]{fast_extract()}} for
 extracting and calculating the conductance values for each planning unit.
-These arguments are only used if argument to \code{x} is a
-\code{\link[sf:sf]{sf::sf()}} object and argument to \code{y} is a \code{\link[terra:rast]{terra::rast()}} object.}
+Note that these arguments are only used if \code{x} is a
+\code{\link[sf:sf]{sf::sf()}} object and \code{y} is a \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
 A \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
-To reduce computational burden, cells among the matrix diagonal are
-set to zero. Furthermore, if the argument to \code{x} is a
+To reduce computational burden, cells along the matrix diagonal are
+set to zero. Furthermore, if \code{x} is a
 \code{\link[terra:rast]{terra::rast()}} object, then cells with missing (\code{NA})
 values are set to zero too.
 }
@@ -63,11 +63,10 @@ planning units that each have higher a conductance and share a greater
 boundary are associated with greater connectivity.
 }
 \details{
-Shared boundary calculations are performed using
-\code{\link[=boundary_matrix]{boundary_matrix()}}.
+Shared boundary calculations are performed using \code{\link[=boundary_matrix]{boundary_matrix()}}.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -179,8 +178,7 @@ cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 ## plot data and matrix
 plot(r, main = "planning units (raster)", axes = FALSE)
 Matrix::image(cm_zwsum, main = "connectivity matrix")
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Connectivity matrix data might need rescaling to improve optimization

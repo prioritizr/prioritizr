@@ -27,25 +27,23 @@ add_contiguity_constraints(x, zones, data)
 
   `matrix` or `Matrix` object describing the connection scheme for
   different zones. Each row and column corresponds to a different zone
-  in the argument to `x`, and cell values must contain binary `numeric`
-  values (i.e., one or zero) that indicate if connected planning units
-  (as specified in the argument to `data`) should be still considered
-  connected if they are allocated to different zones. The cell values
-  along the diagonal of the matrix indicate if planning units should be
-  subject to contiguity constraints when they are allocated to a given
-  zone. Note arguments to `zones` must be symmetric, and that a row or
-  column has a value of one then the diagonal element for that row or
-  column must also have a value of one. The default argument to `zones`
-  is an identity matrix (i.e., a matrix with ones along the matrix
-  diagonal and zeros elsewhere), so that planning units are only
-  considered connected if they are both allocated to the same zone.
+  in `x`, and cell values must contain binary `numeric` values (i.e.,
+  one or zero) that indicate if connected planning units (as specified
+  per `data`) should be considered connected if they are allocated to
+  different zones. The cell values along the diagonal of the matrix
+  indicate if planning units should be subject to contiguity constraints
+  when they are allocated to a given zone. Note that `zones` must have
+  symmetric values, and that if a row or column has a value of one then
+  the diagonal element for that row or column must also have a value of
+  one. Defaults to an identity matrix (i.e., a matrix with ones along
+  the matrix diagonal and zeros elsewhere), so that planning units are
+  only considered connected if they are both allocated to the same zone.
 
 - data:
 
-  `NULL`, `matrix`, `Matrix`, `data.frame` object showing which planning
-  units are connected with each other. The argument defaults to `NULL`
-  which means that the connection data is calculated automatically using
-  the
+  `NULL`, `matrix`, `Matrix`, or `data.frame` object showing which
+  planning units are connected with each other. Defaults to `NULL` such
+  that `data` is calculated automatically using the
   [`adjacency_matrix()`](https://prioritizr.net/reference/adjacency_matrix.md)
   function. See the Data format section for more information.
 
@@ -62,40 +60,40 @@ detailed in Önal and Briers (2006).
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
+The following formats can be used to specify `data`.
 
 - `data` as a `NULL` value:
 
-  indicating that connection data should be calculated automatically
-  using the
+  Here connection data are calculated automatically using the
   [`adjacency_matrix()`](https://prioritizr.net/reference/adjacency_matrix.md)
-  function. This is the default argument. Note that the connection data
-  must be manually defined using one of the other formats below when the
-  planning unit data in the argument to `x` is not spatially referenced
-  (e.g., in `data.frame` or `numeric` format).
+  function. This is the default for `data`. Note that the connection
+  data must be manually specified using one of the other formats below
+  when the planning unit data in `x` are not spatially referenced (e.g.,
+  in `data.frame` or `numeric` format).
 
 - `data` as a `matrix`/`Matrix` object:
 
-  where rows and columns represent different planning units and the
-  value of each cell indicates if the two planning units are connected
-  or not. Cell values should be binary `numeric` values (i.e., one or
-  zero). Cells that occur along the matrix diagonal have no effect on
-  the solution at all because each planning unit cannot be a connected
-  with itself.
+  Here rows and columns correspond to different planning units and cell
+  values indicate if two planning units are connected or not. In
+  particular, cell values should be binary `numeric` values (i.e., one
+  or zero). Cells that occur along the matrix diagonal have no effect on
+  the solution because each planning unit cannot be a connected with
+  itself.
 
 - `data` as a `data.frame` object:
 
-  containing columns that are named `"id1"`, `"id2"`, and `"boundary"`.
-  Here, each row denotes the connectivity between two planning units
-  following the *Marxan* format. The `"boundary"` column should contain
-  binary `numeric` values that indicate if the two planning units
-  specified in the `"id1"` and `"id2"` columns are connected or not.
-  This data can be used to describe symmetric or asymmetric
-  relationships between planning units. By default, input data is
-  assumed to be symmetric unless asymmetric data is also included (e.g.,
-  if data is present for planning units 2 and 3, then the same amount of
-  connectivity is expected for planning units 3 and 2, unless
-  connectivity data is also provided for planning units 3 and 2).
+  Here rows correspond to a pair of planning units and columns provide
+  information about each pair of planning units. In particular, `data`
+  must have the columns: `"id1"`, `"id2"`, and `"boundary"`. The
+  `"boundary"` column should contain binary `numeric` values that
+  indicate if the two planning units specified in the `"id1"` and
+  `"id2"` columns are connected or not. This data can be used to
+  describe symmetric or asymmetric relationships between planning units.
+  By default, input data is assumed to be symmetric unless asymmetric
+  data is specified (e.g., if data is present for planning units 2 and
+  3, then the same amount of connectivity is expected for planning units
+  3 and 2, unless connectivity data is also provided for planning units
+  3 and 2).
 
 ## Notes
 
@@ -110,10 +108,8 @@ network. *Operations Research*, 54: 379–388.
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
 [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
@@ -126,7 +122,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -223,18 +218,18 @@ plot(s2, axes = FALSE)
 pus <- sim_zones_pu_raster[[c(1, 1)]]
 pus[[2]] <- pus[[2]] * 0.3
 print(pus)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 2  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
-#> sources     : sim_zones_pu_raster.tif  
-#>               memory  
-#> varnames    : sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#> names       :   zone_1,   zone_1 
-#> min values  : 190.1328, 57.03983 
-#> max values  : 215.8638, 64.75915 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
+#> sources     : sim_zones_pu_raster.tif
+#>               memory
+#> varnames    : sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#> names       :     zone_1,    zone_1
+#> min values  : 190.132751, 57.039825
+#> max values  : 215.863846, 64.759154
 
 # create biodiversity data
 fts <- zones(
@@ -285,6 +280,4 @@ s7 <- category_layer(solve(p7))
 
 # plot solutions
 plot(s7, main = "solution", axes = FALSE)
-
-# }
 ```

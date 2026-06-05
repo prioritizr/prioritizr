@@ -27,8 +27,8 @@ calibrate_cohon_penalty(x, approx = TRUE, verbose = TRUE)
 
 - verbose:
 
-  `logical` should information be printed while solving optimization
-  problems? Defaults to `TRUE`.
+  `logical` value indicating if information should be displayed during
+  the optimization process. Defaults to `TRUE`.
 
 ## Value
 
@@ -156,7 +156,6 @@ overview of all functions for adding penalties.
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -191,6 +190,4 @@ s2 <- solve(p2)
 
 # plot solution
 plot(s2, main = "solution", axes = FALSE)
-
-# }
 ```

@@ -10,6 +10,8 @@ objects are displayed correctly in rmarkdown reports.
 ``` r
 knit_print.ConservationProblem(x, ...)
 
+knit_print.MultiConservationProblem(x, ...)
+
 knit_print.OptimizationProblem(x, ...)
 ```
 

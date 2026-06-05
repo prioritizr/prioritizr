@@ -25,56 +25,54 @@ add_boundary_penalties(x, penalty, edge_factor, formulation, zones, data)
 
 - penalty:
 
-  `numeric` penalty that is used to scale the importance of selecting
-  planning units that are spatially clumped together compared to the
-  main problem objective (e.g., solution cost when the argument to `x`
-  has a minimum set objective per
+  `numeric` value denoting the importance of selecting planning units
+  that are spatially clumped together compared to the main problem
+  objective (e.g., solution cost if `x` has a minimum set objective per
   [`add_min_set_objective()`](https://prioritizr.net/reference/add_min_set_objective.md)).
   Higher `penalty` values prefer solutions with a higher degree of
   spatial clumping, and smaller `penalty` values prefer solutions with a
   smaller degree of clumping. Note that negative `penalty` values prefer
-  solutions that are more spread out. This parameter is equivalent to
-  the boundary length modifier (BLM) parameter in
+  solutions that are spatially fragmented. This parameter is equivalent
+  to the boundary length modifier (BLM) parameter in
   [*Marxan*](https://marxansolutions.org/).
 
 - edge_factor:
 
-  `numeric` proportion to scale planning unit edges (borders) that do
-  not have any neighboring planning units. For example, an edge factor
-  of `0.5` is commonly used to avoid overly penalizing planning units
-  along a coastline. Note that this argument must have an element for
-  each zone in the argument to `x`.
+  `numeric` value or vector denoting the proportion for scaling planning
+  unit edges (borders) that do not have any neighboring planning units.
+  For example, an edge factor of `0.5` is commonly used to avoid overly
+  penalizing planning units along coastlines. Note that `edge_factor`
+  must have a value for each zone in `x`.
 
 - formulation:
 
   `character` value denoting the name of the linearization technique
   used to formulate the penalties. Available options are `"simple"` and
   `"knapsack"`. Defaults to `"simple"`. If you are having issues with
-  solving problems within a reasonable period of time using the
-  `"simple"` technique, then consider trying the `"knapsack"` technique.
-  Note that the `"knapsack"` technique is likely to yield better
-  performance when each planning unit has a large number of neighbors
-  (e.g., planning units are based on a hexagonal grid or irregular
-  polygons).
+  solving problems within a reasonable period of time using
+  `formulation = "simple"`, then consider trying
+  `formulation = "knapsack"`. Note that the `formulation = "knapsack"`
+  is likely to yield better performance when each planning unit has a
+  large number of neighbors (e.g., planning units are based on a
+  hexagonal grid or irregular polygons).
 
 - zones:
 
   `matrix` or `Matrix` object describing the clumping scheme for
   different zones. Each row and column corresponds to a different zone
-  in the argument to `x`, and cell values indicate the relative
-  importance of clumping planning units that are allocated to a
-  combination of zones. Cell values along the diagonal of the matrix
-  represent the relative importance of clumping planning units that are
-  allocated to the same zone. Cell values must range between 1 and -1,
-  where negative values favor solutions that spread out planning units.
-  The default argument to `zones` is an identity matrix (i.e., a matrix
-  with ones along the matrix diagonal and zeros elsewhere), so that
-  penalties are incurred when neighboring planning units are not
-  assigned to the same zone. If the cells along the matrix diagonal
-  contain markedly smaller values than those found elsewhere in the
-  matrix, then solutions are preferred that surround planning units with
-  those allocated to different zones (i.e., greater spatial
-  fragmentation).
+  in `x`, and cell values indicate the relative importance of clumping
+  planning units that are allocated to a combination of zones. Cell
+  values along the diagonal of the matrix represent the relative
+  importance of clumping planning units that are allocated to the same
+  zone. Cell values must range between 1 and -1, where negative values
+  favor solutions that spread out planning units. Defaults to an
+  identity matrix (i.e., a matrix with ones along the matrix diagonal
+  and zeros elsewhere), so that penalties are incurred when neighboring
+  planning units are not assigned to the same zone. If the cells along
+  the matrix diagonal contain markedly smaller values than those found
+  elsewhere in the matrix, then solutions are preferred that surround
+  planning units with those allocated to different zones (i.e., greater
+  spatial fragmentation of zones).
 
 - data:
 
@@ -94,8 +92,8 @@ object with the penalties added to it.
 
 This function adds penalties to a conservation planning problem to
 penalize fragmented solutions. It was is inspired by Ball *et al.*
-(2009) and Beyer *et al.* (2016). The `penalty` argument is equivalent
-to the boundary length modifier (`BLM`) used in
+(2009) and Beyer *et al.* (2016). Indeed, `penalty` is equivalent to the
+boundary length modifier (`BLM`) used in
 [*Marxan*](https://marxansolutions.org). Note that this function can
 only be used to represent symmetric relationships between planning
 units. If asymmetric relationships are required, use the
@@ -104,38 +102,44 @@ function.
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
-Note that boundary data must always describe symmetric relationships
-between planning units.
+The following formats can be used to specify `data`. Note that boundary
+data must always describe symmetric relationships between planning
+units.
 
 - `data` as a `NULL` value:
 
-  indicating that the data should be automatically calculated using the
+  Here boundary length data are automatically calculated using the
   [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
-  function. This argument is the default. Note that the boundary data
-  must be supplied using one of the other formats below if the planning
-  unit data in the argument to `x` do not explicitly contain spatial
-  information (e.g., planning unit data are a `data.frame` or `numeric`
-  class).
+  function and then rescaled with
+  [`rescale_matrix()`](https://prioritizr.net/reference/rescale_matrix.md).
+  This is the default for `data`. Note that the boundary data must be
+  supplied using one of the other formats below if `x` does not contain
+  planning units that are spatially referenced. (e.g., planning unit
+  data are a `data.frame` object or `numeric` vector).
 
 - `data` as a `matrix`/`Matrix` object:
 
-  where rows and columns represent different planning units and the
-  value of each cell represents the amount of shared boundary length
-  between two different planning units. Cells that occur along the
-  matrix diagonal denote the total boundary length associated with each
-  planning unit.
+  Here rows and columns correspond to different planning units and cell
+  values represent the amount of boundary length shared between two
+  planning units. Cells along the matrix diagonal denote the total
+  boundary length associated with each planning unit. For example,
+  boundary data in this format can be generated with the
+  [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
+  function.
 
 - `data` as a `data.frame` object:
 
-  with the columns `"id1"`, `"id2"`, and `"boundary"`. The `"id1"` and
-  `"id2"` columns contain identifiers (indices) for a pair of planning
-  units, and the `"boundary"` column contains the amount of shared
-  boundary length between these two planning units. Additionally, if the
-  values in the `"id1"` and `"id2"` columns contain the same values,
-  then the value denotes the amount of exposed boundary length (not
-  total boundary). This format follows the the standard *Marxan* format
-  for boundary data (i.e., per the "bound.dat" file).
+  Here rows correspond to a pair of planning units and columns provide
+  information about each pair of planning units. In particular, `data`
+  must have the columns: `"id1"`, `"id2"`, and `"boundary"`. The `"id1"`
+  and `"id2"` columns contain identifiers (indices) for a pair of
+  planning units, and the `"boundary"` column contains the amount of
+  shared boundary length between these two planning units. Additionally,
+  if the `"id1"` and `"id2"` columns contain the same values, then the
+  value denotes the amount of exposed boundary length (not total
+  boundary) for that particular planning unit. This format follows the
+  the standard *Marxan* format for boundary data (i.e., per the
+  "bound.dat" file).
 
 ## Mathematical formulation
 
@@ -144,12 +148,11 @@ Let \\I\\ represent the set of planning units (indexed by \\i\\ or
 \\j\\), \\Z\\ represent the set of management zones (indexed by \\z\\ or
 \\y\\), and \\X\_{iz}\\ represent the decision variable for planning
 unit \\i\\ for in zone \\z\\ (e.g., with binary values one indicating if
-planning unit is allocated or not). Also, let \\p\\ represent the
-argument to `penalty`, \\E_z\\ represent the argument to `edge_factor`,
-\\B\_{ij}\\ represent the matrix argument to `data` (e.g., generated
-using
+planning unit is allocated or not). Also, let \\p\\ represent `penalty`,
+\\E_z\\ represent `edge_factor`, \\B\_{ij}\\ represent `data` in matrix
+format (e.g., generated using
 [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)),
-and \\W\_{zz}\\ represent the matrix argument to `zones`.
+and \\W\_{zz}\\ represent `zones` in matrix format.
 
 \$\$ \sum\_{i}^{I} \sum\_{z}^{Z} (p \times W\_{zz} B\_{ii}) +
 \sum\_{i}^{I} \sum\_{j}^{I} \sum\_{z}^{Z} \sum\_{y}^{Z} (-2 \times p
@@ -187,6 +190,7 @@ for assistance with selecting an appropriate `penalty` value.
 Other functions for adding penalties:
 [`add_asym_connectivity_penalties()`](https://prioritizr.net/reference/add_asym_connectivity_penalties.md),
 [`add_connectivity_penalties()`](https://prioritizr.net/reference/add_connectivity_penalties.md),
+[`add_cost_penalties()`](https://prioritizr.net/reference/add_cost_penalties.md),
 [`add_feature_weights()`](https://prioritizr.net/reference/add_feature_weights.md),
 [`add_linear_penalties()`](https://prioritizr.net/reference/add_linear_penalties.md),
 [`add_neighbor_penalties()`](https://prioritizr.net/reference/add_neighbor_penalties.md)
@@ -194,7 +198,6 @@ Other functions for adding penalties:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -313,6 +316,4 @@ names(s2) <- c(
 
 # plot solutions
 plot(s2, axes = FALSE)
-
-# }
 ```

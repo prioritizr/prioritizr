@@ -9,14 +9,11 @@ add_min_largest_shortfall_objective(x, budget)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
 
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization. For problems with multiple zones, the argument
-to \code{budget} can be (i) a single \code{numeric} value to specify a single budget
+\item{budget}{\code{numeric} value specifying the maximum expenditure permitted
+for the solution. If \code{x} has multiple zones, then \code{budget} can be
+(i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a separate budget for each management zone.}
-}
-\value{
-An updated \code{\link[=problem]{problem()}} object with the objective added to it.
+a budget for each zone (separately) in the solution.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -67,7 +64,7 @@ continuous variable \eqn{l} is bounded between zero and one.
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -120,21 +117,17 @@ s3 <- solve(p3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
-See \link{objectives} for an overview of all functions for adding objectives.
-Also, see \link{targets} for an overview of all functions for adding targets, and
-\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights for different features.
-
 Other functions for adding objectives:
-\code{\link{add_max_cover_objective}()},
-\code{\link{add_max_features_objective}()},
-\code{\link{add_max_phylo_div_objective}()},
-\code{\link{add_max_phylo_end_objective}()},
-\code{\link{add_max_utility_objective}()},
-\code{\link{add_min_penalties_objective}()},
-\code{\link{add_min_set_objective}()},
-\code{\link{add_min_shortfall_objective}()}
+\code{\link[=add_max_cover_objective]{add_max_cover_objective()}},
+\code{\link[=add_max_n_targets_met_objective]{add_max_n_targets_met_objective()}},
+\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}},
+\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}},
+\code{\link[=add_max_wtd_sum_objective]{add_max_wtd_sum_objective()}},
+\code{\link[=add_min_penalties_objective]{add_min_penalties_objective()}},
+\code{\link[=add_min_set_objective]{add_min_set_objective()}},
+\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}
 }
 \concept{objectives}

@@ -9,6 +9,8 @@
 \alias{eval_target_coverage_summary,ConservationProblem,sf-method}
 \alias{eval_target_coverage_summary,ConservationProblem,Raster-method}
 \alias{eval_target_coverage_summary,ConservationProblem,SpatRaster-method}
+\alias{eval_target_coverage_summary.ConservationProblem}
+\alias{eval_target_coverage_summary.MultiConservationProblem}
 \title{Evaluate target coverage by solution}
 \usage{
 eval_target_coverage_summary(
@@ -17,42 +19,66 @@ eval_target_coverage_summary(
   include_zone = number_of_zones(x) > 1,
   include_sense = number_of_zones(x) > 1
 )
+
+\method{eval_target_coverage_summary}{ConservationProblem}(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+)
+
+\method{eval_target_coverage_summary}{MultiConservationProblem}(
+  x,
+  solution,
+  include_zone = number_of_zones(x) > 1,
+  include_sense = number_of_zones(x) > 1
+)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=multi_problem]{multi_problem()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[terra:rast]{terra::rast()}}, or \code{\link[sf:sf]{sf::sf()}} object.
-The argument should be in the same format as the planning unit cost
-data in the argument to \code{x}.
+Note that \code{solution} must have the same format as the planning unit
+data in \code{x}.
 See the Solution format section for more information.}
 
-\item{include_zone}{\code{logical} include the \code{zone} column in the output?
-Defaults to \code{TRUE} for problems that contain multiple zones.}
+\item{include_zone}{\code{logical} value indicating if the returned object
+should contain a \code{zone} column?
+Defaults to \code{TRUE} if \code{x} has multiple zones.}
 
-\item{include_sense}{\code{logical} include the \code{sense} column in the output?
-Defaults to \code{TRUE} for problems that contain multiple zones.}
+\item{include_sense}{\code{logical} value indicating if the returned object
+should contain a \code{sense} column?
+Defaults to \code{TRUE} if \code{x} has multiple zones.}
 }
 \value{
 A \code{\link[tibble:tibble]{tibble::tibble()}} object.
-Here, each row describes information for a different target.
-It contains the following columns:
+Here, each row provides information for a different target.
+It contains the following columns.
 
 \describe{
 
-\item{feature}{\code{character} name of the feature associated with each
-target.}
+\item{problem}{
+\code{character} name of problem. Note that this column
+is only present if \code{x} is a \code{\link[=multi_problem]{multi_problem()}} object.
+}
 
-\item{zone}{\code{list} of \code{character} zone names associated with each target.
+\item{feature}{
+\code{character} name of the feature associated with each target.
+}
+
+\item{zone}{
+\code{list} of \code{character} zone names associated with each target.
 This column is in a list-column format because a single target can
 correspond to multiple zones (see \code{\link[=add_manual_targets]{add_manual_targets()}} for details
 and examples).
 For an example of converting the list-column format to a standard
 \code{character} column format, please see the Examples section.
-This column is only included if the argument to \code{include_zones}
-is \code{TRUE}.}
+This column is only included if \code{include_zones = TRUE}.
+}
 
-\item{sense}{\code{character} sense associated with each target.
+\item{sense}{
+\code{character} sense associated with each target.
 Sense values specify the nature of the target.
 Typically (e.g., when using the \code{\link[=add_absolute_targets]{add_absolute_targets()}} or
 \code{\link[=add_relative_targets]{add_relative_targets()}} functions), targets are specified using sense
@@ -64,34 +90,46 @@ can also be specified using sense values indicating that the total
 amount of a feature held within a solution must be equal to a
 threshold amount (i.e., a sense value of \code{"="}) or smaller than or equal
 to a threshold amount (i.e., a sense value of \code{"<="}).
-This column is only included if the argument to \code{include_sense} is
-\code{TRUE}.}
+This column is only included if \code{include_sense = TRUE}.}
 
-\item{total_amount}{\code{numeric} total amount of the feature available across
+\item{met}{
+\code{logical} indicating if each target is met by the solution. This
+column is calculated by checking if the total shortfall associated
+with each target (i.e., \verb{"absolute_shortfall}" column) is equal to
+zero.
+}
+
+\item{total_amount}{
+\code{numeric} total amount of the feature available across
 the entire conservation planning problem for meeting each target
 (not just planning units selected within the solution).
-For problems involving a single zone, this column is calculated
+If \code{x} has a single zone, then this column is calculated
 as the sum of all of the values for a given feature
 (similar to values in the \code{total_amount} column produced by the
 \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function).
-For problems involving multiple zones,
-this column is calculated as the sum of the values for the
+Otherwise, if \code{x} has multiple zones, then this column is calculated as the
+sum of the values for the
 feature associated with target (per the \code{"feature"} column),
-across the zones associated with the target (per the \code{"zone"} column).}
+across the zones associated with the target (per the \code{"zone"} column).
+}
 
-\item{absolute_target}{\code{numeric} total threshold amount associated with
-each target.}
+\item{absolute_target}{
+\code{numeric} total threshold amount associated with each target.
+}
 
-\item{absolute_held}{\code{numeric} total amount held within the solution for
+\item{absolute_held}{
+\code{numeric} total amount held within the solution for
 the feature and (if relevant) zones associated with each target (per the
 \code{"feature"} and \code{"zone"} columns, respectively).
 This column is calculated as the sum of the feature data,
 supplied when creating a \code{\link[=problem]{problem()}} object
 (e.g., presence/absence values), weighted by the status of each
 planning unit in the solution (e.g., selected or not for
-prioritization).}
+prioritization).
+}
 
-\item{absolute_shortfall}{ \code{numeric} total amount by which the solution
+\item{absolute_shortfall}{
+\code{numeric} total amount by which the solution
 fails to meet each target.
 This column is calculated as the difference between the total amount
 held within the solution for the feature and (if relevant) zones
@@ -100,34 +138,50 @@ target total threshold amount (i.e., \code{"absolute_target"} column), with
 values set to zero depending on the sense specified for the target
 (e.g., if the target sense is \code{>=} then the difference is
 set to zero if the value in the \code{"absolute_held"} is smaller than
-that in the \code{"absolute_target"} column).}
+that in the \code{"absolute_target"} column).
+}
 
-\item{relative_target}{\code{numeric} proportion threshold amount associated
+\item{relative_target}{
+\code{numeric} proportion threshold amount associated
 with each target.
 This column is calculated by dividing the total threshold amount
 associated with each target (i.e., \code{"absolute_target"} column) by
 the total amount associated with each target
-(i.e., \code{"total_amount"} column).}
+(i.e., \code{"total_amount"} column).
+}
 
-\item{relative_held}{\code{numeric} proportion held within the solution for the
+\item{relative_held}{
+\code{numeric} proportion held within the solution for the
 feature and (if relevant) zones associated with each target (per the
 \code{"feature"} and \code{"zone"} columns, respectively).
 This column is calculated by dividing the total amount held
 for each target (i.e., \code{"absolute_held"} column) by the
 total amount for with each target
-(i.e., \code{"total_amount"} column).}
+(i.e., \code{"total_amount"} column). Since this metric
+is only appropriate for describing how well a solution meets targets
+that have a \code{">="} sense, targets with a \code{"<="} or \code{"="} sense are
+assigned missing (\code{NA}) values in this column.
+}
 
-\item{relative_shortfall}{\code{numeric} proportion by which the solution fails
+\item{relative_shortfall}{
+\code{numeric} proportion by which the solution fails
 to meet each target.
 This column is calculated by dividing the total shortfall for
 each target (i.e., \code{"absolute_shortfall"} column) by the
 total threshold amount associated with each target (i.e.,
-\code{"absolute_target"} column).}
+\code{"absolute_target"} column).
+}
 
-\item{met}{\code{logical} indicating if each target is met by the solution. This
-column is calculated by checking if the total shortfall associated
-with each target (i.e., \verb{"absolute_shortfall}" column) is equal to
-zero.}
+\item{relative_met}{
+\code{numeric} proportion of the target that is
+fulfilled by the solution. This column is calculated by
+expressing the amount held by the solution
+(i.e., \code{"absolute_held"} column) as a fraction of the target threshold.
+Since this metric
+is only appropriate for describing how well a solution meets targets
+that have a \code{">="} sense, targets with a \code{"<="} or \code{"="} sense are
+assigned missing (\code{NA}) values in this column.
+}
 
 }
 }
@@ -152,70 +206,70 @@ consistency with the minimum shortfall objective
 
 \section{Solution format}{
 
-Broadly speaking, the argument to \code{solution} must be in the same format as
-the planning unit data in the argument to \code{x}.
+Broadly speaking, \code{solution} must be in the same format as
+the planning unit data in \code{x}.
 Further details on the correct format are listed separately
-for each of the different planning unit data formats:
+for each of the different planning unit data formats.
 
 \describe{
 
-\item{\code{x} has \code{numeric} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{numeric} planning units}{Here \code{solution} must be a
 \code{numeric} vector with each element corresponding to a different planning
 unit. It should have the same number of planning units as those
-in the argument to \code{x}. Additionally, any planning units missing
+in \code{x}. Additionally, any planning units with missing
 cost (\code{NA}) values should also have missing (\code{NA}) values in the
-argument to \code{solution}.
+\code{solution}.
 }
 
-\item{\code{x} has \code{matrix} planning units}{The argument to \code{solution} must be a
+\item{\code{x} has \code{matrix} planning units}{Here \code{solution} must be a
 \code{matrix} vector with each row corresponding to a different planning
 unit, and each column correspond to a different management zone.
 It should have the same number of planning units and zones
-as those in the argument to \code{x}. Additionally, any planning units
+as those in \code{x}. Additionally, any planning units with
 missing cost (\code{NA}) values for a particular zone should also have a
-missing (\code{NA}) values in the argument to \code{solution}.
+missing (\code{NA}) values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{The argument to \code{solution}
+\item{\code{x} has \code{\link[terra:rast]{terra::rast()}} planning units}{Here \code{solution}
 be a \code{\link[terra:rast]{terra::rast()}} object where different cells correspond
 to different planning units and layers correspond to
 a different management zones. It should have the same dimensionality
 (rows, columns, layers), resolution, extent, and coordinate reference
-system as the planning units in the argument to \code{x}. Additionally,
-any planning units missing cost (\code{NA}) values for a particular zone
-should also have missing (\code{NA})  values in the argument to \code{solution}.
+system as the planning units in \code{x}. Additionally,
+any planning units with missing cost (\code{NA}) values for a particular zone
+should also have missing (\code{NA})  values in \code{solution}.
 }
 
-\item{\code{x} has \code{data.frame} planning units}{The argument to \code{solution} must
+\item{\code{x} has \code{data.frame} planning units}{Here \code{solution} must
 be a \code{data.frame} with each column corresponding to a different zone,
 each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if a \code{data.frame}
 object containing the solution also contains additional columns, then
 these columns will need to be subsetted prior to using this function
 (see below for example with \code{\link[sf:sf]{sf::sf()}} data).
-Additionally, any planning units missing cost
+Additionally, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 
-\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{The argument to \code{solution} must be
+\item{\code{x} has \code{\link[sf:sf]{sf::sf()}} planning units}{Here \code{solution} must be
 a \code{\link[sf:sf]{sf::sf()}} object with each column corresponding to a different
 zone, each row corresponding to a different planning unit, and cell values
 corresponding to the solution value. This means that if the
 \code{\link[sf:sf]{sf::sf()}} object containing the solution also contains additional
 columns, then these columns will need to be subsetted prior to using this
 function (see below for example).
-Additionally, the argument to \code{solution} must also have the same
+Additionally, \code{solution} must also have the same
 coordinate reference system as the planning unit data.
-Furthermore, any planning units missing cost
+Furthermore, any planning units with missing cost
 (\code{NA}) values for a particular zone should also have missing (\code{NA})
-values in the argument to \code{solution}.
+values in \code{solution}.
 }
 }
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -308,17 +362,18 @@ r3$zone2 <- vapply(r3$zone, FUN.VALUE = character(1), paste, sep = " & ")
 
 # print r3 again to show the new column
 print(r3, width = Inf)
-}
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{summaries} for an overview of all functions for summarizing solutions.
 
 Other functions for summarizing solutions:
-\code{\link{eval_asym_connectivity_summary}()},
-\code{\link{eval_boundary_summary}()},
-\code{\link{eval_connectivity_summary}()},
-\code{\link{eval_cost_summary}()},
-\code{\link{eval_feature_representation_summary}()},
-\code{\link{eval_n_summary}()}
+\code{\link[=eval_asym_connectivity_summary]{eval_asym_connectivity_summary()}},
+\code{\link[=eval_boundary_summary]{eval_boundary_summary()}},
+\code{\link[=eval_connectivity_summary]{eval_connectivity_summary()}},
+\code{\link[=eval_cost_summary]{eval_cost_summary()}},
+\code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}},
+\code{\link[=eval_n_summary]{eval_n_summary()}},
+\code{\link[=eval_objective_summary]{eval_objective_summary()}}
 }
 \concept{summaries}

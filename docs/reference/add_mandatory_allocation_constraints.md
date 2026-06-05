@@ -29,23 +29,21 @@ For a conservation planning
 management zones, it may sometimes be desirable to obtain a solution
 that assigns each and every planning unit to a zone. For example, when
 developing land-use plans, some decision makers may require that every
-parcel of land is allocated a specific land-use type. In other words are
-no "left over" areas. Although it might seem tempting to simply solve
-the problem and manually assign "left over" planning units to a default
-zone afterwards (e.g., an "other", "urban", or "grazing" land-use), this
-could result in highly sub-optimal solutions if there are penalties for
-siting the default land-use adjacent to other zones. Instead, this
-function can be used to specify that all planning units in a problem
+parcel of land is allocated a specific land-use type. In other words,
+there are no "left over" areas. Although it might seem tempting to
+simply solve the problem and manually assign "left over" planning units
+to a default zone afterwards (e.g., an "other", "urban", or "grazing"
+land-use), this could result in highly sub-optimal solutions if there
+are penalties for particular zones next to each other. Instead, this
+function can be used to specify that, all planning units in a problem
 with multiple zones must be allocated to a management zone (i.e., zone
 allocation is mandatory).
 
 ## See also
 
-See [constraints](https://prioritizr.net/reference/constraints.md) for
-an overview of all functions for adding constraints.
-
 Other functions for adding constraints:
 [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+[`add_cost_constraints()`](https://prioritizr.net/reference/add_cost_constraints.md),
 [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
 [`add_linear_constraints()`](https://prioritizr.net/reference/add_linear_constraints.md),
 [`add_locked_in_constraints()`](https://prioritizr.net/reference/add_locked_in_constraints.md),
@@ -57,7 +55,6 @@ Other functions for adding constraints:
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -92,6 +89,4 @@ c2 <- category_layer(s2)
 
 # plot solution category layers
 plot(c(c1, c2), main = c("default", "mandatory allocation"), axes = FALSE)
-
-# }
 ```

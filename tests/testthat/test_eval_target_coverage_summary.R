@@ -15,9 +15,9 @@ test_that("binary values (single zone)", {
   s <- rep(c(0, 1), 5)
   s[is.na(pu$cost)] <- NA_real_
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, s)
+  x <- eval_target_coverage_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -36,15 +36,16 @@ test_that("binary values (single zone)", {
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (single zone)", {
@@ -65,9 +66,9 @@ test_that("proportion values (single zone)", {
   s <- runif(10)
   s[is.na(pu$cost)] <- NA_real_
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, s)
+  x <- eval_target_coverage_summary(p, s)
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -86,15 +87,16 @@ test_that("proportion values (single zone)", {
     relative_target = c(0.3, 0.8),
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (multiple zones)", {
@@ -126,10 +128,10 @@ test_that("binary values (multiple zones)", {
     ) %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
+  x <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     zone = targets$zone,
     sense = targets$sense,
@@ -150,15 +152,16 @@ test_that("binary values (multiple zones)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("proportion values (multiple zones)", {
@@ -190,10 +193,10 @@ test_that("proportion values (multiple zones)", {
     ) %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
+  x <- eval_target_coverage_summary(p, pu[, c("s1", "s2")])
   # create correct result
   idx <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = c("spp1", "spp2"),
     zone = targets$zone,
     sense = targets$sense,
@@ -214,15 +217,16 @@ test_that("proportion values (multiple zones)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y <- y[, c(
     "feature", "zone", "sense", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (single zone, variable target sense, none met)", {
@@ -246,9 +250,9 @@ test_that("binary values (single zone, variable target sense, none met)", {
     problem(pu, targets$feature, "cost") %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
+  x <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = targets$feature,
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -269,15 +273,18 @@ test_that("binary values (single zone, variable target sense, none met)", {
     relative_target = targets$target,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = absolute_shortfall < 1e-10
   )
-  r2 <- r2[, c(
+  y$relative_held[c(2, 3)] <- NA_real_
+  y$relative_met[c(2, 3)] <- NA_real_
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
 })
 
 test_that("binary values (single zone, variable target sense, all met)", {
@@ -302,9 +309,9 @@ test_that("binary values (single zone, variable target sense, all met)", {
     problem(pu, targets$feature, "cost") %>%
     add_manual_targets(targets)
   # calculate target coverage
-  r1 <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
+  x <- eval_target_coverage_summary(p, pu[, "s", drop = FALSE])
   # create correct result
-  r2 <- tibble::tibble(
+  y <- tibble::tibble(
     feature = targets$feature,
     total_amount = c(
       sum(pu$spp1, na.rm = TRUE),
@@ -321,13 +328,137 @@ test_that("binary values (single zone, variable target sense, all met)", {
     relative_target = absolute_target / total_amount,
     relative_held = absolute_held / total_amount,
     relative_shortfall = absolute_shortfall / absolute_target,
+    relative_met = pmin(absolute_held / absolute_target, 1),
     met = TRUE
   )
-  r2 <- r2[, c(
+  y$relative_held[c(2, 3)] <- NA_real_
+  y$relative_met[c(2, 3)] <- NA_real_
+  y <- y[, c(
     "feature", "met", "total_amount",
     "absolute_target", "absolute_held", "absolute_shortfall",
-    "relative_target", "relative_held", "relative_shortfall"
+    "relative_target", "relative_held", "relative_shortfall", "relative_met"
   )]
   # run tests
-  expect_equal(r1, r2)
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (single zone)", {
+  # import data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # create multi-object problem
+  mp <- suppressMessages(
+    multi_problem(
+      obj1 =
+        problem(sim_zones_pu_raster[[1]], sim_features) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(seq_along(terra::nlyr(sim_features))) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(sim_zones_pu_raster[[2]], sim_features) %>%
+        add_max_wtd_sum_objective(budget = 100) %>%
+        add_binary_decisions(),
+      obj3 =
+        problem(sim_zones_pu_raster[[3]], sim_features) %>%
+        add_min_shortfall_objective(budget = 200) %>%
+        add_absolute_targets(rev(seq_along(terra::nlyr(sim_features)))) %>%
+        add_binary_decisions()
+    )
+  )
+  # create solution
+  solution <- terra::as.int(
+    sim_zones_pu_raster[[1]] >
+    terra::global(sim_zones_pu_raster[[1]], "mean", na.rm = TRUE)[[1]]
+  )
+  # calculate target coverage
+  expect_warning(
+    x <- eval_target_coverage_summary(mp, solution),
+    "does not have targets"
+  )
+  # calculate correct result
+  y <- tibble::as_tibble(
+    rbind(
+      cbind(
+        data.frame(problem = "obj1"),
+        eval_target_coverage_summary(mp$problems[[1]], solution)
+      ),
+      cbind(
+        data.frame(problem = "obj3"),
+        eval_target_coverage_summary(mp$problems[[3]], solution)
+      )
+    )
+  )
+  # run tests
+  expect_equal(x, y)
+})
+
+test_that("multi_problem (multiple zones)", {
+  # simulate data
+  pu <- data.frame(
+    id = seq_len(10),
+    cost_1 = c(NA, NA, runif(8)),
+    cost_2 = c(0.3, NA, runif(8)),
+    spp1_1 = runif(10), spp2_1 = c(rpois(9, 4), NA),
+    spp1_2 = runif(10), spp2_2 = runif(10),
+    s1 = c(NA, NA, rep(c(0, 1), 4)),
+    s2 = c(1, NA, rep(c(1, 0), 4))
+  )
+  targets <- tibble::tibble(
+    feature = c("spp1", "spp2"),
+    zone = list(c("z1", "z2"), c("z2")),
+    sense = ">=", type = "absolute",
+    target = c(6, 10)
+  )
+  # create problem
+  mp <-
+    multi_problem(
+      obj1 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1"), z2 = c("spp1_2"),
+            feature_names = c("spp1")
+          )
+        ) %>%
+        add_max_wtd_sum_objective(1000) %>%
+        add_binary_decisions(),
+      obj2 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
+            feature_names = c("spp1", "spp2")
+          )
+        ) %>%
+        add_min_set_objective() %>%
+        add_manual_targets(targets) %>%
+        add_binary_decisions(),
+      obj3 =
+        problem(
+          pu,
+          cost_column = c("cost_1", "cost_2"),
+          zones(
+            z1 = c("spp1_1"), z2 = c("spp1_2"),
+            feature_names = c("spp1")
+          )
+        ) %>%
+        add_max_wtd_sum_objective(1000) %>%
+        add_binary_decisions()
+    )
+  # calculate target coverage
+  expect_warning(
+    x <- eval_target_coverage_summary(mp, pu[, c("s1", "s2")]),
+    "do not have targets"
+  )
+  # calculate correct result
+  y <- tibble::as_tibble(
+    cbind(
+      data.frame(problem = "obj2"),
+      eval_target_coverage_summary(mp$problems[[2]], pu[, c("s1", "s2")])
+    )
+  )
+  # run tests
+  expect_equal(x, y)
 })

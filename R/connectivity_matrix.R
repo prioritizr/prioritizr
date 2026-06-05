@@ -11,31 +11,31 @@ NULL
 #'
 #' @param x [terra::rast()] or [sf::sf()] object representing planning units.
 #'
-#' @param y [terra::rast()] object showing the conductance
-#'   of different areas across the study area, or a `character` object
-#'   denoting a column name in the attribute table of `x` that contains
-#'   the conductance values. Note that argument to `y` can only be a
-#'   `character` object if the argument to `x` is a [sf::sf()] object.
-#'   Also, note that if the argument to `x` is a
-#'   [terra::rast()] object then
-#'   argument to `y` must have the same spatial properties as it
-#'   (i.e., coordinate system, extent, resolution).
+#' @param y [terra::rast()] object denoting the conductance
+#' of different areas across the study area, or a `character` object
+#' denoting a column name of `x` that contains
+#' the conductance values. Note `y` can only be a
+#' `character` object if `x` is a [sf::sf()] object.
+#' Also, note that if `x` is a
+#' [terra::rast()] object then
+#' `y` must have the same spatial properties as `x`
+#' (i.e., coordinate system, extent, resolution).
 #'
 #' @param ... additional arguments passed to [fast_extract()] for
-#'   extracting and calculating the conductance values for each planning unit.
-#'   These arguments are only used if argument to `x` is a
-#'   [sf::sf()] object and argument to `y` is a [terra::rast()] object.
+#' extracting and calculating the conductance values for each planning unit.
+#' Note that these arguments are only used if `x` is a
+#' [sf::sf()] object and `y` is a [terra::rast()] object.
 #'
-#' @details Shared boundary calculations are performed using
-#'   [boundary_matrix()].
+#' @details
+#' Shared boundary calculations are performed using [boundary_matrix()].
 #'
 #' @return
 #' A [`Matrix::dsCMatrix-class`] symmetric sparse matrix object.
 #' Each row and column represents a planning unit.
 #' Cells values indicate the connectivity between different pairs of planning
 #' units.
-#' To reduce computational burden, cells among the matrix diagonal are
-#' set to zero. Furthermore, if the argument to `x` is a
+#' To reduce computational burden, cells along the matrix diagonal are
+#' set to zero. Furthermore, if `x` is a
 #' [terra::rast()] object, then cells with missing (`NA`)
 #' values are set to zero too.
 #'
@@ -47,8 +47,7 @@ NULL
 #' Connectivity matrix data might need rescaling to improve optimization
 #' performance, see [rescale_matrix()] to perform these calculations.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -160,7 +159,6 @@ NULL
 #' ## plot data and matrix
 #' plot(r, main = "planning units (raster)", axes = FALSE)
 #' Matrix::image(cm_zwsum, main = "connectivity matrix")
-#' }
 #'
 #' @aliases connectivity_matrix,Spatial,character-method connectivity_matrix,Spatial,Raster-method connectivity_matrix,Raster,Raster-method connectivity_matrix,sf,character-method connectivity_matrix,sf,Raster-method connectivity_matrix,sf,SpatRaster-method connectivity_matrix,SpatRaster,SpatRaster-method
 #'

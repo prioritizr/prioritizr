@@ -32,13 +32,12 @@ intersecting_units(x, y)
 \S4method{intersecting_units}{sf,SpatRaster}(x, y)
 }
 \arguments{
-\item{x}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
+\item{x}{\code{\link[sf:st_sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\link[sf:sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
+\item{y}{\code{\link[sf:st_sf]{sf::st_sf()}} or \code{\link[terra:rast]{terra::rast()}} object.}
 }
 \value{
-An \code{integer} vector of indices of the units in \code{x} that intersect
-with \code{y}.
+An \code{integer} vector with indices of the units in \code{x}.
 }
 \description{
 Find which of the units in a spatial data object intersect
@@ -54,7 +53,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create data
 r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
@@ -85,8 +84,7 @@ par(mfrow = c(1, 2))
 plot(ply, main = "x = sf", key.pos = NULL, reset = FALSE)
 plot(ply_with_holes, main = "y = sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(ply, ply_with_holes))
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \code{\link[=fast_extract]{fast_extract()}} for extracting data from spatial datasets.

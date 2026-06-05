@@ -9,13 +9,15 @@ NULL
 #' as "one-hot encoding".
 #'
 #' @param x [terra::rast()] object with a single layer that contains integer
-#'   values.
+#' values.
 #'
 #' @param keep_all `logical` value indicating if all integers should be kept
-#'   in the output. If `TRUE`, the output will contain a layer for each
-#'   sequential integer between 1 and the maximum value in `x`. If `FALSE`,
-#'   the output will only contain layers for integer values present in `x`.
-#'   Defaults to `TRUE.`
+#' in the returned object.
+#' If `keep_all = TRUE`, then the returned object will contain a layer
+#' for each sequential integer between 1 and the maximum value in `x`.
+#' Otherwise, if `keep_all = FALSE`,
+#' then the returned object will only contain layers for integer values present
+#' in `x`. Defaults to `TRUE.`
 #'
 #' @details
 #' This function is provided to help manage data that encompass
@@ -32,22 +34,19 @@ NULL
 #' The [category_layer()] function performs the reverse of this function.
 #' Also the [terra::segregate()] function provides similar functionality.
 #'
-#' @examples
+#' @examplesIf prioritizr::do_run_example()
 #' # create raster with categorical values
 #' x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 #'
 #' # plot the raster
-#' \dontrun{
 #' plot(x, main = "x")
-#' }
 #'
 #' # convert to binary stack
 #' y <- binary_stack(x)
 #'
 #' # plot result
-#' \dontrun{
 #' plot(y)
-#' }
+#'
 #' @export
 binary_stack <- function(x, keep_all = TRUE) {
   assert_required(x)

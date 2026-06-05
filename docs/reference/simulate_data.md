@@ -37,26 +37,29 @@ simulate_data(
 
 - n:
 
-  `integer` number of layers to simulate. Defaults to 1.
+  `integer` value denoting the number of layers to simulate. Defaults to
+  1.
 
 - scale:
 
-  `numeric` parameter to control level of spatial auto-correlation in
-  the simulated data. Defaults to 0.5.
+  `numeric` value denoting the level of spatial auto-correlation in the
+  simulated data. Defaults to 0.5.
 
 - intensity:
 
-  `numeric` average value of simulated data. Defaults to 0.
+  `numeric` value denoting the average value of simulated data. Defaults
+  to 0.
 
 - sd:
 
-  `numeric` standard deviation of simulated data. Defaults to 1.
+  `numeric` value denoting the standard deviation of simulated data.
+  Defaults to 1.
 
 - transform:
 
-  `function` transform values output from the simulation. Defaults to
-  the [`identity()`](https://rdrr.io/r/base/identity.html) function such
-  that values remain the same following transformation.
+  `function` to transform simulated data. Defaults to the
+  [`identity()`](https://rdrr.io/r/base/identity.html) function such
+  that values remain the same after simulation.
 
 ## Value
 
@@ -73,7 +76,6 @@ Other functions for simulating data:
 ## Examples
 
 ``` r
-# \dontrun{
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -84,6 +86,4 @@ x <- simulate_data(r, n = 1, scale = 0.2)
 
 # plot simulated data
 plot(x, main = "simulated data", axes = FALSE)
-
-# }
 ```

@@ -10,6 +10,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
@@ -20,7 +22,7 @@ Other classes:
 
 ## Super class
 
-[`prioritizr::ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
+[`ConservationModifier`](https://prioritizr.net/reference/ConservationModifier-class.md)
 -\> `Portfolio`
 
 ## Methods
@@ -33,18 +35,18 @@ Other classes:
 
 Inherited methods
 
-- [`prioritizr::ConservationModifier$calculate()`](https://prioritizr.net/reference/ConservationModifier.html#method-calculate)
-- [`prioritizr::ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
-- [`prioritizr::ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
-- [`prioritizr::ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
-- [`prioritizr::ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
-- [`prioritizr::ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
-- [`prioritizr::ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
-- [`prioritizr::ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
+- [`ConservationModifier$calculate()`](https://prioritizr.net/reference/ConservationModifier.html#method-calculate)
+- [`ConservationModifier$get_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_data)
+- [`ConservationModifier$get_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-get_internal)
+- [`ConservationModifier$print()`](https://prioritizr.net/reference/ConservationModifier.html#method-print)
+- [`ConservationModifier$repr()`](https://prioritizr.net/reference/ConservationModifier.html#method-repr)
+- [`ConservationModifier$set_data()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_data)
+- [`ConservationModifier$set_internal()`](https://prioritizr.net/reference/ConservationModifier.html#method-set_internal)
+- [`ConservationModifier$show()`](https://prioritizr.net/reference/ConservationModifier.html#method-show)
 
 ------------------------------------------------------------------------
 
-### Method `run()`
+### `Portfolio$run()`
 
 Run the portfolio to generate solutions.
 
@@ -65,11 +67,11 @@ Run the portfolio to generate solutions.
 
 #### Returns
 
-`list` of solutions.
+A `list` of solutions.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `Portfolio$clone()`
 
 The objects of this class are cloneable with this method.
 

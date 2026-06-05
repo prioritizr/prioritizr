@@ -44,11 +44,13 @@ adjacency_matrix(x, ...)
 
 - directions:
 
-  `integer` If `x` is a
+  `integer` value. If `x` is a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object, the number of directions in which cells should be considered
-  adjacent: 4 (rook's case), 8 (queen's case), 16 (knight and one-cell
-  queen moves), or "bishop" to for cells with one-cell diagonal moves.
+  adjacent: 4 (rook's case), 8 (queen's case), or 16 (knight and
+  one-cell queen moves). Note if `x` is a
+  [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object,
+  then `directions` has no effect.
 
 ## Value
 
@@ -57,8 +59,8 @@ A
 sparse symmetric matrix. Each row and column represents a planning unit.
 Cells values indicate if different planning units are adjacent to each
 other or not (using ones and zeros). To reduce computational burden,
-cells among the matrix diagonal are set to zero. Furthermore, if the
-argument to `x` is a
+cells among the matrix diagonal are set to zero. Furthermore, if `x` is
+a
 [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
 object, then cells with `NA` values are set to zero too.
 
@@ -83,7 +85,6 @@ other spatial association matrix functions.
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -114,7 +115,4 @@ Matrix::image(am_raster, main = "adjacency matrix")
 plot(ply[, 1], main = "polygons")
 
 Matrix::image(am_ply, main = "adjacency matrix")
-
-
-# }
 ```

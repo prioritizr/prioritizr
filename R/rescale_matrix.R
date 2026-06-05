@@ -6,7 +6,7 @@
 #'
 #' @param x [`matrix`], [`array`], [`Matrix::Matrix-class`] object.
 #'
-#' @param max `numeric` new maximum value in matrix. Defaults to 1000.
+#' @param max `numeric` new maximum value in matrix. Defaults to 1.
 #'
 #' @details
 #' This function is particularly useful for rescaling data prior to
@@ -22,17 +22,22 @@
 #' [add_connectivity_penalties()], this can help avoid numerical issues
 #' during optimization.
 #'
+#' @section Notes:
+#' In previous versions, the default value for `max` was 1000.
+#' This default value has since been changed to a value of 1 to help
+#' ensure that the default scaling provides a better range of
+#' values for optimization.
+#'
 #' @return
 #' A [`matrix`], [`array`], or [`Matrix::Matrix-class`] object.
-#' The returned object is the is the same class as the argument to `x`.
+#' The returned object is the same class as `x`.
 #'
 #' @seealso
 #' See [boundary_matrix()] and [connectivity_matrix()] for details on
 #' creating boundary length and connectivity data.
 #' Also, see [presolve_check()] for information on numerical issues.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # rescale_matrix() is especially useful for re-scaling boundary length data
 #' # prior to optimization, and so here we provide an example showing how
 #' # this can be accomplished
@@ -64,17 +69,16 @@
 #'
 #' # plot solution
 #' plot(s)
-#' }
 #'
 #' @export
-rescale_matrix <- function(x, max = 1000) {
+rescale_matrix <- function(x, max = 1) {
   assert_required(x)
   assert_required(max)
   UseMethod("rescale_matrix")
 }
 
 #' @export
-rescale_matrix.matrix <- function(x, max = 1000) {
+rescale_matrix.matrix <- function(x, max = 1) {
   # assert valid arguments
   assert_required(x)
   assert_required(max)
@@ -92,7 +96,7 @@ rescale_matrix.matrix <- function(x, max = 1000) {
 }
 
 #' @export
-rescale_matrix.array <- function(x, max = 1000) {
+rescale_matrix.array <- function(x, max = 1) {
   # assert valid arguments
   assert_required(x)
   assert_required(max)
@@ -110,7 +114,7 @@ rescale_matrix.array <- function(x, max = 1000) {
 }
 
 #' @export
-rescale_matrix.Matrix <- function(x, max = 1000) {
+rescale_matrix.Matrix <- function(x, max = 1) {
   # assert valid arguments
   assert_required(x)
   assert_required(max)

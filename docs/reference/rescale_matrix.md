@@ -7,7 +7,7 @@ user-specified maximum value.
 ## Usage
 
 ``` r
-rescale_matrix(x, max = 1000)
+rescale_matrix(x, max = 1)
 ```
 
 ## Arguments
@@ -21,15 +21,14 @@ rescale_matrix(x, max = 1000)
 
 - max:
 
-  `numeric` new maximum value in matrix. Defaults to 1000.
+  `numeric` new maximum value in matrix. Defaults to 1.
 
 ## Value
 
 A [`matrix`](https://rdrr.io/r/base/matrix.html),
 [`array`](https://rdrr.io/r/base/array.html), or
 [`Matrix::Matrix`](https://rdrr.io/pkg/Matrix/man/Matrix-class.html)
-object. The returned object is the is the same class as the argument to
-`x`.
+object. The returned object is the same class as `x`.
 
 ## Details
 
@@ -51,6 +50,12 @@ or
 [`add_connectivity_penalties()`](https://prioritizr.net/reference/add_connectivity_penalties.md),
 this can help avoid numerical issues during optimization.
 
+## Notes
+
+In previous versions, the default value for `max` was 1000. This default
+value has since been changed to a value of 1 to help ensure that the
+default scaling provides a better range of values for optimization.
+
 ## See also
 
 See
@@ -64,7 +69,6 @@ for information on numerical issues.
 ## Examples
 
 ``` r
-# \dontrun{
 # rescale_matrix() is especially useful for re-scaling boundary length data
 # prior to optimization, and so here we provide an example showing how
 # this can be accomplished
@@ -96,6 +100,4 @@ s <- solve(p)
 
 # plot solution
 plot(s)
-
-# }
 ```

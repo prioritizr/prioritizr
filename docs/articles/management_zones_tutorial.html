@@ -13,8 +13,8 @@
 <link rel="manifest" href="../site.webmanifest">
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="../katex-auto.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
 <meta property="og:title" content="Management zones tutorial">
@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,7 +145,7 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.8.93</span></span></code></pre>
+<pre><code><span><span class="co">## terra 1.9.27</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'terra'</span></span></code></pre>
 <pre><code><span><span class="co">## The following object is masked from 'package:prioritizr':</span></span>
@@ -178,35 +178,36 @@ are selected or not selected for protection.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, … (5 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (all equal to <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -251,7 +252,7 @@ are selected or not selected for protection.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 1.987398529053e+03, best bound 1.931581907658e+03, gap 2.8085%</span></span></code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></span></code></pre></div>
@@ -263,7 +264,7 @@ are selected or not selected for protection.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> overall feature_3         72.0          7.34         0.102</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> overall feature_4         42.7          4.35         0.102</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> overall feature_5         56.7          6.01         0.106</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
@@ -284,7 +285,7 @@ must be allocated to either zone or not selected for management at all.
 In this example, each planning unit costs the same when it is allocated
 to either of the two zones. We can formulate and solve this problem
 using the following code.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a matrix with the targets</span></span>
 <span><span class="co"># here each column corresponds to a different zone,</span></span>
 <span><span class="co"># each row corresponds to a different feature, and</span></span>
@@ -301,7 +302,7 @@ using the following code.</p>
 <span><span class="co">## [3,]  0.1 0.05</span></span>
 <span><span class="co">## [4,]  0.1 0.05</span></span>
 <span><span class="co">## [5,]  0.1 0.05</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a zones object that contains the amount of each feature</span></span>
 <span><span class="co"># in each planning unit when it is allocated to each zone</span></span>
 <span><span class="co"># since our zones pertain to the same habitat data, we will</span></span>
@@ -313,7 +314,7 @@ using the following code.</p>
 <pre><code><span><span class="co">## A zones object <span style="color: #0000BB;">&lt;ZonesSpatRaster/Zones&gt;</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> zones:    <span style="color: #0000BB;">"zone 1"</span> and <span style="color: #0000BB;">"zone 2"</span> (2 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> features: <span style="color: #0000BB;">"1"</span>, <span style="color: #0000BB;">"2"</span>, <span style="color: #0000BB;">"3"</span>, <span style="color: #0000BB;">"4"</span>, and <span style="color: #0000BB;">"5"</span> (5 total)</span></span></code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a multi-layer raster with the planning unit data</span></span>
 <span><span class="co">## since our planning unit costs are the same for each zone,</span></span>
 <span><span class="co">## we will create a raster with two replicates of the cost data</span></span>
@@ -321,17 +322,16 @@ using the following code.</p>
 <span></span>
 <span><span class="co"># print planning units</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">pu2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## class       : SpatRaster </span></span>
+<pre><code><span><span class="co">## class       : SpatRaster</span></span>
 <span><span class="co">## size        : 10, 10, 2  (nrow, ncol, nlyr)</span></span>
 <span><span class="co">## resolution  : 0.1, 0.1  (x, y)</span></span>
 <span><span class="co">## extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)</span></span>
-<span><span class="co">## coord. ref. : Undefined Cartesian SRS </span></span>
-<span><span class="co">## sources     : sim_pu_raster.tif  </span></span>
-<span><span class="co">##               sim_pu_raster.tif  </span></span>
-<span><span class="co">## names       :    layer,    layer </span></span>
-<span><span class="co">## min values  : 190.1328, 190.1328 </span></span>
-<span><span class="co">## max values  : 215.8638, 215.8638</span></span></code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<span><span class="co">## coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)</span></span>
+<span><span class="co">## sources     : sim_pu_raster.tif</span></span>
+<span><span class="co">## names       :      layer,      layer</span></span>
+<span><span class="co">## min values  : 190.132751, 190.132751</span></span>
+<span><span class="co">## max values  : 215.863846, 215.863846</span></span></code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># build two-zone problem</span></span>
 <span><span class="va">p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -349,30 +349,31 @@ using the following code.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">190.1328</span> and <span style="color: #0000BB;">215.8638</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -416,7 +417,7 @@ using the following code.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.222464019775e+03, best bound 2.911333356299e+03, gap 9.6551%</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span></code></pre></div>
@@ -438,7 +439,7 @@ using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">13</span> zone 2  3               72.0          4.21        0.058<span style="text-decoration: underline;">6</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">14</span> zone 2  4               42.7          2.73        0.064<span style="text-decoration: underline;">0</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">15</span> zone 2  5               56.7          3.58        0.063<span style="text-decoration: underline;">1</span></span></span></code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="co"># here we use the category layer function to generate raster showing the zone</span></span>
 <span><span class="co"># that each planning unit was allocated. Specifically, pixels with the</span></span>
@@ -466,7 +467,7 @@ the habitat we would get if we managed the unit in the first zone (e.g.,
 because the second zone is a partial-take zone and the first zone is a
 no-take zone). We will use the same target data as in the previous
 example.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create new planning unit and cost data</span></span>
 <span><span class="va">pu3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_data.html">get_sim_zones_pu_raster</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
@@ -476,7 +477,7 @@ example.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="576" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p3</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -494,30 +495,31 @@ example.</p>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (90 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">182.6017</span> and <span style="color: #0000BB;">221.363</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    relative targets (between <span style="color: #0000BB;">0.05</span> and <span style="color: #0000BB;">0.1</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -561,7 +563,7 @@ example.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.199667068481e+03, best bound 2.884872007846e+03, gap 9.8384%</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></span></code></pre></div>
@@ -583,7 +585,7 @@ example.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">13</span> 2       3               36.0         2.16         0.060<span style="text-decoration: underline;">0</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">14</span> 2       4               21.3         1.37         0.064<span style="text-decoration: underline;">2</span></span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">15</span> 2       5               28.4         1.74         0.061<span style="text-decoration: underline;">3</span></span></span></code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>,</span>
@@ -614,7 +616,7 @@ targets are for each feature and across multiple zones. In other words,
 we don’t really care which management actions we implement, we just want
 the set of actions that will meet our targets for minimum expenditure.
 We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create planning unit data with costs</span></span>
 <span><span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rspatial.github.io/terra/reference/is.bool.html" class="external-link">as.int</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
@@ -629,7 +631,7 @@ We can formulate and solve this problem using the following code.</p>
 <span>  xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-8-1.png" class="r-plt" alt="" width="624" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create targets</span></span>
 <span><span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  feature <span class="op">=</span> <span class="fu"><a href="https://rspatial.github.io/terra/reference/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,</span>
@@ -648,7 +650,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> feature_3 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> feature_4 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> feature_5 <span style="color: #949494;">&lt;chr [3]&gt;</span>      8 absolute</span></span></code></pre>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -670,35 +672,36 @@ We can formulate and solve this problem using the following code.</p>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>zones:       <span style="color: #0000BB;">"few traps"</span>, <span style="color: #0000BB;">"many traps"</span>, and <span style="color: #0000BB;">"baiting"</span> (3 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, … (5 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints: <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -745,7 +748,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</span></span></code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></span></code></pre></div>
@@ -772,7 +775,7 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          15.2          0.264</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1          11.6          0.340</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4          12.7          0.281</span></span></code></pre>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -785,7 +788,7 @@ recall that we can’t use baits in most of the planning units because
 they contain native species that are susceptible to baits. So now we
 need to specify which of our planning units cannot be assigned to the
 third zone (baiting) to obtain a more useful solution.</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create data.frame to specify that we cannot bait in the first 80 units</span></span>
 <span><span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>, zone <span class="op">=</span> <span class="st">"baiting"</span>, status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
@@ -800,7 +803,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span>     4 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span>     5 baiting      0</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span>     6 baiting      0</span></span></code></pre>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p5</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -823,36 +826,37 @@ third zone (baiting) to obtain a more useful solution.</p>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>zones:       <span style="color: #0000BB;">"few traps"</span>, <span style="color: #0000BB;">"many traps"</span>, and <span style="color: #0000BB;">"baiting"</span> (3 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, … (5 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:   <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -900,7 +904,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
 <span><span class="co">## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</span></span></code></pre>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></span></code></pre></div>
@@ -927,7 +931,7 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -943,7 +947,7 @@ units allocated to the two trapping zones together, and penalties that
 will cluster the planning units allocated to the baiting zone together.
 We will also set an overall penalty factor to 640 to strongly penalize
 fragmented solutions.</p>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describes boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span>
@@ -958,7 +962,7 @@ fragmented solutions.</p>
 <span><span class="co">## few traps          1          1       0</span></span>
 <span><span class="co">## many traps         1          1       0</span></span>
 <span><span class="co">## baiting            0          0       1</span></span></code></pre>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create problem</span></span>
 <span><span class="va">p6</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span></span>
@@ -982,37 +986,38 @@ fragmented solutions.</p>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>zones:       <span style="color: #0000BB;">"few traps"</span>, <span style="color: #0000BB;">"many traps"</span>, and <span style="color: #0000BB;">"baiting"</span> (3 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, … (5 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5, 0.5</span>, and <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -1025,68 +1030,83 @@ fragmented solutions.</p>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros (Min)</span></span>
-<span><span class="co">## Model fingerprint: 0xa1eb9e03</span></span>
+<span><span class="co">## Model fingerprint: 0x4a95c3c3</span></span>
 <span><span class="co">## Model has 1200 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 900 continuous, 300 integer (300 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
-<span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
+<span><span class="co">##   Objective range  [3e+02, 9e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Found heuristic solution: objective 20096.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 29840.000000</span></span>
 <span><span class="co">## Presolve removed 1028 rows and 232 columns</span></span>
-<span><span class="co">## Presolve time: 0.03s</span></span>
+<span><span class="co">## Presolve time: 0.02s</span></span>
 <span><span class="co">## Presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 968 integer (968 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 877 rows, 968 columns, 2712 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds (0.01 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.289388e+04, 662 iterations, 0.01 seconds (0.01 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11408.000000 10054.0986  11.9%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11300.000000 10054.0986  11.0%     -    0s</span></span>
-<span><span class="co">## H    0     0                    11112.000000 10054.0986  9.52%     -    0s</span></span>
+<span><span class="co">##      0     0 12893.8842    0  141 29840.0000 12893.8842  56.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    22960.000000 12893.8842  43.8%     -    0s</span></span>
+<span><span class="co">## H    0     0                    18060.000000 12893.8842  28.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    17180.000000 12893.8842  24.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    16880.000000 12893.8842  23.6%     -    0s</span></span>
+<span><span class="co">## H    0     0                    16580.000000 12893.8842  22.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    16500.000000 12893.8842  21.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    16400.000000 12893.8842  21.4%     -    0s</span></span>
+<span><span class="co">##      0     0 13004.1024    0  207 16400.0000 13004.1024  20.7%     -    0s</span></span>
+<span><span class="co">##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s</span></span>
+<span><span class="co">##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s</span></span>
+<span><span class="co">##      0     0 13082.4685    0  192 16400.0000 13082.4685  20.2%     -    0s</span></span>
+<span><span class="co">## H    0     0                    15520.000000 13082.4685  15.7%     -    0s</span></span>
+<span><span class="co">## H    0     0                    15200.000000 13082.4685  13.9%     -    0s</span></span>
+<span><span class="co">## H    0     0                    15120.000000 13082.4685  13.5%     -    0s</span></span>
+<span><span class="co">## H    0     0                    13780.000000 13082.4685  5.06%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (685 simplex iterations) in 0.04 seconds (0.04 work units)</span></span>
+<span><span class="co">## Cutting planes:</span></span>
+<span><span class="co">##   Gomory: 3</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (1169 simplex iterations) in 0.11 seconds (0.15 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 4: 11112 11300 11408 20096 </span></span>
+<span><span class="co">## Solution count 10: 13780 15120 15200 ... 18060</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.111200000000e+04, best bound 1.005600000000e+04, gap 9.5032%</span></span></code></pre>
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 1.378000000000e+04, best bound 1.310000000000e+04, gap 4.9347%</span></span></code></pre>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
 <span><span class="co">##    summary    feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           23.3          0.200</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.41         0.192</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           18.6          0.185</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          12.1          0.202</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          16.2          0.204</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           22.4          0.192</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.03         0.184</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           17.8          0.176</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          11.7          0.196</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          15.7          0.197</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few traps  feature_1         8.33          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few traps  feature_2         3.12          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few traps  feature_3         7.20          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few traps  feature_4         4.27          0            0    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> few traps  feature_5         5.67          0            0    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           8.82         0.212</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.79         0.243</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           6.89         0.192</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           6.01         0.282</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           6.23         0.220</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           7.95         0.191</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           3.41         0.219</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           6.06         0.169</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           5.65         0.265</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           5.68         0.200</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    feature_1        66.6          14.4          0.217</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    feature_2        25.0           4.62         0.185</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
-<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -1104,7 +1124,7 @@ planning unit needs to be allocated to a specific management zone.
 Though it makes less sense here, let’s see what happens to the solution
 if we needed to do at least one form of control in every single planning
 unit.</p>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create matrix that describe boundary penalties between planning units</span></span>
 <span><span class="co"># allocated to different zones</span></span>
 <span><span class="va">p7</span> <span class="op">&lt;-</span></span>
@@ -1130,38 +1150,39 @@ unit.</p>
 <pre><code><span><span class="co">## A conservation problem (<span style="color: #0000BB;">&lt;ConservationProblem&gt;</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•data</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>zones:       <span style="color: #0000BB;">"few traps"</span>, <span style="color: #0000BB;">"many traps"</span>, and <span style="color: #0000BB;">"baiting"</span> (3 total)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, <span style="color: #0000BB;">"feature_4"</span>, and <span style="color: #0000BB;">"feature_5"</span> (5 total)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:    <span style="color: #0000BB;">"feature_1"</span>, <span style="color: #0000BB;">"feature_2"</span>, <span style="color: #0000BB;">"feature_3"</span>, … (5 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>planning units:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>data:       <span style="color: #0000BB;">&lt;SpatRaster&gt;</span> (100 total)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>costs:      continuous values (between <span style="color: #0000BB;">0</span> and <span style="color: #0000BB;">300</span>)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">├•</span>extent:     <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">0</span>, <span style="color: #0000BB;">1</span>, <span style="color: #0000BB;">1</span> (xmin, ymin, xmax, ymax)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        Undefined Cartesian SRS (projected)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">│</span> <span style="color: #00BBBB;">└•</span>CRS:        WGS 84 / Pseudo-Mercator (projected)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">├•formulation</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>objective:   minimum set objective</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>penalties:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, `edge_factor` = <span style="color: #0000BB;">0.5, 0.5</span>, and <span style="color: #0000BB;">0.5</span>, `formulation` = <span style="color: #0000BB;">"simple"</span>, …)</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>1:          boundary penalties (`penalty` = <span style="color: #0000BB;">640</span>, …)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>features:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>targets:    absolute targets (all equal to <span style="color: #0000BB;">8</span>)</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #B2B2B2;">none specified</span></span></span>
+<span><span class="co">## <span style="color: #00BBBB;">││└•</span>weights:    <span style="color: #949494;">none specified</span></span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│├•</span>constraints:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││├•</span>1:          mandatory allocation constraints</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">││└•</span>2:          manual locked constraints (80 planning units)</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">│└•</span>decisions:   binary decision</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">└•optimization</span></span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   default portfolio</span></span>
-<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, `first_feasible` = <span style="color: #0000BB;">FALSE</span>, …)</span></span>
-<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see complete formulation.</span></span></span></code></pre>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<span><span class="co">##  <span style="color: #00BBBB;">├•</span>portfolio:   single portfolio</span></span>
+<span><span class="co">##  <span style="color: #00BBBB;">└•</span>solver:      gurobi solver (`gap` = <span style="color: #0000BB;">0.1</span>, `time_limit` = <span style="color: #0000BB;">2147483647</span>, …)</span></span>
+<span><span class="co">## <span style="color: #555555;"># ℹ Use `summary(...)` to see further details.</span></span></span></code></pre>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve problem</span></span>
 <span><span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Optimization</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────────────</span></span></span></code></pre>
 <pre><code><span><span class="co">## Set parameter Username</span></span>
-<span><span class="co">## Set parameter LicenseID to value 2774703</span></span>
+<span><span class="co">## Set parameter LicenseID to value 2806834</span></span>
 <span><span class="co">## Set parameter TimeLimit to value 2147483647</span></span>
 <span><span class="co">## Set parameter MIPGap to value 0.1</span></span>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
-<span><span class="co">## Academic license - for non-commercial use only - expires 2027-02-03</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.0 and C library 13.0.1</span></span>
+<span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -1174,66 +1195,72 @@ unit.</p>
 <span><span class="co">## Threads  1</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros (Min)</span></span>
-<span><span class="co">## Model fingerprint: 0x4c3901b1</span></span>
+<span><span class="co">## Model fingerprint: 0x5ecdaddd</span></span>
 <span><span class="co">## Model has 1200 linear objective coefficients</span></span>
 <span><span class="co">## Variable types: 900 continuous, 300 integer (300 binary)</span></span>
 <span><span class="co">## Coefficient statistics:</span></span>
 <span><span class="co">##   Matrix range     [2e-02, 1e+00]</span></span>
-<span><span class="co">##   Objective range  [1e+02, 6e+02]</span></span>
+<span><span class="co">##   Objective range  [3e+02, 9e+02]</span></span>
 <span><span class="co">##   Bounds range     [1e+00, 1e+00]</span></span>
 <span><span class="co">##   RHS range        [1e+00, 8e+00]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Found heuristic solution: objective 19600.000000</span></span>
+<span><span class="co">## Found heuristic solution: objective 24400.000000</span></span>
 <span><span class="co">## Presolve removed 1120 rows and 324 columns</span></span>
-<span><span class="co">## Presolve time: 0.02s</span></span>
+<span><span class="co">## Presolve time: 0.01s</span></span>
 <span><span class="co">## Presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## Variable types: 0 continuous, 876 integer (876 binary)</span></span>
 <span><span class="co">## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Root relaxation: objective 1.323093e+04, 295 iterations, 0.00 seconds (0.00 work units)</span></span>
+<span><span class="co">## Root relaxation: objective 1.695102e+04, 309 iterations, 0.00 seconds (0.00 work units)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##     Nodes    |    Current Node    |     Objective Bounds      |     Work</span></span>
 <span><span class="co">##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##      0     0 13230.9255    0   95 19600.0000 13230.9255  32.5%     -    0s</span></span>
-<span><span class="co">## H    0     0                    13260.000000 13230.9255  0.22%     -    0s</span></span>
+<span><span class="co">##      0     0 16951.0158    0   95 24400.0000 16951.0158  30.5%     -    0s</span></span>
+<span><span class="co">## H    0     0                    19100.000000 16951.0158  11.3%     -    0s</span></span>
+<span><span class="co">## H    0     0                    19020.000000 16951.0158  10.9%     -    0s</span></span>
+<span><span class="co">##      0     0 17029.0334    0  102 19020.0000 17029.0334  10.5%     -    0s</span></span>
+<span><span class="co">## H    0     0                    18700.000000 17029.0334  8.94%     -    0s</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (388 simplex iterations) in 0.03 seconds (0.03 work units)</span></span>
+<span><span class="co">## Cutting planes:</span></span>
+<span><span class="co">##   Gomory: 1</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## Explored 1 nodes (447 simplex iterations) in 0.03 seconds (0.04 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Solution count 2: 13260 19600 </span></span>
+<span><span class="co">## Solution count 4: 18700 19020 19100 24400 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Optimal solution found (tolerance 1.00e-01)</span></span>
-<span><span class="co">## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</span></span></code></pre>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<span><span class="co">## Best objective 1.870000000000e+04, best bound 1.704000000000e+04, gap 8.8770%</span></span></code></pre>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># calculate feature representation</span></span>
 <span><span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 20 × 5</span></span></span>
 <span><span class="co">##    summary    feature   total_amount absolute_held relative_held</span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           23.4         0.201 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           8.04        0.184 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           19.4         0.192 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          10.9         0.182 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          16.1         0.203 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few traps  feature_1         8.33          5.92        0.711 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few traps  feature_2         3.12          2.33        0.745 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few traps  feature_3         7.20          5.25        0.730 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few traps  feature_4         4.27          3.18        0.745 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> few traps  feature_5         5.67          4.00        0.706 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           3.02        0.072<span style="text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           1.09        0.070<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           2.41        0.067<span style="text-decoration: underline;">0</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           1.66        0.077<span style="text-decoration: underline;">9</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           2.11        0.074<span style="text-decoration: underline;">3</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    feature_1        66.6          14.4         0.217 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    feature_2        25.0           4.62        0.185 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7         0.203 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05        0.177 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98        0.220</span></span></code></pre>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> overall    feature_1       117.           25.7          0.221</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> overall    feature_2        43.7           9.25         0.212</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> overall    feature_3       101.           21.4          0.212</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> overall    feature_4        59.7          12.5          0.210</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> overall    feature_5        79.4          17.7          0.223</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> few traps  feature_1         8.33          5.33         0.640</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> few traps  feature_2         3.12          2.02         0.648</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> few traps  feature_3         7.20          4.74         0.659</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> few traps  feature_4         4.27          2.76         0.647</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> few traps  feature_5         5.67          3.59         0.633</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> many traps feature_1        41.6           5.95         0.143</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> many traps feature_2        15.6           2.61         0.167</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> many traps feature_3        36.0           4.94         0.137</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> many traps feature_4        21.3           3.74         0.175</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> many traps feature_5        28.4           4.16         0.147</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> baiting    feature_1        66.6          14.4          0.217</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">17</span> baiting    feature_2        25.0           4.62         0.185</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">18</span> baiting    feature_3        57.6          11.7          0.203</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">19</span> baiting    feature_4        34.1           6.05         0.177</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">20</span> baiting    feature_5        45.4           9.98         0.220</span></span></code></pre>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot solution</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="management_zones_tutorial_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="" width="480" style="display: block; margin: auto;"></p>
@@ -1308,7 +1335,7 @@ others. (2010). Conserving biodiversity in production landscapes.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, <a href="https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert" class="external-link">Sandra Neubert</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">

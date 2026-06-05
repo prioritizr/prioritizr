@@ -16,6 +16,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
 [`Portfolio-class`](https://prioritizr.net/reference/Portfolio-class.md),
@@ -35,7 +37,7 @@ Other classes:
 
 ### Public methods
 
-- [`OptimizationProblem$new()`](#method-OptimizationProblem-new)
+- [`OptimizationProblem$new()`](#method-OptimizationProblem-initialize)
 
 - [`OptimizationProblem$print()`](#method-OptimizationProblem-print)
 
@@ -81,6 +83,8 @@ Other classes:
 
 - [`OptimizationProblem$set_obj()`](#method-OptimizationProblem-set_obj)
 
+- [`OptimizationProblem$set_modelsense()`](#method-OptimizationProblem-set_modelsense)
+
 - [`OptimizationProblem$set_lb()`](#method-OptimizationProblem-set_lb)
 
 - [`OptimizationProblem$set_ub()`](#method-OptimizationProblem-set_ub)
@@ -93,7 +97,7 @@ Other classes:
 
 ------------------------------------------------------------------------
 
-### Method [`new()`](https://rdrr.io/r/methods/new.html)
+### `OptimizationProblem$new()`
 
 #### Usage
 
@@ -111,7 +115,7 @@ A new `OptimizationProblem` object.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `OptimizationProblem$print()`
 
 Print concise information about the object.
 
@@ -125,7 +129,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`show()`](https://prioritizr.net/reference/show.md)
+### `OptimizationProblem$show()`
 
 Print concise information about the object.
 
@@ -139,7 +143,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`ncol()`](https://rspatial.github.io/terra/reference/dimensions.html)
+### `OptimizationProblem$ncol()`
 
 Obtain the number of columns in the problem formulation.
 
@@ -153,7 +157,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`nrow()`](https://rspatial.github.io/terra/reference/dimensions.html)
+### `OptimizationProblem$nrow()`
 
 Obtain the number of rows in the problem formulation.
 
@@ -167,7 +171,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`ncell()`](https://rspatial.github.io/terra/reference/dimensions.html)
+### `OptimizationProblem$ncell()`
 
 Obtain the number of cells in the problem formulation.
 
@@ -181,7 +185,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`modelsense()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$modelsense()`
 
 Obtain the model sense.
 
@@ -195,7 +199,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method [`vtype()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$vtype()`
 
 Obtain the decision variable types.
 
@@ -209,7 +213,7 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`obj()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$obj()`
 
 Obtain the objective function.
 
@@ -223,7 +227,7 @@ A `numeric` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`A()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$A()`
 
 Obtain the constraint matrix.
 
@@ -239,7 +243,7 @@ object.
 
 ------------------------------------------------------------------------
 
-### Method [`rhs()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$rhs()`
 
 Obtain the right-hand-side constraint values.
 
@@ -253,7 +257,7 @@ A `numeric` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`sense()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$sense()`
 
 Obtain the constraint senses.
 
@@ -267,7 +271,7 @@ A `character` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`lb()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$lb()`
 
 Obtain the lower bounds for the decision variables.
 
@@ -281,7 +285,7 @@ A `numeric` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`ub()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$ub()`
 
 Obtain the upper bounds for the decision variables.
 
@@ -295,7 +299,7 @@ A `numeric` vector.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_features()`](https://prioritizr.net/reference/number_of_features.md)
+### `OptimizationProblem$number_of_features()`
 
 Obtain the number of features.
 
@@ -309,7 +313,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_planning_units()`](https://prioritizr.net/reference/number_of_planning_units.md)
+### `OptimizationProblem$number_of_planning_units()`
 
 Obtain the number of planning units.
 
@@ -323,7 +327,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`number_of_zones()`](https://prioritizr.net/reference/number_of_zones.md)
+### `OptimizationProblem$number_of_zones()`
 
 Obtain the number of zones.
 
@@ -337,7 +341,7 @@ A `numeric` value.
 
 ------------------------------------------------------------------------
 
-### Method [`col_ids()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$col_ids()`
 
 Obtain the identifiers for the columns.
 
@@ -351,7 +355,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method [`row_ids()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$row_ids()`
 
 Obtain the identifiers for the rows.
 
@@ -365,7 +369,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method [`compressed_formulation()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$compressed_formulation()`
 
 Is the problem formulation compressed?
 
@@ -379,7 +383,7 @@ A `logical` value.
 
 ------------------------------------------------------------------------
 
-### Method `shuffle_columns()`
+### `OptimizationProblem$shuffle_columns()`
 
 Shuffle the order of the columns in the optimization problem.
 
@@ -399,7 +403,7 @@ An `integer` vector with indices to un-shuffle the problem.
 
 ------------------------------------------------------------------------
 
-### Method `copy()`
+### `OptimizationProblem$copy()`
 
 Create a copy of the optimization problem.
 
@@ -413,7 +417,7 @@ A new `OptimizationProblem` object .
 
 ------------------------------------------------------------------------
 
-### Method [`set_obj()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$set_obj()`
 
 Set objective coefficients for the decision variables in the
 optimization problem.
@@ -430,11 +434,32 @@ optimization problem.
 
 #### Returns
 
-An invisible `TRUE` indicating success.
+An invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`set_lb()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$set_modelsense()`
+
+Set the model sense for the optimization problem.
+
+#### Usage
+
+    OptimizationProblem$set_modelsense(modelsense)
+
+#### Arguments
+
+- `modelsense`:
+
+  `character` value indicating the model sense. (i.e., either `"min"` or
+  `"max"`).
+
+#### Returns
+
+An invisible `TRUE`.
+
+------------------------------------------------------------------------
+
+### `OptimizationProblem$set_lb()`
 
 Set lower bounds for the decision variables in the optimization problem.
 
@@ -450,11 +475,11 @@ Set lower bounds for the decision variables in the optimization problem.
 
 #### Returns
 
-An invisible `TRUE` indicating success.
+An invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`set_ub()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$set_ub()`
 
 Set upper bounds for the decision variables in the optimization problem.
 
@@ -470,11 +495,11 @@ Set upper bounds for the decision variables in the optimization problem.
 
 #### Returns
 
-An invisible `TRUE` indicating success.
+An invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`remove_last_linear_constraint()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$remove_last_linear_constraint()`
 
 Remove last linear constraint added to a problem.
 
@@ -484,11 +509,11 @@ Remove last linear constraint added to a problem.
 
 #### Returns
 
-An invisible `TRUE` indicating success.
+An invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method [`append_linear_constraints()`](https://prioritizr.net/reference/OptimizationProblem-methods.md)
+### `OptimizationProblem$append_linear_constraints()`
 
 Append linear constraints to the optimization problem.
 
@@ -518,11 +543,11 @@ Append linear constraints to the optimization problem.
 
 #### Returns
 
-An invisible `TRUE` indicating success.
+An invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `OptimizationProblem$clone()`
 
 The objects of this class are cloneable with this method.
 

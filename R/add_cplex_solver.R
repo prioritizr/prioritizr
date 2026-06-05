@@ -12,8 +12,9 @@ NULL
 #'
 #' @inheritParams add_gurobi_solver
 #'
-#' @param presolve `logical` attempt to simplify the
-#'   problem before solving it? Defaults to `TRUE`.
+#' @param presolve `logical` value indicating if the
+#' optimization problem should be simplified before solving it?
+#' Defaults to `TRUE`.
 #'
 #' @details
 #' [*IBM CPLEX*](https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer) is a
@@ -26,7 +27,7 @@ NULL
 #' solver (i.e., [add_gurobi_solver()]).
 #' We recommend using this solver if the *Gurobi* solver is not available.
 #' Licenses are available for the *IBM CPLEX* software to academics at no cost
-#' (see <  https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
+#' (see <https://www.ibm.com/products/ilog-cplex-optimization-studio/cplex-optimizer>).
 #'
 #' @section Installation:
 #' The \pkg{cplexAPI} package is used to interface with *IBM CPLEX* software.
@@ -39,7 +40,7 @@ NULL
 #' ```
 #'   export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"
 #' ```
-#' Please Note that you may need to change the version number in the file path
+#' Please note that you may need to change the version number in the file path
 #' (i.e., `"CPLEX_Studio128"`). After specifying the `CPLEX_BIN`
 #' environmental variable, the \pkg{cplexAPI} package can be installed.
 #' Since the \pkg{cplexAPI} package is not available on the
@@ -61,8 +62,7 @@ NULL
 #' IBM (2017) IBM ILOG CPLEX Optimization Studio CPLEX User's Manual.
 #' Version 12 Release 8. IBM ILOG CPLEX Division, Incline Village, NV.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -80,7 +80,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE)
-#' }
+#'
 #' @name add_cplex_solver
 NULL
 
@@ -96,7 +96,7 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   assert_required(threads)
   assert_required(verbose)
   assert(
-    is_conservation_problem(x),
+    is_generic_conservation_problem(x),
     assertthat::is.number(gap),
     all_finite(gap),
     gap >= 0,
@@ -109,6 +109,8 @@ add_cplex_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     assertthat::is.flag(verbose),
     is_installed("cplexAPI")
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # add solver
   x$add_solver(
     R6::R6Class(

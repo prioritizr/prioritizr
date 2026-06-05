@@ -10,6 +10,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
@@ -44,7 +46,7 @@ Other classes:
 
 ### Public methods
 
-- [`TargetMethod$new()`](#method-TargetMethod-new)
+- [`TargetMethod$new()`](#method-TargetMethod-initialize)
 
 - [`TargetMethod$print()`](#method-TargetMethod-print)
 
@@ -60,7 +62,7 @@ Other classes:
 
 ------------------------------------------------------------------------
 
-### Method [`new()`](https://rdrr.io/r/methods/new.html)
+### `TargetMethod$new()`
 
 Initialize new object.
 
@@ -97,7 +99,7 @@ A new `Method` object.
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `TargetMethod$print()`
 
 Print the object.
 
@@ -117,7 +119,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `calculate_targets()`
+### `TargetMethod$calculate_targets()`
 
 Calculate targets expressed in the type of units defined for the method
 (per `$type`).
@@ -146,7 +148,7 @@ A `numeric` vector with target values.
 
 ------------------------------------------------------------------------
 
-### Method `calculate_targets_km2()`
+### `TargetMethod$calculate_targets_km2()`
 
 Calculate targets as km².
 
@@ -174,7 +176,7 @@ A `numeric` vector with target values expressed in km².
 
 ------------------------------------------------------------------------
 
-### Method `calculate_relative_targets()`
+### `TargetMethod$calculate_relative_targets()`
 
 Calculate targets as km².
 
@@ -202,7 +204,7 @@ A `numeric` vector with target values expressed as relative units.
 
 ------------------------------------------------------------------------
 
-### Method `calculate_absolute_targets()`
+### `TargetMethod$calculate_absolute_targets()`
 
 Calculate targets expressed as absolute units.
 
@@ -230,7 +232,7 @@ A `numeric` vector with target values expressed as absolute units.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `TargetMethod$clone()`
 
 The objects of this class are cloneable with this method.
 

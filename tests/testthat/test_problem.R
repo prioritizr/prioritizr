@@ -27,11 +27,13 @@ test_that("x = SpatRaster, features = SpatRaster", {
     x$number_of_planning_units(),
     length(terra::cells(is.na(sim_pu_raster), 0)[[1]])
   )
+  expect_equal(number_of_problems(x), 1L)
   expect_equal(x$number_of_total_units(), terra::ncell(sim_pu_raster))
   expect_equal(
     x$planning_unit_indices(),
     terra::cells(is.na(sim_pu_raster), 0)[[1]]
   )
+  expect_equal(number_of_problems(x), 1L)
   expect_error(x$total_unit_ids())
   # tests for planning_unit_costs method
   expect_equal(

@@ -17,6 +17,8 @@ Other classes:
 [`ConservationProblem-class`](https://prioritizr.net/reference/ConservationProblem-class.md),
 [`Constraint-class`](https://prioritizr.net/reference/Constraint-class.md),
 [`Decision-class`](https://prioritizr.net/reference/Decision-class.md),
+[`MultiConservationProblem-class`](https://prioritizr.net/reference/MultiConservationProblem-class.md),
+[`MultiObjApproach-class`](https://prioritizr.net/reference/MultiObjApproach-class.md),
 [`Objective-class`](https://prioritizr.net/reference/Objective-class.md),
 [`OptimizationProblem-class`](https://prioritizr.net/reference/OptimizationProblem-class.md),
 [`Penalty-class`](https://prioritizr.net/reference/Penalty-class.md),
@@ -69,7 +71,7 @@ Other classes:
 
 ------------------------------------------------------------------------
 
-### Method [`print()`](https://rdrr.io/r/base/print.html)
+### `ConservationModifier$print()`
 
 Print information about the object.
 
@@ -83,7 +85,7 @@ None.
 
 ------------------------------------------------------------------------
 
-### Method [`show()`](https://prioritizr.net/reference/show.md)
+### `ConservationModifier$show()`
 
 Print information about the object.
 
@@ -97,7 +99,7 @@ None.
 
 ------------------------------------------------------------------------
 
-### Method `repr()`
+### `ConservationModifier$repr()`
 
 Generate a character representation of the object.
 
@@ -118,7 +120,7 @@ A `character` value.
 
 ------------------------------------------------------------------------
 
-### Method `calculate()`
+### `ConservationModifier$calculate()`
 
 Perform computations that need to be completed before applying the
 object.
@@ -144,7 +146,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `get_data()`
+### `ConservationModifier$get_data()`
 
 Get values stored in the `data` field.
 
@@ -161,13 +163,13 @@ Get values stored in the `data` field.
 #### Returns
 
 An object. If the `data` field does not contain an object associated
-with the argument to `x`, then a
+with `x`, then a
 [`new_waiver()`](https://prioritizr.net/reference/new_waiver.md) object
 is returned.
 
 ------------------------------------------------------------------------
 
-### Method `set_data()`
+### `ConservationModifier$set_data()`
 
 Set values stored in the `data` field. Note that this method will
 overwrite existing data.
@@ -192,7 +194,7 @@ Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `get_internal()`
+### `ConservationModifier$get_internal()`
 
 Get values stored in the `internal` field.
 
@@ -209,13 +211,13 @@ Get values stored in the `internal` field.
 #### Returns
 
 An object. If the `internal` field does not contain an object associated
-with the argument to `x`, then a
+with `x`, then a
 [`new_waiver()`](https://prioritizr.net/reference/new_waiver.md) object
 is returned.
 
 ------------------------------------------------------------------------
 
-### Method `set_internal()`
+### `ConservationModifier$set_internal()`
 
 Set values stored in the `internal` field. Note that this method will
 overwrite existing data.
@@ -236,14 +238,11 @@ overwrite existing data.
 
 #### Returns
 
-An object. If the `internal` field does not contain an object associated
-with the argument to `x`, then a
-[`new_waiver()`](https://prioritizr.net/reference/new_waiver.md) object
-is returned.
+Invisible `TRUE`.
 
 ------------------------------------------------------------------------
 
-### Method `clone()`
+### `ConservationModifier$clone()`
 
 The objects of this class are cloneable with this method.
 

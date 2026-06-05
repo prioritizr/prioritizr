@@ -30,8 +30,7 @@ than the \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} a
 }
 \section{Data format}{
 
-
-The argument to \code{data} should be a \code{data.frame} with the following columns:
+Here \code{data} must be a \code{data.frame} with the following columns.
 
 \describe{
 
@@ -39,17 +38,18 @@ The argument to \code{data} should be a \code{data.frame} with the following col
 If \code{x} has \code{data.frame} planning units,
 then these values must refer to values in the \code{id} column of the planning
 unit data.
-Alternatively, if \code{x} has \code{\link[sf:sf]{sf::st_sf()}} or \code{matrix} planning units,
+Alternatively, if \code{x} has \code{\link[sf:st_sf]{sf::st_sf()}} or \code{matrix} planning units,
 then these values must refer to the row numbers of the planning unit data.
 Additionally, if \code{x} has \code{numeric} vector planning units,
 then these values must refer to the element indices of the planning unit
 data.
 Finally, if \code{x} has \code{\link[terra:rast]{terra::rast()}} planning units,
-then these values must refer to cell indices.}
+then these values must refer to cell indices.
+}
 
 \item{zone}{\code{character} names of zones. Note that this
-argument is optional for arguments to \code{x} that contain a single
-zone.}
+column is optional if \code{x} has a single zone.
+}
 
 \item{status}{\code{numeric} status values. These values indicate how much
 of each planning unit should be allocated to each zone in the solution.
@@ -58,13 +58,14 @@ or one) for problems containing binary-type decision variables
 (using the \code{\link[=add_binary_decisions]{add_binary_decisions()}} function). Alternatively,
 the \code{numeric} values could be proportions (e.g., 0.5) for problems
 containing proportion-type decision variables (using the
-\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}).}
+\code{\link[=add_proportion_decisions]{add_proportion_decisions()}}).
+}
 
 }
 }
 
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 
@@ -159,20 +160,20 @@ s5$solution_locked <- factor(s5$solution_locked)
 
 # plot solutions
 plot(s5[, c("solution", "solution_locked")], axes = FALSE)
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 See \link{constraints} for an overview of all functions for adding constraints.
 
 Other functions for adding constraints:
-\code{\link{add_contiguity_constraints}()},
-\code{\link{add_feature_contiguity_constraints}()},
-\code{\link{add_linear_constraints}()},
-\code{\link{add_locked_in_constraints}()},
-\code{\link{add_locked_out_constraints}()},
-\code{\link{add_mandatory_allocation_constraints}()},
-\code{\link{add_manual_bounded_constraints}()},
-\code{\link{add_neighbor_constraints}()}
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}},
+\code{\link[=add_cost_constraints]{add_cost_constraints()}},
+\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}},
+\code{\link[=add_linear_constraints]{add_linear_constraints()}},
+\code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}},
+\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}},
+\code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}},
+\code{\link[=add_manual_bounded_constraints]{add_manual_bounded_constraints()}},
+\code{\link[=add_neighbor_constraints]{add_neighbor_constraints()}}
 }
 \concept{constraints}

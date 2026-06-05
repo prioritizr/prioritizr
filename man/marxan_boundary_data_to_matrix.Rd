@@ -8,9 +8,8 @@ marxan_boundary_data_to_matrix(x, data)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object that
-contains planning unit and zone data to ensure that the argument to
-\code{data} is converted correctly. This argument can be set to
-\code{NULL} if checks are not required (not recommended).}
+contains planning unit and zone data for running checks to help ensure
+correctness.}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}.}
@@ -33,6 +32,7 @@ updates to streamline the package.
 }
 
 \examples{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # create example planning unit layer
 pu_data <-
   matrix(1:3, nrow = 1) \%>\%
@@ -73,5 +73,5 @@ m2 <- boundary_matrix(pu_data)
 ## this is because marxan_boundary_data_to_matrix() automatically
 ## converts Marxan data to the same format as boundary_matrix()
 print(m2)
-
+\dontshow{\}) # examplesIf}
 }

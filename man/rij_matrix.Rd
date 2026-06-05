@@ -31,12 +31,13 @@ rij_matrix(x, y, ...)
 \item{memory}{\code{logical} should calculations be performed using a method
 that prioritizes reduced memory consumption over speed?
 This is useful when processing particularly large raster datasets.
-If \code{TRUE}, then calculations are performed by processing each raster layer
+If \code{memory = TRUE},
+then calculations are performed by processing each raster layer
 in \code{y} in a sequential manner.
-If \code{FALSE}, then calculations are performed by processing all raster layers
-in \code{y} together.
-If \code{NA}, then the memory requirements will be estimated and, if required,
-processing will be performed using the method that reduces memory
+If \code{memory = FALSE}, then calculations are performed by processing all
+raster layers in \code{y} together.
+If \code{memory = NA}, then the memory requirements will be estimated and, if
+required, processing will be performed using the method that reduces memory
 consumption.
 Defaults to \code{NA}.}
 
@@ -45,8 +46,7 @@ indices. Defaults to \code{NULL} such that the indices are computed
 automatically based on \code{x}.}
 
 \item{fun}{\code{character} for summarizing values inside each planning unit.
-This parameter is only used when the argument to \code{x} is a
-\code{\link[sf:sf]{sf::sf()}} object.
+This parameter is only used if \code{x} is a \code{\link[sf:sf]{sf::sf()}} object.
 Defaults to \code{"sum"}.}
 }
 \value{
@@ -63,7 +63,7 @@ Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing \code{\link[sf:sf]{sf::st_sf()}} data takes much longer to process than
+Generally, processing \code{\link[sf:st_sf]{sf::st_sf()}} data takes much longer to process than
 \code{\link[terra:rast]{terra::rast()}} data.
 As such, it is recommended to use \code{\link[terra:rast]{terra::rast()}} data for planning units
 where possible.
@@ -76,7 +76,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()
@@ -94,5 +94,5 @@ print(rij_polygons)
 # create rij matrix using raster planning units with multiple zones
 rij_zones_raster <- rij_matrix(sim_zones_pu_raster, sim_features)
 print(rij_zones_raster)
-}
+\dontshow{\}) # examplesIf}
 }

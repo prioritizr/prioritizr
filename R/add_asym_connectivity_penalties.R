@@ -19,7 +19,7 @@ NULL
 #' @inheritSection add_connectivity_penalties Data format
 #'
 #' @details
-#' This function adds penalties to conservation planning problem to penalize
+#' This function adds penalties to a conservation planning problem to penalize
 #' solutions that have low connectivity.
 #' Specifically, it penalizes solutions that select planning units that
 #' share high connectivity values with other planning units that are
@@ -33,12 +33,11 @@ NULL
 #' represent the decision variable for planning unit \eqn{i} for in zone
 #' \eqn{z} (e.g., with binary
 #' values one indicating if planning unit is allocated or not). Also, let
-#' \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
-#' argument to `data`, and \eqn{W} represent the argument
-#' to `zones`.
+#' \eqn{p} represent `penalty`, \eqn{D} represent
+#' `data`, and \eqn{W} represent `zones`.
 #'
-#' If the argument to `data` is supplied as a `matrix` or
-#' `Matrix` object, then the penalties are calculated as:
+#' If `data` is specified as a `matrix` or
+#' `Matrix` object, then the penalties are calculated as follows.
 #'
 #' \deqn{
 #' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z}
@@ -51,9 +50,9 @@ NULL
 #' (p * Xiz * Xjy * Dij * Wzy)
 #' }
 #'
-#' Otherwise, if the argument to `data` is supplied as an
+#' Otherwise, if `data` is specified as an
 #' `array` object, then the penalties are
-#' calculated as:
+#' calculated as follows.
 #'
 #' \deqn{
 #' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z}
@@ -77,6 +76,8 @@ NULL
 #'
 #' @seealso
 #' See [penalties] for an overview of all functions for adding penalties.
+#' Also see [add_connectivity_penalties()] to account for
+#' symmetric connectivity between planning units.
 #' Also see [calibrate_cohon_penalty()] for assistance with selecting
 #' an appropriate `penalty` value.
 #'
@@ -91,8 +92,7 @@ NULL
 #' conservation planning problems with integer linear programming.
 #' *Ecological Modelling*, 228: 14--22.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -202,7 +202,6 @@ NULL
 #'
 #' # plot solutions
 #' plot(s4, axes = FALSE)
-#' }
 #'
 #' @name add_asym_connectivity_penalties
 #'

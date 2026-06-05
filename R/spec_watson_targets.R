@@ -95,8 +95,7 @@ NULL
 #' protected-area system to represent threatened species.
 #' *Conservation Biology*,25: 324--332.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -117,7 +116,7 @@ NULL
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_watson_targets <- function(rare_area_threshold = 10000,
                                 rare_relative_target = 1,

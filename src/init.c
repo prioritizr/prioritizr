@@ -18,15 +18,16 @@ extern SEXP _prioritizr_rcpp_apply_boundary_penalties2(SEXP, SEXP, SEXP, SEXP, S
 extern SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_cost_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_n_targets_met_objective(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_wtd_sum_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_penalties_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
@@ -35,7 +36,9 @@ extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP, SEXP, 
 extern SEXP _prioritizr_rcpp_asym_connectivity(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
+extern SEXP _prioritizr_rcpp_compile_multi_obj_problem(SEXP);
 extern SEXP _prioritizr_rcpp_connectivity(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_convert_ref_point_method(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_copy_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_ferrier_score(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_forbid_solution(SEXP, SEXP);
@@ -62,6 +65,7 @@ extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
 extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
 extern SEXP _prioritizr_rcpp_remove_optimization_problem_last_linear_constraint(SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_lb(SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_set_optimization_problem_modelsense(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_obj(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_set_optimization_problem_ub(SEXP, SEXP);
@@ -77,15 +81,16 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_bounded_constraints",                          (DL_FUNC) &_prioritizr_rcpp_apply_bounded_constraints,                          5},
     {"_prioritizr_rcpp_apply_connectivity_penalties",                       (DL_FUNC) &_prioritizr_rcpp_apply_connectivity_penalties,                       3},
     {"_prioritizr_rcpp_apply_contiguity_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_contiguity_constraints,                       3},
+    {"_prioritizr_rcpp_apply_cost_constraints",                             (DL_FUNC) &_prioritizr_rcpp_apply_cost_constraints,                             4},
     {"_prioritizr_rcpp_apply_decisions",                                    (DL_FUNC) &_prioritizr_rcpp_apply_decisions,                                    4},
     {"_prioritizr_rcpp_apply_feature_contiguity_constraints",               (DL_FUNC) &_prioritizr_rcpp_apply_feature_contiguity_constraints,               3},
     {"_prioritizr_rcpp_apply_linear_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_linear_constraints,                           4},
     {"_prioritizr_rcpp_apply_linear_penalties",                             (DL_FUNC) &_prioritizr_rcpp_apply_linear_penalties,                             3},
     {"_prioritizr_rcpp_apply_locked_constraints",                           (DL_FUNC) &_prioritizr_rcpp_apply_locked_constraints,                           6},
     {"_prioritizr_rcpp_apply_max_cover_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                          4},
-    {"_prioritizr_rcpp_apply_max_features_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_features_objective,                       5},
+    {"_prioritizr_rcpp_apply_max_n_targets_met_objective",                  (DL_FUNC) &_prioritizr_rcpp_apply_max_n_targets_met_objective,                  5},
     {"_prioritizr_rcpp_apply_max_phylo_objective",                          (DL_FUNC) &_prioritizr_rcpp_apply_max_phylo_objective,                          7},
-    {"_prioritizr_rcpp_apply_max_utility_objective",                        (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                        6},
+    {"_prioritizr_rcpp_apply_max_wtd_sum_objective",                        (DL_FUNC) &_prioritizr_rcpp_apply_max_wtd_sum_objective,                        6},
     {"_prioritizr_rcpp_apply_min_largest_shortfall_objective",              (DL_FUNC) &_prioritizr_rcpp_apply_min_largest_shortfall_objective,              4},
     {"_prioritizr_rcpp_apply_min_penalties_objective",                      (DL_FUNC) &_prioritizr_rcpp_apply_min_penalties_objective,                      4},
     {"_prioritizr_rcpp_apply_min_set_objective",                            (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                            3},
@@ -94,7 +99,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_asym_connectivity",                                  (DL_FUNC) &_prioritizr_rcpp_asym_connectivity,                                  2},
     {"_prioritizr_rcpp_boundary",                                           (DL_FUNC) &_prioritizr_rcpp_boundary,                                           6},
     {"_prioritizr_rcpp_branch_matrix",                                      (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                      1},
+    {"_prioritizr_rcpp_compile_multi_obj_problem",                          (DL_FUNC) &_prioritizr_rcpp_compile_multi_obj_problem,                          1},
     {"_prioritizr_rcpp_connectivity",                                       (DL_FUNC) &_prioritizr_rcpp_connectivity,                                       2},
+    {"_prioritizr_rcpp_convert_ref_point_method",                           (DL_FUNC) &_prioritizr_rcpp_convert_ref_point_method,                           6},
     {"_prioritizr_rcpp_copy_optimization_problem",                          (DL_FUNC) &_prioritizr_rcpp_copy_optimization_problem,                          1},
     {"_prioritizr_rcpp_ferrier_score",                                      (DL_FUNC) &_prioritizr_rcpp_ferrier_score,                                      4},
     {"_prioritizr_rcpp_forbid_solution",                                    (DL_FUNC) &_prioritizr_rcpp_forbid_solution,                                    2},
@@ -121,6 +128,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_predefined_optimization_problem",                    (DL_FUNC) &_prioritizr_rcpp_predefined_optimization_problem,                    1},
     {"_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint", (DL_FUNC) &_prioritizr_rcpp_remove_optimization_problem_last_linear_constraint, 1},
     {"_prioritizr_rcpp_set_optimization_problem_lb",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_lb,                        2},
+    {"_prioritizr_rcpp_set_optimization_problem_modelsense",                (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_modelsense,                2},
     {"_prioritizr_rcpp_set_optimization_problem_obj",                       (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_obj,                       2},
     {"_prioritizr_rcpp_set_optimization_problem_shuffled",                  (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_shuffled,                  2},
     {"_prioritizr_rcpp_set_optimization_problem_ub",                        (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_ub,                        2},

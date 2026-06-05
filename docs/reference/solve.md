@@ -6,14 +6,19 @@ Solve a conservation planning problem.
 
 ``` r
 # S3 method for class 'ConservationProblem'
-solve(a, b, ..., run_checks = TRUE, force = FALSE)
+solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
+
+# S3 method for class 'MultiConservationProblem'
+solve(a, b, ..., run_checks = TRUE, force = FALSE, remove_duplicates = FALSE)
 ```
 
 ## Arguments
 
 - a:
 
-  [`problem()`](https://prioritizr.net/reference/problem.md) object.
+  [`problem()`](https://prioritizr.net/reference/problem.md) or
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object.
 
 - b:
 
@@ -26,27 +31,118 @@ solve(a, b, ..., run_checks = TRUE, force = FALSE)
 
 - run_checks:
 
-  `logical` flag indicating whether presolve checks should be run prior
+  `logical` value indicating if presolve checks should be run prior
   solving the problem. These checks are performed using the
   [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
-  function. Defaults to `TRUE`. Skipping these checks may reduce run
-  time for large problems.
+  function. Defaults to `TRUE`. Note that skipping these checks may
+  reduce run time for large problems.
 
 - force:
 
-  `logical` flag indicating if an attempt to should be made to solve the
-  problem even if potential issues were detected during the presolve
+  `logical` value indicating if an attempt to should be made to solve
+  the problem even if potential issues were detected during the presolve
   checks. Defaults to `FALSE`.
+
+- remove_duplicates:
+
+  `logical` value indicating if duplicated solutions should be removed.
+  Note that `remove_duplicates` only has an affect if `a` has a
+  portfolio or multi-objective optimization approach that involves
+  generating multiple solutions (see
+  [portfolios](https://prioritizr.net/reference/portfolios.md) and
+  [approaches](https://prioritizr.net/reference/approaches.md) for
+  details). Defaults to `FALSE`.
 
 ## Value
 
 A `numeric`, `matrix`, `data.frame`,
 [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html), or
-[`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-object containing the solution to the problem. Additionally, the
-returned object has attributes that describe optimization process or
-solution (see below for examples on accessing these attributes). These
-attributes provide the following information.
+[`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
+or `list` object containing the solution(s) to the problem. Although
+solutions will generally be returned in the same format as the planning
+units in `a`, these solutions may be returned in a `list` object if
+multiple solutions are produced during the optimization process (see
+Output format section for further details).
+
+## Details
+
+After formulating a conservation planning
+[`problem()`](https://prioritizr.net/reference/problem.md), it can be
+solved using an exact algorithm solver (see
+[solvers](https://prioritizr.net/reference/solvers.md) for available
+solvers). If no solver has been explicitly specified, then the best
+available exact algorithm solver will be used by default (see
+[`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md)).
+Although these exact algorithm solvers will often display a lot of
+information that isn't really that helpful (e.g., nodes, cutting
+planes), they do display information about the progress they are making
+on solving the problem (e.g., the performance of the best solution found
+at a given point in time). If potential issues were detected during the
+presolve checks (see
+[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md))
+and the problem is being forcibly solved (i.e., with `force = TRUE`),
+then it is also worth checking for any warnings displayed by the solver
+to see if these potential issues are actually causing issues (e.g.,
+*Gurobi* can display warnings that include
+`"Warning: Model contains large matrix coefficient range"` and
+`"Warning: Model contains large rhs"`).
+
+## Output format
+
+This function will output solutions in a similar format to the planning
+units associated with `a`. Note that if multiple solutions are generated
+(e.g., see [portfolios](https://prioritizr.net/reference/portfolios.md)
+and (see [approaches](https://prioritizr.net/reference/approaches.md)),
+then each solution may be returned as an element of a `list` object.
+Specifically, the solutions will have the following format based on the
+types of planning units in `a`.
+
+- `a` has `numeric` planning units:
+
+  Here the solution will be returned as a `numeric` vector. In
+  particular, each element in the vector corresponds to a different
+  planning unit. Note that if a portfolio is used to generate multiple
+  solutions, then a `list` of such `numeric` vectors will be returned.
+
+- `a` has `matrix` planning units:
+
+  Here the solution will be returned as a `matrix` object. In
+  particular, rows correspond to different planning units, and columns
+  correspond to different management zones. Note that if a portfolio is
+  used to generate multiple solutions, then a `list` of such `matrix`
+  objects will be returned.
+
+- `a` has
+  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+  planning units:
+
+  Here the solution will be returned as a
+  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+  object. If `a` contains multiple zones, then the solution object will
+  have a different layer for each management zone. Note that if a
+  portfolio is used to generate multiple solutions, then a `list` of
+  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
+  objects will be returned.
+
+- `a` has
+  [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html), or
+  `data.frame` planning units:
+
+  Here the solution will be returned in the same data format as the
+  planning units. In particular, each row corresponds to a different
+  planning unit, and columns contain solutions. If `a` contains a single
+  zone, then the solution object will contain columns named by solution.
+  Specifically, the column names containing the solution values be will
+  named as `"solution_XXX"` where `"XXX"` corresponds to a solution
+  identifier (e.g., `"solution_1"`). If `a` contains multiple zones,
+  then the columns containing solutions will be named as
+  `"solution_XXX_YYY"` where `"XXX"` corresponds to the solution
+  identifier and `"YYY"` is the name of the management zone (e.g.,
+  `"solution_1_zone1"`).
+
+The output solutions have attributes that describe optimization process
+or solution (see below for examples on accessing these attributes).
+These attributes provide the following information.
 
 - `objective`:
 
@@ -94,94 +190,21 @@ attributes provide the following information.
   some solvers are able to provide this information (i.e., the *Gurobi*
   solvers), and other solvers will have a missing (`NA`) value.
 
-## Details
-
-After formulating a conservation planning
-[`problem()`](https://prioritizr.net/reference/problem.md), it can be
-solved using an exact algorithm solver (see
-[solvers](https://prioritizr.net/reference/solvers.md) for available
-solvers). If no solver has been explicitly specified, then the best
-available exact algorithm solver will be used by default (see
-[`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md)).
-Although these exact algorithm solvers will often display a lot of
-information that isn't really that helpful (e.g., nodes, cutting
-planes), they do display information about the progress they are making
-on solving the problem (e.g., the performance of the best solution found
-at a given point in time). If potential issues were detected during the
-presolve checks (see
-[`presolve_check()`](https://prioritizr.net/reference/presolve_check.md))
-and the problem is being forcibly solved (i.e., with `force = TRUE`),
-then it is also worth checking for any warnings displayed by the solver
-to see if these potential issues are actually causing issues (e.g.,
-*Gurobi* can display warnings that include
-`"Warning: Model contains large matrix coefficient range"` and
-`"Warning: Model contains large rhs"`).
-
-## Output format
-
-This function will output solutions in a similar format to the planning
-units associated with `a`. Specifically, it will return solutions based
-on the following types of planning units.
-
-- `a` has `numeric` planning units:
-
-  The solution will be returned as a `numeric` vector. Here, each
-  element in the vector corresponds to a different planning unit. Note
-  that if a portfolio is used to generate multiple solutions, then a
-  `list` of such `numeric` vectors will be returned.
-
-- `a` has `matrix` planning units:
-
-  The solution will be returned as a `matrix` object. Here, rows
-  correspond to different planning units, and columns correspond to
-  different management zones. Note that if a portfolio is used to
-  generate multiple solutions, then a `list` of such `matrix` objects
-  will be returned.
-
-- `a` has
-  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  planning units:
-
-  The solution will be returned as a
-  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object. If the argument to `x` contains multiple zones, then the
-  object will have a different layer for each management zone. Note that
-  if a portfolio is used to generate multiple solutions, then a `list`
-  of
-  [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  objects will be returned.
-
-- `a` has
-  [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html), or
-  `data.frame` planning units:
-
-  The solution will be returned in the same data format as the planning
-  units. Here, each row corresponds to a different planning unit, and
-  columns contain solutions. If the argument to `a` contains a single
-  zone, then the solution object will contain columns named by solution.
-  Specifically, the column names containing the solution values be will
-  named as `"solution_XXX"` where `"XXX"` corresponds to a solution
-  identifier (e.g., `"solution_1"`). If the argument to `a` contains
-  multiple zones, then the columns containing solutions will be named as
-  `"solution_XXX_YYY"` where `"XXX"` corresponds to the solution
-  identifier and `"YYY"` is the name of the management zone (e.g.,
-  `"solution_1_zone1"`).
-
 ## See also
 
-See [`problem()`](https://prioritizr.net/reference/problem.md) to create
-conservation planning problems, and
+See [`problem()`](https://prioritizr.net/reference/problem.md) and
+[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+to create conservation planning problems. Also, see
 [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
-to check problems for potential issues. Also, see the
+to check problems for potential issues prior to solving a problem, and
 [`category_layer()`](https://prioritizr.net/reference/category_layer.md)
 and
 [`category_vector()`](https://prioritizr.net/reference/category_vector.md)
-function to reformat solutions that contain multiple zones.
+to reformat solutions that contain multiple zones.
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -206,16 +229,16 @@ s1 <- solve(p1)
 
 # print solution
 print(s1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : layer 
-#> min value   :     0 
-#> max value   :     1 
+#> varname     : sim_pu_raster
+#> name        : layer
+#> min value   :     0
+#> max value   :     1
 
 # print attributes describing the optimization process and the solution
 print(attr(s1, "objective"))
@@ -223,7 +246,7 @@ print(attr(s1, "objective"))
 #>   1987.399 
 print(attr(s1, "runtime"))
 #> solution_1 
-#>      0.005 
+#>      0.004 
 print(attr(s1, "status"))
 #> solution_1 
 #>  "OPTIMAL" 
@@ -264,7 +287,7 @@ print(s2)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 5
 #>     cost locked_in locked_out solution_1                                geometry
 #>  * <dbl> <lgl>     <lgl>           <dbl>                           <POLYGON [m]>
@@ -309,18 +332,18 @@ s3 <- solve(p3)
 
 # print solution
 print(s3)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 3  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varnames    : sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#>               sim_zones_pu_raster 
-#> names       : zone_1, zone_2, zone_3 
-#> min values  :      0,      0,      0 
-#> max values  :      1,      1,      1 
+#> varnames    : sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#>               sim_zones_pu_raster
+#> names       : zone_1, zone_2, zone_3
+#> min values  :      0,      0,      0
+#> max values  :      1,      1,      1
 
 # calculate feature representation in the solution
 r3 <- eval_feature_representation_summary(p3, s3)
@@ -373,7 +396,7 @@ print(s4)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 10
 #>    cost_1 cost_2 cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
 #>  *  <dbl>  <dbl>  <dbl> <lgl>    <lgl>    <lgl>                <dbl>
@@ -429,6 +452,4 @@ s4$solution <- factor(s4$solution)
 
 # plot solution
 plot(s4[, "solution"])
-
-# }
 ```

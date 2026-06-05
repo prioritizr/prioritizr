@@ -10,32 +10,31 @@ NULL
 #' it is recommended to use [add_pool_portfolio] if the *Gurobi*
 #' software is available.
 #'
-#' @param x [problem()] object.
+#' @inheritParams add_cuts_portfolio
+#' @inheritParams add_gurobi_solver
 #'
-#' @param number_solutions `integer` number of attempts to generate
-#'   different solutions. Defaults to 10.
+#' @param verbose `logical` should progress on generating multiple solutions
+#' be displayed? Note that progress will not be displayed if using
+#' multiple threads for parallel processing. Defaults to `TRUE`.
 #'
-#' @param threads `integer` number of threads to use for the generating
-#'   the solution portfolio. Defaults to 1.
+#' @details
+#' This strategy for generating a portfolio of solutions often
+#' results in different solutions, depending on optimality gap, but may
+#' return duplicate solutions. In general, this strategy is most effective
+#' when problems are quick to solve and multiple threads are available for
+#' solving each problem separately.
 #'
-#' @param remove_duplicates `logical` should duplicate solutions
-#'   be removed? Defaults to `TRUE`.
+#' @section Notes:
+#' In previous versions (< 9.0.0.0), this function had a `remove_duplicates`
+#' parameter. To streamline and provide this functionality for other
+#' functions, duplicate solutions can now be removed by using the
+#' the `remove_duplicates` parameter of [prioritizr::solve()].
 #'
-#' @details This strategy for generating a portfolio of solutions often
-#'   results in different solutions, depending on optimality gap, but may
-#'   return duplicate solutions. In general, this strategy is most effective
-#'   when problems are quick to solve and multiple threads are available for
-#'   solving each problem separately.
-#'
-#' @inherit add_cuts_portfolio return
-#'
-#' @seealso
-#' See [portfolios] for an overview of all functions for adding a portfolio.
+#' @inherit add_cuts_portfolio return seealso
 #'
 #' @family portfolios
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -50,7 +49,7 @@ NULL
 #'   problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2) %>%
-#'   add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+#'   add_shuffle_portfolio(10) %>%
 #'   add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve problem and generate 10 solutions within 20% of optimality
@@ -71,7 +70,7 @@ NULL
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5, ncol = 3)) %>%
 #'   add_binary_decisions() %>%
-#'   add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+#'   add_shuffle_portfolio(10) %>%
 #'   add_default_solver(gap = 0.2, verbose = FALSE)
 #'
 #' # solve the problem
@@ -85,28 +84,30 @@ NULL
 #'
 #' # plot solutions in portfolio
 #' plot(s2, axes = FALSE)
-#' }
+#'
 #' @name add_shuffle_portfolio
 NULL
 
 #' @rdname add_shuffle_portfolio
 #' @export
 add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
-                                  remove_duplicates = TRUE) {
+                                  verbose = TRUE) {
   # assert that arguments are valid
   assert_required(x)
   assert_required(number_solutions)
   assert_required(threads)
-  assert_required(remove_duplicates)
+  assert_required(verbose)
   assert(
     is_conservation_problem(x),
     assertthat::is.count(number_solutions),
     all_finite(number_solutions),
     is_thread_count(threads),
     all_finite(threads),
-    assertthat::is.flag(remove_duplicates),
-    assertthat::noNA(remove_duplicates)
+    assertthat::is.flag(verbose),
+    assertthat::noNA(verbose)
   )
+  # additional argument validation
+  verify(is_recommended_thread_count(threads))
   # add portfolio
   x$add_portfolio(
     R6::R6Class(
@@ -117,11 +118,15 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
         data = list(
           number_solutions = number_solutions,
           threads = threads,
-          remove_duplicates = remove_duplicates
+          verbose = verbose
         ),
         run = function(x, solver) {
+          # initialization
+          verbose <- self$get_data("verbose")
+          n <- self$get_data("number_solutions")
+          threads <- self$get_data("threads")
           # determine behavior based on number of solutions
-          if (self$get_data("number_solutions") == 1) {
+          if (n == 1) {
             ## if only one solution is needed,
             ## then simply shuffle the problem and return the solution
             shuffle_key <- sample(seq_len(x$ncol()))
@@ -184,22 +189,21 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
           }
           ## if multiple solutions are needed,
           ## then we need to be more complex
-          if (self$get_data("threads") > 1L) {
-            ### if using paralell processing, then...
+          if (threads > 1L) {
+            ### if using parallel processing, then...
             ### convert problem to list so we can copy between workers
             x_list <- as.list(x)
             ### initialize cluster
-            cl <- parallel::makeCluster(self$get_data("threads"), "PSOCK")
+            cl <- parallel::makeCluster(threads, "PSOCK")
             ### prepare cluster clean up
             on.exit(try(cl <- parallel::stopCluster(cl), silent = TRUE))
             ### create RNG seeds
             pids <- parallel::clusterEvalQ(cl, Sys.getpid())
-            seeds <- sample.int(n = 1e+5, size = self$get_data("threads"))
+            seeds <- sample.int(n = 1e+5, size = threads)
             names(seeds) <- as.character(unlist(pids))
             ### copy data to cluster
             parallel::clusterExport(
-              cl,
-              c("solver", "x_list", "seeds"),
+              cl, c("solver", "x_list", "seeds"),
               envir = environment()
             )
             ### set up workers
@@ -210,28 +214,36 @@ add_shuffle_portfolio <- function(x, number_solutions = 10, threads = 1,
             })
             ### main processing
             sol <- parallel::parLapply(
-              cl = cl,
-              seq_len(self$get_data("number_solutions")),
+              cl = cl, seq_len(n),
               generate_single_solution
             )
           } else {
-            ### if NOT using paralell processing, then...
-            sol <- lapply(
-              seq_len(self$get_data("number_solutions")),
-              generate_single_solution
-            )
-          }
-          ## if needed, remove duplicated solutions
-          if (isTRUE(self$get_data("remove_duplicates"))) {
-            unique_pos <- !duplicated(
-              vapply(
-                lapply(sol, `[[`, 1),
-                paste,
-                character(1),
-                collapse = " "
+            ### if needed, set up progress bar
+             if (isTRUE(verbose)) {
+              pb <- cli::cli_progress_bar(
+                format = cli_progress_bar_format("Generating solutions"),
+                total = n,
+                .envir = parent.frame()
               )
+            }
+            ### if NOT using parallel processing, then...
+            sol <- lapply(
+              seq_len(n),
+              function(i) {
+                ### generate solution
+                out <- generate_single_solution(i)
+                ## if needed, update progress bar
+                if (isTRUE(verbose)) {
+                  cli::cli_progress_update(id = pb)
+                }
+                ### return solution
+                out
+              }
             )
-            sol <- sol[unique_pos]
+            ### if needed, clean up progress bar
+            if (isTRUE(verbose)) {
+              cli::cli_progress_done(id = pb)
+            }
           }
           ## return result
           sol

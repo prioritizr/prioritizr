@@ -49,6 +49,7 @@ solution to a conservation planning
 ## See also
 
 Other overviews:
+[`approaches`](https://prioritizr.net/reference/approaches.md),
 [`constraints`](https://prioritizr.net/reference/constraints.md),
 [`decisions`](https://prioritizr.net/reference/decisions.md),
 [`importance`](https://prioritizr.net/reference/importance.md),
@@ -61,7 +62,6 @@ Other overviews:
 ## Examples
 
 ``` r
-# \dontrun{
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -104,7 +104,7 @@ eval_feature_representation_summary(p, s)
 
 # evaluate target coverage by solution
 eval_target_coverage_summary(p, s)
-#> # A tibble: 5 × 9
+#> # A tibble: 5 × 10
 #>   feature   met   total_amount absolute_target absolute_held absolute_shortfall
 #>   <chr>     <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
 #> 1 feature_1 TRUE          83.3            8.33          8.91                  0
@@ -112,8 +112,8 @@ eval_target_coverage_summary(p, s)
 #> 3 feature_3 TRUE          72.0            7.20          7.34                  0
 #> 4 feature_4 TRUE          42.7            4.27          4.35                  0
 #> 5 feature_5 TRUE          56.7            5.67          6.01                  0
-#> # ℹ 3 more variables: relative_target <dbl>, relative_held <dbl>,
-#> #   relative_shortfall <dbl>
+#> # ℹ 4 more variables: relative_target <dbl>, relative_held <dbl>,
+#> #   relative_shortfall <dbl>, relative_met <dbl>
 
 # evaluate exposed boundary (perimeter) length by solution
 eval_boundary_summary(p, s)
@@ -127,7 +127,8 @@ eval_boundary_summary(p, s)
 # see ?connectivity_matrix for more information
 
 # for brevity, we will do this using the cost data
-# cost valuers have high connectivity between them
+# and assume that pairs of adjacent planning units with high
+# cost values have high connectivity between them
 cm <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 
 # evaluate connectivity of solution using symmetric data
@@ -151,7 +152,5 @@ eval_asym_connectivity_summary(p, s, data = acm)
 #> # A tibble: 1 × 2
 #>   summary asym_connectivity
 #>   <chr>               <dbl>
-#> 1 overall              50.5
-
-# }
+#> 1 overall              51.4
 ```

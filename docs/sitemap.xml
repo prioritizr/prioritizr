@@ -17,9 +17,10 @@
 <url><loc>https://prioritizr.net/reference/ConservationProblem-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Constraint-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Decision-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/MultiConservationProblem-class.html</loc></url>
+<url><loc>https://prioritizr.net/reference/MultiObjApproach-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Objective-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/OptimizationProblem-class.html</loc></url>
-<url><loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Penalty-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Portfolio-class.html</loc></url>
 <url><loc>https://prioritizr.net/reference/Solver-class.html</loc></url>
@@ -34,6 +35,8 @@
 <url><loc>https://prioritizr.net/reference/add_cbc_solver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_connectivity_penalties.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_contiguity_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_cost_constraints.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_cost_penalties.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_cplex_solver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_cuts_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_default_portfolio.html</loc></url>
@@ -44,6 +47,7 @@
 <url><loc>https://prioritizr.net/reference/add_gap_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_group_targets.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_gurobi_solver.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_hier_approach.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_highs_solver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_linear_constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_linear_penalties.html</loc></url>
@@ -55,10 +59,10 @@
 <url><loc>https://prioritizr.net/reference/add_manual_locked_constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_manual_targets.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_max_cover_objective.html</loc></url>
-<url><loc>https://prioritizr.net/reference/add_max_features_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_n_targets_met_objective.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_max_phylo_div_objective.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_max_phylo_end_objective.html</loc></url>
-<url><loc>https://prioritizr.net/reference/add_max_utility_objective.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_max_wtd_sum_objective.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_min_largest_shortfall_objective.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_min_penalties_objective.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_min_set_objective.html</loc></url>
@@ -66,12 +70,18 @@
 <url><loc>https://prioritizr.net/reference/add_neighbor_constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_neighbor_penalties.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_proportion_decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_ref_point_approach.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_relative_targets.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_rsymphony_solver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_semicontinuous_decisions.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_single_portfolio.html</loc></url>
 <url><loc>https://prioritizr.net/reference/add_top_portfolio.html</loc></url>
+<url><loc>https://prioritizr.net/reference/add_wtd_sum_approach.html</loc></url>
 <url><loc>https://prioritizr.net/reference/adjacency_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/approach_rel_tol_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/approach_weights_matrix.html</loc></url>
+<url><loc>https://prioritizr.net/reference/approaches.html</loc></url>
 <url><loc>https://prioritizr.net/reference/as_km2.html</loc></url>
 <url><loc>https://prioritizr.net/reference/as_per_km2.html</loc></url>
 <url><loc>https://prioritizr.net/reference/binary_stack.html</loc></url>
@@ -84,6 +94,7 @@
 <url><loc>https://prioritizr.net/reference/connectivity_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/decisions.html</loc></url>
+<url><loc>https://prioritizr.net/reference/do_run_example.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc></url>
@@ -91,6 +102,7 @@
 <url><loc>https://prioritizr.net/reference/eval_feature_representation_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_ferrier_importance.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_n_summary.html</loc></url>
+<url><loc>https://prioritizr.net/reference/eval_objective_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_rank_importance.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_rare_richness_importance.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_replacement_importance.html</loc></url>
@@ -107,9 +119,12 @@
 <url><loc>https://prioritizr.net/reference/marxan_boundary_data_to_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/marxan_connectivity_data_to_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/marxan_problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/multi_compile.html</loc></url>
+<url><loc>https://prioritizr.net/reference/multi_problem.html</loc></url>
 <url><loc>https://prioritizr.net/reference/new_waiver.html</loc></url>
 <url><loc>https://prioritizr.net/reference/number_of_features.html</loc></url>
 <url><loc>https://prioritizr.net/reference/number_of_planning_units.html</loc></url>
+<url><loc>https://prioritizr.net/reference/number_of_problems.html</loc></url>
 <url><loc>https://prioritizr.net/reference/number_of_total_units.html</loc></url>
 <url><loc>https://prioritizr.net/reference/number_of_zones.html</loc></url>
 <url><loc>https://prioritizr.net/reference/objectives.html</loc></url>
@@ -120,6 +135,7 @@
 <url><loc>https://prioritizr.net/reference/prioritizr-deprecated.html</loc></url>
 <url><loc>https://prioritizr.net/reference/prioritizr.html</loc></url>
 <url><loc>https://prioritizr.net/reference/problem.html</loc></url>
+<url><loc>https://prioritizr.net/reference/problem_names.html</loc></url>
 <url><loc>https://prioritizr.net/reference/proximity_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/reexports.html</loc></url>
 <url><loc>https://prioritizr.net/reference/rescale_matrix.html</loc></url>

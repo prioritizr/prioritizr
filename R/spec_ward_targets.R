@@ -90,8 +90,7 @@
 #'
 #' @family method
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -112,7 +111,7 @@
 #'
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE)
-#' }
+#'
 #' @export
 spec_ward_targets <- function(status = "CR", cap_area_target = 1000000,
                               area_units = "km^2") {

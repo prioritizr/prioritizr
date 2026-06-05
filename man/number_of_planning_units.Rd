@@ -3,6 +3,7 @@
 \name{number_of_planning_units}
 \alias{number_of_planning_units}
 \alias{number_of_planning_units.ConservationProblem}
+\alias{number_of_planning_units.MultiConservationProblem}
 \alias{number_of_planning_units.OptimizationProblem}
 \title{Number of planning units}
 \usage{
@@ -10,15 +11,17 @@ number_of_planning_units(x, ...)
 
 \method{number_of_planning_units}{ConservationProblem}(x, ...)
 
+\method{number_of_planning_units}{MultiConservationProblem}(x, ...)
+
 \method{number_of_planning_units}{OptimizationProblem}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[=problem]{problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
+\item{x}{\code{\link[=problem]{problem()}}, \code{\link[=multi_problem]{multi_problem()}} or \code{\link[=optimization_problem]{optimization_problem()}} object.}
 
 \item{...}{not used.}
 }
 \value{
-An \code{integer} number of planning units.
+An \code{integer} value.
 }
 \description{
 Extract the number of planning units in an object.
@@ -32,7 +35,7 @@ and only two of these cells contain non-missing (\code{NA}) values.
 As such, this dataset would have two planning units.
 }
 \examples{
-\dontrun{
+\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -46,5 +49,26 @@ p <-
 
 # print number of planning units
 print(number_of_planning_units(p))
-}
+
+# define budget for multi-objective problem
+b <- 0.3 * terra::global(sim_pu_raster, "sum", na.rm = TRUE)[[1]]
+
+# create multi-objective problem
+mp <-
+  multi_problem(
+    obj1 =
+      problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
+      add_max_wtd_sum_objective(budget = b) \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions(),
+    obj2 =
+      problem(sim_pu_raster, sim_features[[3:5]]) \%>\%
+      add_min_shortfall_objective(budget = b) \%>\%
+      add_relative_targets(0.8) \%>\%
+      add_binary_decisions()
+  )
+
+# print number of planning units
+print(number_of_planning_units(mp))
+\dontshow{\}) # examplesIf}
 }

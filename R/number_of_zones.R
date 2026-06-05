@@ -9,10 +9,9 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @return An `integer` number of zones.
+#' @return An `integer` value.
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf prioritizr::do_run_example()
 #' # load data
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_zones_features <- get_sim_zones_features()
@@ -29,7 +28,25 @@ NULL
 #'
 #' # print number of zones in the problem
 #' print(number_of_zones(p))
-#' }
+#'
+#' # create two example problems
+#' mp <-
+#'   multi_problem(
+#'     obj1 =
+#'       problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'       add_binary_decisions(),
+#'     obj2 =
+#'       problem(sim_zones_pu_raster, sim_zones_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+#'       add_binary_decisions()
+#'   )
+#'
+#' # print number of zones
+#' print(number_of_zones(mp))
+#'
 #' @export
 number_of_zones <- function(x, ...) {
   assert_required(x)
@@ -41,6 +58,13 @@ number_of_zones <- function(x, ...) {
 #'
 #' @export
 number_of_zones.ConservationProblem <- function(x, ...) {
+  x$number_of_zones()
+}
+
+#' @rdname number_of_zones
+#'
+#' @export
+number_of_zones.MultiConservationProblem <- function(x, ...) {
   x$number_of_zones()
 }
 

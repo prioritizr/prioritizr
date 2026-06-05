@@ -28,36 +28,35 @@ eval_boundary_summary(
   `numeric`, `matrix`, `data.frame`,
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html),
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
-  object. The argument should be in the same format as the planning unit
-  cost data in the argument to `x`. See the Solution format section for
-  more information.
+  object. Note that `solution` must have the same format as the planning
+  unit data in `x`. See the Solution format section for more
+  information.
 
 - edge_factor:
 
-  `numeric` proportion to scale planning unit edges (borders) that do
-  not have any neighboring planning units. For example, an edge factor
-  of `0.5` is commonly used to avoid overly penalizing planning units
-  along a coastline. Note that this argument must have an element for
-  each zone in the argument to `x`.
+  `numeric` value or vector denoting the proportion for scaling planning
+  unit edges (borders) that do not have any neighboring planning units.
+  For example, an edge factor of `0.5` is commonly used to avoid overly
+  penalizing planning units along coastlines. Note that `edge_factor`
+  must have a value for each zone in `x`.
 
 - zones:
 
   `matrix` or `Matrix` object describing the clumping scheme for
   different zones. Each row and column corresponds to a different zone
-  in the argument to `x`, and cell values indicate the relative
-  importance of clumping planning units that are allocated to a
-  combination of zones. Cell values along the diagonal of the matrix
-  represent the relative importance of clumping planning units that are
-  allocated to the same zone. Cell values must range between 1 and -1,
-  where negative values favor solutions that spread out planning units.
-  The default argument to `zones` is an identity matrix (i.e., a matrix
-  with ones along the matrix diagonal and zeros elsewhere), so that
-  penalties are incurred when neighboring planning units are not
-  assigned to the same zone. If the cells along the matrix diagonal
-  contain markedly smaller values than those found elsewhere in the
-  matrix, then solutions are preferred that surround planning units with
-  those allocated to different zones (i.e., greater spatial
-  fragmentation).
+  in `x`, and cell values indicate the relative importance of clumping
+  planning units that are allocated to a combination of zones. Cell
+  values along the diagonal of the matrix represent the relative
+  importance of clumping planning units that are allocated to the same
+  zone. Cell values must range between 1 and -1, where negative values
+  favor solutions that spread out planning units. Defaults to an
+  identity matrix (i.e., a matrix with ones along the matrix diagonal
+  and zeros elsewhere), so that penalties are incurred when neighboring
+  planning units are not assigned to the same zone. If the cells along
+  the matrix diagonal contain markedly smaller values than those found
+  elsewhere in the matrix, then solutions are preferred that surround
+  planning units with those allocated to different zones (i.e., greater
+  spatial fragmentation of zones).
 
 - data:
 
@@ -72,17 +71,17 @@ eval_boundary_summary(
 
 A
 [`tibble::tibble()`](https://tibble.tidyverse.org/reference/tibble.html)
-object containing the boundary length of the solution. It contains the
-following columns:
+object describing the boundary length of the solution. It contains the
+following columns.
 
 - summary:
 
   `character` description of the summary statistic. The statistic
   associated with the `"overall"` value in this column is calculated
-  using the entire solution (including all management zones if there are
-  multiple zones). If multiple management zones are present, then
-  summary statistics are also provided for each zone separately
-  (indicated using zone names).
+  using the entire solution (including all management zones if `x` has
+  multiple zones). If `x` has multiple management zones, then summary
+  statistics are also provided for each zone separately (indicated using
+  zone names).
 
 - boundary:
 
@@ -98,102 +97,102 @@ reported by the [*Marxan* software](https://marxansolutions.org) (Ball
 *et al.* 2009). It is calculated using the same equations used to
 penalize solutions according to their total exposed boundary (i.e.,
 [`add_boundary_penalties()`](https://prioritizr.net/reference/add_boundary_penalties.md)).
-See the Examples section for examples on how differences `zone`
-arguments can be used to calculate boundaries for different combinations
-of zones.
+See the Examples section for examples on how different `zone` values can
+be used to calculate boundaries for different combinations of zones.
 
 ## Data format
 
-The argument to `data` can be specified using the following formats.
-Note that boundary data must always describe symmetric relationships
-between planning units.
+The following formats can be used to specify `data`. Note that boundary
+data must always describe symmetric relationships between planning
+units.
 
 - `data` as a `NULL` value:
 
-  indicating that the data should be automatically calculated using the
+  Here boundary length data are automatically calculated using the
   [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
-  function. This argument is the default. Note that the boundary data
-  must be supplied using one of the other formats below if the planning
-  unit data in the argument to `x` do not explicitly contain spatial
-  information (e.g., planning unit data are a `data.frame` or `numeric`
-  class).
+  function and then rescaled with
+  [`rescale_matrix()`](https://prioritizr.net/reference/rescale_matrix.md).
+  This is the default for `data`. Note that the boundary data must be
+  supplied using one of the other formats below if `x` does not contain
+  planning units that are spatially referenced. (e.g., planning unit
+  data are a `data.frame` object or `numeric` vector).
 
 - `data` as a `matrix`/`Matrix` object:
 
-  where rows and columns represent different planning units and the
-  value of each cell represents the amount of shared boundary length
-  between two different planning units. Cells that occur along the
-  matrix diagonal denote the total boundary length associated with each
-  planning unit.
+  Here rows and columns correspond to different planning units and cell
+  values represent the amount of boundary length shared between two
+  planning units. Cells along the matrix diagonal denote the total
+  boundary length associated with each planning unit. For example,
+  boundary data in this format can be generated with the
+  [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
+  function.
 
 - `data` as a `data.frame` object:
 
-  with the columns `"id1"`, `"id2"`, and `"boundary"`. The `"id1"` and
-  `"id2"` columns contain identifiers (indices) for a pair of planning
-  units, and the `"boundary"` column contains the amount of shared
-  boundary length between these two planning units. Additionally, if the
-  values in the `"id1"` and `"id2"` columns contain the same values,
-  then the value denotes the amount of exposed boundary length (not
-  total boundary). This format follows the the standard *Marxan* format
-  for boundary data (i.e., per the "bound.dat" file).
+  Here rows correspond to a pair of planning units and columns provide
+  information about each pair of planning units. In particular, `data`
+  must have the columns: `"id1"`, `"id2"`, and `"boundary"`. The `"id1"`
+  and `"id2"` columns contain identifiers (indices) for a pair of
+  planning units, and the `"boundary"` column contains the amount of
+  shared boundary length between these two planning units. Additionally,
+  if the `"id1"` and `"id2"` columns contain the same values, then the
+  value denotes the amount of exposed boundary length (not total
+  boundary) for that particular planning unit. This format follows the
+  the standard *Marxan* format for boundary data (i.e., per the
+  "bound.dat" file).
 
 ## Solution format
 
-Broadly speaking, the argument to `solution` must be in the same format
-as the planning unit data in the argument to `x`. Further details on the
-correct format are listed separately for each of the different planning
-unit data formats:
+Broadly speaking, `solution` must be in the same format as the planning
+unit data in `x`. Further details on the correct format are listed
+separately for each of the different planning unit data formats.
 
 - `x` has `numeric` planning units:
 
-  The argument to `solution` must be a `numeric` vector with each
-  element corresponding to a different planning unit. It should have the
-  same number of planning units as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values should
-  also have missing (`NA`) values in the argument to `solution`.
+  Here `solution` must be a `numeric` vector with each element
+  corresponding to a different planning unit. It should have the same
+  number of planning units as those in `x`. Additionally, any planning
+  units with missing cost (`NA`) values should also have missing (`NA`)
+  values in the `solution`.
 
 - `x` has `matrix` planning units:
 
-  The argument to `solution` must be a `matrix` vector with each row
-  corresponding to a different planning unit, and each column correspond
-  to a different management zone. It should have the same number of
-  planning units and zones as those in the argument to `x`.
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have a missing (`NA`) values in the
-  argument to `solution`.
+  Here `solution` must be a `matrix` vector with each row corresponding
+  to a different planning unit, and each column correspond to a
+  different management zone. It should have the same number of planning
+  units and zones as those in `x`. Additionally, any planning units with
+  missing cost (`NA`) values for a particular zone should also have a
+  missing (`NA`) values in `solution`.
 
 - `x` has
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   planning units:
 
-  The argument to `solution` be a
+  Here `solution` be a
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   object where different cells correspond to different planning units
   and layers correspond to a different management zones. It should have
   the same dimensionality (rows, columns, layers), resolution, extent,
-  and coordinate reference system as the planning units in the argument
-  to `x`. Additionally, any planning units missing cost (`NA`) values
-  for a particular zone should also have missing (`NA`) values in the
-  argument to `solution`.
+  and coordinate reference system as the planning units in `x`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has `data.frame` planning units:
 
-  The argument to `solution` must be a `data.frame` with each column
-  corresponding to a different zone, each row corresponding to a
-  different planning unit, and cell values corresponding to the solution
-  value. This means that if a `data.frame` object containing the
-  solution also contains additional columns, then these columns will
-  need to be subsetted prior to using this function (see below for
-  example with
+  Here `solution` must be a `data.frame` with each column corresponding
+  to a different zone, each row corresponding to a different planning
+  unit, and cell values corresponding to the solution value. This means
+  that if a `data.frame` object containing the solution also contains
+  additional columns, then these columns will need to be subsetted prior
+  to using this function (see below for example with
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) data).
-  Additionally, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  Additionally, any planning units with missing cost (`NA`) values for a
+  particular zone should also have missing (`NA`) values in `solution`.
 
 - `x` has [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
   planning units:
 
-  The argument to `solution` must be a
+  Here `solution` must be a
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   with each column corresponding to a different zone, each row
   corresponding to a different planning unit, and cell values
@@ -201,11 +200,10 @@ unit data formats:
   [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object
   containing the solution also contains additional columns, then these
   columns will need to be subsetted prior to using this function (see
-  below for example). Additionally, the argument to `solution` must also
-  have the same coordinate reference system as the planning unit data.
-  Furthermore, any planning units missing cost (`NA`) values for a
-  particular zone should also have missing (`NA`) values in the argument
-  to `solution`.
+  below for example). Additionally, `solution` must also have the same
+  coordinate reference system as the planning unit data. Furthermore,
+  any planning units with missing cost (`NA`) values for a particular
+  zone should also have missing (`NA`) values in `solution`.
 
 ## References
 
@@ -228,12 +226,12 @@ Other functions for summarizing solutions:
 [`eval_cost_summary()`](https://prioritizr.net/reference/eval_cost_summary.md),
 [`eval_feature_representation_summary()`](https://prioritizr.net/reference/eval_feature_representation_summary.md),
 [`eval_n_summary()`](https://prioritizr.net/reference/eval_n_summary.md),
+[`eval_objective_summary()`](https://prioritizr.net/reference/eval_objective_summary.md),
 [`eval_target_coverage_summary()`](https://prioritizr.net/reference/eval_target_coverage_summary.md)
 
 ## Examples
 
 ``` r
-# \dontrun{
 # set seed for reproducibility
 set.seed(500)
 
@@ -257,16 +255,16 @@ s1 <- solve(p1)
 
 # print solution
 print(s1)
-#> class       : SpatRaster 
+#> class       : SpatRaster
 #> size        : 10, 10, 1  (nrow, ncol, nlyr)
 #> resolution  : 0.1, 0.1  (x, y)
 #> extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#> coord. ref. : Undefined Cartesian SRS 
+#> coord. ref. : WGS 84 / Pseudo-Mercator (EPSG:3857)
 #> source(s)   : memory
-#> varname     : sim_pu_raster 
-#> name        : layer 
-#> min value   :     0 
-#> max value   :     1 
+#> varname     : sim_pu_raster
+#> name        : layer
+#> min value   :     0
+#> max value   :     1
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE)
@@ -297,7 +295,7 @@ print(s2)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 5
 #>     cost locked_in locked_out solution_1                                geometry
 #>  * <dbl> <lgl>     <lgl>           <dbl>                           <POLYGON [m]>
@@ -345,7 +343,7 @@ print(s3)
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: 0 ymin: 0 xmax: 1 ymax: 1
-#> Projected CRS: Undefined Cartesian SRS
+#> Projected CRS: WGS 84 / Pseudo-Mercator
 #> # A tibble: 90 × 10
 #>    cost_1 cost_2 cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
 #>  *  <dbl>  <dbl>  <dbl> <lgl>    <lgl>    <lgl>                <dbl>
@@ -415,5 +413,4 @@ print(r3_combined)
 # sum of the individual zone boundaries, because it does not
 # consider the shared boundary between two planning units allocated to
 # different zones as "exposed" when performing the calculations
-# }
 ```

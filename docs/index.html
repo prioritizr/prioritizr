@@ -13,8 +13,8 @@
 <link rel="manifest" href="site.webmanifest">
 <!-- katex math --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script><script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script><script src="katex-auto.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="Systematic Conservation Prioritization in R">
@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">8.1.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,10 @@
 </h2>
 <p>Here we provide a short example showing how the <em>prioritizr R</em> package can be used to build and solve conservation problems. Specifically, we will use an example dataset available through the <em>prioritizrdata R</em> package. Additionally, we will use the <em>terra R</em> package to perform raster calculations. To begin with, we will load the packages.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># load packages</span></span>
+<code class="sourceCode R"><span><span class="co"># to install packages for this example, please use:</span></span>
+<span><span class="co"># install.packages(c("prioritizr", "prioritizrdata"))</span></span>
+<span></span>
+<span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.github.io/prioritizrdata/" class="external-link">prioritizrdata</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
@@ -153,15 +156,15 @@
 <span></span>
 <span><span class="co"># preview data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_pu</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## class       : SpatRaster</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">## size        : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## source      : wa_pu.tif </span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## name        :         cost </span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">## min value   :    0.2986647 </span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">## max value   : 1804.1838379</span></span></code></pre></div>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## source      : wa_pu.tif</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## name        :        cost</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">## min value   :    0.298665</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">## max value   : 1804.183838</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_pu</span>, main <span class="op">=</span> <span class="st">"Costs"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
@@ -173,14 +176,14 @@
 <span></span>
 <span><span class="co"># preview data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_features</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">## class       : SpatRaster</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">## size        : 109, 147, 396  (nrow, ncol, nlyr)</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
 <span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="do">## source      : wa_features.tif </span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="do">## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ... </span></span>
-<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="do">## min values  :       0.000,       0.000,       0.000,       0.000,       0.000,        0.00, ... </span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="do">## source      : wa_features.tif</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="do">## names       : Recur~ding), Botau~ding), Botau~ding), Corvu~ding), Corvu~ding), Cincl~full), ...</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="do">## min values  :           0,           0,           0,           0,           0,           0, ...</span></span>
 <span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="do">## max values  :       0.514,       0.812,       3.129,       0.115,       0.296,        0.06, ...</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot the first nine features</span></span>
@@ -222,9 +225,9 @@
 <span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="do">## │├•constraints: none specified</span></span>
 <span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="do">## │└•decisions:   binary decision</span></span>
 <span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="do">## └•optimization</span></span>
-<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="do">##  ├•portfolio:   default portfolio</span></span>
-<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="do">##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `first_feasible` = FALSE, …)</span></span>
-<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="do">## # ℹ Use `summary(...)` to see complete formulation.</span></span></code></pre></div>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="do">##  ├•portfolio:   single portfolio</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="do">##  └•solver:      gurobi solver (`gap` = 0.1, `time_limit` = 2147483647, `presolve` = 2, `threads` = 1, …)</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="do">## # ℹ Use `summary(...)` to see further details.</span></span></code></pre></div>
 <p>After we have built a <code><a href="reference/problem.html">problem()</a></code>, we can solve it to obtain a solution.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># solve the problem</span></span>
@@ -238,7 +241,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      5.971</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.731</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -267,7 +270,7 @@
 <code class="sourceCode R"><span><span class="co"># calculate target coverage for the solution</span></span>
 <span><span class="va">p1_target_coverage</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">## # A tibble: 396 × 9</span></span>
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">## # A tibble: 396 × 10</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="do">##    feature   met   total_amount absolute_target absolute_held absolute_shortfall</span></span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="do">##    &lt;chr&gt;     &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;</span></span>
 <span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="do">##  1 Recurvir… TRUE         100.             20.0          23.4               0   </span></span>
@@ -281,8 +284,8 @@
 <span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="do">##  9 Falco sp… TRUE          99.9            20.0          24.9               0   </span></span>
 <span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="do">## 10 Falco sp… TRUE         100.0            20.0          24.5               0   </span></span>
 <span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="do">## # ℹ 386 more rows</span></span>
-<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="do">## # ℹ 3 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span>
-<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="do">## #   relative_shortfall &lt;dbl&gt;</span></span></code></pre></div>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="do">## # ℹ 4 more variables: relative_target &lt;dbl&gt;, relative_held &lt;dbl&gt;,</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="do">## #   relative_shortfall &lt;dbl&gt;, relative_met &lt;dbl&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># check percentage of the features that have their target met given the solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rspatial.github.io/terra/reference/summarize-generics.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p1_target_coverage</span><span class="op">$</span><span class="va">met</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
@@ -294,14 +297,14 @@
 <span></span>
 <span><span class="co"># print data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_locked_in</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<div class="sourceCode" id="cb30"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="do">## class       : SpatRaster</span></span>
 <span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="do">## size        : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
 <span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
 <span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="do">## source      : wa_locked_in.tif </span></span>
-<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="do">## name        : protected areas </span></span>
-<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="do">## min value   :               0 </span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a><span class="do">## source      : wa_locked_in.tif</span></span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a><span class="do">## name        : protected areas</span></span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="do">## min value   :               0</span></span>
 <span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="do">## max value   :               1</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
@@ -326,14 +329,14 @@
 <span></span>
 <span><span class="co"># print data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_locked_out</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<div class="sourceCode" id="cb34"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="do">## class       : SpatRaster</span></span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="do">## size        : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
 <span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
 <span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
-<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="do">## source      : wa_locked_out.tif </span></span>
-<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="do">## name        : urban areas </span></span>
-<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a><span class="do">## min value   :           0 </span></span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="do">## source      : wa_locked_out.tif</span></span>
+<span id="cb34-7"><a href="#cb34-7" tabindex="-1"></a><span class="do">## name        : urban areas</span></span>
+<span id="cb34-8"><a href="#cb34-8" tabindex="-1"></a><span class="do">## min value   :           0</span></span>
 <span id="cb34-9"><a href="#cb34-9" tabindex="-1"></a><span class="do">## max value   :           1</span></span></code></pre></div>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
@@ -373,15 +376,15 @@
 <span></span>
 <span><span class="co"># print scores</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">imp</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="do">## class       : SpatRaster </span></span>
+<div class="sourceCode" id="cb39"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="do">## class       : SpatRaster</span></span>
 <span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="do">## size        : 109, 147, 1  (nrow, ncol, nlyr)</span></span>
 <span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="do">## resolution  : 4000, 4000  (x, y)</span></span>
 <span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="do">## extent      : -1816382, -1228382, 247483.5, 683483.5  (xmin, xmax, ymin, ymax)</span></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs </span></span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="do">## coord. ref. : +proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +ellps=sphere +units=m +no_defs</span></span>
 <span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="do">## source(s)   : memory</span></span>
-<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="do">## varname     : wa_pu </span></span>
-<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="do">## name        : rs </span></span>
-<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="do">## min value   :  0 </span></span>
+<span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a><span class="do">## varname     : wa_pu</span></span>
+<span id="cb39-8"><a href="#cb39-8" tabindex="-1"></a><span class="do">## name        : rs</span></span>
+<span id="cb39-9"><a href="#cb39-9" tabindex="-1"></a><span class="do">## min value   :  0</span></span>
 <span id="cb39-10"><a href="#cb39-10" tabindex="-1"></a><span class="do">## max value   :  1</span></span></code></pre></div>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># set planning units that are locked in to -1 so we can easily</span></span>
@@ -461,6 +464,8 @@
 <li>Nina Morrell <br><small class="roles"> Author </small>   </li>
 <li>
 <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-8929-7776" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>
+<a href="https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert" class="external-link">Sandra Neubert</a> <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0002-3112-4116" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Brandon P M Edwards <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0003-0865-3076" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
 <li>Matthew E Watts <br><small class="roles"> Author </small>   </li>
 <li>
@@ -491,7 +496,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com" class="external-link">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com" class="external-link">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com" class="external-link">Matthew Strimas-Mackey</a>, <a href="https://cbcs.centre.uq.edu.au/profile/2659/sandra-neubert" class="external-link">Sandra Neubert</a>, Brandon P M Edwards, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca" class="external-link">Peter Arcese</a>, Joseph R Bennett, <a href="http://www.possinghamlab.org" class="external-link">Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
