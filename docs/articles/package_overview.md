@@ -2865,7 +2865,7 @@ s48 <- solve(p48)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 304 nodes (5020 simplex iterations) in 0.19 seconds (0.24 work units)
+    ## Explored 304 nodes (5020 simplex iterations) in 0.17 seconds (0.24 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2
@@ -2909,7 +2909,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.195
+    ##      0.173
 
 ``` r
 # extract state message from the solver that describes why this specific
@@ -3124,18 +3124,19 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-67-1.png) \*
-**Incremental ranks**: Evaluate importance scores by calculating ranks
-via an incremental optimization process (Jung *et al.* 2021). Briefly,
-this approach involves generating incremental prioritizations with
-increasing budgets, wherein planning units selected in a previous
-increment are locked in to the following solution. Additionally, locked
-out constraints are used to ensure that only planning units selected in
-the original solution are available for selection. The advantages of
-this approach are that it can (i) be computed relatively quickly for
-relatively large problems, (ii) account for the cost of different
-planning units, (iii) account for multiple management zones, and (iv)
-apply to solutions generated using any objective function.
+![](package_overview_files/figure-html/unnamed-chunk-67-1.png)
+
+- **Incremental ranks**: Evaluate importance scores by calculating ranks
+  via an incremental optimization process (Jung *et al.* 2021). Briefly,
+  this approach involves generating incremental prioritizations with
+  increasing budgets, wherein planning units selected in a previous
+  increment are locked in to the following solution. Additionally,
+  locked out constraints are used to ensure that only planning units
+  selected in the original solution are available for selection. The
+  advantages of this approach are that it can (i) be computed relatively
+  quickly for relatively large problems, (ii) account for the cost of
+  different planning units, (iii) account for multiple management zones,
+  and (iv) apply to solutions generated using any objective function.
 
 ``` r
 # calculate rank scores and make the solver quiet
@@ -3151,15 +3152,16 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-68-1.png) \*
-**Ferrier method**: Evaluate importance by computing irreplaceability
-scores following Ferrier *et al.* (2000). The advantages of this method
-are that it (i) can be computed relatively quickly for moderate
-problems, and (ii) calculates a score for each feature within each
-planning unit to provide insight into why certain planning units are
-more important than others. The disadvantage with this method is that it
-can only be applied to conservation problems that use targets and have a
-single zone (i.e., similar to *Marxan*-type problems).
+![](package_overview_files/figure-html/unnamed-chunk-68-1.png)
+
+- **Ferrier method**: Evaluate importance by computing irreplaceability
+  scores following Ferrier *et al.* (2000). The advantages of this
+  method are that it (i) can be computed relatively quickly for moderate
+  problems, and (ii) calculates a score for each feature within each
+  planning unit to provide insight into why certain planning units are
+  more important than others. The disadvantage with this method is that
+  it can only be applied to conservation problems that use targets and
+  have a single zone (i.e., similar to *Marxan*-type problems).
 
 ``` r
 # calculate Ferrier scores and extract total score
@@ -3172,15 +3174,17 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-69-1.png) \*
-**Rarity weighted richness**: Evaluate importance by computing rarity
-weighted richness scores (Williams *et al.* 1996). The only advantage
-with this method is that it can be computed very quickly for very large
-problems. The key disadvantage with this approach is that it merely
-describes the spatial patterns of biodiversity, and does not consider
-any of the goals that underpin conservation planning exercise. For
-instance, it does not account for planning costs, management zones,
-objective functions, or feature representation targets.
+![](package_overview_files/figure-html/unnamed-chunk-69-1.png)
+
+- **Rarity weighted richness**: Evaluate importance by computing rarity
+  weighted richness scores (Williams *et al.* 1996). The only advantage
+  with this method is that it can be computed very quickly for very
+  large problems. The key disadvantage with this approach is that it
+  merely describes the spatial patterns of biodiversity, and does not
+  consider any of the goals that underpin conservation planning
+  exercise. For instance, it does not account for planning costs,
+  management zones, objective functions, or feature representation
+  targets.
 
 ``` r
 # calculate rarity weighted richness scores
@@ -3415,26 +3419,27 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-72-1.png) \*
-**Reference point**: This approaches involves combining the objectives
-together using (i) reference point (`ref_points`) parameters that
-specify aspirational levels of achievement for each objective and (ii)
-weight (`weight`) parameters that specify the relative importance of
-each objective (Wierzbicki 1980). It also considers the best (`best`)
-and worst (`worst`) possible objective values for each objective to
-ensure that differences in scale among objective do not bias the
-optimization process. To help make this approach accessible, the best
-and worst objective values are calculated automatically and the
-reference point values are set based on the best objective values (note,
-if required, these values can be manually specified). Since setting
-equal weights for each objective ensures that a solution has (as much as
-possible) an equal compromise in how close it is to achieving the
-reference point for each objective, setting weight parameters for this
-approach is a much more intuitive process than for the weighted sum
-approach (Deléglise *et al.* 2024). As such, this approach is especially
-well-suited for applied contexts that seek to identify solutions that
-meet multiple stakeholder preferences and motivations (Dujardin & Chadès
-2018).
+![](package_overview_files/figure-html/unnamed-chunk-72-1.png)
+
+- **Reference point**: This approaches involves combining the objectives
+  together using (i) reference point (`ref_points`) parameters that
+  specify aspirational levels of achievement for each objective and (ii)
+  weight (`weight`) parameters that specify the relative importance of
+  each objective (Wierzbicki 1980). It also considers the best (`best`)
+  and worst (`worst`) possible objective values for each objective to
+  ensure that differences in scale among objective do not bias the
+  optimization process. To help make this approach accessible, the best
+  and worst objective values are calculated automatically and the
+  reference point values are set based on the best objective values
+  (note, if required, these values can be manually specified). Since
+  setting equal weights for each objective ensures that a solution has
+  (as much as possible) an equal compromise in how close it is to
+  achieving the reference point for each objective, setting weight
+  parameters for this approach is a much more intuitive process than for
+  the weighted sum approach (Deléglise *et al.* 2024). As such, this
+  approach is especially well-suited for applied contexts that seek to
+  identify solutions that meet multiple stakeholder preferences and
+  motivations (Dujardin & Chadès 2018).
 
 ``` r
 # build multi-objective problem with reference point approach and
@@ -3453,21 +3458,23 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-73-1.png) \*
-**Hierarchical**: This approach involves solving an optimization problem
-for each objective in a hierarchical (lexicographic) manner. In
-particular, it solves optimization problems based on an order of
-priority, wherein those associated with a higher priority are solved
-before those with a lower priority (López Jaimes *et al.* 2011). By
-default, the order of priority is based on the order of problems in the
-[`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
-object. To express trade-offs, this approach uses relative tolerance
-(`rel_tol`) parameters that allow the optimization process to degrade
-previously optimized objectives so that solutions can achieve better
-performance when optimizing subsequent (lower priority) objectives. This
-approach is especially well-suited for characterizing the full range of
-trade-offs between different objectives (in other words, generating a
-Pareto frontier).
+![](package_overview_files/figure-html/unnamed-chunk-73-1.png)
+
+- **Hierarchical**: This approach involves solving an optimization
+  problem for each objective in a hierarchical (lexicographic) manner.
+  In particular, it solves optimization problems based on an order of
+  priority, wherein those associated with a higher priority are solved
+  before those with a lower priority (López Jaimes *et al.* 2011). By
+  default, the order of priority is based on the order of problems in
+  the
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object. To express trade-offs, this approach uses relative tolerance
+  (`rel_tol`) parameters that allow the optimization process to degrade
+  previously optimized objectives so that solutions can achieve better
+  performance when optimizing subsequent (lower priority) objectives.
+  This approach is especially well-suited for characterizing the full
+  range of trade-offs between different objectives (in other words,
+  generating a Pareto frontier).
 
 ``` r
 # build multi-objective problem with hierarchical approach and
