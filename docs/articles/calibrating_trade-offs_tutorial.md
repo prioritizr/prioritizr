@@ -196,10 +196,10 @@ plot(tas_pu[, "cost"])
 
 ![](calibrating_trade-offs_tutorial_files/figure-html/process-cost-1.png)
 
-Next, we will pre-compute and maually re-scale the boundary length data.
-This procedure is important because boundary length values are often
-very high, which can cause numerical issues that result in excessive run
-times (see
+Next, we will pre-compute and manually re-scale the boundary length
+data. This procedure is important because boundary length values are
+often very high, which can cause numerical issues that result in
+excessive run times (see
 [`presolve_check()`](https://prioritizr.net/reference/presolve_check.md)
 for further details).
 

@@ -85,10 +85,10 @@ s2 <- system.time({solve(p1); solve(p2); solve(p3)})
 # now lets compare the times
 print(s1) # time spent without running preliminary calculations
 #>    user  system elapsed 
-#>   1.357   0.001   1.358 
+#>   1.535   0.003   1.538 
 print(s2) # time spent after running preliminary calculations
 #>    user  system elapsed 
-#>   1.326   0.002   1.329 
+#>   1.464   0.002   1.466 
 
 # As we can see, we can save time by running the preliminary
 # calculations before making copies of the problem with slightly

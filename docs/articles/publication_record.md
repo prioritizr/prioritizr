@@ -59,6 +59,10 @@ we can add your work to this list.
   priority areas based on phylogenetic diversity are sensitive to
   methods of phylogenetic inference and divergence time estimation.
   *Diversity and Distributions*, **32**: e70166.
+- Khuu DT, Oldekop JA, Hanson JO, and Pritchard R (2026) Socially
+  informed conservation priorities in Vietnam reveal major overlaps
+  between biodiversity protection and human needs. *Communications Earth
+  and Environment*, **In press**: 10.1038/s43247-026-03686-7.
 - Koehn CR, Caughlin TT, Halperin S, Hopping K, Som Castellano R, and
   Brandt J (2026) Carbon stock protection and food production are key
   targets for conservation planning in a landscape of public and private

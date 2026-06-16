@@ -1,3 +1,16 @@
+# prioritizr 9.0.0.1
+
+## New features
+
+- New `spec_sreekar_targets()` function for setting representation targets based
+  on Sreekar and Watson (2026). The `add_auto_targets()` and
+  `add_group_targets()` function have also been updated to support with this
+  new target setting method.
+
+## Documentation updates
+
+- Update publication record.
+
 # prioritizr 9.0.0.0
 
 ## New features
@@ -95,7 +108,7 @@
 - New `number_of_problems()` function for `multi_problem()` and `problem()`
   objects.
 
-## Documentation
+## Documentation updates
 
 - Update _Package overview_ and _Calibrating trade-offs_ vignettes to include
   multi-objective optimization approaches.
@@ -114,9 +127,13 @@
 
 # prioritizr 8.1.0.3
 
+## Documentation updates
+
 - Update publication record.
 
 # prioritizr 8.1.0.2
+
+## Documentation updates
 
 - Update publication record.
 
@@ -128,7 +145,7 @@
 - Standardize procedures for sanitizing solver outputs to provide more
   consistent behavior from different solvers.
 
-## Documentation
+## Documentation updates
 
 - Update README with video and materials for the _prioritizr_ workshop as part
   of the Statistical Methods Webinar series by the Ecological Forecasting
@@ -168,7 +185,8 @@
   _prioritizr_ package can use these functions to streamline their
   developmental efforts, while helping to avoid reverse dependency issues.
   To use these functions in your own package, you can make a local copy of the
-  desired _prioritizr_ functions in your package (i.e., a process known as code vendoring). In particular, you can use the `usethis::use_standalone()`
+  desired _prioritizr_ functions in your package (i.e., a process known as code
+  vendoring). In particular, you can use the `usethis::use_standalone()`
   function to automatically make a copy of _prioritizr_ functions from the
   _prioritizr_ online code repository. For example,
   `usethis::use_standalone("prioritizr/prioritizr", file = "standalone-cli.R")`
@@ -223,7 +241,7 @@
   geometry collection data (#379). Thanks to Alan Jackson (\@alankjackson) for
   bug report.
 
-## Documentation
+## Documentation updates
 
 - Update `?targets` to provide a comprehensive overview of the target functions.
 - Update `boundary_matrix()` function documentation with better example.

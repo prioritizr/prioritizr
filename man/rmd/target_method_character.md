@@ -2,6 +2,7 @@ The following `character` values can be used to specify target setting
 methods:
 `"jung"` (per Jung *et al.* 2021), `"polak"`
 (per Polak *et al.* 2016), `"rodrigues"` (per Rodrigues *et al.* 2004),
+`"sreekar"` (per Sreekar and Watson 2026),
 `"ward"` (per Ward *et al.* 2025), and `"watson"`
 (per Watson *et al.* 2010).
 (2010). Additionally, the following values can be used to set targets

@@ -28,6 +28,8 @@ get_target_method <- function(method, call = fn_caller_env()) {
     out <- spec_jung_targets()
   } else if (identical(method, "rodrigues")) {
     out <- spec_rodrigues_targets()
+  } else if (identical(method, "sreekar")) {
+    out <- spec_sreekar_targets()
   } else if (identical(method, "polak")) {
     out <- spec_polak_targets()
   } else if (identical(method, "ward")) {

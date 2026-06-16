@@ -1,5 +1,23 @@
 # Changelog
 
+## prioritizr 9.0.0.1
+
+### New features
+
+- New
+  [`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md)
+  function for setting representation targets based on Sreekar and
+  Watson (2026). The
+  [`add_auto_targets()`](https://prioritizr.net/reference/add_auto_targets.md)
+  and
+  [`add_group_targets()`](https://prioritizr.net/reference/add_group_targets.md)
+  function have also been updated to support with this new target
+  setting method.
+
+### Documentation updates
+
+- Update publication record.
+
 ## prioritizr 9.0.0.0
 
 ### New features
@@ -176,7 +194,7 @@
   and [`problem()`](https://prioritizr.net/reference/problem.md)
   objects.
 
-### Documentation
+### Documentation updates
 
 - Update *Package overview* and *Calibrating trade-offs* vignettes to
   include multi-objective optimization approaches.
@@ -204,9 +222,13 @@
 
 ## prioritizr 8.1.0.3
 
+### Documentation updates
+
 - Update publication record.
 
 ## prioritizr 8.1.0.2
+
+### Documentation updates
 
 - Update publication record.
 
@@ -221,7 +243,7 @@
 - Standardize procedures for sanitizing solver outputs to provide more
   consistent behavior from different solvers.
 
-### Documentation
+### Documentation updates
 
 - Update README with video and materials for the *prioritizr* workshop
   as part of the Statistical Methods Webinar series by the Ecological
@@ -380,7 +402,7 @@ CRAN release: 2025-11-10
   to Alan Jackson ([@alankjackson](https://github.com/alankjackson)) for
   bug report.
 
-### Documentation
+### Documentation updates
 
 - Update [`?targets`](https://prioritizr.net/reference/targets.md) to
   provide a comprehensive overview of the target functions.
@@ -911,7 +933,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

@@ -42,7 +42,7 @@ MultiConservationProblem <- R6::R6Class(
     ),
 
     #' @field approach [`MultiObjApproach-class`] object
-    #' for specifying the multi-objective optimization appraoch.
+    #' for specifying the multi-objective optimization approach.
     approach = new_waiver(),
 
     #' @field solver [`Solver-class`] object specifying the solver for

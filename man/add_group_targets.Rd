@@ -50,6 +50,7 @@ The following \code{character} values can be used to specify target setting
 methods:
 \code{"jung"} (per Jung \emph{et al.} 2021), \code{"polak"}
 (per Polak \emph{et al.} 2016), \code{"rodrigues"} (per Rodrigues \emph{et al.} 2004),
+\code{"sreekar"} (per Sreekar and Watson 2026),
 \code{"ward"} (per Ward \emph{et al.} 2025), and \code{"watson"}
 (per Watson \emph{et al.} 2010).
 (2010). Additionally, the following values can be used to set targets
@@ -86,13 +87,16 @@ For convenience, these options can also be specified with lower case letters (e.
 Note that target setting methods that require additional data or parameters cannot be specified with \code{character} values.
 
 The following functions can be used to create an object for specifying
-a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targets()}}, \code{\link[=spec_relative_targets]{spec_relative_targets()}}, \code{\link[=spec_area_targets]{spec_area_targets()}}, \code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}}, \code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
+a target setting method: \code{\link[=spec_absolute_targets]{spec_absolute_targets()}}, \code{\link[=spec_relative_targets]{spec_relative_targets()}},
+\code{\link[=spec_area_targets]{spec_area_targets()}}, \code{\link[=spec_interp_absolute_targets]{spec_interp_absolute_targets()}},
+\code{\link[=spec_interp_area_targets]{spec_interp_area_targets()}},
 \code{\link[=spec_duran_targets]{spec_duran_targets()}}, \code{\link[=spec_jung_targets]{spec_jung_targets()}}, \code{\link[=spec_polak_targets]{spec_polak_targets()}},
 \code{\link[=spec_pop_size_targets]{spec_pop_size_targets()}},
 \code{\link[=spec_rl_ecosystem_targets]{spec_rl_ecosystem_targets()}}, \code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
 \code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
-\code{\link[=spec_rule_targets]{spec_rule_targets()}}, \code{\link[=spec_ward_targets]{spec_ward_targets()}}, \code{\link[=spec_watson_targets]{spec_watson_targets()}},
-\code{\link[=spec_wilson_targets]{spec_wilson_targets()}}, \code{\link[=spec_min_targets]{spec_min_targets()}}, and \code{\link[=spec_max_targets]{spec_max_targets()}}.
+\code{\link[=spec_rule_targets]{spec_rule_targets()}}, \code{\link[=spec_sreekar_targets]{spec_sreekar_targets()}}, \code{\link[=spec_ward_targets]{spec_ward_targets()}},
+\code{\link[=spec_watson_targets]{spec_watson_targets()}}, \code{\link[=spec_wilson_targets]{spec_wilson_targets()}}, \code{\link[=spec_min_targets]{spec_min_targets()}}, and
+\code{\link[=spec_max_targets]{spec_max_targets()}}.
 }
 
 \section{Target setting}{

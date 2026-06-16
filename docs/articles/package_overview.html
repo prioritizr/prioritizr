@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -1214,10 +1214,11 @@ setting methods can be specified using the following functions:
 <code><a href="../reference/spec_rl_ecosystem_targets.html">spec_rl_ecosystem_targets()</a></code>,
 <code><a href="../reference/spec_rl_species_targets.html">spec_rl_species_targets()</a></code>,
 <code><a href="../reference/spec_rodrigues_targets.html">spec_rodrigues_targets()</a></code>, <code><a href="../reference/spec_rule_targets.html">spec_rule_targets()</a></code>,
-<code><a href="../reference/spec_ward_targets.html">spec_ward_targets()</a></code>, <code><a href="../reference/spec_watson_targets.html">spec_watson_targets()</a></code>,
-and <code><a href="../reference/spec_wilson_targets.html">spec_wilson_targets()</a></code>. Additionally, if a targets
-should be calculated based on the maximum or minimum thresholds obtained
-from multiple target setting methods, then the
+<code><a href="../reference/spec_sreekar_targets.html">spec_sreekar_targets()</a></code>, <code><a href="../reference/spec_ward_targets.html">spec_ward_targets()</a></code>,
+<code><a href="../reference/spec_watson_targets.html">spec_watson_targets()</a></code>, and
+<code><a href="../reference/spec_wilson_targets.html">spec_wilson_targets()</a></code>. Additionally, if a targets should be
+calculated based on the maximum or minimum thresholds obtained from
+multiple target setting methods, then the
 <code><a href="../reference/spec_max_targets.html">spec_max_targets()</a></code> and <code><a href="../reference/spec_min_targets.html">spec_min_targets()</a></code>
 functions can be used. Note that this is designed for problems that
 pertain to a single management zone.</li>
@@ -2755,7 +2756,8 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
+<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
+<span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
 <span><span class="co">## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads</span></span>
@@ -2805,7 +2807,7 @@ progress when searching for a suitable solution.</p>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 304 nodes (5020 simplex iterations) in 0.17 seconds (0.24 work units)</span></span>
+<span><span class="co">## Explored 304 nodes (5020 simplex iterations) in 0.23 seconds (0.24 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2</span></span>
@@ -2839,7 +2841,7 @@ quality of the solution and the optimization process.</p>
 <code class="sourceCode R"><span><span class="co"># extract time spent solving solution</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s48</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## solution_1 </span></span>
-<span><span class="co">##      0.173</span></span></code></pre>
+<span><span class="co">##      0.248</span></span></code></pre>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span><span class="co"># solution was returned</span></span>
