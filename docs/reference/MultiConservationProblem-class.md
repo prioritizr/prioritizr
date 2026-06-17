@@ -45,7 +45,7 @@ Other classes:
 - `approach`:
 
   [`MultiObjApproach`](https://prioritizr.net/reference/MultiObjApproach-class.md)
-  object for specifying the multi-objective optimization appraoch.
+  object for specifying the multi-objective optimization approach.
 
 - `solver`:
 

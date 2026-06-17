@@ -1472,10 +1472,11 @@ setting methods can be specified using the following functions:
 <code>spec_rl_ecosystem_targets()</code>,
 <code>spec_rl_species_targets()</code>,
 <code>spec_rodrigues_targets()</code>, <code>spec_rule_targets()</code>,
-<code>spec_ward_targets()</code>, <code>spec_watson_targets()</code>,
-and <code>spec_wilson_targets()</code>. Additionally, if a targets
-should be calculated based on the maximum or minimum thresholds obtained
-from multiple target setting methods, then the
+<code>spec_sreekar_targets()</code>, <code>spec_ward_targets()</code>,
+<code>spec_watson_targets()</code>, and
+<code>spec_wilson_targets()</code>. Additionally, if a targets should be
+calculated based on the maximum or minimum thresholds obtained from
+multiple target setting methods, then the
 <code>spec_max_targets()</code> and <code>spec_min_targets()</code>
 functions can be used. Note that this is designed for problems that
 pertain to a single management zone.</li>
@@ -2939,7 +2940,8 @@ progress when searching for a suitable solution.</p>
 ## Set parameter Presolve to value 2
 ## Set parameter Threads to value 1
 ## Academic license - for non-commercial use only - expires 2027-04-14
-## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
+## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
+## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - &quot;Ubuntu 24.04.2 LTS&quot;)
 ## 
 ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
 ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -2989,7 +2991,7 @@ progress when searching for a suitable solution.</p>
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 304 nodes (5020 simplex iterations) in 0.17 seconds (0.24 work units)
+## Explored 304 nodes (5020 simplex iterations) in 0.27 seconds (0.24 work units)
 ## Thread count was 1 (of 8 available processors)
 ## 
 ## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2
@@ -3020,7 +3022,7 @@ quality of the solution and the optimization process.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a><span class="co"># extract time spent solving solution</span></span>
 <span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s48, <span class="st">&quot;runtime&quot;</span>))</span></code></pre></div>
 <pre><code>## solution_1 
-##      0.177</code></pre>
+##       0.27</code></pre>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a><span class="co"># extract state message from the solver that describes why this specific</span></span>
 <span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a><span class="co"># solution was returned</span></span>
 <span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">attr</span>(s48, <span class="st">&quot;status&quot;</span>))</span></code></pre></div>

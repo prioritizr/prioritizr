@@ -199,7 +199,8 @@ result <- gurobi(model, list())
     ## Set parameter Username
     ## Set parameter LicenseID to value 2806834
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
+    ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
@@ -297,7 +298,8 @@ s <- solve(p)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
+    ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads

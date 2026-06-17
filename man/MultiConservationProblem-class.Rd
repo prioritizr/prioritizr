@@ -40,7 +40,7 @@ Other classes:
     \item{\code{defaults}}{\code{list} indicating if other fields contain defaults.}
 
     \item{\code{approach}}{\code{\link[=MultiObjApproach-class]{MultiObjApproach}} object
-for specifying the multi-objective optimization appraoch.}
+for specifying the multi-objective optimization approach.}
 
     \item{\code{solver}}{\code{\link[=Solver-class]{Solver}} object specifying the solver for
 generating solutions.}

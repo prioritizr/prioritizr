@@ -175,6 +175,7 @@ Other target setting methods:
 [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md),
 [`spec_rodrigues_targets()`](https://prioritizr.net/reference/spec_rodrigues_targets.md),
 [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md),
+[`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md),
 [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md),
 [`spec_watson_targets()`](https://prioritizr.net/reference/spec_watson_targets.md),
 [`spec_wilson_targets()`](https://prioritizr.net/reference/spec_wilson_targets.md)

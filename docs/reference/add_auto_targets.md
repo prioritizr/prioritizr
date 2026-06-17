@@ -54,11 +54,12 @@ methods.
 
   The following `character` values can be used to specify target setting
   methods: `"jung"` (per Jung *et al.* 2021), `"polak"` (per Polak *et
-  al.* 2016), `"rodrigues"` (per Rodrigues *et al.* 2004), `"ward"` (per
-  Ward *et al.* 2025), and `"watson"` (per Watson *et al.* 2010).
-  (2010). Additionally, the following values can be used to set targets
-  based on criteria from the IUCN Red List of Threatened Species (IUCN
-  2025): `"rl_species_VU_A1_B1"` `"rl_species_EN_A1_B1"`,
+  al.* 2016), `"rodrigues"` (per Rodrigues *et al.* 2004), `"sreekar"`
+  (per Sreekar and Watson 2026), `"ward"` (per Ward *et al.* 2025), and
+  `"watson"` (per Watson *et al.* 2010). (2010). Additionally, the
+  following values can be used to set targets based on criteria from the
+  IUCN Red List of Threatened Species (IUCN 2025):
+  `"rl_species_VU_A1_B1"` `"rl_species_EN_A1_B1"`,
   `"rl_species_CR_A1_B1"`, `"rl_species_VU_A1_B2"`
   `"rl_species_EN_A1_B2"`, `"rl_species_CR_A1_B2"`,
   `"rl_species_VU_A2_B1"` `"rl_species_EN_A2_B1"`,
@@ -138,6 +139,7 @@ methods.
   [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md),
   [`spec_rodrigues_targets()`](https://prioritizr.net/reference/spec_rodrigues_targets.md),
   [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md),
+  [`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md),
   [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md),
   [`spec_watson_targets()`](https://prioritizr.net/reference/spec_watson_targets.md),
   [`spec_wilson_targets()`](https://prioritizr.net/reference/spec_wilson_targets.md),

@@ -1,3 +1,9 @@
+# ---
+# repo: prioritizr/prioritizr
+# file: standalone-do_run_example.R
+# imports: [cli (>= 3.6.0), rlang (>= 1.1.0)]
+# ---
+
 #' Do run example?
 #'
 #' Determine if the session is suitable for executing long-running a

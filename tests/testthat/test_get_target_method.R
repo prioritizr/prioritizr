@@ -33,6 +33,13 @@ test_that("rodrigues", {
   )
 })
 
+test_that("sreekar", {
+  expect_equal(
+    get_target_method("sreekar"),
+    spec_sreekar_targets()
+  )
+})
+
 test_that("rl_species", {
   # create objects
   x1 <- get_target_method("rl_species_en_a1_b2")

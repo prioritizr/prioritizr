@@ -104,6 +104,7 @@ Other target setting methods:
 \code{\link[=spec_rl_species_targets]{spec_rl_species_targets()}},
 \code{\link[=spec_rodrigues_targets]{spec_rodrigues_targets()}},
 \code{\link[=spec_rule_targets]{spec_rule_targets()}},
+\code{\link[=spec_sreekar_targets]{spec_sreekar_targets()}},
 \code{\link[=spec_ward_targets]{spec_ward_targets()}},
 \code{\link[=spec_watson_targets]{spec_watson_targets()}},
 \code{\link[=spec_wilson_targets]{spec_wilson_targets()}}

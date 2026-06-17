@@ -144,6 +144,9 @@ Functions for adding targets to a problem.
 - [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md)
   : Specify targets following a set of rules
 
+- [`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md)
+  : Specify targets following Sreekar and Watson (2026)
+
 - [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md)
   :
 

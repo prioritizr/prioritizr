@@ -1208,6 +1208,7 @@ print(p14)
   [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md),
   [`spec_rodrigues_targets()`](https://prioritizr.net/reference/spec_rodrigues_targets.md),
   [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md),
+  [`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md),
   [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md),
   [`spec_watson_targets()`](https://prioritizr.net/reference/spec_watson_targets.md),
   and
@@ -2815,7 +2816,8 @@ s48 <- solve(p48)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Gurobi Optimizer version 13.0.1 build v13.0.1rc0 (linux64 - "Ubuntu 24.04.2 LTS")
+    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
+    ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
     ## Thread count: 4 physical cores, 8 logical processors, using up to 1 threads
@@ -2865,7 +2867,7 @@ s48 <- solve(p48)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 304 nodes (5020 simplex iterations) in 0.17 seconds (0.24 work units)
+    ## Explored 304 nodes (5020 simplex iterations) in 0.23 seconds (0.24 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2
@@ -2909,7 +2911,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.173
+    ##      0.248
 
 ``` r
 # extract state message from the solver that describes why this specific
