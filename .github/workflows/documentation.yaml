@@ -97,6 +97,7 @@ jobs:
           result <- urlchecker::url_check()
           result <- result[!result$URL %in% d, , drop = FALSE]
           if (nrow(result) > 0) {
+            print(result$URL)
             print(result)
             stop("Invalid URLs detected")
           }
