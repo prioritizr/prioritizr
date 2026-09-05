@@ -64,7 +64,7 @@ p <-
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
 print(path)
-#> [1] "/tmp/RtmppjvrX2/model.lp"
+#> [1] "/tmp/RtmpzjPoSc/model.lp"
 
 # save problem to file
 ## note that either the gurobi or Rsymphony package needs to be installed
@@ -72,7 +72,6 @@ write_problem(p, path)
 #> Set parameter Username
 #> Set parameter LicenseID to value 2806834
 #> Academic license - for non-commercial use only - expires 2027-04-14
-#> Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
 
 # print model file
 cat(readLines(path), sep = "\n")

@@ -27,7 +27,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +95,10 @@ This function was inspired by Faith (1992) and Rodrigues <em>et al.</em>
 for the solution. If <code>x</code> has multiple zones, then <code>budget</code> can be
 (i) a single <code>numeric</code> value to specify an overall budget
 for the entire solution or (ii) a <code>numeric</code> vector to specify
-a budget for each zone (separately) in the solution.</p></dd>
+a budget for each zone (separately) in the solution.
+If <code>x</code> will be used to generate a multi-objective problem (via
+<code><a href="multi_problem.html">multi_problem()</a></code>), <code>budget = NULL</code> can be used to avoid specifying a
+maximum expenditure.</p></dd>
 
 
 <dt id="arg-tree">tree<a class="anchor" aria-label="anchor" href="#arg-tree"></a></dt>

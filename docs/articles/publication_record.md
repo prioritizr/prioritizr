@@ -30,6 +30,10 @@ we can add your work to this list.
   Everett JD, Esturas KJT, and Richardson AJ (2026) Safeguarding
   climate-resilient mangroves requires only a moderate increase in the
   global protected area. *Nature Communications*, **17**: 2063.
+- Flower J, Burns ES, Dunn DC, Estep A, Everett JD, Hanson JO, Lester
+  SE, and Richardson AJ (2026) oceandatr: An R package to acquire and
+  process geospatial ocean data. *Ecology and Evolution*, **16**:
+  e74211.
 - García‐Alvarado JJ, Bello‐Rodríguez V, Lembrechts JJ, and
   González‐Mancebo JM (2026) Designing a spatial framework to create
   refugia‐probability maps for conservation planning: Applications in
@@ -59,6 +63,10 @@ we can add your work to this list.
   priority areas based on phylogenetic diversity are sensitive to
   methods of phylogenetic inference and divergence time estimation.
   *Diversity and Distributions*, **32**: e70166.
+- Keyser SR, Pauli JN, Radeloff VC, Fink D, and Zuckerberg B (2026)
+  Hotspots in cold climates: mapping and evaluating the conservation of
+  winter biodiversity across the United States. *Diversity and
+  Distributions*, **32**: e70194.
 - Khuu DT, Oldekop JA, Hanson JO, and Pritchard R (2026) Socially
   informed conservation priorities in Vietnam reveal major overlaps
   between biodiversity protection and human needs. *Communications Earth
@@ -71,11 +79,23 @@ we can add your work to this list.
   multidimensional biodiversity into spatial conservation planning to
   bridge conservation gaps in China. *Biological Conservation*, **314**:
   111664.
+- Liu Y, Wang J, Wu H, Zhang W, and Huang S (2026) Integrating
+  biodiversity and ecosystem dimensions for national-scale conservation
+  planning in China. *Biological Conservation*, **321**: 112012.
+- Muenzel D, Stewart E, Andayani N, Dumbrell AJ, Jompa J, Limmon G,
+  Supriatna J, Tasirin JS, Winarni NL, Zakaria Z, Davies ZG, Struebig
+  MJ, Beger M, and Smith RJ (2026) Ridge-to-reef conservation avoids
+  future deforestation and sediment exposure of coral reefs. *Biological
+  Conservation*, **322**: 112058.
 - Probst WN, Rehren J, Kraan C, Haslob H, Neumann H, Lemmen C, Krishna
   S, Kruse M, Wirtz K, and Stelzenmüller V (2026) Conservation potential
   of offshore windfarms for epibenthic invertebrates and fish
   communities in a heavily used regional sea. *Biological Conservation*,
   **316**: 111771.
+- Ramírez F, Giménez J, Fuster‐Alonso A, Gimeno M, Ouled‐Cheikh J, Coll
+  M, and Bas M (2026) Penguins on the move: Mapping priority penguin
+  habitat areas under climate change. *Diversity and Distributions*,
+  **32**: e70233.
 - Teschke K, Konijnenberg R, and Bellotto Trigo FC (2026) Conservation
   planning in the Weddell Sea (Antarctica): A comparative analysis of
   decision‐support tools. *Conservation Science and Practice*, **In
@@ -93,6 +113,9 @@ we can add your work to this list.
   conservation and renewable energy development through multi-objective
   land planning in China. *Resources, Environment and Sustainability*,
   **24**: 100303.
+- Wen W, Lee JR, Shaw JD, and Wilson KA (2026) Comprehensive and
+  representative conservation planning for biodiversity of ice‐free
+  Antarctica. *Conservation Biology*, **In press**: e70352.
 
 ### 2025
 

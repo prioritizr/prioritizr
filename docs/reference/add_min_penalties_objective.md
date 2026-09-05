@@ -11,7 +11,7 @@ multi-objective optimization.
 ## Usage
 
 ``` r
-add_min_penalties_objective(x, budget = NULL)
+add_min_penalties_objective(x, budget)
 ```
 
 ## Arguments
@@ -26,8 +26,10 @@ add_min_penalties_objective(x, budget = NULL)
   solution. If `x` has multiple zones, then `budget` can be (i) a single
   `numeric` value to specify an overall budget for the entire solution
   or (ii) a `numeric` vector to specify a budget for each zone
-  (separately) in the solution. Defaults to `NULL` such expenditure is
-  not limited.
+  (separately) in the solution. If `x` will be used to generate a
+  multi-objective problem (via
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)),
+  `budget = NULL` can be used to avoid specifying a maximum expenditure.
 
 ## Details
 
@@ -129,7 +131,7 @@ mp <-
     obj1 = p1,
     obj2 =
       problem(sim_pu_raster, sim_features) %>%
-     add_min_penalties_objective() %>%
+     add_min_penalties_objective(budget = NULL) %>%
      add_boundary_penalties(penalty = 0.1) %>%
      add_binary_decisions()
   ) %>%
@@ -142,7 +144,6 @@ mp <-
 
 # generate multi-objective solutions
 s2 <- solve(mp)
-#> Generating solutions ■■■■■■■■■                        | 1/4 |  25% | ETA: 4s
 #> Generating solutions ■■■■■■■■■■■■■■■■                 | 2/4 |  50% | ETA: 2s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 4/4 | 100% | ETA: 0s
 

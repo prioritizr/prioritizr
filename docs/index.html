@@ -37,7 +37,7 @@
 
     <a class="navbar-brand me-2" href="index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -169,10 +169,10 @@
 <code class="sourceCode R"><span><span class="co"># plot data</span></span>
 <span><span class="fu"><a href="https://rspatial.github.io/terra/reference/plot.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">wa_pu</span>, main <span class="op">=</span> <span class="st">"Costs"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-planning_units-1.png" alt="" width="500" style="display: block; margin: auto;"></p>
-<p>Next, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_features()</a></code> function to import the conservation feature data. Although the <em>prioritizr R</em> package can support many different types of feature data, here our feature data are represented as a multi-layer raster (i.e., <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object). Each layer describes the spatial distribution of a feature. Here, our feature data correspond to different bird species. To account for migratory patterns, the breeding and non-breeding distributions of species are represented as different features. Specifically, the cell values denote the relative abundance of individuals, with higher values indicating greater abundance.</p>
+<p>Next, we will use the <code><a href="http://prioritizr.github.io/prioritizrdata/reference/prioritizrdata-deprecated.html" class="external-link">get_wa_features()</a></code> function to import the conservation feature data. Although the <em>prioritizr R</em> package can support many different types of feature data, here our feature data are represented as a multi-layer raster (i.e., <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> object). Each layer describes the spatial distribution of a feature. Here, our feature data correspond to different bird species. To account for migratory patterns, the breeding and non-breeding distributions of species are represented as different features. Specifically, the cell values denote the relative abundance of individuals, with higher values indicating greater abundance.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># import feature data</span></span>
-<span><span class="va">wa_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/wa_data.html" class="external-link">get_wa_features</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">wa_features</span> <span class="op">&lt;-</span> <span class="fu"><a href="http://prioritizr.github.io/prioritizrdata/reference/prioritizrdata-deprecated.html" class="external-link">get_wa_features</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># preview data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">wa_features</span><span class="op">)</span></span></code></pre></div>
@@ -241,7 +241,7 @@
 <code class="sourceCode R"><span><span class="co"># extract time spent solving the problem</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"runtime"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## solution_1 </span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.857</span></span></code></pre></div>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##      3.268</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># extract state message from the solver</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a></span><span class="op">(</span><span class="va">s1</span>, <span class="st">"status"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>

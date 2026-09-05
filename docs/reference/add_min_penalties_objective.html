@@ -25,7 +25,7 @@ This objective is designed to be used with multi-objective optimization."><meta 
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +76,7 @@ This objective is designed to be used with multi-objective optimization.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_min_penalties_objective</span><span class="op">(</span><span class="va">x</span>, budget <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_min_penalties_objective</span><span class="op">(</span><span class="va">x</span>, <span class="va">budget</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -93,7 +93,9 @@ for the solution. If <code>x</code> has multiple zones, then <code>budget</code>
 (i) a single <code>numeric</code> value to specify an overall budget
 for the entire solution or (ii) a <code>numeric</code> vector to specify
 a budget for each zone (separately) in the solution.
-Defaults to <code>NULL</code> such expenditure is not limited.</p></dd>
+If <code>x</code> will be used to generate a multi-objective problem (via
+<code><a href="multi_problem.html">multi_problem()</a></code>), <code>budget = NULL</code> can be used to avoid specifying a
+maximum expenditure.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -191,7 +193,7 @@ penalties.</p>
 <span class="r-in"><span>    obj1 <span class="op">=</span> <span class="va">p1</span>,</span></span>
 <span class="r-in"><span>    obj2 <span class="op">=</span></span></span>
 <span class="r-in"><span>      <span class="fu"><a href="problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
-<span class="r-in"><span>     <span class="fu">add_min_penalties_objective</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
+<span class="r-in"><span>     <span class="fu">add_min_penalties_objective</span><span class="op">(</span>budget <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>     <span class="fu"><a href="add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
 <span class="r-in"><span>     <span class="fu"><a href="add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span></span>
@@ -204,7 +206,6 @@ penalties.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate multi-objective solutions</span></span></span>
 <span class="r-in"><span><span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■                       </span> | 1/4 |  25% | ETA: 4s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■                </span> | 2/4 |  50% | ETA: 2s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> | 4/4 | 100% | ETA: 0s</span>
 <span class="r-in"><span></span></span>

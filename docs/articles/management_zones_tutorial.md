@@ -131,7 +131,6 @@ s1 <- solve(p1)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -320,7 +319,6 @@ s2 <- solve(p2)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -483,7 +481,6 @@ s3 <- solve(p3)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -685,7 +682,6 @@ s4 <- solve(p4)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -857,7 +853,6 @@ s5 <- solve(p5)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -1035,7 +1030,6 @@ s6 <- solve(p6)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -1090,7 +1084,7 @@ s6 <- solve(p6)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 1 nodes (1169 simplex iterations) in 0.13 seconds (0.15 work units)
+    ## Explored 1 nodes (1169 simplex iterations) in 0.11 seconds (0.15 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 10: 13780 15120 15200 ... 18060
@@ -1214,7 +1208,6 @@ s7 <- solve(p7)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -1238,7 +1231,7 @@ s7 <- solve(p7)
     ## 
     ## Found heuristic solution: objective 24400.000000
     ## Presolve removed 1120 rows and 324 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 785 rows, 876 columns, 2448 nonzeros
     ## Variable types: 0 continuous, 876 integer (876 binary)
     ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros

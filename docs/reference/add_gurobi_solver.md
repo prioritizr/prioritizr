@@ -143,15 +143,17 @@ object with the solver added to it.
 ## Details
 
 [*Gurobi*](https://www.gurobi.com/) is a state-of-the-art commercial
-optimization software with an R package interface. It is by far the
-fastest of the solvers available for generating prioritizations,
-however, it is not freely available. That said, licenses are available
-to academics at no cost. The gurobi package is distributed with the
-*Gurobi* software suite. This solver uses the gurobi package to solve
-problems. For information on the performance of different solvers,
-please see Schuster *et al.* (2020) for benchmarks comparing the run
-time and solution quality of different solvers when applied to different
-sized datasets.
+optimization software with an R package interface. Although it is by far
+the fastest of the solvers available for generating prioritizations, it
+is not open source. That said, licenses are available to academics at no
+cost. Additionally, non-profit organizations can apply for a free
+license through the [Gurobi Gives Back
+programme](https://www.gurobi.com/company/gurobi-gives-back). gurobi
+package is distributed with the *Gurobi* software suite. This solver
+uses the gurobi package to solve problems. For information on the
+performance of different solvers, please see Schuster *et al.* (2020)
+for benchmarks comparing the run time and solution quality of different
+solvers when applied to different sized datasets.
 
 ## Installation
 

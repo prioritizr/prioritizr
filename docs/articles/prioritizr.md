@@ -222,7 +222,6 @@ s1 <- solve(p1)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -247,13 +246,13 @@ s1 <- solve(p1)
     ## Found heuristic solution: objective 19927.539083
     ## Found heuristic solution: objective 1862.3053991
     ## Presolve removed 2343 rows and 1516 columns
-    ## Presolve time: 0.04s
+    ## Presolve time: 0.03s
     ## Presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## Variable types: 0 continuous, 2762 integer (2762 binary)
     ## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.01 seconds (0.01 work units)
+    ## Root relaxation: objective 3.427967e+02, 189 iterations, 0.00 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -500,7 +499,6 @@ prt <- solve(p2)
     ## Set parameter PoolSearchMode to value 2
     ## Set parameter PoolGap to value 0.2
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -534,7 +532,7 @@ prt <- solve(p2)
     ## Root relaxation presolved: 4895 rows, 4020 columns, 12058 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.427967e+02, 194 iterations, 0.01 seconds (0.01 work units)
+    ## Root relaxation: objective 3.427967e+02, 194 iterations, 0.00 seconds (0.01 work units)
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -609,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.24 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 3.76 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
@@ -862,7 +860,6 @@ s3 <- solve(p3)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -900,7 +897,7 @@ s3 <- solve(p3)
     ##      0     0 9.5648e+07    0   20 1.2212e+08 9.5648e+07  21.7%     -    0s
     ## H    0     0                    9.660231e+07 9.5648e+07  0.99%     -    0s
     ## 
-    ## Explored 1 nodes (521 simplex iterations) in 0.07 seconds (0.11 work units)
+    ## Explored 1 nodes (521 simplex iterations) in 0.06 seconds (0.11 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 3: 9.66023e+07 9.66023e+07 1.2212e+08 
