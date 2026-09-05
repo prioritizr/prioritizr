@@ -104,7 +104,7 @@ Now we will install the _gurobi R_ package. This package is not available on the
 
 ```{r, eval  = FALSE}
 # install slam R package
-install.packages("slam", repos = "https://cloud.r-project.org")
+install.packages("slam")
 
 # install Gurobi R package
 install.packages(
