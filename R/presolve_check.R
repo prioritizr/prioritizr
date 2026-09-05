@@ -273,11 +273,6 @@ presolve_check_footer <- function() {
   )
 }
 
-is_run_budget_checks.ConservationProblem <- function(x) {
-  assert(is_conservation_problem(x), .internal = TRUE)
-  "budget" %in% names(x$objective$data)
-}
-
 is_run_budget_checks.MultiConservationProblem <- function(x) {
   assert(is_multi_conservation_problem(x), .internal = TRUE)
   all(

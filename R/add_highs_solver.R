@@ -220,7 +220,7 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         run = function() {
           # access internal data and parameters
           model <- self$get_internal("model")
-          start <- self$get_internal("start")
+          start <- self$get_data("start_solution")
           p <- self$get_internal("parameters")
           # if needed, specify start solution
           if (
