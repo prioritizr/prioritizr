@@ -27,13 +27,17 @@ bool rcpp_apply_min_largest_shortfall_objective(
   // model rhs
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_rhs.push_back(targets_value[i]);
-  for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
-    ptr->_rhs.push_back(budget[z]);
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
+      ptr->_rhs.push_back(budget[z]);
+  }
   // model sense variables
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_sense.push_back(Rcpp::as<std::string>(targets_sense[i]));
-  for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
-    ptr->_sense.push_back("<=");
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
+      ptr->_sense.push_back("<=");
+  }
   // model obj
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
@@ -62,33 +66,39 @@ bool rcpp_apply_min_largest_shortfall_objective(
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_A_x.push_back(targets_value[i]);
   // add in budget constraints
-  if (budget.size() == 1) {
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    if (budget.size() == 1) {
+      for (std::size_t i = 0;
+           i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets);
+    } else {
+      for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
+        for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
+    }
     for (std::size_t i = 0;
          i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets);
-  } else {
-    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
-      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
-  }
-  for (std::size_t i = 0;
-       i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-    ptr->_A_j.push_back(i);
-  for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
-    for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
-      ptr->_A_x.push_back(
-        Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
-      );
+      ptr->_A_j.push_back(i);
+    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
+      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
+        ptr->_A_x.push_back(
+          Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
+        );
+      }
     }
   }
   // add in row and col ids
   ptr->_col_ids.push_back("max_shortfall");
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_row_ids.push_back("spp_target");
-  for (std::size_t i = 0; i < static_cast<std::size_t>(budget.size()); ++i)
-    ptr->_row_ids.push_back("budget");
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t i = 0; i < static_cast<std::size_t>(budget.size()); ++i)
+      ptr->_row_ids.push_back("budget");
+  }
   // set model sense
   ptr->_modelsense = "min";
+  // set obj id
+  ptr->_obj_id = "min_largest_shortfall";
   // return success
   return true;
 }

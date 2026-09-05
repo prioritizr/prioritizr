@@ -60,6 +60,7 @@ Create a new optimization problem object.}
     \item \href{#method-OptimizationProblem-number_of_zones}{\code{OptimizationProblem$number_of_zones()}}
     \item \href{#method-OptimizationProblem-col_ids}{\code{OptimizationProblem$col_ids()}}
     \item \href{#method-OptimizationProblem-row_ids}{\code{OptimizationProblem$row_ids()}}
+    \item \href{#method-OptimizationProblem-obj_id}{\code{OptimizationProblem$obj_id()}}
     \item \href{#method-OptimizationProblem-compressed_formulation}{\code{OptimizationProblem$compressed_formulation()}}
     \item \href{#method-OptimizationProblem-shuffle_columns}{\code{OptimizationProblem$shuffle_columns()}}
     \item \href{#method-OptimizationProblem-copy}{\code{OptimizationProblem$copy()}}
@@ -356,6 +357,21 @@ Create a new optimization problem object.}
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{OptimizationProblem$row_ids()}
+    \if{html}{\out{</div>}}
+  }
+  \subsection{Returns}{
+    A \code{character} value.
+  }
+}
+
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-OptimizationProblem-obj_id"></a>}}
+\if{latex}{\out{\hypertarget{method-OptimizationProblem-obj_id}{}}}
+\subsection{\code{OptimizationProblem$obj_id()}}{
+  Obtain the identifiers for the rows.
+  \subsection{Usage}{
+    \if{html}{\out{<div class="r">}}
+    \preformatted{OptimizationProblem$obj_id()}
     \if{html}{\out{</div>}}
   }
   \subsection{Returns}{

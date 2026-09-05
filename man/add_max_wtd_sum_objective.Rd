@@ -13,7 +13,10 @@ add_max_wtd_sum_objective(x, budget)
 for the solution. If \code{x} has multiple zones, then \code{budget} can be
 (i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a budget for each zone (separately) in the solution.}
+a budget for each zone (separately) in the solution.
+If \code{x} will be used to generate a multi-objective problem (via
+\code{\link[=multi_problem]{multi_problem()}}), \code{budget = NULL} can be used to avoid specifying a
+maximum expenditure.}
 }
 \description{
 Set the objective of a conservation planning problem to

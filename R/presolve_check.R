@@ -192,7 +192,19 @@ presolve_check <- function(x, warn = TRUE) {
 #' @export
 presolve_check.ConservationProblem <- function(x, warn = TRUE) {
   assert(is_conservation_problem(x))
-  presolve_check(compile(x), warn = warn)
+  res <- run_presolve_check(compile(x), run_budget_checks = TRUE)
+  if (!isTRUE(res$pass) && isTRUE(warn)) {
+    cli_warning(
+      c(
+        presolve_check_header(),
+        res$msg,
+        presolve_check_results(res$pass),
+        presolve_check_footer()
+      ),
+      call = NULL
+    )
+  }
+  res$pass
 }
 
 #' @rdname presolve_check
@@ -200,7 +212,7 @@ presolve_check.ConservationProblem <- function(x, warn = TRUE) {
 #' @export
 presolve_check.OptimizationProblem <- function(x, warn = TRUE) {
   assert(inherits(x, "OptimizationProblem"))
-  res <- run_presolve_check(x)
+  res <- run_presolve_check(x, run_budget_checks = TRUE)
   if (!isTRUE(res$pass) && isTRUE(warn)) {
     cli_warning(
       c(
@@ -224,7 +236,8 @@ presolve_check.MultiConservationProblem <- function(x, warn = TRUE) {
     stats::setNames(
       lapply(x$problems, compile.ConservationProblem),
       names(x$problems)
-    )
+    ),
+    run_budget_checks = is_run_budget_checks.MultiConservationProblem(x)
   )
   if (!isTRUE(res$pass) && isTRUE(warn)) {
     cli_warning(
@@ -257,5 +270,35 @@ presolve_check_results <- function(pass) {
 presolve_check_footer <- function() {
   cli::format_inline(
     c("i" = "For more information, see {.fn presolve_check}.")
+  )
+}
+
+is_run_budget_checks.ConservationProblem <- function(x) {
+  assert(is_conservation_problem(x), .internal = TRUE)
+  "budget" %in% names(x$objective$data)
+}
+
+is_run_budget_checks.MultiConservationProblem <- function(x) {
+  assert(is_multi_conservation_problem(x), .internal = TRUE)
+  all(
+    vapply(
+      x$problems,
+      function(x) is.null(x$objective$get_data("budget")),
+      logical(1)
+    )
+  ) &&
+  !any(
+    vapply(
+      x$problems,
+      function(x) {
+        any(
+          vapply(
+            x$constraints, inherits, logical(1),
+            c("CostConstraint", "LinearConstraint")
+          )
+        )
+      },
+      logical(1)
+    )
   )
 }

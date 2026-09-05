@@ -1,3 +1,30 @@
+# prioritizr 9.0.0.2
+
+## Minor improvements and bug fixes
+
+- Update `add_max_cover_objective()`, `add_max_phylo_div_objective()`,
+  `add_max_wtd_sum_objective()`, `add_min_largest_shortfall_objective()`,
+  `add_min_penalties_objective()`, `add_min_shortfall_objective()` so that
+  `budget = NULL` can be used to specify that no budget should be set
+  during optimization (#406). Note that this functionality is intended for
+  use in multi-objective optimization problems with `multi_problem()`, and
+  attempting to solve a `problem()` that has one of these objectives
+  with `budget = NULL` outside of a `multi_problem()` will cause the
+  presolve checks to fail.
+- Fix `add_highs_solver()` to ensure that solution specified by
+  `start_solution` is actually used during optimization.
+- Fix compatibility issues with developmental changes to `structure()` in _R_.
+
+## Documentation updates
+
+- Update publication record (#407). Thanks to Wen Wen (\@wwen03) for the
+  suggestion.
+- Update `add_gurobi_solver()` and _Gurobi_ installation guide (#404, #405). The
+  documentation now refers users to the _Gurobi Gives Back_ programme.
+  Additionally, the installation guide now provides links to walk-through
+  video recordings and platform agnostic _R_ code for installing the _gurobi R_
+  package. Thanks to Silke Horn for the suggestion.
+
 # prioritizr 9.0.0.1
 
 ## New features

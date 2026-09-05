@@ -305,9 +305,17 @@ solve.ConservationProblem <- function(a, b, ...,
   # run presolve check
   if (isTRUE(run_checks)) {
     if (isTRUE(force)) {
-      verify_pass_presolve_check(opt, call = NULL)
+      verify_pass_presolve_check(
+        opt,
+        run_budget_checks = TRUE,
+        call = NULL
+      )
     } else {
-      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
+      assert_pass_presolve_check(
+        opt,
+        run_budget_checks = TRUE,
+        show_bypass_message = TRUE
+      )
     }
   }
   # solve problem
@@ -377,12 +385,22 @@ solve.MultiConservationProblem <- function(a, b, ...,
     lapply(a$problems, internal_compile, call = fn_current_env()),
     names(a$problems)
   )
+  # check if budget is required
+  run_budget_checks <- is_run_budget_checks.MultiConservationProblem(a)
   # run presolve check
   if (isTRUE(run_checks)) {
     if (isTRUE(force)) {
-      verify_pass_presolve_check(opt, call = NULL)
+      verify_pass_presolve_check(
+        opt,
+        run_budget_checks = run_budget_checks,
+        call = NULL
+      )
     } else {
-      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
+      assert_pass_presolve_check(
+        opt,
+        run_budget_checks = run_budget_checks,
+        show_bypass_message = TRUE
+      )
     }
   }
   # compile multi-objective optimization problem
@@ -450,7 +468,6 @@ solve_solution_format <- function(x, raw_solution) {
     is.list(raw_solution),
     .internal = TRUE
   )
-
   # if needed, format x
   if (is.list(x) && !inherits(x, "data.frame")) {
     ## if x is a list of matrices with a single column,
@@ -464,7 +481,6 @@ solve_solution_format <- function(x, raw_solution) {
       x <- x[[1]]
     }
   }
-
   # add attributes with information on the solution and solver
   attr(x, "objective") <- solve_solution_attribute_format(
     raw_solution, "objective", "numeric"
@@ -493,7 +509,6 @@ solve_solution_attribute_format <- function(raw_solution, name, mode) {
     is.atomic(raw_solution[[1]][[name]]),
     .internal = TRUE
   )
-
   # format data
   if (length(raw_solution[[1]][[name]]) > 1L) {
     out <- t(vapply(
@@ -509,7 +524,6 @@ solve_solution_attribute_format <- function(raw_solution, name, mode) {
       paste0("solution_", seq_along(raw_solution))
     )
   }
-
   # return result
   out
 }

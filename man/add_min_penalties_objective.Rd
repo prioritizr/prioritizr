@@ -4,7 +4,7 @@
 \alias{add_min_penalties_objective}
 \title{Add minimum penalties objective}
 \usage{
-add_min_penalties_objective(x, budget = NULL)
+add_min_penalties_objective(x, budget)
 }
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} object.}
@@ -14,7 +14,9 @@ for the solution. If \code{x} has multiple zones, then \code{budget} can be
 (i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
 a budget for each zone (separately) in the solution.
-Defaults to \code{NULL} such expenditure is not limited.}
+If \code{x} will be used to generate a multi-objective problem (via
+\code{\link[=multi_problem]{multi_problem()}}), \code{budget = NULL} can be used to avoid specifying a
+maximum expenditure.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -105,7 +107,7 @@ mp <-
     obj1 = p1,
     obj2 =
       problem(sim_pu_raster, sim_features) \%>\%
-     add_min_penalties_objective() \%>\%
+     add_min_penalties_objective(budget = NULL) \%>\%
      add_boundary_penalties(penalty = 0.1) \%>\%
      add_binary_decisions()
   ) \%>\%

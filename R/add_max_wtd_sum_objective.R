@@ -28,6 +28,9 @@ NULL
 #' (i) a single `numeric` value to specify an overall budget
 #' for the entire solution or (ii) a `numeric` vector to specify
 #' a budget for each zone (separately) in the solution.
+#' If `x` will be used to generate a multi-objective problem (via
+#' [multi_problem()]), `budget = NULL` can be used to avoid specifying a
+#' maximum expenditure.
 #'
 #' @details
 #' The maximum weighted sum objective seeks to maximize the overall level of
@@ -163,13 +166,15 @@ add_max_wtd_sum_objective <- function(x, budget) {
   # assert argument is valid
   assert_required(x)
   assert_required(budget)
-  assert(
-    is_conservation_problem(x),
-    is.numeric(budget),
-    all_finite(budget),
-    all_positive(budget),
-    is_budget_length(x, budget)
-  )
+  assert(is_conservation_problem(x))
+  if (!is.null(budget)) {
+    assert(
+      is.numeric(budget),
+      all_finite(budget),
+      all_positive(budget),
+      is_budget_length(x, budget)
+    )
+  }
   # display message about using the function
   cli::cli_inform(
     message = c(
@@ -190,19 +195,24 @@ add_max_wtd_sum_objective <- function(x, budget) {
         has_targets = FALSE,
         data = list(budget = budget),
         apply = function(x, y, weights) {
+          # assert valid arguments
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
             is.numeric(weights),
             .internal = TRUE
           )
+          # if needed, replace budget with NA value
+          b <- self$get_data("budget")
+          if (is.null(b)) b <- NA_real_
+          # apply objective
           invisible(
             rcpp_apply_max_wtd_sum_objective(
               x$ptr,
               unname(y$feature_positive_abundances_in_planning_units()),
               y$has_negative_feature_data(),
               y$planning_unit_costs(),
-              self$get_data("budget"),
+              b,
               weights
             )
           )

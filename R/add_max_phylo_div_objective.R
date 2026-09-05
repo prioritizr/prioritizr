@@ -221,14 +221,18 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
   assert_required(budget)
   assert(
     is_conservation_problem(x),
-    is.numeric(budget),
-    all_finite(budget),
-    all_positive(budget),
     inherits(tree, "phylo"),
     length(tree$tip.label) == number_of_features(x),
-    all_match_of(tree$tip.label, feature_names(x)),
-    is_budget_length(x, budget)
+    all_match_of(tree$tip.label, feature_names(x))
   )
+  if (!is.null(budget)) {
+    assert(
+      is.numeric(budget),
+      all_finite(budget),
+      all_positive(budget),
+      is_budget_length(x, budget)
+    )
+  }
   # add objective to problem
   x$add_objective(
     R6::R6Class(
@@ -258,13 +262,16 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
           # convert tree into matrix showing which species in which
           # branches and store the result
           bm <- branch_matrix(tr)[pos, , drop = FALSE]
+          # if needed, replace budget with NA value
+          b <- self$get_data("budget")
+          if (is.null(b)) b <- NA_real_
           # apply objective
           invisible(
             rcpp_apply_max_phylo_objective(
               x$ptr,
               y$feature_targets(),
               y$planning_unit_costs(),
-              self$get_data("budget"),
+              b,
               bm,
               tr$edge.length,
               weights

@@ -126,9 +126,11 @@ It requires the \pkg{gurobi} package to be installed
 \details{
 \href{https://www.gurobi.com/}{\emph{Gurobi}} is a
 state-of-the-art commercial optimization software with an R package
-interface. It is by far the fastest of the solvers available for
-generating prioritizations, however, it is not freely
-available. That said, licenses are available to academics at no cost. The
+interface. Although it is by far the fastest of the solvers available for
+generating prioritizations, it is not open source.
+That said, licenses are available to academics at no cost.
+Additionally, non-profit organizations can apply for a free license through
+the \href{https://www.gurobi.com/company/gurobi-gives-back}{Gurobi Gives Back programme}.
 \pkg{gurobi} package is distributed with the \emph{Gurobi} software suite.
 This solver uses the \pkg{gurobi} package to solve problems.
 For information on the performance of different solvers,

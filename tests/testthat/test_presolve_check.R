@@ -375,6 +375,7 @@ test_that("decision variable bounds", {
       vtype = c("B", "S", "C"),
       row_ids = c("a", "b"),
       col_ids = c("d", "e", "f"),
+      obj_id = "g",
       compressed_formulation = FALSE
     )
   )
@@ -454,5 +455,89 @@ test_that("multi_problem() (multiple problems fail)", {
   expect_warning(
     expect_false(presolve_check(p)),
     "re-scaling cost values"
+  )
+})
+
+test_that("problem() (budget = NULL)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_shortfall_objective(budget = NULL) %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  # run tests
+  expect_warning(
+    expect_false(presolve_check(p)),
+    "is unbounded"
+  )
+  expect_silent(
+    expect_true(
+      presolve_check(
+        add_cost_constraints(p, budget = 100, sense = "<=")
+      )
+    )
+  )
+  expect_silent(
+    expect_true(
+      presolve_check(
+        add_linear_constraints(
+          p,
+          threshold = 100,
+          sense = "<=",
+          data = sim_pu_raster
+        )
+      )
+    )
+  )
+})
+
+test_that("multi_problem() (budget = NULL)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_shortfall_objective(budget = NULL) %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = NULL) %>%
+    add_binary_decisions()
+  p3 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = 200) %>%
+    add_binary_decisions()
+  p4 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = NULL) %>%
+    add_cost_constraints(budget = 100, sense = "<=") %>%
+    add_binary_decisions()
+  p5 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = NULL) %>%
+    add_linear_constraints(
+      threshold = 100,
+      sense = "<=",
+      data = sim_pu_raster
+    ) %>%
+    add_binary_decisions()
+  # run tests
+  expect_warning(
+    expect_false(presolve_check(multi_problem(p1, p2))),
+    "is unbounded"
+  )
+  expect_silent(
+    expect_true(presolve_check(multi_problem(p1, p2, p3)))
+  )
+  expect_silent(
+    expect_true(presolve_check(multi_problem(p1, p2, p4)))
+  )
+  expect_silent(
+    expect_true(presolve_check(multi_problem(p1, p2, p5)))
   )
 })
