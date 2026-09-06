@@ -94,7 +94,7 @@ jobs:
         if: runner.os == 'Linux' && matrix.config.r == 'release'
         run: |
           d <- suppressWarnings(readLines("inst/URLLIST"))
-          result <- urlchecker::url_check()
+          result <- urlchecker::url_check(fail = FALSE)
           result <- result[!result$URL %in% d, , drop = FALSE]
           if (nrow(result) > 0) {
             print(result$URL)
