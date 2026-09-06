@@ -170,7 +170,7 @@ ms <- solve(mp, remove_duplicates = TRUE)
 #> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA:14s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA:11s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA: 8s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 5s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 6s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 3s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 

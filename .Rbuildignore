@@ -25,6 +25,7 @@ inst/URLLIST
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$
 pkgdown
-.covrignore
+^\.covrignore$
 ^\.github$
-codecov.yml
+^codecov\.yml$
+^\.urlignore$
