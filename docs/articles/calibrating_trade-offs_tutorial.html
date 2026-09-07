@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -489,7 +489,9 @@ further (e.g., 40%) when analyzing larger datasets.</strong></p>
 <span>      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    boundary_obj <span class="op">=</span></span>
 <span>      <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">tas_pu</span>, <span class="va">tas_features</span>, cost_column <span class="op">=</span> <span class="st">"cost"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>      <span class="fu"><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>      <span class="co"># note that we use budget = NULL so that the boundary objective</span></span>
+<span>      <span class="co"># does not have a limit to the maximum expenditure</span></span>
+<span>      <span class="fu"><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective</a></span><span class="op">(</span>budget <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>      <span class="co"># note that we use penalty = 1 here so that trade-offs will</span></span>
 <span>      <span class="co"># subsequently be specified by prelim_weights</span></span>
 <span>      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">tas_bd</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>

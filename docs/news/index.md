@@ -1,5 +1,61 @@
 # Changelog
 
+## prioritizr 9.0.0.2
+
+### Minor improvements and bug fixes
+
+- Update
+  [`add_max_cover_objective()`](https://prioritizr.net/reference/add_max_cover_objective.md),
+  [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
+  [`add_max_wtd_sum_objective()`](https://prioritizr.net/reference/add_max_wtd_sum_objective.md),
+  [`add_min_largest_shortfall_objective()`](https://prioritizr.net/reference/add_min_largest_shortfall_objective.md),
+  [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md),
+  [`add_min_shortfall_objective()`](https://prioritizr.net/reference/add_min_shortfall_objective.md)
+  so that `budget = NULL` can be used to specify that no budget should
+  be set during optimization
+  ([\#406](https://github.com/prioritizr/prioritizr/issues/406)). Note
+  that this functionality is intended for use in multi-objective
+  optimization problems with
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md),
+  and attempting to solve a
+  [`problem()`](https://prioritizr.net/reference/problem.md) that has
+  one of these objectives with `budget = NULL` outside of a
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  will cause the presolve checks to fail.
+- Update [`solve()`](https://prioritizr.net/reference/solve.md) to throw
+  a helpful error message if attempting to solve a
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object that does not have a specified multi-objective optimization
+  approach.
+- Update [`solve()`](https://prioritizr.net/reference/solve.md) to throw
+  a helpful error message if attempting to solve a
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)
+  object that contains
+  [`problem()`](https://prioritizr.net/reference/problem.md) objects
+  that have conflicting locked constraints.
+- Fix
+  [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md)
+  to ensure that solution specified by `start_solution` is actually used
+  during optimization.
+- Fix compatibility issues with developmental changes to
+  [`structure()`](https://rdrr.io/r/base/structure.html) in *R*.
+
+### Documentation updates
+
+- Update publication record
+  ([\#407](https://github.com/prioritizr/prioritizr/issues/407)). Thanks
+  to Wen Wen ([@wwen03](https://github.com/wwen03)) for the suggestion.
+- Update
+  [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md)
+  and *Gurobi* installation guide
+  ([\#404](https://github.com/prioritizr/prioritizr/issues/404),
+  [\#405](https://github.com/prioritizr/prioritizr/issues/405)). The
+  documentation now refers users to the *Gurobi Gives Back* programme.
+  Additionally, the installation guide now provides links to
+  walk-through video recordings and platform agnostic *R* code for
+  installing the *gurobi R* package. Thanks to Silke Horn for the
+  suggestion.
+
 ## prioritizr 9.0.0.1
 
 ### New features
@@ -933,8 +989,7 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
-  not displaying correct text for linear constraints
+  `summarize()` not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

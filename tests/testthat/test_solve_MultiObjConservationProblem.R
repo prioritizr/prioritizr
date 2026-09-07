@@ -958,3 +958,78 @@ test_that("remove_duplicates = TRUE", {
   expect_true(is_comparable_raster(s, costs))
   expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
 })
+
+test_that("conflicting problems (missing costs conflict with constraints)",  {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # load data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # prepare cost layers,
+  ## here we prepare the cost layers so that
+  ## one problem has a planning unit with NA and non-NA costs for the two zones,
+  ## another another problem non-NA costs for both zones
+  cost1a <- terra::deepcopy(sim_zones_pu_raster[[1]])
+  cost1b <- terra::deepcopy(sim_zones_pu_raster[[1]])
+  cost2 <- sim_zones_pu_raster[[2]]
+  ## manually override cost1a value for first planning unit so that
+  ## it has non-NA value
+  cost1a[[1]][1] <- 1
+  ## manually override cost1a value for first planning unit so that
+  ## it has NA value
+  cost1b[[1]][1] <- NA_real_
+  ## manually override cost2 value for first planning unit so that
+  ## it has non-NA value
+  cost2[[1]][1] <- 2
+  # build problems
+  p1 <-
+    problem(
+      c(cost1a, cost2),
+      zones(z1 = sim_features, z2 = sim_features)
+    ) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(
+      data.frame(pu = 1, status = 1, zone = "z1")
+    ) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(
+      c(cost1b, cost2),
+      zones(z1 = sim_features, z2 = sim_features)
+    ) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_binary_decisions()
+  mp <-
+    multi_problem(p1, p2) %>%
+    add_wtd_sum_approach(weights = c(1, 1))
+  # run tests
+  expect_tidy_error(
+    solve(mp),
+    "conflicting"
+  )
+})
+
+test_that("conflicting problems (locked in and out constraints)",  {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # build problems
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(data.frame(pu = 1, status = 1)) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(data.frame(pu = 1, status = 0)) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p1, p2)
+  # run tests
+  expect_tidy_error(
+    solve(mp),
+    "conflicting"
+  )
+})

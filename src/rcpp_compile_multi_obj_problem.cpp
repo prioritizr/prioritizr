@@ -77,6 +77,7 @@ Rcpp::List rcpp_compile_multi_obj_problem(const Rcpp::List x) {
     std::vector<std::string>(mopt_ncol),  // vtype
     std::vector<std::string>(mopt_nrow),  // row_ids
     std::vector<std::string>(mopt_ncol),  // col_ids
+    "moo",                                // obj_id
     true                                  // compressed_formulation
   );
 

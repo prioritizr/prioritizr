@@ -103,7 +103,7 @@ p1 <-
 # solve problem and generate 10 solutions within 20% of optimality
 s1 <- solve(p1)
 #> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA: 3s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 0s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 1s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert portfolio into a multi-layer raster
@@ -128,7 +128,7 @@ p2 <-
 
 # solve the problem
 s2 <- solve(p2)
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA: 2s
+#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA: 3s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # convert each solution in the portfolio into a single category layer

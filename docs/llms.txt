@@ -150,7 +150,7 @@ plot(wa_pu, main = "Costs", axes = FALSE)
 ![](reference/figures/README-planning_units-1.png)
 
 Next, we will use the
-[`get_wa_features()`](http://prioritizr.github.io/prioritizrdata/reference/wa_data.md)
+[`get_wa_features()`](http://prioritizr.github.io/prioritizrdata/reference/prioritizrdata-deprecated.md)
 function to import the conservation feature data. Although the
 *prioritizr R* package can support many different types of feature data,
 here our feature data are represented as a multi-layer raster (i.e.,
@@ -288,7 +288,7 @@ print(attr(s1, "runtime"))
 
 ``` R
 ## solution_1 
-##      3.857
+##      3.268
 ```
 
 ``` r

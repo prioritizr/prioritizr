@@ -13,7 +13,10 @@ add_cost_constraints(x, budget, sense)
 for the solution. If \code{x} has multiple zones, then \code{budget} can be
 (i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a budget for each zone (separately) in the solution.}
+a budget for each zone (separately) in the solution.
+If \code{x} will be used to generate a multi-objective problem (via
+\code{\link[=multi_problem]{multi_problem()}}), \code{budget = NULL} can be used to avoid specifying a
+maximum expenditure.}
 
 \item{sense}{\code{character} value specifying the constraint sense.
 Acceptable values are: \code{">="}, \code{"<="}, or \code{"="}. If \code{x} has multiple zones,
@@ -108,7 +111,7 @@ mp <-
       add_binary_decisions(),
     obj3 =
       problem(sim_complex_pu_raster, sim_complex_pu_raster) \%>\%
-      add_min_penalties_objective() \%>\%
+      add_min_penalties_objective(budget = NULL) \%>\%
       # note a value of 1 is here because only the costs minimized
       add_cost_penalties(1) \%>\%
       add_binary_decisions()

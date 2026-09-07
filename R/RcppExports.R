@@ -81,6 +81,10 @@ rcpp_get_optimization_problem_row_ids <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_row_ids`, x)
 }
 
+rcpp_get_optimization_problem_obj_id <- function(x) {
+    .Call(`_prioritizr_rcpp_get_optimization_problem_obj_id`, x)
+}
+
 rcpp_get_optimization_problem_compressed_formulation <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_compressed_formulation`, x)
 }

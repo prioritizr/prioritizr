@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,22 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="9.0.0.2" id="prioritizr-9002">prioritizr 9.0.0.2<a class="anchor" aria-label="anchor" href="#prioritizr-9002"></a></h2>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-9-0-0-2">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-9-0-0-2"></a></h3>
+<ul><li>Update <code><a href="../reference/add_max_cover_objective.html">add_max_cover_objective()</a></code>, <code><a href="../reference/add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code>, <code><a href="../reference/add_max_wtd_sum_objective.html">add_max_wtd_sum_objective()</a></code>, <code><a href="../reference/add_min_largest_shortfall_objective.html">add_min_largest_shortfall_objective()</a></code>, <code><a href="../reference/add_min_penalties_objective.html">add_min_penalties_objective()</a></code>, <code><a href="../reference/add_min_shortfall_objective.html">add_min_shortfall_objective()</a></code> so that <code>budget = NULL</code> can be used to specify that no budget should be set during optimization (<a href="https://github.com/prioritizr/prioritizr/issues/406" class="external-link">#406</a>). Note that this functionality is intended for use in multi-objective optimization problems with <code><a href="../reference/multi_problem.html">multi_problem()</a></code>, and attempting to solve a <code><a href="../reference/problem.html">problem()</a></code> that has one of these objectives with <code>budget = NULL</code> outside of a <code><a href="../reference/multi_problem.html">multi_problem()</a></code> will cause the presolve checks to fail.</li>
+<li>Update <code><a href="../reference/solve.html">solve()</a></code> to throw a helpful error message if attempting to solve a <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object that does not have a specified multi-objective optimization approach.</li>
+<li>Update <code><a href="../reference/solve.html">solve()</a></code> to throw a helpful error message if attempting to solve a <code><a href="../reference/multi_problem.html">multi_problem()</a></code> object that contains <code><a href="../reference/problem.html">problem()</a></code> objects that have conflicting locked constraints.</li>
+<li>Fix <code><a href="../reference/add_highs_solver.html">add_highs_solver()</a></code> to ensure that solution specified by <code>start_solution</code> is actually used during optimization.</li>
+<li>Fix compatibility issues with developmental changes to <code><a href="https://rdrr.io/r/base/structure.html" class="external-link">structure()</a></code> in <em>R</em>.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-updates-9-0-0-2">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-9-0-0-2"></a></h3>
+<ul><li>Update publication record (<a href="https://github.com/prioritizr/prioritizr/issues/407" class="external-link">#407</a>). Thanks to Wen Wen (<a href="https://github.com/wwen03" class="external-link">@wwen03</a>) for the suggestion.</li>
+<li>Update <code><a href="../reference/add_gurobi_solver.html">add_gurobi_solver()</a></code> and <em>Gurobi</em> installation guide (<a href="https://github.com/prioritizr/prioritizr/issues/404" class="external-link">#404</a>, <a href="https://github.com/prioritizr/prioritizr/issues/405" class="external-link">#405</a>). The documentation now refers users to the <em>Gurobi Gives Back</em> programme. Additionally, the installation guide now provides links to walk-through video recordings and platform agnostic <em>R</em> code for installing the <em>gurobi R</em> package. Thanks to Silke Horn for the suggestion.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="9.0.0.1" id="prioritizr-9001">prioritizr 9.0.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-9001"></a></h2>
 <div class="section level3">
@@ -392,7 +408,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">

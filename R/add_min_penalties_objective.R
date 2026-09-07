@@ -13,13 +13,6 @@ NULL
 #'
 #' @inheritParams add_max_wtd_sum_objective
 #'
-#' @param budget `numeric` value specifying the maximum expenditure permitted
-#' for the solution. If `x` has multiple zones, then `budget` can be
-#' (i) a single `numeric` value to specify an overall budget
-#' for the entire solution or (ii) a `numeric` vector to specify
-#' a budget for each zone (separately) in the solution.
-#' Defaults to `NULL` such expenditure is not limited.
-#'
 #' @details
 #' The minimum penalty objective is designed to be used with problems
 #' that have penalties (see [penalties] for details). It can be used
@@ -107,7 +100,7 @@ NULL
 #'     obj1 = p1,
 #'     obj2 =
 #'       problem(sim_pu_raster, sim_features) %>%
-#'      add_min_penalties_objective() %>%
+#'      add_min_penalties_objective(budget = NULL) %>%
 #'      add_boundary_penalties(penalty = 0.1) %>%
 #'      add_binary_decisions()
 #'   ) %>%
@@ -125,7 +118,7 @@ NULL
 
 #' @rdname add_min_penalties_objective
 #' @export
-add_min_penalties_objective <- function(x, budget = NULL) {
+add_min_penalties_objective <- function(x, budget) {
   # assert argument is valid
   assert_required(x)
   assert_required(budget)
@@ -137,8 +130,6 @@ add_min_penalties_objective <- function(x, budget = NULL) {
       all_positive(budget),
       is_budget_length(x, budget)
     )
-  } else {
-    budget <- NA_real_
   }
   # add objective to problem
   x$add_objective(
@@ -150,8 +141,9 @@ add_min_penalties_objective <- function(x, budget = NULL) {
         has_weights = FALSE,
         has_targets = NA,
         data = list(budget = budget),
+        # note that weights are not used
         apply = function(x, y, weights) {
-          # note that weights are not used
+          # assert valid arguments
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
@@ -168,12 +160,16 @@ add_min_penalties_objective <- function(x, budget = NULL) {
           } else {
             targ <- y$feature_targets()
           }
+          # if needed, replace budget with NA value
+          b <- self$get_data("budget")
+          if (is.null(b)) b <- NA_real_
+          # apply objective
           invisible(
             rcpp_apply_min_penalties_objective(
               x$ptr,
               targ,
               y$planning_unit_costs(),
-              self$get_data("budget")
+              b
             )
           )
         }

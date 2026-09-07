@@ -21,7 +21,10 @@ add_cost_constraints(x, budget, sense)
   solution. If `x` has multiple zones, then `budget` can be (i) a single
   `numeric` value to specify an overall budget for the entire solution
   or (ii) a `numeric` vector to specify a budget for each zone
-  (separately) in the solution.
+  (separately) in the solution. If `x` will be used to generate a
+  multi-objective problem (via
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)),
+  `budget = NULL` can be used to avoid specifying a maximum expenditure.
 
 - sense:
 
@@ -123,7 +126,7 @@ mp <-
       add_binary_decisions(),
     obj3 =
       problem(sim_complex_pu_raster, sim_complex_pu_raster) %>%
-      add_min_penalties_objective() %>%
+      add_min_penalties_objective(budget = NULL) %>%
       # note a value of 1 is here because only the costs minimized
       add_cost_penalties(1) %>%
       add_binary_decisions()
@@ -161,15 +164,14 @@ mp <-
 
 # generate solutions and remove duplicates
 ms <- solve(mp, remove_duplicates = TRUE)
-#> Generating solutions ■■■■                             | 1/10 |  10% | ETA:26s
-#> Generating solutions ■■■■■■■                          | 2/10 |  20% | ETA:23s
-#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA:20s
-#> Generating solutions ■■■■■■■■■■■■■                    | 4/10 |  40% | ETA:18s
-#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA:17s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA:14s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA:10s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 7s
-#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 4s
+#> Generating solutions ■■■■                             | 1/10 |  10% | ETA:24s
+#> Generating solutions ■■■■■■■                          | 2/10 |  20% | ETA:22s
+#> Generating solutions ■■■■■■■■■■                       | 3/10 |  30% | ETA:19s
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 5/10 |  50% | ETA:14s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■              | 6/10 |  60% | ETA:11s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■           | 7/10 |  70% | ETA: 8s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 8/10 |  80% | ETA: 6s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■     | 9/10 |  90% | ETA: 3s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 10/10 | 100% | ETA: 0s
 
 # plot the solutions

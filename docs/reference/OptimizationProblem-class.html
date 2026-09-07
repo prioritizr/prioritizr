@@ -25,7 +25,7 @@ Only experts should use the fields and methods for this class directly."><meta p
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,6 +125,7 @@ Create a new optimization problem object.</p></dd>
 <li><p><a href="#method-OptimizationProblem-number_of_zones"><code>OptimizationProblem$number_of_zones()</code></a></p></li>
 <li><p><a href="#method-OptimizationProblem-col_ids"><code>OptimizationProblem$col_ids()</code></a></p></li>
 <li><p><a href="#method-OptimizationProblem-row_ids"><code>OptimizationProblem$row_ids()</code></a></p></li>
+<li><p><a href="#method-OptimizationProblem-obj_id"><code>OptimizationProblem$obj_id()</code></a></p></li>
 <li><p><a href="#method-OptimizationProblem-compressed_formulation"><code>OptimizationProblem$compressed_formulation()</code></a></p></li>
 <li><p><a href="#method-OptimizationProblem-shuffle_columns"><code>OptimizationProblem$shuffle_columns()</code></a></p></li>
 <li><p><a href="#method-OptimizationProblem-copy"><code>OptimizationProblem$copy()</code></a></p></li>
@@ -370,13 +371,25 @@ Create a new optimization problem object.</p></dd>
 
 </div>
 
+<p></p><hr><a id="method-OptimizationProblem-obj_id"></a><div class="section">
+<h3 id="optimizationproblem-obj-id-"><code>OptimizationProblem$obj_id()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-obj-id-"></a></h3>
+<p>Obtain the identifiers for the rows.</p><div class="section">
+<h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">obj_id</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
+<h4 id="returns-19">Returns<a class="anchor" aria-label="anchor" href="#returns-19"></a></h4>
+<p>A <code>character</code> value.</p>
+</div>
+
+</div>
+
 <p></p><hr><a id="method-OptimizationProblem-compressed_formulation"></a><div class="section">
 <h3 id="optimizationproblem-compressed-formulation-"><code>OptimizationProblem$compressed_formulation()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-compressed-formulation-"></a></h3>
 <p>Is the problem formulation compressed?</p><div class="section">
-<h4 id="usage-19">Usage<a class="anchor" aria-label="anchor" href="#usage-19"></a></h4>
+<h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">compressed_formulation</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="returns-19">Returns<a class="anchor" aria-label="anchor" href="#returns-19"></a></h4>
+<h4 id="returns-20">Returns<a class="anchor" aria-label="anchor" href="#returns-20"></a></h4>
 <p>A <code>logical</code> value.</p>
 </div>
 
@@ -385,7 +398,7 @@ Create a new optimization problem object.</p></dd>
 <p></p><hr><a id="method-OptimizationProblem-shuffle_columns"></a><div class="section">
 <h3 id="optimizationproblem-shuffle-columns-"><code>OptimizationProblem$shuffle_columns()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-shuffle-columns-"></a></h3>
 <p>Shuffle the order of the columns in the optimization problem.</p><div class="section">
-<h4 id="usage-20">Usage<a class="anchor" aria-label="anchor" href="#usage-20"></a></h4>
+<h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">shuffle_columns</span><span class="op">(</span><span class="va">order</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
@@ -395,7 +408,7 @@ Create a new optimization problem object.</p></dd>
 
 </dl><p></p></div>
 </div><p></p><div class="section">
-<h4 id="returns-20">Returns<a class="anchor" aria-label="anchor" href="#returns-20"></a></h4>
+<h4 id="returns-21">Returns<a class="anchor" aria-label="anchor" href="#returns-21"></a></h4>
 <p>An <code>integer</code> vector with indices to un-shuffle the problem.</p>
 </div>
 
@@ -404,10 +417,10 @@ Create a new optimization problem object.</p></dd>
 <p></p><hr><a id="method-OptimizationProblem-copy"></a><div class="section">
 <h3 id="optimizationproblem-copy-"><code>OptimizationProblem$copy()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-copy-"></a></h3>
 <p>Create a copy of the optimization problem.</p><div class="section">
-<h4 id="usage-21">Usage<a class="anchor" aria-label="anchor" href="#usage-21"></a></h4>
+<h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">copy</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="returns-21">Returns<a class="anchor" aria-label="anchor" href="#returns-21"></a></h4>
+<h4 id="returns-22">Returns<a class="anchor" aria-label="anchor" href="#returns-22"></a></h4>
 <p>A new <code>OptimizationProblem</code> object .</p>
 </div>
 
@@ -417,32 +430,12 @@ Create a new optimization problem object.</p></dd>
 <h3 id="optimizationproblem-set-obj-"><code>OptimizationProblem$set_obj()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-obj-"></a></h3>
 <p>Set objective coefficients for the decision variables in the
 optimization problem.</p><div class="section">
-<h4 id="usage-22">Usage<a class="anchor" aria-label="anchor" href="#usage-22"></a></h4>
+<h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_obj</span><span class="op">(</span><span class="va">obj</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>obj</code></dt>
 <dd><p><code>numeric</code> vector.</p></dd>
-
-
-</dl><p></p></div>
-</div><p></p><div class="section">
-<h4 id="returns-22">Returns<a class="anchor" aria-label="anchor" href="#returns-22"></a></h4>
-<p>An invisible <code>TRUE</code>.</p>
-</div>
-
-</div>
-
-<p></p><hr><a id="method-OptimizationProblem-set_modelsense"></a><div class="section">
-<h3 id="optimizationproblem-set-modelsense-"><code>OptimizationProblem$set_modelsense()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-modelsense-"></a></h3>
-<p>Set the model sense for the optimization problem.</p><div class="section">
-<h4 id="usage-23">Usage<a class="anchor" aria-label="anchor" href="#usage-23"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_modelsense</span><span class="op">(</span><span class="va">modelsense</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div><p></p><div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>modelsense</code></dt>
-<dd><p><code>character</code> value indicating the model sense.
-(i.e., either <code>"min"</code> or <code>"max"</code>).</p></dd>
 
 
 </dl><p></p></div>
@@ -453,15 +446,16 @@ optimization problem.</p><div class="section">
 
 </div>
 
-<p></p><hr><a id="method-OptimizationProblem-set_lb"></a><div class="section">
-<h3 id="optimizationproblem-set-lb-"><code>OptimizationProblem$set_lb()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-lb-"></a></h3>
-<p>Set lower bounds for the decision variables in the optimization problem.</p><div class="section">
+<p></p><hr><a id="method-OptimizationProblem-set_modelsense"></a><div class="section">
+<h3 id="optimizationproblem-set-modelsense-"><code>OptimizationProblem$set_modelsense()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-modelsense-"></a></h3>
+<p>Set the model sense for the optimization problem.</p><div class="section">
 <h4 id="usage-24">Usage<a class="anchor" aria-label="anchor" href="#usage-24"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_lb</span><span class="op">(</span><span class="va">lb</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_modelsense</span><span class="op">(</span><span class="va">modelsense</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>lb</code></dt>
-<dd><p><code>numeric</code> vector.</p></dd>
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>modelsense</code></dt>
+<dd><p><code>character</code> value indicating the model sense.
+(i.e., either <code>"min"</code> or <code>"max"</code>).</p></dd>
 
 
 </dl><p></p></div>
@@ -472,14 +466,14 @@ optimization problem.</p><div class="section">
 
 </div>
 
-<p></p><hr><a id="method-OptimizationProblem-set_ub"></a><div class="section">
-<h3 id="optimizationproblem-set-ub-"><code>OptimizationProblem$set_ub()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-ub-"></a></h3>
-<p>Set upper bounds for the decision variables in the optimization problem.</p><div class="section">
+<p></p><hr><a id="method-OptimizationProblem-set_lb"></a><div class="section">
+<h3 id="optimizationproblem-set-lb-"><code>OptimizationProblem$set_lb()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-lb-"></a></h3>
+<p>Set lower bounds for the decision variables in the optimization problem.</p><div class="section">
 <h4 id="usage-25">Usage<a class="anchor" aria-label="anchor" href="#usage-25"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_ub</span><span class="op">(</span><span class="va">ub</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_lb</span><span class="op">(</span><span class="va">lb</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>ub</code></dt>
+<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>lb</code></dt>
 <dd><p><code>numeric</code> vector.</p></dd>
 
 
@@ -491,13 +485,32 @@ optimization problem.</p><div class="section">
 
 </div>
 
+<p></p><hr><a id="method-OptimizationProblem-set_ub"></a><div class="section">
+<h3 id="optimizationproblem-set-ub-"><code>OptimizationProblem$set_ub()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-set-ub-"></a></h3>
+<p>Set upper bounds for the decision variables in the optimization problem.</p><div class="section">
+<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">set_ub</span><span class="op">(</span><span class="va">ub</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div><p></p><div class="section">
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>ub</code></dt>
+<dd><p><code>numeric</code> vector.</p></dd>
+
+
+</dl><p></p></div>
+</div><p></p><div class="section">
+<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
+<p>An invisible <code>TRUE</code>.</p>
+</div>
+
+</div>
+
 <p></p><hr><a id="method-OptimizationProblem-remove_last_linear_constraint"></a><div class="section">
 <h3 id="optimizationproblem-remove-last-linear-constraint-"><code>OptimizationProblem$remove_last_linear_constraint()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-remove-last-linear-constraint-"></a></h3>
 <p>Remove last linear constraint added to a problem.</p><div class="section">
-<h4 id="usage-26">Usage<a class="anchor" aria-label="anchor" href="#usage-26"></a></h4>
+<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">remove_last_linear_constraint</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
-<h4 id="returns-26">Returns<a class="anchor" aria-label="anchor" href="#returns-26"></a></h4>
+<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
 <p>An invisible <code>TRUE</code>.</p>
 </div>
 
@@ -506,7 +519,7 @@ optimization problem.</p><div class="section">
 <p></p><hr><a id="method-OptimizationProblem-append_linear_constraints"></a><div class="section">
 <h3 id="optimizationproblem-append-linear-constraints-"><code>OptimizationProblem$append_linear_constraints()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-append-linear-constraints-"></a></h3>
 <p>Append linear constraints to the optimization problem.</p><div class="section">
-<h4 id="usage-27">Usage<a class="anchor" aria-label="anchor" href="#usage-27"></a></h4>
+<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">append_linear_constraints</span><span class="op">(</span><span class="va">rhs</span>, <span class="va">sense</span>, <span class="va">A</span>, <span class="va">row_ids</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-6">Arguments<a class="anchor" aria-label="anchor" href="#arguments-6"></a></h4>
@@ -526,7 +539,7 @@ optimization problem.</p><div class="section">
 
 </dl><p></p></div>
 </div><p></p><div class="section">
-<h4 id="returns-27">Returns<a class="anchor" aria-label="anchor" href="#returns-27"></a></h4>
+<h4 id="returns-28">Returns<a class="anchor" aria-label="anchor" href="#returns-28"></a></h4>
 <p>An invisible <code>TRUE</code>.</p>
 </div>
 
@@ -535,7 +548,7 @@ optimization problem.</p><div class="section">
 <p></p><hr><a id="method-OptimizationProblem-clone"></a><div class="section">
 <h3 id="optimizationproblem-clone-"><code>OptimizationProblem$clone()</code><a class="anchor" aria-label="anchor" href="#optimizationproblem-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-28">Usage<a class="anchor" aria-label="anchor" href="#usage-28"></a></h4>
+<h4 id="usage-29">Usage<a class="anchor" aria-label="anchor" href="#usage-29"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">OptimizationProblem</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div><p></p><div class="section">
 <h4 id="arguments-7">Arguments<a class="anchor" aria-label="anchor" href="#arguments-7"></a></h4>

@@ -26,6 +26,7 @@ test_that("get methods", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   suppressMessages(print(x))
@@ -51,6 +52,7 @@ test_that("get methods", {
   expect_equal(number_of_zones(x), l$number_of_zones)
   expect_equal(x$col_ids(), l$col_ids)
   expect_equal(x$row_ids(), l$row_ids)
+  expect_equal(x$obj_id(), l$obj_id)
   expect_equal(x$compressed_formulation(), l$compressed_formulation)
 })
 
@@ -72,6 +74,7 @@ test_that("as.list", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   l2 <- as.list(optimization_problem(l))
   # tests
@@ -90,6 +93,7 @@ test_that("as.list", {
   expect_equal(l$vtype, l2$vtype)
   expect_equal(l$row_ids, l2$row_ids)
   expect_equal(l$col_ids, l2$col_ids)
+  expect_equal(l$obj_id, l2$obj_id)
   expect_equal(l$compressed_formulation, l2$compressed_formulation)
 })
 
@@ -111,7 +115,8 @@ test_that("shuffle_columns method", {
     compressed_formulation = TRUE,
     sense = c(">=", ">="), vtype = c("B", "B", "B"),
     row_ids = c("spp_target", "spp_target"),
-    col_ids = c("pu", "pu", "pu")
+    col_ids = c("pu", "pu", "pu"),
+    obj_id = "g"
   )
   x <- optimization_problem(l)
   # shuffle columns
@@ -129,6 +134,7 @@ test_that("shuffle_columns method", {
   expect_equal(number_of_features(x), l$number_of_features)
   expect_equal(number_of_zones(x), l$number_of_zones)
   expect_equal(x$row_ids(), l$row_ids)
+  expect_equal(x$obj_id(), l$obj_id)
   expect_equal(x$compressed_formulation(), l$compressed_formulation)
   ## certain elements that should change after shuffling
   expect_equal(x$obj()[reorder_key], l$obj)
@@ -160,6 +166,7 @@ test_that("copy method", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   # copy problem
@@ -191,6 +198,7 @@ test_that("set methods", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   # obj
@@ -225,7 +233,8 @@ test_that("set methods", {
     sense = c("=", "="),
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
-    col_ids = c("d", "e", "f")
+    col_ids = c("d", "e", "f"),
+    obj_id = "g"
   )
   expect_equal(as.list(x), l2)
 })
@@ -248,6 +257,7 @@ test_that("append methods", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   # single new constraint
@@ -312,6 +322,7 @@ test_that("remove methods", {
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b", "dd"),
     col_ids = c("d", "e", "f"),
+    obj_id = "g",
     compressed_formulation = FALSE)
   x <- optimization_problem(l)
   # remove last constraint
@@ -333,7 +344,8 @@ test_that("remove methods", {
     sense = c("=", "="),
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
-    col_ids = c("d", "e", "f")
+    col_ids = c("d", "e", "f"),
+    obj_id = "g"
   )
   expect_equal(as.list(x), l2)
 })

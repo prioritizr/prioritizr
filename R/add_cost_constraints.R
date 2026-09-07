@@ -55,6 +55,9 @@ NULL
 #' @export
 add_cost_constraints <- function(x, budget, sense) {
   # assert valid arguments
+  assert_required(x)
+  assert_required(budget)
+  assert_required(sense)
   assert(
     is_conservation_problem(x),
     is.numeric(budget),
@@ -62,8 +65,7 @@ add_cost_constraints <- function(x, budget, sense) {
     is.character(sense),
     assertthat::noNA(sense),
     all_match_of(sense, c("<=", "=", ">=")),
-    is_match_of(length(budget), c(1, number_of_zones(x))),
-    is_match_of(length(sense), c(1, number_of_zones(x))),
+    is_budget_length(x, budget),
     length(budget) == length(sense)
   )
   # add penalties

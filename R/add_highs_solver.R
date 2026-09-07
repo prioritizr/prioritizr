@@ -101,18 +101,22 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   }
   # extract start solution
   if (!is.null(start_solution)) {
-    # nocov start
     # verify that version of highs installed supports starting solution
     assert(
       isTRUE("start" %in% names(formals(highs::highs_solve))),
-      msg = paste(
-        "To use {.arg start_solution}, please install a newer",
-        "version of the {.pkg highs} package."
+      msg =  c(
+        "x" = paste(
+          "Installed version of {.pkg highs} does not support",
+          "{.arg start_solution}"
+        ),
+        "v" = paste(
+          "Update it with following code: ",
+          "{.code install.packages(\"highs\")}"
+        )
       )
     )
     # extract data
     start_solution <- planning_unit_solution_status(x, start_solution)
-    # nocov end
   }
   # add solver
   x$add_solver(
@@ -216,14 +220,16 @@ add_highs_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         run = function() {
           # access internal data and parameters
           model <- self$get_internal("model")
-          start <- self$get_internal("start")
+          start <- self$get_data("start_solution")
           p <- self$get_internal("parameters")
           # if needed, specify start solution
           if (
-            is.null(start) &&
+            !is.null(start) &&
+            !is.Waiver(start) &&
             isTRUE("start" %in% names(formals(highs::highs_solve)))
           ) {
-            model$start <- start # nocov
+            n_extra <- max(length(model$obj) - length(start), 0)
+            model$start <- c(c(start), rep(NA_real_, n_extra))
           }
           # solve problem
           rt <- system.time({

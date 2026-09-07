@@ -160,13 +160,15 @@ add_max_cover_objective <- function(x, budget) {
   # assert argument is valid
   assert_required(x)
   assert_required(budget)
-  assert(
-    is_conservation_problem(x),
-    is.numeric(budget),
-    all_finite(budget),
-    all_positive(budget),
-    is_budget_length(x, budget)
-  )
+  assert(is_conservation_problem(x))
+  if (!is.null(budget)) {
+    assert(
+      is.numeric(budget),
+      all_finite(budget),
+      all_positive(budget),
+      is_budget_length(x, budget)
+    )
+  }
   # add objective to problem
   x$add_objective(
     R6::R6Class(
@@ -178,17 +180,22 @@ add_max_cover_objective <- function(x, budget) {
         has_targets = FALSE,
         data = list(budget = budget),
         apply = function(x, y, weights) {
+          # assert valid arguments
           assert(
             inherits(x, "OptimizationProblem"),
             inherits(y, "ConservationProblem"),
             is.numeric(weights),
             .internal = TRUE
           )
+          # if needed, replace budget with NA value
+          b <- self$get_data("budget")
+          if (is.null(b)) b <- NA_real_
+          # apply objective
           invisible(
             rcpp_apply_max_cover_objective(
               x$ptr,
               y$planning_unit_costs(),
-              self$get_data("budget"),
+              b,
               weights
             )
           )

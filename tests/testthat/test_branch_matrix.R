@@ -2,9 +2,9 @@ test_that("phylo input", {
   # create data
   phy <- structure(
     list(
-      edge = structure(
+      edge = matrix(
         c(6L, 7L, 8L, 8L, 7L, 6L, 9L, 9L, 7L, 8L, 1L, 2L, 3L, 9L, 4L, 5L),
-        .Dim = c(8L, 2L)
+        ncol = 2
       ),
       tip.label = c("t1",  "t5", "t4", "t2", "t3"),
       edge.length = c(

@@ -7,31 +7,33 @@ NULL
 #'
 #' @param x `list` of [`OptimizationProblem-class`] objects.
 #'
+#' @inheritParams assert_pass_presolve_check
+#
 #' @return
 #' A `list` with containing a (`$msg`) `character` vector with information on
 #' the presolve checks and (`$pass`) `logical` value indicating if the
 #' checks were passed.
 #'
 #' @noRd
-run_multi_presolve_check <- function(x) {
+run_multi_presolve_check <- function(x, run_budget_checks = TRUE) {
   # assert that arguments are valid
   assert(
     inherits(x, "list"),
-    .internal = TRUE,
-    call = call
+    .internal = TRUE
   )
-
   # run checks
-  res <- lapply(x, run_presolve_check, header_level = 3)
-
+  res <- lapply(
+    x,
+    run_presolve_check,
+    run_budget_checks = run_budget_checks,
+    header_level = 3
+  )
   # extract problem names
   nms <- names(x)
-
   # if needed, set default names
   if (is.null(nms)) {
     nms <- as.character(seq_along(x)) # nocov
   }
-
   # prepare message
   msg <- unlist(
     lapply(seq_along(res), function(i) {
@@ -49,7 +51,6 @@ run_multi_presolve_check <- function(x) {
     }),
     recursive = FALSE, use.names = TRUE
   )
-
   # return result
   list(
     pass = all(vapply(res, FUN.VALUE = logical(1), `[[`, "pass")),

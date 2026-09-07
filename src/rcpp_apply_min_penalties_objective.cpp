@@ -88,6 +88,8 @@ bool rcpp_apply_min_penalties_objective(
   }
   // assign model sense
   ptr->_modelsense = "min";
+  // set obj id
+  ptr->_obj_id = "min_penalties";
   // return succes
   return true;
 }

@@ -54,6 +54,21 @@ NULL
 #' importance of each objective.
 #' }
 #'
+#' \item{`add_eps_constraint_approach()`}{
+#' Add an approach that involves using the epsilon constraint approach for
+#' multi-objective optimization (Eichfelder 2008).
+#' Briefly, this approach involves
+#' first identifying prioritizations that have the best performance
+#' according to each objective (also known as extreme points), and then using
+#' this information to automatically generate a set of prioritizations
+#' to characterize the full range of trade-offs between the objectives.
+#' This approach is particularly useful for generating a set of prioritizations
+#' to understand trade-offs between objectives. To use this approach,
+#' please refer to the \pkg{moec.prioritizr} package for more information
+#' (see <https://aboozarm.github.io/moec.prioritizr/>).
+#'
+#' }
+#'
 #' }
 #'
 #' Note that although multi-objective approaches can be used to generate
@@ -98,6 +113,9 @@ NULL
 #' optimization and ecological connectivity to strengthen Peru's protected area
 #' system towards the 30*2030 target. _Biological Conservation_, **299**:
 #' 110799.
+#'
+#' Eichfelder G (2008) Adaptive Scalarization Methods in Multiobjective
+#' Optimization. Springer Berlin, Heidelberg.
 #'
 #' López Jaimes A, Zapotecas Martínez S, and Coello Coello CA (2009)
 #' *An introduction to

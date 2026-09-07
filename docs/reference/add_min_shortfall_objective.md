@@ -23,7 +23,10 @@ add_min_shortfall_objective(x, budget)
   solution. If `x` has multiple zones, then `budget` can be (i) a single
   `numeric` value to specify an overall budget for the entire solution
   or (ii) a `numeric` vector to specify a budget for each zone
-  (separately) in the solution.
+  (separately) in the solution. If `x` will be used to generate a
+  multi-objective problem (via
+  [`multi_problem()`](https://prioritizr.net/reference/multi_problem.md)),
+  `budget = NULL` can be used to avoid specifying a maximum expenditure.
 
 ## Details
 

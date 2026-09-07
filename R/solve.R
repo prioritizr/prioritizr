@@ -305,9 +305,17 @@ solve.ConservationProblem <- function(a, b, ...,
   # run presolve check
   if (isTRUE(run_checks)) {
     if (isTRUE(force)) {
-      verify_pass_presolve_check(opt, call = NULL)
+      verify_pass_presolve_check(
+        opt,
+        run_budget_checks = TRUE,
+        call = NULL
+      )
     } else {
-      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
+      assert_pass_presolve_check(
+        opt,
+        run_budget_checks = TRUE,
+        show_bypass_message = TRUE
+      )
     }
   }
   # solve problem
@@ -369,6 +377,16 @@ solve.MultiConservationProblem <- function(a, b, ...,
     assertthat::is.flag(remove_duplicates),
     assertthat::noNA(remove_duplicates)
   )
+  assert(
+    !is.Waiver(a$appraoch),
+    msg = c(
+      "{.fn multi_problem} must have an approach.",
+      "i" = paste(
+        "See {.topic prioritizr::approaches} for guidance on selecting",
+        "a multi-objective optimization approach."
+      )
+    )
+  )
   if (!rlang::is_missing(b)) {
     cli::cli_abort("{.arg b} must not be specified.") # nocov
   }
@@ -377,16 +395,47 @@ solve.MultiConservationProblem <- function(a, b, ...,
     lapply(a$problems, internal_compile, call = fn_current_env()),
     names(a$problems)
   )
+  # check if budget is required
+  run_budget_checks <- is_run_budget_checks.MultiConservationProblem(a)
   # run presolve check
   if (isTRUE(run_checks)) {
     if (isTRUE(force)) {
-      verify_pass_presolve_check(opt, call = NULL)
+      verify_pass_presolve_check(
+        opt,
+        run_budget_checks = run_budget_checks,
+        call = NULL
+      )
     } else {
-      assert_pass_presolve_check(opt, show_bypass_message = TRUE)
+      assert_pass_presolve_check(
+        opt,
+        run_budget_checks = run_budget_checks,
+        show_bypass_message = TRUE
+      )
     }
   }
   # compile multi-objective optimization problem
   opt <- multi_compile(opt)
+  # check for infeasibility
+  assert(
+    all(opt$opt$lb() <= opt$opt$ub()),
+    msg = c(
+      paste(
+        "{.fun multi_problem} has {.fun problem} objects with conflicting",
+        "locked constraints and/or cost data."
+      ),
+      "i" = paste(
+        "For example, this can be caused by one {.fun problem} having",
+        "{.fun add_locked_in_constraints} for a planning unit, and another",
+        "{.fun problem} having {.fun add_locked_out_constraints} for the same",
+        "planning unit.",
+        "Additionally, this can also be caused by one {.fun problem}",
+        "having {.fun add_manual_locked_constraints} to lock in a planning",
+        "unit to a particular zone, and another {.fun problem} having",
+        "a missing ({.val {NA}}) cost value for allocating that planning",
+        "unit to that same zone."
+      )
+    )
+  )
   # solve problem
   if (isTRUE(a$solver$data$verbose)) {
     cli::cli_h1("Optimization")
@@ -450,7 +499,6 @@ solve_solution_format <- function(x, raw_solution) {
     is.list(raw_solution),
     .internal = TRUE
   )
-
   # if needed, format x
   if (is.list(x) && !inherits(x, "data.frame")) {
     ## if x is a list of matrices with a single column,
@@ -464,7 +512,6 @@ solve_solution_format <- function(x, raw_solution) {
       x <- x[[1]]
     }
   }
-
   # add attributes with information on the solution and solver
   attr(x, "objective") <- solve_solution_attribute_format(
     raw_solution, "objective", "numeric"
@@ -493,7 +540,6 @@ solve_solution_attribute_format <- function(raw_solution, name, mode) {
     is.atomic(raw_solution[[1]][[name]]),
     .internal = TRUE
   )
-
   # format data
   if (length(raw_solution[[1]][[name]]) > 1L) {
     out <- t(vapply(
@@ -509,7 +555,6 @@ solve_solution_attribute_format <- function(raw_solution, name, mode) {
       paste0("solution_", seq_along(raw_solution))
     )
   }
-
   # return result
   out
 }

@@ -102,7 +102,7 @@ NULL
 #'       add_binary_decisions(),
 #'     obj3 =
 #'       problem(sim_complex_pu_raster, sim_complex_pu_raster) %>%
-#'       add_min_penalties_objective() %>%
+#'       add_min_penalties_objective(budget = NULL) %>%
 #'       # note a value of 1 is here because only the costs minimized
 #'       add_cost_penalties(1) %>%
 #'       add_binary_decisions()
@@ -151,6 +151,8 @@ NULL
 #' @export
 add_cost_penalties <- function(x, penalty) {
   # assert valid arguments
+  assert_required(x)
+  assert_required(penalty)
   assert(
     is_conservation_problem(x),
     is.numeric(penalty),

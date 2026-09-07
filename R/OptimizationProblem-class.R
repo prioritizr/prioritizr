@@ -190,6 +190,13 @@ OptimizationProblem <- R6::R6Class(
     },
 
     #' @description
+    #' Obtain the identifiers for the rows.
+    #' @return A `character` value.
+    obj_id = function() {
+      rcpp_get_optimization_problem_obj_id(self$ptr)
+    },
+
+    #' @description
     #' Is the problem formulation compressed?
     #' @return A `logical` value.
     compressed_formulation = function() {
