@@ -11,6 +11,12 @@
   attempting to solve a `problem()` that has one of these objectives
   with `budget = NULL` outside of a `multi_problem()` will cause the
   presolve checks to fail.
+- Update `solve()` to throw a helpful error message if attempting to solve
+  a `multi_problem()` object that does not have a specified multi-objective
+  optimization approach.
+- Update `solve()` to throw a helpful error message if attempting to solve
+  a `multi_problem()` object that contains `problem()` objects that have
+  conflicting locked constraints.
 - Fix `add_highs_solver()` to ensure that solution specified by
   `start_solution` is actually used during optimization.
 - Fix compatibility issues with developmental changes to `structure()` in _R_.

@@ -377,6 +377,16 @@ solve.MultiConservationProblem <- function(a, b, ...,
     assertthat::is.flag(remove_duplicates),
     assertthat::noNA(remove_duplicates)
   )
+  assert(
+    !is.Waiver(a$appraoch),
+    msg = c(
+      "{.fn multi_problem} must have an approach.",
+      "i" = paste(
+        "See {.topic prioritizr::approaches} for guidance on selecting",
+        "a multi-objective optimization approach."
+      )
+    )
+  )
   if (!rlang::is_missing(b)) {
     cli::cli_abort("{.arg b} must not be specified.") # nocov
   }
@@ -405,6 +415,27 @@ solve.MultiConservationProblem <- function(a, b, ...,
   }
   # compile multi-objective optimization problem
   opt <- multi_compile(opt)
+  # check for infeasibility
+  assert(
+    all(opt$opt$lb() <= opt$opt$ub()),
+    msg = c(
+      paste(
+        "{.fun multi_problem} has {.fun problem} objects with conflicting",
+        "locked constraints and/or cost data."
+      ),
+      "i" = paste(
+        "For example, this can be caused by one {.fun problem} having",
+        "{.fun add_locked_in_constraints} for a planning unit, and another",
+        "{.fun problem} having {.fun add_locked_out_constraints} for the same",
+        "planning unit.",
+        "Additionally, this can also be caused by one {.fun problem}",
+        "having {.fun add_manual_locked_constraints} to lock in a planning",
+        "unit to a particular zone, and another {.fun problem} having",
+        "a missing ({.val {NA}}) cost value for allocating that planning",
+        "unit to that same zone."
+      )
+    )
+  )
   # solve problem
   if (isTRUE(a$solver$data$verbose)) {
     cli::cli_h1("Optimization")

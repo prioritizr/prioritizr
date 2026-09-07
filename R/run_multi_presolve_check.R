@@ -19,8 +19,7 @@ run_multi_presolve_check <- function(x, run_budget_checks = TRUE) {
   # assert that arguments are valid
   assert(
     inherits(x, "list"),
-    .internal = TRUE,
-    call = call
+    .internal = TRUE
   )
   # run checks
   res <- lapply(

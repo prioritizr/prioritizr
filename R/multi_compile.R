@@ -95,7 +95,7 @@ multi_compile.list <- function(x, ...) {
   }
 
   # convert pointer to optimization problem object
-   out$opt <- OptimizationProblem$new(ptr = out$opt)
+  out$opt <- OptimizationProblem$new(ptr = out$opt)
 
   # return result
   out
