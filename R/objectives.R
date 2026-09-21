@@ -104,7 +104,7 @@ NULL
 #' the selection of nature reserves: An example from Tasmania.
 #' *Biological Conservation*, 25: 127--134.
 #'
-#' @examplesIf asNamespace("prioritizr")$do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("ape")
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()

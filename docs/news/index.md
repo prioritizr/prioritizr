@@ -1,6 +1,6 @@
 # Changelog
 
-## prioritizr 9.0.0.2
+## prioritizr 9.0.1
 
 ### Major changes
 
@@ -1002,7 +1002,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

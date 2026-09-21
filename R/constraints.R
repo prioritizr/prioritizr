@@ -83,7 +83,7 @@ NULL
 #'
 #' @family overviews
 #'
-#' @examplesIf asNamespace("prioritizr")$do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("igraph")
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()

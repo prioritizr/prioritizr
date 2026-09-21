@@ -193,7 +193,7 @@ NULL
 #'
 #' @keywords datasets
 #'
-#' @examplesIf asNamespace("prioritizr")$do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("ape")
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
@@ -399,6 +399,7 @@ get_sim_zones_features <- function() {
 #' @rdname sim_data
 #' @export
 get_sim_phylogeny <- function() {
+  assert(is_installed("ape"))
   ape::read.nexus(
    system.file("extdata", "sim_phylogeny.txt", package = "prioritizr")
   )

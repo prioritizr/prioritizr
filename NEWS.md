@@ -1,4 +1,4 @@
-# prioritizr 9.0.0.2
+# prioritizr 9.0.1
 
 ## Major changes
 

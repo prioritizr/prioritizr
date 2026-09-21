@@ -246,7 +246,7 @@ print(attr(s1, "objective"))
 #>   1987.399 
 print(attr(s1, "runtime"))
 #> solution_1 
-#>      0.004 
+#>      0.006 
 print(attr(s1, "status"))
 #> solution_1 
 #>  "OPTIMAL" 

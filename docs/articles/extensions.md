@@ -52,14 +52,14 @@ examples that may be of interest.
   and features that span multiple depth levels.
 - [*robust.prioritizr*](https://frankiecho.github.io/robust.prioritizr/)
   provides objectives and constraints to generate prioritizations that
-  account of uncertainty in the expected outcome associated with
-  implementing conservation actions. For example, it can be used to
-  account for uncertainty in climate change scenario projections,
-  species distribution models, ecosystem service models, and measurement
-  errors when identifying priorities for protected area establishment.
-  It uses robust optimization techniques based on the chance constrained
-  programming problems and the conditional value-at-risk problems
-  (Charnes & Cooper 1959; Rockafellar & Uryasev 2000).
+  account of uncertainty in the expected outcome and constraints
+  associated with implementing conservation actions. For example, it can
+  be used to account for uncertainty in climate change scenario
+  projections, species distribution models, ecosystem service models,
+  and measurement errors when generating prioritizations. It uses robust
+  optimization techniques based on the chance-constrained programming
+  and the Conditional Value-at-Risk (CVaR) problems (Charnes & Cooper
+  1959; Rockafellar & Uryasev 2000).
 
 ### Packages to streamline workflows and access data
 

@@ -257,7 +257,7 @@ under three different management zones.
 }
 
 \examples{
-\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("ape")) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
 sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
