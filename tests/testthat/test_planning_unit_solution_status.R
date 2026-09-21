@@ -172,71 +172,6 @@ test_that("problem (sf, multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("problem (Spatial, single zone)", {
-  # import data
-  pu <- get_sim_pu_polygons()[seq_len(10), , drop = FALSE]
-  pu$cost[1:5] <- NA
-  pu$solution <- rep(c(0, 1), 5)
-  pu$solution[is.na(pu$cost)] <- NA_real_
-  pu$spp1 <- runif(10)
-  pu$spp2 <- c(rpois(9, 1), NA)
-  # create problems
-  p1 <- problem(pu, c("spp1", "spp2"), "cost")
-  expect_warning(
-    p2 <- problem(sf::as_Spatial(pu), c("spp1", "spp2"), "cost"),
-    "deprecated"
-  )
-  # calculations
-  x <- planning_unit_solution_status(p1, pu[, "solution"])
-  expect_warning(
-    y <- planning_unit_solution_status(p2, sf::as_Spatial(pu[, "solution"])),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("problem (Spatial, multiple zone)", {
-  # import data
-  pu <- get_sim_zones_pu_polygons()
-  pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
-  pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1), NA)
-  pu$spp1_2 <- c(NA, runif(nrow(pu) - 1))
-  pu$spp2_2 <- rpois(nrow(pu), 1)
-  pu$s1 <- rep(c(0, 0.5), nrow(pu) / 2)
-  pu$s2 <- rep(c(0.5, 0), nrow(pu) / 2)
-  pu$s1[is.na(pu$cost_1)] <- NA_real_
-  pu$s2[is.na(pu$cost_2)] <- NA_real_
-  # create problems
-  p1 <- problem(
-    pu,
-    zones(
-      z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
-      feature_names = c("spp1", "spp2")
-    ),
-    c("cost_1", "cost_2")
-  )
-  expect_warning(
-    p2 <- problem(
-      sf::as_Spatial(pu),
-      zones(
-        z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
-        feature_names = c("spp1", "spp2")
-      ),
-      c("cost_1", "cost_2")
-    ),
-    "deprecated"
-  )
-  # calculations
-  x <- planning_unit_solution_status(p1, pu[, c("s1", "s2")])
-  expect_warning(
-    y <- planning_unit_solution_status(p2, sf::as_Spatial(pu[, c("s1", "s2")])),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
 test_that("problem (SpatRaster, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
@@ -286,75 +221,6 @@ test_that("problem (SpatRaster, multiple zone)", {
   # create correct result
   y <- as.matrix(terra::as.data.frame(s, na.rm = FALSE))
   y <- y[rowSums(is.finite(y)) > 0, , drop = FALSE]
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("problem (Raster, single zone)", {
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problem
-  p1 <- problem(sim_pu_raster, sim_features)
-  expect_warning(
-    p2 <- problem(raster::raster(sim_pu_raster), raster::stack(sim_features)),
-    "deprecated"
-  )
-  # create a solution
-  s <- terra::setValues(
-    sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2)
-  )
-  s[is.na(sim_pu_raster)] <- NA_real_
-  # extract solution status
-  x <- planning_unit_solution_status(p1, s)
-  # create correct result
-  expect_warning(
-    y <- planning_unit_solution_status(p2, raster::raster(s)),
-    "deprecated"
-  )
-  colnames(y) <- names(s)
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("problem (Raster, multiple zone)", {
-  # import data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_zones_features <- get_sim_zones_features()
-  # create problem
-  p1 <- problem(sim_zones_pu_raster, sim_zones_features)
-  expect_warning(
-    p2 <- problem(
-      raster::stack(sim_zones_pu_raster),
-      as.ZonesRaster(sim_zones_features)
-    ),
-    "deprecated"
-  )
-  # create a solution
-  s <- c(
-    terra::setValues(
-      sim_zones_pu_raster[[1]],
-      rep(c(0, 0.2), terra::ncell(sim_zones_pu_raster) / 2)
-    ),
-    terra::setValues(
-      sim_zones_pu_raster[[2]],
-      rep(c(0.3, 0), terra::ncell(sim_zones_pu_raster) / 2)
-    ),
-    terra::setValues(
-      sim_zones_pu_raster[[3]],
-      rep(c(0.4, 0), terra::ncell(sim_zones_pu_raster) / 2)
-    )
-  )
-  s[[1]][is.na(sim_zones_pu_raster[[1]])] <- NA_real_
-  s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
-  s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
-  # extract solution status
-  x <- planning_unit_solution_status(p1, s)
-  expect_warning(
-    y <- planning_unit_solution_status(p2, raster::stack(s)),
-    "deprecated"
-  )
-  colnames(y) <- names(s)
   # run tests
   expect_equal(x, y)
 })
@@ -471,46 +337,6 @@ test_that("multi_problem (data.frame)", {
   expect_equal(x, y)
 })
 
-test_that("multi_problem (Spatial)", {
-  # import data
-  pu <- get_sim_pu_polygons()[seq_len(10), , drop = FALSE]
-  pu$cost[1:5] <- NA
-  pu$solution <- rep(c(0, 1), 5)
-  pu$solution[is.na(pu$cost)] <- NA_real_
-  pu$spp1 <- runif(10)
-  pu$spp2 <- c(rpois(9, 1), NA)
-  # create multi-objective problem
-  expect_warning(
-    obj1 <-
-      problem(sf::as_Spatial(pu), c("spp1", "spp2"), "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(sf::as_Spatial(pu), c("spp1", "spp2"), "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2)
-  # create a solution
-  s <- pu[, "solution"]
-  # extract solution status
-  expect_warning(
-    x <- planning_unit_solution_status(p, sf::as_Spatial(s)),
-    "deprecated"
-  )
-  # create correct result
-  y <- matrix(s$solution[!is.na(pu$cost)], ncol = 1)
-  colnames(y) <- "solution"
-  # run tests
-  expect_equal(x, y)
-})
-
 test_that("multi_problem (sf)", {
   # import data
   pu <- get_sim_pu_polygons()[seq_len(10), , drop = FALSE]
@@ -540,44 +366,6 @@ test_that("multi_problem (sf)", {
   # create correct result
   y <- matrix(s$solution[!is.na(pu$cost)], ncol = 1)
   colnames(y) <- "solution"
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("multi_problem (Raster)", {
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problems
-  expect_warning(
-    obj1 <-
-      problem(raster::raster(sim_pu_raster), raster::stack(sim_features)) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(raster::raster(sim_pu_raster), raster::stack(sim_features)) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2)
-  # create a solution
-  s <- terra::setValues(
-    sim_pu_raster, rep(c(0, 1), terra::ncell(sim_pu_raster) / 2)
-  )
-  s[is.na(sim_pu_raster)] <- NA_real_
-  # extract solution status
-  expect_warning(
-    x <- planning_unit_solution_status(p, raster::raster(s)),
-    "deprecated"
-  )
-  # create correct result
-  y <- matrix(c(na.omit(terra::values(s))), ncol = 1)
   # run tests
   expect_equal(x, y)
 })

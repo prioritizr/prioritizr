@@ -37,7 +37,7 @@ NULL
 #' Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex
 #' method. *Mathematical Programming Computation*, 10: 119-142.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()

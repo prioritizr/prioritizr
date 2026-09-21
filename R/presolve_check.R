@@ -114,7 +114,7 @@ NULL
 #' See the Gurobi documentation for more information on numerical
 #' instability issues (<https://docs.gurobi.com/projects/optimizer/en/current/concepts/numericguide.html>).
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

@@ -50,11 +50,6 @@ all_columns_inherit.data.frame <- function(x, what) {
 }
 
 #' @export
-all_columns_inherit.Spatial <- function(x, what) {
-  all_columns_inherit(x@data, what)
-}
-
-#' @export
 all_columns_inherit.sf <- function(x, what) {
   all_columns_inherit(sf::st_drop_geometry(x), what)
 }

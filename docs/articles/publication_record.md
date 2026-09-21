@@ -116,6 +116,10 @@ we can add your work to this list.
 - Wen W, Lee JR, Shaw JD, and Wilson KA (2026) Comprehensive and
   representative conservation planning for biodiversity of ice‐free
   Antarctica. *Conservation Biology*, **In press**: e70352.
+- Wen X, Smith PA, and Bennett JR (2026) Cost‐effectiveness of
+  temporarily conserved areas: A case study of breeding birds in
+  Southern Ontario, Canada. *Conservation Science and Practice*, **In
+  press**: e70415.
 
 ### 2025
 

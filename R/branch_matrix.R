@@ -22,7 +22,7 @@ NULL
 #'
 #' @rdname branch_matrix
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("ape")
 #' # load data
 #' sim_phylogeny <- get_sim_phylogeny()
 #'
@@ -42,13 +42,16 @@ branch_matrix <- function(x) {
 #' @rdname branch_matrix
 #' @method branch_matrix default
 #' @export
-branch_matrix.default <- function(x)
+branch_matrix.default <- function(x) {
+  assert(is_installed("ape"))
   rcpp_branch_matrix(ape::as.phylo(x, "phylo"))
+}
 
 #' @rdname branch_matrix
 #' @method branch_matrix phylo
 #' @export
 branch_matrix.phylo <- function(x) {
+  assert(is_installed("ape"))
   # check that tree is valid and return error if not
   msg <- utils::capture.output(ape::checkValidPhylo(x))
   assert(

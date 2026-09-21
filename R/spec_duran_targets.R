@@ -241,7 +241,7 @@ NULL
 #' Townsend Peterson A, Phillips OL, Williams SE (2004)
 #' Extinction risk from climate change. *Nature* 427:145--148.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

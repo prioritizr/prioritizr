@@ -19,7 +19,7 @@ NULL
 #'
 #' @inherit marxan_boundary_data_to_matrix return
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -124,7 +124,7 @@ internal_marxan_connectivity_data_to_matrix <- function(
     # assert that planning unit ids are valid
     if (
       is.data.frame(x$data$cost) &&
-      !inherits(x$data$cost, c("Spatial", "sf"))
+      !inherits(x$data$cost, "sf")
     ) {
       # validate that ids in data are correct
       assert(

@@ -11,12 +11,6 @@ value.
 
 ``` r
 category_layer(x)
-
-# S3 method for class 'Raster'
-category_layer(x)
-
-# Default S3 method
-category_layer(x)
 ```
 
 ## Arguments

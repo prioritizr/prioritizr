@@ -8,8 +8,7 @@
 #'
 #' Extract the coordinate reference system from an object.
 #'
-#' @param x [sf::st_sf()], [terra::rast()], `sp::Spatial-class`, or
-#'   [raster::raster()] object.
+#' @param x [sf::st_sf()] or [terra::rast()] object.
 #'
 #' @return A [sf::st_crs()] object.
 #'
@@ -25,15 +24,6 @@ get_crs.default <- function(x) {
 
 #' @export
 get_crs.sf <- function(x) sf::st_crs(x)
-
-#' @export
-get_crs.Spatial <- function(x) sf::st_crs(x@proj4string)
-
-#' @export
-get_crs.Raster <- function(x) sf::st_crs(raster::crs(x))
-
-#' @export
-get_crs.ZonesRaster <- function(x) get_crs(x[[1]])
 
 #' @export
 get_crs.SpatRaster <- function(x) {

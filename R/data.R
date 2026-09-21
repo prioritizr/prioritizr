@@ -185,7 +185,7 @@ NULL
 #'
 #' \item{`get_sim_features()`}{[terra::rast()] object.}
 #'
-#' \item{`get_sim_zones_features()`}{[ZonesRaster()] object.}
+#' \item{`get_sim_zones_features()`}{[zones()] object.}
 #'
 #' \item{`get_sim_phylogeny()`}{[terra::rast()] object.}
 #'
@@ -193,7 +193,7 @@ NULL
 #'
 #' @keywords datasets
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
 #' sim_zones_pu_polygons <- get_sim_zones_pu_polygons()

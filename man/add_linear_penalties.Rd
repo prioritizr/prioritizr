@@ -7,7 +7,6 @@
 \alias{add_linear_penalties,ConservationProblem,ANY,dgCMatrix-method}
 \alias{add_linear_penalties,ConservationProblem,ANY,character-method}
 \alias{add_linear_penalties,ConservationProblem,ANY,numeric-method}
-\alias{add_linear_penalties,ConservationProblem,ANY,Raster-method}
 \alias{add_linear_penalties,ConservationProblem,ANY,SpatRaster-method}
 \title{Add linear penalties}
 \usage{
@@ -18,8 +17,6 @@
 \S4method{add_linear_penalties}{ConservationProblem,ANY,matrix}(x, penalty, data)
 
 \S4method{add_linear_penalties}{ConservationProblem,ANY,Matrix}(x, penalty, data)
-
-\S4method{add_linear_penalties}{ConservationProblem,ANY,Raster}(x, penalty, data)
 
 \S4method{add_linear_penalties}{ConservationProblem,ANY,SpatRaster}(x, penalty, data)
 
@@ -140,7 +137,7 @@ replaced with \eqn{-P_z}.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 

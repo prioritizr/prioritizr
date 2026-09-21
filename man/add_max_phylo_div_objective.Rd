@@ -104,7 +104,7 @@ problem based on minimizing cost penalties (i.e., by using
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("ape")) withAutoprint(\{ # examplesIf}
 # load ape package
 require(ape)
 

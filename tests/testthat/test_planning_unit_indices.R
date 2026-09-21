@@ -78,48 +78,6 @@ test_that("x = numeric", {
   expect_equal(x, y)
 })
 
-test_that("x = Spatial (single cost column)", {
-  # create data
-  d <- get_sim_pu_polygons()
-  # correct results
-  x <- planning_unit_indices(d, "cost")
-  y <- planning_unit_indices(sf::as_Spatial(d), "cost")
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("x = Spatial (multiple cost column)", {
-  # create data
-  d <- get_sim_pu_polygons()
-  d$cost2 <- 1
-  d$cost2[1:6] <- NA_real_
-  # correct results
-  x <- planning_unit_indices(d, c("cost", "cost2"))
-  y <- planning_unit_indices(sf::as_Spatial(d), c("cost", "cost2"))
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("x = Raster (single layer)", {
-  # create data
-  d <- get_sim_pu_raster()
-  # correct results
-  x <- planning_unit_indices(raster::raster(d))
-  y <- planning_unit_indices(d)
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("x = Raster (multiple layer)", {
-  # create data
-  d <- get_sim_zones_pu_raster()
-  # correct results
-  x <- planning_unit_indices(d)
-  y <- planning_unit_indices(raster::stack(d))
-  # tests
-  expect_equal(x, y)
-})
-
 test_that("invalid input", {
   expect_error(
     planning_unit_indices(letters[1:4]),

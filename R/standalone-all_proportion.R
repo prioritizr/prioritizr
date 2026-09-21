@@ -48,11 +48,6 @@ all_proportion.data.frame <- function(x) {
 }
 
 #' @export
-all_proportion.Spatial <- function(x) {
-  all(vapply(x@data, all_proportion, logical(1)))
-}
-
-#' @export
 all_proportion.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_proportion, logical(1)))
 }

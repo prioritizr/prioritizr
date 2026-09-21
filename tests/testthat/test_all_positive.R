@@ -51,34 +51,11 @@ test_that("x = sf", {
   expect_error(assert(all_positive(y)), "negative")
 })
 
-test_that("x = Spatial", {
-  # create data
-  g <- sf::st_sfc(list(sf::st_point(c(1, 0)), sf::st_point(c(0, 1))))
-  x <- sf::st_as_sf(tibble::tibble(x = c(0, NA), y = c(2, NA), geom = g))
-  y <- sf::st_as_sf(tibble::tibble(x = c(0, NA), y = c(-1, 2), geom = g))
-  # tests
-  expect_true(all_positive(sf::as_Spatial(x)))
-  expect_false(all_positive(sf::as_Spatial(y)))
-  expect_error(
-    assert(all_positive(sf::as_Spatial(y))),
-    "negative"
-  )
-})
-
 test_that("x = SpatRaster", {
   expect_true(all_positive(terra::rast(matrix(c(0, 1, 2, NA)))))
   expect_false(all_positive(terra::rast(matrix(c(-1, NA, 0)))))
   expect_error(
     assert(all_positive(terra::rast(matrix(c(-1, NA, 0))))),
-    "negative"
-  )
-})
-
-test_that("x = Raster", {
-  expect_true(all_positive(raster::raster(matrix(c(0, 1, 2, NA)))))
-  expect_false(all_positive(raster::raster(matrix(c(-1, NA, 0)))))
-  expect_error(
-    assert(all_positive(raster::raster(matrix(c(-1, NA, 0))))),
     "negative"
   )
 })
@@ -92,31 +69,6 @@ test_that("x = ZonesSpatRaster", {
   z2 <- zones(
     terra::rast(matrix(c(0, 1, 2, NA))),
     terra::rast(matrix(c(0, 1, -2, NA)))
-  )
-  # tests
-  expect_true(all_positive(z1))
-  expect_false(all_positive(z2))
-  expect_error(
-    assert(all_positive(z2)),
-    "negative"
-  )
-})
-
-test_that("x = ZonesRaster", {
-  # create data
-  expect_warning(
-    z1 <- zones(
-      raster::raster(matrix(c(0, 1, 2, NA))),
-      raster::raster(matrix(c(0, 5, 2, NA)))
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    z2 <- zones(
-      raster::raster(matrix(c(0, 1, 2, NA))),
-      raster::raster(matrix(c(0, 1, -2, NA)))
-    ),
-    "deprecated"
   )
   # tests
   expect_true(all_positive(z1))

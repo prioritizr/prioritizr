@@ -62,15 +62,6 @@ category_vector.sf <- function(x) {
 }
 
 #' @rdname category_vector
-#' @method category_vector Spatial
-#' @export
-category_vector.Spatial <- function(x) {
-  assert(inherits(x, "Spatial"))
-  cli_warning(sp_pkg_deprecation_notice)
-  category_vector(x@data)
-}
-
-#' @rdname category_vector
 #' @method category_vector matrix
 #' @export
 category_vector.matrix <- function(x) {

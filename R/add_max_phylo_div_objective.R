@@ -97,7 +97,7 @@ NULL
 #' selection of networks of conservation areas. *Biological Conservation*,
 #' 105: 103--111.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("ape")
 #' # load ape package
 #' require(ape)
 #'
@@ -221,6 +221,7 @@ add_max_phylo_div_objective <- function(x, budget, tree) {
   assert_required(budget)
   assert(
     is_conservation_problem(x),
+    is_installed("ape"),
     inherits(tree, "phylo"),
     length(tree$tip.label) == number_of_features(x),
     all_match_of(tree$tip.label, feature_names(x))

@@ -37,7 +37,7 @@
 #' creating boundary length and connectivity data.
 #' Also, see [presolve_check()] for information on numerical issues.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # rescale_matrix() is especially useful for re-scaling boundary length data
 #' # prior to optimization, and so here we provide an example showing how
 #' # this can be accomplished

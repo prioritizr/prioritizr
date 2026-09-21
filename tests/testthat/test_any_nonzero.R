@@ -56,22 +56,6 @@ test_that("x = sf", {
   expect_error(assert(any_nonzero(z)), "zero")
 })
 
-test_that("x = Spatial", {
-  # create data
-  g <- sf::st_sfc(list(sf::st_point(c(1, 0)), sf::st_point(c(0, 1))))
-  x <- sf::st_as_sf(tibble::tibble(x = c(0, 1), y = c(0L, 1L), geom = g))
-  y <- sf::st_as_sf(tibble::tibble(x = c(0, NA), y = c(0L, 1L), geom = g))
-  z <- sf::st_as_sf(tibble::tibble(x = c(1, NA), y = c(NA, 0), geom = g))
-  # tests
-  expect_true(any_nonzero(sf::as_Spatial(x)))
-  expect_false(any_nonzero(sf::as_Spatial(y)))
-  expect_false(any_nonzero(sf::as_Spatial(z)))
-  expect_error(
-    assert(any_nonzero(sf::as_Spatial(z))),
-    "zero"
-  )
-})
-
 test_that("x = SpatRaster", {
   expect_true(any_nonzero(terra::rast(matrix(c(NA_real_, NA_real_)))))
   expect_true(any_nonzero(terra::rast(matrix(c(0, 1, NA)))))
@@ -82,16 +66,7 @@ test_that("x = SpatRaster", {
   )
 })
 
-test_that("x = Raster", {
-  expect_true(any_nonzero(raster::raster(matrix(c(0, 1, NA)))))
-  expect_false(any_nonzero(raster::raster(matrix(c(0, 0, NA)))))
-  expect_error(
-    assert(any_nonzero(raster::raster(matrix(c(0, 0, NA))))),
-    "zero"
-  )
-})
-
-test_that("x = ZonesRaster", {
+test_that("x = ZonesSpatRaster", {
   # create data
   z1 <- zones(
     terra::rast(matrix(c(0, 1, NA))),
@@ -100,31 +75,6 @@ test_that("x = ZonesRaster", {
   z2 <- zones(
     terra::rast(matrix(c(0, 1, NA))),
     terra::rast(matrix(c(0, NA, 0)))
-  )
-  # tests
-  expect_true(any_nonzero(z1))
-  expect_false(any_nonzero(z2))
-  expect_error(
-    assert(any_nonzero(z2)),
-    "zero"
-  )
-})
-
-test_that("x = ZonesSpatRaster", {
-  # create data
-  expect_warning(
-    z1 <- zones(
-      raster::raster(matrix(c(0, 1, NA))),
-      raster::raster(matrix(c(0, NA, 1)))
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    z2 <- zones(
-      raster::raster(matrix(c(0, 1, NA))),
-      raster::raster(matrix(c(0, NA, 0)))
-    ),
-    "deprecated"
   )
   # tests
   expect_true(any_nonzero(z1))

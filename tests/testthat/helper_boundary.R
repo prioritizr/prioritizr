@@ -1,9 +1,7 @@
 r_boundary_given_matrix <- function(solution, edge_factor, zones,
                                     boundary_matrix) {
-  # convert sf solution to Spatial
-  if (inherits(solution, "sf")) solution <- sf::as_Spatial(solution)
-  # convert Spatial solution to matrix
-  if (inherits(solution, "Spatial")) solution <- as.matrix(solution@data)
+  # convert sf solution to data.frame
+  if (inherits(solution, "sf")) solution <- sf::st_drop_geometry(solution)
   # convert data.frame solution to matrix
   if (inherits(solution, "data.frame")) solution <- as.matrix(solution)
   # coerce solution to matrix if not a matrix
@@ -65,10 +63,8 @@ r_boundary_given_matrix <- function(solution, edge_factor, zones,
 }
 
 r_boundary_given_geometry <- function(solution, sp) {
-  # convert sf solution to matrix
-  if (inherits(solution, "sf")) solution <- sf::as_Spatial(solution)
-  # convert Spatial solution to matrix
-  if (inherits(solution, "Spatial")) solution <- as.matrix(solution@data)
+  # convert sf solution to data.frame
+  if (inherits(solution, "sf")) solution <- sf::st_drop_geometry(solution)
   # convert data.frame solution to matrix
   if (inherits(solution, "data.frame")) solution <- as.matrix(solution)
   # coerce solution to matrix if not a matrix

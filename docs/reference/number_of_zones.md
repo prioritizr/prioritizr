@@ -16,9 +16,6 @@ number_of_zones(x, ...)
 # S3 method for class 'OptimizationProblem'
 number_of_zones(x, ...)
 
-# S3 method for class 'ZonesRaster'
-number_of_zones(x, ...)
-
 # S3 method for class 'ZonesSpatRaster'
 number_of_zones(x, ...)
 

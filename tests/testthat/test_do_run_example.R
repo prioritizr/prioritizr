@@ -4,6 +4,15 @@ test_that("interactive", {
   )
 })
 
+test_that("packages", {
+  expect_true(
+    rlang::with_interactive(do_run_example("methods"), TRUE)
+  )
+  expect_false(
+    rlang::with_interactive(do_run_example("5-package_1"), TRUE)
+  )
+})
+
 test_that("pkgdown", {
   expect_true(
     withr::with_envvar(

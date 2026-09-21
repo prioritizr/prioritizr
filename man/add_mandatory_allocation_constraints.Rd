@@ -35,7 +35,7 @@ problem with multiple zones must be allocated to a management zone (i.e.,
 zone allocation is mandatory).
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

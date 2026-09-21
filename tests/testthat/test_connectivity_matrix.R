@@ -34,7 +34,7 @@ test_that("x = sf, y = character", {
   })
 })
 
-test_that("x = sf, y = Raster", {
+test_that("x = sf, y = SpatRaster", {
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -59,7 +59,10 @@ test_that("x = sf, y = Raster", {
   expect_lte(max(abs(cm - correct_cm)), 1e-8)
   # tests for invalid inputs
   expect_tidy_error(
-    connectivity_matrix( get_sim_pu_polygons(), get_sim_features())
+    connectivity_matrix(
+      get_sim_pu_polygons(),
+      get_sim_features()
+    )
   )
   expect_tidy_error(
     connectivity_matrix(
@@ -114,68 +117,4 @@ test_that("x = SpatRaster, y = SpatRaster", {
       }
     )
   )
-})
-
-test_that("x = Spatial, y = character", {
-  # import data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  # make matrices
-  cm1 <- connectivity_matrix(sim_pu_polygons, "cost")
-  expect_warning(
-    cm2 <-  connectivity_matrix(sf::as_Spatial(sim_pu_polygons), "cost"),
-    "deprecated"
-  )
-  # tests
-  expect_equal(cm1, cm2)
-})
-
-test_that("x = Spatial, y = Raster (compatibility)", {
-  # import data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_features <- get_sim_features()
-  # create matrices
-  cm1 <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
-  expect_warning(
-    expect_warning(
-      cm2 <- connectivity_matrix(
-        sf::as_Spatial(sim_pu_polygons), raster::stack(sim_features[[1]])
-      ),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  # tests
-  expect_equal(cm1, cm2)
-})
-
-test_that("x = Raster, y = Raster (compatibility)", {
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create matrices
-  cm1 <- connectivity_matrix(sim_pu_raster, sim_features[[1]])
-  expect_warning(
-    cm2 <- connectivity_matrix(
-      raster::raster(sim_pu_raster), raster::raster(sim_features[[1]])
-    ),
-    "deprecated"
-  )
-  # tests
-  expect_equal(cm1, cm2)
-})
-
-test_that("x = sf, y = Raster (compatibility)", {
-  # import data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_features <- get_sim_features()
-  # create matrices
-  cm1 <- connectivity_matrix(sim_pu_polygons, sim_features[[1]])
-  expect_warning(
-    cm2 <- connectivity_matrix(
-      sim_pu_polygons, raster::raster(sim_features[[1]])
-    ),
-    "deprecated"
-  )
-  # tests
-  expect_equal(cm1, cm2)
 })

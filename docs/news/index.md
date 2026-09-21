@@ -2,6 +2,19 @@
 
 ## prioritizr 9.0.0.2
 
+### Major changes
+
+- Deprecate support for *raster* and *sp* package data classes
+  ([\#411](https://github.com/prioritizr/prioritizr/issues/411)).
+- The *ape* and *igraph* packages are now optional dependencies
+  ([\#411](https://github.com/prioritizr/prioritizr/issues/411)). These
+  packages may need to be manually installed to use the
+  [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
+  [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
+  [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
+  and
+  [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md).
+
 ### Minor improvements and bug fixes
 
 - Update

@@ -54,21 +54,3 @@ test_that("x = sf", {
   expect_false(all_proportion(y))
   expect_error(assert(all_proportion(y)), "values")
 })
-
-test_that("x = Spatial", {
-  # create data
-  g <- sf::st_sfc(list(sf::st_point(c(1, 0)[rep(1, 3)])))
-  x <- sf::st_as_sf(
-    tibble::tibble(x = c(0.5, 1, NA), y = c(0L, 1L, NA), geom = g)
-  )
-  y <- sf::st_as_sf(
-    tibble::tibble(x = c(-1, 0, NA), y = c(1, 0.5, 0.2), geom = g)
-  )
-  # tests
-  expect_true(all_proportion(sf::as_Spatial(x)))
-  expect_false(all_proportion(sf::as_Spatial(y)))
-  expect_error(
-    assert(all_proportion(sf::as_Spatial(y))),
-    "values"
-  )
-})

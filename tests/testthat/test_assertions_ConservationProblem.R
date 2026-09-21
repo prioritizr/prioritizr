@@ -75,16 +75,6 @@ test_that("all_is_valid_total_unit_ids (assorted data types)", {
     assert(all_is_valid_total_unit_ids(p, 1000)),
     "row numbers"
   )
-  ## Spatial
-  p <- suppressWarnings(problem(
-    sf::as_Spatial(sim_pu_data),
-    c("spp_1", "spp_2"),
-    cost_column = "cost"
-  ))
-  expect_error(
-    assert(all_is_valid_total_unit_ids(p, 1000)),
-    "row numbers"
-  )
   ## data.frame
   p <- problem(
     sf::st_drop_geometry(sim_pu_data),

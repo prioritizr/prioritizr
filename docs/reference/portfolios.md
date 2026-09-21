@@ -124,6 +124,8 @@ p6 <- p %>% add_gap_portfolio(4, 0.5)
 s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
 #> Generating solutions ■■■■■■■■■■■■■■■■                 | 2/4 |  50% | ETA: 1s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 4/4 | 100% | ETA: 0s
+#> Generating solutions ■■■■■■■■■■■■■■■■                 | 2/4 |  50% | ETA: 1s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 4/4 | 100% | ETA: 0s
 
 # plot solution from default portfolio
 plot(terra::rast(s[[1]]), axes = FALSE)

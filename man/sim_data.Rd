@@ -51,7 +51,7 @@
 
 \item{\code{get_sim_features()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{\code{get_sim_zones_features()}}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
+\item{\code{get_sim_zones_features()}}{\code{\link[=zones]{zones()}} object.}
 
 \item{\code{get_sim_phylogeny()}}{\code{\link[terra:rast]{terra::rast()}} object.}
 
@@ -257,7 +257,7 @@ under three different management zones.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_polygons <- get_sim_pu_polygons()
 sim_zones_pu_polygons <- get_sim_zones_pu_polygons()

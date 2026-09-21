@@ -14,9 +14,6 @@ category_vector(x)
 # S3 method for class 'sf'
 category_vector(x)
 
-# S3 method for class 'Spatial'
-category_vector(x)
-
 # S3 method for class 'matrix'
 category_vector(x)
 ```

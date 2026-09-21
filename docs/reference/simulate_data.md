@@ -5,19 +5,6 @@ Simulate spatially auto-correlated data using Gaussian random fields.
 ## Usage
 
 ``` r
-simulate_data(x, n, scale, intensity, sd, transform)
-
-# S3 method for class 'Raster'
-simulate_data(
-  x,
-  n = 1,
-  scale = 0.5,
-  intensity = 0,
-  sd = 1,
-  transform = identity
-)
-
-# S3 method for class 'SpatRaster'
 simulate_data(
   x,
   n = 1,

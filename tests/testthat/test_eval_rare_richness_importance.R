@@ -158,47 +158,6 @@ test_that("sf (single zone)", {
   expect_equal(r, pu[, "rwr"], ignore_attr = TRUE)
 })
 
-test_that("Spatial (single zone)", {
-  # create data
-  pu <- get_sim_pu_polygons()[1:4, ]
-  pu$id <- seq_len(4)
-  pu$cost <- c(10, 2, NA, 3)
-  pu$spp1 <- c(0, 0, 0, 1)
-  pu$spp2 <- c(10, 5, 10, 6)
-  # create problems
-  p1 <-
-    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  expect_warning(
-    p2 <-
-      problem(sf::as_Spatial(pu), c("spp1", "spp2"), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 10)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE),
-    "deprecated"
-  )
-  # create a solution
-  pu$solution <- c(0, 1, NA, 1)
-  # calculate replacement costs
-  r1 <- eval_rare_richness_importance(p1, pu[, "solution"], rescale = FALSE)
-  expect_warning(
-    r2 <- eval_rare_richness_importance(
-      p2, sf::as_Spatial(pu[, "solution"]), rescale = FALSE
-    ),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(
-    tibble::tibble(sf::st_drop_geometry(r1)),
-    tibble::tibble(r2@data),
-    ignore_attr = TRUE
-  )
-})
-
 test_that("SpatRaster (single zone)", {
   # create data
   pu <- terra::rast(matrix(c(10, 2, NA, 3), nrow = 1))
@@ -225,42 +184,6 @@ test_that("SpatRaster (single zone)", {
   names(r2) <- "rwr"
   # run tests
   expect_equal(terra::values(r), terra::values(r2))
-})
-
-test_that("Raster (single zone)", {
-  # create data
-  pu <- terra::rast(matrix(c(10, 2, NA, 3), nrow = 1))
-  features <- c(
-    terra::rast(matrix(c(0, 0, 0, 1), nrow = 1)),
-    terra::rast(matrix(c(10, 5, 10, 6), nrow = 1))
-  )
-  names(features) <- make.unique(names(features))
-  # create a solution
-  s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 1))
-  # create problems
-  p1 <-
-    problem(pu, features) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  expect_warning(
-    p2 <-
-      problem(raster::raster(pu), raster::stack(features)) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 10)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE),
-    "deprecated"
-  )
-  # calculate replacement costs
-  r1 <- eval_rare_richness_importance(p1, s, rescale = FALSE)
-  expect_warning(
-    r2 <- eval_rare_richness_importance(p2, raster::raster(s), rescale = FALSE),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(terra::values(r1), terra::values(terra::rast(r2)))
 })
 
 test_that("invalid inputs", {

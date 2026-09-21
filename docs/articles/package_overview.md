@@ -2910,7 +2910,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##       0.18
+    ##      0.187
 
 ``` r
 # extract state message from the solver that describes why this specific
@@ -3848,7 +3848,7 @@ Morueta-Holme, N., Newman, E.A., Park, D.S., Roehrdanz, P.R., Svenning,
 J.-C., Violle, C., Wieringa, J.J., Wynne, G., Fritz, S., Strassburg,
 B.B.N., Obersteiner, M., Kapos, V., Burgess, N., Schmidt-Traub, G. &
 Visconti, P. (2021). Areas of global importance for conserving
-terrestrial biodiversity, carbon and water. *Nature Ecology &amp;
+terrestrial biodiversity, carbon and water. *Nature Ecology and
 Evolution*, *5*, 1499–1509.
 
 Kirkpatrick, J.B. (1983). An iterative method for establishing
@@ -3922,5 +3922,5 @@ and complementary areas for conserving diversity of British birds.
 *Conservation Biology*, *10*, 155–174.
 
 Williams, J.C., ReVelle, C.S. & Levin, S.A. (2005). Spatial attributes
-and reserve design models: A review. *Environmental Modeling &amp;
+and reserve design models: A review. *Environmental Modeling and
 Assessment*, *10*, 163–181.

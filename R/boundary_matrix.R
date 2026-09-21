@@ -54,7 +54,7 @@ NULL
 #' Boundary matrix data might need rescaling to improve optimization
 #' performance, see [rescale_matrix()] to perform these calculations.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -87,18 +87,6 @@ NULL
 boundary_matrix <- function(x, ...) {
   assert_required(x)
   UseMethod("boundary_matrix")
-}
-
-#' @rdname boundary_matrix
-#' @method boundary_matrix Raster
-#' @export
-boundary_matrix.Raster <- function(x, ...) {
-  # assert that arguments are valid
-  assert(inherits(x, "Raster"))
-  # deprecation notice
-  cli_warning(raster_pkg_deprecation_notice)
-  # convert to SpatRaster for processing
-  boundary_matrix.SpatRaster(terra::rast(x), ...)
 }
 
 #' @rdname boundary_matrix
@@ -156,46 +144,6 @@ boundary_matrix.SpatRaster <- function(x, ...) {
   Matrix::diag(m)[include] <- sum(terra::res(x)) * 2
   # return matrix
   as_Matrix(m, "dsCMatrix")
-}
-
-#' @rdname boundary_matrix
-#' @method boundary_matrix SpatialPolygons
-#' @export
-boundary_matrix.SpatialPolygons <- function(x, ...) {
-  # assert that arguments are valid
-  assert(inherits(x, "SpatialPolygons"))
-  # deprecation notice
-  cli_warning(sp_pkg_deprecation_notice)
-  # convert to sf format for processing
-  boundary_matrix.sf(sf::st_as_sf(x))
-}
-
-#' @rdname boundary_matrix
-#' @method boundary_matrix SpatialLines
-#' @export
-boundary_matrix.SpatialLines <- function(x, ...) {
-  assert(inherits(x, "SpatialLines"))
-  cli::cli_abort(
-    c(
-      "{.arg x} must not contain line geometries.",
-      "i" = "This is because lines do not have boundaries.",
-      "i" = "See {.topic constraints} for alternative constraints."
-    )
-  )
-}
-
-#' @rdname boundary_matrix
-#' @method boundary_matrix SpatialPoints
-#' @export
-boundary_matrix.SpatialPoints <- function(x, ...) {
-  assert(inherits(x, "SpatialPoints"))
-  cli::cli_abort(
-    c(
-      "{.arg x} must not contain point geometries.",
-      "i" = "This is because points do not have boundaries.",
-      "i" = "See {.topic constraints} for alternative constraints."
-    )
-  )
 }
 
 #' @rdname boundary_matrix

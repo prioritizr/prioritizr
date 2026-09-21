@@ -59,7 +59,7 @@ a weighted sum of the \link{objectives} and \link{penalties}
 in the \link{penalties} function).
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

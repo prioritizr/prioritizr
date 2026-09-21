@@ -1,4 +1,5 @@
 test_that("phylo input", {
+  skip_if_not_installed("ape")
   # create data
   phy <- structure(
     list(
@@ -28,13 +29,16 @@ test_that("phylo input", {
   s[4, c(7, 6)] <- 1
   s[5, c(8, 6)] <- 1
   s <- as_Matrix(s, "dgCMatrix")
-  # tests
+  # run tests
   expect_inherits(m, "dgCMatrix")
   expect_true(all(m == s))
 })
 
 test_that("object that is coercible to phylo", {
+  skip_if_not_installed("ape")
+  # load data
   data(bird.orders, package = "ape")
+  # run tests
   expect_equal(
     branch_matrix(bird.orders),
     branch_matrix(as.hclust(bird.orders))
@@ -42,7 +46,10 @@ test_that("object that is coercible to phylo", {
 })
 
 test_that("invalid input", {
+  skip_if_not_installed("ape")
+  # create object
   tr <- ape::rtree(3)
   tr$edge[1] <- 0
+  # run tests
   expect_tidy_error(branch_matrix(tr))
 })

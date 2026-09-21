@@ -62,7 +62,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load package
 #' require(ape)
 #'

@@ -9,19 +9,7 @@ length for each planning unit.
 ``` r
 boundary_matrix(x, ...)
 
-# S3 method for class 'Raster'
-boundary_matrix(x, ...)
-
 # S3 method for class 'SpatRaster'
-boundary_matrix(x, ...)
-
-# S3 method for class 'SpatialPolygons'
-boundary_matrix(x, ...)
-
-# S3 method for class 'SpatialLines'
-boundary_matrix(x, ...)
-
-# S3 method for class 'SpatialPoints'
 boundary_matrix(x, ...)
 
 # S3 method for class 'sf'

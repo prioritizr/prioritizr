@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Extensions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Extensions</h1>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+<li><a href="#packages" id="toc-packages">Packages</a>
+<ul>
+<li><a href="#packages-to-enhance-problem-formulation" id="toc-packages-to-enhance-problem-formulation">Packages to enhance
+problem formulation</a></li>
+<li><a href="#packages-to-streamline-workflows-and-access-data" id="toc-packages-to-streamline-workflows-and-access-data">Packages to
+streamline workflows and access data</a></li>
+<li><a href="#packages-to-improve-accessibility" id="toc-packages-to-improve-accessibility">Packages to improve
+accessibility</a></li>
+</ul></li>
+<li><a href="#references" id="toc-references">References</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>A myriad of software is available to aid with systematic conservation
+planning. These software include <em>R</em> packages that can enhance
+the functionality of the <em>prioritizr R</em> package. For example,
+such <em>R</em> packages can be used to prepare data for generating
+prioritizations, enhance problem formulations, streamline workflows, and
+improve accessibility. Although not an exhaustive list, below are some
+notable examples that may be of interest.</p>
+</div>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<div id="packages-to-enhance-problem-formulation" class="section level3">
+<h3>Packages to enhance problem formulation</h3>
+<ul>
+<li><a href="https://aboozarm.github.io/moec.prioritizr"><em>moec.prioritizr</em></a>
+provides the <span class="math inline">\(\epsilon\)</span>-constraint
+approach for multi-objective optimization <span class="citation">(Eichfelder 2008)</span>. This approach can be used to
+automatically generate multiple solutions to characterize the full range
+of trade-offs between multiple objectives.</li>
+<li><a href="https://cran.r-project.org/package=MultiscaleSCP"><em>MultiscaleSCP</em></a>
+provides penalties and functions to support prioritization at multiple
+scales, including cross-scale connectivity. By leveraging the H3
+hierarchical hexagonal grid system <span class="citation">(Uber
+Technologies, Inc. 2024)</span>, it enables the formulation and
+optimization of conservation problems across nested resolutions – based
+on parent-child relationships – with resolution-specific features,
+costs, and management attributes. Additionally, it provides functions to
+evaluate solutions using multiscale-aware diagnostics and to
+post-process optimization outputs into alternative area-targeted
+conservation scenarios.</li>
+<li><a href="https://emlab-ucsb.github.io/patchwise/"><em>patchwise</em></a>
+provides functions to account for biodiversity features that need to
+represented by selecting planning units that form a contiguous patch.
+For example, a seamount can encompass multiple planning units and it
+might be desirable to ensure that entire seamounts are protected rather
+than just a portion of several seamounts. This package provides the
+functionality to represent whole seamounts, and ensure that
+representation targets are met by representing whole patches of
+features.</li>
+<li><a href="https://cadam00.github.io/priorCON/"><em>priorCON</em></a>
+provides functions to account for areas with high ecological
+connectivity. By leveraging graph community detection methods, this
+package focuses on representing clusters of features that exhibit strong
+ecological linkages. It provides functions to help prepare connectivity
+data, generate prioritizations based on different scenarios for
+connectivity, and evaluate prioritizations.</li>
+<li><a href="https://cadam00.github.io/prior3D/"><em>prior3D</em></a>
+provides functions to account for three dimensions in prioritization
+analyses <span class="citation">(Doxa <em>et al.</em> 2025)</span>. It
+provides a structured workflow to prepare data, generate
+prioritizations, and evaluate prioritizations based on planning units
+and features that span multiple depth levels.</li>
+<li><a href="https://frankiecho.github.io/robust.prioritizr/"><em>robust.prioritizr</em></a>
+provides objectives and constraints to generate prioritizations that
+account of uncertainty in the expected outcome associated with
+implementing conservation actions. For example, it can be used to
+account for uncertainty in climate change scenario projections, species
+distribution models, ecosystem service models, and measurement errors
+when identifying priorities for protected area establishment. It uses
+robust optimization techniques based on the chance constrained
+programming problems and the conditional value-at-risk problems <span class="citation">(Charnes &amp; Cooper 1959; Rockafellar &amp; Uryasev
+2000)</span>.</li>
+</ul>
+</div>
+<div id="packages-to-streamline-workflows-and-access-data" class="section level3">
+<h3>Packages to streamline workflows and access data</h3>
+<ul>
+<li><a href="https://emlab-ucsb.github.io/oceandatr/"><em>oceandatr</em></a>
+provides functions to acquiring, processing and gridding ocean data
+<span class="citation">(Flower <em>et al.</em> 2026)</span>. It provides
+access to a broad range of data sources, including bathymetric,
+geomorphologic, ecological, and human use data. It also provides
+functions to prepare these data as spatial grids so that they can be
+used to define costs or features for prioritization.</li>
+<li><a href="https://spatialplanning.github.io/spatialplanr/"><em>spatialplanr</em></a>
+provides functions to streamline and enhance spatial conservation
+prioritization efforts. For example, it provides functions to aid with
+generating planning units, obtaining data (e.g., climate layers and
+fishing data), integrating climate change considerations <span class="citation">(based on Buenafe <em>et al.</em> 2023)</span>,
+assigning representation targets, and visualizing the performance of
+prioritizations.</li>
+<li><a href="https://prioritizr.github.io/wdpar/"><em>wdpar</em></a>
+provides functions to obtain and prepare data for conserved areas in
+conservation planning analyses <span class="citation">(Hanson
+2022)</span>. In particular, provides automated routines to obtain data
+from the <a href="https://www.protectedplanet.net/en">World Database on
+Protected Areas (WDPA) and the World Database on Other Effective
+Area-Based Conservation Measures (WDOECM)</a> and then clean them
+following best practices (e.g., repairing invalid geometries, excluding
+boundaries for protected areas that have not been implemented, and
+accounting for spatial overlaps).</li>
+</ul>
+</div>
+<div id="packages-to-improve-accessibility" class="section level3">
+<h3>Packages to improve accessibility</h3>
+<ul>
+<li><a href="https://spatialplanning.github.io/shinyplanr/"><em>shinyplanr</em></a>
+provides a ready-to-deploy web application for spatial conservation
+planning. It gives ecologists, planners, and stakeholders an accessible
+browser-based interface for running spatial prioritization analyses—no
+<em>R</em> experience required!</li>
+<li><a href="https://ncc-cnc.github.io/wheretowork/"><em>wheretowork</em></a>
+provides a web-based application for solving complex conservation
+scenarios using concepts of systematic conservation planning. It offers
+a user friendly interface for developing conservation scenarios.</li>
+</ul>
+</div>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r80" class="csl-entry">
+Buenafe, K.C.V., Dunn, D.C., Everett, J.D., Brito‐Morales, I., Schoeman,
+D.S., Hanson, J.O., Dabalà, A., Neubert, S., Cannicci, S., Kaschner, K.
+&amp; Richardson, A.J. (2023). A metric‐based framework for
+climate‐smart conservation planning. <em>Ecological Applications</em>,
+<em>33</em>, e2852.
+</div>
+<div id="ref-r76" class="csl-entry">
+Charnes, A. &amp; Cooper, W.W. (1959). Chance-constrained programming.
+<em>Management Science</em>, <em>6</em>, 73–79.
+</div>
+<div id="ref-r79" class="csl-entry">
+Doxa, A., Adam, C., Nagkoulis, N., Mazaris, A.D. &amp; Katsanevakis, S.
+(2025). <span class="nocase">prior3D: An R package for three-dimensional
+conservation prioritization</span>. <em>Ecological Modelling</em>,
+<em>499</em>, 110919.
+</div>
+<div id="ref-r75" class="csl-entry">
+Eichfelder, G. (2008). <em>Adaptive scalarization methods in
+multiobjective optimization</em>. Springer, Berlin, Heidelberg.
+</div>
+<div id="ref-r83" class="csl-entry">
+Flower, J., Burns, E.S., Dunn, D.C., Estep, A., Everett, J.D., Hanson,
+J.O., Lester, S.E. &amp; Richardson, A.J. (2026). <span class="nocase">oceandatr: An R package to acquire and process geospatial
+ocean data</span>. <em>Ecology and Evolution</em>, <em>16</em>.
+</div>
+<div id="ref-r82" class="csl-entry">
+Hanson, J.O. (2022). <span class="nocase">wdpar: Interface to the World
+Database on Protected Areas</span>. <em>Journal of Open Source
+Software</em>, <em>7</em>, 4594.
+</div>
+<div id="ref-r77" class="csl-entry">
+Rockafellar, R.T. &amp; Uryasev, S. (2000). Optimization of conditional
+value-at-risk. <em>The Journal of Risk</em>, <em>2</em>, 21–41.
+</div>
+<div id="ref-r78" class="csl-entry">
+Uber Technologies, Inc. (2024). H3: A hexagonal hierarchical geospatial
+indexing system. Available at https://h3geo.org/.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

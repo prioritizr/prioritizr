@@ -426,7 +426,7 @@ test_that("character (solve, multiple zones, proportion decisions)", {
   expect_true(all(s$solution_1_zone_3 == 0))
 })
 
-test_that("raster (compile, single zone)", {
+test_that("SpatRaster (compile, single zone)", {
   # create problem
   sim_pu_raster <- get_sim_pu_raster()
   sim_locked_in_raster <- get_sim_locked_in_raster()
@@ -485,7 +485,7 @@ test_that("raster (compile, single zone)", {
   })
 })
 
-test_that("raster (solve, single zone)", {
+test_that("SpatRaster (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
@@ -506,7 +506,7 @@ test_that("raster (solve, single zone)", {
   expect_true(all(s[locked_in_cells][, 1] == 1))
 })
 
-test_that("raster (compile, multiple zones)", {
+test_that("SpatRaster (compile, multiple zones)", {
   # create problem
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -551,7 +551,7 @@ test_that("raster (compile, multiple zones)", {
   })
 })
 
-test_that("raster (solve, multiple zones)", {
+test_that("SpatRaster (solve, multiple zones)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create problem
@@ -672,106 +672,6 @@ test_that("sf (compile, multiple zones)", {
       add_default_solver(time_limit = 5, verbose = FALSE) %>%
       solve()
   })
-})
-
-test_that("deprecated Spatial (compile, single zone)", {
-  # create problem
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_features <- get_sim_features()
-  # make problems
-  p1 <-
-    problem(sim_pu_polygons, sim_features, "cost") %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_locked_in_constraints(sim_pu_polygons[1:5, ])
-  expect_warning(
-    p2 <-
-      problem(sim_pu_polygons, sim_features, "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions() %>%
-      add_locked_in_constraints(sf::as_Spatial(sim_pu_polygons[1:5, ]))
-  )
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  # tests
-  expect_equal(o1, o2)
-})
-
-test_that(
-  "character (compile, deprecated Spatial, multiple zones)", {
-  # create problem
-  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
-  sim_zones_features <- get_sim_zones_features()
-  targets <- matrix(
-    0,
-    nrow = number_of_features(sim_zones_features),
-    ncol = number_of_zones(sim_zones_features)
-  )
-  targets[, 1] <- 1
-  sim_zones_pu_polygons$locked_1 <- TRUE
-  sim_zones_pu_polygons$locked_2 <- FALSE
-  sim_zones_pu_polygons$locked_3 <- FALSE
-  sim_spatial <- sf::as_Spatial(sim_zones_pu_polygons)
-  # make problems
-  p1 <-
-    problem(
-      sim_zones_pu_polygons, sim_zones_features,
-      c("cost_1", "cost_2", "cost_3")
-    ) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(targets) %>%
-    add_binary_decisions() %>%
-    add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
-  expect_warning(
-    expect_warning(
-      p2 <-
-        problem(
-          sim_spatial, as.ZonesRaster(sim_zones_features),
-          c("cost_1", "cost_2", "cost_3")
-        ) %>%
-        add_min_set_objective() %>%
-        add_relative_targets(targets) %>%
-        add_binary_decisions() %>%
-        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  # tests
-  expect_equal(o1, o2)
-})
-
-test_that("raster (compile, deprecated Raster, single zone)", {
-  # create problem
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_locked_in_raster <- get_sim_locked_in_raster()
-  sim_features <- get_sim_features()
-  # make problems
-  p1 <-
-    problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_locked_in_constraints(sim_locked_in_raster)
-  expect_warning(
-    p2 <-
-      problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions() %>%
-      add_locked_in_constraints(raster::raster(sim_locked_in_raster))
-  )
-  # compile problems
-  o1 <- as.list(compile(p1))
-  o2 <- as.list(compile(p2))
-  # tests
-  expect_equal(o1, o2)
 })
 
 test_that("invalid inputs", {

@@ -45,7 +45,7 @@ NULL
 #'
 #' @family importances
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -115,10 +115,7 @@ eval_ferrier_importance <- function(x, solution) {
     is_conservation_problem(x),
     is_inherits(
       solution,
-      c(
-        "numeric", "data.frame", "matrix", "sf", "SpatRaster",
-        "Spatial", "Raster"
-      )
+      c("numeric", "data.frame", "matrix", "sf", "SpatRaster")
     )
   )
   assert(
@@ -176,12 +173,7 @@ eval_ferrier_importance <- function(x, solution) {
   v <- internal_eval_ferrier_importance(x, status, rescale)
   # prepare formatted values
   nms <- names(v)
-  if (inherits(x$data$cost, "Raster")) {
-    out <- stats::setNames(
-      raster::stack(planning_unit_solution_format(x, v)),
-      nms
-    )
-  } else if (inherits(x$data$cost, "SpatRaster")) {
+  if (inherits(x$data$cost, "SpatRaster")) {
     out <- stats::setNames(
       terra::rast(planning_unit_solution_format(x, v)),
       nms
@@ -189,19 +181,6 @@ eval_ferrier_importance <- function(x, solution) {
   } else if (inherits(x$data$cost, "matrix")) {
     out <- do.call(cbind, planning_unit_solution_format(x, v))
     colnames(out) <- nms
-  } else if (inherits(x$data$cost, "Spatial")) {
-    # note that we process this as matrix format to avoid creating
-    # many duplicate geometries and save memory usage
-    d <- lapply(seq_along(v), function(i) {
-      planning_unit_solution_format(x, v[[i]], matrix(1))
-    })
-    d <- stats::setNames(
-      as.data.frame(do.call(cbind, d)),
-      nms
-    )
-    rownames(d) <- rownames(x$data$cost)
-    out <- x$data$cost
-    out@data <- d
   } else if (inherits(x$data$cost, "sf")) {
     out <- lapply(seq_along(v), function(i) {
       planning_unit_solution_format(x, v[[i]], matrix(1))

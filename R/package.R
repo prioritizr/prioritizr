@@ -138,10 +138,6 @@ NULL
 #' @aliases prioritizr-package
 "_PACKAGE"
 
-# avoid false positive NOTES
-#' @importFrom exactextractr exact_extract
-NULL
-
 # avoid CRAN check NOTES due to R6 classes
 # see: https://github.com/r-lib/R6/issues/230
 if (getRversion() >= "2.15.1")  utils::globalVariables(c("self"))

@@ -407,7 +407,7 @@ test_that("character (solve, proportion decisions, multiple zones)", {
   expect_true(all(s$solution_1_zone_1[sim_zones_pu_polygons$locked_1] == 0))
 })
 
-test_that("raster (compile, single zone)", {
+test_that("SpatRaster (compile, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_locked_out_raster <- get_sim_locked_out_raster()
@@ -458,7 +458,7 @@ test_that("raster (compile, single zone)", {
   })
 })
 
-test_that("raster (solve, single zone)", {
+test_that("SpatRaster (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # import data
@@ -482,7 +482,7 @@ test_that("raster (solve, single zone)", {
   expect_true(all(s[locked_out_cells] == 0))
 })
 
-test_that("raster (compile, multiple zones)", {
+test_that("SpatRaster (compile, multiple zones)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
@@ -514,7 +514,7 @@ test_that("raster (compile, multiple zones)", {
   expect_true(all(o$ub()[other_ind] == 1))
 })
 
-test_that("raster (solve, multiple zones)", {
+test_that("SpatRaster (solve, multiple zones)", {
   # create problem
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -548,61 +548,7 @@ test_that("raster (solve, multiple zones)", {
   expect_true(all(s[[1]][locked_out_cells] == 0))
 })
 
-test_that("deprecated spatial (compile, single zone)", {
-  # import data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  sim_features <- get_sim_features()
-  # create problem
-  expect_warning(
-    p <-
-      problem(sim_pu_polygons, sim_features, "cost") %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions() %>%
-      add_locked_out_constraints(
-        sf::as_Spatial(sim_pu_polygons[sim_pu_polygons$locked_out, ])
-      ),
-    "deprecated"
-  )
-  o <- compile(p)
-  # calculations for tests
-  locked_out_units <- which(sim_pu_polygons$locked_out)
-  # tests
-  expect_true(all(o$ub()[locked_out_units] == 0))
-  expect_true(all(o$ub()[-locked_out_units] == 1))
-  # tests for invalid inputs
-  expect_tidy_error({
-    sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
-    sim_features <- raster::stack(get_sim_features())
-    problem(sim_pu_polygons[1:10, ], sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions()  %>%
-      add_locked_out_constraints(sim_pu_polygons[50:55, ])
-  })
-  expect_tidy_error({
-    sim_pu_polygons <- sf::as_Spatial(get_sim_pu_polygons())
-    sim_features <- raster::stack(get_sim_features())
-    problem(sim_pu_polygons[1:10, ], sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions()  %>%
-      add_locked_out_constraints(sim_pu_polygons[0, ])
-  })
-  expect_tidy_error({
-    sim_pu_polygons <- get_sim_pu_polygons()
-    sim_features <- get_sim_features()
-    sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
-    suppressWarnings(sf::st_crs(sim_pu_polygons2) <- sf::st_crs(3857))
-    problem(sim_pu_polygons, sim_features) %>%
-      add_min_set_objective() %>%
-      add_relative_targets(0.1) %>%
-      add_binary_decisions()  %>%
-      add_locked_out_constraints(sim_pu_polygons2)
-  })
-})
-
-test_that("spatial (solve, single zone)", {
+test_that("sf (solve, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # import data
@@ -625,7 +571,7 @@ test_that("spatial (solve, single zone)", {
   expect_true(all(s$solution_1[locked_out_units] == 0))
 })
 
-test_that("spatial (compile, multiple zones, expect error)", {
+test_that("sf (compile, multiple zones, expect error)", {
   # import data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()

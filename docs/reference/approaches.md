@@ -55,7 +55,7 @@ optimization to a multi-objective conservation planning
   object into a single new objective, wherein weights are used to
   specify the relative importance of each objective.
 
-- `add_eps_constraint_approach()`:
+- `moec.prioritizr::add_eps_constraint_approach()`:
 
   Add an approach that involves using the epsilon constraint approach
   for multi-objective optimization (Eichfelder 2008). Briefly, this

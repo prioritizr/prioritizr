@@ -7,22 +7,7 @@ object.
 ## Usage
 
 ``` r
-fast_extract(x, y, ...)
-
-# S4 method for class 'Raster,Spatial'
-fast_extract(x, y, fun = "mean", ...)
-
-# S4 method for class 'Raster,sfc'
-fast_extract(x, y, fun = "mean", ...)
-
-# S4 method for class 'SpatRaster,sfc'
-fast_extract(x, y, fun = "mean", ...)
-
-# S4 method for class 'Raster,sf'
-fast_extract(x, y, fun = "mean", ...)
-
-# S4 method for class 'SpatRaster,sf'
-fast_extract(x, y, fun = "mean", ...)
+fast_extract(x, y, fun = "mean")
 ```
 
 ## Arguments
@@ -34,11 +19,9 @@ fast_extract(x, y, fun = "mean", ...)
 
 - y:
 
-  [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) object.
-
-- ...:
-
-  not used.
+  [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html) or
+  [`sf::st_sfc()`](https://r-spatial.github.io/sf/reference/sfc.html)
+  object.
 
 - fun:
 

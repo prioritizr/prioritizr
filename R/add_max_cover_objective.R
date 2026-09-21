@@ -79,7 +79,7 @@ NULL
 #'
 #' @family objectives
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()

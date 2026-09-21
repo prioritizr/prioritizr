@@ -117,7 +117,7 @@ NULL
 #'
 #' @family penalties
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -222,7 +222,7 @@ NULL
 #'
 #' @exportMethod add_linear_penalties
 #'
-#' @aliases add_linear_penalties,ConservationProblem,ANY,Matrix-method add_linear_penalties,ConservationProblem,ANY,matrix-method add_linear_penalties,ConservationProblem,ANY,dgCMatrix-method add_linear_penalties,ConservationProblem,ANY,character-method add_linear_penalties,ConservationProblem,ANY,numeric-method add_linear_penalties,ConservationProblem,ANY,Raster-method add_linear_penalties,ConservationProblem,ANY,SpatRaster-method
+#' @aliases add_linear_penalties,ConservationProblem,ANY,Matrix-method add_linear_penalties,ConservationProblem,ANY,matrix-method add_linear_penalties,ConservationProblem,ANY,dgCMatrix-method add_linear_penalties,ConservationProblem,ANY,character-method add_linear_penalties,ConservationProblem,ANY,numeric-method add_linear_penalties,ConservationProblem,ANY,SpatRaster-method
 NULL
 
 #' @export
@@ -238,7 +238,7 @@ methods::setGeneric("add_linear_penalties",
         data,
         c(
           "character", "numeric", "dgCMatrix",
-          "matrix", "Matrix", "SpatRaster", "Raster"
+          "matrix", "Matrix", "SpatRaster"
         )
       )
     )
@@ -261,7 +261,7 @@ methods::setMethod("add_linear_penalties",
       number_of_zones(x) == length(data)
     )
     assert(
-      is_inherits(x$data$cost, c("matrix", "data.frame", "sf", "Spatial")),
+      is_inherits(x$data$cost, c("matrix", "data.frame", "sf")),
       msg = paste(
         "The planning unit data for {.arg x} does not have columns,",
         "and so {.arg data} cannot be a character value."
@@ -276,13 +276,10 @@ methods::setMethod("add_linear_penalties",
     )
     # extract planning unit data
     d <- x$data$cost
-    if (inherits(d, "Spatial")) {
-      d <- as.matrix(d@data[, data, drop = FALSE])
-    } else if (inherits(d, "sf")) {
-      d <- as.matrix(sf::st_drop_geometry(d)[, data, drop = FALSE])
-    } else {
-      d <- as.matrix(d[, data, drop = FALSE])
+    if (inherits(d, "sf")) {
+      d <- sf::st_drop_geometry(d)
     }
+    d <- as.matrix(d[, data, drop = FALSE])
     # additional checks
     assert(
       is.numeric(d),
@@ -335,17 +332,6 @@ methods::setMethod("add_linear_penalties",
 )
 
 #' @name add_linear_penalties
-#' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,Raster}(x, penalty, data)
-#' @rdname add_linear_penalties
-methods::setMethod("add_linear_penalties",
-  methods::signature("ConservationProblem", "ANY", "Raster"),
-  function(x, penalty, data) {
-    cli_warning(raster_pkg_deprecation_notice)
-    add_linear_penalties(x, penalty, terra::rast(data))
-  }
-)
-
-#' @name add_linear_penalties
 #' @usage \S4method{add_linear_penalties}{ConservationProblem,ANY,SpatRaster}(x, penalty, data)
 #' @rdname add_linear_penalties
 methods::setMethod("add_linear_penalties",
@@ -376,7 +362,7 @@ methods::setMethod("add_linear_penalties",
       )
     )
     # extract penalty data
-    if (inherits(x$data$cost, c("sf", "Spatial"))) {
+    if (inherits(x$data$cost, "sf")) {
       d <- fast_extract(data, x$data$cost, fun = "sum")
     } else {
       assert(is_pu_comparable_raster(x, data[[1]]))

@@ -83,7 +83,7 @@ NULL
 #' for ecological problems with an application to cackling goose management.
 #' _Ecological Modelling_, **343**: 54-67.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # In this example we select a set of planning units under a conservation
 #' # budget, aiming to meet representation targets for two species groups:
 #' # (1) keystone species (higher ecological priority) and

@@ -55,7 +55,7 @@ library(prioritizr)
 library(terra)
 ```
 
-    ## terra 1.9.27
+    ## terra 1.9.50
 
     ## 
     ## Attaching package: 'terra'

@@ -47,7 +47,7 @@ NULL
 #' Connectivity matrix data might need rescaling to improve optimization
 #' performance, see [rescale_matrix()] to perform these calculations.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -160,7 +160,7 @@ NULL
 #' plot(r, main = "planning units (raster)", axes = FALSE)
 #' Matrix::image(cm_zwsum, main = "connectivity matrix")
 #'
-#' @aliases connectivity_matrix,Spatial,character-method connectivity_matrix,Spatial,Raster-method connectivity_matrix,Raster,Raster-method connectivity_matrix,sf,character-method connectivity_matrix,sf,Raster-method connectivity_matrix,sf,SpatRaster-method connectivity_matrix,SpatRaster,SpatRaster-method
+#' @aliases connectivity_matrix,sf,character-method connectivity_matrix,sf,SpatRaster-method connectivity_matrix,SpatRaster,SpatRaster-method
 #'
 #' @export
 methods::setGeneric(
@@ -171,35 +171,9 @@ methods::setGeneric(
     assert_required(y)
     assert(
       is_spatially_explicit(x),
-      is_inherits(y, c("character", "sf", "SpatRaster", "Spatial", "Raster"))
+      is_inherits(y, c("character", "sf", "SpatRaster"))
     )
     standardGeneric("connectivity_matrix")
-  }
-)
-
-#' @name connectivity_matrix
-#' @usage \S4method{connectivity_matrix}{Spatial,Raster}(x, y, ...)
-#' @rdname connectivity_matrix
-methods::setMethod(
-  "connectivity_matrix",
-  signature(x = "Spatial", y = "Raster"),
-  function(x, y, ...) {
-    cli_warning(sp_pkg_deprecation_notice)
-    cli_warning(raster_pkg_deprecation_notice)
-    connectivity_matrix(sf::st_as_sf(x), terra::rast(y), ...)
-  }
-)
-
-#' @name connectivity_matrix
-#' @usage \S4method{connectivity_matrix}{Spatial,character}(x, y, ...)
-#' @rdname connectivity_matrix
-methods::setMethod(
-  "connectivity_matrix",
-  signature(x = "Spatial", y = "character"),
-  function(x, y, ...) {
-    assert(inherits(x, "Spatial"))
-    cli_warning(sp_pkg_deprecation_notice)
-    connectivity_matrix(sf::st_as_sf(x), y, ...)
   }
 )
 
@@ -238,19 +212,6 @@ methods::setMethod(
 )
 
 #' @name connectivity_matrix
-#' @usage \S4method{connectivity_matrix}{sf,Raster}(x, y, ...)
-#' @rdname connectivity_matrix
-methods::setMethod(
-  "connectivity_matrix",
-  signature(x = "sf", y = "Raster"),
-  function(x, y, ...) {
-    assert(inherits(x, "sf"))
-    cli_warning(raster_pkg_deprecation_notice)
-    connectivity_matrix(x, terra::rast(y), ...)
-  }
-)
-
-#' @name connectivity_matrix
 #' @usage \S4method{connectivity_matrix}{sf,SpatRaster}(x, y, ...)
 #' @rdname connectivity_matrix
 methods::setMethod(
@@ -282,18 +243,6 @@ methods::setMethod(
       symmetric = TRUE,
       dims = rep(nrow(x), 2)
     )
-  }
-)
-
-#' @name connectivity_matrix
-#' @usage \S4method{connectivity_matrix}{Raster,Raster}(x, y, ...)
-#' @rdname connectivity_matrix
-methods::setMethod(
-  "connectivity_matrix",
-  signature(x = "Raster", y = "Raster"),
-  function(x, y, ...) {
-    cli_warning(raster_pkg_deprecation_notice)
-    connectivity_matrix(terra::rast(x), terra::rast(y), ...)
   }
 )
 

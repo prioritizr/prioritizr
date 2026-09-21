@@ -8,19 +8,7 @@ spatial proximity to each other.
 ``` r
 proximity_matrix(x, distance)
 
-# S3 method for class 'Raster'
-proximity_matrix(x, distance)
-
 # S3 method for class 'SpatRaster'
-proximity_matrix(x, distance)
-
-# S3 method for class 'SpatialPolygons'
-proximity_matrix(x, distance)
-
-# S3 method for class 'SpatialLines'
-proximity_matrix(x, distance)
-
-# S3 method for class 'SpatialPoints'
 proximity_matrix(x, distance)
 
 # S3 method for class 'sf'

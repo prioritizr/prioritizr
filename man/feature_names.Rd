@@ -4,7 +4,6 @@
 \alias{feature_names}
 \alias{feature_names.ConservationProblem}
 \alias{feature_names.MultiConservationProblem}
-\alias{feature_names.ZonesRaster}
 \alias{feature_names.ZonesSpatRaster}
 \alias{feature_names.ZonesCharacter}
 \alias{problem_names.MultiConservationProblem}
@@ -15,8 +14,6 @@ feature_names(x, ...)
 \method{feature_names}{ConservationProblem}(x, ...)
 
 \method{feature_names}{MultiConservationProblem}(x, ...)
-
-\method{feature_names}{ZonesRaster}(x, ...)
 
 \method{feature_names}{ZonesSpatRaster}(x, ...)
 
@@ -36,7 +33,7 @@ A \code{character} vector of feature names.
 Extract the names of the features in an object.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()

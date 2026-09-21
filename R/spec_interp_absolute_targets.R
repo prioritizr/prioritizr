@@ -166,7 +166,7 @@ NULL
 #'
 #' @family methods
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -363,8 +363,7 @@ calc_interp_absolute_targets <- function(x, features,
   # if features have user-defined area units, then throw warning indicating
   # that these targets do not consider the spatial units
   verify(
-    inherits(x$data$cost, c("SpatRaster", "Raster")) ||
-      all(is.na(x$feature_units())),
+    inherits(x$data$cost, "SpatRaster") || all(is.na(x$feature_units())),
     msg = c(
      "!" = "{.arg x} has spatial units defined for the features.",
       "i" = paste(

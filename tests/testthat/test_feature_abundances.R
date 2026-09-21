@@ -110,26 +110,6 @@ test_that("SpatRaster (na.rm = TRUE, single zone)", {
   )
 })
 
-test_that("Raster (single zone)", {
-  # create data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problems
-  p1 <- problem(sim_pu_raster, sim_features)
-  expect_warning(
-    p2 <- problem(raster::raster(sim_pu_raster), raster::stack(sim_features)),
-    "deprecated"
-  )
-  # calculate abundances
-  x1 <- feature_abundances(p1, na.rm = TRUE)
-  x2 <- feature_abundances(p1, na.rm = FALSE)
-  y1 <- feature_abundances(p2, na.rm = TRUE)
-  y2 <- feature_abundances(p2, na.rm = FALSE)
-  # tests
-  expect_equal(x1, y1)
-  expect_equal(x2, y2)
-})
-
 test_that("data.frame (na.rm = FALSE, multiple zones)", {
   # make data
   pu <- data.frame(
@@ -308,27 +288,4 @@ test_that("SpatRaster (na.rm = TRUE, multiple zones)", {
       terra::rast(as.list(sim_zones_features)), "sum", na.rm = TRUE
     )[[1]]
   )
-})
-
-test_that("Raster (multiple zones)", {
-  # create data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_zones_features <- get_sim_zones_features()
-  # create problems
-  p1 <- problem(sim_zones_pu_raster, sim_zones_features)
-  expect_warning(
-    p2 <- problem(
-      raster::stack(sim_zones_pu_raster),
-      as.ZonesRaster(sim_zones_features)
-    ),
-    "deprecated"
-  )
-  # calculate abundances
-  x1 <- feature_abundances(p1, na.rm = TRUE)
-  x2 <- feature_abundances(p1, na.rm = FALSE)
-  y1 <- feature_abundances(p2, na.rm = TRUE)
-  y2 <- feature_abundances(p2, na.rm = FALSE)
-  # tests
-  expect_equal(x1, y1)
-  expect_equal(x2, y2)
 })

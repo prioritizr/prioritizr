@@ -297,55 +297,6 @@ test_that("sf (vertices not aligned)", {
   expect_lte(max(abs(x - y)), 1e-8)
 })
 
-test_that("Spatial", {
-  # polygons
-  x <- boundary_matrix(get_sim_pu_polygons())
-  expect_warning(
-    y <- boundary_matrix(sf::as_Spatial(get_sim_pu_polygons())),
-    "deprecated"
-  )
-  expect_inherits(x, "dsCMatrix")
-  expect_inherits(y, "dsCMatrix")
-  expect_true(all(x == y))
-  # lines
-  expect_tidy_error(
-    suppressWarnings(
-      boundary_matrix(sf::as_Spatial(get_sim_pu_lines()))
-    )
-  )
-  # points
-  expect_tidy_error(
-    suppressWarnings(
-      boundary_matrix(sf::as_Spatial(get_sim_pu_points()))
-    )
-  )
-})
-
-test_that("Raster", {
-  # RasterLayer
-  x <- boundary_matrix(get_sim_pu_raster())
-  expect_warning(
-    y <- boundary_matrix(raster::raster(get_sim_pu_raster())),
-    "deprecated"
-  )
-  expect_inherits(x, "dsCMatrix")
-  expect_inherits(y, "dsCMatrix")
-  expect_true(all(x == y))
-  # RasterStack
-  r <- c(get_sim_pu_raster(), get_sim_pu_raster())
-  r[[1]][2] <- NA
-  x <- boundary_matrix(r)
-  expect_warning(
-    y <- boundary_matrix(
-      raster::stack(raster::raster(get_sim_pu_raster())[[rep(1, 2)]])
-    ),
-    "deprecated"
-  )
-  expect_inherits(x, "dsCMatrix")
-  expect_inherits(y, "dsCMatrix")
-  expect_true(all(x == y))
-})
-
 test_that("invalid inputs", {
   data(iris)
   expect_tidy_error(boundary_matrix(iris), "must be")

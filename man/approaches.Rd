@@ -55,7 +55,7 @@ single new objective, wherein weights are used to specify the relative
 importance of each objective.
 }
 
-\item{\code{add_eps_constraint_approach()}}{
+\item{\code{moec.prioritizr::add_eps_constraint_approach()}}{
 Add an approach that involves using the epsilon constraint approach for
 multi-objective optimization (Eichfelder 2008).
 Briefly, this approach involves
@@ -107,7 +107,7 @@ different solutions (Das and Dennis 1997).
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem

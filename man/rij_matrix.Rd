@@ -2,31 +2,20 @@
 % Please edit documentation in R/rij_matrix.R
 \name{rij_matrix}
 \alias{rij_matrix}
-\alias{rij_matrix,Raster,Raster-method}
-\alias{rij_matrix,Spatial,Raster-method}
-\alias{rij_matrix,sf,Raster-method}
-\alias{rij_matrix,SpatRaster,SpatRaster-method}
-\alias{rij_matrix,sf,SpatRaster-method}
+\alias{rij_matrix.SpatRaster}
+\alias{rij_matrix.sf}
 \title{Feature by planning unit matrix}
 \usage{
-rij_matrix(x, y, ...)
+rij_matrix(x, y, memory = NA, idx = NULL, ...)
 
-\S4method{rij_matrix}{SpatRaster,SpatRaster}(x, y, memory, idx, ...)
+\method{rij_matrix}{SpatRaster}(x, y, memory = NA, idx = NULL, ...)
 
-\S4method{rij_matrix}{sf,SpatRaster}(x, y, fun, memory, idx, ...)
-
-\S4method{rij_matrix}{Raster,Raster}(x, y, memory, idx, ...)
-
-\S4method{rij_matrix}{sf,Raster}(x, y, fun, memory, idx, ...)
-
-\S4method{rij_matrix}{Spatial,Raster}(x, y, fun, memory, idx, ...)
+\method{rij_matrix}{sf}(x, y, memory = FALSE, idx = NULL, fun = "sum", ...)
 }
 \arguments{
-\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object representing planning units.}
+\item{x}{\code{\link[terra:rast]{terra::rast()}} or \code{\link[sf:sf]{sf::sf()}} object with planning unit data.}
 
-\item{y}{\code{\link[terra:rast]{terra::rast()}}  object.}
-
-\item{...}{not used.}
+\item{y}{\code{\link[terra:rast]{terra::rast()}} object with feature data.}
 
 \item{memory}{\code{logical} should calculations be performed using a method
 that prioritizes reduced memory consumption over speed?
@@ -44,6 +33,8 @@ Defaults to \code{NA}.}
 \item{idx}{\code{integer} vector containing planning unit
 indices. Defaults to \code{NULL} such that the indices are computed
 automatically based on \code{x}.}
+
+\item{...}{not used.}
 
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used if \code{x} is a \code{\link[sf:sf]{sf::sf()}} object.
@@ -76,7 +67,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()

@@ -5,12 +5,6 @@ Generates simulated cost data using Gaussian random fields.
 ## Usage
 
 ``` r
-simulate_cost(x, n, intensity, sd, scale)
-
-# S3 method for class 'Raster'
-simulate_cost(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
-
-# S3 method for class 'SpatRaster'
 simulate_cost(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
 ```
 

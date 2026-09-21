@@ -1,4 +1,4 @@
-test_that("raster features (linear)", {
+test_that("SpatRaster features (linear)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -60,7 +60,7 @@ test_that("raster features (linear)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
-test_that("raster features (loglinear)", {
+test_that("SpatRaster features (loglinear)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

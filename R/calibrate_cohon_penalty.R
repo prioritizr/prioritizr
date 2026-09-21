@@ -132,7 +132,7 @@ NULL
 #' Fischer DT and Church RL (2005) The SITES reserve selection system: A
 #' critical review. *Environmental Modeling and Assessment*, 10: 215--228.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

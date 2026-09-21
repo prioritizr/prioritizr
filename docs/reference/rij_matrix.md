@@ -6,22 +6,13 @@ unit (also known as an *rij* matrix).
 ## Usage
 
 ``` r
-rij_matrix(x, y, ...)
+rij_matrix(x, y, memory = NA, idx = NULL, ...)
 
-# S4 method for class 'SpatRaster,SpatRaster'
-rij_matrix(x, y, memory, idx, ...)
+# S3 method for class 'SpatRaster'
+rij_matrix(x, y, memory = NA, idx = NULL, ...)
 
-# S4 method for class 'sf,SpatRaster'
-rij_matrix(x, y, fun, memory, idx, ...)
-
-# S4 method for class 'Raster,Raster'
-rij_matrix(x, y, memory, idx, ...)
-
-# S4 method for class 'sf,Raster'
-rij_matrix(x, y, fun, memory, idx, ...)
-
-# S4 method for class 'Spatial,Raster'
-rij_matrix(x, y, fun, memory, idx, ...)
+# S3 method for class 'sf'
+rij_matrix(x, y, memory = FALSE, idx = NULL, fun = "sum", ...)
 ```
 
 ## Arguments
@@ -30,16 +21,12 @@ rij_matrix(x, y, fun, memory, idx, ...)
 
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
   or [`sf::sf()`](https://r-spatial.github.io/sf/reference/sf.html)
-  object representing planning units.
+  object with planning unit data.
 
 - y:
 
   [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html)
-  object.
-
-- ...:
-
-  not used.
+  object with feature data.
 
 - memory:
 
@@ -57,6 +44,10 @@ rij_matrix(x, y, fun, memory, idx, ...)
 
   `integer` vector containing planning unit indices. Defaults to `NULL`
   such that the indices are computed automatically based on `x`.
+
+- ...:
+
+  not used.
 
 - fun:
 

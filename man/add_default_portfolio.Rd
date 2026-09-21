@@ -22,7 +22,7 @@ function adds the \code{\link[=add_single_portfolio]{add_single_portfolio()}} fu
 that only a single solution is generated.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 

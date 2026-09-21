@@ -116,7 +116,7 @@ NULL
 #' Skowno A, Slingsby JA, Storeng AB, Valderrábano M, Zager I
 #' (Eds.). Gland, Switzerland: IUCN.
 #'
-#' @examplesIf prioritizr::do_run_example() && requireNamespace("prioritizrdata", quietly = TRUE)
+#' @examplesIf asNamespace("prioritizr")$do_run_example("prioritizrdata")
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

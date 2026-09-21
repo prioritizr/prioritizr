@@ -13,9 +13,6 @@ zone_names(x, ...)
 # S3 method for class 'MultiConservationProblem'
 zone_names(x, ...)
 
-# S3 method for class 'ZonesRaster'
-zone_names(x, ...)
-
 # S3 method for class 'ZonesSpatRaster'
 zone_names(x, ...)
 

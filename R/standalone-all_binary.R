@@ -48,11 +48,6 @@ all_binary.data.frame <- function(x) {
 }
 
 #' @export
-all_binary.Spatial <- function(x) {
-  all(vapply(x@data, all_binary, logical(1)))
-}
-
-#' @export
 all_binary.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_binary, logical(1)))
 }
@@ -60,9 +55,4 @@ all_binary.sf <- function(x) {
 #' @export
 all_binary.SpatRaster <- function(x) {
   all(terra::values(x, mat = FALSE, na.rm = TRUE) %in% c(0, 1))
-}
-
-#' @export
-all_binary.Raster <- function(x) {
-  all_binary.SpatRaster(terra::rast(x))
 }

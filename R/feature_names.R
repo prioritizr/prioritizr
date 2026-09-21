@@ -13,7 +13,7 @@ NULL
 #'
 #' @name feature_names
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -69,14 +69,6 @@ feature_names.ConservationProblem <- function(x, ...) {
 feature_names.MultiConservationProblem <- function(x, ...) {
   rlang::check_dots_empty()
   x$feature_names()
-}
-
-#' @rdname feature_names
-#'
-#' @export
-feature_names.ZonesRaster <- function(x, ...) {
-  rlang::check_dots_empty()
-  attr(x, "feature_names")
 }
 
 #' @rdname feature_names

@@ -147,7 +147,7 @@ data.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create Marxan problem using Marxan input file
 # (note this example requires the vroom package to be installed)
 input_file <- system.file("extdata/marxan/input.dat", package = "prioritizr")

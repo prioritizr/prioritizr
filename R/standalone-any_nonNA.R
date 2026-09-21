@@ -19,13 +19,13 @@ any_nonNA <- function(x) UseMethod("any_nonNA")
 
 assertthat::on_failure(any_nonNA) <- function(call, env) {
   x <- eval(call$x, envir = env)
-  if (inherits(x, c("SpatRaster", "Raster"))) {
+  if (inherits(x, "SpatRaster")) {
     msg <- paste0(
       "{.arg ",
       deparse(call$x),
       "} must not have a layer with only missing ({.val {NA}}) values."
     )
-  } else if (inherits(x, c("data.frame", "sf", "Spatial"))) {
+  } else if (inherits(x, c("data.frame", "sf"))) {
     msg <- paste0(
       "{.arg ",
       deparse(call$x),
@@ -82,28 +82,13 @@ any_nonNA.data.frame <- function(x) {
 }
 
 #' @export
-any_nonNA.Spatial <- function(x) {
-  all(vapply(x@data, any_nonNA, logical(1)))
-}
-
-#' @export
 any_nonNA.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), any_nonNA, logical(1)))
 }
 
 #' @export
-any_nonNA.Raster <- function(x) {
-  any_nonNA(terra::rast(x))
-}
-
-#' @export
 any_nonNA.SpatRaster <- function(x) {
   all(terra::global(x, "anynotNA")[[1]])
-}
-
-#' @export
-any_nonNA.ZonesRaster <- function(x) {
-  any_nonNA(terra::rast(raster::stack(raster::as.list(x))))
 }
 
 #' @export

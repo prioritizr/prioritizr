@@ -150,44 +150,10 @@ test_that("sf (intersecting lines are proximal)", {
   x <- sf::st_as_sf(
     tibble::tibble(
       geometry = sf::st_sfc(
-        sf::st_linestring(
-          matrix(
-            c(
-              0, 0,
-              1, 1,
-              2, 2
-            ),
-            ncol = 2, byrow = TRUE
-          )
-        ),
-        sf::st_linestring(
-          matrix(
-            c(
-              2, 2,
-              3, 3,
-              4, 4
-            ),
-            ncol = 2, byrow = TRUE
-          )
-        ),
-        sf::st_linestring(
-          matrix(
-            c(
-              5, 5,
-              7, 7
-            ),
-            ncol = 2, byrow = TRUE
-          )
-        ),
-        sf::st_linestring(
-          matrix(
-            c(
-              0, 1,
-              4, 1
-            ),
-            ncol = 2, byrow = TRUE
-          )
-        )
+        sf::st_linestring(matrix(c(0, 0, 1, 1, 2, 2), ncol = 2, byrow = TRUE)),
+        sf::st_linestring(matrix(c(2, 2, 3, 3, 4, 4), ncol = 2, byrow = TRUE)),
+        sf::st_linestring(matrix(c(5, 5, 7, 7), ncol = 2, byrow = TRUE)),
+        sf::st_linestring(matrix(c(0, 1, 4, 1), ncol = 2, byrow = TRUE))
       )
     )
   )
@@ -255,56 +221,6 @@ test_that("sf (no points are proximal)", {
   # tests
   expect_true(inherits(m, "dsCMatrix"))
   expect_equal(s, m)
-})
-
-test_that("SpatialPolygons", {
-  # import data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  # create matrices
-  x <- proximity_matrix(sim_pu_polygons, 2)
-  y <- proximity_matrix(sf::as_Spatial(sim_pu_polygons), 2)
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("SpatialLines", {
-  # import data
-  sim_pu_lines <- get_sim_pu_lines()
-  # create matrices
-  x <- proximity_matrix(sim_pu_lines, 2)
-  y <- proximity_matrix(sf::as_Spatial(sim_pu_lines), 2)
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("SpatialPoints", {
-  # import data
-  sim_pu_points <- get_sim_pu_points()
-  # create matrices
-  x <- proximity_matrix(sim_pu_points, 2)
-  y <- proximity_matrix(sf::as_Spatial(sim_pu_points), 2)
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("Raster (single layer)", {
-  # import data
-  sim_pu_raster <- get_sim_pu_raster()
-  # create matrices
-  x <- proximity_matrix(sim_pu_raster, 2)
-  y <- proximity_matrix(raster::raster(sim_pu_raster), 2)
-  # tests
-  expect_equal(x, y)
-})
-
-test_that("Raster (multiple layers)", {
-  # import data
-  sim_features <- get_sim_features()
-  # create matrices
-  x <- proximity_matrix(sim_features, 2)
-  y <- proximity_matrix(raster::stack(sim_features), 2)
-  # tests
-  expect_equal(x, y)
 })
 
 test_that("invalid input", {

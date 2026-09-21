@@ -1,4 +1,4 @@
-test_that("raster features", {
+test_that("SpatRaster features", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

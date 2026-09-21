@@ -43,7 +43,7 @@ values for optimization.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # rescale_matrix() is especially useful for re-scaling boundary length data
 # prior to optimization, and so here we provide an example showing how
 # this can be accomplished

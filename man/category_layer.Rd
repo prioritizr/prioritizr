@@ -2,15 +2,9 @@
 % Please edit documentation in R/category_layer.R
 \name{category_layer}
 \alias{category_layer}
-\alias{category_layer.Raster}
-\alias{category_layer.default}
 \title{Category layer}
 \usage{
 category_layer(x)
-
-\method{category_layer}{Raster}(x)
-
-\method{category_layer}{default}(x)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object containing multiple layers.}
@@ -31,7 +25,7 @@ have binary decisions.
 It is essentially a wrapper for \code{\link[terra:which.max]{terra::which.max()}}.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create a binary raster stack
 x <- terra::rast(list(
  terra::rast(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),

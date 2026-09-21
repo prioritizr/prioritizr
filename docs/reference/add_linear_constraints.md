@@ -18,9 +18,6 @@ add_linear_constraints(x, threshold, sense, data)
 # S4 method for class 'ConservationProblem,ANY,ANY,Matrix'
 add_linear_constraints(x, threshold, sense, data)
 
-# S4 method for class 'ConservationProblem,ANY,ANY,Raster'
-add_linear_constraints(x, threshold, sense, data)
-
 # S4 method for class 'ConservationProblem,ANY,ANY,SpatRaster'
 add_linear_constraints(x, threshold, sense, data)
 

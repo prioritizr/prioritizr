@@ -53,30 +53,6 @@ problem(x, features, cost_column, feature_units, ...)
 
 # S4 method for class 'sf,ZonesCharacter'
 problem(x, features, cost_column, feature_units, ...)
-
-# S4 method for class 'Raster,Raster'
-problem(x, features, run_checks, ...)
-
-# S4 method for class 'Raster,ZonesRaster'
-problem(x, features, run_checks, ...)
-
-# S4 method for class 'Spatial,Raster'
-problem(x, features, cost_column, run_checks, ...)
-
-# S4 method for class 'Spatial,ZonesRaster'
-problem(x, features, cost_column, run_checks, ...)
-
-# S4 method for class 'Spatial,character'
-problem(x, features, cost_column, feature_units, ...)
-
-# S4 method for class 'Spatial,ZonesCharacter'
-problem(x, features, cost_column, feature_units, ...)
-
-# S4 method for class 'sf,Raster'
-problem(x, features, cost_column, run_checks, ...)
-
-# S4 method for class 'sf,ZonesRaster'
-problem(x, features, cost_column, run_checks, ...)
 ```
 
 ## Arguments
@@ -149,11 +125,11 @@ problem(x, features, cost_column, run_checks, ...)
   `x` has [`terra::rast()`](https://rspatial.github.io/terra/reference/rast.html) or [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) planning units
 
   :   Here `features` can be a
-      [`ZonesRaster`](https://prioritizr.net/reference/zones.md) object
-      showing the distribution of conservation features in multiple
-      zones. As above, missing (`NA`) values can be used to indicate the
-      absence of a feature in a particular cell instead of explicitly
-      setting these cells to zero.
+      [`ZonesSpatRaster`](https://prioritizr.net/reference/zones.md)
+      object showing the distribution of conservation features in
+      multiple zones. As above, missing (`NA`) values can be used to
+      indicate the absence of a feature in a particular cell instead of
+      explicitly setting these cells to zero.
 
   `x` has [`sf::st_sf()`](https://r-spatial.github.io/sf/reference/sf.html) or `data.frame` planning units
 
@@ -499,7 +475,7 @@ str(s6)
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "status")= Named chr "OPTIMAL"
 #>   ..- attr(*, "names")= chr "solution_1"
-#>  - attr(*, "runtime")= Named num 0.003
+#>  - attr(*, "runtime")= Named num 0.004
 #>   ..- attr(*, "names")= chr "solution_1"
 #>  - attr(*, "gap")= Named num 0.0334
 #>   ..- attr(*, "names")= chr "solution_1"

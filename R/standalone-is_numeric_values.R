@@ -45,11 +45,6 @@ is_numeric_values.data.frame <- function(x) {
 }
 
 #' @export
-is_numeric_values.Spatial <- function(x) {
-  all(vapply(x@data, is_numeric_values, logical(1)))
-}
-
-#' @export
 is_numeric_values.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), is_numeric_values, logical(1)))
 }
@@ -57,9 +52,4 @@ is_numeric_values.sf <- function(x) {
 #' @export
 is_numeric_values.SpatRaster <- function(x) {
   all(!terra::is.factor(x))
-}
-
-#' @export
-is_numeric_values.Raster <- function(x) {
-  TRUE
 }

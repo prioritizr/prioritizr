@@ -67,18 +67,6 @@ assertthat::on_failure(all_is_valid_total_unit_ids) <- function(call, env) {
       "For planning units in {.cls ", x$planning_unit_class(),
       "} format, identifiers must be row numbers."
     ),
-    SpatialPolygonsDataFrame = paste0(
-      "For planning units in {.cls ", x$planning_unit_class(),
-      "} format, identifiers must be row numbers."
-    ),
-    SpatialPointsDataFrame = paste0(
-      "For planning units in {.cls ", x$planning_unit_class(),
-      "} format, identifiers must be row numbers."
-    ),
-    SpatialLinesDataFrame = paste0(
-      "For planning units in {.cls ", x$planning_unit_class(),
-      "} format, identifiers must be row numbers."
-    ),
     matrix = paste0(
       "For planning units in {.cls ", x$planning_unit_class(),
       "} format, identifiers must be row numbers."
@@ -88,14 +76,6 @@ assertthat::on_failure(all_is_valid_total_unit_ids) <- function(call, env) {
       "} format, identifiers must be element indices."
     ),
     SpatRaster = paste0(
-      "For planning units in {.cls ", x$planning_unit_class(),
-      "} format, identifiers must be cell indices."
-    ),
-    RasterLayer = paste0(
-      "For planning units in {.cls ", x$planning_unit_class(),
-      "} format, identifiers must be cell indices."
-    ),
-    RasterStack = paste0(
       "For planning units in {.cls ", x$planning_unit_class(),
       "} format, identifiers must be cell indices."
     )
@@ -137,7 +117,7 @@ assert_can_calculate_area_based_targets <- function(x, features,
   assert_required(x, .internal = TRUE)
   assert_required(features, .internal = TRUE)
   # process depending on feature data
-  if (inherits(x$get_data("features"), c("ZonesRaster", "ZonesSpatRaster"))) {
+  if (inherits(x$get_data("features"), "ZonesSpatRaster")) {
     ## if has raster features
     ## get units
     ft_crs <- get_crs(x$get_data("features"))
@@ -150,14 +130,9 @@ assert_can_calculate_area_based_targets <- function(x, features,
           "{.arg x} must not have features in a",
           "geodetic coordinate reference system."
         ),
-        "i" = paste0(
-          "This is because the target calculations involve area-based units."
-        ),
-        "i" = ifelse(
-          inherits(x$get_data("features"), "ZonesSpatRaster"),
-          "Use {.fn terra::project} to reproject data.",
-          "Use {.fn raster::projectRaster} to reproject data."
-        )
+        "i" =
+          "This is because the target calculations involve area-based units.",
+        "i" = "Use {.fn terra::project} to reproject data."
       ),
       call = call
     )
@@ -171,14 +146,9 @@ assert_can_calculate_area_based_targets <- function(x, features,
           "{.arg x} must have features in a",
           "coordinate reference system that has defined units."
         ),
-        "i" = paste0(
-          "This is because the target calculations involve area-based units."
-        ),
-        "i" = ifelse(
-          inherits(x$get_data("features"), "ZonesSpatRaster"),
-          "Use {.fn terra::project} to reproject data.",
-          "Use {.fn raster::projectRaster} to reproject data."
-        )
+        "i" =
+          "This is because the target calculations involve area-based units.",
+        "i" = "Use {.fn terra::project} to reproject data."
       ),
       call = call
     )
@@ -196,9 +166,8 @@ assert_can_calculate_area_based_targets <- function(x, features,
           "{.arg x} must have defined {.arg feature units}",
           "to calculate targets for features."
         ),
-        "i" = paste0(
-          "This is because the target calculations involve area-based units."
-        ),
+        "i" =
+          "This is because the target calculations involve area-based units.",
         "x" = paste(
           "{.arg x} is missing units for the following features:",
           "{repr.character(n)}."
@@ -224,7 +193,7 @@ assert_can_calculate_area_based_targets <- function(x, features,
 #' @noRd
 is_pu_spatially_explicit <- function(x) {
   assert(inherits(x, "ConservationProblem"), .internal = TRUE)
-  inherits(x$data$cost, c("Spatial", "Raster", "sf", "SpatRaster"))
+  inherits(x$data$cost, c("sf", "SpatRaster"))
 }
 
 assertthat::on_failure(is_pu_spatially_explicit) <- function(call, env) {
@@ -248,7 +217,7 @@ assertthat::on_failure(is_pu_spatially_explicit) <- function(call, env) {
 #'
 #' @param x [problem()] object.
 #'
-#' @param y [terra::rast()] or [raster::raster()] object.
+#' @param y [terra::rast()] object.
 #'
 #' @param call Caller environment.
 #'

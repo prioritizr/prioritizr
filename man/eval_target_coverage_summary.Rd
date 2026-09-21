@@ -5,9 +5,7 @@
 \alias{eval_target_coverage_summary,ConservationProblem,numeric-method}
 \alias{eval_target_coverage_summary,ConservationProblem,matrix-method}
 \alias{eval_target_coverage_summary,ConservationProblem,data.frame-method}
-\alias{eval_target_coverage_summary,ConservationProblem,Spatial-method}
 \alias{eval_target_coverage_summary,ConservationProblem,sf-method}
-\alias{eval_target_coverage_summary,ConservationProblem,Raster-method}
 \alias{eval_target_coverage_summary,ConservationProblem,SpatRaster-method}
 \alias{eval_target_coverage_summary.ConservationProblem}
 \alias{eval_target_coverage_summary.MultiConservationProblem}
@@ -269,7 +267,7 @@ values in \code{solution}.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

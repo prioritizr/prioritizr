@@ -96,7 +96,7 @@ NULL
 #' UNEP-WCMC and IUCN (2025) Protected Planet Report 2024.
 #' Cambridge, UK: UNEP-WCMC and IUCN. Available at <www.protectedplanet.net>.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

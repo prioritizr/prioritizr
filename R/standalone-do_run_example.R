@@ -9,11 +9,17 @@
 #' Determine if the session is suitable for executing long-running a
 #' example.
 #'
+#' @param packages `character` vector containing the names of packages
+#' required for the example to complete successfully.
+#' Defaults to `NULL` such that no dependencies are required.
+#'
 #' @details
 #' This function will return `TRUE` if the session is interactive.
 #' Otherwise, it will only return `TRUE` if the session does not
 #' have system environmental variables that indicate that the session
 #' is being used for package checks, or for building documentation.
+#' Note that this function will always return `FALSE` if any of the specified
+#' `packages` are not installed.
 #'
 #' @return A `logical` value.
 #'
@@ -21,8 +27,22 @@
 #' # should examples be run in current environment?
 #' do_run_example()
 #'
-#' @export
-do_run_example <- function() {
+#' @noRd
+do_run_example <- function(packages = NULL) {
+  # if any dependencies are not installed, return FALSE.
+  if (!is.null(packages)) {
+    if (!is.character(packages)) {
+      cli::cli_abort("{.arg packages} must be a {.cls character} vector.")
+    }
+    all_installed <- all(
+      vapply(
+        packages,
+        function(x) requireNamespace(x, quietly = TRUE),
+        FUN.VALUE = logical(1)
+      )
+    )
+    if (!isTRUE(all_installed)) return(FALSE)
+  }
   # if interactive, always return TRUE
   if (rlang::is_interactive()) return(TRUE)
   # if check environment, then initially set to TRUE

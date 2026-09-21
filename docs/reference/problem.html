@@ -66,7 +66,7 @@ solve() function can be used to identify solutions."><meta property="og:image" c
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Conservation planning problem</h1>
-      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem.R" class="external-link"><code>R/problem.R</code></a>, <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem-deprecated.R" class="external-link"><code>R/problem-deprecated.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/R/problem.R" class="external-link"><code>R/problem.R</code></a></small>
       <div class="d-none name"><code>problem.Rd</code></div>
     </div>
 
@@ -118,31 +118,7 @@ optimization software and settings. After building the problem, the
 <span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S4 method for class 'sf,ZonesCharacter'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Raster,Raster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Raster,ZonesRaster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Spatial,Raster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Spatial,ZonesRaster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Spatial,character'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'Spatial,ZonesCharacter'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'sf,Raster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># S4 method for class 'sf,ZonesRaster'</span></span>
-<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">run_checks</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">problem</span><span class="op">(</span><span class="va">x</span>, <span class="va">features</span>, <span class="va">cost_column</span>, <span class="va">feature_units</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -207,7 +183,7 @@ Note that these identifiers are used by <code>rij</code>.</p></dd>
 </dl><p>Alternatively, if the problem should have multiple zones, then the
 following formats can be used to specify <code>features</code>.</p>
 <dl><dt><code>x</code> has <code><a href="https://rspatial.github.io/terra/reference/rast.html" class="external-link">terra::rast()</a></code> or <code><a href="https://r-spatial.github.io/sf/reference/sf.html" class="external-link">sf::st_sf()</a></code> planning units</dt>
-<dd><p>Here <code>features</code> can be a <code><a href="zones.html">ZonesRaster</a></code>
+<dd><p>Here <code>features</code> can be a <code><a href="zones.html">ZonesSpatRaster</a></code>
 object showing the distribution of conservation features in multiple
 zones. As above, missing (<code>NA</code>) values can be used to
 indicate the absence of a feature in a particular cell instead of
@@ -546,7 +522,7 @@ evaluating solutions.</p></div>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "status")= Named chr "OPTIMAL"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "runtime")= Named num 0.004</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "gap")= Named num 0.0334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "names")= chr "solution_1"</span>

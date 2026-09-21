@@ -8,20 +8,8 @@ each other.
 ``` r
 adjacency_matrix(x, ...)
 
-# S3 method for class 'Raster'
-adjacency_matrix(x, directions = 4, ...)
-
 # S3 method for class 'SpatRaster'
 adjacency_matrix(x, directions = 4, ...)
-
-# S3 method for class 'SpatialPolygons'
-adjacency_matrix(x, ...)
-
-# S3 method for class 'SpatialLines'
-adjacency_matrix(x, ...)
-
-# S3 method for class 'SpatialPoints'
-adjacency_matrix(x, ...)
 
 # S3 method for class 'sf'
 adjacency_matrix(x, ...)

@@ -1,0 +1,43 @@
+---
+title: "Extensions"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    fig_caption: true
+fontsize: 11pt
+documentclass: article
+bibliography: references.bib
+csl: reference-style.csl
+vignette: >
+  %\VignetteIndexEntry{Extensions}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+## Introduction
+
+A myriad of software is available to aid with systematic conservation planning. These software include _R_ packages that can enhance the functionality of the _prioritizr R_ package. For example, such _R_ packages can be used to prepare data for generating prioritizations, enhance problem formulations, streamline workflows, and improve accessibility. Although not an exhaustive list, below are some notable examples that may be of interest.
+
+## Packages
+
+### Packages to enhance problem formulation
+
+* [_moec.prioritizr_](https://aboozarm.github.io/moec.prioritizr) provides the $\epsilon$-constraint approach for multi-objective optimization [@r75]. This approach can be used to automatically generate multiple solutions to characterize the full range of trade-offs between multiple objectives.
+* [_MultiscaleSCP_](https://cran.r-project.org/package=MultiscaleSCP) provides penalties and functions to support prioritization at multiple scales, including cross-scale connectivity. By leveraging the H3 hierarchical hexagonal grid system [@r78], it enables the formulation and optimization of conservation problems across nested resolutions -- based on parent-child relationships -- with resolution-specific features, costs, and management attributes. Additionally, it provides functions to evaluate solutions using multiscale-aware diagnostics and to post-process optimization outputs into alternative area-targeted conservation scenarios.
+* [_patchwise_](https://emlab-ucsb.github.io/patchwise/) provides functions to account for biodiversity features that need to represented by selecting planning units that form a contiguous patch. For example, a seamount can encompass multiple planning units and it might be desirable to ensure that entire seamounts are protected rather than just a portion of several seamounts. This package provides the functionality to represent whole seamounts, and ensure that representation targets are met by representing whole patches of features.
+* [_priorCON_](https://cadam00.github.io/priorCON/) provides functions to account for areas with high ecological connectivity. By leveraging graph community detection methods, this package focuses on representing clusters of features that exhibit strong ecological linkages. It provides functions to help prepare connectivity data, generate prioritizations based on different scenarios for connectivity, and evaluate prioritizations.
+* [_prior3D_](https://cadam00.github.io/prior3D/) provides functions to account for three dimensions in prioritization analyses [@r79]. It provides a structured workflow to prepare data, generate prioritizations, and evaluate prioritizations based on planning units and features that span multiple depth levels.
+* [_robust.prioritizr_](https://frankiecho.github.io/robust.prioritizr/) provides objectives and constraints to generate prioritizations that account of uncertainty in the expected outcome associated with implementing conservation actions. For example, it can be used to account for uncertainty in climate change scenario projections, species distribution models, ecosystem service models, and measurement errors when identifying priorities for protected area establishment. It uses robust optimization techniques based on the chance constrained programming problems and the conditional value-at-risk problems [@r76; @r77].
+
+### Packages to streamline workflows and access data
+
+* [_oceandatr_](https://emlab-ucsb.github.io/oceandatr/) provides functions to acquiring, processing and gridding ocean data [@r83]. It provides access to a broad range of data sources, including bathymetric, geomorphologic, ecological, and human use data. It also provides functions to prepare these data as spatial grids so that they can be used to define costs or features for prioritization.
+* [_spatialplanr_](https://spatialplanning.github.io/spatialplanr/) provides functions to streamline and enhance spatial conservation prioritization efforts. For example, it provides functions to aid with generating planning units, obtaining data (e.g., climate layers and fishing data), integrating climate change considerations [based on @r80], assigning representation targets, and visualizing the performance of prioritizations.
+* [_wdpar_](https://prioritizr.github.io/wdpar/) provides functions to obtain and prepare data for conserved areas in conservation planning analyses [@r82]. In particular, provides automated routines to obtain data from the [World Database on Protected Areas (WDPA) and the World Database on Other Effective Area-Based Conservation Measures (WDOECM)](https://www.protectedplanet.net/en) and then clean them following best practices (e.g., repairing invalid geometries, excluding boundaries for protected areas that have not been implemented, and accounting for spatial overlaps).
+
+### Packages to improve accessibility
+
+* [_shinyplanr_](https://spatialplanning.github.io/shinyplanr/) provides a ready-to-deploy web application for spatial conservation planning. It gives ecologists, planners, and stakeholders an accessible browser-based interface for running spatial prioritization analyses---no _R_ experience required!
+* [_wheretowork_](https://ncc-cnc.github.io/wheretowork/) provides a web-based application for solving complex conservation scenarios using concepts of systematic conservation planning. It offers a user friendly interface
+for developing conservation scenarios.
+
+## References

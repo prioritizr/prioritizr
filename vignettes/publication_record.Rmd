@@ -43,6 +43,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Reine Sheirita TF, Rodrigue I, Benjamin L, Jean Eudes Crédo GF, and Amadé O (2026) Climate change risks and conservation needs of _Lophira lanceolata_ in West Africa. _Journal for Nature Conservation_, **90**: 127182.
 * Wang K, Wu W, Liu H, Zhang X, Ren X, Liu M, Cheng J, Geng J, and Yang B (2026) Balancing land planning priorities for ecological conservation and renewable energy development through multi-objective land planning in China. _Resources, Environment and Sustainability_, **24**: 100303.
 * Wen W, Lee JR, Shaw JD, and Wilson KA (2026) Comprehensive and representative conservation planning for biodiversity of ice‐free Antarctica. _Conservation Biology_, **In press**: e70352.
+* Wen X, Smith PA, and Bennett JR (2026) Cost‐effectiveness of temporarily conserved areas: A case study of breeding birds in Southern Ontario, Canada. _Conservation Science and Practice_, **In press**: e70415.
 
 ### 2025
 

@@ -182,7 +182,6 @@ Functions for adding constraints to a problem.
   [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
   [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
   [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
-  [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<Raster>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
   [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<SpatRaster>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
   [`add_linear_constraints(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_linear_constraints.md)
   : Add linear constraints
@@ -233,7 +232,6 @@ Functions for adding penalties to a problem.
   [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<numeric>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
   [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<matrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
   [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<Matrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
-  [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<Raster>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
   [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<SpatRaster>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
   [`add_linear_penalties(`*`<ConservationProblem>`*`,`*`<ANY>`*`,`*`<dgCMatrix>`*`)`](https://prioritizr.net/reference/add_linear_penalties.md)
   : Add linear penalties
@@ -572,9 +570,6 @@ Assorted functions distributed with the package.
 - [`as_per_km2()`](https://prioritizr.net/reference/as_per_km2.md) :
 
   Standardize unit to density per km²
-
-- [`do_run_example()`](https://prioritizr.net/reference/do_run_example.md)
-  : Do run example?
 
 ## Deprecated functions
 

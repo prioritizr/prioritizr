@@ -1,4 +1,5 @@
 test_that("compile (single zone)", {
+  skip_if_not_installed("igraph")
   # import data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -62,6 +63,7 @@ test_that("compile (single zone)", {
 
 test_that("solve (single zone)", {
   skip_on_cran()
+  skip_if_not_installed("igraph")
   skip_if_no_fast_solvers_installed()
   # load data
   sim_pu_polygons <- get_sim_pu_polygons()
@@ -82,6 +84,7 @@ test_that("solve (single zone)", {
 })
 
 test_that("compile (multiple zones)", {
+  skip_if_not_installed("igraph")
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()
@@ -195,6 +198,7 @@ test_that("compile (multiple zones)", {
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
+  skip_if_not_installed("igraph")
   skip_if_no_fast_solvers_installed()
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
@@ -222,6 +226,7 @@ test_that("solve (multiple zones)", {
 })
 
 test_that("alternative data formats", {
+  skip_if_not_installed("igraph")
   # load data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
@@ -248,6 +253,7 @@ test_that("alternative data formats", {
 })
 
 test_that("invalid inputs (single zone)", {
+  skip_if_not_installed("igraph")
   # load data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -271,6 +277,7 @@ test_that("invalid inputs (single zone)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
+  skip_if_not_installed("igraph")
   # load data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()

@@ -19,9 +19,6 @@ number_of_features(x, ...)
 # S3 method for class 'ZonesSpatRaster'
 number_of_features(x, ...)
 
-# S3 method for class 'ZonesRaster'
-number_of_features(x, ...)
-
 # S3 method for class 'ZonesCharacter'
 number_of_features(x, ...)
 

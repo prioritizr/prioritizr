@@ -1,4 +1,5 @@
 test_that("compile (single zone)", {
+  skip_if_not_installed("igraph")
   # create data
   spp1_habitat <- terra::rast(matrix(c(
     5, 0, 5,
@@ -132,6 +133,7 @@ test_that("compile (single zone)", {
 
 test_that("solve (single zone)", {
   skip_on_cran()
+  skip_if_not_installed("igraph")
   skip_if_no_fast_solvers_installed()
   # create data
   spp1_habitat <- terra::rast(matrix(c(
@@ -174,6 +176,7 @@ test_that("solve (single zone)", {
 })
 
 test_that("compile (multiple zones)", {
+  skip_if_not_installed("igraph")
   # create data and problem
   spp1_z1 <- terra::rast(matrix(c(
     5, 0, 5,
@@ -390,6 +393,7 @@ test_that("compile (multiple zones)", {
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
+  skip_if_not_installed("igraph")
   skip_if_no_fast_solvers_installed()
   # create data
   spp1_z1 <- terra::rast(matrix(c(
@@ -454,6 +458,7 @@ test_that("solve (multiple zones)", {
 })
 
 test_that("invalid inputs (single zone)", {
+  skip_if_not_installed("igraph")
   # create data
   sim_pu_polygons <- get_sim_pu_polygons()
   sim_features <- get_sim_features()
@@ -478,6 +483,7 @@ test_that("invalid inputs (single zone)", {
 })
 
 test_that("invalid inputs (multiple zones)", {
+  skip_if_not_installed("igraph")
   # create data
   sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
   sim_zones_features <- get_sim_zones_features()

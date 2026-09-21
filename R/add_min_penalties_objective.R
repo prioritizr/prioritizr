@@ -55,7 +55,7 @@ NULL
 #' Additionally, see [penalties] for an overview of all functions for adding
 #' penalties.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

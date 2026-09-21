@@ -2,22 +2,9 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_data}
 \alias{simulate_data}
-\alias{simulate_data.Raster}
-\alias{simulate_data.SpatRaster}
 \title{Simulate data}
 \usage{
-simulate_data(x, n, scale, intensity, sd, transform)
-
-\method{simulate_data}{Raster}(
-  x,
-  n = 1,
-  scale = 0.5,
-  intensity = 0,
-  sd = 1,
-  transform = identity
-)
-
-\method{simulate_data}{SpatRaster}(
+simulate_data(
   x,
   n = 1,
   scale = 0.5,
@@ -53,7 +40,7 @@ A \code{\link[terra:rast]{terra::rast()}} object.
 Simulate spatially auto-correlated data using Gaussian random fields.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1

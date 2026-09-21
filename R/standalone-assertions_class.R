@@ -172,7 +172,7 @@ assertthat::on_failure(is_inherits) <- function(call, env) {
 #'
 #' @noRd
 is_spatially_explicit <- function(x) {
-  inherits(x, c("Spatial", "Raster", "sf", "SpatRaster"))
+  inherits(x, c("sf", "SpatRaster"))
 }
 
 assertthat::on_failure(is_spatially_explicit) <- function(call, env) {

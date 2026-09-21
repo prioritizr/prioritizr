@@ -167,7 +167,7 @@ NULL
 #' protected-area system to represent threatened species.
 #' *Conservation Biology*,25: 324--332.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
