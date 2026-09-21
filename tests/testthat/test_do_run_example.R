@@ -72,3 +72,10 @@ test_that("R-Universe", {
     )
   )
 })
+
+test_that("invalid inputs", {
+  expect_tidy_error(
+    do_run_example(5),
+    "character"
+  )
+})

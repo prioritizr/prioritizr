@@ -1,7 +1,7 @@
 Dear CRAN volunteers,
 
 Thank you for reviewing this submission. It contains an update to
-the prioritizr R package. Specifically, the update contains assorted minor improvements, bug fixes, and updates to the package documentation. It also addresses the NOTEs currently produced during CRAN package checks related to missing documentation links.
+the prioritizr R package. Specifically, the update provides new multi-objective optimization functionality, bug fixes, and updates to the package documentation. It also addresses the NOTEs currently produced during CRAN package checks related to deprecated special names for the `structure()` function.
 
 Cheers,
 
@@ -34,7 +34,7 @@ Richard Schuster
 
 * Thanks, please omit the redundant "in R".
 
-  **Thank you for this suggestion! The prioritizr R package was first released on CRAN in 2016. Since then it has been cited over 30 scientific publications (see the publication record vignette), and has a worldwide community spanning over 100 countries (based on website tracking analytics). Although the "in R" text in the title is redundant, we worry that changing the title at this point in time would confuse the user base and invalidate previous work that has cited this package. As such, we would prefer to keep the current title.**
+  **Thank you for this suggestion! The prioritizr R package was first released on CRAN in 2016. Since then it has been cited over 100 scientific publications (see the publication record vignette), and has a worldwide community spanning over 100 countries (based on website tracking analytics). Although the "in R" text in the title is redundant, we worry that changing the title at this point in time would confuse the user base and invalidate previous work that has cited this package. As such, we would prefer to keep the current title.**
 
 ## Test environments
 
@@ -46,4 +46,4 @@ Richard Schuster
 
 ## Downstream dependencies
 
-The package has two reverse dependencies on CRAN (i.e., prior3D, priorCON). I have checked that this submission is compatible with the latest versions of these packages. Both of these packages pass CRAN package checks with this new submission.
+The package has three reverse dependencies on CRAN (i.e., prior3D, priorCON, MultiscaleSCP). I have checked that this submission is compatible with the latest versions of these packages. Both of these packages pass CRAN package checks with this new submission.

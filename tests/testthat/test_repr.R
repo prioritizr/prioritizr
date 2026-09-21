@@ -121,6 +121,7 @@ test_that("x = crs", {
 })
 
 test_that("x = phylo", {
+  skip_if_not_installed("ape")
   sim_phylogeny <- get_sim_phylogeny()
   expect_inherits(repr(sim_phylogeny), "character")
 })

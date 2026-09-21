@@ -14,7 +14,7 @@ examples that may be of interest.
 
 ### Packages to enhance problem formulation
 
-- [*moec.prioritizr*](https://aboozarm.github.io/moec.prioritizr)
+- [*moec.prioritizr*](https://aboozarm.github.io/moec.prioritizr/)
   provides the \epsilon-constraint approach for multi-objective
   optimization (Eichfelder 2008). This approach can be used to
   automatically generate multiple solutions to characterize the full
