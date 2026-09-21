@@ -17,6 +17,6 @@ NAMESPACE text
 *.rds binary
 
 # Documentation files
-doc/ linguist-generated=true
-docs/ linguist-generated=true
-inst/doc/ linguist-generated=true
+doc/ linguist-generated
+docs/ linguist-generated
+inst/doc/ linguist-generated
