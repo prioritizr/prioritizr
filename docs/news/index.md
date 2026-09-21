@@ -5,15 +5,21 @@
 ### Major changes
 
 - Deprecate support for *raster* and *sp* package data classes
-  ([\#411](https://github.com/prioritizr/prioritizr/issues/411)).
+  ([\#411](https://github.com/prioritizr/prioritizr/issues/411)). This
+  change was made to reduce memory requirements for loading the package
+  and, in turn, make it easier to deploy web applications that use the
+  package on cloud environments.
 - The *ape* and *igraph* packages are now optional dependencies
   ([\#411](https://github.com/prioritizr/prioritizr/issues/411)). These
   packages may need to be manually installed to use the
   [`add_contiguity_constraints()`](https://prioritizr.net/reference/add_contiguity_constraints.md),
   [`add_feature_contiguity_constraints()`](https://prioritizr.net/reference/add_feature_contiguity_constraints.md),
   [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md),
+  [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md),
+  [`branch_matrix()`](https://prioritizr.net/reference/branch_matrix.md),
   and
-  [`add_max_phylo_end_objective()`](https://prioritizr.net/reference/add_max_phylo_end_objective.md).
+  [`get_sim_phylogeny()`](https://prioritizr.net/reference/sim_data.md)
+  functions.
 
 ### Minor improvements and bug fixes
 
@@ -1002,7 +1008,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

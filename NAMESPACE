@@ -370,8 +370,10 @@ importClassesFrom(Matrix,Matrix)
 importClassesFrom(Matrix,dgCMatrix)
 importClassesFrom(Matrix,dgTMatrix)
 importClassesFrom(tibble,tbl_df)
-importFrom(magrittr,"%>%")
-importFrom(magrittr,"%T>%")
+importFrom(magrittr,
+  "%>%",
+  "%T>%"
+)
 importMethodsFrom(terra,ncell)
 importMethodsFrom(terra,ncol)
 importMethodsFrom(terra,nrow)

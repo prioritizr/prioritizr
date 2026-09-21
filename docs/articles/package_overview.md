@@ -2910,7 +2910,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##       0.18
+    ##      0.189
 
 ``` r
 # extract state message from the solver that describes why this specific

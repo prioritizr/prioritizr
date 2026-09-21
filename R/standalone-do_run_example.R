@@ -45,12 +45,8 @@ do_run_example <- function(packages = NULL) {
   }
   # if interactive, always return TRUE
   if (rlang::is_interactive()) return(TRUE)
-  # if check environment, then initially set to TRUE
-  is_check <-
-    ("CheckExEnv" %in% search()) ||
-    any(c("_R_CHECK_TIMINGS_", "_R_CHECK_LICENSE_") %in% names(Sys.getenv())) ||
-    !identical(Sys.getenv("MY_UNIVERSE"), "") ||
-    any(c("CI", "GITHUB_ACTIONS", "GITHUB_SHA") %in% names(Sys.getenv()))
+  # determine if package checks are running
+  is_check <- is_package_check()
   # however, if in environment for building package website,
   # then override with FALSE
   if (
@@ -61,4 +57,19 @@ do_run_example <- function(packages = NULL) {
   }
   # return result
   return(!is_check)
+}
+
+#' Is package check running?
+#'
+#' Identify if code is being evaluated in a package check.
+#'
+#' @return A `logical` value.
+#'
+#' @noRd
+is_package_check <- function() {
+  ("CheckExEnv" %in% search()) ||
+    any(c("_R_CHECK_TIMINGS_", "_R_CHECK_LICENSE_") %in% names(Sys.getenv())) ||
+    !identical(Sys.getenv("MY_UNIVERSE"), "") ||
+    any(c("CI", "GITHUB_ACTIONS", "GITHUB_SHA") %in% names(Sys.getenv())) ||
+    any(startsWith(names(Sys.getenv()), "_R_CHECK_"))
 }

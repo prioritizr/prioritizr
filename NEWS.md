@@ -3,10 +3,14 @@
 ## Major changes
 
 - Deprecate support for _raster_ and _sp_ package data classes (#411).
+  This change was made to reduce memory requirements for loading the package
+  and, in turn, make it easier to deploy web applications that use the
+  package on cloud environments.
 - The _ape_ and _igraph_ packages are now optional dependencies (#411).
   These packages may need to be manually installed to use the
   `add_contiguity_constraints()`, `add_feature_contiguity_constraints()`,
-  `add_max_phylo_div_objective()`, and `add_max_phylo_end_objective()`.
+  `add_max_phylo_div_objective()`, `add_max_phylo_end_objective()`,
+  `branch_matrix()`, and `get_sim_phylogeny()` functions.
 
 ## Minor improvements and bug fixes
 

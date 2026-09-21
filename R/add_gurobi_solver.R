@@ -278,7 +278,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             lb = x$lb(),
             ub = x$ub()
           )
-
           # create parameters
           p <- list(
             LogToConsole = as.numeric(self$get_data("verbose")),

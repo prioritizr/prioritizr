@@ -55,8 +55,8 @@
 <h2 class="pkg-version" data-toc-text="9.0.1" id="prioritizr-901">prioritizr 9.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-901"></a></h2>
 <div class="section level3">
 <h3 id="major-changes-9-0-1">Major changes<a class="anchor" aria-label="anchor" href="#major-changes-9-0-1"></a></h3>
-<ul><li>Deprecate support for <em>raster</em> and <em>sp</em> package data classes (<a href="https://github.com/prioritizr/prioritizr/issues/411" class="external-link">#411</a>).</li>
-<li>The <em>ape</em> and <em>igraph</em> packages are now optional dependencies (<a href="https://github.com/prioritizr/prioritizr/issues/411" class="external-link">#411</a>). These packages may need to be manually installed to use the <code><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints()</a></code>, <code><a href="../reference/add_feature_contiguity_constraints.html">add_feature_contiguity_constraints()</a></code>, <code><a href="../reference/add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code>, and <code><a href="../reference/add_max_phylo_end_objective.html">add_max_phylo_end_objective()</a></code>.</li>
+<ul><li>Deprecate support for <em>raster</em> and <em>sp</em> package data classes (<a href="https://github.com/prioritizr/prioritizr/issues/411" class="external-link">#411</a>). This change was made to reduce memory requirements for loading the package and, in turn, make it easier to deploy web applications that use the package on cloud environments.</li>
+<li>The <em>ape</em> and <em>igraph</em> packages are now optional dependencies (<a href="https://github.com/prioritizr/prioritizr/issues/411" class="external-link">#411</a>). These packages may need to be manually installed to use the <code><a href="../reference/add_contiguity_constraints.html">add_contiguity_constraints()</a></code>, <code><a href="../reference/add_feature_contiguity_constraints.html">add_feature_contiguity_constraints()</a></code>, <code><a href="../reference/add_max_phylo_div_objective.html">add_max_phylo_div_objective()</a></code>, <code><a href="../reference/add_max_phylo_end_objective.html">add_max_phylo_end_objective()</a></code>, <code><a href="../reference/branch_matrix.html">branch_matrix()</a></code>, and <code><a href="../reference/sim_data.html">get_sim_phylogeny()</a></code> functions.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-9-0-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-9-0-1"></a></h3>
@@ -413,7 +413,7 @@
 <h2 class="pkg-version" data-toc-text="8.0.4.1" id="prioritizr-8041">prioritizr 8.0.4.1<a class="anchor" aria-label="anchor" href="#prioritizr-8041"></a></h2>
 <div class="section level3">
 <h3 id="minor-improvements-and-bug-fixes-8-0-4-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-8-0-4-1"></a></h3>
-<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code>summarize()</code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
+<ul><li>Fix issue with <code><a href="https://rdrr.io/r/base/print.html" class="external-link">print()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize()</a></code> not displaying correct text for linear constraints (<a href="https://github.com/prioritizr/prioritizr/issues/330" class="external-link">#330</a>).</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -2490,7 +2490,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

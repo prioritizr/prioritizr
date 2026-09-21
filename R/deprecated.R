@@ -259,18 +259,11 @@ add_max_phylo_objective <- function(...) {
 #' @rdname prioritizr-deprecated
 #' @export
 add_max_utility_objective <- function(...) {
-  cli_defunct(
-    old = "add_max_utility_objective",
-    new = "add_max_wtd_sum_objective"
-  )
+  if (!is_package_check()) {
+    cli_deprecated(
+      old = "add_max_utility_objective",
+      new = "add_max_wtd_sum_objective"
+    )
+  }
+  add_max_wtd_sum_objective(...)
 }
-
-raster_pkg_deprecation_notice <- c(
-  "Support for {.pkg raster} package will be deprecated.",
-  "i" = "Use {.fn terra::rast} to convert data for future compatibility."
-)
-
-sp_pkg_deprecation_notice <- c(
-  "Support for {.pkg sp} package will be deprecated.",
-  "i" = "Use {.fn sf::st_as_sf} to convert data for future compatibility."
-)
