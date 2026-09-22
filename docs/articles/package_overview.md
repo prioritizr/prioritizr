@@ -2866,7 +2866,7 @@ s48 <- solve(p48)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 304 nodes (5020 simplex iterations) in 0.18 seconds (0.24 work units)
+    ## Explored 304 nodes (5020 simplex iterations) in 0.22 seconds (0.24 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2
@@ -2910,7 +2910,7 @@ print(attr(s48, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.189
+    ##      0.226
 
 ``` r
 # extract state message from the solver that describes why this specific

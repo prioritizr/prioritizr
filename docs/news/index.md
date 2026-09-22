@@ -61,7 +61,7 @@
 
 ### Documentation updates
 
-- Update publication record
+- Update *Publication record* vignette
   ([\#407](https://github.com/prioritizr/prioritizr/issues/407)). Thanks
   to Wen Wen ([@wwen03](https://github.com/wwen03)) for the suggestion.
 - Update
@@ -74,6 +74,15 @@
   walk-through video recordings and platform agnostic *R* code for
   installing the *gurobi R* package. Thanks to Silke Horn for the
   suggestion.
+- New *Software extensions* vignette to describe packages that can
+  enhance *prioritizr* usage
+  ([\#410](https://github.com/prioritizr/prioritizr/issues/410)). Thanks
+  to Aboozar Mohammadi ([@AboozarM](https://github.com/AboozarM)),
+  Christos Adam ([@cadam00](https://github.com/cadam00)), Frankie Cho
+  ([@frankiecho](https://github.com/frankiecho)), Jason Flower
+  ([@jflowernet](https://github.com/jflowernet)), Pablo Merlo
+  ([@PJMerlo](https://github.com/PJMerlo)), and Anthony Richardson
+  ([@ric325](https://github.com/ric325)) for contributing.
 
 ## prioritizr 9.0.0.1
 
@@ -91,7 +100,7 @@
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 9.0.0.0
 
@@ -110,7 +119,7 @@
   functions for specifying approaches to solve multi-objective problems.
   For more information on this functionality, see
   [`?approaches`](https://prioritizr.net/reference/approaches.md) and
-  the Calibrating trade-offs vignette. To help explore trade- offs with
+  the *Calibrating trade-offs* vignette. To help explore trade-offs with
   these approaches, the
   [`approach_weights_matrix()`](https://prioritizr.net/reference/approach_weights_matrix.md)
   and
@@ -299,13 +308,13 @@
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.1.0.2
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.1.0.1
 
@@ -323,7 +332,7 @@
 - Update README with video and materials for the *prioritizr* workshop
   as part of the Statistical Methods Webinar series by the Ecological
   Forecasting Initiative and ESA Statistical Ecology Section.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.1.0
 
@@ -484,11 +493,11 @@ CRAN release: 2025-11-10
 - Update
   [`boundary_matrix()`](https://prioritizr.net/reference/boundary_matrix.md)
   function documentation with better example.
-- Fix incorrect text in Management Zones vignette
+- Fix incorrect text in *Management Zones* vignette
   ([\#382](https://github.com/prioritizr/prioritizr/issues/382)). Thanks
   to Anthony Richardson ([@ric325](https://github.com/ric325)) for bug
   report.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.6.8
 
@@ -616,15 +625,15 @@ CRAN release: 2025-11-10
   ([\#373](https://github.com/prioritizr/prioritizr/issues/373)). Thanks
   to Anthony Richardson ([@ric325](https://github.com/ric325)) for bug
   report.
-- Update Calibrating trade-offs vignette with new
+- Update *Calibrating trade-offs* vignette with new
   [`calibrate_cohon_penalty()`](https://prioritizr.net/reference/calibrate_cohon_penalty.md)
   function.
-- Update package overview vignette with new
+- Update *Package overview* vignette with new
   [`add_neighbor_penalties()`](https://prioritizr.net/reference/add_neighbor_penalties.md)
   function.
-- Update solver benchmarks vignette to remove unnecessary package
+- Update *Solver benchmarks* vignette to remove unnecessary package
   dependencies.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.6.6
 
@@ -641,7 +650,7 @@ CRAN release: 2025-11-10
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.6.5
 
@@ -729,7 +738,7 @@ CRAN release: 2025-11-10
 - Standardize terminology for referring to “cells” in raster data.
   Previously, some parts of the documentation referred to them as
   pixels.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.6.3
 
@@ -743,7 +752,7 @@ CRAN release: 2025-11-10
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.6.2
 
@@ -780,7 +789,7 @@ CRAN release: 2025-11-10
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 - Update package citation.
 
 ## prioritizr 8.0.6
@@ -856,7 +865,7 @@ CRAN release: 2025-01-09
 
 ### Documentation updates
 
-- Update Package overview and Calibrating trade-offs vignettes with
+- Update *Package overview* and *Calibrating trade-offs* vignettes with
   information on the
   [`add_min_penalties_objective()`](https://prioritizr.net/reference/add_min_penalties_objective.md)
   function.
@@ -864,8 +873,8 @@ CRAN release: 2025-01-09
   [`add_max_utility_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   documentation to make it clear that the function is simply maximizing
   a weighted sum of the features.
-- Update publication record.
-- Update Calibrating trade-offs vignette to improve internal logic for
+- Update *Publication record* vignette.
+- Update *Calibrating trade-offs* vignette to improve internal logic for
   determining the best guess penalty value for preliminary
   prioritizations.
 - Small documentation improvements. Thanks to Sandra Neubert
@@ -899,8 +908,8 @@ CRAN release: 2025-01-09
 ### Documentation updates
 
 - Fix DOI for citation.
-- Fix citations in package overview vignette and package manual entry to
-  pass package checks.
+- Fix citations in *Package overview* vignette and package manual entry
+  to pass package checks.
 
 ## prioritizr 8.0.4.4
 
@@ -999,7 +1008,7 @@ CRAN release: 2025-01-09
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 - Fix cross-reference linking issues to classes in other packages
   ([\#340](https://github.com/prioritizr/prioritizr/issues/340)).
 
@@ -1106,7 +1115,7 @@ CRAN release: 2024-06-05
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.3.5
 
@@ -1159,7 +1168,7 @@ CRAN release: 2024-06-05
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 - Update package-level manual entry.
 - Update URLs.
 
@@ -1178,7 +1187,7 @@ CRAN release: 2024-06-05
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.3.3
 
@@ -1195,7 +1204,7 @@ CRAN release: 2024-06-05
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.3.2
 
@@ -1212,7 +1221,7 @@ CRAN release: 2024-06-05
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.3
 
@@ -1286,7 +1295,7 @@ CRAN release: 2023-08-08
   [`scales::rescale()`](https://scales.r-lib.org/reference/rescale.html)
   function for rescaling boundary length and connectivity data
   ([\#297](https://github.com/prioritizr/prioritizr/issues/297)).
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.2.6
 
@@ -1357,7 +1366,7 @@ CRAN release: 2023-08-08
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.2.3
 
@@ -1372,7 +1381,7 @@ CRAN release: 2023-08-08
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.2.2
 
@@ -1383,7 +1392,7 @@ CRAN release: 2023-08-08
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.2.1
 
@@ -1396,7 +1405,7 @@ CRAN release: 2023-08-08
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.2
 
@@ -1565,7 +1574,7 @@ CRAN release: 2023-05-01
   Many thanks to Marc Edwards
   ([@edwardsmarc](https://github.com/edwardsmarc)) for code
   contribution!
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 8.0.1
 
@@ -1589,19 +1598,19 @@ CRAN release: 2023-03-29
 ### Documentation updates
 
 - Update README badges.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.2.6
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.2.5
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.2.4
 
@@ -1652,7 +1661,7 @@ CRAN release: 2023-03-29
 ### Documentation updates
 
 - Fix mistake in `NEWS.md`.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.2
 
@@ -1733,19 +1742,19 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.0.6
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.0.5
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.0.4
 
@@ -1790,7 +1799,7 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.2.0.0
 
@@ -1846,26 +1855,26 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 - Update URLs in publication record so that they pass CRAN checks.
 
 ## prioritizr 7.1.1.12
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.1.11
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.1.10
 
 ### Documentation updates
 
-- Update publication vignette.
+- Update *Publication record* vignette.
 - Fix URLs.
 - Improve documentation for the `zones` parameter of the
   [`add_connectivity_penalties()`](https://prioritizr.net/reference/add_connectivity_penalties.md)
@@ -1894,7 +1903,7 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 - Update reference index for package website.
 - Fix minor typos in vignettes.
 
@@ -1914,7 +1923,7 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.1.5
 
@@ -1953,13 +1962,13 @@ CRAN release: 2022-09-17
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.1.2
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.1.1
 
@@ -1997,8 +2006,8 @@ CRAN release: 2021-10-29
 ### Documentation updates
 
 - Update documentation with information about Ferrier importance scores.
-- Update Gurobi Installation guide vignette.
-- Update benchmark vignette.
+- Update *Gurobi installation guide* vignette.
+- Update *Solver benchmarks* vignette.
 
 ## prioritizr 7.1.0.3
 
@@ -2023,7 +2032,7 @@ the `start_solution` parameter).
 
 ### Documentation updates
 
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.1.0.0
 
@@ -2046,13 +2055,13 @@ the `start_solution` parameter).
   the See also sections, fixing text formatting for the
   [`eval_connectivity_summary()`](https://prioritizr.net/reference/eval_connectivity_summary.md)
   function, and tweaking the header in the README.
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.0.1.5
 
 ### Documentation updates
 
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.0.1.4
 
@@ -2060,13 +2069,13 @@ the `start_solution` parameter).
 
 - Update documentation and examples for
   [`problem()`](https://prioritizr.net/reference/problem.md) function.
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.0.1.3
 
 ### Documentation updates
 
-- New solver benchmark vignette.
+- New *Solver benchmarks* vignette.
 
 ## prioritizr 7.0.1.2
 
@@ -2122,7 +2131,7 @@ CRAN release: 2021-03-31
   [`rij_matrix()`](https://prioritizr.net/reference/rij_matrix.md)
   function documentation
   ([\#189](https://github.com/prioritizr/prioritizr/issues/189)).
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.0.0.6
 
@@ -2156,7 +2165,7 @@ CRAN release: 2021-03-31
 
 ### Documentation updates
 
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 7.0.0.3
 
@@ -2253,7 +2262,7 @@ CRAN release: 2021-03-31
   this error and the documentation described for the `gap` parameter is
   correct. We apologize for any inconvenience this may have caused.
 - Update documentation for solvers to provide more detailed information.
-- Update publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 6.0.0.1
 
@@ -2331,7 +2340,7 @@ CRAN release: 2021-03-31
 
 - Add NEWS to build process
   ([\#173](https://github.com/prioritizr/prioritizr/issues/173)).
-- Update publication vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 5.0.3.2
 
@@ -2364,7 +2373,7 @@ CRAN release: 2020-11-24
 
 ### Documentation updates
 
-- Update publication record vignette.
+- Update *Publication record* vignette.
 - Fix URLs for CRAN checks.
 
 ## prioritizr 5.0.2.6
@@ -2385,7 +2394,7 @@ CRAN release: 2020-11-24
   ([\#168](https://github.com/prioritizr/prioritizr/issues/168)). Thanks
   to Jason Flower ([@jflowernet](https://github.com/jflowernet)) for bug
   report.
-- Update publication record vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 5.0.2.5
 
@@ -2412,7 +2421,7 @@ CRAN release: 2020-11-24
 
 ### Documentation updates
 
-- Update publication record vignette.
+- Update *Publication record* vignette.
 - Update
   [`add_gap_portfolio()`](https://prioritizr.net/reference/add_gap_portfolio.md)
   documentation to note that it only works for problems with binary
@@ -2424,13 +2433,13 @@ CRAN release: 2020-11-24
 
 ### Documentation updates
 
-- Update publication record vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 5.0.2.2
 
 ### Documentation updates
 
-- Update publication record vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 5.0.2.1
 
@@ -2459,10 +2468,11 @@ CRAN release: 2020-07-30
 ### Documentation updates
 
 - Fix small typos in documentation.
-- Update citation for Scriven et al. (2020) in the Publication Record
+- Update citation for Scriven et al. (2020) in the *Publication record*
   vignette.
-- Update Salt Spring Island vignette with Ferrier method for calculating
-  irreplaceability scores and adjust for changes in cost data.
+- Update *Salt Spring Island* vignette with Ferrier method for
+  calculating irreplaceability scores and adjust for changes in cost
+  data.
 - Update examples to run with CRAN checks (i.e. `--run-donttest`).
 
 ## prioritizr 5.0.1.6
@@ -2504,7 +2514,7 @@ CRAN release: 2020-07-30
   [`solve()`](https://prioritizr.net/reference/solve.md) function.
 - Add links to the documentation for the
   [`solve()`](https://prioritizr.net/reference/solve.md) function to the
-  Salt Spring Island and Tasmania vignettes.
+  *Salt Spring Island* and *Tasmania* vignettes.
 
 ## prioritizr 5.0.1.3
 
@@ -2518,9 +2528,7 @@ CRAN release: 2020-07-30
 
 ### Documentation updates
 
-- Add Schuster *et al.* (2020) to publication record.
-- Update Hanson *et al.* (2020) in publication record.
-- Update Flower *et al.* (2020) in publication record.
+- Update *Publication record* vignette.
 
 ## prioritizr 5.0.1.1
 
@@ -2843,7 +2851,7 @@ CRAN release: 2019-09-06
   [`replacement_cost()`](https://prioritizr.net/reference/prioritizr-deprecated.md),
   and
   [`rarity_weighted_richness()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
-  functions to the Prioritizr vignette.
+  functions to the *Prioritizr* vignette.
 - Update examples for
   [`add_max_phylo_div_objective()`](https://prioritizr.net/reference/add_max_phylo_div_objective.md)
   function.
@@ -2988,7 +2996,7 @@ CRAN release: 2019-06-06
   suggestion.
 - Fix several typos in documentation.
 - Thrown warnings are now immediately visible.
-- Update references in the publication record vignette.
+- Update references in the *Publication record* vignette.
 - Specify English (US) in the DESCRIPTION file.
 
 ## prioritizr 4.0.4
@@ -3064,7 +3072,7 @@ CRAN release: 2019-04-08
 
 ### Documentation updates
 
-- Add Domisch *et al.* (2019) to publication record vignette.
+- Add Domisch *et al.* (2019) to *Publication record* vignette.
 
 ## prioritizr 4.0.2.11
 
@@ -3086,7 +3094,7 @@ CRAN release: 2019-04-08
 
 ### Documentation updates
 
-- Update publication record vignette.
+- Update *Publication record* vignette.
 
 ## prioritizr 4.0.2.8
 
@@ -3124,7 +3132,7 @@ CRAN release: 2019-04-08
 
 - Add the
   [`add_mandatory_allocation_constraints()`](https://prioritizr.net/reference/add_mandatory_allocation_constraints.md)
-  to the Management Zones and Prioritizr vignettes.
+  to the *Management Zones* and *Prioritizr* vignettes.
 
 ## prioritizr 4.0.2.6
 
@@ -3769,7 +3777,7 @@ CRAN release: 2017-11-08
 - Fix documentation for
   [`add_max_phylo_objective()`](https://prioritizr.net/reference/prioritizr-deprecated.md)
   ([\#24](https://github.com/prioritizr/prioritizr/issues/24)).
-- Update Gurobi Installation vignette.
+- Update *Gurobi installation guide* vignette.
 - URLs for *lpsymphony* on Bioconductor now use the package’s DOI.
 - Add more comprehensive tests to portfolios.
 
@@ -3787,7 +3795,7 @@ CRAN release: 2017-11-08
 
 ### Documentation updates
 
-- Included vignette on Gurobi solver installation and testing.
+- New *Gurobi installation guide* vignette.
 
 ## prioritizr 2.0.1.0
 

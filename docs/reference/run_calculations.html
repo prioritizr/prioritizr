@@ -36,6 +36,7 @@ means that the same calculations will not be run multiple times."><meta property
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/package_overview.html">Package overview</a></li>
     <li><a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a></li>
     <li><a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a></li>
+    <li><a class="dropdown-item" href="../articles/software_extensions.html">Software extensions</a></li>
     <li><a class="dropdown-item" href="../articles/publication_record.html">Publication record</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -147,10 +148,10 @@ anything. To use this function with <code><a href="https://rdrr.io/r/base/connec
 <span class="r-in"><span><span class="co"># now lets compare the times</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s1</span><span class="op">)</span> <span class="co"># time spent without running preliminary calculations</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.424   0.003   1.427 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.414   0.001   1.415 </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span> <span class="co"># time spent after running preliminary calculations</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    user  system elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1.368   0.000   1.367 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1.354   0.003   1.356 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># As we can see, we can save time by running the preliminary</span></span></span>
 <span class="r-in"><span><span class="co"># calculations before making copies of the problem with slightly</span></span></span>

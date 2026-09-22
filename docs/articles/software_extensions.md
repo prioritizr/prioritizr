@@ -1,4 +1,4 @@
-# Extensions
+# Software extensions
 
 ## Introduction
 
@@ -118,7 +118,7 @@ optimization*. Springer, Berlin, Heidelberg.
 Flower, J., Burns, E.S., Dunn, D.C., Estep, A., Everett, J.D., Hanson,
 J.O., Lester, S.E. & Richardson, A.J. (2026). oceandatr: An R package to
 acquire and process geospatial ocean data. *Ecology and Evolution*,
-*16*.
+*16*, e74211.
 
 Hanson, J.O. (2022). wdpar: Interface to the World Database on Protected
 Areas. *Journal of Open Source Software*, *7*, 4594.

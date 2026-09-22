@@ -1,5 +1,5 @@
 ---
-title: "Extensions"
+title: "Software extensions"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -9,7 +9,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{Extensions}
+  %\VignetteIndexEntry{Software extensions}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

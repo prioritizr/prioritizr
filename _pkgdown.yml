@@ -44,6 +44,8 @@ navbar:
         href: articles/gurobi_installation_guide.html
       - text: Solver benchmarks
         href: articles/solver_benchmarks.html
+      - text: Software extensions
+        href: articles/software_extensions.html
       - text: Publication record
         href: articles/publication_record.html
     tutorial:

@@ -6,7 +6,6 @@
   tutorial](https://prioritizr.net/articles/calibrating_trade-offs_tutorial.md):
 - [Connectivity
   tutorial](https://prioritizr.net/articles/connectivity_tutorial.md):
-- [Extensions](https://prioritizr.net/articles/extensions.md):
 - [Gurobi installation
   guide](https://prioritizr.net/articles/gurobi_installation_guide.md):
 - [Management zones
@@ -16,5 +15,7 @@
 - [Getting started](https://prioritizr.net/articles/prioritizr.md):
 - [Publication
   record](https://prioritizr.net/articles/publication_record.md):
+- [Software
+  extensions](https://prioritizr.net/articles/software_extensions.md):
 - [Solver
   benchmarks](https://prioritizr.net/articles/solver_benchmarks.md):
