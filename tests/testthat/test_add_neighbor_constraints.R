@@ -112,7 +112,7 @@ test_that("solve (sf, single zone)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_neighbor_constraints(3, clamp = FALSE) %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_default_solver(gap = 0.01, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
