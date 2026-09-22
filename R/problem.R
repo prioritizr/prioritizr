@@ -69,7 +69,7 @@ NULL
 #' \describe{
 #'
 #' \item{`x` has [terra::rast()] or [sf::st_sf()] planning units}{
-#' Here `features` can be a [`ZonesRaster`][zones()]
+#' Here `features` can be a [`ZonesSpatRaster`][zones()]
 #' object showing the distribution of conservation features in multiple
 #' zones. As above, missing (`NA`) values can be used to
 #' indicate the absence of a feature in a particular cell instead of
@@ -280,13 +280,13 @@ NULL
 #' Additionally, see [summaries] and [importance] for information on
 #' evaluating solutions.
 #'
-#' @aliases problem,Raster,Raster-method problem,SpatRaster,SpatRaster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,SpatRaster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,SpatRaster-method problem,SpatRaster,ZonesSpatRaster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method problem,sf,ZonesSpatRaster-method
+#' @aliases problem,SpatRaster,SpatRaster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method  problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,SpatRaster-method problem,SpatRaster,ZonesSpatRaster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesSpatRaster-method
 #'
 #' @exportMethod problem
 #'
 #' @name problem
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -503,16 +503,13 @@ methods::setGeneric(
     assert(
       is_inherits(
         x,
-        c(
-          "sf", "SpatRaster", "data.frame", "numeric", "matrix", "Raster",
-          "Spatial"
-        )
+        c("sf", "SpatRaster", "data.frame", "numeric", "matrix")
       ),
       is_inherits(
         features,
         c(
           "character", "data.frame", "SpatRaster", "ZonesCharacter",
-          "ZonesSpatRaster", "Raster", "ZonesRaster"
+          "ZonesSpatRaster"
         )
       )
     )

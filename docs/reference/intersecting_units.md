@@ -8,18 +8,6 @@ units in another spatial data object.
 ``` r
 intersecting_units(x, y)
 
-# S4 method for class 'Raster,ANY'
-intersecting_units(x, y)
-
-# S4 method for class 'ANY,Raster'
-intersecting_units(x, y)
-
-# S4 method for class 'Spatial,ANY'
-intersecting_units(x, y)
-
-# S4 method for class 'ANY,Spatial'
-intersecting_units(x, y)
-
 # S4 method for class 'SpatRaster,SpatRaster'
 intersecting_units(x, y)
 

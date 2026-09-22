@@ -233,6 +233,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_get_optimization_problem_obj_id
+std::string rcpp_get_optimization_problem_obj_id(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_obj_id(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_get_optimization_problem_obj_id(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_get_optimization_problem_compressed_formulation
 bool rcpp_get_optimization_problem_compressed_formulation(SEXP x);
 RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_compressed_formulation(SEXP xSEXP) {

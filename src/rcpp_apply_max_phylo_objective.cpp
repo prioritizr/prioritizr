@@ -37,15 +37,19 @@ bool rcpp_apply_max_phylo_objective(SEXP x,
   // model rhs
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_rhs.push_back(0.0);
-  for (std::size_t z = 0; z < n_budgets; ++z)
-    ptr->_rhs.push_back(budget[z]);
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t z = 0; z < n_budgets; ++z)
+      ptr->_rhs.push_back(budget[z]);
+  }
   for (std::size_t i = 0; i < n_branches; ++i)
     ptr->_rhs.push_back(0.0);
   // model sense variables
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_sense.push_back(Rcpp::as<std::string>(targets_sense[i]));
-  for (std::size_t z = 0; z < n_budgets; ++z)
-    ptr->_sense.push_back("<=");
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t z = 0; z < n_budgets; ++z)
+      ptr->_sense.push_back("<=");
+  }
   for (std::size_t i = 0; i < n_branches; ++i)
     ptr->_sense.push_back(">=");
   // model obj
@@ -97,27 +101,33 @@ bool rcpp_apply_max_phylo_objective(SEXP x,
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_A_x.push_back(-1.0 * targets_value[i]);
   // add in budget constraints
-  if (n_budgets == 1) {
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    if (n_budgets == 1) {
+      for (std::size_t i = 0;
+           i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets);
+    } else {
+      for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
+        for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
+          ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
+    }
     for (std::size_t i = 0;
          i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets);
-  } else {
-    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
-      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
-        ptr->_A_i.push_back(A_extra_nrow + n_targets + z);
-  }
-  for (std::size_t i = 0;
-       i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
-    ptr->_A_j.push_back(i);
-  for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
-    for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
-      ptr->_A_x.push_back(
-        Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
-      );
+      ptr->_A_j.push_back(i);
+    for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
+      for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
+        ptr->_A_x.push_back(
+          Rcpp::NumericMatrix::is_na(costs(j, z)) ? 0 : costs(j, z)
+        );
+      }
     }
   }
   // add in matrix values for phylogenetic representation
-  std::size_t counter = A_extra_nrow + n_targets + n_budgets - 1;
+  std::size_t counter =
+    A_extra_nrow + n_targets +
+    (static_cast<std::size_t>(!Rcpp::NumericVector::is_na(budget[0])) *
+      n_budgets
+    ) - 1;
   for (std::size_t i = 0; i < n_branches; ++i) {
     // initialize
     ++counter;
@@ -143,12 +153,16 @@ bool rcpp_apply_max_phylo_objective(SEXP x,
   // add in row ids
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_row_ids.push_back("spp_target");
-  for (std::size_t i = 0; i < n_budgets; ++i)
-    ptr->_row_ids.push_back("budget");
+  if (!Rcpp::NumericVector::is_na(budget[0])) {
+    for (std::size_t i = 0; i < n_budgets; ++i)
+      ptr->_row_ids.push_back("budget");
+  }
   for (std::size_t i = 0; i < n_branches; ++i)
     ptr->_row_ids.push_back("branch_target");
   // add model sense
-  ptr->_modelsense="max";
+  ptr->_modelsense = "max";
+  // set obj id
+  ptr->_obj_id = "max_phylo";
   // return success
   return true;
 }

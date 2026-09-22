@@ -33,7 +33,7 @@ NULL
 #'
 #' @rdname proximity_matrix
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -92,14 +92,6 @@ proximity_matrix <- function(x, distance) {
 }
 
 #' @rdname proximity_matrix
-#' @method proximity_matrix Raster
-#' @export
-proximity_matrix.Raster <- function(x, distance) {
-  assert(inherits(x, "Raster"))
-  proximity_matrix(terra::rast(x), distance)
-}
-
-#' @rdname proximity_matrix
 #' @method proximity_matrix SpatRaster
 #' @export
 proximity_matrix.SpatRaster <- function(x, distance) {
@@ -137,27 +129,6 @@ proximity_matrix.SpatRaster <- function(x, distance) {
   )
   Matrix::diag(prx) <- 0
   Matrix::drop0(Matrix::forceSymmetric(prx))
-}
-
-#' @rdname proximity_matrix
-#' @method proximity_matrix SpatialPolygons
-#' @export
-proximity_matrix.SpatialPolygons <- function(x, distance) {
-  proximity_matrix(sf::st_as_sf(x), distance)
-}
-
-#' @rdname proximity_matrix
-#' @method proximity_matrix SpatialLines
-#' @export
-proximity_matrix.SpatialLines <- function(x, distance) {
-  proximity_matrix(sf::st_as_sf(x), distance)
-}
-
-#' @rdname proximity_matrix
-#' @method proximity_matrix SpatialPoints
-#' @export
-proximity_matrix.SpatialPoints <- function(x, distance) {
-  proximity_matrix(sf::st_as_sf(x), distance)
 }
 
 #' @rdname proximity_matrix

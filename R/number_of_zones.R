@@ -11,7 +11,7 @@ NULL
 #'
 #' @return An `integer` value.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_zones_pu_raster <- get_sim_zones_pu_raster()
 #' sim_zones_features <- get_sim_zones_features()
@@ -73,13 +73,6 @@ number_of_zones.MultiConservationProblem <- function(x, ...) {
 #' @export
 number_of_zones.OptimizationProblem <- function(x, ...) {
   x$number_of_zones()
-}
-
-#' @rdname number_of_zones
-#'
-#' @export
-number_of_zones.ZonesRaster <- function(x, ...) {
-  length(x)
 }
 
 #' @rdname number_of_zones

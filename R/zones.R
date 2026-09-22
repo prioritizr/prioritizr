@@ -7,11 +7,6 @@ if (!methods::isClass("ZonesCharacter"))
 NULL
 
 #' @export
-if (!methods::isClass("ZonesRaster"))
-  methods::setOldClass("ZonesRaster")
-NULL
-
-#' @export
 if (!methods::isClass("ZonesSpatRaster"))
   methods::setOldClass("ZonesSpatRaster")
 NULL
@@ -74,9 +69,9 @@ NULL
 #' See [problem()] for information on using this function to generate
 #' a prioritization with multiple management zones.
 #'
-#' @aliases Zones-class ZonesCharacter ZonesRaster ZonesSpatRaster Zones
+#' @aliases Zones-class ZonesCharacter ZonesSpatRaster Zones
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load planning unit data
 #' sim_pu_raster <- get_sim_pu_raster()
 #'
@@ -136,7 +131,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
   names(args) <- NULL
   # check arguments
   assert(
-    all_elements_inherit(args, c("SpatRaster", "Raster", "character")),
+    all_elements_inherit(args, c("SpatRaster", "character")),
     no_duplicates(zone_names),
     assertthat::noNA(zone_names)
   )
@@ -151,25 +146,15 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       "x" = "{.code length(zone_names)}: {.val {length(zone_names)}}."
     )
   )
-  # throw deprecation notice if needed
-  if (inherits(args[[1]], "Raster")) {
-    cli_warning(raster_pkg_deprecation_notice)
-  }
-  # checks for SpatRaster/Raster input
-  if (inherits(args[[1]], c("SpatRaster", "Raster"))) {
-    # set functions for calculating lengths
-    if (inherits(args[[1]], "SpatRaster")) {
-      n_fun <- terra::nlyr
-    } else if (inherits(args[[1]], "Raster")) {
-      n_fun <- raster::nlayers
-    }
-    # set names using defaults if none set
+  # checks for SpatRaster input
+  if (inherits(args[[1]], "SpatRaster")) {
+    # if not layer names set, then set default
     if (is.null(feature_names)) {
-      feature_names <- as.character(seq_len(n_fun(args[[1]])))
+      feature_names <- as.character(seq_len(terra::nlyr(args[[1]])))
     }
     # check feature names
     assert(
-      length(feature_names) == n_fun(args[[1]]),
+      length(feature_names) == terra::nlyr(args[[1]]),
       msg = c(
         paste(
           "The number of layers in each {.code ...} argument must match the",
@@ -177,14 +162,14 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
         ),
         "x" = paste(
           "Number of layers in first {.code ...} argument:",
-          "{.val {n_fun(args[[1]])}}."
+          "{.val {terra::nlyr(args[[1]])}}."
         ),
         "x" = "{.code length(feature_names)}: {.val {length(feature_names)}}."
       )
     )
     # data integrity checks
     assert(
-      length(unique(vapply(args, n_fun, numeric(1)))) == 1,
+      length(unique(vapply(args, terra::nlyr, numeric(1)))) == 1,
       msg = "All {.code ...} arguments must have the same number of layers."
     )
     assert(
@@ -192,7 +177,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       msg = "All {.code ...} must not contain categorical values."
     )
     assert(
-      all(vapply(args, n_fun, numeric(1)) >= 1),
+      all(vapply(args, terra::nlyr, numeric(1)) >= 1),
       msg = "All {.code ...} arguments must have at least one layer."
     )
     assert(
@@ -204,11 +189,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
       )
     )
     # set class
-    zone_class <- ifelse(
-      inherits(args[[1]], "SpatRaster"),
-      "ZonesSpatRaster",
-      "ZonesRaster"
-    )
+    zone_class <- "ZonesSpatRaster"
   }
   # checks for character input
   if (inherits(args[[1]], "character")) {

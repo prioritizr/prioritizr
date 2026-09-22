@@ -4,7 +4,6 @@
 \alias{category_vector}
 \alias{category_vector.data.frame}
 \alias{category_vector.sf}
-\alias{category_vector.Spatial}
 \alias{category_vector.matrix}
 \title{Category vector}
 \usage{
@@ -13,8 +12,6 @@ category_vector(x)
 \method{category_vector}{data.frame}(x)
 
 \method{category_vector}{sf}(x)
-
-\method{category_vector}{Spatial}(x)
 
 \method{category_vector}{matrix}(x)
 }

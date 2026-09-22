@@ -16,7 +16,7 @@ An updated \code{\link[=problem]{problem()}} object with the portfolio added to 
 Generate a portfolio containing a single solution.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(600)
 

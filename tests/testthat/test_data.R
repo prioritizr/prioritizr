@@ -1,4 +1,5 @@
 test_that("simulated single zone data", {
+  skip_if_not_installed("ape")
   # load data
   d1 <- get_sim_pu_raster()
   d2 <- get_sim_locked_in_raster()

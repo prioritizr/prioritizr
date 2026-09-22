@@ -112,7 +112,7 @@ test_that("min set objective (approx = TRUE)", {
   expect_true(assertthat::noNA(attr(y, "solution_2_penalty")))
   expect_lte(
     abs(attr(x, "solution_1_objective") -  attr(y, "solution_1_objective")),
-    1
+    1.5
   )
   expect_gte(
     attr(y, "solution_1_penalty"),

@@ -9,27 +9,34 @@ NULL
 #' @param a [`OptimizationProblem-class`] object or `list` of
 #' [`OptimizationProblem-class`] objects.
 #'
-#' @param show_bypass_message `logical` should the error message contain
-#' information on bypassing presolve checks? Defaults to `FALSE`.
+#' @param show_bypass_message `logical` value indicating if the error message
+#' contain information on bypassing presolve checks? Defaults to `FALSE`.
+#'
+#' @param run_budget_checks `logical` value indicating if presolve checks
+#' should include checks for budget constraints?
+#' Defaults to `TRUE`.
 #'
 #' @param call [environment()] for call. Defaults to `fn_caller_env()`.
 #'
 #' @return A `logical` value indicating success.
 #'
 #' @noRd
-assert_pass_presolve_check <- function(a, show_bypass_message = FALSE,
+assert_pass_presolve_check <- function(a,
+                                       run_budget_checks = TRUE,
+                                       show_bypass_message = FALSE,
                                        call = fn_caller_env()) {
   # assert arguments are valid
   assert(
     inherits(a, c("list", "OptimizationProblem")),
     assertthat::is.flag(show_bypass_message),
+    assertthat::is.flag(run_budget_checks),
     .internal = TRUE
   )
   # run presolve checks
   if (is.list(a)) {
-    res <- run_multi_presolve_check(a)
+    res <- run_multi_presolve_check(a, run_budget_checks = run_budget_checks)
   } else {
-    res <- run_presolve_check(a)
+    res <- run_presolve_check(a, run_budget_checks = run_budget_checks)
   }
   # assert that checks pass
   if (!isTRUE(res$pass)) {
@@ -59,7 +66,6 @@ assert_pass_presolve_check <- function(a, show_bypass_message = FALSE,
     ## throw error message
     cli::cli_abort(message = msg, call = call)
   }
-
   # return success
   invisible(TRUE)
 }
@@ -74,17 +80,20 @@ assert_pass_presolve_check <- function(a, show_bypass_message = FALSE,
 #' @inherit assert_pass_presolve_checks return
 #'
 #' @noRd
-verify_pass_presolve_check <- function(a, call = fn_caller_env()) {
+verify_pass_presolve_check <- function(a,
+                                       run_budget_checks = TRUE,
+                                       call = fn_caller_env()) {
   # assert arguments are valid
   assert(
     inherits(a, c("list", "OptimizationProblem")),
+    assertthat::is.flag(run_budget_checks),
     .internal = TRUE
   )
   # run presolve checks
   if (is.list(a)) {
-    res <- run_multi_presolve_check(a)
+    res <- run_multi_presolve_check(a, run_budget_checks = run_budget_checks)
   } else {
-    res <- run_presolve_check(a)
+    res <- run_presolve_check(a, run_budget_checks = run_budget_checks)
   }
   # assert that checks pass
   if (!isTRUE(res$pass)) {

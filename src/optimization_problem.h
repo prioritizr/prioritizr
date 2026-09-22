@@ -38,6 +38,7 @@ class OPTIMIZATIONPROBLEM
                         std::vector<std::string> vtype,
                         std::vector<std::string> row_ids,
                         std::vector<std::string> col_ids,
+                        std::string obj_id,
                         bool compressed_formulation) :
                         _modelsense(modelsense),
                         _number_of_features(number_of_features),
@@ -54,6 +55,7 @@ class OPTIMIZATIONPROBLEM
                         _vtype(vtype),
                         _row_ids(row_ids),
                         _col_ids(col_ids),
+                        _obj_id(obj_id),
                         _compressed_formulation(compressed_formulation)
     {};
     // deconstructor
@@ -78,6 +80,7 @@ class OPTIMIZATIONPROBLEM
 
     std::vector<std::string> _row_ids;
     std::vector<std::string> _col_ids;
+    std::string _obj_id;
 
     bool _compressed_formulation;
 

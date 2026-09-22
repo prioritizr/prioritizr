@@ -169,7 +169,7 @@ and other solvers will have a missing (\code{NA}) value.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

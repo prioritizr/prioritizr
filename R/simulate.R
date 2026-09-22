@@ -28,7 +28,7 @@ NULL
 #'
 #' @return A [terra::rast()] object.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -41,35 +41,10 @@ NULL
 #' plot(x, main = "simulated data", axes = FALSE)
 #'
 #' @export
-simulate_data <- function(x, n, scale, intensity, sd, transform) {
-  assert_required(x)
-  assert(is_inherits(x, c("SpatRaster", "Raster")))
-  UseMethod("simulate_data")
-}
-
-#' @rdname simulate_data
-#' @method simulate_data Raster
-#' @export
-simulate_data.Raster <- function(x, n = 1, scale = 0.5, intensity = 0,
-                                 sd = 1, transform = identity) {
-  cli_warning(raster_pkg_deprecation_notice)
-  raster::stack(
-    simulate_data.SpatRaster(
-      x = terra::rast(x),
-      n = n, scale = scale,
-      intensity = intensity,
-      sd = sd,
-      transform = transform
-    )
-  )
-}
-
-#' @rdname simulate_data
-#' @method simulate_data SpatRaster
-#' @export
-simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
-                                     sd = 1, transform = identity) {
+simulate_data <- function(x, n = 1, scale = 0.5, intensity = 0,
+                          sd = 1, transform = identity) {
   # assert valid arguments
+  assert_required(x)
   assert(
     inherits(x, "SpatRaster"),
     is_numeric_values(x),
@@ -121,7 +96,7 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #'
 #' @family simulations
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -134,30 +109,8 @@ simulate_data.SpatRaster <- function(x, n = 1, scale = 0.5, intensity = 0,
 #' plot(spp, main = "simulated species distributions", axes = FALSE)
 #'
 #' @export
-simulate_species <- function(x, n, scale) {
+simulate_species <- function(x, n = 1, scale = 0.5) {
   assert_required(x)
-  assert(is_inherits(x, c("SpatRaster", "Raster")))
-  UseMethod("simulate_species")
-}
-
-#' @rdname simulate_species
-#' @method simulate_species Raster
-#' @export
-simulate_species.Raster <- function(x, n = 1, scale = 0.5) {
-  cli_warning(raster_pkg_deprecation_notice)
-  raster::stack(
-    simulate_species.SpatRaster(
-      x = terra::rast(x),
-      n = n,
-      scale = scale
-    )
-  )
-}
-
-#' @rdname simulate_species
-#' @method simulate_species SpatRaster
-#' @export
-simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
   simulate_data(
     x = x,
     n = n,
@@ -188,7 +141,7 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #'
 #' @return A [terra::rast()] object with integer values greater than zero.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # create raster
 #' r <- terra::rast(
 #'   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1
@@ -201,34 +154,8 @@ simulate_species.SpatRaster <- function(x, n = 1, scale = 0.5) {
 #' plot(cost, main = "simulated cost data", axes = FALSE)
 #'
 #' @export
-simulate_cost <- function(x, n, intensity, sd, scale) {
+simulate_cost <- function(x, n = 1, intensity = 100, sd = 20, scale = 2.5) {
   assert_required(x)
-  assert(is_inherits(x, c("SpatRaster", "Raster")))
-  UseMethod("simulate_cost")
-}
-
-#' @rdname simulate_cost
-#' @method simulate_cost Raster
-#' @export
-simulate_cost.Raster <- function(x, n = 1, intensity = 100,
-                                 sd = 20, scale = 2.5) {
-  cli_warning(raster_pkg_deprecation_notice)
-  raster::stack(
-    simulate_cost.SpatRaster(
-      x = terra::rast(x),
-      n = n,
-      intensity = intensity,
-      sd = sd,
-      scale = scale
-    )
-  )
-}
-
-#' @rdname simulate_cost
-#' @method simulate_cost SpatRaster
-#' @export
-simulate_cost.SpatRaster <- function(x, n = 1, intensity = 100,
-                                     sd = 20, scale = 2.5) {
   simulate_data(
     x,
     n = n,

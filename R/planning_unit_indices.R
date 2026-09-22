@@ -69,28 +69,3 @@ planning_unit_indices.numeric <- function(x, ...) {
   assert(is.numeric(x))
   planning_unit_indices(matrix(x, ncol = 1))
 }
-
-#' @export
-planning_unit_indices.Raster <- function(x, ...) {
-  assert(inherits(x, "Raster"))
-  assert_dots_empty()
-  if (raster::nlayers(x) == 1) {
-    x <- raster::Which(!is.na(x), cells = TRUE)
-  } else {
-    x <- raster::Which(max(!is.na(x)) > 0, cells = TRUE)
-  }
-  x
-}
-
-#' @export
-planning_unit_indices.Spatial <- function(x, cost_column, ...) {
-  assert(
-    inherits(x, "Spatial"),
-    is.character(cost_column),
-    all(assertthat::has_name(x, cost_column))
-  )
-  assert_dots_empty()
-  x <- as.data.frame(x)
-  x <- x[, cost_column, drop = FALSE]
-  unname(which(rowSums(!is.na(as.matrix(x))) > 0))
-}

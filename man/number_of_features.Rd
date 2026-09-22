@@ -6,7 +6,6 @@
 \alias{number_of_features.MultiConservationProblem}
 \alias{number_of_features.OptimizationProblem}
 \alias{number_of_features.ZonesSpatRaster}
-\alias{number_of_features.ZonesRaster}
 \alias{number_of_features.ZonesCharacter}
 \alias{number_of_problems.MultiConservationProblem}
 \title{Number of features}
@@ -20,8 +19,6 @@ number_of_features(x, ...)
 \method{number_of_features}{OptimizationProblem}(x, ...)
 
 \method{number_of_features}{ZonesSpatRaster}(x, ...)
-
-\method{number_of_features}{ZonesRaster}(x, ...)
 
 \method{number_of_features}{ZonesCharacter}(x, ...)
 
@@ -40,7 +37,7 @@ An \code{integer} value.
 Extract the number of features in an object.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()

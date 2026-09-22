@@ -184,7 +184,7 @@ NULL
 #'
 #' @family importances
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -325,10 +325,7 @@ eval_rank_importance <- function(x, solution, ..., run_checks = TRUE,
     is_conservation_problem(x),
     is_inherits(
       solution,
-      c(
-        "numeric", "data.frame", "matrix", "sf", "SpatRaster",
-        "Spatial", "Raster"
-      )
+      c("numeric", "data.frame", "matrix", "sf", "SpatRaster")
     ),
     assertthat::is.flag(run_checks),
     assertthat::noNA(run_checks),

@@ -30,7 +30,7 @@ it creates a matrix that shows which periods of evolutionary history
 each species have experienced.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("ape")) withAutoprint(\{ # examplesIf}
 # load data
 sim_phylogeny <- get_sim_phylogeny()
 

@@ -157,7 +157,7 @@ for a demonstration of specifying the spatial units for features.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example() && requireNamespace("prioritizrdata", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("prioritizrdata")) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

@@ -73,7 +73,7 @@ NULL
 #'
 #' @family targets
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

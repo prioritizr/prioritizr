@@ -1,14 +1,8 @@
-#' @include internal.R waiver.R binary_stack.R category_layer.R category_vector.R
+#' @include internal.R waiver.R binary_stack.R category_layer.R category_vector.R ConservationProblem-class.R
 NULL
 
 #' @export
-if (!methods::isClass("MultiConservationProblem")) {
-  methods::setOldClass("MultiConservationProblem")
-  methods::setClassUnion(
-    "GenericConservationProblem",
-    c("ConservationProblem", "MultiConservationProblem"))
-}
-NULL
+if (!methods::isClass("MultiConservationProblem")) methods::setOldClass(c("MultiConservationProblem", "GenericConservationProblem"))
 
 #' Multi-objective conservation problem class
 #'

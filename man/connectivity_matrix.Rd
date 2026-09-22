@@ -2,28 +2,16 @@
 % Please edit documentation in R/connectivity_matrix.R
 \name{connectivity_matrix}
 \alias{connectivity_matrix}
-\alias{connectivity_matrix,Spatial,character-method}
-\alias{connectivity_matrix,Spatial,Raster-method}
-\alias{connectivity_matrix,Raster,Raster-method}
 \alias{connectivity_matrix,sf,character-method}
-\alias{connectivity_matrix,sf,Raster-method}
 \alias{connectivity_matrix,sf,SpatRaster-method}
 \alias{connectivity_matrix,SpatRaster,SpatRaster-method}
 \title{Connectivity matrix}
 \usage{
 connectivity_matrix(x, y, ...)
 
-\S4method{connectivity_matrix}{Spatial,Raster}(x, y, ...)
-
-\S4method{connectivity_matrix}{Spatial,character}(x, y, ...)
-
 \S4method{connectivity_matrix}{sf,character}(x, y, ...)
 
-\S4method{connectivity_matrix}{sf,Raster}(x, y, ...)
-
 \S4method{connectivity_matrix}{sf,SpatRaster}(x, y, ...)
-
-\S4method{connectivity_matrix}{Raster,Raster}(x, y, ...)
 
 \S4method{connectivity_matrix}{SpatRaster,SpatRaster}(x, y, ...)
 }
@@ -66,7 +54,7 @@ boundary are associated with greater connectivity.
 Shared boundary calculations are performed using \code{\link[=boundary_matrix]{boundary_matrix()}}.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()

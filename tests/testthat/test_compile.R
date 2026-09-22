@@ -166,6 +166,7 @@ test_that("expanded formulation (negative data)", {
 })
 
 test_that("invalid inputs (negative values and expanded formulation)", {
+  skip_if_not_installed("igraph")
   # create data
   spp1_habitat <- terra::rast(matrix(c(
     5, 0, 5,

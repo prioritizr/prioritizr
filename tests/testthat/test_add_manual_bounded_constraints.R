@@ -24,7 +24,7 @@ test_that("sf (compile, single zone)", {
   expect_true(all(o$ub()[other_pos] == 1))
 })
 
-test_that("raster (solve, single zone)", {
+test_that("SpatRaster (solve, single zone)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()

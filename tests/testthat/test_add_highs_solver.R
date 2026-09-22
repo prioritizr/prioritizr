@@ -334,7 +334,7 @@ test_that("solver information (multiple solutions)", {
 
 test_that("set_start_solution", {
   skip_on_cran()
-  skip_if_not_installed("highs")
+  skip_if_not_installed("highs", minimum_version = "1.14.0-2")
   # create data
   cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
   features <- c(
@@ -492,11 +492,7 @@ test_that("set_variable_ub", {
 
 test_that("start_solution", {
   skip_on_cran()
-  skip_if_not_installed("highs")
-  skip_if_not(
-    isTRUE("start" %in% names(formals(highs::highs_solve))),
-    message = "newer version of highs R package required"
-  )
+  skip_if_not_installed("highs", minimum_version = "1.14.0-2")
   # create data
   cost <- terra::rast(matrix(c(1000, 100, 200, 300, NA), nrow = 1))
   features <- c(

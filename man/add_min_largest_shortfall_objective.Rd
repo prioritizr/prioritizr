@@ -13,7 +13,10 @@ add_min_largest_shortfall_objective(x, budget)
 for the solution. If \code{x} has multiple zones, then \code{budget} can be
 (i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a budget for each zone (separately) in the solution.}
+a budget for each zone (separately) in the solution.
+If \code{x} will be used to generate a multi-objective problem (via
+\code{\link[=multi_problem]{multi_problem()}}), \code{budget = NULL} can be used to avoid specifying a
+maximum expenditure.}
 }
 \description{
 Set the objective of a conservation planning problem to
@@ -64,7 +67,7 @@ continuous variable \eqn{l} is bounded between zero and one.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()

@@ -38,7 +38,9 @@ bool rcpp_apply_min_set_objective(
        ++i)
     ptr->_row_ids.push_back("spp_target");
   // assign model sense
-  ptr->_modelsense="min";
+  ptr->_modelsense = "min";
+  // set obj id
+  ptr->_obj_id = "min_set";
   // return succes
   return true;
 }

@@ -105,9 +105,11 @@ NULL
 #' @details
 #' [*Gurobi*](https://www.gurobi.com/) is a
 #' state-of-the-art commercial optimization software with an R package
-#' interface. It is by far the fastest of the solvers available for
-#' generating prioritizations, however, it is not freely
-#' available. That said, licenses are available to academics at no cost. The
+#' interface. Although it is by far the fastest of the solvers available for
+#' generating prioritizations, it is not open source.
+#' That said, licenses are available to academics at no cost.
+#' Additionally, non-profit organizations can apply for a free license through
+#' the [Gurobi Gives Back programme](https://www.gurobi.com/company/gurobi-gives-back).
 #' \pkg{gurobi} package is distributed with the *Gurobi* software suite.
 #' This solver uses the \pkg{gurobi} package to solve problems.
 #' For information on the performance of different solvers,
@@ -149,7 +151,7 @@ NULL
 #' integer linear programming solvers outperform simulated annealing for
 #' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -276,7 +278,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
             lb = x$lb(),
             ub = x$ub()
           )
-
           # create parameters
           p <- list(
             LogToConsole = as.numeric(self$get_data("verbose")),

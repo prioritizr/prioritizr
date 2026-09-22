@@ -128,7 +128,7 @@ NULL
 #' Smith RJ, Venter M, Watson JEM (2014) Targeting global protected area
 #' expansion for imperiled biodiversity. *PLoS Biology*, 12: e1001891.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

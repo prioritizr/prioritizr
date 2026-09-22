@@ -7,13 +7,11 @@ NULL
 #'
 #' @param x [terra::rast()] object.
 #'
-#' @param y [sf::sf()] object.
+#' @param y [sf::sf()] or [sf::st_sfc()] object.
 #'
 #' @param fun `character` name of statistic to summarize data.
 #' Available options include `"sum"` or `"mean"`.
 #' Defaults to `"mean"`.
-#'
-#' @param ... not used.
 #'
 #' @details
 #' The performance of this function for large [terra::rast()] objects
@@ -38,10 +36,6 @@ NULL
 #' [exactextractr::exact_extract()] for polygon geometries, and
 #' [terra::extract()] for other geometry types.
 #'
-#' @name fast_extract
-#'
-#' @exportMethod fast_extract
-#'
 #' @examples
 #' # load data
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -53,143 +47,81 @@ NULL
 #' # show result
 #' print(head(result))
 #'
-#' @aliases fast_extract,Raster,Spatial-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method fast_extract,SpatRaster,Spatial-method fast_extract,SpatRaster,sf-method fast_extract,SpatRaster,sfc-method
-#'
 #' @export
-methods::setGeneric(
-  "fast_extract",
-  signature = methods::signature("x", "y"),
-  function(x, y, ...) {
-    assert_required(x)
-    assert_required(y)
-    assert(
-      is_spatially_explicit(x),
-      is_inherits(x, c("sf", "sfc", "SpatRaster", "Spatial", "Raster"))
+fast_extract <- function(x, y, fun = "mean") {
+  # assert valid arguments
+  assert_required(x)
+  assert_required(y)
+  # coerce sfc to sf
+  if (inherits(y, "sfc")) y <- sf::st_sf(y)
+  # additional validation
+  assert(
+    inherits(x, "SpatRaster"),
+    is_numeric_values(x),
+    inherits(y, c("sf", "sfc")),
+    assertthat::is.string(fun),
+    is_match_of(fun, c("mean", "sum")),
+    is_same_crs(x, y),
+    is_spatial_extents_overlap(x, y)
+  )
+  assert(
+    all(!st_geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+    msg = paste(
+      "{.arg y} must not contain",
+      "{.cls GEOMETRYCOLLECTION} or {.cls MULTIPOINT} geometries."
     )
-    standardGeneric("fast_extract")
+  )
+  # determine summary statistic
+  if (identical(fun, "mean")) fun2 <- mean
+  if (identical(fun, "sum")) fun2 <- sum
+  # since the coordinate reference systems have been verified,
+  # coerce them to NA coordinate reference systems to avoid PROJ7 warnings
+  # in exactextractr::exact_extract
+  sf::st_crs(y) <- sf::st_crs(NA_character_)
+  terra::crs(x) <- NA_character_
+  # identify geometry classes
+  geomc <- st_geometry_classes(y)
+  # prepare output vector
+  out <- matrix(NA_real_, nrow = nrow(y), ncol = terra::nlyr(x))
+  # ensure unique names in raster data
+  names(x) <- make.unique(names(x))
+  # process point geometries
+  point_idx <- grepl("POINT", geomc, fixed = TRUE)
+  if (any(point_idx)) {
+    out[point_idx, ] <- as.matrix(
+      terra::extract(
+        x = x,
+        y = sf::st_coordinates(y[point_idx, , drop = FALSE])        )
+    )
   }
-)
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "Raster", y = "Spatial"),
-  function(x, y, fun = "mean", ...) {
-    cli_warning(raster_pkg_deprecation_notice)
-    cli_warning(sp_pkg_deprecation_notice)
-    fast_extract(terra::rast(x), sf::st_as_sf(y), fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "Raster", y = "sfc"),
-  function(x, y, fun = "mean", ...) {
-    cli_warning(raster_pkg_deprecation_notice)
-    fast_extract(terra::rast(x), sf::st_sf(y), fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{SpatRaster,sfc}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "SpatRaster", y = "sfc"),
-  function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_sf(y), fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "Raster", y = "sf"),
-  function(x, y, fun = "mean", ...) {
-    cli_warning(raster_pkg_deprecation_notice)
-    fast_extract(terra::rast(x), y, fun, ...)
-})
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{SpatRaster,sf}(x, y, fun = "mean", ...)
-#' @rdname fast_extract
-methods::setMethod(
-  "fast_extract",
-  signature(x = "SpatRaster", y = "sf"),
-  function(x, y, fun = "mean", ...) {
-    # assert arguments are valid
-    assert(
-      inherits(x, "SpatRaster"),
-      is_numeric_values(x),
-      inherits(y, "sf"),
-      assertthat::is.string(fun),
-      is_match_of(fun, c("mean", "sum")),
-      is_same_crs(x, y),
-      is_spatial_extents_overlap(x, y)
-    )
-    assert(
-      all(!st_geometry_classes(y) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
-      msg = paste(
-        "{.arg y} must not contain",
-        "{.cls GEOMETRYCOLLECTION} or {.cls MULTIPOINT} geometries."
+  # process line geometries
+  line_idx <- grepl("LINE", geomc, fixed = TRUE)
+  if (any(line_idx)) {
+    out[line_idx, ] <- as.matrix(
+      terra::extract(
+        x = x,
+        y = terra::vect(y[line_idx, , drop = FALSE]),
+        ID = FALSE,
+        touches = TRUE,
+        fun = fun2,
+        na.rm = FALSE
       )
     )
-    # determine summary statistic
-    if (identical(fun, "mean")) fun2 <- mean
-    if (identical(fun, "sum")) fun2 <- sum
-    # since the coordinate reference systems have been verified,
-    # coerce them to NA coordinate reference systems to avoid PROJ7 warnings
-    # in exactextractr::exact_extract
-    sf::st_crs(y) <- sf::st_crs(NA_character_)
-    terra::crs(x) <- NA_character_
-    # identify geometry classes
-    geomc <- st_geometry_classes(y)
-    # prepare output vector
-    out <- matrix(NA_real_, nrow = nrow(y), ncol = terra::nlyr(x))
-    # ensure unique names in raster data
-    names(x) <- make.unique(names(x))
-    # process point geometries
-    point_idx <- grepl("POINT", geomc, fixed = TRUE)
-    if (any(point_idx)) {
-      out[point_idx, ] <- as.matrix(
-        terra::extract(
-          x = x,
-          y = sf::st_coordinates(y[point_idx, , drop = FALSE])        )
-      )
-    }
-    # process line geometries
-    line_idx <- grepl("LINE", geomc, fixed = TRUE)
-    if (any(line_idx)) {
-      out[line_idx, ] <- as.matrix(
-        terra::extract(
-          x = x,
-          y = terra::vect(y[line_idx, , drop = FALSE]),
-          ID = FALSE,
-          touches = TRUE,
-          fun = fun2,
-          na.rm = FALSE
-        )
-      )
-    }
-    # process polygon geometries
-    poly_idx <- grepl("POLYGON", geomc, fixed = TRUE)
-    if (any(poly_idx)) {
-      out[poly_idx, ] <- as.matrix(
-        exactextractr::exact_extract(
-          x,
-          y[poly_idx, , drop = FALSE],
-          fun = fun,
-          progress = FALSE
-        )
-      )
-    }
-    # round really small values to zero
-    out[abs(out) < 1e-10] <- 0
-    # return result
-    out
   }
-)
+  # process polygon geometries
+  poly_idx <- grepl("POLYGON", geomc, fixed = TRUE)
+  if (any(poly_idx)) {
+    out[poly_idx, ] <- as.matrix(
+      exactextractr::exact_extract(
+        x,
+        y[poly_idx, , drop = FALSE],
+        fun = fun,
+        progress = FALSE
+      )
+    )
+  }
+  # round really small values to zero
+  out[abs(out) < 1e-10] <- 0
+  # return result
+  out
+}

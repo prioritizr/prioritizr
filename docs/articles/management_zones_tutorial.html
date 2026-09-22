@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@
 <li><a class="dropdown-item" href="../articles/package_overview.html">Package overview</a></li>
     <li><a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a></li>
     <li><a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a></li>
+    <li><a class="dropdown-item" href="../articles/software_extensions.html">Software extensions</a></li>
     <li><a class="dropdown-item" href="../articles/publication_record.html">Publication record</a></li>
   </ul>
 </li>
@@ -145,7 +146,7 @@ are selected or not selected for protection.</p>
 <code class="sourceCode R"><span><span class="co"># load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rspatial.org/" class="external-link">terra</a></span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## terra 1.9.27</span></span></code></pre>
+<pre><code><span><span class="co">## terra 1.9.50</span></span></code></pre>
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## Attaching package: 'terra'</span></span></code></pre>
 <pre><code><span><span class="co">## The following object is masked from 'package:prioritizr':</span></span>
@@ -208,7 +209,6 @@ are selected or not selected for protection.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -375,7 +375,6 @@ using the following code.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -522,7 +521,6 @@ example.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -705,7 +703,6 @@ We can formulate and solve this problem using the following code.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -861,7 +858,6 @@ third zone (baiting) to obtain a more useful solution.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -1023,7 +1019,6 @@ fragmented solutions.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -1078,7 +1073,7 @@ fragmented solutions.</p>
 <span><span class="co">## Cutting planes:</span></span>
 <span><span class="co">##   Gomory: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1 nodes (1169 simplex iterations) in 0.13 seconds (0.15 work units)</span></span>
+<span><span class="co">## Explored 1 nodes (1169 simplex iterations) in 0.12 seconds (0.15 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 10: 13780 15120 15200 ... 18060</span></span>
@@ -1189,7 +1184,6 @@ unit.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -1346,7 +1340,7 @@ others. (2010). Conserving biodiversity in production landscapes.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

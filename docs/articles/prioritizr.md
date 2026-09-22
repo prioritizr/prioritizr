@@ -222,7 +222,6 @@ s1 <- solve(p1)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -500,7 +499,6 @@ prt <- solve(p2)
     ## Set parameter PoolSearchMode to value 2
     ## Set parameter PoolGap to value 0.2
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -596,8 +594,8 @@ prt <- solve(p2)
     ## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s
     ## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s
     ## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s
-    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s
-    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s
+    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    2s
+    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    2s
     ## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s
     ## 
     ## Cutting planes:
@@ -609,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.24 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.60 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
@@ -862,7 +860,6 @@ s3 <- solve(p3)
     ## Set parameter Presolve to value 2
     ## Set parameter Threads to value 1
     ## Academic license - for non-commercial use only - expires 2027-04-14
-    ## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2
     ## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")
     ## 
     ## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]
@@ -975,5 +972,5 @@ Morueta-Holme, N., Newman, E.A., Park, D.S., Roehrdanz, P.R., Svenning,
 J.-C., Violle, C., Wieringa, J.J., Wynne, G., Fritz, S., Strassburg,
 B.B.N., Obersteiner, M., Kapos, V., Burgess, N., Schmidt-Traub, G. &
 Visconti, P. (2021). Areas of global importance for conserving
-terrestrial biodiversity, carbon and water. *Nature Ecology &amp;
+terrestrial biodiversity, carbon and water. *Nature Ecology and
 Evolution*, *5*, 1499–1509.

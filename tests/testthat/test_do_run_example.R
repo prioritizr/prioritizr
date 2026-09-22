@@ -4,6 +4,15 @@ test_that("interactive", {
   )
 })
 
+test_that("packages", {
+  expect_true(
+    rlang::with_interactive(do_run_example("methods"), TRUE)
+  )
+  expect_false(
+    rlang::with_interactive(do_run_example("5-package_1"), TRUE)
+  )
+})
+
 test_that("pkgdown", {
   expect_true(
     withr::with_envvar(
@@ -61,5 +70,12 @@ test_that("R-Universe", {
       list("MY_UNIVERSE"  = "true"),
       rlang::with_interactive(do_run_example(), FALSE)
     )
+  )
+})
+
+test_that("invalid inputs", {
+  expect_tidy_error(
+    do_run_example(5),
+    "character"
   )
 })

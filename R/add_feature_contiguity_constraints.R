@@ -137,7 +137,7 @@ NULL
 #' connectivity in conservation planning do not always maintain gene flow.
 #' *Journal of Applied Ecology*, 56: 913--922.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("igraph")
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -240,6 +240,7 @@ methods::setGeneric("add_feature_contiguity_constraints",
     assert_required(zones)
     assert_required(data)
     assert(
+      is_installed("igraph"),
       is_conservation_problem(x),
       is_inherits(
         data,

@@ -5,12 +5,6 @@ Generates simulated species data using Gaussian random fields.
 ## Usage
 
 ``` r
-simulate_species(x, n, scale)
-
-# S3 method for class 'Raster'
-simulate_species(x, n = 1, scale = 0.5)
-
-# S3 method for class 'SpatRaster'
 simulate_species(x, n = 1, scale = 0.5)
 ```
 

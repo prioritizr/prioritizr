@@ -34,7 +34,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,7 @@
 <li><a class="dropdown-item" href="../articles/package_overview.html">Package overview</a></li>
     <li><a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a></li>
     <li><a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a></li>
+    <li><a class="dropdown-item" href="../articles/software_extensions.html">Software extensions</a></li>
     <li><a class="dropdown-item" href="../articles/publication_record.html">Publication record</a></li>
   </ul>
 </li>
@@ -282,7 +283,6 @@ the <code>s1</code> object.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -520,7 +520,6 @@ function).</p>
 <span><span class="co">## Set parameter PoolSearchMode to value 2</span></span>
 <span><span class="co">## Set parameter PoolGap to value 0.2</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -616,8 +615,8 @@ function).</p>
 <span><span class="co">## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s</span></span>
 <span><span class="co">## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s</span></span>
 <span><span class="co">## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s</span></span>
-<span><span class="co">## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s</span></span>
-<span><span class="co">## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s</span></span>
+<span><span class="co">## H  745     2                     354.5817198  352.24042  0.66%   5.3    2s</span></span>
+<span><span class="co">## H  746     1                     354.5800299  352.24042  0.66%   6.8    2s</span></span>
 <span><span class="co">## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Cutting planes:</span></span>
@@ -629,7 +628,7 @@ function).</p>
 <span><span class="co">##   Flow cover: 16</span></span>
 <span><span class="co">##   RLT: 3</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## Explored 1815 nodes (15475 simplex iterations) in 4.24 seconds (4.95 work units)</span></span>
+<span><span class="co">## Explored 1815 nodes (15475 simplex iterations) in 4.60 seconds (4.95 work units)</span></span>
 <span><span class="co">## Thread count was 1 (of 8 available processors)</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Solution count 1000: 354.576 354.58 354.582 ... 391.784</span></span>
@@ -851,7 +850,6 @@ solver to generate a prioritization.</p>
 <span><span class="co">## Set parameter Presolve to value 2</span></span>
 <span><span class="co">## Set parameter Threads to value 1</span></span>
 <span><span class="co">## Academic license - for non-commercial use only - expires 2027-04-14</span></span>
-<span><span class="co">## Warning: Gurobi version mismatch between R 13.0.1 and C library 13.0.2</span></span>
 <span><span class="co">## Gurobi Optimizer version 13.0.2 build v13.0.2rc1 (linux64 - "Ubuntu 24.04.2 LTS")</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## CPU model: 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz, instruction set [SSE2|AVX|AVX2|AVX512]</span></span>
@@ -963,7 +961,7 @@ Morueta-Holme, N., Newman, E.A., Park, D.S., Roehrdanz, P.R., Svenning,
 J.-C., Violle, C., Wieringa, J.J., Wynne, G., Fritz, S., Strassburg,
 B.B.N., Obersteiner, M., Kapos, V., Burgess, N., Schmidt-Traub, G. &amp;
 Visconti, P. (2021). Areas of global importance for conserving
-terrestrial biodiversity, carbon and water. <em>Nature Ecology &amp;amp;
+terrestrial biodiversity, carbon and water. <em>Nature Ecology and
 Evolution</em>, <em>5</em>, 1499–1509.
 </div>
 </div>
@@ -979,7 +977,7 @@ Evolution</em>, <em>5</em>, 1499–1509.
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

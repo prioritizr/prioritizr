@@ -167,14 +167,14 @@ NULL
 #'
 #' @name eval_target_coverage_summary
 #'
-#' @aliases eval_target_coverage_summary,ConservationProblem,numeric-method eval_target_coverage_summary,ConservationProblem,matrix-method eval_target_coverage_summary,ConservationProblem,data.frame-method eval_target_coverage_summary,ConservationProblem,Spatial-method eval_target_coverage_summary,ConservationProblem,sf-method eval_target_coverage_summary,ConservationProblem,Raster-method eval_target_coverage_summary,ConservationProblem,SpatRaster-method
+#' @aliases eval_target_coverage_summary,ConservationProblem,numeric-method eval_target_coverage_summary,ConservationProblem,matrix-method eval_target_coverage_summary,ConservationProblem,data.frame-method eval_target_coverage_summary,ConservationProblem,sf-method eval_target_coverage_summary,ConservationProblem,SpatRaster-method
 #'
 #' @seealso
 #' See [summaries] for an overview of all functions for summarizing solutions.
 #'
 #' @family summaries
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

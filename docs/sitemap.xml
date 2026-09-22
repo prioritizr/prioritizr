@@ -9,6 +9,7 @@
 <url><loc>https://prioritizr.net/articles/package_overview.html</loc></url>
 <url><loc>https://prioritizr.net/articles/prioritizr.html</loc></url>
 <url><loc>https://prioritizr.net/articles/publication_record.html</loc></url>
+<url><loc>https://prioritizr.net/articles/software_extensions.html</loc></url>
 <url><loc>https://prioritizr.net/articles/solver_benchmarks.html</loc></url>
 <url><loc>https://prioritizr.net/authors.html</loc></url>
 <url><loc>https://prioritizr.net/index.html</loc></url>
@@ -94,7 +95,6 @@
 <url><loc>https://prioritizr.net/reference/connectivity_matrix.html</loc></url>
 <url><loc>https://prioritizr.net/reference/constraints.html</loc></url>
 <url><loc>https://prioritizr.net/reference/decisions.html</loc></url>
-<url><loc>https://prioritizr.net/reference/do_run_example.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_asym_connectivity_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc></url>
 <url><loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc></url>

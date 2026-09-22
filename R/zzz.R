@@ -1,5 +1,3 @@
-.pkgenv <- new.env(parent = emptyenv())
-
 # register knitr print methods
 # see https://cran.r-project.org/web/packages/knitr/vignettes/knit_print.html
 register_s3_method <- function(pkg, generic, class, fun = NULL) {

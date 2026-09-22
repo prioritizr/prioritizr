@@ -32,7 +32,7 @@ updates to streamline the package.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create example planning unit layer
 pu_data <-
   matrix(1:3, nrow = 1) \%>\%

@@ -34,7 +34,7 @@ NULL
 #' The [category_layer()] function performs the reverse of this function.
 #' Also the [terra::segregate()] function provides similar functionality.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # create raster with categorical values
 #' x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 #'
@@ -49,24 +49,8 @@ NULL
 #'
 #' @export
 binary_stack <- function(x, keep_all = TRUE) {
-  assert_required(x)
-  UseMethod("binary_stack")
-}
-
-#' @rdname binary_stack
-#' @method binary_stack Raster
-#' @export
-binary_stack.Raster <- function(x, keep_all = TRUE) {
-  assert(inherits(x, "Raster"))
-  cli_warning(raster_pkg_deprecation_notice)
-  raster::stack(binary_stack(terra::rast(x, keep_all = keep_all)))
-}
-
-#' @rdname binary_stack
-#' @method binary_stack SpatRaster
-#' @export
-binary_stack.SpatRaster <- function(x, keep_all = TRUE) {
   # assert valid arguments
+  assert_required(x)
   assert(
     inherits(x, "SpatRaster"),
     is_numeric_values(x),

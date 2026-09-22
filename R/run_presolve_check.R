@@ -10,6 +10,8 @@ NULL
 #' @param header_level `integer` value denoting the header level for
 #' different types of issues. Defaults to 2. Available options include
 #' 2 or 3.
+#'
+#' @inheritParams assert_pass_presolve_check
 #
 #' @return
 #' A `list` with containing a (`$msg`) `character` vector with information on
@@ -17,24 +19,24 @@ NULL
 #' checks were passed.
 #'
 #' @noRd
-run_presolve_check <- function(x, header_level = 2) {
+run_presolve_check <- function(x, run_budget_checks = TRUE, header_level = 2) {
   # assert argument is valid
   assert_required(x)
   assert_required(header_level)
   assert(
     inherits(x, "OptimizationProblem"),
+    assertthat::is.flag(run_budget_checks),
     assertthat::is.count(header_level),
     assertthat::noNA(header_level),
     header_level <= 3,
     .internal = TRUE
   )
 
-  # determine if objective is to minimize penalties
-  ## if this is the case, then we skip checks designed to catch
-  ## weird/invalid cost or feature data
-  is_not_min_penalties <-
-    (!"budget_mp" %in% x$row_ids()) &&
-    (!"dum_mp" %in% x$row_ids())
+  # determine if certain checks should be skipped
+  ## if min penalties objective, then skip checks to catch weird/invalid data
+  skip_weird_data_checks <- !identical(x$obj_id(), "min_penalties")
+  ## if min set objective, then skip checks for budget
+  skip_budget_checks <- identical(x$obj_id(), "min_set")
 
   # define header function
   cli_h <- cli::cli_h2
@@ -61,6 +63,29 @@ run_presolve_check <- function(x, header_level = 2) {
 
   # presolve checks
   ## check for non-standard input data
+  ### if needed, check that budget constraint is present
+  if (
+    isTRUE(run_budget_checks) &&
+    !skip_budget_checks &&
+    !any(c("budget", "budget_mp", "lc") %in% x$row_ids())
+  ) {
+    pass <- FALSE
+    msg2 <- c(
+      msg2,
+      c(
+        "x" = "Problem is unbounded.",
+        ">" = paste(
+          "This is because the optimization problem does not limit",
+          "the selected planning units.",
+          "To resolve this, you can specify a budget using the {.arg budget}",
+          "parameter of the objective function, a different objective",
+          "function, or constraints such as {.fn add_cost_constraints} or",
+          "{.fn add_linear_constraints}."
+        ),
+        ""
+      )
+    )
+  }
   ### check if all planning units locked out
   n_pu_vars <- x$number_of_planning_units() * x$number_of_zones()
   if (all(x$ub()[seq_len(n_pu_vars)] < 1e-5)) {
@@ -93,7 +118,7 @@ run_presolve_check <- function(x, header_level = 2) {
     )
   }
   ### check if only a single feature
-  if (is_not_min_penalties && x$number_of_features() == 1) {
+  if (skip_weird_data_checks && x$number_of_features() == 1) {
     pass <- FALSE
     msg2 <- c(
       msg2,

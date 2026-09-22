@@ -6,9 +6,7 @@
 \alias{add_locked_in_constraints,ConservationProblem,logical-method}
 \alias{add_locked_in_constraints,ConservationProblem,matrix-method}
 \alias{add_locked_in_constraints,ConservationProblem,character-method}
-\alias{add_locked_in_constraints,ConservationProblem,Raster-method}
 \alias{add_locked_in_constraints,ConservationProblem,SpatRaster-method}
-\alias{add_locked_in_constraints,ConservationProblem,Spatial-method}
 \alias{add_locked_in_constraints,ConservationProblem,sf-method}
 \title{Add locked in constraints}
 \usage{
@@ -22,11 +20,7 @@ add_locked_in_constraints(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
 
-\S4method{add_locked_in_constraints}{ConservationProblem,Spatial}(x, locked_in)
-
 \S4method{add_locked_in_constraints}{ConservationProblem,sf}(x, locked_in)
-
-\S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,SpatRaster}(x, locked_in)
 }
@@ -121,7 +115,7 @@ recommend standardizing missing (\code{NA}) values in \code{locked_in} with them
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

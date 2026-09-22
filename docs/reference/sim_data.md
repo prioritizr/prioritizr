@@ -89,7 +89,7 @@ get_sim_complex_historical_features()
 
 - `get_sim_zones_features()`:
 
-  [`ZonesRaster()`](https://prioritizr.net/reference/zones.md) object.
+  [`zones()`](https://prioritizr.net/reference/zones.md) object.
 
 - `get_sim_phylogeny()`:
 

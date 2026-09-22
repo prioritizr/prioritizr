@@ -25,7 +25,7 @@ NULL
 #' @seealso
 #' See [compile()] to create an [`OptimizationProblem-class`] object.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # import data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -95,7 +95,7 @@ multi_compile.list <- function(x, ...) {
   }
 
   # convert pointer to optimization problem object
-   out$opt <- OptimizationProblem$new(ptr = out$opt)
+  out$opt <- OptimizationProblem$new(ptr = out$opt)
 
   # return result
   out

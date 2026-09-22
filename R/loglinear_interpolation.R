@@ -25,7 +25,7 @@ NULL
 #'
 #' @return A `numeric` vector.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # create series of x-values
 #' x <- seq(0, 1000)
 #'

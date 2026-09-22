@@ -1665,7 +1665,7 @@ test_that("invalid problem inputs (all planning units have NA costs)", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # update data
-  sim_pu_raster <- raster::setValues(sim_pu_raster, NA_real_)
+  sim_pu_raster <- terra::setValues(sim_pu_raster, NA_real_)
   sim_pu_polygons$id <- seq_len(nrow(sim_pu_polygons))
   sim_pu_polygons$cost <- NA_real_
   sim_pu_polygons$spp_1 <- runif(nrow(sim_pu_polygons))

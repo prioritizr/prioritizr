@@ -286,77 +286,6 @@ test_that("sf (multiple zone)", {
   expect_equal(x, y)
 })
 
-test_that("Spatial (single zone)", {
-  # create data
-  pu <- get_sim_pu_polygons()[seq_len(10), ]
-  pu$cost[1:5] <- NA
-  pu$solution <- rep(c(0, 1), nrow(pu) / 2)
-  pu$solution[is.na(pu$cost)] <- NA_real_
-  pu$spp1 <- runif(10)
-  pu$spp2 <- c(rpois(9, 1), NA)
-  # create problem
-  p1 <- problem(pu, c("spp1", "spp2"), "cost")
-  expect_warning(
-    p2 <- problem(sf::as_Spatial(pu), c("spp1", "spp2"), "cost"),
-    "deprecated"
-  )
-  # create a solution
-  s <- pu[, "solution"]
-  # calculate representation
-  x <- eval_feature_representation_summary(p1, s)
-  expect_warning(
-    y <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("Spatial (multiple zones)", {
-  # load data
-  sim_zones_pu_polygons <- get_sim_zones_pu_polygons()
-  pu <- sim_zones_pu_polygons
-  suppressWarnings(sf::st_crs(pu) <- sf::st_crs(32756))
-  pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
-  pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1), NA)
-  pu$spp1_2 <- c(NA, runif(nrow(pu) - 1))
-  pu$spp2_2 <- rpois(nrow(pu), 1)
-  pu$s1 <- rep(c(0, 0.5), nrow(pu) / 2)
-  pu$s2 <- rep(c(0.5, 0), nrow(pu) / 2)
-  pu$s1[is.na(pu$cost_1)] <- NA_real_
-  pu$s2[is.na(pu$cost_2)] <- NA_real_
-  # create problem
-  p1 <- problem(
-    pu,
-    cost_column = c("cost_1", "cost_2"),
-    zones(
-      z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
-      feature_names = c("spp1", "spp2")
-    )
-  )
-  expect_warning(
-    p2 <- problem(
-      sf::as_Spatial(pu),
-      cost_column = c("cost_1", "cost_2"),
-      zones(
-        z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
-        feature_names = c("spp1", "spp2")
-      )
-    ),
-    "deprecated"
-  )
-  # create a solution
-  s <- pu[, c("s1", "s2")]
-  # calculate representation
-  x <- eval_feature_representation_summary(p1, s)
-  expect_warning(
-    y <- eval_feature_representation_summary(p2, sf::as_Spatial(s)),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
 test_that("SpatRaster (single zone)", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()
@@ -395,15 +324,15 @@ test_that("SpatRaster (multiple zone)", {
   p <- problem(sim_zones_pu_raster, sim_zones_features)
   # create a solution
   s <- c(
-    raster::setValues(
+    terra::setValues(
       sim_zones_pu_raster[[1]], rep(c(0, 0.2),
       terra::ncell(sim_zones_pu_raster) / 2)
     ),
-    raster::setValues(
+    terra::setValues(
       sim_zones_pu_raster[[1]], rep(c(0.3, 0),
       terra::ncell(sim_zones_pu_raster) / 2)
     ),
-    raster::setValues(
+    terra::setValues(
       sim_zones_pu_raster[[1]], rep(c(0.4, 0),
       terra::ncell(sim_zones_pu_raster) / 2)
     )
@@ -481,73 +410,6 @@ test_that("SpatRaster (multiple zone)", {
       sum(rij[[3]][5, ] * s[, 3], na.rm = TRUE)
     )),
     relative_held = absolute_held / total_amount
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("Raster (single zone)", {
-  # load data
-  sim_pu_raster <- get_sim_pu_raster()
-  sim_features <- get_sim_features()
-  # create problem
-  p1 <- problem(sim_pu_raster, sim_features)
-  expect_warning(
-    p2 <- problem(raster::raster(sim_pu_raster), raster::stack(sim_features)),
-    "deprecated"
-  )
-  # create a solution
-  s <- terra::setValues(
-    sim_pu_raster, rep(c(0, 1),
-    terra::ncell(sim_pu_raster) / 2)
-  )
-  s[is.na(sim_pu_raster)] <- NA_real_
-  # calculate results
-  x <- eval_feature_representation_summary(p1, s)
-  expect_warning(
-    y <- eval_feature_representation_summary(p2, raster::raster(s)),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(x, y)
-})
-
-test_that("Raster (multiple zones)", {
-  # load data
-  sim_zones_pu_raster <- get_sim_zones_pu_raster()
-  sim_zones_features <- get_sim_zones_features()
-  # create problems
-  p1 <- problem(sim_zones_pu_raster, sim_zones_features)
-  expect_warning(
-    p2 <- problem(
-      raster::stack(sim_zones_pu_raster),
-      as.ZonesRaster(sim_zones_features)
-    ),
-    "deprecated"
-  )
-  # create a solution
-  s <- c(
-    raster::setValues(
-      sim_zones_pu_raster[[1]], rep(c(0, 0.2),
-      terra::ncell(sim_zones_pu_raster) / 2)
-    ),
-    raster::setValues(
-      sim_zones_pu_raster[[1]], rep(c(0.3, 0),
-      terra::ncell(sim_zones_pu_raster) / 2)
-    ),
-    raster::setValues(
-      sim_zones_pu_raster[[1]], rep(c(0.4, 0),
-      terra::ncell(sim_zones_pu_raster) / 2)
-    )
-  )
-  s[[1]][is.na(sim_zones_pu_raster[[1]])] <- NA_real_
-  s[[2]][is.na(sim_zones_pu_raster[[2]])] <- NA_real_
-  s[[3]][is.na(sim_zones_pu_raster[[3]])] <- NA_real_
-  # calculate representation
-  x <- eval_feature_representation_summary(p1, s)
-  expect_warning(
-    y <- eval_feature_representation_summary(p2, raster::stack(s)),
-    "deprecated"
   )
   # run tests
   expect_equal(x, y)

@@ -5,7 +5,6 @@
 \alias{number_of_zones.ConservationProblem}
 \alias{number_of_zones.MultiConservationProblem}
 \alias{number_of_zones.OptimizationProblem}
-\alias{number_of_zones.ZonesRaster}
 \alias{number_of_zones.ZonesSpatRaster}
 \alias{number_of_zones.ZonesCharacter}
 \title{Number of zones}
@@ -17,8 +16,6 @@ number_of_zones(x, ...)
 \method{number_of_zones}{MultiConservationProblem}(x, ...)
 
 \method{number_of_zones}{OptimizationProblem}(x, ...)
-
-\method{number_of_zones}{ZonesRaster}(x, ...)
 
 \method{number_of_zones}{ZonesSpatRaster}(x, ...)
 
@@ -36,7 +33,7 @@ An \code{integer} value.
 Extract the number of zones in an object.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()

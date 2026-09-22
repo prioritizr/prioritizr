@@ -594,6 +594,59 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   expect_equal(c(terra::values(s[[2]])), c(0, 1, 0, NA, NA))
 })
 
+test_that("compile (compressed formulation, single zone, budget = NULL)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_cover_objective(budget = NULL)
+  o <- compile(p)
+  # calculations for tests
+  n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
+  n_f <- terra::nlyr(sim_features)
+  # tests
+  ## compile
+  expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(1, n_f)))
+  expect_equal(o$sense(), rep(">=", n_f))
+  expect_equal(o$rhs(), rep(0, n_f))
+  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("present", n_f)))
+  expect_equal(o$row_ids(), rep("spp_present", n_f))
+  expect_equal(o$lb(), rep(0, n_f + n_pu))
+  expect_equal(o$ub(), rep(1, n_f + n_pu))
+  expect_true(
+    all(o$A()[seq_len(n_f), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_true(
+    all(
+      o$A()[seq_len(n_f), n_pu + seq_len(n_f)] ==
+      triplet_sparse_matrix(
+        i = seq_len(n_f), j = seq_len(n_f), x = rep(-1, n_f)
+      )
+    )
+  )
+})
+
+test_that("solve (compressed formulation, single zone, budget = NULL)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_cover_objective(budget = NULL) %>%
+    add_default_solver(verbose = FALSE)
+  # solve problem
+  s <- solve(p, run_checks = FALSE)
+  # run tests
+  expect_inherits(s, "SpatRaster")
+  expect_gte(terra::global(s, "sum", na.rm = TRUE)[[1]], 1)
+})
+
 test_that("invalid inputs (multiple zones)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()

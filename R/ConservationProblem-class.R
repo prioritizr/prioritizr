@@ -2,7 +2,10 @@
 NULL
 
 #' @export
-if (!methods::isClass("ConservationProblem")) methods::setOldClass("ConservationProblem")
+if (!methods::isClass("GenericConservationProblem")) methods::setOldClass("GenericConservationProblem")
+
+#' @export
+if (!methods::isClass("ConservationProblem")) methods::setOldClass(c("ConservationProblem", "GenericConservationProblem"))
 NULL
 
 #' Conservation problem class
@@ -638,18 +641,9 @@ ConservationProblem <- R6::R6Class(
     #' associated with finite cost values.
     #' @return Invisible `TRUE`.
     set_planning_unit_indices_with_finite_costs = function() {
-      if (inherits(self$data$cost, "Raster")) {
-        if (raster::nlayers(self$data$cost) == 1) {
-          x <- list(raster::Which(!is.na(self$data$cost), cells = TRUE))
-        } else {
-          x <- lapply(
-            seq_len(raster::nlayers(self$data$cost)),
-            function(i) raster::Which(!is.na(self$data$cost[[i]]), cells = TRUE)
-          )
-        }
-      } else if (inherits(self$data$cost, "SpatRaster")) {
+      if (inherits(self$data$cost, "SpatRaster")) {
         x <- unname(terra::cells(is.na(self$data$cost), 0))
-      } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
+      } else if (inherits(self$data$cost, c("data.frame", "sf"))) {
         x <- lapply(
           self$data$cost_column,
           function(i) which(!is.na(self$data$cost[[i]]))
@@ -676,13 +670,12 @@ ConservationProblem <- R6::R6Class(
     #' missing (`NA`) values.
     #' @return An `integer` value.
     number_of_total_units = function() {
-      if (inherits(self$data$cost, "Raster")) {
-        return(raster::ncell(self$data$cost))
-      } else if (inherits(self$data$cost, "SpatRaster")) {
+      if (inherits(self$data$cost, "SpatRaster")) {
         return(terra::ncell(self$data$cost))
-      } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
-        return(nrow(self$data$cost))
-      } else if (is.matrix(self$data$cost)) {
+      } else if (
+        inherits(self$data$cost, c("data.frame", "sf")) ||
+        is.matrix(self$data$cost)
+      ) {
         return(nrow(self$data$cost))
       } else {
         # nocov start
@@ -713,18 +706,12 @@ ConservationProblem <- R6::R6Class(
     #' @return Invisible `TRUE`.
     set_planning_unit_costs = function() {
       idx <- self$planning_unit_indices()
-      if (inherits(self$data$cost, "Raster")) {
-        if (raster::nlayers(self$data$cost) == 1) {
-          x <- matrix(self$data$cost[idx], ncol = 1)
-        } else {
-          x <- self$data$cost[idx]
-        }
-      } else if (inherits(self$data$cost, "SpatRaster")) {
+      if (inherits(self$data$cost, "SpatRaster")) {
         x <- as.matrix(self$data$cost[idx])
       } else if (inherits(self$data$cost, "sf")) {
         x <- sf::st_drop_geometry(self$data$cost)
         x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
-      } else if (inherits(self$data$cost, c("Spatial", "data.frame"))) {
+      } else if (inherits(self$data$cost, "data.frame")) {
         x <- as.data.frame(self$data$cost)
         x <- as.matrix(x[idx, self$data$cost_column, drop = FALSE])
       } else if (is.matrix(self$data$cost)) {
@@ -745,8 +732,6 @@ ConservationProblem <- R6::R6Class(
     number_of_features = function() {
       if (inherits(self$data$features, "ZonesCharacter")) {
         return(length(self$data$features[[1]]))
-      } else if (inherits(self$data$features, "ZonesRaster")) {
-        return(raster::nlayers(self$data$features[[1]]))
       } else if (inherits(self$data$features, "ZonesSpatRaster")) {
         return(terra::nlyr(self$data$features[[1]]))
       } else if (inherits(self$data$features, "data.frame")) {
@@ -891,15 +876,9 @@ ConservationProblem <- R6::R6Class(
       fa <- self$feature_abundances_in_total_units()
       # process data depending on feature data format
       ft <- self$get_data("features")
-      if (inherits(ft, c("ZonesRaster", "ZonesSpatRaster"))) {
-        ## if raster data...
-        if (inherits(ft, "ZonesSpatRaster")) {
-          ### extract cell res
-          cell_res <- terra::res(ft[[1]])
-        } else {
-          ### extract cell res
-          cell_res <- raster::res(ft[[1]])
-        }
+      if (inherits(ft, "ZonesSpatRaster")) {
+        ### extract cell res
+        cell_res <- terra::res(ft[[1]])
         ### extract cell unit
         cell_unit <- units::deparse_unit(get_crs(ft)$ud_unit)
         ### if cell unit is degree, then throw error

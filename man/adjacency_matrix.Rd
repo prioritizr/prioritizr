@@ -2,26 +2,14 @@
 % Please edit documentation in R/adjacency_matrix.R
 \name{adjacency_matrix}
 \alias{adjacency_matrix}
-\alias{adjacency_matrix.Raster}
 \alias{adjacency_matrix.SpatRaster}
-\alias{adjacency_matrix.SpatialPolygons}
-\alias{adjacency_matrix.SpatialLines}
-\alias{adjacency_matrix.SpatialPoints}
 \alias{adjacency_matrix.sf}
 \alias{adjacency_matrix.default}
 \title{Adjacency matrix}
 \usage{
 adjacency_matrix(x, ...)
 
-\method{adjacency_matrix}{Raster}(x, directions = 4, ...)
-
 \method{adjacency_matrix}{SpatRaster}(x, directions = 4, ...)
-
-\method{adjacency_matrix}{SpatialPolygons}(x, ...)
-
-\method{adjacency_matrix}{SpatialLines}(x, ...)
-
-\method{adjacency_matrix}{SpatialPoints}(x, ...)
 
 \method{adjacency_matrix}{sf}(x, ...)
 
@@ -67,7 +55,7 @@ with other spatial association matrix functions.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()

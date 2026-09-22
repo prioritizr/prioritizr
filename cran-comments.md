@@ -1,7 +1,7 @@
 Dear CRAN volunteers,
 
 Thank you for reviewing this submission. It contains an update to
-the prioritizr R package. Specifically, the update contains assorted minor improvements, bug fixes, and updates to the package documentation. It also addresses the NOTEs currently produced during CRAN package checks related to missing documentation links.
+the prioritizr R package. Specifically, the update provides new multi-objective optimization functionality, bug fixes, and updates to the package documentation. Since the package has had formal deprecation warnings for _raster_ and _sp_ package data classes since March 2023 (version 8.0.0), support for these classes has now been deprecated. Furthermore, the update addresses the NOTEs currently produced during CRAN package checks related to deprecated special names for the `structure()` function.
 
 Cheers,
 
@@ -27,14 +27,20 @@ Richard Schuster
     From: inst/doc/gurobi_installation_guide.html
     Status: 403
     Message: Forbidden
+  URL: https://www.theodorosploumis.com/en
+    From: README.md
+    Status: Error
+    Message: Stream error in the HTTP/2 framing layer
+    [www.theodorosploumis.com]:
+      HTTP/2 stream 1 was not closed cleanly: PROTOCOL_ERROR (err 1)
 
-  **I have checked this URL and confirm that it is correct.**
+  **I have checked these URLs and confirm that they are correct and working.**
 
 ## Previous notes from CRAN maintainers
 
 * Thanks, please omit the redundant "in R".
 
-  **Thank you for this suggestion! The prioritizr R package was first released on CRAN in 2016. Since then it has been cited over 30 scientific publications (see the publication record vignette), and has a worldwide community spanning over 100 countries (based on website tracking analytics). Although the "in R" text in the title is redundant, we worry that changing the title at this point in time would confuse the user base and invalidate previous work that has cited this package. As such, we would prefer to keep the current title.**
+  **Thank you for this suggestion! The prioritizr R package was first released on CRAN in 2016. Since then it has been cited over 100 scientific publications (see the publication record vignette), and has a worldwide community spanning over 100 countries (based on website tracking analytics). Although the "in R" text in the title is redundant, we worry that changing the title at this point in time would confuse the user base and invalidate previous work that has cited this package. As such, we would prefer to keep the current title.**
 
 ## Test environments
 
@@ -46,4 +52,4 @@ Richard Schuster
 
 ## Downstream dependencies
 
-The package has two reverse dependencies on CRAN (i.e., prior3D, priorCON). I have checked that this submission is compatible with the latest versions of these packages. Both of these packages pass CRAN package checks with this new submission.
+The package has five reverse dependencies on CRAN (i.e., _prior3D_, _priorCON_, _MultiscaleSCP_, _robust.prioritizr_, _prioriactions_). I have checked that this submission is compatible with the latest versions of these packages. All of these packages pass CRAN package checks with this new submission.

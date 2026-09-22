@@ -19,20 +19,8 @@
 is_same_crs <- function(x, y) {
   # assert valid arguments
   assert(
-    is_inherits(
-      x,
-      c(
-        "sf", "Spatial", "SpatRaster", "Raster",
-        "ZonesRaster", "ZonesSpatRaster"
-      )
-    ),
-    is_inherits(
-      y,
-      c(
-        "sf", "Spatial", "SpatRaster", "Raster",
-        "ZonesRaster", "ZonesSpatRaster"
-      )
-    )
+    is_inherits(x, c("sf", "SpatRaster", "ZonesSpatRaster")),
+    is_inherits(y, c("sf", "SpatRaster",  "ZonesSpatRaster"))
   )
   # extract crs data
   x_crs <- get_crs(x)

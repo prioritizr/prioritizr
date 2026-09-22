@@ -13,7 +13,10 @@ add_max_phylo_div_objective(x, budget, tree)
 for the solution. If \code{x} has multiple zones, then \code{budget} can be
 (i) a single \code{numeric} value to specify an overall budget
 for the entire solution or (ii) a \code{numeric} vector to specify
-a budget for each zone (separately) in the solution.}
+a budget for each zone (separately) in the solution.
+If \code{x} will be used to generate a multi-objective problem (via
+\code{\link[=multi_problem]{multi_problem()}}), \code{budget = NULL} can be used to avoid specifying a
+maximum expenditure.}
 
 \item{tree}{\code{\link[ape:phylo]{ape::phylo()}} object specifying a phylogenetic tree
 for the features in \code{x}.}
@@ -101,7 +104,7 @@ problem based on minimizing cost penalties (i.e., by using
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("ape")) withAutoprint(\{ # examplesIf}
 # load ape package
 require(ape)
 

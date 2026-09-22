@@ -178,7 +178,7 @@ test_that("SpatRaster (single zone)", {
       ferrier_scores_r(
         rij = t(as.matrix(terra::as.data.frame(features))),
         targets = c(1, 10),
-        solution = raster::values(s)
+        solution = terra::values(s)
       )
     )
   )
@@ -192,80 +192,6 @@ test_that("SpatRaster (single zone)", {
   expect_equal(c(terra::values(r1[["spp1"]])), r2$spp1)
   expect_equal(c(terra::values(r1[["spp2"]])), r2$spp2)
   expect_equal(c(terra::values(r1[["total"]])), r2$total)
-})
-
-test_that("Spatial (single zone)", {
-  # create data
-  sim_pu_polygons <- get_sim_pu_polygons()
-  pu <- sim_pu_polygons[1:4, ]
-  pu$id <- seq_len(4)
-  pu$cost <- c(10, 2, NA, 3)
-  pu$spp1 <- c(0, 0, 0, 1)
-  pu$spp2 <- c(10, 5, 10, 6)
-  pu$solution <- c(0, 1, NA, 1)
-  # create problems
-  p1 <-
-    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  expect_warning(
-    p2 <-
-      problem(sf::as_Spatial(pu), c("spp1", "spp2"), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 10)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE),
-    "deprecated"
-  )
-  # calculate scores
-  r1 <- eval_ferrier_importance(p1, pu[, "solution"])
-  expect_warning(
-    r2 <- eval_ferrier_importance(p2, sf::as_Spatial(pu[, "solution"])),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(
-    tibble::tibble(sf::st_drop_geometry(r1)),
-    tibble::tibble(r2@data)
-  )
-})
-
-test_that("Raster (single zone)", {
-  # create data
-  pu <- terra::rast(matrix(c(10, 2, NA, 3), nrow = 2))
-  features <- c(
-    terra::rast(matrix(c(0, 0, 0, 1), nrow = 2)),
-    terra::rast(matrix(c(10, 5, 10, 6), nrow = 2))
-  )
-  names(features) <- c("spp1", "spp2")
-  # create a solution
-  s <- terra::rast(matrix(c(0, 1, NA, 1), nrow = 2))
-  # create problems
-  p1 <-
-    problem(pu, features) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
-  expect_warning(
-    p2 <-
-      problem(raster::stack(pu), raster::stack(features)) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 10)) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE),
-    "deprecated"
-  )
-  # calculate scores
-  r1 <- eval_ferrier_importance(p1, s)
-  expect_warning(
-    r2 <- eval_ferrier_importance(p2, raster::stack(s)),
-    "deprecated"
-  )
-  # run tests
-  expect_equal(terra::values(r1), terra::values(terra::rast(r2)))
 })
 
 test_that("data.frame (complex dataset)", {

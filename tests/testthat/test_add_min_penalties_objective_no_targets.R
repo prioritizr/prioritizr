@@ -30,14 +30,14 @@ test_that("compile (compressed formulation, single zone, scalar budget)", {
   )
 })
 
-test_that("compile (compressed formulation, single zone, no budget)", {
+test_that("compile (compressed formulation, single zone, budget = NULL)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_min_penalties_objective() %>%
+    add_min_penalties_objective(budget = NULL) %>%
     add_binary_decisions()
   expect_warning(
     {o <- compile(p)},
@@ -79,7 +79,7 @@ test_that("solve (compressed formulation, single zone)", {
     add_min_penalties_objective, x = p
   )
   # solve problem
-  s <- terra::rast(lapply(p, solve))
+  s <- terra::rast(lapply(p, solve, run_checks = FALSE))
   # run tests
   expect_inherits(s, "SpatRaster")
   expect_equal(max(terra::global(s, "sum", na.rm = TRUE)[[1]]), 0)
@@ -184,14 +184,14 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   expect_true(all(m == o$A()))
 })
 
-test_that("compile (compressed formulation, multiple zones, no budget)", {
+test_that("compile (compressed formulation, multiple zones, budget = NULL)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # create problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_min_penalties_objective() %>%
+    add_min_penalties_objective(budget = NULL) %>%
     add_binary_decisions()
   expect_warning(
     {o <- compile(p)},
@@ -244,7 +244,7 @@ test_that("solve (compressed formulation, multiple zones)", {
     add_min_penalties_objective, x = p
   )
   # solve problem
-  s <- terra::rast(lapply(p, solve))
+  s <- terra::rast(lapply(p, solve, run_checks = FALSE))
   # run tests
   expect_inherits(s, "SpatRaster")
   expect_equal(max(terra::global(s, "sum", na.rm = TRUE)[[1]]), 0)
@@ -312,14 +312,14 @@ test_that("compile (expanded formulation, single zone, scalar budget)", {
   expect_true(all(m == o$A()))
 })
 
-test_that("compile (expanded formulation, single zone, no budget)", {
+test_that("compile (expanded formulation, single zone, budget = NULL)", {
   # import data
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   # create problem
   p <-
     problem(sim_pu_raster, sim_features) %>%
-    add_min_penalties_objective() %>%
+    add_min_penalties_objective(budget = NULL) %>%
     add_binary_decisions()
   expect_warning(
     {o <- compile(p, FALSE)},
@@ -544,14 +544,14 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   expect_true(all(m == o$A()))
 })
 
-test_that("compile (expanded formulation, multiple zones, no budget)", {
+test_that("compile (expanded formulation, multiple zones, budget = NULL)", {
   # import data
   sim_zones_pu_raster <- get_sim_zones_pu_raster()
   sim_zones_features <- get_sim_zones_features()
   # create problem
   p <-
     problem(sim_zones_pu_raster, sim_zones_features) %>%
-    add_min_penalties_objective() %>%
+    add_min_penalties_objective(budget = NULL) %>%
     add_binary_decisions()
   expect_warning(
     {o <- compile(p, FALSE)},
@@ -644,7 +644,9 @@ test_that("solve (expanded formulation, multiple zones)", {
     add_min_penalties_objective, x = p
   )
   # solve problem
-  s <- terra::rast(lapply(p, solve, compressed_formulation = FALSE))
+  s <- terra::rast(
+    lapply(p, solve, run_checks = FALSE, compressed_formulation = FALSE)
+  )
   # run tests
   expect_inherits(s, "SpatRaster")
   expect_equal(max(terra::global(s, "sum", na.rm = TRUE)[[1]]), 0)
@@ -672,7 +674,7 @@ test_that("invalid inputs (single zone)", {
   )
   expect_warning(
     problem(sim_pu_raster, sim_features) %>%
-      add_min_penalties_objective() %>%
+      add_min_penalties_objective(budget = NULL) %>%
       compile(),
     "not have any penalties"
   )

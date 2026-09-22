@@ -42,7 +42,7 @@ NULL
 #'
 #' @rdname adjacency_matrix
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_pu_polygons <- get_sim_pu_polygons()
@@ -78,17 +78,6 @@ adjacency_matrix <- function(x, ...) {
 }
 
 #' @rdname adjacency_matrix
-#' @method adjacency_matrix Raster
-#' @export
-adjacency_matrix.Raster <- function(x, directions = 4, ...) {
-  assert_required(directions)
-  assert_dots_empty()
-  assert(inherits(x, "Raster"))
-  cli_warning(raster_pkg_deprecation_notice)
-  adjacency_matrix.SpatRaster(terra::rast(x), directions = directions, ...)
-}
-
-#' @rdname adjacency_matrix
 #' @method adjacency_matrix SpatRaster
 #' @export
 adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
@@ -121,34 +110,6 @@ adjacency_matrix.SpatRaster <- function(x, directions = 4, ...) {
   )
   # return result
   Matrix::drop0(Matrix::forceSymmetric(m))
-}
-
-#' @rdname adjacency_matrix
-#' @method adjacency_matrix SpatialPolygons
-#' @export
-adjacency_matrix.SpatialPolygons <- function(x, ...) {
-  assert_dots_empty()
-  cli_warning(sp_pkg_deprecation_notice)
-  adjacency_matrix(sf::st_as_sf(x), ...)
-}
-
-#' @rdname adjacency_matrix
-#' @method adjacency_matrix SpatialLines
-#' @export
-adjacency_matrix.SpatialLines <- function(x,  ...) {
-  assert_dots_empty()
-  cli_warning(sp_pkg_deprecation_notice)
-  adjacency_matrix(sf::st_as_sf(x), ...)
-}
-
-#' @rdname adjacency_matrix
-#' @method adjacency_matrix SpatialPoints
-#' @export
-adjacency_matrix.SpatialPoints <- function(x, ...) {
-  assert_required(x)
-  assert_dots_empty()
-  cli_warning(sp_pkg_deprecation_notice)
-  adjacency_matrix(sf::st_as_sf(x), ...)
 }
 
 #' @rdname adjacency_matrix

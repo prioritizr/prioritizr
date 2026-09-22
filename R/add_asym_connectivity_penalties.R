@@ -92,7 +92,7 @@ NULL
 #' conservation planning problems with integer linear programming.
 #' *Ecological Modelling*, 228: 14--22.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'

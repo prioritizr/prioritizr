@@ -2,32 +2,14 @@
 % Please edit documentation in R/fast_extract.R
 \name{fast_extract}
 \alias{fast_extract}
-\alias{fast_extract,Raster,Spatial-method}
-\alias{fast_extract,Raster,sf-method}
-\alias{fast_extract,Raster,sfc-method}
-\alias{fast_extract,SpatRaster,Spatial-method}
-\alias{fast_extract,SpatRaster,sf-method}
-\alias{fast_extract,SpatRaster,sfc-method}
 \title{Fast extract}
 \usage{
-fast_extract(x, y, ...)
-
-\S4method{fast_extract}{Raster,Spatial}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{SpatRaster,sfc}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
-
-\S4method{fast_extract}{SpatRaster,sf}(x, y, fun = "mean", ...)
+fast_extract(x, y, fun = "mean")
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object.}
 
-\item{y}{\code{\link[sf:sf]{sf::sf()}} object.}
-
-\item{...}{not used.}
+\item{y}{\code{\link[sf:sf]{sf::sf()}} or \code{\link[sf:st_sfc]{sf::st_sfc()}} object.}
 
 \item{fun}{\code{character} name of statistic to summarize data.
 Available options include \code{"sum"} or \code{"mean"}.

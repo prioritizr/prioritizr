@@ -82,38 +82,6 @@ test_that("sf (points)", {
   expect_tidy_error(adjacency_matrix(x))
 })
 
-test_that("Spatial", {
-  # polygons
-  m1 <- adjacency_matrix(get_sim_pu_polygons())
-  expect_warning(
-    m2 <- adjacency_matrix(sf::as_Spatial(get_sim_pu_polygons())),
-    "deprecated"
-  )
-  expect_equal(m1, m2)
-  # lines
-  m1 <- adjacency_matrix(get_sim_pu_lines())
-  expect_warning(
-    m2 <- adjacency_matrix(sf::as_Spatial(get_sim_pu_lines())),
-    "deprecated"
-  )
-  expect_equal(m1, m2)
-  # points
-  expect_tidy_error(
-    suppressWarnings(
-      adjacency_matrix(sf::as_Spatial(get_sim_pu_points()))
-    )
-  )
-})
-
-test_that("Raster", {
-  m1 <- adjacency_matrix(get_sim_pu_raster())
-  expect_warning(
-    m2 <- adjacency_matrix(raster::raster(get_sim_pu_raster())),
-    "deprecated"
-  )
-  expect_equal(m1, m2)
-})
-
 test_that("invalid input", {
   # create data
   data(iris)

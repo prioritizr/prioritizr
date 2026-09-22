@@ -32,6 +32,7 @@ SEXP rcpp_copy_optimization_problem(SEXP x) {
     x_ptr->_vtype,
     x_ptr->_row_ids,
     x_ptr->_col_ids,
+    x_ptr->_obj_id,
     x_ptr->_compressed_formulation
   );
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> y_ptr =
@@ -64,9 +65,10 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
     Rcpp::as<std::vector<std::string>>(l["row_ids"]);
   std::vector<std::string> col_ids =
     Rcpp::as<std::vector<std::string>>(l["col_ids"]);
+   std::string obj_id = Rcpp::as<std::string>(l["obj_id"]);
   OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(
     modelsense, number_of_features, number_of_planning_units, number_of_zones,
-    A_i, A_j, A_x, obj, lb, ub, rhs, sense, vtype, row_ids, col_ids,
+    A_i, A_j, A_x, obj, lb, ub, rhs, sense, vtype, row_ids, col_ids, obj_id,
     compressed_formulation
   );
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
@@ -98,7 +100,9 @@ Rcpp::List rcpp_optimization_problem_as_list(SEXP x) {
     Rcpp::Named("sense") = ptr->_sense,
     Rcpp::Named("vtype") = ptr->_vtype,
     Rcpp::Named("row_ids") = ptr->_row_ids,
-    Rcpp::Named("col_ids") = ptr->_col_ids);
+    Rcpp::Named("col_ids") = ptr->_col_ids,
+    Rcpp::Named("obj_id") = ptr->_obj_id
+  );
 }
 
 // [[Rcpp::export]]
@@ -179,6 +183,11 @@ std::vector<std::string> rcpp_get_optimization_problem_col_ids(SEXP x) {
 // [[Rcpp::export]]
 std::vector<std::string> rcpp_get_optimization_problem_row_ids(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_row_ids);
+}
+
+// [[Rcpp::export]]
+std::string rcpp_get_optimization_problem_obj_id(SEXP x) {
+  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_obj_id);
 }
 
 // [[Rcpp::export]]

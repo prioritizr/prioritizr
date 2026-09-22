@@ -4,7 +4,6 @@
 \alias{zones}
 \alias{Zones-class}
 \alias{ZonesCharacter}
-\alias{ZonesRaster}
 \alias{ZonesSpatRaster}
 \alias{Zones}
 \title{Management zones}
@@ -66,7 +65,7 @@ zone. Note that these columns must not contain any missing (\code{NA}) values.
 }
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load planning unit data
 sim_pu_raster <- get_sim_pu_raster()
 

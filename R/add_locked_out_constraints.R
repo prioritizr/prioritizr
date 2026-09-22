@@ -30,7 +30,7 @@ NULL
 #'
 #' @family constraints
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'
@@ -178,7 +178,7 @@ NULL
 #'
 #' @exportMethod add_locked_out_constraints
 #'
-#' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,SpatRaster-method add_locked_out_constraints,ConservationProblem,Spatial-method add_locked_out_constraints,ConservationProblem,sf-method
+#' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,SpatRaster-method add_locked_out_constraints,ConservationProblem,sf-method
 #'
 #' @export
 methods::setGeneric(
@@ -191,10 +191,7 @@ methods::setGeneric(
       is_conservation_problem(x),
       is_inherits(
         locked_out,
-        c(
-          "character", "numeric", "logical",
-          "matrix", "sf", "SpatRaster", "Spatial", "Raster"
-        )
+        c("character", "numeric", "logical", "matrix", "sf", "SpatRaster")
       )
     )
     standardGeneric("add_locked_out_constraints")
@@ -308,11 +305,11 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_zones() == length(locked_out)
     )
     assert(
-      inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
+      inherits(x$data$cost, c("data.frame", "sf")),
       msg = paste(
         "{.arg locked_out} can only be a character vector, if the",
         "planning unit data for {.arg x} is a",
-        "{.cls sf}, {.cls Spatial}, or data frame."
+        "{.cls sf} object or data frame."
       )
     )
     assert(
@@ -337,20 +334,6 @@ methods::setMethod("add_locked_out_constraints",
     # add constraints
     add_locked_out_constraints(
       x, as.matrix(as.data.frame(x$data$cost)[, locked_out, drop = FALSE])
-    )
-  }
-)
-
-#' @name add_locked_out_constraints
-#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
-#' @rdname add_locked_out_constraints
-methods::setMethod("add_locked_out_constraints",
-  methods::signature("ConservationProblem", "Spatial"),
-  function(x, locked_out) {
-    cli_warning(sp_pkg_deprecation_notice)
-    add_locked_out_constraints(
-      x,
-      suppressWarnings(sf::st_as_sf(locked_out))
     )
   }
 )
@@ -396,17 +379,6 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
-#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
-#' @rdname add_locked_out_constraints
-methods::setMethod("add_locked_out_constraints",
-  methods::signature("ConservationProblem", "Raster"),
-  function(x, locked_out) {
-    cli_warning(raster_pkg_deprecation_notice)
-    add_locked_out_constraints(x, terra::rast(locked_out))
-  }
-)
-
-#' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,SpatRaster}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
@@ -434,7 +406,7 @@ methods::setMethod("add_locked_out_constraints",
     )
     # create matrix with statuses
     if (
-      inherits(x$data$cost, c("SpatRaster", "Raster")) &&
+      inherits(x$data$cost, "SpatRaster") &&
       isTRUE(x$number_of_zones() > 1)
     ) {
       status <- vapply(

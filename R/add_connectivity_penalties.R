@@ -173,7 +173,7 @@ NULL
 #' reserve network selection. *Proceedings of the Royal Society of London.*
 #' *Series B: Biological Sciences*, 269: 2437--2441.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'

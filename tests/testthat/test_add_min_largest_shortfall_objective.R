@@ -46,7 +46,7 @@ test_that("compile (compressed formulation, single zone)", {
   expect_true(all(o$ub() == 1))
 })
 
-test_that("solution (compressed formulation, single zone)", {
+test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
   # create data
@@ -167,6 +167,68 @@ test_that("solution (expanded formulation, single zone)", {
   s <- solve(p, compressed_formulation = FALSE)
   # tests
   expect_equal(c(terra::values(s)), c(0, 1, 1, NA))
+})
+
+test_that("compile (compressed formulation, single zone, budget = NULL)", {
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # calculate targets data
+  targ <- floor(
+    terra::global(sim_features, "sum", na.rm = TRUE)[[1]] * 0.25
+  )
+  targ[2] <- 0
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_largest_shortfall_objective(budget = NULL) %>%
+    add_absolute_targets(targ) %>%
+    add_binary_decisions()
+  o <- compile(p)
+  # calculations for tests
+  n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
+  n_f <- terra::nlyr(sim_features)
+  # tests
+  expect_equal(o$modelsense(), "min")
+  expect_equal(o$obj(), c(rep(0, n_pu), 1))
+  expect_equal(o$sense(), rep(">=", n_f))
+  expect_equal(o$rhs(), targ)
+  expect_equal(
+    o$col_ids(),
+    c(rep("pu", n_pu), "max_shortfall")
+  )
+  expect_equal(
+    o$row_ids(),
+    rep("spp_target", n_f)
+  )
+  expect_true(
+    all(o$A()[seq_len(n_f), seq_len(n_pu)] == p$data$rij_matrix[[1]])
+  )
+  expect_equal(o$A()[seq_len(n_f), n_pu + 1], targ)
+  expect_true(all(o$lb() == 0))
+  expect_true(all(o$ub() == 1))
+})
+
+test_that("solve (compressed formulation, single zone, budget = NULL)", {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # import data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # create problem
+  p <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_min_largest_shortfall_objective(budget = NULL) %>%
+    add_relative_targets(1) %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # solve problem
+  s <- solve(p, run_checks = FALSE)
+  # run tests
+  expect_inherits(s, "SpatRaster")
+  expect_equal(
+    terra::global(s, "sum", na.rm = TRUE)[[1]],
+    terra::global(s, "notNA")[[1]]
+  )
 })
 
 test_that("invalid inputs (single zone)", {

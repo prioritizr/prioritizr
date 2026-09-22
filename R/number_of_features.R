@@ -12,7 +12,7 @@ NULL
 #'
 #' @return An `integer` value.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()
@@ -81,13 +81,6 @@ number_of_features.OptimizationProblem <- function(x, ...) {
 #' @export
 number_of_features.ZonesSpatRaster <- function(x, ...) {
   terra::nlyr(x[[1]])
-}
-
-#' @rdname number_of_features
-#'
-#' @export
-number_of_features.ZonesRaster <- function(x, ...) {
-  raster::nlayers(x[[1]])
 }
 
 #' @rdname number_of_features

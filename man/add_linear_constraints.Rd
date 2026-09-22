@@ -7,7 +7,6 @@
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,dgCMatrix-method}
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,character-method}
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,numeric-method}
-\alias{add_linear_constraints,ConservationProblem,ANY,ANY,Raster-method}
 \alias{add_linear_constraints,ConservationProblem,ANY,ANY,SpatRaster-method}
 \title{Add linear constraints}
 \usage{
@@ -18,8 +17,6 @@
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,matrix}(x, threshold, sense, data)
 
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,Matrix}(x, threshold, sense, data)
-
-\S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,Raster}(x, threshold, sense, data)
 
 \S4method{add_linear_constraints}{ConservationProblem,ANY,ANY,SpatRaster}(x, threshold, sense, data)
 
@@ -138,7 +135,7 @@ contain a layer for each zone.
 }
 
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()

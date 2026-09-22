@@ -13,9 +13,6 @@ feature_names(x, ...)
 # S3 method for class 'MultiConservationProblem'
 feature_names(x, ...)
 
-# S3 method for class 'ZonesRaster'
-feature_names(x, ...)
-
 # S3 method for class 'ZonesSpatRaster'
 feature_names(x, ...)
 

@@ -11,22 +11,10 @@ and share a greater boundary are associated with greater connectivity.
 ``` r
 connectivity_matrix(x, y, ...)
 
-# S4 method for class 'Spatial,Raster'
-connectivity_matrix(x, y, ...)
-
-# S4 method for class 'Spatial,character'
-connectivity_matrix(x, y, ...)
-
 # S4 method for class 'sf,character'
 connectivity_matrix(x, y, ...)
 
-# S4 method for class 'sf,Raster'
-connectivity_matrix(x, y, ...)
-
 # S4 method for class 'sf,SpatRaster'
-connectivity_matrix(x, y, ...)
-
-# S4 method for class 'Raster,Raster'
 connectivity_matrix(x, y, ...)
 
 # S4 method for class 'SpatRaster,SpatRaster'

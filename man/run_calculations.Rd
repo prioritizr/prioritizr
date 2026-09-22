@@ -26,7 +26,7 @@ anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use t
 \verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()

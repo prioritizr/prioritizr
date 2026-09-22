@@ -4,7 +4,6 @@
 \alias{zone_names}
 \alias{zone_names.ConservationProblem}
 \alias{zone_names.MultiConservationProblem}
-\alias{zone_names.ZonesRaster}
 \alias{zone_names.ZonesSpatRaster}
 \alias{zone_names.ZonesCharacter}
 \title{Zone names}
@@ -14,8 +13,6 @@ zone_names(x, ...)
 \method{zone_names}{ConservationProblem}(x, ...)
 
 \method{zone_names}{MultiConservationProblem}(x, ...)
-
-\method{zone_names}{ZonesRaster}(x, ...)
 
 \method{zone_names}{ZonesSpatRaster}(x, ...)
 
@@ -33,7 +30,7 @@ A \code{character} vector of zone names.
 Extract the names of zones in an object.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_zones_pu_raster <- get_sim_zones_pu_raster()
 sim_zones_features <- get_sim_zones_features()

@@ -118,7 +118,7 @@ NULL
 #' protected and conserved area planning. *Nature Reviews Biodiversity*,
 #' \doi{10.1038/s44358-026-00169-7}.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

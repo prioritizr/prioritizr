@@ -87,7 +87,8 @@ l <- list(
   sense = c(">=", ">="),
   vtype = c("B", "B", "B"),
   row_ids = c("spp_target", "spp_target"),
-  col_ids = c("pu", "pu", "pu")
+  col_ids = c("pu", "pu", "pu"),
+  obj_id = "min_set"
 )
 
 # create fully formulated object based on lists

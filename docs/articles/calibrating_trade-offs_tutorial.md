@@ -442,7 +442,9 @@ p1 <-
       add_binary_decisions(),
     boundary_obj =
       problem(tas_pu, tas_features, cost_column = "cost") %>%
-      add_min_penalties_objective() %>%
+      # note that we use budget = NULL so that the boundary objective
+      # does not have a limit to the maximum expenditure
+      add_min_penalties_objective(budget = NULL) %>%
       # note that we use penalty = 1 here so that trade-offs will
       # subsequently be specified by prelim_weights
       add_boundary_penalties(penalty = 1, data = tas_bd) %>%

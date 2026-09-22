@@ -30,13 +30,7 @@ add_locked_in_constraints(x, locked_in)
 # S4 method for class 'ConservationProblem,character'
 add_locked_in_constraints(x, locked_in)
 
-# S4 method for class 'ConservationProblem,Spatial'
-add_locked_in_constraints(x, locked_in)
-
 # S4 method for class 'ConservationProblem,sf'
-add_locked_in_constraints(x, locked_in)
-
-# S4 method for class 'ConservationProblem,Raster'
 add_locked_in_constraints(x, locked_in)
 
 # S4 method for class 'ConservationProblem,SpatRaster'

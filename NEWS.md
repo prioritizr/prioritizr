@@ -1,3 +1,52 @@
+# prioritizr 9.0.1
+
+## Major changes
+
+- Deprecate support for _raster_ and _sp_ package data classes (#411).
+  This change was made to reduce memory requirements for loading the package
+  and, in turn, make it easier to deploy web applications that use the
+  package on cloud environments.
+- The _ape_ and _igraph_ packages are now optional dependencies (#411).
+  These packages may need to be manually installed to use the
+  `add_contiguity_constraints()`, `add_feature_contiguity_constraints()`,
+  `add_max_phylo_div_objective()`, `add_max_phylo_end_objective()`,
+  `branch_matrix()`, and `get_sim_phylogeny()` functions.
+
+## Minor improvements and bug fixes
+
+- Update `add_max_cover_objective()`, `add_max_phylo_div_objective()`,
+  `add_max_wtd_sum_objective()`, `add_min_largest_shortfall_objective()`,
+  `add_min_penalties_objective()`, `add_min_shortfall_objective()` so that
+  `budget = NULL` can be used to specify that no budget should be set
+  during optimization (#406). Note that this functionality is intended for
+  use in multi-objective optimization problems with `multi_problem()`, and
+  attempting to solve a `problem()` that has one of these objectives
+  with `budget = NULL` outside of a `multi_problem()` will cause the
+  presolve checks to fail.
+- Update `solve()` to throw a helpful error message if attempting to solve
+  a `multi_problem()` object that does not have a specified multi-objective
+  optimization approach.
+- Update `solve()` to throw a helpful error message if attempting to solve
+  a `multi_problem()` object that contains `problem()` objects that have
+  conflicting locked constraints.
+- Fix `add_highs_solver()` to ensure that solution specified by
+  `start_solution` is actually used during optimization.
+- Fix compatibility issues with developmental changes to `structure()` in _R_.
+
+## Documentation updates
+
+- Update _Publication record_ vignette (#407). Thanks to Wen Wen (\@wwen03) for
+  the suggestion.
+- Update `add_gurobi_solver()` and _Gurobi_ installation guide (#404, #405). The
+  documentation now refers users to the _Gurobi Gives Back_ programme.
+  Additionally, the installation guide now provides links to walk-through
+  video recordings and platform agnostic _R_ code for installing the _gurobi R_
+  package. Thanks to Silke Horn for the suggestion.
+- New _Software extensions_ vignette to describe packages that can enhance
+  _prioritizr_ usage (#410). Thanks to Aboozar Mohammadi (\@AboozarM), Christos
+  Adam (\@cadam00), Frankie Cho (\@frankiecho), Jason Flower (\@jflowernet),
+  Pablo Merlo (\@PJMerlo), and Anthony Richardson (\@ric325) for contributing.
+
 # prioritizr 9.0.0.1
 
 ## New features
@@ -9,7 +58,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 9.0.0.0
 
@@ -20,8 +69,8 @@
   new `add_hier_approach()`, `add_ref_point_approach()`, and
   `add_wtd_sum_approach()` functions for specifying approaches to solve
   multi-objective problems. For more information on this functionality, see
-  `?approaches` and the Calibrating trade-offs vignette. To help explore trade-
-  offs with these approaches, the `approach_weights_matrix()` and
+  `?approaches` and the _Calibrating trade-offs_ vignette. To help explore
+  trade-offs with these approaches, the `approach_weights_matrix()` and
   `approach_rel_tol_matrix()` functions can be used to generate multiple
   combinations of trade-offs parameters.
 - New `add_cost_penalties()` and `add_cost_constraints()` functions that
@@ -129,13 +178,13 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.1.0.2
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.1.0.1
 
@@ -150,7 +199,7 @@
 - Update README with video and materials for the _prioritizr_ workshop as part
   of the Statistical Methods Webinar series by the Ecological Forecasting
   Initiative and ESA Statistical Ecology Section.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.1.0
 
@@ -245,9 +294,9 @@
 
 - Update `?targets` to provide a comprehensive overview of the target functions.
 - Update `boundary_matrix()` function documentation with better example.
-- Fix incorrect text in Management Zones vignette (#382). Thanks to
+- Fix incorrect text in _Management Zones_ vignette (#382). Thanks to
   Anthony Richardson (\@ric325) for bug report.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.6.8
 
@@ -332,11 +381,13 @@
   `numeric_focus` parameter.
 - Fix typo in equation for `add_max_utility_objective()` (#373). Thanks to
   Anthony Richardson (\@ric325) for bug report.
-- Update Calibrating trade-offs vignette with new `calibrate_cohon_penalty()`
+- Update _Calibrating trade-offs_ vignette with new `calibrate_cohon_penalty()`
   function.
-- Update package overview vignette with new `add_neighbor_penalties()` function.
-- Update solver benchmarks vignette to remove unnecessary package dependencies.
-- Update publication record.
+- Update _Package overview_ vignette with new `add_neighbor_penalties()`
+  function.
+- Update _Solver benchmarks_ vignette to remove unnecessary package
+  dependencies.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.6.6
 
@@ -349,7 +400,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.6.5
 
@@ -401,7 +452,7 @@
 - Update documentation for `eval_rank_importance()`.
 - Standardize terminology for referring to "cells" in raster data. Previously,
   some parts of the documentation referred to them as pixels.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.6.3
 
@@ -412,7 +463,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.6.2
 
@@ -439,7 +490,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 - Update package citation.
 
 # prioritizr 8.0.6
@@ -491,12 +542,12 @@
 
 ## Documentation updates
 
-- Update Package overview and Calibrating trade-offs vignettes with information
-  on the `add_min_penalties_objective()` function.
+- Update _Package overview_ and _Calibrating trade-offs_ vignettes with
+  information on the `add_min_penalties_objective()` function.
 - Update `add_max_utility_objective()` documentation to make it clear that
   the function is simply maximizing a weighted sum of the features.
-- Update publication record.
-- Update Calibrating trade-offs vignette to improve internal logic for
+- Update _Publication record_ vignette.
+- Update _Calibrating trade-offs_ vignette to improve internal logic for
   determining the best guess penalty value for preliminary prioritizations.
 - Small documentation improvements. Thanks to Sandra Neubert (\@sandra-neubert).
 
@@ -522,7 +573,7 @@
 ## Documentation updates
 
 - Fix DOI for citation.
-- Fix citations in package overview vignette and package manual entry to
+- Fix citations in _Package overview_ vignette and package manual entry to
   pass package checks.
 
 # prioritizr 8.0.4.4
@@ -592,7 +643,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 - Fix cross-reference linking issues to classes in other packages (#340).
 
 # prioritizr 8.0.4.1
@@ -667,7 +718,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.3.5
 
@@ -695,7 +746,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 - Update package-level manual entry.
 - Update URLs.
 
@@ -713,7 +764,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.3.3
 
@@ -727,7 +778,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.3.2
 
@@ -743,7 +794,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.3
 
@@ -794,7 +845,7 @@
 - Update examples and vignettes to use the `rescale_matrix()` function
   instead of the `scales::rescale()` function for rescaling boundary
   length and connectivity data (#297).
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.2.6
 
@@ -850,7 +901,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.2.3
 
@@ -861,7 +912,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.2.2
 
@@ -871,7 +922,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.2.1
 
@@ -883,7 +934,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.2
 
@@ -977,7 +1028,7 @@
 
 - Assorted tweaks to improve writing in the vignettes and documentation.
   Many thanks to Marc Edwards (\@edwardsmarc) for code contribution!
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 8.0.1
 
@@ -999,19 +1050,19 @@
 ## Documentation updates
 
 - Update README badges.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.2.6
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.2.5
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.2.4
 
@@ -1049,7 +1100,7 @@
 ## Documentation updates
 
 - Fix mistake in `NEWS.md`.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.2
 
@@ -1111,19 +1162,19 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.0.6
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.0.5
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.0.4
 
@@ -1162,7 +1213,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.2.0.0
 
@@ -1199,26 +1250,26 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 - Update URLs in publication record so that they pass CRAN checks.
 
 # prioritizr 7.1.1.12
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.1.11
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.1.10
 
 ## Documentation updates
 
-- Update publication vignette.
+- Update _Publication record_ vignette.
 - Fix URLs.
 - Improve documentation for the `zones` parameter of the
   `add_connectivity_penalties()` function.
@@ -1241,7 +1292,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 - Update reference index for package website.
 - Fix minor typos in vignettes.
 
@@ -1259,7 +1310,7 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.1.5
 
@@ -1287,13 +1338,13 @@
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.1.2
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.1.1
 
@@ -1325,8 +1376,8 @@
 ## Documentation updates
 
 - Update documentation with information about Ferrier importance scores.
-- Update Gurobi Installation guide vignette.
-- Update benchmark vignette.
+- Update _Gurobi installation guide_ vignette.
+- Update _Solver benchmarks_ vignette.
 
 # prioritizr 7.1.0.3
 
@@ -1348,7 +1399,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.1.0.0
 
@@ -1368,26 +1419,26 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
   details to dedicated sections, providing more links in the See also sections,
   fixing text formatting for the `eval_connectivity_summary()` function,
   and tweaking the header in the README.
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.0.1.5
 
 ## Documentation updates
 
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.0.1.4
 
 ## Documentation updates
 
 - Update documentation and examples for `problem()` function.
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.0.1.3
 
 ## Documentation updates
 
-- New solver benchmark vignette.
+- New _Solver benchmarks_ vignette.
 
 # prioritizr 7.0.1.2
 
@@ -1428,7 +1479,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 ## Documentation updates
 
 - Fix typo in `rij_matrix()` function documentation (#189).
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.0.0.6
 
@@ -1457,7 +1508,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 7.0.0.3
 
@@ -1523,7 +1574,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
   described for the `gap` parameter is correct. We apologize for any
   inconvenience this may have caused.
 - Update documentation for solvers to provide more detailed information.
-- Update publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 6.0.0.1
 
@@ -1587,7 +1638,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 ## Documentation updates
 
 - Add NEWS to build process (#173).
-- Update publication vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 5.0.3.2
 
@@ -1615,7 +1666,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 - Fix URLs for CRAN checks.
 
 # prioritizr 5.0.2.6
@@ -1633,7 +1684,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - Update Tasmania vignette to remove superfluous warnings (#168). Thanks to
   Jason Flower (\@jflowernet) for bug report.
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 5.0.2.5
 
@@ -1655,7 +1706,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 - Update `add_gap_portfolio()` documentation to note that it only works for
   problems with binary decisions (#159). Thanks to \@kkemink for report.
 
@@ -1663,13 +1714,13 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 5.0.2.2
 
 ## Documentation updates
 
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 5.0.2.1
 
@@ -1695,8 +1746,9 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 ## Documentation updates
 
 - Fix small typos in documentation.
-- Update citation for Scriven et al. (2020) in the Publication Record vignette.
-- Update Salt Spring Island vignette with Ferrier method for calculating
+- Update citation for Scriven et al. (2020) in the _Publication record_
+  vignette.
+- Update _Salt Spring Island_ vignette with Ferrier method for calculating
   irreplaceability scores and adjust for changes in cost data.
 - Update examples to run with CRAN checks (i.e. `--run-donttest`).
 
@@ -1728,8 +1780,8 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 - Update `connectivity_matrix()` documentation to provide an example of how
   to generate connectivity matrices that account for functional connectivity.
 - Add more information to the documentation for the `solve()` function.
-- Add links to the documentation for the `solve()` function to the Salt Spring
-  Island and Tasmania vignettes.
+- Add links to the documentation for the `solve()` function to the
+  _Salt Spring Island_ and _Tasmania_ vignettes.
 
 # prioritizr 5.0.1.3
 
@@ -1742,9 +1794,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Add Schuster _et al._ (2020) to publication record.
-- Update Hanson _et al._ (2020) in publication record.
-- Update Flower _et al._ (2020) in publication record.
+- Update _Publication record_ vignette.
 
 # prioritizr 5.0.1.1
 
@@ -1978,7 +2028,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 ## Documentation updates
 
 - Add `add_max_phylo_end_objective()`, `replacement_cost()`, and
-  `rarity_weighted_richness()` functions to the Prioritizr vignette.
+  `rarity_weighted_richness()` functions to the _Prioritizr_ vignette.
 - Update examples for `add_max_phylo_div_objective()` function.
 - Prettify equations in the documentation for objective functions.
 
@@ -2097,7 +2147,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
   suggestion.
 - Fix several typos in documentation.
 - Thrown warnings are now immediately visible.
-- Update references in the publication record vignette.
+- Update references in the _Publication record_ vignette.
 - Specify English (US) in the DESCRIPTION file.
 
 # prioritizr 4.0.4
@@ -2159,7 +2209,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Add Domisch _et al._ (2019) to publication record vignette.
+- Add Domisch _et al._ (2019) to _Publication record_ vignette.
 
 # prioritizr 4.0.2.11
 
@@ -2178,7 +2228,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Update publication record vignette.
+- Update _Publication record_ vignette.
 
 # prioritizr 4.0.2.8
 
@@ -2207,8 +2257,8 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Add the `add_mandatory_allocation_constraints()` to the Management Zones and
-  Prioritizr vignettes.
+- Add the `add_mandatory_allocation_constraints()` to the _Management Zones_ and
+  _Prioritizr_ vignettes.
 
 # prioritizr 4.0.2.6
 
@@ -2702,7 +2752,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 - Broad-scale improvements to documentation.
 - Fix documentation for `add_max_phylo_objective()` (#24).
-- Update Gurobi Installation vignette.
+- Update _Gurobi installation guide_ vignette.
 - URLs for _lpsymphony_ on Bioconductor now use the package's DOI.
 - Add more comprehensive tests to portfolios.
 
@@ -2720,7 +2770,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Included vignette on Gurobi solver installation and testing.
+- New _Gurobi installation guide_ vignette.
 
 # prioritizr 2.0.1.0
 

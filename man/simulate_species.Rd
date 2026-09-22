@@ -2,15 +2,9 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_species}
 \alias{simulate_species}
-\alias{simulate_species.Raster}
-\alias{simulate_species.SpatRaster}
 \title{Simulate species habitat suitability data}
 \usage{
-simulate_species(x, n, scale)
-
-\method{simulate_species}{Raster}(x, n = 1, scale = 0.5)
-
-\method{simulate_species}{SpatRaster}(x, n = 1, scale = 0.5)
+simulate_species(x, n = 1, scale = 0.5)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
@@ -29,7 +23,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with values between zero and on
 Generates simulated species data using Gaussian random fields.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1

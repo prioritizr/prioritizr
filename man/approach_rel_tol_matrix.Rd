@@ -54,7 +54,7 @@ solutions with the hierarchical approach for multi-objective optimization
 (i.e., the \code{rel_tol} parameter of \code{\link[=add_hier_approach]{add_hier_approach()}}).
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # in this example, we aim to identify a set of planning units that will
 # not exceed a particular budget and meet objectives for
 # (i) representing species that are important for ecosystem

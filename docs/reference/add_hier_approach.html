@@ -33,7 +33,7 @@ adequate performance according to higher priority problem() objects."><meta prop
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@ adequate performance according to higher priority problem() objects."><meta prop
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/package_overview.html">Package overview</a></li>
     <li><a class="dropdown-item" href="../articles/gurobi_installation_guide.html">Gurobi installation guide</a></li>
     <li><a class="dropdown-item" href="../articles/solver_benchmarks.html">Solver benchmarks</a></li>
+    <li><a class="dropdown-item" href="../articles/software_extensions.html">Software extensions</a></li>
     <li><a class="dropdown-item" href="../articles/publication_record.html">Publication record</a></li>
   </ul></li>
 <li class="nav-item dropdown">
@@ -445,9 +446,8 @@ for <code>rel_tol</code>.</p>
 <span class="r-in"><span><span class="co"># solve multi-objective problem and remove duplicate solutions</span></span></span>
 <span class="r-in"><span><span class="va">ms2</span> <span class="op">&lt;-</span> <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">mp2</span>, remove_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■                           </span> | 3/20 |  15% | ETA: 8s</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■                         </span> | 4/20 |  20% | ETA: 7s</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■               </span> | 11/20 |  55% | ETA: 4s</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■    </span> | 18/20 |  90% | ETA: 1s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■                 </span> | 9/20 |  45% | ETA: 5s</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■       </span> | 16/20 |  80% | ETA: 2s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Generating solutions <span style="color: #00BB00;">■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ </span> | 20/20 | 100% | ETA: 0s</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Found <span style="color: #0000BB;">7</span> out of the requested <span style="color: #0000BB;">20</span> non-duplicate solutions.</span>
 <span class="r-in"><span></span></span>
@@ -490,7 +490,7 @@ for <code>rel_tol</code>.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

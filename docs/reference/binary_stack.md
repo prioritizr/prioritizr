@@ -11,12 +11,6 @@ value. This is methodology is also known as "one-hot encoding".
 
 ``` r
 binary_stack(x, keep_all = TRUE)
-
-# S3 method for class 'Raster'
-binary_stack(x, keep_all = TRUE)
-
-# S3 method for class 'SpatRaster'
-binary_stack(x, keep_all = TRUE)
 ```
 
 ## Arguments

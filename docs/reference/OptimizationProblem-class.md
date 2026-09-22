@@ -75,6 +75,8 @@ Other classes:
 
 - [`OptimizationProblem$row_ids()`](#method-OptimizationProblem-row_ids)
 
+- [`OptimizationProblem$obj_id()`](#method-OptimizationProblem-obj_id)
+
 - [`OptimizationProblem$compressed_formulation()`](#method-OptimizationProblem-compressed_formulation)
 
 - [`OptimizationProblem$shuffle_columns()`](#method-OptimizationProblem-shuffle_columns)
@@ -362,6 +364,20 @@ Obtain the identifiers for the rows.
 #### Usage
 
     OptimizationProblem$row_ids()
+
+#### Returns
+
+A `character` value.
+
+------------------------------------------------------------------------
+
+### `OptimizationProblem$obj_id()`
+
+Obtain the identifiers for the rows.
+
+#### Usage
+
+    OptimizationProblem$obj_id()
 
 #### Returns
 

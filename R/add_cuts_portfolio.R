@@ -43,7 +43,7 @@ NULL
 #' efficiency, and accountability: adapting reserve selection algorithms to
 #' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(500)
 #'

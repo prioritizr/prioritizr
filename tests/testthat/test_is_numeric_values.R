@@ -42,17 +42,3 @@ test_that("x = sf", {
   expect_false(is_numeric_values(y))
   expect_error(assert(is_numeric_values(y)), "non-numeric")
 })
-
-test_that("x = Spatial", {
-  # create data
-  g <- sf::st_sfc(list(sf::st_point(c(1, 0)), sf::st_point(c(0, 1))))
-  x <- sf::st_as_sf(tibble::tibble(x = c(0, NA), y = c(0, 1), geom = g))
-  y <- sf::st_as_sf(tibble::tibble(x = c(0, 2), y = c("a", "b"), geom = g))
-  # tests
-  expect_true(is_numeric_values(sf::as_Spatial(x)))
-  expect_false(is_numeric_values(sf::as_Spatial(y)))
-  expect_error(
-    assert(is_numeric_values(sf::as_Spatial(y))),
-    "non-numeric"
-  )
-})

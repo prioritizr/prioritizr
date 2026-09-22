@@ -45,7 +45,7 @@ NULL
 #.
 #' @family importances
 #'
-#' @examplesIf prioritizr::do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example()
 #' # set seed for reproducibility
 #' set.seed(600)
 #'
@@ -119,10 +119,7 @@ eval_rare_richness_importance <- function(x, solution, rescale = TRUE) {
     is_conservation_problem(x),
     is_inherits(
       solution,
-      c(
-        "numeric", "data.frame", "matrix", "sf", "SpatRaster",
-        "Spatial", "Raster"
-      )
+      c("numeric", "data.frame", "matrix", "sf", "SpatRaster")
     ),
     assertthat::is.flag(rescale),
     assertthat::noNA(rescale)

@@ -2,15 +2,9 @@
 % Please edit documentation in R/binary_stack.R
 \name{binary_stack}
 \alias{binary_stack}
-\alias{binary_stack.Raster}
-\alias{binary_stack.SpatRaster}
 \title{Binary stack}
 \usage{
 binary_stack(x, keep_all = TRUE)
-
-\method{binary_stack}{Raster}(x, keep_all = TRUE)
-
-\method{binary_stack}{SpatRaster}(x, keep_all = TRUE)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object with a single layer that contains integer
@@ -43,7 +37,7 @@ It is essentially a wrapper for \code{\link[terra:segregate]{terra::segregate()}
 Note that this function assumes \code{x} contains integer values.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster with categorical values
 x <- terra::rast(matrix(c(1, 2, 4, 0, NA, 1), nrow = 3))
 

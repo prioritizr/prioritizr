@@ -42,18 +42,8 @@ all_positive.matrix <- function(x) {
 }
 
 #' @export
-all_positive.Raster <- function(x) {
-  all_positive(terra::rast(x))
-}
-
-#' @export
 all_positive.SpatRaster <- function(x) {
   all_positive(terra::minmax(x, compute = TRUE)[1, ])
-}
-
-#' @export
-all_positive.ZonesRaster <- function(x) {
-  all_positive(terra::rast(raster::stack(raster::as.list(x))))
 }
 
 #' @export
@@ -61,15 +51,9 @@ all_positive.ZonesSpatRaster <- function(x) {
   all_positive(terra::rast(terra::as.list(x)))
 }
 
-
 #' @export
 all_positive.data.frame <- function(x) {
   all(vapply(x, all_positive, logical(1)))
-}
-
-#' @export
-all_positive.Spatial <- function(x) {
-  all(vapply(x@data, all_positive, logical(1)))
 }
 
 #' @export

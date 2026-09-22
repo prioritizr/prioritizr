@@ -81,7 +81,8 @@ NULL
 #'   sense = c(">=", ">="),
 #'   vtype = c("B", "B", "B"),
 #'   row_ids = c("spp_target", "spp_target"),
-#'   col_ids = c("pu", "pu", "pu")
+#'   col_ids = c("pu", "pu", "pu"),
+#'   obj_id = "min_set"
 #' )
 #'
 #' # create fully formulated object based on lists
@@ -143,7 +144,9 @@ optimization_problem <- function(x = NULL) {
       length(x$A_i) == length(x$A_j),
       is.numeric(x$A_x),
       all_finite(x$A_x),
-      length(x$A_i) == length(x$A_x)
+      length(x$A_i) == length(x$A_x),
+      assertthat::is.string(x$obj_id),
+      assertthat::noNA(x$obj_id)
     )
     ptr <- rcpp_predefined_optimization_problem(x)
   }

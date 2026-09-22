@@ -2,15 +2,9 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_cost}
 \alias{simulate_cost}
-\alias{simulate_cost.Raster}
-\alias{simulate_cost.SpatRaster}
 \title{Simulate cost data}
 \usage{
-simulate_cost(x, n, intensity, sd, scale)
-
-\method{simulate_cost}{Raster}(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
-
-\method{simulate_cost}{SpatRaster}(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
+simulate_cost(x, n = 1, intensity = 100, sd = 20, scale = 2.5)
 }
 \arguments{
 \item{x}{\code{\link[terra:rast]{terra::rast()}} object to use as a template.}
@@ -35,7 +29,7 @@ A \code{\link[terra:rast]{terra::rast()}} object with integer values greater tha
 Generates simulated cost data using Gaussian random fields.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create raster
 r <- terra::rast(
   ncols = 10, nrows = 10, xmin = 0, xmax = 1, ymin = 0, ymax = 1, vals = 1

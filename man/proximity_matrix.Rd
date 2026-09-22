@@ -2,26 +2,14 @@
 % Please edit documentation in R/proximity_matrix.R
 \name{proximity_matrix}
 \alias{proximity_matrix}
-\alias{proximity_matrix.Raster}
 \alias{proximity_matrix.SpatRaster}
-\alias{proximity_matrix.SpatialPolygons}
-\alias{proximity_matrix.SpatialLines}
-\alias{proximity_matrix.SpatialPoints}
 \alias{proximity_matrix.sf}
 \alias{proximity_matrix.default}
 \title{Proximity matrix}
 \usage{
 proximity_matrix(x, distance)
 
-\method{proximity_matrix}{Raster}(x, distance)
-
 \method{proximity_matrix}{SpatRaster}(x, distance)
-
-\method{proximity_matrix}{SpatialPolygons}(x, distance)
-
-\method{proximity_matrix}{SpatialLines}(x, distance)
-
-\method{proximity_matrix}{SpatialPoints}(x, distance)
 
 \method{proximity_matrix}{sf}(x, distance)
 
@@ -52,7 +40,7 @@ spatial proximity to each other.
 Proximity calculations are performed using \code{\link[sf:st_is_within_distance]{sf::st_is_within_distance()}}.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_pu_polygons <- get_sim_pu_polygons()

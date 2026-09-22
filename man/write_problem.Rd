@@ -34,7 +34,7 @@ to a file for mixed integer programming solvers. Note that this function
 requires either the \pkg{Rsymphony} or \pkg{gurobi} package to be installed.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

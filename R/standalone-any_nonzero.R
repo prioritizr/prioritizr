@@ -17,15 +17,13 @@ any_nonzero <- function(x) UseMethod("any_nonzero")
 
 assertthat::on_failure(any_nonzero) <- function(call, env) {
   x <- eval(call$x, envir = env)
-  if (
-    inherits(x, c("SpatRaster", "ZonesSpatRaster", "Raster", "ZonesRaster"))
-  ) {
+  if (inherits(x, c("SpatRaster", "ZonesSpatRaster"))) {
     msg <- paste0(
       "{.arg ",
       deparse(call$x),
       "} must not have a layer with only zero values."
     )
-  } else if (inherits(x, c("data.frame", "sf", "Spatial"))) {
+  } else if (inherits(x, c("data.frame", "sf"))) {
     msg <- paste0(
       "{.arg ",
       deparse(call$x),
@@ -62,20 +60,10 @@ any_nonzero.matrix <- function(x) {
 }
 
 #' @export
-any_nonzero.Raster <- function(x) {
-  any_nonzero(terra::rast(x))
-}
-
-#' @export
 any_nonzero.SpatRaster <- function(x) {
   x <- terra::minmax(x, compute = TRUE)
   if (all(!is.finite(x))) return(TRUE)
   all(colSums(abs(x) > 1e-6, na.rm = TRUE) > 0)
-}
-
-#' @export
-any_nonzero.ZonesRaster <- function(x) {
-  any_nonzero(terra::rast(raster::stack(raster::as.list(x))))
 }
 
 #' @export
@@ -86,11 +74,6 @@ any_nonzero.ZonesSpatRaster <- function(x) {
 #' @export
 any_nonzero.data.frame <- function(x) {
   all(vapply(x, any_nonzero, logical(1)))
-}
-
-#' @export
-any_nonzero.Spatial <- function(x) {
-  all(vapply(x@data, any_nonzero, logical(1)))
 }
 
 #' @export

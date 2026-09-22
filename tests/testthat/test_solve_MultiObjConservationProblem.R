@@ -253,108 +253,6 @@ test_that("x = sf, y = ZonesCharacter (multiple zones)", {
   expect_equal(s$spp2_z2, costs$spp2_z2)
 })
 
-test_that("x = sf, y = RasterStack (single zone)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost <- c(1, 2, NA, 3)
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE, ncol = 2)),
-    terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE, ncol = 2))
-  )
-  weights <- c(0.3, 0.7)
-  # create multi-objective problem
-  expect_warning(
-    obj1 <-
-      problem(costs, raster::stack(spp), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(costs, raster::stack(spp), cost_column = "cost") %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "sf")
-  expect_true("solution_1" %in% names(s))
-  expect_true(all(s$solution_1 %in% c(0, 1, NA)))
-  expect_equal(s$cost, costs$cost)
-})
-
-test_that("x = sf, y = ZonesRaster (multiple zones)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost_1 <- c(1, 2, NA, 3, 100, 100, NA)
-  costs$cost_2 <- c(10, 10, 10, 10, 4, 1, NA)
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(1, 0, 0, 0, 1, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(0, 0, 0, 0, 0, 10, 0), ncol = 7))
-  )
-  weights <- c(0.4, 0.6)
-  # create multi-objective problem
-  expect_warning(
-    expect_warning(
-      obj1 <-
-        problem(
-          costs,
-          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-          cost_column = c("cost_1", "cost_2")
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    expect_warning(
-      obj2 <-
-        problem(
-          costs,
-          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-          cost_column = c("cost_1", "cost_2")
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "sf")
-  expect_true("solution_1_1" %in% names(s))
-  expect_true("solution_1_2" %in% names(s))
-  expect_true(all(s$solution_1_1 %in% c(0, 1, NA)))
-  expect_true(all(s$solution_1_2 %in% c(0, 1, NA)))
-})
-
 test_that("x = data.frame, y = data.frame (single zone)", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -600,326 +498,6 @@ test_that("numerical instability (solution when force = TRUE)", {
   expect_inherits(s, "sf")
 })
 
-test_that("x = RasterLayer, y = RasterStack (single zone)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(c(1, 2, NA, 3), ncol = 4))
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0), ncol = 4)),
-    terra::rast(matrix(c(NA, 0, 1, 1), ncol = 4))
-  )
-  names(spp) <- make.unique(names(spp))
-  weights <- c(0.3, 0.7)
-  # create multi-objective problem
-  expect_warning(
-    obj1 <-
-      problem(raster::raster(costs), raster::stack(spp)) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(raster::raster(costs), raster::stack(spp)) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "RasterLayer")
-  expect_true(all(c(raster::values(s)) %in% c(0, 1, NA)))
-  expect_true(is_comparable_raster(s, raster::raster(costs)))
-})
-
-test_that("x = RasterStack, y = ZonesRaster (multiple zones)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- c(
-    terra::rast(matrix(c(1, 2, NA, 3, 100, 100, NA), ncol = 7)),
-    terra::rast(matrix(c(10, 10, 10, 10, 4, 1, NA), ncol = 7))
-  )
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(1, 0, 0, 0, 1, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(0, 0, 0, 0, 0, 10, 0), ncol = 7))
-  )
-  names(spp) <- make.unique(names(spp))
-  weights <- c(0.4, 0.6)
-  # create multi-objective problem
-  expect_warning(
-    expect_warning(
-      obj1 <-
-        problem(
-          raster::stack(costs),
-          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]]))
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    expect_warning(
-      obj2 <-
-        problem(
-          raster::stack(costs),
-          zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]]))
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "RasterStack")
-  expect_true(all(c(raster::values(s[[1]])) %in% c(0, 1, NA)))
-  expect_true(all(c(raster::values(s[[2]])) %in% c(0, 1, NA)))
-})
-
-test_that("x = Spatial, y = character (single zone)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 4))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost <- c(1, 2, NA, 3)
-  costs$spp1 <- c(1, 2, 0, 0)
-  costs$spp2 <- c(NA, 0, 1, 1)
-  weights <- c(0.3, 0.7)
-  # create multi-objective problem
-  expect_warning(
-    obj1 <-
-      problem(
-        sf::as_Spatial(costs), c("spp1", "spp2"), cost_column = "cost"
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(
-        sf::as_Spatial(costs), c("spp1", "spp2"), cost_column = "cost"
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(c(1, 1)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <- multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "SpatialPolygonsDataFrame")
-  expect_true("solution_1" %in% names(s))
-  expect_true(all(s$solution_1 %in% c(0, 1, NA)))
-  expect_equal(s$cost, costs$cost)
-  expect_equal(s$spp1, costs$spp1)
-  expect_equal(s$spp2, costs$spp2)
-})
-
-test_that("x = Spatial, y = ZonesCharacter (multiple zones)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost_1 <- c(1, 2, NA, 3, 100, 100, NA)
-  costs$cost_2 <- c(10, 10, 10, 10, 4, 1, NA)
-  costs$spp1_z1 <- c(1, 2, 0, 0, 0, 0, 0)
-  costs$spp2_z1 <- c(NA, 0, 1, 1, 0, 0, 0)
-  costs$spp1_z2 <- c(1, 0, 0, 0, 1, 0, 0)
-  costs$spp2_z2 <- c(0, 0, 0, 0, 0, 10, 0)
-  weights <- c(0.4, 0.6)
-  # create multi-objective problem
-  expect_warning(
-    obj1 <-
-      problem(
-        sf::as_Spatial(costs),
-        zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  expect_warning(
-    obj2 <-
-      problem(
-        sf::as_Spatial(costs),
-        zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
-        cost_column = c("cost_1", "cost_2")
-      ) %>%
-      add_min_set_objective() %>%
-      add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-      add_binary_decisions(),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "SpatialPolygonsDataFrame")
-  expect_true("solution_1_1" %in% names(s))
-  expect_true("solution_1_2" %in% names(s))
-  expect_true(all(s$solution_1_1 %in% c(0, 1, NA)))
-  expect_true(all(s$solution_1_2 %in% c(0, 1, NA)))
-  expect_equal(s$cost_1, costs$cost_1)
-  expect_equal(s$cost_2, costs$cost_2)
-  expect_equal(s$spp1_z1, costs$spp1_z1)
-  expect_equal(s$spp2_z1, costs$spp2_z1)
-  expect_equal(s$spp1_z2, costs$spp1_z2)
-  expect_equal(s$spp2_z2, costs$spp2_z2)
-})
-
-test_that("x = Spatial, y = RasterStack (single zone)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:4, byrow = TRUE, ncol = 2))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost <- c(1, 2, NA, 3)
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0), byrow = TRUE, ncol = 2)),
-    terra::rast(matrix(c(NA, 0, 1, 1), byrow = TRUE, ncol = 2))
-  )
-  weights <- c(0.3, 0.7)
-  # create multi-objective problem
-  expect_warning(
-    expect_warning(
-      obj1 <-
-        problem(
-          sf::as_Spatial(costs), raster::stack(spp), cost_column = "cost"
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(c(1, 1)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    expect_warning(
-      obj2 <-
-        problem(
-          sf::as_Spatial(costs), raster::stack(spp), cost_column = "cost"
-        ) %>%
-        add_min_set_objective() %>%
-        add_absolute_targets(c(1, 1)) %>%
-        add_binary_decisions(),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "SpatialPolygonsDataFrame")
-  expect_true("solution_1" %in% names(s))
-  expect_true(all(s$solution_1 %in% c(0, 1, NA)))
-  expect_equal(s$cost, costs$cost)
-})
-
-test_that("x = Spatial, y = ZonesRaster (multiple zones)", {
-  skip_on_cran()
-  skip_if_no_fast_solvers_installed()
-  # create data
-  costs <- terra::rast(matrix(1:7, byrow = TRUE, ncol = 7))
-  costs <- sf::st_as_sf(terra::as.polygons(costs))
-  costs$cost_1 <- c(1, 2, NA, 3, 100, 100, NA)
-  costs$cost_2 <- c(10, 10, 10, 10, 4, 1, NA)
-  spp <- c(
-    terra::rast(matrix(c(1, 2, 0, 0, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(NA, 0, 1, 1, 0, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(1, 0, 0, 0, 1, 0, 0), ncol = 7)),
-    terra::rast(matrix(c(0, 0, 0, 0, 0, 10, 0), ncol = 7))
-  )
-  weights <- c(0.4, 0.6)
-  # create multi-objective problem
-  expect_warning(
-    expect_warning(
-      expect_warning(
-        obj1 <-
-          problem(
-            sf::as_Spatial(costs),
-            zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-            cost_column = c("cost_1", "cost_2")
-          ) %>%
-          add_min_set_objective() %>%
-          add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-          add_binary_decisions(),
-        "deprecated"
-      ),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    expect_warning(
-      expect_warning(
-        obj2 <-
-          problem(
-            sf::as_Spatial(costs),
-            zones(raster::stack(spp[[1:2]]), raster::stack(spp[[3:4]])),
-            cost_column = c("cost_1", "cost_2")
-          ) %>%
-          add_min_set_objective() %>%
-          add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
-          add_binary_decisions(),
-        "deprecated"
-      ),
-      "deprecated"
-    ),
-    "deprecated"
-  )
-  p <-
-    multi_problem(obj1 = obj1, obj2 = obj2) %>%
-    add_default_solver(gap = 0, verbose = FALSE) %>%
-    add_wtd_sum_approach(weights = weights, verbose = FALSE)
-  # solve problem
-  s <- solve(p)
-  # tests
-  expect_inherits(s, "SpatialPolygonsDataFrame")
-  expect_true("solution_1_1" %in% names(s))
-  expect_true("solution_1_2" %in% names(s))
-  expect_true(all(s$solution_1_1 %in% c(0, 1, NA)))
-  expect_true(all(s$solution_1_2 %in% c(0, 1, NA)))
-  expect_equal(s$cost_1, costs$cost_1)
-  expect_equal(s$cost_2, costs$cost_2)
-})
-
 test_that("remove_duplicates = TRUE", {
   skip_on_cran()
   skip_if_no_fast_solvers_installed()
@@ -957,4 +535,79 @@ test_that("remove_duplicates = TRUE", {
   expect_equal(terra::nlyr(s), 1L)
   expect_true(is_comparable_raster(s, costs))
   expect_equal(c(terra::values(s)), c(1, 0, NA, 1))
+})
+
+test_that("conflicting problems (missing costs conflict with constraints)",  {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # load data
+  sim_zones_pu_raster <- get_sim_zones_pu_raster()
+  sim_features <- get_sim_features()
+  # prepare cost layers,
+  ## here we prepare the cost layers so that
+  ## one problem has a planning unit with NA and non-NA costs for the two zones,
+  ## another another problem non-NA costs for both zones
+  cost1a <- terra::deepcopy(sim_zones_pu_raster[[1]])
+  cost1b <- terra::deepcopy(sim_zones_pu_raster[[1]])
+  cost2 <- sim_zones_pu_raster[[2]]
+  ## manually override cost1a value for first planning unit so that
+  ## it has non-NA value
+  cost1a[[1]][1] <- 1
+  ## manually override cost1a value for first planning unit so that
+  ## it has NA value
+  cost1b[[1]][1] <- NA_real_
+  ## manually override cost2 value for first planning unit so that
+  ## it has non-NA value
+  cost2[[1]][1] <- 2
+  # build problems
+  p1 <-
+    problem(
+      c(cost1a, cost2),
+      zones(z1 = sim_features, z2 = sim_features)
+    ) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(
+      data.frame(pu = 1, status = 1, zone = "z1")
+    ) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(
+      c(cost1b, cost2),
+      zones(z1 = sim_features, z2 = sim_features)
+    ) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_binary_decisions()
+  mp <-
+    multi_problem(p1, p2) %>%
+    add_wtd_sum_approach(weights = c(1, 1))
+  # run tests
+  expect_tidy_error(
+    solve(mp),
+    "conflicting"
+  )
+})
+
+test_that("conflicting problems (locked in and out constraints)",  {
+  skip_on_cran()
+  skip_if_no_fast_solvers_installed()
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # build problems
+  p1 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(data.frame(pu = 1, status = 1)) %>%
+    add_binary_decisions()
+  p2 <-
+    problem(sim_pu_raster, sim_features) %>%
+    add_max_wtd_sum_objective(budget = 8) %>%
+    add_manual_locked_constraints(data.frame(pu = 1, status = 0)) %>%
+    add_binary_decisions()
+  mp <- multi_problem(p1, p2)
+  # run tests
+  expect_tidy_error(
+    solve(mp),
+    "conflicting"
+  )
 })

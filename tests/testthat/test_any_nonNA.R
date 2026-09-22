@@ -78,34 +78,11 @@ test_that("x = sf", {
   expect_error(assert(any_nonNA(y)), "missing")
 })
 
-test_that("x = Spatial", {
-  # create data
-  g <- sf::st_sfc(list(sf::st_point(c(1, 0)), sf::st_point(c(0, 1))))
-  x <- sf::st_as_sf(tibble::tibble(x = c(0, NA), y = c(0L, NA), geom = g))
-  y <- sf::st_as_sf(tibble::tibble(x = c(NA, NA), y = c(1, 2), geom = g))
-  # tests
-  expect_true(any_nonNA(sf::as_Spatial(x)))
-  expect_false(any_nonNA(sf::as_Spatial(y)))
-  expect_error(
-    assert(any_nonNA(sf::as_Spatial(y))),
-    "missing"
-  )
-})
-
 test_that("x = SpatRaster", {
   expect_true(any_nonNA(terra::rast(matrix(c(0, 1, NA)))))
   expect_false(any_nonNA(terra::rast(matrix(c(NA, NA, NA)))))
   expect_error(
     assert(any_nonNA(terra::rast(matrix(c(NA, NA, NA))))),
-    "missing"
-  )
-})
-
-test_that("x = Raster", {
-  expect_true(any_nonNA(raster::raster(matrix(c(0, 1, NA)))))
-  expect_false(any_nonNA(raster::raster(matrix(c(NA, NA, NA)))))
-  expect_error(
-    assert(any_nonNA(raster::raster(matrix(c(NA, NA, NA))))),
     "missing"
   )
 })
@@ -119,31 +96,6 @@ test_that("x = ZonesSpatRaster", {
   z2 <- zones(
     terra::rast(matrix(c(0, 1, NA))),
     terra::rast(matrix(c(NA, NA, NA)))
-  )
-  # tests
-  expect_true(any_nonNA(z1))
-  expect_false(any_nonNA(z2))
-  expect_error(
-    assert(any_nonNA(z2)),
-    "missing"
-  )
-})
-
-test_that("x = ZonesRaster", {
-  # create data
-  expect_warning(
-    z1 <- zones(
-      raster::raster(matrix(c(0, 1, NA))),
-      raster::raster(matrix(c(0, 1, 2)))
-    ),
-    "deprecated"
-  )
-  expect_warning(
-    z2 <- zones(
-      raster::raster(matrix(c(0, 1, NA))),
-      raster::raster(matrix(c(NA, NA, NA)))
-    ),
-    "deprecated"
   )
   # tests
   expect_true(any_nonNA(z1))

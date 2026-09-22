@@ -772,32 +772,34 @@ further (e.g., 40%) when analyzing larger datasets.</strong></p>
 <span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>      <span class="fu">add_binary_decisions</span>(),</span>
 <span id="cb18-11"><a href="#cb18-11" tabindex="-1"></a>    <span class="at">boundary_obj =</span></span>
 <span id="cb18-12"><a href="#cb18-12" tabindex="-1"></a>      <span class="fu">problem</span>(tas_pu, tas_features, <span class="at">cost_column =</span> <span class="st">&quot;cost&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>      <span class="fu">add_min_penalties_objective</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>      <span class="co"># note that we use penalty = 1 here so that trade-offs will</span></span>
-<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>      <span class="co"># subsequently be specified by prelim_weights</span></span>
-<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>      <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">1</span>, <span class="at">data =</span> tas_bd) <span class="sc">%&gt;%</span></span>
-<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a>      <span class="fu">add_binary_decisions</span>()</span>
-<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>  )</span>
-<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a></span>
-<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a><span class="co"># generate preliminary prioritizations based on each weight</span></span>
-<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a><span class="do">## note that we specify a relaxed gap and time limit for the solver</span></span>
-<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a>prelim_wtd_sum_results <span class="ot">&lt;-</span></span>
-<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a>  p1 <span class="sc">%&gt;%</span></span>
-<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a>  <span class="fu">add_wtd_sum_approach</span>(<span class="at">weights =</span> prelim_weights) <span class="sc">%&gt;%</span></span>
-<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a>  <span class="fu">add_default_solver</span>(<span class="at">gap =</span> <span class="fl">0.2</span>, <span class="at">time_limit =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a>  <span class="fu">solve</span>()</span>
-<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a></span>
-<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a><span class="co"># rename solution columns</span></span>
-<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a><span class="fu">names</span>(prelim_wtd_sum_results) <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
-<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a>  <span class="fu">names</span>(prelim_wtd_sum_results),</span>
-<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a>  <span class="fu">setNames</span>(</span>
-<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a>    <span class="fu">rownames</span>(prelim_weights),</span>
-<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;solution_&quot;</span>, <span class="fu">seq_len</span>(<span class="fu">nrow</span>(prelim_weights)))</span>
-<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a>  )</span>
-<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a>)</span>
-<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a></span>
-<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a><span class="co"># preview results</span></span>
-<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a><span class="fu">print</span>(prelim_wtd_sum_results)</span></code></pre></div>
+<span id="cb18-13"><a href="#cb18-13" tabindex="-1"></a>      <span class="co"># note that we use budget = NULL so that the boundary objective</span></span>
+<span id="cb18-14"><a href="#cb18-14" tabindex="-1"></a>      <span class="co"># does not have a limit to the maximum expenditure</span></span>
+<span id="cb18-15"><a href="#cb18-15" tabindex="-1"></a>      <span class="fu">add_min_penalties_objective</span>(<span class="at">budget =</span> <span class="cn">NULL</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-16"><a href="#cb18-16" tabindex="-1"></a>      <span class="co"># note that we use penalty = 1 here so that trade-offs will</span></span>
+<span id="cb18-17"><a href="#cb18-17" tabindex="-1"></a>      <span class="co"># subsequently be specified by prelim_weights</span></span>
+<span id="cb18-18"><a href="#cb18-18" tabindex="-1"></a>      <span class="fu">add_boundary_penalties</span>(<span class="at">penalty =</span> <span class="dv">1</span>, <span class="at">data =</span> tas_bd) <span class="sc">%&gt;%</span></span>
+<span id="cb18-19"><a href="#cb18-19" tabindex="-1"></a>      <span class="fu">add_binary_decisions</span>()</span>
+<span id="cb18-20"><a href="#cb18-20" tabindex="-1"></a>  )</span>
+<span id="cb18-21"><a href="#cb18-21" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" tabindex="-1"></a><span class="co"># generate preliminary prioritizations based on each weight</span></span>
+<span id="cb18-23"><a href="#cb18-23" tabindex="-1"></a><span class="do">## note that we specify a relaxed gap and time limit for the solver</span></span>
+<span id="cb18-24"><a href="#cb18-24" tabindex="-1"></a>prelim_wtd_sum_results <span class="ot">&lt;-</span></span>
+<span id="cb18-25"><a href="#cb18-25" tabindex="-1"></a>  p1 <span class="sc">%&gt;%</span></span>
+<span id="cb18-26"><a href="#cb18-26" tabindex="-1"></a>  <span class="fu">add_wtd_sum_approach</span>(<span class="at">weights =</span> prelim_weights) <span class="sc">%&gt;%</span></span>
+<span id="cb18-27"><a href="#cb18-27" tabindex="-1"></a>  <span class="fu">add_default_solver</span>(<span class="at">gap =</span> <span class="fl">0.2</span>, <span class="at">time_limit =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="dv">60</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-28"><a href="#cb18-28" tabindex="-1"></a>  <span class="fu">solve</span>()</span>
+<span id="cb18-29"><a href="#cb18-29" tabindex="-1"></a></span>
+<span id="cb18-30"><a href="#cb18-30" tabindex="-1"></a><span class="co"># rename solution columns</span></span>
+<span id="cb18-31"><a href="#cb18-31" tabindex="-1"></a><span class="fu">names</span>(prelim_wtd_sum_results) <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(</span>
+<span id="cb18-32"><a href="#cb18-32" tabindex="-1"></a>  <span class="fu">names</span>(prelim_wtd_sum_results),</span>
+<span id="cb18-33"><a href="#cb18-33" tabindex="-1"></a>  <span class="fu">setNames</span>(</span>
+<span id="cb18-34"><a href="#cb18-34" tabindex="-1"></a>    <span class="fu">rownames</span>(prelim_weights),</span>
+<span id="cb18-35"><a href="#cb18-35" tabindex="-1"></a>    <span class="fu">paste0</span>(<span class="st">&quot;solution_&quot;</span>, <span class="fu">seq_len</span>(<span class="fu">nrow</span>(prelim_weights)))</span>
+<span id="cb18-36"><a href="#cb18-36" tabindex="-1"></a>  )</span>
+<span id="cb18-37"><a href="#cb18-37" tabindex="-1"></a>)</span>
+<span id="cb18-38"><a href="#cb18-38" tabindex="-1"></a></span>
+<span id="cb18-39"><a href="#cb18-39" tabindex="-1"></a><span class="co"># preview results</span></span>
+<span id="cb18-40"><a href="#cb18-40" tabindex="-1"></a><span class="fu">print</span>(prelim_wtd_sum_results)</span></code></pre></div>
 <p>After generating the preliminary prioritizations, let’s create some
 maps to visualize them. In particular, we want to understand how
 different weight values influence the spatial fragmentation of the

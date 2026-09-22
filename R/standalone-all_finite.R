@@ -69,11 +69,6 @@ all_finite.data.frame <- function(x) {
 }
 
 #' @export
-all_finite.Spatial <- function(x) {
-  all(vapply(x@data, all_finite, logical(1)))
-}
-
-#' @export
 all_finite.sf <- function(x) {
   all(vapply(sf::st_drop_geometry(x), all_finite, logical(1)))
 }

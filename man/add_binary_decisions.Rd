@@ -29,7 +29,7 @@ Also, if no decision is
 added to a \code{\link[=problem]{problem()}}, then this decision will be used by default.
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # set seed for reproducibility
 set.seed(500)
 

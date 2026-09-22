@@ -45,11 +45,6 @@ all_columns_any_finite.matrix <- function(x) {
 }
 
 #' @export
-all_columns_any_finite.Spatial <- function(x) {
-  all_columns_any_finite(x@data)
-}
-
-#' @export
 all_columns_any_finite.sf <- function(x) {
   all_columns_any_finite(sf::st_drop_geometry(x))
 }

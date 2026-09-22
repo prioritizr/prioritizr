@@ -11,7 +11,7 @@ NULL
 #' status values.
 #'
 #' @param data planning unit data. These data may be an a
-#' `numeric` vector, `matrix`, `data.frame`, `Spatial`, `sf`, `Raster`,
+#' `numeric` vector, `matrix`, `data.frame`, `sf`,
 #' or `SpatRaster` object. If `data` is missing, then planning unit data are
 #' automatically extracted from `x`.
 #' In most cases, `data` should not be supplied
@@ -23,7 +23,7 @@ NULL
 #'
 #' @param append `logical` indicating if the columns in the planning unit
 #' dataset should be appended to the output? Note that this only has an effect
-#' if the planning units in `x` are a `sf`, `Spatial`, or `data.frame` object.
+#' if the planning units in `x` are a `sf` or `data.frame` object.
 #' Defaults to `FALSE`.
 #'
 #' @param ... not used.
@@ -33,7 +33,7 @@ NULL
 #' @return
 #' If `status` is a `matrix` vector, then an object of the same class as the
 #' planning units in `x` is returned (i.e., a
-#' `numeric` vector, `matrix`, `data.frame`, `Spatial`, `sf`, `Raster`,
+#' `numeric` vector, `matrix`, `data.frame`, `sf`,
 #' or `SpatRaster` object). Otherwise, if `status` is a `list`, then a
 #' list of objects of the same class as the planning unit is `x` is returned.
 #'
@@ -94,8 +94,8 @@ methods::setMethod(
       )
     )
     # process data
-    if (inherits(x$data$cost, c("sf", "Spatial", "data.frame"))) {
-      ### if sf/Spatial/data.frame, then process separately in matrix format to
+    if (inherits(x$data$cost, c("sf", "data.frame"))) {
+      ### if sf/data.frame, then process separately in matrix format to
       ### reduce memory requirements
       out <- lapply(seq_along(status), function(i) {
         planning_unit_solution_format(
@@ -110,22 +110,15 @@ methods::setMethod(
       if (isTRUE(append)) {
         if (inherits(x$data$cost, "sf")) {
           out <- cbind(sf::st_drop_geometry(x$data$cost), out)
-        } else if (inherits(x$data$cost, "Spatial")) {
-          out <- cbind(x$data$cost@data, out)
         } else if (inherits(x$data$cost, "data.frame")) {
           out <- cbind(x$data$cost, out)
         }
       }
-      ### perform additional processing needed for sf/Spatial datasets
+      ### perform additional processing needed for sf or data.frame datasets
       if (inherits(x$data$cost, "sf")) {
         out <- tibble::as_tibble(out)
         out$geometry <- sf::st_geometry(x$data$cost)
         out <- sf::st_sf(out, crs = sf::st_crs(x$data$cost))
-      } else if (inherits(x$data$cost, "Spatial")) {
-        d <- out
-        rownames(d) <- rownames(x$data$cost)
-        out <- x$data$cost
-        out@data <- d
       } else {
         out <- tibble::as_tibble(out)
       }
@@ -233,45 +226,6 @@ methods::setMethod(
 
 methods::setMethod(
   "planning_unit_solution_format",
-  methods::signature("ConservationProblem", "matrix", "Spatial"),
-  function(
-    x, status, data, prefix = NULL, append = FALSE, call = fn_caller_env()
-  ) {
-    # assert valid arguments
-    assert(
-      identical(
-        length(status),
-        x$number_of_planning_units() * x$number_of_zones()
-      ),
-      .internal = TRUE,
-      msg = c(
-        paste0(
-          "{.arg status} must have ",
-          x$number_of_planning_units() * x$number_of_zones(),
-          " elements."
-        ),
-        "x" = "{.arg status} has {length(status)} element{?s}."
-      )
-    )
-    # extract data
-    data <- x$data$cost
-    # prepare data in matrix format
-    out <- planning_unit_solution_format(
-      x, status, matrix(1), prefix = prefix, append = append, call = call
-    )
-    # if needed, append columns from the planning unit dataset
-    out <- as.data.frame(out)
-    if (isTRUE(append)) {
-      out <- cbind(data@data, out)
-    }
-    # return result
-    rownames(out) <- rownames(data@data)
-    data@data <- out
-    data
-})
-
-methods::setMethod(
-  "planning_unit_solution_format",
   methods::signature("ConservationProblem", "matrix", "sf"),
   function(
     x, status, data, prefix = NULL, append = FALSE, call = fn_caller_env()
@@ -305,47 +259,6 @@ methods::setMethod(
     out <- tibble::as_tibble(out)
     out$geometry <- sf::st_geometry(x$data$cost)
     sf::st_sf(out, crs = sf::st_crs(x$data$cost))
-})
-
-methods::setMethod(
-  "planning_unit_solution_format",
-  methods::signature("ConservationProblem", "matrix", "Raster"),
-  function(
-    x, status, data, prefix = NULL, append = FALSE, call = fn_caller_env()
-  ) {
-    # assert valid arguments
-    assert(
-      identical(
-        length(status),
-        x$number_of_planning_units() * x$number_of_zones()
-      ),
-      .internal = TRUE,
-      msg = c(
-        paste0(
-          "{.arg status} must have ",
-          x$number_of_planning_units() * x$number_of_zones(),
-          " elements."
-        ),
-        "x" = "{.arg status} has {length(status)} element{?s}."
-      )
-    )
-    # extract data
-    idx <- x$planning_unit_indices()
-    data <- x$data$cost
-    # prepare output
-    out <- data
-    for (i in seq_len(raster::nlayers(out))) {
-      out[[i]][idx] <- status[, i]
-    }
-    if (is.null(prefix)) {
-      names(out) <- x$zone_names()
-    } else if (isTRUE(raster::nlayers(out) == 1L)) {
-      names(out) <- prefix
-    } else {
-      names(out) <- paste0(prefix, "_", x$zone_names())
-    }
-    # return result
-    out
 })
 
 methods::setMethod(

@@ -23,9 +23,6 @@ add_linear_penalties(x, penalty, data)
 # S4 method for class 'ConservationProblem,ANY,Matrix'
 add_linear_penalties(x, penalty, data)
 
-# S4 method for class 'ConservationProblem,ANY,Raster'
-add_linear_penalties(x, penalty, data)
-
 # S4 method for class 'ConservationProblem,ANY,SpatRaster'
 add_linear_penalties(x, penalty, data)
 

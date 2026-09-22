@@ -2,10 +2,6 @@
 % Please edit documentation in R/intersecting_units.R
 \name{intersecting_units}
 \alias{intersecting_units}
-\alias{intersecting_units,Raster,ANY-method}
-\alias{intersecting_units,ANY,Raster-method}
-\alias{intersecting_units,Spatial,ANY-method}
-\alias{intersecting_units,ANY,Spatial-method}
 \alias{intersecting_units,sf,sf-method}
 \alias{intersecting_units,SpatRaster,sf-method}
 \alias{intersecting_units,SpatRaster,SpatRaster-method}
@@ -14,14 +10,6 @@
 \title{Find intersecting units}
 \usage{
 intersecting_units(x, y)
-
-\S4method{intersecting_units}{Raster,ANY}(x, y)
-
-\S4method{intersecting_units}{ANY,Raster}(x, y)
-
-\S4method{intersecting_units}{Spatial,ANY}(x, y)
-
-\S4method{intersecting_units}{ANY,Spatial}(x, y)
 
 \S4method{intersecting_units}{SpatRaster,SpatRaster}(x, y)
 
@@ -53,7 +41,7 @@ For example, the following code can be used to set the cache size to 4 GB.
 }\if{html}{\out{</div>}}
 }
 \examples{
-\dontshow{if (prioritizr::do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
 # create data
 r <- terra::rast(matrix(1:9, byrow = TRUE, ncol = 3))
 r_with_holes <- r
