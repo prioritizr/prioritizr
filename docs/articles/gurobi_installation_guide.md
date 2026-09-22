@@ -8,7 +8,7 @@ package can use to solve conservation planning problems (see the
 benchmarks*](https://prioritizr.net/articles/solver_benchmarks.md)
 vignette for further details). This guide will walk you through the
 process of setting up *Gurobi* on your computer so that it can be used
-to solve conservation planning problems. If you encounter any problems
+to solve conservation planning problems. If you encounter any issues
 while following the instructions below, please refer to the [official
 *Gurobi* documentation](https://docs.gurobi.com/). Additionally,
 *Gurobi* provides walk-through video recordings for installing the
@@ -65,10 +65,10 @@ The process for installing the *Gurobi* software depends on the
 operating system on your computer. Fortunately, *Gurobi* provides
 detailed [platform-specific
 instructions](https://support.gurobi.com/hc/en-us/articles/4534161999889-How-do-I-install-Gurobi-Optimizer)
-for Windows, MacOS, and Linux systems that should help with this.
+for Windows, macOS, and Linux systems that should help with this.
 Briefly, on Windows systems, you just need to double-click on the
 *Gurobi* installer, follow the prompts, and the installer will
-automatically handle everything for you. On Linux and MacOS systems, you
+automatically handle everything for you. On Linux and macOS systems, you
 will need to manually extract the downloaded file’s contents to a
 folder, move the extracted contents to a suitable location (typically
 */opt/gurobi*), and update your system’s variables so that it knows
@@ -106,21 +106,21 @@ that resembles the following screen shot.
 
   
 
-Next, we will now check that the license has been successfully
-activated. To achieve this, we will try running *Gurobi* directly from
-the command line. Note that the following commands assume you are using
-version 8.0.0 of *Gurobi*, and so you will need to modify the command if
-you are using a more recent version (e.g., if using version 9.1.2, then
-use `gurobi912` instead of `gurobi800` below).
+Next, we will check that the license has been successfully activated. To
+achieve this, we will try running *Gurobi* directly from the command
+line. Note that the following commands assume you are using version
+8.0.0 of *Gurobi*, and so you will need to modify the command if you are
+using a more recent version (e.g., if using version 9.1.2, then use
+`gurobi912` instead of `gurobi800` below).
 
 On Windows systems, users can type in the following system command to
-check their license activation.
+check their license actaivation.
 
 ``` bash
 gurobi_cl c:\gurobi800\win64\examples\data\coins.lp
 ```
 
-On Linux and MacOS systems, users can type in the following system
+On Linux and macOS systems, users can type in the following system
 command.
 
 ``` bash
@@ -151,7 +151,7 @@ distributed with the *Gurobi* software suite. Specifically, the *gurobi*
 running the following *R* code within your *R* session. Additionally,
 because the *gurobi* *R* package depends on the *slam* *R* package, we
 will install the *slam* *R* package as well. Users of all platforms
-(i.e., Windows, Linux, and MacOS) can install these packages with the
+(i.e., Windows, Linux, and macOS) can install these packages with the
 following *R* code.
 
 ``` r
@@ -247,7 +247,7 @@ print(result$x)      # decision variables
 If you see the outputs for `result$objval` and `result$x` and you don’t
 see any error messages, then you have (1) successfully installed the
 *Gurobi* software suite, (2) activated a valid license, and (3)
-successfully installed the *gurobi R* package. If do see an error
+successfully installed the *gurobi R* package. If you do see an error
 message, then you might have missed a previous step or something might
 have gone wrong while installing *Gurobi* or activating the license. In
 such cases, try going back through this vignette and repeating the
@@ -358,7 +358,7 @@ plot(
 
 After running this code, hopefully, you should some information printed
 on-screen about the optimization process and *R* should produce a map
-displaying a solution. If this code does not produce any errors, then
-you have successfully installed everything and can begin using *Gurobi*
-and the *prioritizr R* package to solve your very own conservation
-planning problems.
+displaying a solution. If this does not produce any errors, then you
+have successfully installed everything and can begin using *Gurobi* and
+the *prioritizr R* package to solve your very own conservation planning
+problems.

@@ -20,7 +20,7 @@ we can add your work to this list.
   Marquet PA, Neugarten RA, Oakleaf JR, Roopsind A, Schuster R, Williams
   DR, Wu GC, Zvoleff A, and Hannah L (2026) Balancing land use for
   conservation, agriculture, and renewable energy. *Nature
-  Communications*, **In press**: 10.1038/s41467-026-69952-6.
+  Communications*, **17**: 3623.
 - Castelli F, Hanson JO, Sabatini FM, Law E, Dutta T, and Lindner
   M (2026) Navigating trade-offs across ownership and ecological
   priorities in forest conservation planning. *Journal of Environmental
@@ -70,7 +70,7 @@ we can add your work to this list.
 - Khuu DT, Oldekop JA, Hanson JO, and Pritchard R (2026) Socially
   informed conservation priorities in Vietnam reveal major overlaps
   between biodiversity protection and human needs. *Communications Earth
-  and Environment*, **In press**: 10.1038/s43247-026-03686-7.
+  and Environment*, **7**: 740.
 - Koehn CR, Caughlin TT, Halperin S, Hopping K, Som Castellano R, and
   Brandt J (2026) Carbon stock protection and food production are key
   targets for conservation planning in a landscape of public and private
@@ -98,8 +98,8 @@ we can add your work to this list.
   **32**: e70233.
 - Teschke K, Konijnenberg R, and Bellotto Trigo FC (2026) Conservation
   planning in the Weddell Sea (Antarctica): A comparative analysis of
-  decision‐support tools. *Conservation Science and Practice*, **In
-  press**: e70311.
+  decision‐support tools. *Conservation Science and Practice*, **8**:
+  e70311.
 - Tomiczek T, García Márquez J, Arlinghaus R, and Domisch S (2026) The
   spatial discrepancy between Colombian freshwater fish suitable
   habitats and existing protected areas. *Diversity and Distributions*,
@@ -203,7 +203,7 @@ we can add your work to this list.
   Puglisi C, Schuiteman A, Seaman DJI, Sinaga N, Struebig MJ, Trias
   Blasi A, Utteridge T, Voigt M, Wanma JF, and Heatubun CD (2025)
   Informing spatial conservation prioritization with species’ traits.
-  *Conservation Biology*, **In press**: e70199.
+  *Conservation Biology*, **40**: e70199.
 - Unnithan Kumar S, Baker DJ, Maclean IMD, and Gaston KJ (2025) Spatial
   prioritisation for nature recovery with multiple options for habitat
   creation. *Journal of Applied Ecology*, **62**: 2688–2700.
@@ -626,7 +626,7 @@ we can add your work to this list.
   Brito-Morales I, García Molinos J, Hidalgo M, Alabia ID, Gissi E,
   Provost MM, Micheli F, Arafeh-Dalmau N (2026) Identifying marine
   climate refugia to advance climate-smart conservation. *Trends in
-  Ecology and Evolution*, **In press**: 10.1016/j.tree.2026.04.007.
+  Ecology and Evolution*, **41**: 651–667.
 - Stralberg D, Lewis DW, Stolar J, Kehm GJ, Cosgrove CF, Morgan DG,
   Nelson EA, Kuntzemann CE, Raymundo A, Sang Z, Viliani L, Jumean Z,
   Meier M, Enslow C, Estevo CA, Fraser‐Reid EC, Campbell EM, Grant JA,

@@ -99,7 +99,7 @@ problems (see the <a href="solver_benchmarks.html"><em>Solver
 benchmarks</em></a> vignette for further details). This guide will walk
 you through the process of setting up <em>Gurobi</em> on your computer
 so that it can be used to solve conservation planning problems. If you
-encounter any problems while following the instructions below, please
+encounter any issues while following the instructions below, please
 refer to the <a href="https://docs.gurobi.com/" class="external-link">official <em>Gurobi</em>
 documentation</a>. Additionally, <em>Gurobi</em> provides walk-through
 video recordings for installing the software (for <a href="https://youtu.be/OYuOKXPJ5PI" class="external-link">Linux</a>, <a href="https://youtu.be/dcFstZl5Va4" class="external-link">macOS</a>, and <a href="https://youtu.be/z7t0p5J9YcQ" class="external-link">Windows</a>).</p>
@@ -146,10 +146,10 @@ for your operating system.</p>
 <p>The process for installing the <em>Gurobi</em> software depends on
 the operating system on your computer. Fortunately, <em>Gurobi</em>
 provides detailed <a href="https://support.gurobi.com/hc/en-us/articles/4534161999889-How-do-I-install-Gurobi-Optimizer" class="external-link">platform-specific
-instructions</a> for Windows, MacOS, and Linux systems that should help
+instructions</a> for Windows, macOS, and Linux systems that should help
 with this. Briefly, on Windows systems, you just need to double-click on
 the <em>Gurobi</em> installer, follow the prompts, and the installer
-will automatically handle everything for you. On Linux and MacOS
+will automatically handle everything for you. On Linux and macOS
 systems, you will need to manually extract the downloaded file’s
 contents to a folder, move the extracted contents to a suitable location
 (typically <em>/opt/gurobi</em>), and update your system’s variables so
@@ -183,17 +183,17 @@ resembles the following screen shot.</p>
 <img src="figures/cmd-windows-success.png" style="width:75.0%">
 </center>
 <p><br></p>
-<p>Next, we will now check that the license has been successfully
-activated. To achieve this, we will try running <em>Gurobi</em> directly
-from the command line. Note that the following commands assume you are
-using version 8.0.0 of <em>Gurobi</em>, and so you will need to modify
-the command if you are using a more recent version (e.g., if using
-version 9.1.2, then use <code>gurobi912</code> instead of
-<code>gurobi800</code> below).</p>
+<p>Next, we will check that the license has been successfully activated.
+To achieve this, we will try running <em>Gurobi</em> directly from the
+command line. Note that the following commands assume you are using
+version 8.0.0 of <em>Gurobi</em>, and so you will need to modify the
+command if you are using a more recent version (e.g., if using version
+9.1.2, then use <code>gurobi912</code> instead of <code>gurobi800</code>
+below).</p>
 <p>On Windows systems, users can type in the following system command to
-check their license activation.</p>
+check their license actaivation.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">gurobi_cl</span> c:<span class="dt">\g</span>urobi800<span class="dt">\w</span>in64<span class="dt">\e</span>xamples<span class="dt">\d</span>ata<span class="dt">\c</span>oins.lp</span></code></pre></div>
-<p>On Linux and MacOS systems, users can type in the following system
+<p>On Linux and macOS systems, users can type in the following system
 command.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</span></code></pre></div>
 <p>If the license was successfully activated, you should see output that
@@ -221,7 +221,7 @@ the <em>gurobi</em> <em>R</em> package by running the following
 <em>R</em> code within your <em>R</em> session. Additionally, because
 the <em>gurobi</em> <em>R</em> package depends on the <em>slam</em>
 <em>R</em> package, we will install the <em>slam</em> <em>R</em> package
-as well. Users of all platforms (i.e., Windows, Linux, and MacOS) can
+as well. Users of all platforms (i.e., Windows, Linux, and macOS) can
 install these packages with the following <em>R</em> code.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install slam R package</span></span>
@@ -303,11 +303,11 @@ R</em> package to solve an optimization problem. Copy and paste the
 <code>result$x</code> and you don’t see any error messages, then you
 have (1) successfully installed the <em>Gurobi</em> software suite, (2)
 activated a valid license, and (3) successfully installed the <em>gurobi
-R</em> package. If do see an error message, then you might have missed a
-previous step or something might have gone wrong while installing
-<em>Gurobi</em> or activating the license. In such cases, try going back
-through this vignette and repeating the previous steps to see if that
-fixes the issue.</p>
+R</em> package. If you do see an error message, then you might have
+missed a previous step or something might have gone wrong while
+installing <em>Gurobi</em> or activating the license. In such cases, try
+going back through this vignette and repeating the previous steps to see
+if that fixes the issue.</p>
 </div>
 <div class="section level2">
 <h2 id="solving-a-prioritzr-problem-with-gurobi">Solving a <em>prioritzr</em> problem with <em>Gurobi</em><a class="anchor" aria-label="anchor" href="#solving-a-prioritzr-problem-with-gurobi"></a>
@@ -405,7 +405,7 @@ problem created using the <em>prioritzr</em> <em>R</em> package.</p>
 <p><img src="gurobi_installation_guide_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="336" style="display: block; margin: auto;"></p>
 <p>After running this code, hopefully, you should some information
 printed on-screen about the optimization process and <em>R</em> should
-produce a map displaying a solution. If this code does not produce any
+produce a map displaying a solution. If this does not produce any
 errors, then you have successfully installed everything and can begin
 using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve
 your very own conservation planning problems.</p>
