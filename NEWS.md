@@ -1,5 +1,9 @@
 # prioritizr 9.0.1
 
+## Notice
+
+- CRAN release.
+
 ## Major changes
 
 - Deprecate support for _raster_ and _sp_ package data classes (#411).
@@ -170,8 +174,8 @@
   information about limitations.
 - Update README Usage section with package installation instructions (#396).
   Thanks to \@paolahre for the suggestion.
-- Update publication record (#402). Thanks to Flavia CB Trigo (\@FBCT) for
-  sharing her work.
+- Update _Publication record_ vignette (#402). Thanks to Flavia CB Trigo
+  (\@FBCT) for the suggestion.
 - Update documentation for various functions to improve readability.
 
 # prioritizr 8.1.0.3
@@ -1106,7 +1110,7 @@
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## Minor improvements and bug fixes
 
@@ -1251,7 +1255,7 @@
 ## Documentation updates
 
 - Update _Publication record_ vignette.
-- Update URLs in publication record so that they pass CRAN checks.
+- Update URLs in _Publication record_ vignette so that they pass CRAN checks.
 
 # prioritizr 7.1.1.12
 
@@ -1356,7 +1360,7 @@
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 7.1.0.4
 
@@ -1459,7 +1463,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## Documentation updates
 
@@ -1660,7 +1664,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 5.0.2.7
 
@@ -1735,7 +1739,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 5.0.1.7
 
@@ -1807,7 +1811,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 5.0.0.1
 
@@ -1854,8 +1858,8 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 ## Documentation updates
 
 - Add Flower _et al._ (2020), Hanson _et al._ (2020), and
-  Visalli _et al._ (2020) to publication record (#131). Thanks to Jason Flower
-  (\@jflowernet) for report.
+  Visalli _et al._ (2020) to _Publication record_ vignette (#131). Thanks to
+  Jason Flower (\@jflowernet) for report.
 
 # prioritizr 4.1.5.2
 
@@ -1875,7 +1879,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.1.4.4
 
@@ -1911,7 +1915,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.1.3.3
 
@@ -1941,7 +1945,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.1.2.8
 
@@ -2092,7 +2096,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.1.0.1
 
@@ -2154,7 +2158,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.0.3.1
 
@@ -2166,7 +2170,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.0.2.16
 
@@ -2317,7 +2321,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.0.1.6
 
@@ -2400,7 +2404,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 4.0.0.12
 
@@ -2600,7 +2604,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 3.0.2.3
 
@@ -2626,7 +2630,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN. Release postponed due issues on Travis CI.
+- CRAN release candidate postponed due issues on Travis CI.
 
 # prioritizr 3.0.1.1
 
@@ -2642,7 +2646,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 # prioritizr 3.0.0.0
 
@@ -2673,7 +2677,7 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Notice
 
-- Release candidate for CRAN. Release postponed due to bug report.
+- CRAN release candidate postponed due to bug report.
 
 # prioritizr 2.0.3.1
 
@@ -2695,13 +2699,14 @@ Update `add_cbc_solver()` function so that it can use a starting solution to red
 
 ## Documentation updates
 
-- Added vignette to record publications that use _prioritizr_ (#35).
+- New _Publication record_ vignette to record publications that use
+  _prioritizr_ (#35).
 
 # prioritizr 2.0.2.8
 
 ## Minor improvements and bug fixes
 
-- Unit tests now compatible with development version of _testthat_ (#34).
+- Fix compatibility with developmental version of _testthat_ package (#34).
 
 # prioritizr 2.0.2.7
 

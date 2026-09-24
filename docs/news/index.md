@@ -2,6 +2,12 @@
 
 ## prioritizr 9.0.1
 
+CRAN release: 2026-09-24
+
+### Notice
+
+- CRAN release.
+
 ### Major changes
 
 - Deprecate support for *raster* and *sp* package data classes
@@ -298,10 +304,10 @@
 - Update README Usage section with package installation instructions
   ([\#396](https://github.com/prioritizr/prioritizr/issues/396)). Thanks
   to [@paolahre](https://github.com/paolahre) for the suggestion.
-- Update publication record
+- Update *Publication record* vignette
   ([\#402](https://github.com/prioritizr/prioritizr/issues/402)). Thanks
-  to Flavia CB Trigo ([@FBCT](https://github.com/FBCT)) for sharing her
-  work.
+  to Flavia CB Trigo ([@FBCT](https://github.com/FBCT)) for the
+  suggestion.
 - Update documentation for various functions to improve readability.
 
 ## prioritizr 8.1.0.3
@@ -1669,7 +1675,7 @@ CRAN release: 2022-09-17
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ### Minor improvements and bug fixes
 
@@ -1856,7 +1862,8 @@ CRAN release: 2022-09-17
 ### Documentation updates
 
 - Update *Publication record* vignette.
-- Update URLs in publication record so that they pass CRAN checks.
+- Update URLs in *Publication record* vignette so that they pass CRAN
+  checks.
 
 ## prioritizr 7.1.1.12
 
@@ -1982,7 +1989,7 @@ CRAN release: 2021-10-29
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 7.1.0.4
 
@@ -2106,7 +2113,7 @@ CRAN release: 2021-03-31
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ### Documentation updates
 
@@ -2367,7 +2374,7 @@ CRAN release: 2020-11-24
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 5.0.2.7
 
@@ -2457,7 +2464,7 @@ CRAN release: 2020-07-30
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 5.0.1.7
 
@@ -2545,7 +2552,7 @@ CRAN release: 2020-05-15
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 5.0.0.1
 
@@ -2621,7 +2628,7 @@ CRAN release: 2020-05-15
 ### Documentation updates
 
 - Add Flower *et al.* (2020), Hanson *et al.* (2020), and Visalli *et
-  al.* (2020) to publication record
+  al.* (2020) to *Publication record* vignette
   ([\#131](https://github.com/prioritizr/prioritizr/issues/131)). Thanks
   to Jason Flower ([@jflowernet](https://github.com/jflowernet)) for
   report.
@@ -2649,7 +2656,7 @@ CRAN release: 2020-02-06
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.1.4.4
 
@@ -2691,7 +2698,7 @@ CRAN release: 2019-10-03
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.1.3.3
 
@@ -2725,7 +2732,7 @@ CRAN release: 2019-09-06
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.1.2.8
 
@@ -2925,7 +2932,7 @@ CRAN release: 2019-06-06
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.1.0.1
 
@@ -3005,7 +3012,7 @@ CRAN release: 2019-04-12
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.0.3.1
 
@@ -3019,7 +3026,7 @@ CRAN release: 2019-04-08
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.0.2.16
 
@@ -3205,7 +3212,7 @@ CRAN release: 2018-06-28
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.0.1.6
 
@@ -3328,7 +3335,7 @@ CRAN release: 2018-05-26
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 4.0.0.12
 
@@ -3591,7 +3598,7 @@ CRAN release: 2017-11-22
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 3.0.2.3
 
@@ -3621,7 +3628,7 @@ CRAN release: 2017-11-22
 
 ### Notice
 
-- Release candidate for CRAN. Release postponed due issues on Travis CI.
+- CRAN release candidate postponed due issues on Travis CI.
 
 ## prioritizr 3.0.1.1
 
@@ -3643,7 +3650,7 @@ CRAN release: 2017-11-08
 
 ### Notice
 
-- Release candidate for CRAN.
+- CRAN release.
 
 ## prioritizr 3.0.0.0
 
@@ -3684,7 +3691,7 @@ CRAN release: 2017-11-08
 
 ### Notice
 
-- Release candidate for CRAN. Release postponed due to bug report.
+- CRAN release candidate postponed due to bug report.
 
 ## prioritizr 2.0.3.1
 
@@ -3708,14 +3715,15 @@ CRAN release: 2017-11-08
 
 ### Documentation updates
 
-- Added vignette to record publications that use *prioritizr*
+- New *Publication record* vignette to record publications that use
+  *prioritizr*
   ([\#35](https://github.com/prioritizr/prioritizr/issues/35)).
 
 ## prioritizr 2.0.2.8
 
 ### Minor improvements and bug fixes
 
-- Unit tests now compatible with development version of *testthat*
+- Fix compatibility with developmental version of *testthat* package
   ([\#34](https://github.com/prioritizr/prioritizr/issues/34)).
 
 ## prioritizr 2.0.2.7

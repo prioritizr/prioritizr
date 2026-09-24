@@ -64,7 +64,7 @@ p <-
 # specify file path to save problem formulation
 path <- file.path(tempdir(), "model.lp")
 print(path)
-#> [1] "/tmp/RtmpGiE5Ok/model.lp"
+#> [1] "/tmp/Rtmp0DiIS0/model.lp"
 
 # save problem to file
 ## note that either the gurobi or Rsymphony package needs to be installed
