@@ -517,7 +517,7 @@ s3 <- solve(p3)
     ##      0     0 2884.87201    0    8 3667.77087 2884.87201  21.3%     -    0s
     ## H    0     0                    3199.6670685 2884.87201  9.84%     -    0s
     ## 
-    ## Explored 1 nodes (38 simplex iterations) in 0.00 seconds (0.00 work units)
+    ## Explored 1 nodes (38 simplex iterations) in 0.01 seconds (0.00 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 2: 3199.67 3667.77 
@@ -1231,7 +1231,7 @@ s7 <- solve(p7)
     ## 
     ## Found heuristic solution: objective 24400.000000
     ## Presolve removed 1120 rows and 324 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 785 rows, 876 columns, 2448 nonzeros
     ## Variable types: 0 continuous, 876 integer (876 binary)
     ## Root relaxation presolved: 785 rows, 876 columns, 2448 nonzeros

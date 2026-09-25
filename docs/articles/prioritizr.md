@@ -594,8 +594,8 @@ prt <- solve(p2)
     ## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s
     ## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s
     ## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s
-    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    2s
-    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    2s
+    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s
+    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s
     ## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s
     ## 
     ## Cutting planes:
@@ -607,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.60 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.33 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784

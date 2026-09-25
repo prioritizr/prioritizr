@@ -228,7 +228,8 @@ Other functions for adding solvers:
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
 [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
 [`add_lsymphony_solver`](https://prioritizr.net/reference/add_lsymphony_solver.md),
-[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md),
+[`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
 
 ## Examples
 

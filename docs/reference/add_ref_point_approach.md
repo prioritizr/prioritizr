@@ -244,7 +244,8 @@ mp2 <-
 # solve multi-objective problem and remove duplicate solutions
 ms2 <- solve(mp2, remove_duplicates = TRUE)
 #> Generating solutions ■■■■■■■                          | 3/15 |  20% | ETA: 5s
-#> Generating solutions ■■■■■■■■■■■■■■■■■                | 8/15 |  53% | ETA: 3s
+#> Generating solutions ■■■■■■■■■■■                      | 5/15 |  33% | ETA: 4s
+#> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■        | 12/15 |  80% | ETA: 1s
 #> Generating solutions ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■  | 15/15 | 100% | ETA: 0s
 
 # plot multiple solutions

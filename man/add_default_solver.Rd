@@ -65,6 +65,7 @@ Other functions for adding solvers:
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
 \code{\link[=add_highs_solver]{add_highs_solver()}},
 \code{\link{add_lsymphony_solver}},
-\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
+\code{\link[=add_scip_solver]{add_scip_solver()}}
 }
 \concept{solvers}

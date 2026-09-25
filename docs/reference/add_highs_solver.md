@@ -115,7 +115,9 @@ problems. This solver is recommended if the
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
 [`add_cplex_solver()`](https://prioritizr.net/reference/add_cplex_solver.md),
 [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.md)
-cannot be used.
+cannot be used. This solver may also be useful for teaching exercises
+because it is the fastest solver that is readily available on the
+Comprehensive R Archive Network (CRAN).
 
 ## References
 
@@ -130,7 +132,8 @@ Other functions for adding solvers:
 [`add_default_solver()`](https://prioritizr.net/reference/add_default_solver.md),
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
 [`add_lsymphony_solver`](https://prioritizr.net/reference/add_lsymphony_solver.md),
-[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md),
+[`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
 
 ## Examples
 

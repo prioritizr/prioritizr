@@ -86,7 +86,7 @@ remotes::install_bioc("lpsymphony")
 }
 
 \examples{
-\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("lpsymphony")) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -122,6 +122,7 @@ Other functions for adding solvers:
 \code{\link[=add_default_solver]{add_default_solver()}},
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
 \code{\link[=add_highs_solver]{add_highs_solver()}},
-\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
+\code{\link[=add_scip_solver]{add_scip_solver()}}
 }
 \concept{solvers}
