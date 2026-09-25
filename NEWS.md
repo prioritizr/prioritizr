@@ -1,3 +1,10 @@
+# prioritizr 9.0.1.1
+
+## Minor improvements and bug fixes
+
+- New [add_scip_solver()] function for the _SCIP_ optimization software
+  (#412).
+
 # prioritizr 9.0.1
 
 ## Notice

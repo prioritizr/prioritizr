@@ -288,7 +288,7 @@ print(attr(s1, "runtime"))
 
 ``` R
 ## solution_1 
-##      3.321
+##      3.194
 ```
 
 ``` r
@@ -913,6 +913,11 @@ Functions for specifying how a problem should be solved.
   :
 
   Add a *SYMPHONY* solver with *Rsymphony*
+
+- [`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
+  :
+
+  Add a *SCIP* solver
 
 ## Portfolios
 

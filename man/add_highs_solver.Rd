@@ -92,10 +92,12 @@ than the \emph{SYMPHONY} based solvers (i.e., \code{\link[=add_rsymphony_solver]
 \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}), it can sometimes take much longer than the
 \emph{CBC} solver for particular problems. This solver is recommended if
 the \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cplex_solver]{add_cplex_solver()}}, \code{\link[=add_cbc_solver]{add_cbc_solver()}} cannot
-be used.
+be used. This solver may also be useful for
+teaching exercises because it is the fastest solver that is readily
+available on the Comprehensive R Archive Network (CRAN).
 }
 \examples{
-\dontshow{if (asNamespace("prioritizr")$do_run_example()) withAutoprint(\{ # examplesIf}
+\dontshow{if (asNamespace("prioritizr")$do_run_example("highs")) withAutoprint(\{ # examplesIf}
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -126,6 +128,7 @@ Other functions for adding solvers:
 \code{\link[=add_default_solver]{add_default_solver()}},
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}},
 \code{\link{add_lsymphony_solver}},
-\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}
+\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
+\code{\link[=add_scip_solver]{add_scip_solver()}}
 }
 \concept{solvers}

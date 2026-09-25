@@ -1,5 +1,13 @@
 # Changelog
 
+## prioritizr 9.0.1.1
+
+### Minor improvements and bug fixes
+
+- New \[add_scip_solver()\] function for the *SCIP* optimization
+  software
+  ([\#412](https://github.com/prioritizr/prioritizr/issues/412)).
+
 ## prioritizr 9.0.1
 
 CRAN release: 2026-09-24
@@ -1023,7 +1031,8 @@ CRAN release: 2025-01-09
 ### Minor improvements and bug fixes
 
 - Fix issue with [`print()`](https://rdrr.io/r/base/print.html) and
-  `summarize()` not displaying correct text for linear constraints
+  [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
+  not displaying correct text for linear constraints
   ([\#330](https://github.com/prioritizr/prioritizr/issues/330)).
 
 ## prioritizr 8.0.4

@@ -2545,6 +2545,48 @@ print(p42)
     ##  └•solver:      rsymphony solver (`gap` = 0, `time_limit` = 2147483647, …)
     ## # ℹ Use `summary(...)` to see further details.
 
+- ***SCIP* solver**: [*SCIP*](https://www.scipopt.org/) is an open
+  source optimization software. Although it tends to have the slowest
+  performance, it may solve particular types of problems more quickly
+  than other solvers. We recommend trying out this solver if the other
+  solvers are unable to generate solutions within a feasible period of
+  time.
+
+``` r
+# create a problem and specify that SCIP should be used to solve the
+# problem and specify an optimality gap of zero to obtain the optimal solution
+p43 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.1) %>%
+  add_binary_decisions() %>%
+  add_scip_solver(gap = 0)
+
+# print problem
+print(p43)
+```
+
+    ## A conservation problem (<ConservationProblem>)
+    ## ├•data
+    ## │├•features:    "feature_1", "feature_2", "feature_3", … (5 total)
+    ## │└•planning units:
+    ## │ ├•data:       <SpatRaster> (90 total)
+    ## │ ├•costs:      continuous values (between 190.1328 and 215.8638)
+    ## │ ├•extent:     0, 0, 1, 1 (xmin, ymin, xmax, ymax)
+    ## │ └•CRS:        WGS 84 / Pseudo-Mercator (projected)
+    ## ├•formulation
+    ## │├•objective:   minimum set objective
+    ## │├•penalties:   none specified
+    ## │├•features:
+    ## ││├•targets:    relative targets (all equal to 0.1)
+    ## ││└•weights:    none specified
+    ## │├•constraints: none specified
+    ## │└•decisions:   binary decision
+    ## └•optimization
+    ##  ├•portfolio:   single portfolio
+    ##  └•solver:      scip solver (`gap` = 0, `time_limit` = 2147483647, …)
+    ## # ℹ Use `summary(...)` to see further details.
+
 ### Add a portfolio
 
 Many conservation planning exercises require a portfolio of solutions.
@@ -2564,7 +2606,7 @@ portfolio methods are available.
 ``` r
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p43 <-
+p44 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2572,7 +2614,7 @@ p43 <-
   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p43)
+print(p44)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2604,7 +2646,7 @@ print(p43)
 ``` r
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p44 <-
+p45 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2612,7 +2654,7 @@ p44 <-
   add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p44)
+print(p45)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2644,7 +2686,7 @@ print(p44)
 ``` r
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p45 <-
+p46 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2652,7 +2694,7 @@ p45 <-
   add_extra_portfolio()
 
 # print problem
-print(p45)
+print(p46)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2683,7 +2725,7 @@ print(p45)
 ``` r
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p46 <-
+p47 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2691,7 +2733,7 @@ p46 <-
   add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p46)
+print(p47)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2724,7 +2766,7 @@ print(p46)
 ``` r
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p47 <-
+p48 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2732,7 +2774,7 @@ p47 <-
   add_shuffle_portfolio(number_solutions = 10)
 
 # print problem
-print(p47)
+print(p48)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2767,7 +2809,7 @@ when searching for a suitable solution.
 
 ``` r
 # formulate the problem
-p48 <-
+p49 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -2775,7 +2817,7 @@ p48 <-
   add_binary_decisions()
 
 # print problem
-print(p48)
+print(p49)
 ```
 
     ## A conservation problem (<ConservationProblem>)
@@ -2802,7 +2844,7 @@ print(p48)
 
 ``` r
 # solve the problem (using the default solver)
-s48 <- solve(p48)
+s49 <- solve(p49)
 ```
 
     ## 
@@ -2866,7 +2908,7 @@ s48 <- solve(p48)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 304 nodes (5020 simplex iterations) in 0.22 seconds (0.24 work units)
+    ## Explored 304 nodes (5020 simplex iterations) in 0.19 seconds (0.24 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 8: 3548.26 3606.45 3659.38 ... 22987.2
@@ -2877,12 +2919,12 @@ s48 <- solve(p48)
 ``` r
 # plot solution
 plot(
-  s48, col = c("grey90", "darkgreen"), main = "Solution",
+  s49, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-57-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-58-1.png)
 
 We can plot this solution because the planning unit input data are
 spatially referenced in a raster format. The output format will always
@@ -2898,7 +2940,7 @@ quality of the solution and the optimization process.
 ``` r
 # extract the objective value for solution
 # (numerical value that is being minimized or maximized during optimization)
-print(attr(s48, "objective"))
+print(attr(s49, "objective"))
 ```
 
     ## solution_1 
@@ -2906,16 +2948,16 @@ print(attr(s48, "objective"))
 
 ``` r
 # extract time spent solving solution
-print(attr(s48, "runtime"))
+print(attr(s49, "runtime"))
 ```
 
     ## solution_1 
-    ##      0.226
+    ##      0.194
 
 ``` r
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s48, "status"))
+print(attr(s49, "status"))
 ```
 
     ## solution_1 
@@ -2924,7 +2966,7 @@ print(attr(s48, "status"))
 ``` r
 # extract the objective bound
 # (best estimate of lower or upper limit for optimal objective value)
-print(attr(s48, "objbound"))
+print(attr(s49, "objbound"))
 ```
 
     ## solution_1 
@@ -2952,7 +2994,7 @@ The following functions are available to summarize a solution:
 
 ``` r
 # calculate statistic
-eval_n_summary(p48, s48)
+eval_n_summary(p49, s49)
 ```
 
     ## # A tibble: 1 × 2
@@ -2964,7 +3006,7 @@ eval_n_summary(p48, s48)
 
 ``` r
 # calculate statistic
-eval_cost_summary(p48, s48)
+eval_cost_summary(p49, s49)
 ```
 
     ## # A tibble: 1 × 2
@@ -2978,7 +3020,7 @@ eval_cost_summary(p48, s48)
 
 ``` r
 # calculate statistics
-eval_feature_representation_summary(p48, s48)
+eval_feature_representation_summary(p49, s49)
 ```
 
     ## # A tibble: 5 × 5
@@ -2996,7 +3038,7 @@ eval_feature_representation_summary(p48, s48)
 
 ``` r
 # calculate statistics
-eval_target_coverage_summary(p48, s48)
+eval_target_coverage_summary(p49, s49)
 ```
 
     ## # A tibble: 5 × 10
@@ -3015,7 +3057,7 @@ eval_target_coverage_summary(p48, s48)
 
 ``` r
 # calculate statistic
-eval_boundary_summary(p48, s48)
+eval_boundary_summary(p49, s49)
 ```
 
     ## # A tibble: 1 × 2
@@ -3033,7 +3075,7 @@ eval_boundary_summary(p48, s48)
 cm <- adjacency_matrix(sim_pu_raster)
 
 # calculate statistic
-eval_connectivity_summary(p48, s48, data = cm)
+eval_connectivity_summary(p49, s49, data = cm)
 ```
 
     ## # A tibble: 1 × 2
@@ -3050,7 +3092,7 @@ eval_connectivity_summary(p48, s48, data = cm)
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 
 # calculate statistic
-eval_asym_connectivity_summary(p48, s48, data = acm)
+eval_asym_connectivity_summary(p49, s49, data = acm)
 ```
 
     ## # A tibble: 1 × 2
@@ -3078,23 +3120,23 @@ importance methods.
 
 ``` r
 # formulate the problem
-p49 <-
+p50 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # solve the problem
-s49 <- solve(p49)
+s50 <- solve(p50)
 
 # plot solution
 plot(
-  s49, col = c("grey90", "darkgreen"), main = "Solution",
+  s50, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-66-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-67-1.png)
 
 The following methods are available for computing importance scores.
 
@@ -3113,19 +3155,19 @@ The following methods are available for computing importance scores.
 
 ``` r
 # calculate replacement cost scores and make the solver quiet
-rc49 <-
-  p49 %>%
+rc50 <-
+  p50 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_replacement_importance(s49)
+  eval_replacement_importance(s50)
 
 # plot replacement cost scores
 plot(
-  rc49, main = "Replacement cost scores",
+  rc50, main = "Replacement cost scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-67-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-68-1.png)
 
 - **Incremental ranks**: Evaluate importance scores by calculating ranks
   via an incremental optimization process (Jung *et al.* 2021). Briefly,
@@ -3141,19 +3183,19 @@ plot(
 
 ``` r
 # calculate rank scores and make the solver quiet
-rs49 <-
-  p49 %>%
+rs50 <-
+  p50 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_rank_importance(s49, n = 10)
+  eval_rank_importance(s50, n = 10)
 
 # plot replacement cost scores
 plot(
-  rs49, main = "Rank scores",
+  rs50, main = "Rank scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-68-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-69-1.png)
 
 - **Ferrier method**: Evaluate importance by computing irreplaceability
   scores following Ferrier *et al.* (2000). The advantages of this
@@ -3166,16 +3208,16 @@ plot(
 
 ``` r
 # calculate Ferrier scores and extract total score
-fs49 <- eval_ferrier_importance(p49, s49)[["total"]]
+fs50 <- eval_ferrier_importance(p50, s50)[["total"]]
 
 # plot Ferrier scores
 plot(
-  fs49, main = "Ferrier scores",
+  fs50, main = "Ferrier scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-69-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-70-1.png)
 
 - **Rarity weighted richness**: Evaluate importance by computing rarity
   weighted richness scores (Williams *et al.* 1996). The only advantage
@@ -3189,16 +3231,16 @@ plot(
 
 ``` r
 # calculate rarity weighted richness scores
-rwr49 <- eval_rare_richness_importance(p49, s49)
+rwr50 <- eval_rare_richness_importance(p50, s50)
 
 # plot rarity weighted richness scores
 plot(
-  rwr49, main = "Rarity weighted richness scores",
+  rwr50, main = "Rarity weighted richness scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-70-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-71-1.png)
 
 In general, we recommend using replacement cost scores for small and
 moderate sized problems (e.g., less than 30,000 planning units) when it
@@ -3420,7 +3462,7 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-72-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-73-1.png)
 
 - **Reference point**: This approaches involves combining the objectives
   together using (i) reference point (`ref_points`) parameters that
@@ -3459,7 +3501,7 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-73-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-74-1.png)
 
 - **Hierarchical**: This approach involves solving an optimization
   problem for each objective in a hierarchical (lexicographic) manner.
@@ -3496,7 +3538,7 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-74-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-75-1.png)
 
 The multi-objective optimization approaches can be used to generate
 multiple solutions. Although portfolio functions can also be used to
@@ -3568,7 +3610,7 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-77-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-78-1.png)
 
 ``` r
 # extract objective values for the solutions
@@ -3600,7 +3642,7 @@ plot(
 )
 ```
 
-![](package_overview_files/figure-html/unnamed-chunk-78-1.png)
+![](package_overview_files/figure-html/unnamed-chunk-79-1.png)
 
 ## *Marxan* problems
 

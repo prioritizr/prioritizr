@@ -23,7 +23,7 @@ benchmarks comparing run time and solution quality of these solvers."><meta prop
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -123,7 +123,10 @@ source optimization software. Although this solver can have
 comparable performance to the <em>CBC</em> solver for particular problems and is
 generally faster than the <em>SYMPHONY</em> based solvers (see below), it
 sometimes can take much longer than the <em>CBC</em> solver for particular
-problems.</p></dd>
+problems. We recommend using this solver if <em>Gurobi</em>, <em>IBM CPLEX</em>, and
+<em>CBC</em> cannot be used. This solver may also be useful for
+teaching exercises because it is the fastest solver that is readily
+available on the Comprehensive R Archive Network (CRAN).</p></dd>
 
 
 <dt><code><a href="add_lsymphony_solver.html">add_lpsymphony_solver()</a></code></dt>
@@ -143,9 +146,16 @@ faster than <span class="pkg">Rsymphony</span> package interface (see below).</p
 <dt><code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code></dt>
 <dd><p>This solver provides an alternative interface to the
 <a href="https://github.com/coin-or/SYMPHONY" class="external-link"><em>SYMPHONY</em></a> solver using
-the <span class="pkg">Rsymphony</span> package.
-It is not recommended to use this solver because it has the slowest
-performance.</p></dd>
+the <span class="pkg">Rsymphony</span> package. We recommend using this solver if none
+of the previous solvers can be used.</p></dd>
+
+
+<dt><code><a href="add_scip_solver.html">add_scip_solver()</a></code></dt>
+<dd><p><a href="https://www.scipopt.org/" class="external-link"><em>SCIP</em></a> is an open
+source optimization software. Although this solver tends to have the
+slowest performance, it may solve particular types of problems more
+quickly than other solvers. We recommend trying out this solver if the other
+solvers are unable to generate solutions within a feasible period of time.</p></dd>
 
 
 
@@ -225,19 +235,27 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: highs</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># if scip is installed: create problem with added SCIP solver</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bnaras.github.io/scip/" class="external-link">"scip"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_highs_solver.html">add_highs_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"SCIP"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: scip</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create problem with added rsymphony solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://R-Forge.R-project.org/projects/rsymphony" class="external-link">"Rsymphony"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">p5</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_rsymphony_solver.html">add_rsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"Rsymphony"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: Rsymphony</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># if lpsymphony is installed: create problem with added lpsymphony solver</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="http://R-Forge.R-project.org/projects/rsymphony" class="external-link">"lpsymphony"</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="va">p6</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_lsymphony_solver.html">add_lpsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">p7</span> <span class="op">&lt;-</span> <span class="va">p</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="add_lsymphony_solver.html">add_lpsymphony_solver</a></span><span class="op">(</span>verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>  <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">n</span>, <span class="st">"lpsymphony"</span><span class="op">)</span></span></span>
-<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">s</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">s</span>, <span class="fu"><a href="solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: lpsymphony</span>
 <span class="r-in"><span></span></span>
