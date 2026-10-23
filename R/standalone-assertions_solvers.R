@@ -52,6 +52,7 @@ assertthat::on_failure(any_solvers_installed) <- function(call, env) {
 #'
 #' @noRd
 default_solver_name <- function() {
+  # nocov start
   if (requireNamespace("gurobi", quietly = TRUE)) {
     return("gurobi")
   } else if (requireNamespace("cplexAPI", quietly = TRUE)) {
@@ -69,4 +70,5 @@ default_solver_name <- function() {
   } else {
     return(NULL)
   }
+  # nocov end
 }
