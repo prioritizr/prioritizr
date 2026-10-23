@@ -1,15 +1,7 @@
+name: Reverse dependency
+
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - main
-  #     - master
-  # pull_request:
-  #   branches:
-  #     - main
-  #     - master
-
-name: Reverse dependency
 
 jobs:
   revdep_check:
