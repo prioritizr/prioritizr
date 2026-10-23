@@ -839,6 +839,20 @@ p42 <-
 # print problem
 print(p42)
 ```
+* __*SCIP* solver__: [*SCIP*](https://www.scipopt.org/) is an open source optimization software. Although it tends to have the slowest performance, it may solve particular types of problems more quickly than other solvers. We recommend trying out this solver if the other solvers are unable to generate solutions within a feasible period of time.
+```{r}
+# create a problem and specify that SCIP should be used to solve the
+# problem and specify an optimality gap of zero to obtain the optimal solution
+p43 <-
+  problem(sim_pu_raster, sim_features) %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.1) %>%
+  add_binary_decisions() %>%
+  add_scip_solver(gap = 0)
+
+# print problem
+print(p43)
+```
 
 ### Add a portfolio
 
@@ -848,7 +862,7 @@ Many conservation planning exercises require a portfolio of solutions. For examp
 ```{r}
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p43 <-
+p44 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -856,14 +870,14 @@ p43 <-
   add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p43)
+print(p44)
 ```
 
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p44 <-
+p45 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -871,14 +885,14 @@ p44 <-
   add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p44)
+print(p45)
 ```
 
 * __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p45 <-
+p46 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -886,14 +900,14 @@ p45 <-
   add_extra_portfolio()
 
 # print problem
-print(p45)
+print(p46)
 ```
 
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p46 <-
+p47 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -901,14 +915,14 @@ p46 <-
   add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p46)
+print(p47)
 ```
 
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p47 <-
+p48 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -916,7 +930,7 @@ p47 <-
   add_shuffle_portfolio(number_solutions = 10)
 
 # print problem
-print(p47)
+print(p48)
 ```
 
 ### Solve the problem
@@ -925,7 +939,7 @@ After formulating our conservation planning problem and specifying how the probl
 
 ```{r}
 # formulate the problem
-p48 <-
+p49 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
@@ -933,14 +947,14 @@ p48 <-
   add_binary_decisions()
 
 # print problem
-print(p48)
+print(p49)
 
 # solve the problem (using the default solver)
-s48 <- solve(p48)
+s49 <- solve(p49)
 
 # plot solution
 plot(
-  s48, col = c("grey90", "darkgreen"), main = "Solution",
+  s49, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -952,18 +966,18 @@ We can also extract attributes from the solution that describe the quality of th
 ```{r}
 # extract the objective value for solution
 # (numerical value that is being minimized or maximized during optimization)
-print(attr(s48, "objective"))
+print(attr(s49, "objective"))
 
 # extract time spent solving solution
-print(attr(s48, "runtime"))
+print(attr(s49, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s48, "status"))
+print(attr(s49, "status"))
 
 # extract the objective bound
 # (best estimate of lower or upper limit for optimal objective value)
-print(attr(s48, "objbound"))
+print(attr(s49, "objbound"))
 ```
 
 ## Evaluate the solution
@@ -979,27 +993,27 @@ The following functions are available to summarize a solution:
 * __Number summary__: Calculate the number of planning units selected by a solution.
 ```{r}
 # calculate statistic
-eval_n_summary(p48, s48)
+eval_n_summary(p49, s49)
 ```
 * __Cost summary__: Calculate the total cost of a solution.
 ```{r}
 # calculate statistic
-eval_cost_summary(p48, s48)
+eval_cost_summary(p49, s49)
 ```
 * __Feature representation summary__: Calculate how well features are represented by a solution. This function can be used for any type of problem.
 ```{r}
 # calculate statistics
-eval_feature_representation_summary(p48, s48)
+eval_feature_representation_summary(p49, s49)
 ```
 * __Target coverage summary__: Calculate how well representation targets are met by a solution. This function can only be used with problems contain targets.
 ```{r}
 # calculate statistics
-eval_target_coverage_summary(p48, s48)
+eval_target_coverage_summary(p49, s49)
 ```
 * __Boundary summary__: Calculate the total exposed boundary length (perimeter) associated with a solution.
 ```{r}
 # calculate statistic
-eval_boundary_summary(p48, s48)
+eval_boundary_summary(p49, s49)
 ```
 * __Connectivity summary__: Calculate the connectivity of a solution using symmetric connectivity data.
 ```{r}
@@ -1009,7 +1023,7 @@ eval_boundary_summary(p48, s48)
 cm <- adjacency_matrix(sim_pu_raster)
 
 # calculate statistic
-eval_connectivity_summary(p48, s48, data = cm)
+eval_connectivity_summary(p49, s49, data = cm)
 ```
 * __Asymmetric connectivity summary__: Calculate the connectivity of a solution using asymmetric connectivity data.
 ```{r}
@@ -1018,7 +1032,7 @@ eval_connectivity_summary(p48, s48, data = cm)
 acm <- matrix(runif(ncell(sim_pu_raster) ^ 2), ncol = ncell(sim_pu_raster))
 
 # calculate statistic
-eval_asym_connectivity_summary(p48, s48, data = acm)
+eval_asym_connectivity_summary(p49, s49, data = acm)
 ```
 
 ### Evaluating importance
@@ -1029,18 +1043,18 @@ Let's generate a prioritization so that can compare the different importance met
 
 ```{r, fig.height = h, fig.width = w, message = FALSE, results = "hide"}
 # formulate the problem
-p49 <-
+p50 <-
   problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
   add_relative_targets(0.1) %>%
   add_binary_decisions()
 
 # solve the problem
-s49 <- solve(p49)
+s50 <- solve(p50)
 
 # plot solution
 plot(
-  s49, col = c("grey90", "darkgreen"), main = "Solution",
+  s50, col = c("grey90", "darkgreen"), main = "Solution",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -1050,14 +1064,14 @@ plot(
 * __Replacement cost__: Evaluate importance using the replacement cost method [@r31]. This method quantifies the importance of a given planning unit as the decrease in the performance of the solution (based on the objective function) if the planning unit cannot be acquired (e.g., in terms of the additional costs required to meet feature targets). The advantages of this method are that it (i) accounts for the costs of the planning units, (ii) can be applied to multiple management zones, (iii) can be applied to any objective function, and (iv) can identify truly irreplaceable planning units (denoted with infinite values). However, the key disadvantage  of this method, is that can take an infeasible amount of time to complete for large and complex problems.
 ```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
-rc49 <-
-  p49 %>%
+rc50 <-
+  p50 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_replacement_importance(s49)
+  eval_replacement_importance(s50)
 
 # plot replacement cost scores
 plot(
-  rc49, main = "Replacement cost scores",
+  rc50, main = "Replacement cost scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -1065,14 +1079,14 @@ plot(
 * __Incremental ranks__: Evaluate importance scores by calculating ranks via an incremental optimization process [@r66]. Briefly, this approach involves generating incremental prioritizations with increasing budgets, wherein planning units selected in a previous increment are locked in to the following solution. Additionally, locked out constraints are used to ensure that only planning units selected in the original solution are available for selection. The advantages of this approach are that it can (i) be computed relatively quickly for relatively large problems, (ii) account for the cost of different planning units, (iii) account for multiple management zones, and (iv) apply to solutions generated using any objective function.
 ```{r, fig.height = h, fig.width = w}
 # calculate rank scores and make the solver quiet
-rs49 <-
-  p49 %>%
+rs50 <-
+  p50 %>%
   add_default_solver(gap = 0, verbose = FALSE) %>%
-  eval_rank_importance(s49, n = 10)
+  eval_rank_importance(s50, n = 10)
 
 # plot replacement cost scores
 plot(
-  rs49, main = "Rank scores",
+  rs50, main = "Rank scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -1080,11 +1094,11 @@ plot(
 * __Ferrier method__: Evaluate importance by computing irreplaceability scores following Ferrier *et al.* [-@r34]. The advantages of this method are that it (i) can be computed relatively quickly for moderate problems, and (ii) calculates a score for each feature within each planning unit to provide insight into why certain planning units are more important than others. The disadvantage with this method is that it can only be applied to conservation problems that use targets and have a single zone (i.e., similar to _Marxan_-type problems).
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier scores and extract total score
-fs49 <- eval_ferrier_importance(p49, s49)[["total"]]
+fs50 <- eval_ferrier_importance(p50, s50)[["total"]]
 
 # plot Ferrier scores
 plot(
-  fs49, main = "Ferrier scores",
+  fs50, main = "Ferrier scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```
@@ -1092,11 +1106,11 @@ plot(
 * __Rarity weighted richness__: Evaluate importance by computing rarity weighted richness scores [@r33]. The only advantage with this method is that it can be computed very quickly for very large problems. The key disadvantage with this approach is that it merely describes the spatial patterns of biodiversity, and does not consider any of the goals that underpin conservation planning exercise. For instance, it does not account for planning costs, management zones, objective functions, or feature representation targets.
 ```{r, fig.height = h, fig.width = w}
 # calculate rarity weighted richness scores
-rwr49 <- eval_rare_richness_importance(p49, s49)
+rwr50 <- eval_rare_richness_importance(p50, s50)
 
 # plot rarity weighted richness scores
 plot(
-  rwr49, main = "Rarity weighted richness scores",
+  rwr50, main = "Rarity weighted richness scores",
   xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1), axes = FALSE
 )
 ```

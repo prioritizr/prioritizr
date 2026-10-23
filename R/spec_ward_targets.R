@@ -59,7 +59,7 @@
 #' (which ever value is larger).
 #' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
 #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds (per `cap_area_threshold` and `area_units`).
+#' thresholds (per `cap_area_target` and `area_units`).
 #' By helping to ensure that species would -- at a minimum -- meet criteria
 #' for being recognized as Critically Endangered, this method aims to reduce
 #' chance that species will become extinct.

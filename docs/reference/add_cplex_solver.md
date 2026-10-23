@@ -139,11 +139,13 @@ Other functions for adding solvers:
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
 [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
 [`add_lsymphony_solver`](https://prioritizr.net/reference/add_lsymphony_solver.md),
-[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md),
+[`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
 
 ## Examples
 
 ``` r
+if (FALSE) { # asNamespace("prioritizr")$do_run_example("cplex")
 # load data
 sim_pu_raster <- get_sim_pu_raster()
 sim_features <- get_sim_features()
@@ -161,4 +163,5 @@ s <- solve(p)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE)
+}
 ```

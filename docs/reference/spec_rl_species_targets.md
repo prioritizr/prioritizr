@@ -154,7 +154,7 @@ the same value as if it were `"A2"`.
 
 - If `status = "CR"` and `criterion_b = "B2"`, then \\b =\\ 10 km².
 
-- If `status = "EN"` and `criterion_b = "B2"`, then \\b =\\ 50 km².
+- If `status = "EN"` and `criterion_b = "B2"`, then \\b =\\ 500 km².
 
 - If `status = "VU"` and `criterion_b = "B2"`, then \\b =\\ 2,000 km².
 

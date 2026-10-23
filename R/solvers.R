@@ -62,7 +62,10 @@ NULL
 #' comparable performance to the *CBC* solver for particular problems and is
 #' generally faster than the *SYMPHONY* based solvers (see below), it
 #' sometimes can take much longer than the *CBC* solver for particular
-#' problems.
+#' problems. We recommend using this solver if *Gurobi*, *IBM CPLEX*, and
+#' *CBC* cannot be used. This solver may also be useful for
+#' teaching exercises because it is the fastest solver that is readily
+#' available on the Comprehensive R Archive Network (CRAN).
 #' }
 #'
 #' \item{[add_lpsymphony_solver()]}{
@@ -82,9 +85,16 @@ NULL
 #' \item{[add_rsymphony_solver()]}{
 #' This solver provides an alternative interface to the
 #' [*SYMPHONY*](https://github.com/coin-or/SYMPHONY) solver using
-#' the \pkg{Rsymphony} package.
-#' It is not recommended to use this solver because it has the slowest
-#' performance.
+#' the \pkg{Rsymphony} package. We recommend using this solver if none
+#' of the previous solvers can be used.
+#' }
+#'
+#' \item{[add_scip_solver()]}{
+#' [*SCIP*](https://www.scipopt.org/) is an open
+#' source optimization software. Although this solver tends to have the
+#' slowest performance, it may solve particular types of problems more
+#' quickly than other solvers. We recommend trying out this solver if the other
+#' solvers are unable to generate solutions within a feasible period of time.
 #' }
 #'
 #' }
@@ -160,6 +170,13 @@ NULL
 #'   p6 <- p %>% add_lpsymphony_solver(verbose = FALSE)
 #'   n <- c(n, "lpsymphony")
 #'   s <- c(s, solve(p6))
+#' }
+#'
+#' # if scip is installed: create problem with added SCIP solver
+#' if (require("scip")) {
+#'   p7 <- p %>% add_highs_solver(verbose = FALSE)
+#'   n <- c(n, "SCIP")
+#'   s <- c(s, solve(p7))
 #' }
 #'
 #' # plot solutions

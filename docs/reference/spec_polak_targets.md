@@ -107,7 +107,7 @@ features are assigned a target threshold of 10% (per
 is between the area-based thresholds used to identify rare and common
 features are assigned a target threshold through linear interpolation.
 Additionally, following Butchart *et al.* (2015), a cap of 1,000,000 km²
-is applied to target thresholds (per `cap_area_threshold` and
+is applied to target thresholds (per `cap_area_target` and
 `area_units`).
 
 ## Data calculations

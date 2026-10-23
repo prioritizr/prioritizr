@@ -1,5 +1,75 @@
 # Changelog
 
+## prioritizr 9.0.1.1
+
+### Minor improvements and bug fixes
+
+- New
+  [`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
+  function for the *SCIP* optimization software
+  ([\#412](https://github.com/prioritizr/prioritizr/issues/412)).
+- Fix bug in
+  [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md)
+  function that yielded incorrect targets when the order of the features
+  in `data` does not match that of `features` in
+  [`problem()`](https://prioritizr.net/reference/problem.md)
+  ([\#415](https://github.com/prioritizr/prioritizr/issues/415)). Thanks
+  to Ramon the creator of [@wilmund](https://github.com/wilmund) for bug
+  report.
+- Fix bugs in
+  [`spec_area_targets()`](https://prioritizr.net/reference/spec_area_targets.md),
+  [`spec_duran_targets()`](https://prioritizr.net/reference/spec_duran_targets.md),
+  [`spec_max_targets()`](https://prioritizr.net/reference/spec_max_targets.md),
+  [`spec_min_targets()`](https://prioritizr.net/reference/spec_min_targets.md),
+  [`spec_pop_size_targets()`](https://prioritizr.net/reference/spec_pop_size_targets.md),
+  and
+  [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md)
+  functions that yielded incorrect targets or errors when used with
+  [`add_group_targets()`](https://prioritizr.net/reference/add_group_targets.md)
+  ([\#416](https://github.com/prioritizr/prioritizr/issues/416)). Thanks
+  to Ramon the creator of [@wilmund](https://github.com/wilmund) for bug
+  report.
+- Fix bugs in
+  [`spec_area_targets()`](https://prioritizr.net/reference/spec_area_targets.md),
+  [`spec_duran_targets()`](https://prioritizr.net/reference/spec_duran_targets.md),
+  [`spec_interp_absolute_targets()`](https://prioritizr.net/reference/spec_interp_absolute_targets.md),
+  [`spec_pop_size_targets()`](https://prioritizr.net/reference/spec_pop_size_targets.md),
+  [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md),
+  and
+  [`spec_rule_targets()`](https://prioritizr.net/reference/spec_rule_targets.md)
+  that resulted in errors when trying to generate prioritizations and
+  one (or more) features had zeros in all planning units
+  ([\#417](https://github.com/prioritizr/prioritizr/issues/417)). Thanks
+  to Ramon the creator of [@wilmund](https://github.com/wilmund) for bug
+  report.
+- Fix bug in internal `is_area_units` function that incorrectly detected
+  density-based units (e.g., `"km^-2"` or `"1/km^2"`) as area-based
+  units ([\#417](https://github.com/prioritizr/prioritizr/issues/417)).
+  This bug meant that users could mistakenly supply invalid units to
+  parameters for target specification (e.g., `area_units` parameter of
+  the
+  [`spec_jung_targets()`](https://prioritizr.net/reference/spec_jung_targets.md))
+  and subsequently obtain incorrect results. Instead, these functions
+  should have instead thrown an error regarding the invalid units.
+  Thanks to Ramon the creator of [@wilmund](https://github.com/wilmund)
+  for bug report.
+
+### Documentation updates
+
+- Fix minor mistakes in documentation for
+  [`loglinear_interpolation()`](https://prioritizr.net/reference/loglinear_interpolation.md),
+  [`spec_polak_targets()`](https://prioritizr.net/reference/spec_polak_targets.md),
+  [`spec_rl_species_targets()`](https://prioritizr.net/reference/spec_rl_species_targets.md),
+  [`spec_sreekar_targets()`](https://prioritizr.net/reference/spec_sreekar_targets.md),
+  [`spec_ward_targets()`](https://prioritizr.net/reference/spec_ward_targets.md),
+  and
+  [`spec_watson_targets()`](https://prioritizr.net/reference/spec_watson_targets.md)
+  functions
+  ([\#417](https://github.com/prioritizr/prioritizr/issues/417)). Note
+  that these mistake did not affect the correctnesss of the calculations
+  for these functions. Thanks to Ramon the creator of
+  [@wilmund](https://github.com/wilmund) for bug report.
+
 ## prioritizr 9.0.1
 
 CRAN release: 2026-09-24

@@ -13,7 +13,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">prioritizr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">9.0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,21 @@
       <small>Source: <a href="https://github.com/prioritizr/prioritizr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="9.0.1.1" id="prioritizr-9011">prioritizr 9.0.1.1<a class="anchor" aria-label="anchor" href="#prioritizr-9011"></a></h2>
+<div class="section level3">
+<h3 id="minor-improvements-and-bug-fixes-9-0-1-1">Minor improvements and bug fixes<a class="anchor" aria-label="anchor" href="#minor-improvements-and-bug-fixes-9-0-1-1"></a></h3>
+<ul><li>New <code><a href="../reference/add_scip_solver.html">add_scip_solver()</a></code> function for the <em>SCIP</em> optimization software (<a href="https://github.com/prioritizr/prioritizr/issues/412" class="external-link">#412</a>).</li>
+<li>Fix bug in <code><a href="../reference/spec_rule_targets.html">spec_rule_targets()</a></code> function that yielded incorrect targets when the order of the features in <code>data</code> does not match that of <code>features</code> in <code><a href="../reference/problem.html">problem()</a></code> (<a href="https://github.com/prioritizr/prioritizr/issues/415" class="external-link">#415</a>). Thanks to Ramon the creator of <a href="https://github.com/wilmund" class="external-link">@wilmund</a> for bug report.</li>
+<li>Fix bugs in <code><a href="../reference/spec_area_targets.html">spec_area_targets()</a></code>, <code><a href="../reference/spec_duran_targets.html">spec_duran_targets()</a></code>, <code><a href="../reference/spec_max_targets.html">spec_max_targets()</a></code>, <code><a href="../reference/spec_min_targets.html">spec_min_targets()</a></code>, <code><a href="../reference/spec_pop_size_targets.html">spec_pop_size_targets()</a></code>, and <code><a href="../reference/spec_rule_targets.html">spec_rule_targets()</a></code> functions that yielded incorrect targets or errors when used with <code><a href="../reference/add_group_targets.html">add_group_targets()</a></code> (<a href="https://github.com/prioritizr/prioritizr/issues/416" class="external-link">#416</a>). Thanks to Ramon the creator of <a href="https://github.com/wilmund" class="external-link">@wilmund</a> for bug report.</li>
+<li>Fix bugs in <code><a href="../reference/spec_area_targets.html">spec_area_targets()</a></code>, <code><a href="../reference/spec_duran_targets.html">spec_duran_targets()</a></code>, <code><a href="../reference/spec_interp_absolute_targets.html">spec_interp_absolute_targets()</a></code>, <code><a href="../reference/spec_pop_size_targets.html">spec_pop_size_targets()</a></code>, <code><a href="../reference/spec_rl_species_targets.html">spec_rl_species_targets()</a></code>, and <code><a href="../reference/spec_rule_targets.html">spec_rule_targets()</a></code> that resulted in errors when trying to generate prioritizations and one (or more) features had zeros in all planning units (<a href="https://github.com/prioritizr/prioritizr/issues/417" class="external-link">#417</a>). Thanks to Ramon the creator of <a href="https://github.com/wilmund" class="external-link">@wilmund</a> for bug report.</li>
+<li>Fix bug in internal <code>is_area_units</code> function that incorrectly detected density-based units (e.g., <code>"km^-2"</code> or <code>"1/km^2"</code>) as area-based units (<a href="https://github.com/prioritizr/prioritizr/issues/417" class="external-link">#417</a>). This bug meant that users could mistakenly supply invalid units to parameters for target specification (e.g., <code>area_units</code> parameter of the <code><a href="../reference/spec_jung_targets.html">spec_jung_targets()</a></code>) and subsequently obtain incorrect results. Instead, these functions should have instead thrown an error regarding the invalid units. Thanks to Ramon the creator of <a href="https://github.com/wilmund" class="external-link">@wilmund</a> for bug report.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-updates-9-0-1-1">Documentation updates<a class="anchor" aria-label="anchor" href="#documentation-updates-9-0-1-1"></a></h3>
+<ul><li>Fix minor mistakes in documentation for <code><a href="../reference/loglinear_interpolation.html">loglinear_interpolation()</a></code>, <code><a href="../reference/spec_polak_targets.html">spec_polak_targets()</a></code>, <code><a href="../reference/spec_rl_species_targets.html">spec_rl_species_targets()</a></code>, <code><a href="../reference/spec_sreekar_targets.html">spec_sreekar_targets()</a></code>, <code><a href="../reference/spec_ward_targets.html">spec_ward_targets()</a></code>, and <code><a href="../reference/spec_watson_targets.html">spec_watson_targets()</a></code> functions (<a href="https://github.com/prioritizr/prioritizr/issues/417" class="external-link">#417</a>). Note that these mistake did not affect the correctnesss of the calculations for these functions. Thanks to Ramon the creator of <a href="https://github.com/wilmund" class="external-link">@wilmund</a> for bug report.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="9.0.1" id="prioritizr-901">prioritizr 9.0.1<a class="anchor" aria-label="anchor" href="#prioritizr-901"></a></h2><p class="text-muted">CRAN release: 2026-09-24</p>
 <div class="section level3">

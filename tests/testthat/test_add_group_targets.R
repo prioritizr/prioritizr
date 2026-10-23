@@ -68,6 +68,178 @@ test_that("works", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
+test_that("compatible with all spec functions", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # enlarge spatial extent
+  terra::ext(sim_pu_raster) <- c(
+    0, nrow(sim_pu_raster) * 1000,
+    0, ncol(sim_pu_raster) * 1000
+  )
+  terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
+  terra::ext(sim_features) <- terra::ext(sim_pu_raster)
+  terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  # override third feature to have all zeros
+  sim_features[[3]] <- sim_features[[3]] * 0
+  # define data for target setting
+  groups <- c("b", "a", rep("b", terra::nlyr(sim_features) - 2L))
+  ft_data <- tibble::tribble(
+    ~feature, ~diversity, ~rare, ~vu, ~en, ~cr,
+    "feature_1", TRUE, TRUE, FALSE, FALSE, TRUE,
+    "feature_2", FALSE, FALSE, TRUE, FALSE, FALSE,
+    "feature_3", FALSE, FALSE, TRUE, FALSE, FALSE,
+    "feature_4", FALSE, FALSE, TRUE, FALSE, FALSE,
+    "feature_5", FALSE, TRUE, FALSE, TRUE, TRUE
+  )
+  wt_data <- c(
+    "diversity" = -0.5,
+    "rare" = 0.2,
+    "vu" = 0.3,
+    "cr" = 0.9
+  )
+  methods = list(
+    spec_area_targets = spec_area_targets(
+      targets = c(1, 2, 5, 10, 100),
+      area_units = c("km2", "km2", "km2", "km2", "ha")
+    ),
+    spec_duran_targets = spec_duran_targets(
+      probability_target = rep(0.9, 5),
+      historical_area = rep(10000, 5),
+      area_units = "km2"
+    ),
+    spec_interp_absolute_targets = spec_interp_absolute_targets(
+      rare_absolute_threshold = 30,
+      rare_relative_target = 0.4,
+      rare_absolute_target = 20,
+      rare_method = "max",
+      common_absolute_threshold = 50,
+      common_relative_target = 0.1,
+      common_absolute_target = 60,
+      common_method = "min",
+      cap_absolute_target = 70,
+      interp_method = "linear"
+    ),
+    spec_interp_area_targets = spec_interp_area_targets(
+      rare_area_threshold = 3000,
+      rare_relative_target = 0.4,
+      rare_area_target = 2000,
+      rare_method = "max",
+      common_area_threshold = 5000,
+      common_relative_target = 0.1,
+      common_area_target = 6000,
+      common_method = "min",
+      cap_area_target = 7000,
+      interp_method = "linear",
+      area_units = "km^2"
+    ),
+    spec_jung_targets = spec_jung_targets(),
+    spec_max_targets = spec_max_targets(
+      spec_area_targets(
+        targets = c(1, 2, 5, 10, 100),
+        area_units = c("km2", "km2", "km2", "km2", "ha")
+      ),
+      spec_area_targets(
+        targets = c(5, 1, 5, 100, 10),
+        area_units = "km2"
+      )
+    ),
+    spec_min_targets = spec_min_targets(
+      spec_area_targets(
+        targets = c(1, 2, 5, 10, 100),
+        area_units = c("km2", "km2", "km2", "km2", "ha")
+      ),
+      spec_area_targets(
+        targets = c(5, 1, 5, 100, 10),
+        area_units = "km2"
+      )
+    ),
+    spec_polak_targets = spec_polak_targets(),
+    spec_pop_size_targets = spec_pop_size_targets(
+      pop_size_targets = c(10, 10, 1, 20, 50),
+      pop_density = c(1, 5, 1, 4, 1),
+      density_units = "km2",
+      cap_area_target = 40,
+      area_units = "km2"
+    ),
+    spec_relative_targets = spec_relative_targets(seq(0.1, 0.5, 0.1)),
+    spec_rl_species_targets = spec_rl_species_targets(
+      status = "CR",
+      criterion_a = "A2",
+      criterion_b = "B1",
+      prop_uplift = 0.15,
+      method = "max",
+      cap_area_target = 7000,
+      area_units = "km^2"
+    ),
+    spec_rodrigues_targets = spec_rodrigues_targets(),
+    spec_rule_targets = spec_rule_targets(
+      baseline_relative_target = 0.3,
+      rules_relative_target = wt_data,
+      data = ft_data,
+      cap_area_target = 25000
+    ),
+    spec_sreekar_targets = spec_sreekar_targets(),
+    spec_ward_targets = spec_ward_targets(),
+    spec_watson_targets = spec_watson_targets(),
+    spec_wilson_targets = spec_wilson_targets(
+      mean_growth_rates = c(0.001, 0.5, 1, 0.3, 0.3),
+      var_growth_rates = c(0.0001, 0.0001, 0.0001, 0.0001, 0.1),
+      pop_density = c(1, 1, 1, 1, 1),
+      density_units = "km2",
+      cap_area_target = 5,
+      area_units = "km2"
+    )
+  )
+  # define initial problem
+  expect_warning(
+    p0 <- problem(sim_pu_raster, sim_features),
+    "zero"
+  )
+  # run tests
+  result <- lapply(seq_along(methods), function(i) {
+    try({
+      ## define problems
+      p1 <-
+        p0 %>%
+        add_group_targets(
+          groups = groups,
+          method = list(a = spec_relative_targets(0.2), b = methods[[i]])
+        )
+      p2 <-
+        p0 %>%
+        add_auto_targets(method = methods[[i]])
+      p3 <-
+        p0 %>%
+        add_auto_targets(method = spec_relative_targets(0.2))
+      ## extract targets
+      x1 <- p1$targets$output(p1)
+      x2 <- p2$targets$output(p2)
+      x3 <- p3$targets$output(p3)
+      ## run tests
+      return(
+        identical(
+          x1[groups == "b", , drop = FALSE],
+          x2[groups == "b", , drop = FALSE]
+        ) &&
+        identical(
+          x1[groups == "a", , drop = FALSE],
+          x3[groups == "a", , drop = FALSE]
+        ) &&
+        all(is.finite(x1$value)) &&
+        all(is.finite(x2$value)) &&
+        all(is.finite(x3$value))
+      )},
+      silent = TRUE
+    )
+  })
+  # display names of target specification functions that fail
+  expect_equal(
+    names(methods)[!vapply(result, isTRUE, logical(1))],
+    character(0)
+  )
+})
+
 test_that("invalid arguments", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

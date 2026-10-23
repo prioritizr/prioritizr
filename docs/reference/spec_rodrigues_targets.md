@@ -85,15 +85,15 @@ geographic scales (e.g., national, state-level or county scales). For
 example, if this method is applied to such geographic scales, then the
 resulting prioritizations may select an overly large percentage of the
 study area, or be biased towards over-representing common and widespread
-species. This is because the thresholds (i.e., `rare_area_threshold`,
-`common_area_threshold`, and `cap_area_threshold`) were originally
-developed based on rationale for promoting the long-term persistence of
-entire species. As such, if you are working at a sub-global scale, it is
-recommended to set thresholds based on that criteria are appropriate to
-the spatial extent of the planning region. Please note that this
-function is provided as convenient method to set targets for problems
-with a single management zone, and cannot be used for those with
-multiple management zones.
+species. This is because the thresholds and target cap (e.g.,
+`rare_area_threshold`, `common_area_threshold`, and `cap_area_target`)
+were originally developed based on rationale for promoting the long-term
+persistence of entire species. As such, if you are working at a
+sub-global scale, it is recommended to set thresholds based on that
+criteria are appropriate to the spatial extent of the planning region.
+Please note that this function is provided as convenient method to set
+targets for problems with a single management zone, and cannot be used
+for those with multiple management zones.
 
 ## Mathematical formulation
 
@@ -109,8 +109,8 @@ features are assigned a target threshold of 10% (per
 is between the area-based thresholds used to identify rare and common
 features are assigned a target threshold through log-linear
 interpolation. Additionally, following Butchart *et al.* (2015), a cap
-of 1,000,000 km² is applied to target thresholds (per
-`cap_area_threshold` and `area_units`).
+of 1,000,000 km² is applied to target thresholds (per `cap_area_target`
+and `area_units`).
 
 ## Data calculations
 

@@ -385,6 +385,11 @@ calc_duran_targets <- function(x, features,
     area_units <- rep(area_units, x$number_of_features())
   }
 
+  # subset parameters for required features
+  probability_target <- probability_target[features]
+  historical_area <- historical_area[features]
+  area_units <- area_units[features]
+
   # calculate historical ranges as km^2
   historical_area_km2 <- vapply(
     seq_along(historical_area),
@@ -395,5 +400,5 @@ calc_duran_targets <- function(x, features,
   # calculate target
   fa <- c(x$feature_abundances_km2_in_total_units()[features, 1])
   target <- historical_area_km2 * (probability_target^(1 / 0.25))
-  pmin(target, fa) / fa
+  convert_nonfinite_values_to_zeros(pmin(target, fa) / fa)
 }

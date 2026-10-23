@@ -205,6 +205,9 @@ assertthat::on_failure(is_valid_raw_solution) <- function(call, env) {
 #' @noRd
 is_area_units <- function(x) {
   if (!is.character(x)) return(FALSE)
+  if (any(is.na(x))) return(FALSE)
+  if (any(grepl("^-", x, fixed = TRUE))) return(FALSE)
+  if (any(grepl("/", x, fixed = TRUE))) return(FALSE)
   suppressMessages(
     inherits(
       try(

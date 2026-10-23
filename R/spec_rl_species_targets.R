@@ -112,7 +112,7 @@ NULL
 #' * If `status = "EN"` and `criterion_b = "B1"`, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #' * If `status = "VU"` and `criterion_b = "B1"`, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #' * If `status = "CR"` and `criterion_b = "B2"`, then \eqn{b =} 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-#' * If `status = "EN"` and `criterion_b = "B2"`, then \eqn{b =} 50 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+#' * If `status = "EN"` and `criterion_b = "B2"`, then \eqn{b =} 500 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #' * If `status = "VU"` and `criterion_b = "B2"`, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 #'
 #' @inherit spec_jung_targets return seealso
@@ -427,5 +427,5 @@ internal_rl_targets <- function(x, features, size_threshold,
   targets <- pmin(fa, targets)
 
   # return targets
-  targets / fa
+  convert_nonfinite_values_to_zeros(targets / fa)
 }

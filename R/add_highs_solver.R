@@ -27,7 +27,9 @@ NULL
 #' [add_lpsymphony_solver()]), it can sometimes take much longer than the
 #' *CBC* solver for particular problems. This solver is recommended if
 #' the [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()] cannot
-#' be used.
+#' be used. This solver may also be useful for
+#' teaching exercises because it is the fastest solver that is readily
+#' available on the Comprehensive R Archive Network (CRAN).
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
@@ -37,7 +39,7 @@ NULL
 #' Huangfu Q and Hall JAJ (2018). Parallelizing the dual revised simplex
 #' method. *Mathematical Programming Computation*, 10: 119-142.
 #'
-#' @examplesIf asNamespace("prioritizr")$do_run_example()
+#' @examplesIf asNamespace("prioritizr")$do_run_example("highs")
 #' # load data
 #' sim_pu_raster <- get_sim_pu_raster()
 #' sim_features <- get_sim_features()

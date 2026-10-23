@@ -67,14 +67,14 @@ points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
 
 
 # this function can also be used to calculate representation targets
-# following Rodrigues et al. (2014). For example, let's say that
+# following Rodrigues et al. (2004). For example, let's say that
 # we had a set of species we were interested in calculating representation
 # targets for and we had information on their range sizes (in km^2).
 spp_range_size_km2 <- seq(0.01, 15000000, by = 100)
 
 # we can now use this function to calculate representation targets
 # (expressed as a percentage of the species' range sizes) using
-# the thresholds and cap sizes reported by Rodrigues et al. 2014
+# the thresholds and cap sizes reported by Rodrigues et al. 2004
 spp_target_percentage_rodrigues <- loglinear_interpolation(
     x = spp_range_size_km2,
     coordinate_one_x = 1000,

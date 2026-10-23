@@ -481,5 +481,5 @@ calc_interp_targets <- function(x,
   targets <- pmin(targets, x)
 
   # return target
-  targets / x
+  convert_nonfinite_values_to_zeros(targets / x)
 }

@@ -138,7 +138,7 @@ is assigned the same value as if it were \code{"A2"}.
 \item If \code{status = "EN"} and \code{criterion_b = "B1"}, then \eqn{b =} 5,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 \item If \code{status = "VU"} and \code{criterion_b = "B1"}, then \eqn{b =} 20,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 \item If \code{status = "CR"} and \code{criterion_b = "B2"}, then \eqn{b =} 10 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
-\item If \code{status = "EN"} and \code{criterion_b = "B2"}, then \eqn{b =} 50 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
+\item If \code{status = "EN"} and \code{criterion_b = "B2"}, then \eqn{b =} 500 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 \item If \code{status = "VU"} and \code{criterion_b = "B2"}, then \eqn{b =} 2,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}.
 }
 }

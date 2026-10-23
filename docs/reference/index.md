@@ -295,6 +295,11 @@ Functions for specifying how a problem should be solved.
 
   Add a *SYMPHONY* solver with *Rsymphony*
 
+- [`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
+  :
+
+  Add a *SCIP* solver
+
 ## Portfolios
 
 Functions for generating a portfolio of solutions.

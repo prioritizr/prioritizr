@@ -1,5 +1,5 @@
-# For help debugging build failures open an issue on the RStudio community with the 'github-actions' tag.
-# https://community.rstudio.com/new-topic?category=Package%20development&tags=github-actions
+name: Documentation
+
 on:
   schedule:
     - cron: 0 0 * * 1 # schedule to run at midnight on Monday each week
@@ -11,8 +11,6 @@ on:
     branches:
       - main
       - master
-
-name: Documentation
 
 jobs:
   docs:
@@ -67,9 +65,8 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::remotes
-            any::covr
-            any::urlchecker
             any::maps
+            any::urlchecker
             gurobi=?ignore
             cplexAPI=?ignore
           needs: |
@@ -80,7 +77,6 @@ jobs:
           options(repos = "https://cloud.r-project.org/")
           install.packages("sf")
           install.packages("terra")
-          install.packages("urlchecker")
         shell: Rscript {0}
 
       - name: Session information

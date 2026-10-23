@@ -87,14 +87,13 @@ priorities for prioritizations conducted at smaller geographic scales
 setting method is applied to such geographic scales, then the resulting
 prioritizations may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
-This is because the thresholds (i.e., `rare_area_threshold` and
-`cap_area_threshold`) were originally developed based on criteria for
-national-scales. As such, if you working at the sub-national scale, it
-is recommended to set thresholds based on that criteria are appropriate
-to the spatial extent of the planning region. Please note that this
-function is provided as convenient method to set targets for problems
-with a single management zone, and cannot be used for those with
-multiple management zones.
+This is because the threshold (i.e., `rare_area_threshold`) was
+originally developed based on criteria for national-scales. As such, if
+you working at the sub-national scale, it is recommended to set
+thresholds based on that criteria are appropriate to the spatial extent
+of the planning region. Please note that this function is provided as
+convenient method to set targets for problems with a single management
+zone, and cannot be used for those with multiple management zones.
 
 ## Mathematical formulation
 
@@ -104,11 +103,11 @@ as those with a spatial distribution smaller than 10,000 km² (per
 `rare_area_threshold` and `area_units`) and common features as those
 with a larger spatial distribution. Given this, rare features are
 assigned target threshold of 100% (per `rare_relative_target`) or 1,000
-km² (per `rare_area_threshold`) (whichever of these two values is
-smaller), and common features are assigned a target threshold of 10%
-(per `common_relative_target`). Additionally, following Butchart *et
-al.* (2015), a cap of 1,000,000 km² is applied to target thresholds (per
-`cap_area_threshold` and `area_units`).
+km² (per `rare_area_target`) (whichever of these two values is smaller),
+and common features are assigned a target threshold of 10% (per
+`common_relative_target`). Additionally, following Butchart *et al.*
+(2015), a cap of 1,000,000 km² is applied to target thresholds (per
+`cap_area_target` and `area_units`).
 
 ## Data calculations
 

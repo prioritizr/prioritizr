@@ -82,10 +82,10 @@ Critically Endangered threat status and involves setting the target
 threshold for a species as 100,000 km² (per subcriterion B1) or 20% (per
 subcriterion A2) of its spatial distribution (which ever value is
 larger). Additionally, following Butchart *et al.* (2015), a cap of
-1,000,000 km² is applied to target thresholds (per `cap_area_threshold`
-and `area_units`). By helping to ensure that species would – at a
-minimum – meet criteria for being recognized as Critically Endangered,
-this method aims to reduce chance that species will become extinct.
+1,000,000 km² is applied to target thresholds (per `cap_area_target` and
+`area_units`). By helping to ensure that species would – at a minimum –
+meet criteria for being recognized as Critically Endangered, this method
+aims to reduce chance that species will become extinct.
 
 ## Data calculations
 

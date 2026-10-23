@@ -35,8 +35,9 @@ Ranked from best to worst, the available solvers that can be used are:
 [`add_cbc_solver()`](https://prioritizr.net/reference/add_cbc_solver.md),
 [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
 [`add_lpsymphony_solver()`](https://prioritizr.net/reference/add_lsymphony_solver.md),
+[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md),
 and finally
-[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md).
+[`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md).
 For information on the performance of different solvers, please see
 Schuster *et al.* (2020).
 
@@ -57,7 +58,8 @@ Other functions for adding solvers:
 [`add_gurobi_solver()`](https://prioritizr.net/reference/add_gurobi_solver.md),
 [`add_highs_solver()`](https://prioritizr.net/reference/add_highs_solver.md),
 [`add_lsymphony_solver`](https://prioritizr.net/reference/add_lsymphony_solver.md),
-[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md)
+[`add_rsymphony_solver()`](https://prioritizr.net/reference/add_rsymphony_solver.md),
+[`add_scip_solver()`](https://prioritizr.net/reference/add_scip_solver.md)
 
 ## Examples
 

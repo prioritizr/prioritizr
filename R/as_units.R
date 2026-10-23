@@ -24,6 +24,7 @@ as_km2 <- function(x, unit) {
   assert(
     is.numeric(x),
     is.character(unit),
+    all_area_units(unit),
     .internal = TRUE
   )
   # main calculations
@@ -77,6 +78,7 @@ as_per_km2 <- function(x, unit) {
   assert(
     is.numeric(x),
     is.character(unit),
+    all_area_units(unit),
     .internal = TRUE
   )
   # prepare units

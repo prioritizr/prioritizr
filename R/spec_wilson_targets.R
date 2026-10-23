@@ -279,6 +279,12 @@ calc_wilson_targets <- function(x, features,
     density_units <- rep(density_units, x$number_of_features())
   }
 
+  # subset parameters for required features
+  mean_growth_rates <- mean_growth_rates[features]
+  var_growth_rates <- var_growth_rates[features]
+  pop_density <- pop_density[features]
+  density_units <- density_units[features]
+
   # assert valid bounds for non-missing values
   if (assertthat::noNA(cap_area_target)) {
     assert(

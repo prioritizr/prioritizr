@@ -6,7 +6,7 @@ NULL
 #' Specify targets based on the methodology outlined by
 #' Sreekar and Watson (2026).
 #' Briefly, this method is based on updating the target setting method of
-#' Rodrigues *et al.* (2024) to better reflect (i) Target 3 of the Kunming-
+#' Rodrigues *et al.* (2004) to better reflect (i) Target 3 of the Kunming-
 #' Montreal Global Biodiversity Framework when setting targets for common
 #' species and (ii) ecological and sociopolitical constraints when setting
 #' targets for rare species.
@@ -57,9 +57,9 @@ NULL
 #' such geographic scales, then the resulting prioritizations
 #' may select an overly large percentage of the study area,
 #' or be biased towards over-representing common and widespread species.
-#' This is because the thresholds
-#' (i.e., `rare_area_threshold`, `common_area_threshold`,
-#' and `cap_area_threshold`)
+#' This is because the thresholds and target cap
+#' (e.g., `rare_area_threshold`, `common_area_threshold`,
+#' and `cap_area_target`)
 #' were originally developed based on rationale for promoting the long-term
 #' persistence of entire species.
 #' As such, if you are working at a sub-global scale, it is recommended to set
@@ -90,7 +90,7 @@ NULL
 #' assigned a target threshold through log-linear interpolation.
 #' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
 #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds (per `cap_area_threshold` and `area_units`).
+#' thresholds (per `cap_area_target` and `area_units`).
 #'
 #' @inherit spec_jung_targets return seealso
 #'

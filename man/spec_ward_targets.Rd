@@ -79,7 +79,7 @@ or 20\% (per subcriterion A2) of its spatial distribution
 (which ever value is larger).
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds (per \code{cap_area_threshold} and \code{area_units}).
+thresholds (per \code{cap_area_target} and \code{area_units}).
 By helping to ensure that species would -- at a minimum -- meet criteria
 for being recognized as Critically Endangered, this method aims to reduce
 chance that species will become extinct.
