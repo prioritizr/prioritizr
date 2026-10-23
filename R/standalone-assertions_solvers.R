@@ -64,6 +64,8 @@ default_solver_name <- function() {
     return("lpsymphony")
   } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
     return("Rsymphony")
+  } else if (requireNamespace("scip", quietly = TRUE)) {
+    return("scip")
   } else {
     return(NULL)
   }

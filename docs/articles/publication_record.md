@@ -87,6 +87,11 @@ we can add your work to this list.
   MJ, Beger M, and Smith RJ (2026) Ridge-to-reef conservation avoids
   future deforestation and sediment exposure of coral reefs. *Biological
   Conservation*, **322**: 112058.
+- Ouissoule I, Elkalay K, Derhy G, Aboussalam S, El Kabdani Y, and
+  Khalil K (2026) Prioritization of marine protected areas to support
+  marine spatial planning along the Moroccan Atlantic Ocean: a
+  data-driven approach for biodiversity conservation and sustainable
+  fisheries. *Regional Studies in Marine Science*, **102**: 105495.
 - Probst WN, Rehren J, Kraan C, Haslob H, Neumann H, Lemmen C, Krishna
   S, Kruse M, Wirtz K, and Stelzenmüller V (2026) Conservation potential
   of offshore windfarms for epibenthic invertebrates and fish
@@ -118,8 +123,8 @@ we can add your work to this list.
   Antarctica. *Conservation Biology*, **In press**: e70352.
 - Wen X, Smith PA, and Bennett JR (2026) Cost‐effectiveness of
   temporarily conserved areas: A case study of breeding birds in
-  Southern Ontario, Canada. *Conservation Science and Practice*, **In
-  press**: e70415.
+  Southern Ontario, Canada. *Conservation Science and Practice*, **8**:
+  e70415.
 
 ### 2025
 

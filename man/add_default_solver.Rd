@@ -22,8 +22,8 @@ used to solve a conservation planning problem.
 \details{
 Ranked from best to worst, the available solvers that can be used are:
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cplex_solver]{add_cplex_solver()}}, \code{\link[=add_cbc_solver]{add_cbc_solver()}},
-\code{\link[=add_highs_solver]{add_highs_solver()}}, \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}, and finally
-\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}.
+\code{\link[=add_highs_solver]{add_highs_solver()}}, \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}, \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
+and finally \code{\link[=add_scip_solver]{add_scip_solver()}}.
 For information on the performance of different solvers,
 please see Schuster \emph{et al.} (2020).
 }

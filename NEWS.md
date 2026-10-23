@@ -2,8 +2,37 @@
 
 ## Minor improvements and bug fixes
 
-- New [add_scip_solver()] function for the _SCIP_ optimization software
+- New `add_scip_solver()` function for the _SCIP_ optimization software
   (#412).
+- Fix bug in `spec_rule_targets()` function that yielded incorrect targets
+  when the order of the features in `data` does not match that of `features` in
+  `problem()` (#415). Thanks to Ramon the creator of \@wilmund for bug report.
+- Fix bugs in `spec_area_targets()`, `spec_duran_targets()`,
+  `spec_max_targets()`, `spec_min_targets()`, `spec_pop_size_targets()`,
+  and `spec_rule_targets()` functions that yielded incorrect targets or errors
+  when used with `add_group_targets()` (#416). Thanks to Ramon the creator of
+  \@wilmund for bug report.
+- Fix bugs in `spec_area_targets()`, `spec_duran_targets()`,
+  `spec_interp_absolute_targets()`, `spec_pop_size_targets()`,
+  `spec_rl_species_targets()`, and `spec_rule_targets()` that resulted in
+  errors when trying to generate prioritizations and one (or more) features had
+  zeros in all planning units (#417). Thanks to Ramon the creator of \@wilmund
+  for bug report.
+- Fix bug in internal `is_area_units` function that incorrectly detected
+  density-based units (e.g., `"km^-2"` or `"1/km^2"`) as area-based units
+  (#417). This bug meant that users could mistakenly supply invalid units
+  to parameters for target specification (e.g., `area_units` parameter of
+  the `spec_jung_targets()`) and subsequently obtain incorrect results. Instead,
+  these functions should have instead thrown an error regarding the invalid
+  units. Thanks to Ramon the creator of \@wilmund for bug report.
+
+## Documentation updates
+
+- Fix minor mistakes in documentation for `loglinear_interpolation()`,
+  `spec_polak_targets()`, `spec_rl_species_targets()`, `spec_sreekar_targets()`,
+  `spec_ward_targets()`, and `spec_watson_targets()` functions (#417). Note
+  that these mistake did not affect the correctnesss of the calculations for
+  these functions. Thanks to Ramon the creator of \@wilmund for bug report.
 
 # prioritizr 9.0.1
 

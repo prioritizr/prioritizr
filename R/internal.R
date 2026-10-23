@@ -183,3 +183,18 @@ sanitize_solver_output <- function(x, lb, ub, is_integer) {
   # return solution
   x
 }
+
+#' Convert non-finite to zero
+#'
+#' Convert non-finite values to zero.
+#'
+#' @param x `numeric` vector with values.
+#'
+#' @return A `numeric` vector.
+#'
+#' @noRd
+convert_nonfinite_values_to_zeros <- function(x) {
+  assert(is.numeric(x), .internal = TRUE)
+  x[!is.finite(x)] <- 0
+  x
+}

@@ -36,9 +36,8 @@ NULL
 #' such geographic scales, then the resulting prioritizations
 #' may select an overly large percentage of the study area,
 #' or be biased towards over-representing common and widespread species.
-#' This is because the thresholds
-#' (i.e., `rare_area_threshold` and `cap_area_threshold`)
-#' were originally developed based on criteria for national-scales.
+#' This is because the threshold (i.e., `rare_area_threshold`)
+#' was originally developed based on criteria for national-scales.
 #' As such, if you working at the sub-national scale, it is recommended to set
 #' thresholds based on that criteria are appropriate to the spatial extent
 #' of the planning region.
@@ -59,13 +58,13 @@ NULL
 #' Given this, rare features are assigned target threshold of 100%
 #' (per `rare_relative_target`)
 #' or 1,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-#' (per `rare_area_threshold`)
+#' (per `rare_area_target`)
 #' (whichever of these two values is smaller), and
 #' common features are assigned a target threshold of 10%
 #' (per `common_relative_target`).
 #' Additionally, following Butchart *et al.* (2015), a cap of 1,000,000
 #' \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-#' thresholds  (per `cap_area_threshold` and `area_units`).
+#' thresholds  (per `cap_area_target` and `area_units`).
 #'
 #' @inherit spec_jung_targets return seealso
 #'

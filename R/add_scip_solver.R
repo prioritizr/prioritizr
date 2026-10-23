@@ -21,8 +21,10 @@ NULL
 #'
 #' @details
 #' [*SCIP*](https://www.scipopt.org/) is an open source optimization software.
-#' It is not recommended to use this solver because it tends to have the slowest
-#' performance.
+#' Although this solver tends to have the
+#' slowest performance, it may solve particular types of problems more
+#' quickly than other solvers. We recommend trying out this solver if the other
+#' solvers are unable to generate solutions within a feasible period of time.
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
@@ -30,8 +32,10 @@ NULL
 #'
 #' @references
 #' Achterberg T, Berthold T, Koch T, and Wolter K (2008)
-#' Integration of AI and OR techniques in constraint programming for
-#' combinatorial optimization problems, CPAIOR 2008, LNCS 5015, pp. 6--20.
+#' *Integration of AI and OR techniques in constraint programming for
+#' combinatorial optimization problems*. In Integration of AI and OR techniques
+#' in constraint programming for combinatorial optimization problems, volume
+#' 5015 series lecture notes in computer science, pp. 6--20. Springer.
 #'
 #' Achterberg T (2009) SCIP: solving constraint integer programs
 #' *Mathematical programming computation*, 1: 1--41.

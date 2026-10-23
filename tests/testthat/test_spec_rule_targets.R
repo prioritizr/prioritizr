@@ -3,7 +3,7 @@ test_that("SpatRaster feature data", {
   sim_pu_raster <- get_sim_pu_raster()
   sim_features <- get_sim_features()
   ft_data <- tibble::tribble(
-  ~feature, ~diversity, ~rare, ~vu, ~en, ~cr,
+    ~feature, ~diversity, ~rare, ~vu, ~en, ~cr,
     "feature_1", TRUE, TRUE, FALSE, FALSE, TRUE,
     "feature_2", FALSE, FALSE, TRUE, FALSE, FALSE,
     "feature_3", FALSE, FALSE, TRUE, FALSE, FALSE,
@@ -70,6 +70,54 @@ test_that("SpatRaster feature data", {
   expect_equal(unlist(targets$zone), rep(1, terra::nlyr(sim_features)))
   expect_equal(targets$value, c(correct_targets))
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
+})
+
+test_that("correct order", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  ft_data <- tibble::tribble(
+    ~feature, ~rare,
+    "feature_1", TRUE,
+    "feature_4", TRUE,
+    "feature_3", FALSE,
+    "feature_5", FALSE,
+    "feature_2", FALSE
+  )
+  wt_data <- c("rare" = 0.2)
+  # define spatial properties
+  terra::ext(sim_pu_raster) <- c(0, 2e5, 0, 2e5)
+  terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
+  terra::ext(sim_features) <- terra::ext(sim_pu_raster)
+  terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  # create problem
+  p <- problem(sim_pu_raster, sim_features)
+  # create problems
+  p1 <-
+    p %>%
+    add_auto_targets(
+      method = spec_rule_targets(
+        baseline_relative_target = 0.3,
+        rules_relative_target = wt_data,
+        data = ft_data,
+        cap_area_target = 25000
+      )
+    )
+  p2 <-
+    p %>%
+    add_auto_targets(
+      method = spec_rule_targets(
+        baseline_relative_target = 0.3,
+        rules_relative_target = wt_data,
+        data = ft_data[c(2, 1, 5, 4, 3), , drop = FALSE],
+        cap_area_target = 25000
+      )
+    )
+  # run tests
+  expect_equal(
+    p1$targets$output(p1),
+    p2$targets$output(p2)
+  )
 })
 
 test_that("invalid inputs", {

@@ -146,15 +146,19 @@ calc_area_targets <- function(x, features, targets, area_units,
     area_units <- rep(area_units, x$number_of_features())
   }
 
+  # subset parameters for required features
+  targets <- targets[features]
+  area_units <- area_units[features]
+
   # extract abundances
   fa <- x$feature_abundances_km2_in_total_units()[features, 1]
 
   # calculate targets as km^2
-  targets <- as_km2(targets[features], area_units)
+  targets <- as_km2(targets, area_units)
 
   # clamp targets to feature abundances
   targets <- pmin(targets, fa)
 
   # return target
-  targets / fa
+  convert_nonfinite_values_to_zeros(targets / fa)
 }

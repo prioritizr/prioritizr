@@ -329,9 +329,15 @@ calc_pop_size_targets <- function(x, features, pop_size_targets,
   # return targets
   calc_n_individuals_targets(
     x = c(x$feature_abundances_km2_in_total_units()[features, 1]),
-    pop_size_targets = pop_size_targets,
-    pop_density_km2 = as_per_km2(pop_density, density_units),
-    cap_absolute_target = as_km2(cap_area_target, area_units),
+    pop_size_targets = pop_size_targets[features],
+    pop_density_km2 = as_per_km2(
+      pop_density[features],
+      density_units[features]
+    ),
+    cap_absolute_target = as_km2(
+      cap_area_target,
+      area_units
+    ),
     call = call
   )
 }
@@ -368,5 +374,5 @@ calc_n_individuals_targets <- function(x,
   targets <- pmin(targets, x)
 
   # return target
-  targets / x
+  convert_nonfinite_values_to_zeros(targets / x)
 }

@@ -13,8 +13,8 @@ NULL
 #' @details
 #' Ranked from best to worst, the available solvers that can be used are:
 #' [add_gurobi_solver()], [add_cplex_solver()], [add_cbc_solver()],
-#' [add_highs_solver()], [add_lpsymphony_solver()], and finally
-#' [add_rsymphony_solver()].
+#' [add_highs_solver()], [add_lpsymphony_solver()], [add_rsymphony_solver()],
+#' and finally [add_scip_solver()].
 #' For information on the performance of different solvers,
 #' please see Schuster _et al._ (2020).
 #'
@@ -78,6 +78,8 @@ add_default_solver <- function(x, ...) {
     return(add_lpsymphony_solver(x, ...))
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
+  } else if (identical(ds, "scip")) {
+    return(add_scip_solver(x, ...))
   } else if (
       identical(Sys.getenv("PRIORITIZR_ENABLE_COMPILE_SOLVER"), "TRUE")
     )

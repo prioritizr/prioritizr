@@ -53,6 +53,9 @@ test_that("is_area_units", {
   expect_false(is_area_units("g"))
   expect_false(is_area_units("greg"))
   expect_false(is_area_units(c("m^2", "km^2")))
+  expect_false(is_area_units("km^-2"))
+  expect_false(is_area_units("1/km^2"))
+  expect_false(is_area_units("1/acres"))
 })
 
 test_that("all_area_units", {
@@ -60,8 +63,11 @@ test_that("all_area_units", {
   expect_true(all_area_units("m^2"))
   expect_true(all_area_units(c("m^2", "km^2")))
   expect_false(all_area_units("g"))
-  expect_false(all_area_units("g", "km^2"))
+  expect_false(all_area_units(c("g", "km^2")))
   expect_false(all_area_units("greg"))
   expect_false(all_area_units(1))
-  expect_false(all_area_units("greg", "km^2"))
+  expect_false(all_area_units(c("greg", "km^2")))
+  expect_false(all_area_units(c("meters", "km^-2")))
+  expect_false(all_area_units(c("meters", "1/km^2")))
+  expect_false(all_area_units(c("meters", "1/acres")))
 })

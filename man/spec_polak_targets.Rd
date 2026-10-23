@@ -104,7 +104,7 @@ the area-based thresholds used to identify rare and common features are
 assigned a target threshold through linear interpolation.
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds (per \code{cap_area_threshold} and \code{area_units}).
+thresholds (per \code{cap_area_target} and \code{area_units}).
 }
 
 \section{Data calculations}{

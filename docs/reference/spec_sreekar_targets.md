@@ -2,7 +2,7 @@
 
 Specify targets based on the methodology outlined by Sreekar and Watson
 (2026). Briefly, this method is based on updating the target setting
-method of Rodrigues *et al.* (2024) to better reflect (i) Target 3 of
+method of Rodrigues *et al.* (2004) to better reflect (i) Target 3 of
 the Kunming- Montreal Global Biodiversity Framework when setting targets
 for common species and (ii) ecological and sociopolitical constraints
 when setting targets for rare species. To help prevent widespread
@@ -83,15 +83,15 @@ priorities for prioritizations conducted at smaller geographic scales
 method is applied to such geographic scales, then the resulting
 prioritizations may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
-This is because the thresholds (i.e., `rare_area_threshold`,
-`common_area_threshold`, and `cap_area_threshold`) were originally
-developed based on rationale for promoting the long-term persistence of
-entire species. As such, if you are working at a sub-global scale, it is
-recommended to set thresholds based on that criteria are appropriate to
-the spatial extent of the planning region. Please note that this
-function is provided as convenient method to set targets for problems
-with a single management zone, and cannot be used for those with
-multiple management zones.
+This is because the thresholds and target cap (e.g.,
+`rare_area_threshold`, `common_area_threshold`, and `cap_area_target`)
+were originally developed based on rationale for promoting the long-term
+persistence of entire species. As such, if you are working at a
+sub-global scale, it is recommended to set thresholds based on that
+criteria are appropriate to the spatial extent of the planning region.
+Please note that this function is provided as convenient method to set
+targets for problems with a single management zone, and cannot be used
+for those with multiple management zones.
 
 ## Mathematical formulation
 
@@ -107,8 +107,8 @@ features are assigned a target threshold of 30% (per
 is between the area-based thresholds used to identify rare and common
 features are assigned a target threshold through log-linear
 interpolation. Additionally, following Butchart *et al.* (2015), a cap
-of 1,000,000 km² is applied to target thresholds (per
-`cap_area_threshold` and `area_units`).
+of 1,000,000 km² is applied to target thresholds (per `cap_area_target`
+and `area_units`).
 
 ## Data calculations
 

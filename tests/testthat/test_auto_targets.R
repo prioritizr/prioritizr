@@ -154,6 +154,36 @@ test_that("list (mixed values)", {
   expect_equal(targets$sense, rep(">=", terra::nlyr(sim_features)))
 })
 
+test_that("works with features that have all zeros", {
+  # load data
+  sim_pu_raster <- get_sim_pu_raster()
+  sim_features <- get_sim_features()
+  # define spatial properties
+  terra::ext(sim_pu_raster) <- c(0, 2e5, 0, 2e5)
+  terra::crs(sim_pu_raster) <- terra::crs("epsg:3857")
+  terra::ext(sim_features) <- terra::ext(sim_pu_raster)
+  terra::crs(sim_features) <- terra::crs(sim_pu_raster)
+  # override second feature to have all zeros
+  sim_features[[2]] <- sim_features[[2]] * 0
+  # create problems
+  expect_warning(
+    p0 <-
+      problem(sim_pu_raster, sim_features) %>%
+      add_min_set_objective() %>%
+      add_binary_decisions(),
+    "zero"
+  )
+  p1 <- p0 %>% add_auto_targets(method = "jung")
+  p2 <- p0 %>% add_auto_targets(method = spec_relative_targets(0.2))
+  p3 <- p0 %>% add_auto_targets(method = spec_absolute_targets(5))
+  p4 <- p0 %>% add_auto_targets(method = spec_area_targets(5, "km^2"))
+  # run tests
+  expect_true(assertthat::noNA(p1$targets$output(p1)$value))
+  expect_true(assertthat::noNA(p2$targets$output(p2)$value))
+  expect_true(assertthat::noNA(p3$targets$output(p3)$value))
+  expect_true(assertthat::noNA(p4$targets$output(p4)$value))
+})
+
 test_that("invalid inputs", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

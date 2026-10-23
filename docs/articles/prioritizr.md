@@ -246,7 +246,7 @@ s1 <- solve(p1)
     ## Found heuristic solution: objective 19927.539083
     ## Found heuristic solution: objective 1862.3053991
     ## Presolve removed 2343 rows and 1516 columns
-    ## Presolve time: 0.04s
+    ## Presolve time: 0.05s
     ## Presolved: 3986 rows, 2762 columns, 10246 nonzeros
     ## Variable types: 0 continuous, 2762 integer (2762 binary)
     ## Root relaxation presolved: 3986 rows, 2762 columns, 10246 nonzeros
@@ -263,7 +263,7 @@ s1 <- solve(p1)
     ## H    0     0                     407.0911745  342.79665  15.8%     -    0s
     ## H    0     0                     372.6558311  342.79665  8.01%     -    0s
     ## 
-    ## Explored 1 nodes (189 simplex iterations) in 0.05 seconds (0.08 work units)
+    ## Explored 1 nodes (189 simplex iterations) in 0.07 seconds (0.08 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 6: 372.656 407.091 408.71 ... 19927.5
@@ -591,11 +591,11 @@ prt <- solve(p2)
     ## H    0     0                     356.5297846  351.96778  1.28%     -    0s
     ## H    0     0                     355.6808824  351.96778  1.04%     -    0s
     ##      0     2  351.97024    0   35  355.68088  351.97024  1.04%     -    0s
-    ## H  745     6                     355.3933426  352.24042  0.89%   5.3    1s
-    ## H  745     5                     354.7357223  352.24042  0.70%   5.3    1s
-    ## H  745     3                     354.5820322  352.24042  0.66%   5.3    1s
-    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    1s
-    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    1s
+    ## H  745     6                     355.3933426  352.24042  0.89%   5.3    2s
+    ## H  745     5                     354.7357223  352.24042  0.70%   5.3    2s
+    ## H  745     3                     354.5820322  352.24042  0.66%   5.3    2s
+    ## H  745     2                     354.5817198  352.24042  0.66%   5.3    2s
+    ## H  746     1                     354.5800299  352.24042  0.66%   6.8    2s
     ## H  803    57                     354.5764743  352.24042  0.66%   8.0    2s
     ## 
     ## Cutting planes:
@@ -607,7 +607,7 @@ prt <- solve(p2)
     ##   Flow cover: 16
     ##   RLT: 3
     ## 
-    ## Explored 1815 nodes (15475 simplex iterations) in 4.33 seconds (4.95 work units)
+    ## Explored 1815 nodes (15475 simplex iterations) in 4.97 seconds (4.95 work units)
     ## Thread count was 1 (of 8 available processors)
     ## 
     ## Solution count 1000: 354.576 354.58 354.582 ... 391.784
@@ -883,7 +883,7 @@ s3 <- solve(p3)
     ## 
     ## Found heuristic solution: objective 1.221202e+08
     ## Presolve removed 4707 rows and 3103 columns
-    ## Presolve time: 0.05s
+    ## Presolve time: 0.06s
     ## Presolved: 5368 rows, 3677 columns, 12704 nonzeros
     ## Variable types: 0 continuous, 3677 integer (3677 binary)
     ## Root relaxation presolved: 5368 rows, 3677 columns, 12704 nonzeros

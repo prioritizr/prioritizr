@@ -166,29 +166,29 @@ if (require("highs")) {
 }
 #> Loading required package: highs
 
-# if scip is installed: create problem with added SCIP solver
-if (require("scip")) {
-  p5 <- p %>% add_highs_solver(verbose = FALSE)
-  n <- c(n, "SCIP")
-  s <- c(s, solve(p5))
-}
-#> Loading required package: scip
-
 # create problem with added rsymphony solver
 if (require("Rsymphony")) {
-  p6 <- p %>% add_rsymphony_solver(verbose = FALSE)
+  p5 <- p %>% add_rsymphony_solver(verbose = FALSE)
   n <- c(n, "Rsymphony")
-  s <- c(s, solve(p6))
+  s <- c(s, solve(p5))
 }
 #> Loading required package: Rsymphony
 
 # if lpsymphony is installed: create problem with added lpsymphony solver
 if (require("lpsymphony")) {
-  p7 <- p %>% add_lpsymphony_solver(verbose = FALSE)
+  p6 <- p %>% add_lpsymphony_solver(verbose = FALSE)
   n <- c(n, "lpsymphony")
-  s <- c(s, solve(p7))
+  s <- c(s, solve(p6))
 }
 #> Loading required package: lpsymphony
+
+# if scip is installed: create problem with added SCIP solver
+if (require("scip")) {
+  p7 <- p %>% add_highs_solver(verbose = FALSE)
+  n <- c(n, "SCIP")
+  s <- c(s, solve(p7))
+}
+#> Loading required package: scip
 
 # plot solutions
 names(s) <- n

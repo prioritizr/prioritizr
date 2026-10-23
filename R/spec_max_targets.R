@@ -169,7 +169,11 @@ calc_math_targets <- function(x, features, methods, type, fun,
   }
 
   # apply math expression
-  targets <- apply(targets, 1, fun, na.rm = TRUE)
+  if (is.matrix(targets)) {
+    targets <- apply(targets, 1, fun, na.rm = TRUE)
+  } else {
+    targets <- do.call(fun, as.list(targets))
+  }
 
   # return targets
   targets

@@ -384,7 +384,7 @@ calc_rule_targets <- function(x,
   }
 
   # re-order data
-  data <- data[match(data$feature, x$feature_names()), , drop = FALSE]
+  data <- data[match(x$feature_names(), data$feature), , drop = FALSE]
 
   # extract abundances
   fa <- x$feature_abundances_km2_in_total_units()[features, 1]
@@ -393,10 +393,11 @@ calc_rule_targets <- function(x,
   targets <-
     baseline_relative_target +
     rowSums(
-      as.matrix(data[features, names(rules_relative_target)]) *
+      as.matrix(data[features, names(rules_relative_target), drop = FALSE]) *
       matrix(
         unname(rules_relative_target),
-        byrow = TRUE, nrow = nrow(data), ncol = length(rules_relative_target)
+        nrow = length(features), ncol = length(rules_relative_target),
+        byrow = TRUE
       )
     )
 
@@ -416,5 +417,5 @@ calc_rule_targets <- function(x,
   targets <- pmin(targets, fa)
 
   # return targets
-  targets / fa
+  convert_nonfinite_values_to_zeros(targets / fa)
 }

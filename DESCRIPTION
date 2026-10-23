@@ -78,7 +78,7 @@ Suggests:
     lpsymphony (>= 1.17.0),
     Rsymphony (>= 0.1-31),
     highs (>= 0.1-10),
-    scip (>= 1.10.0-4),
+    scip (>= 1.10.1-1),
     prioritizrdata (>= 0.2.4),
     fields (>= 14.0),
     vroom (>= 1.6.5),

@@ -76,9 +76,9 @@ For example, if this method is applied to
 such geographic scales, then the resulting prioritizations
 may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
-This is because the thresholds
-(i.e., \code{rare_area_threshold}, \code{common_area_threshold},
-and \code{cap_area_threshold})
+This is because the thresholds and target cap
+(e.g., \code{rare_area_threshold}, \code{common_area_threshold},
+and \code{cap_area_target})
 were originally developed based on rationale for promoting the long-term
 persistence of entire species.
 As such, if you are working at a sub-global scale, it is recommended to set
@@ -108,7 +108,7 @@ the area-based thresholds used to identify rare and common features are
 assigned a target threshold through log-linear interpolation.
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds (per \code{cap_area_threshold} and \code{area_units}).
+thresholds (per \code{cap_area_target} and \code{area_units}).
 }
 
 \section{Data calculations}{

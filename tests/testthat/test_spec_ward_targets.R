@@ -11,7 +11,6 @@ test_that("defaults", {
   expect_equal(x$args$area_units, "km^2")
 })
 
-
 test_that("SpatRaster features", {
   # load data
   sim_pu_raster <- get_sim_pu_raster()

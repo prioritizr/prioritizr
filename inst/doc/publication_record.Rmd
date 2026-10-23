@@ -36,6 +36,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Liu Y, Wang J, Wu Z, Xu Z, and Abulike K (2026) Integrating multidimensional biodiversity into spatial conservation planning to bridge conservation gaps in China. _Biological Conservation_, **314**: 111664.
 * Liu Y, Wang J, Wu H, Zhang W, and Huang S (2026) Integrating biodiversity and ecosystem dimensions for national-scale conservation planning in China. _Biological Conservation_, **321**: 112012.
 * Muenzel D, Stewart E, Andayani N, Dumbrell AJ, Jompa J, Limmon G, Supriatna J, Tasirin JS, Winarni NL, Zakaria Z, Davies ZG, Struebig MJ, Beger M, and Smith RJ (2026) Ridge-to-reef conservation avoids future deforestation and sediment exposure of coral reefs. _Biological Conservation_, **322**: 112058.
+* Ouissoule I, Elkalay K, Derhy G, Aboussalam S, El Kabdani Y, and Khalil K (2026) Prioritization of marine protected areas to support marine spatial planning along the Moroccan Atlantic Ocean: a data-driven approach for biodiversity conservation and sustainable fisheries. _Regional Studies in Marine Science_, **102**: 105495.
 * Probst WN, Rehren J, Kraan C, Haslob H, Neumann H, Lemmen C, Krishna S, Kruse M, Wirtz K, and Stelzenmüller V (2026) Conservation potential of offshore windfarms for epibenthic invertebrates and fish communities in a heavily used regional sea. _Biological Conservation_, **316**: 111771.
 * Ramírez F, Giménez J, Fuster‐Alonso A, Gimeno M, Ouled‐Cheikh J, Coll M, and Bas M (2026) Penguins on the move: Mapping priority penguin habitat areas under climate change. _Diversity and Distributions_, **32**: e70233.
 * Teschke K, Konijnenberg R, and Bellotto Trigo FC (2026) Conservation planning in the Weddell Sea (Antarctica): A comparative analysis of decision‐support tools. _Conservation Science and Practice_, **8**: e70311.
@@ -43,7 +44,7 @@ This vignette contains a list of publications that have cited or used the _prior
 * Reine Sheirita TF, Rodrigue I, Benjamin L, Jean Eudes Crédo GF, and Amadé O (2026) Climate change risks and conservation needs of _Lophira lanceolata_ in West Africa. _Journal for Nature Conservation_, **90**: 127182.
 * Wang K, Wu W, Liu H, Zhang X, Ren X, Liu M, Cheng J, Geng J, and Yang B (2026) Balancing land planning priorities for ecological conservation and renewable energy development through multi-objective land planning in China. _Resources, Environment and Sustainability_, **24**: 100303.
 * Wen W, Lee JR, Shaw JD, and Wilson KA (2026) Comprehensive and representative conservation planning for biodiversity of ice‐free Antarctica. _Conservation Biology_, **In press**: e70352.
-* Wen X, Smith PA, and Bennett JR (2026) Cost‐effectiveness of temporarily conserved areas: A case study of breeding birds in Southern Ontario, Canada. _Conservation Science and Practice_, **In press**: e70415.
+* Wen X, Smith PA, and Bennett JR (2026) Cost‐effectiveness of temporarily conserved areas: A case study of breeding birds in Southern Ontario, Canada. _Conservation Science and Practice_, **8**: e70415.
 
 ### 2025
 

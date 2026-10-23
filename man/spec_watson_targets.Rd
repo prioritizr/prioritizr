@@ -76,9 +76,8 @@ For example, if this target setting method is applied to
 such geographic scales, then the resulting prioritizations
 may select an overly large percentage of the study area,
 or be biased towards over-representing common and widespread species.
-This is because the thresholds
-(i.e., \code{rare_area_threshold} and \code{cap_area_threshold})
-were originally developed based on criteria for national-scales.
+This is because the threshold (i.e., \code{rare_area_threshold})
+was originally developed based on criteria for national-scales.
 As such, if you working at the sub-national scale, it is recommended to set
 thresholds based on that criteria are appropriate to the spatial extent
 of the planning region.
@@ -98,13 +97,13 @@ and common features as those with a larger spatial distribution.
 Given this, rare features are assigned target threshold of 100\%
 (per \code{rare_relative_target})
 or 1,000 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}}
-(per \code{rare_area_threshold})
+(per \code{rare_area_target})
 (whichever of these two values is smaller), and
 common features are assigned a target threshold of 10\%
 (per \code{common_relative_target}).
 Additionally, following Butchart \emph{et al.} (2015), a cap of 1,000,000
 \ifelse{html}{\out{km<sup>2</sup>}}{\eqn{km^2}} is applied to target
-thresholds  (per \code{cap_area_threshold} and \code{area_units}).
+thresholds  (per \code{cap_area_target} and \code{area_units}).
 }
 
 \section{Data calculations}{
