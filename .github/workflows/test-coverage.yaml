@@ -67,6 +67,7 @@ jobs:
             any::rcmdcheck
             any::remotes
             any::covr
+            any::xml2
             any::maps
             gurobi=?ignore
             cplexAPI=?ignore

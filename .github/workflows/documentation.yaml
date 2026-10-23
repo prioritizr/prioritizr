@@ -65,9 +65,8 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::remotes
-            any::covr
-            any::urlchecker
             any::maps
+            any::urlchecker
             gurobi=?ignore
             cplexAPI=?ignore
           needs: |
@@ -78,7 +77,6 @@ jobs:
           options(repos = "https://cloud.r-project.org/")
           install.packages("sf")
           install.packages("terra")
-          install.packages("urlchecker")
         shell: Rscript {0}
 
       - name: Session information
