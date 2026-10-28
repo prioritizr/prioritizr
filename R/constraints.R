@@ -42,6 +42,13 @@ NULL
 #' or when using open source solvers.
 #' }
 #'
+#' \item{[add_separation_constraints()]}{
+#' Add constraints to ensure that selected planning units are not neighbors
+#' with each other. These constraints may be especially useful for
+#' ensuring that features are represented in multiple, spatially separate
+#' protected areas.
+#' }
+#'
 #' \item{[add_contiguity_constraints()]}{
 #' Add constraints to a
 #' ensure that all selected planning units are spatially connected to each

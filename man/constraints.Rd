@@ -43,6 +43,13 @@ reducing spatial fragmentation in large-scale planning problems
 or when using open source solvers.
 }
 
+\item{\code{\link[=add_separation_constraints]{add_separation_constraints()}}}{
+Add constraints to ensure that selected planning units are not neighbors
+with each other. These constraints may be especially useful for
+ensuring that features are represented in multiple, spatially separate
+protected areas.
+}
+
 \item{\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}}}{
 Add constraints to a
 ensure that all selected planning units are spatially connected to each

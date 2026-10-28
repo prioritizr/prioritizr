@@ -223,6 +223,7 @@ Other functions for adding constraints:
 \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}},
 \code{\link[=add_mandatory_allocation_constraints]{add_mandatory_allocation_constraints()}},
 \code{\link[=add_manual_bounded_constraints]{add_manual_bounded_constraints()}},
-\code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}}
+\code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}},
+\code{\link[=add_separation_constraints]{add_separation_constraints()}}
 }
 \concept{constraints}

@@ -685,6 +685,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_separation_constraints
+bool rcpp_apply_separation_constraints(SEXP x, const Rcpp::List connected_data);
+RcppExport SEXP _prioritizr_rcpp_apply_separation_constraints(SEXP xSEXP, SEXP connected_dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List >::type connected_data(connected_dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_separation_constraints(x, connected_data));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_asym_connectivity
 double rcpp_asym_connectivity(const Rcpp::List data, const Rcpp::NumericMatrix solution);
 RcppExport SEXP _prioritizr_rcpp_asym_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {

@@ -177,6 +177,7 @@ Collate:
     'add_rsymphony_solver.R'
     'add_scip_solver.R'
     'add_semicontinuous_decisions.R'
+    'add_separation_constraints.R'
     'add_shuffle_portfolio.R'
     'add_single_portfolio.R'
     'add_top_portfolio.R'
